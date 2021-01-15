@@ -1,0 +1,111 @@
+' MuntsOS GPIO Thin Server Button and LED Test
+
+' Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+'
+' Redistribution and use in source and binary forms, with or without
+' modification, are permitted provided that the following conditions are met:
+'
+' * Redistributions of source code must retain the above copyright notice,
+'   this list of conditions and the following disclaimer.
+'
+' THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+' IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+' ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+' LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+' CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+' SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+' INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+' CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+' ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+' POSSIBILITY OF SUCH DAMAGE.
+
+' Lay out GUI
+
+GraphicsWindow.Width = 300
+GraphicsWindow.Height = 130
+GraphicsWindow.Title = "GPIO Button and LED Test"
+GraphicsWindow.Show()
+GraphicsWindow.DrawText(10, 20, "Server:")
+ServerBox = Controls.AddTextBox(60, 18)
+ConnectButton = Controls.AddButton("Connect", 230, 16)
+StatusLabel = Shapes.AddText("")
+Controls.Move(StatusLabel, 120, 60)
+Controls.ButtonClicked = ButtonHandler
+GraphicsWindow.KeyUp = KeyHandler
+
+' Wait for user to request connection to the GPIO server
+
+State = "Waiting"
+Shapes.SetText(StatusLabel, State)
+
+While State = "Waiting"
+  Program.Delay(100)
+EndWhile
+
+Shapes.SetText(StatusLabel, State)
+Controls.SetButtonCaption(ConnectButton, "Quit")
+
+' Connect to the GPIO server
+
+GPIO.Connect(Controls.GetTextBoxText(ServerBox))
+State = "Connected"
+Shapes.SetText(StatusLabel, State)
+
+' Configure GPIO pins
+
+GPIO.Configure(19, "input", "false")
+GPIO.Configure(26, "output", "false")
+
+' Force initial state transition
+
+If GPIO.Read(19) Then
+  OldState = "false"
+Else
+  OldState = "true"
+Endif
+
+' Poll GPIO button input every 100 milliseconds
+
+While "True"
+  NewState = GPIO.Read(19)
+
+  If NewState <> OldState Then
+    If NewState Then
+      Shapes.SetText(StatusLabel, "PRESSED")
+    Else
+      Shapes.SetText(StatusLabel, "RELEASED")
+    EndIf
+
+    GPIO.Write(26, NewState)
+
+    OldState = NewState
+  EndIf
+
+  Program.Delay(100)
+EndWhile
+
+' GUI Button press event handler
+
+Sub ButtonHandler
+  b = Controls.LastClickedButton
+  c = Controls.GetButtonCaption(b)
+
+  If c = "Connect" Then
+    State = "Connecting"
+  EndIf
+
+  If c = "Quit" Then
+    Program.End()
+  EndIf
+EndSub
+
+' GUI key press event handler
+
+Sub KeyHandler
+  k = GraphicsWindow.LastKey
+
+  If State = "Waiting" and k = "Return" Then
+    State = "Connecting"
+  EndIf
+EndSub

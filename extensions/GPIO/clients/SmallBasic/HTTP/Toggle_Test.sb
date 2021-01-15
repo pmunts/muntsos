@@ -1,0 +1,113 @@
+' MuntsOS GPIO Thin Server Toggle Speed Test
+
+' Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+'
+' Redistribution and use in source and binary forms, with or without
+' modification, are permitted provided that the following conditions are met:
+'
+' * Redistributions of source code must retain the above copyright notice,
+'   this list of conditions and the following disclaimer.
+'
+' THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+' IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+' ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+' LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+' CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+' SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+' INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+' CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+' ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+' POSSIBILITY OF SUCH DAMAGE.
+
+TextWindow.WriteLine("MuntsOS GPIO Thin Server Toggle Speed Test")
+TextWindow.WriteLine("")
+
+TextWindow.Write("Enter server name or IP address: ")
+servername = TextWindow.Read()
+TextWindow.WriteLine("")
+
+' Configure GPIO output
+
+pin = 26
+direction = 1
+PutDDR()
+
+' Perform toggle speed test
+
+Iterations = 10000
+
+TextWindow.WriteLine("Performing "+ Iterations + " GPIO writes...")
+TextWindow.WriteLine("")
+
+starttime = Clock.ElapsedMilliseconds
+
+For i = 1 To Iterations/2
+  data = 0
+  PutGPIO()
+  data = 1
+  PutGPIO()
+EndFor
+
+endtime = Clock.ElapsedMilliseconds
+
+' Calculate statistics
+
+deltat = (endtime - starttime)/1000.0
+rate = Iterations/deltat
+cycletime = deltat/Iterations
+
+' Display statistics
+
+TextWindow.WriteLine("Performed " + Iterations + " GPIO writes in " + deltat + " seconds")
+TextWindow.WriteLine("  " + Math.Round(rate) + " iterations per second")
+TextWindow.WriteLine("  " + Math.Round(cycletime*1000000.0) + " microseconds per iteration")
+TextWindow.WriteLine("")
+
+' ******************* GPIO server subroutines follow *******************
+
+' Write GPIO data direction bit
+'   Parameter variables:
+'     servername -- IP address or host name
+'     pin -- GPIO pin number (2-26, as numbered by Linux)
+'     direction -- 0 for input, 1 for output
+
+Sub PutDDR
+  webpage = Network.GetWebPageContents("http://" + servername + ":8083/GPIO/ddr/" + pin + "," + direction)
+  If Text.StartsWith(webpage, "DDR" + pin + "=") Then
+  Else
+    GraphicsWindow.ShowMessage(webpage, "GPIO Server Error")
+    Program.End()
+  EndIf
+EndSub
+
+' Read GPIO data bit
+'   Parameter variables:
+'     servername -- IP address or host name
+'     pin -- GPIO pin number (2-26, as numbered by Linux)
+'     data -- Set to 0 or 1
+
+Sub GetGPIO
+  webpage = Network.GetWebPageContents("http://" + servername + ":8083/GPIO/get/" + pin)
+  If Text.StartsWith(webpage, "GPIO" + pin + "=") Then
+    data = Text.GetSubTextToEnd(webpage, Text.GetIndexOf(webpage, "=") + 1)
+  Else
+    GraphicsWindow.ShowMessage(webpage, "GPIO Server Error")
+    Program.End()
+  EndIf
+EndSub
+
+' Write GPIO data bit
+'   Parameter variables:
+'     servername -- IP address or host name
+'     pin -- GPIO pin number (2-26, as numbered by Linux)
+'     data -- 0=OFF (low), 1=ON (high)
+
+Sub PutGPIO
+  webpage = Network.GetWebPageContents("http://" + servername + ":8083/GPIO/put/" + pin + "," + data)
+  If Text.StartsWith(webpage, "GPIO" + pin + "=") Then
+  Else
+    GraphicsWindow.ShowMessage(webpage, "GPIO Server Error")
+    Program.End()
+  EndIf
+EndSub

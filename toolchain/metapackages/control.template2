@@ -1,0 +1,17 @@
+Section: misc
+Priority: optional
+Homepage: http://git.munts.com/muntsos
+Standards-Version: 3.9.2
+Package: muntsos-@@TOOLCHAIN@@-@@BOARDNAME@@
+Version: 1.3
+Maintainer: Philip Munts <phil@munts.net>
+Depends:
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-@@TOOLCHAIN@@,
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-@@TOOLCHAIN@@-libs,
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-@@TOOLCHAIN@@-libaws,
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-@@TOOLCHAIN@@-libsimpleio,
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-@@TOOLCHAIN@@-libspiagent
+Recommends:
+  fpc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-@@TOOLCHAIN@@
+Architecture: all
+Description: Cross-toolchain packages for MuntsOS

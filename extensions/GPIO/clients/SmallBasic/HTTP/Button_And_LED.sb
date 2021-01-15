@@ -1,0 +1,157 @@
+' MuntsOS GPIO Thin Server Button and LED Test
+
+' Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+'
+' Redistribution and use in source and binary forms, with or without
+' modification, are permitted provided that the following conditions are met:
+'
+' * Redistributions of source code must retain the above copyright notice,
+'   this list of conditions and the following disclaimer.
+'
+' THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+' IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+' ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+' LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+' CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+' SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+' INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+' CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+' ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+' POSSIBILITY OF SUCH DAMAGE.
+
+' Lay out GUI
+
+GraphicsWindow.Width = 300
+GraphicsWindow.Height = 130
+GraphicsWindow.Title = "GPIO Button and LED"
+GraphicsWindow.Show()
+GraphicsWindow.DrawText(10, 20, "Server:")
+ServerBox = Controls.AddTextBox(60, 18)
+ConnectButton = Controls.AddButton("Connect", 230, 16)
+StatusLabel = Shapes.AddText("")
+Controls.Move(StatusLabel, 120, 60)
+Controls.ButtonClicked = ButtonHandler
+GraphicsWindow.KeyUp = KeyHandler
+
+' Wait for user to request connection to the GPIO server
+
+State = "Waiting"
+Shapes.SetText(StatusLabel, State)
+
+While State = "Waiting"
+  Program.Delay(100)
+EndWhile
+
+Shapes.SetText(StatusLabel, State)
+Controls.SetButtonCaption(ConnectButton, "Quit")
+
+' Connect to the GPIO server
+
+servername = Controls.GetTextBoxText(ServerBox)
+
+' Configure GPIO button input
+
+pin = 19
+direction = 0
+PutDDR()
+
+' Configure GPIO LED output
+
+pin = 26
+direction = 1
+PutDDR()
+
+State = "Connected"
+Shapes.SetText(StatusLabel, State)
+
+' Poll GPIO button input every 100 milliseconds
+
+While "True"
+  pin = 19
+  GetGPIO()
+
+  If data = 1 Then
+    Shapes.SetText(StatusLabel, "PRESSED")
+  Else
+    Shapes.SetText(StatusLabel, "RELEASED")
+  EndIf
+
+  pin = 26
+  PutGPIO()
+
+  Program.Delay(100)
+EndWhile
+
+' GUI Button press event handler
+
+Sub ButtonHandler
+  b = Controls.LastClickedButton
+  c = Controls.GetButtonCaption(b)
+
+  If c = "Connect" Then
+    State = "Connecting"
+  EndIf
+
+  If c = "Quit" Then
+    Program.End()
+  EndIf
+EndSub
+
+' GUI key press event handler
+
+Sub KeyHandler
+  k = GraphicsWindow.LastKey
+
+  If State = "Waiting" and k = "Return" Then
+    State = "Connecting"
+  EndIf
+EndSub
+
+' ******************* GPIO server subroutines follow *******************
+
+' Write GPIO data direction bit
+'   Parameter variables:
+'     servername -- IP address or host name
+'     pin -- GPIO pin number (2-26, as numbered by Linux)
+'     direction -- 0 for input, 1 for output
+
+Sub PutDDR
+  webpage = Network.GetWebPageContents("http://" + servername + ":8083/GPIO/ddr/" + pin + "," + direction)
+  If Text.StartsWith(webpage, "DDR" + pin + "=") Then
+  Else
+    GraphicsWindow.ShowMessage(webpage, "GPIO Server Error")
+    Program.End()
+  EndIf
+EndSub
+
+' Read GPIO data bit
+'   Parameter variables:
+'     servername -- IP address or host name
+'     pin -- GPIO pin number (2-26, as numbered by Linux)
+'     data -- Set to 0 or 1
+
+Sub GetGPIO
+  webpage = Network.GetWebPageContents("http://" + servername + ":8083/GPIO/get/" + pin)
+  If Text.StartsWith(webpage, "GPIO" + pin + "=") Then
+    data = Text.GetSubTextToEnd(webpage, Text.GetIndexOf(webpage, "=") + 1)
+  Else
+    GraphicsWindow.ShowMessage(webpage, "GPIO Server Error")
+    Program.End()
+  EndIf
+EndSub
+
+' Write GPIO data bit
+'   Parameter variables:
+'     servername -- IP address or host name
+'     pin -- GPIO pin number (2-26, as numbered by Linux)
+'     data -- 0=OFF (low), 1=ON (high)
+
+Sub PutGPIO
+  webpage = Network.GetWebPageContents("http://" + servername + ":8083/GPIO/put/" + pin + "," + data)
+  If Text.StartsWith(webpage, "GPIO" + pin + "=") Then
+  Else
+    GraphicsWindow.ShowMessage(webpage, "GPIO Server Error")
+    Program.End()
+  EndIf
+EndSub

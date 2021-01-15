@@ -1,0 +1,609 @@
+#!/bin/sh
+
+# MuntsOS System Configurator
+
+# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+echo ""
+echo "MuntsOS System Configurator"
+echo ""
+
+###############################################################################
+
+function GetYesNo {
+  printf "%-58s [y,N] " "$@"
+
+  read resp
+  resp=`echo $resp | tr '[:lower:]' '[:upper:]'`
+
+  if [ "$resp" != "Y" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+###############################################################################
+
+function Prepare {
+  oldhostname=`hostname -s`
+
+  mount -o rw /boot
+
+  if [ ! -f /boot/config.txt ]; then
+    echo "ERROR: Invalid boot file system"
+    exit 1
+  fi
+
+# The following files and directories are always saved
+
+  cat <<EOD >>/etc/changes.manifest
+/etc/changes.manifest
+/etc/environment
+/etc/group
+/etc/hidraw.conf
+/etc/host.conf
+/etc/hosts
+/etc/httpd.conf
+/etc/inittab
+/etc/motd
+/etc/network.conf
+/etc/nsswitch.conf
+/etc/ntp.conf
+/etc/passwd
+/etc/shadow
+/etc/ssh
+/root
+/usr/local/etc
+EOD
+
+  if [ -f /etc/hostname ]; then
+    echo /etc/hostname >>/etc/changes.manifest
+    chmod 444 /etc/hostname
+  fi
+
+  if [ -f /etc/pinmux.conf ]; then
+    echo /etc/pinmux.conf >>/etc/changes.manifest
+  fi
+
+  if [ -d /etc/profile.d ]; then
+    echo /etc/profile.d >>/etc/changes.manifest
+  fi
+
+  if [ -f /etc/rc.local ]; then
+    echo /etc/rc.local >>/etc/changes.manifest
+  fi
+
+  if [ -f /etc/wpa_supplicant.conf ]; then
+    echo /etc/wpa_supplicant.conf >>/etc/changes.manifest
+    chmod 400 /etc/wpa_supplicant.conf
+  fi
+
+  # Don't save /etc/profile anymore.
+  # Put your changes in /etc/profile.d/ instead!
+
+  sed -i '/\/etc\/profile/d' /etc/changes.manifest
+
+  # Don't save individual files in /etc/ssh/ anymore.
+
+  sed -i '/\/etc\/ssh\/+*/d' /etc/changes.manifest
+
+  # Don't save individual files in /root/ anymore.
+
+  sed -i '/\/root\/+*/d' /etc/changes.manifest
+
+  # Don't save individual files in /usr/local/etc/ anymore.
+
+  sed -i '/\/usr\/local\/etc\/+*/d' /etc/changes.manifest
+
+  chmod -R ugo-w /etc/ssh
+  chmod -R ugo-w /usr/local/etc
+}
+
+###############################################################################
+
+function Hostname {
+  hostname >/etc/hostname
+  echo "/etc/hostname" >>/etc/changes.manifest
+  chmod 444 /etc/hostname
+
+  GetYesNo "Change hostname from `hostname`"
+  if [ $? -ne 0 ]; then return; fi
+
+# Get new hostname
+
+  /bin/echo -n "  New hostname? "
+  read resp
+  resp=`echo $resp | tr '[:upper:]' '[:lower:]'`
+
+# Write new hostname to /etc/hostname
+
+  echo $resp >/etc/hostname
+  chmod 444 /etc/hostname
+
+# Activate the new hostname
+
+  hostname -F /etc/hostname
+}
+
+###############################################################################
+
+function NetConfig {
+  ifconfig -a | grep -q -E '^(eth|wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  GetYesNo "Edit static network configuration"
+  if [ $? -ne 0 ]; then return; fi
+
+  netconfig
+}
+###############################################################################
+
+function ServerSSHKeys {
+  GetYesNo "Regenerate SSH server keys"
+  if [ $? -ne 0 ]; then return; fi
+
+  rm -f /etc/ssh/*key
+
+  ssh-keygen -C "`hostname`" -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
+  ssh-keygen -C "`hostname`" -N "" -t ecdsa -b 521 -f /etc/ssh/ssh_host_ecdsa_key
+  ssh-keygen -C "`hostname`" -N "" -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
+  ssh-keygen -C "`hostname`" -N "" -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key
+
+  chmod -R ugo-w /etc/ssh
+}
+
+###############################################################################
+
+function RootPassword {
+  GetYesNo "Change superuser password"
+  if [ $? -ne 0 ]; then return; fi
+
+  passwd root
+}
+
+###############################################################################
+
+function RootSSHKeys {
+  if [ -f /root/.ssh/id_rsa ]; then
+    GetYesNo "Regenerate superuser id_rsa"
+    if [ $? -ne 0 ]; then return; fi
+    rm -f /root/.ssh/id_rsa*
+  else
+    GetYesNo "Generate superuser id_rsa"
+    if [ $? -ne 0 ]; then return; fi
+  fi
+
+  ssh-keygen -C "`hostname -s` system administrator" -N "" -t rsa -b 2048 -f /root/.ssh/id_rsa
+
+  chmod ugo-w /root/.ssh/id_rsa*
+}
+
+###############################################################################
+
+function RootSSHAuth {
+  GetYesNo "Add public key to superuser authorized_keys"
+  if [ $? -ne 0 ]; then return; fi
+
+  printf "  Paste the public key here: "
+  read pubkey
+  echo ""
+
+  echo $pubkey >>/root/.ssh/authorized_keys
+  chmod 400 /root/.ssh/authorized_keys
+}
+
+###############################################################################
+
+function DisableSSHPasswords {
+  egrep -q '^PasswordAuthentication no$' /etc/ssh/sshd_config
+  if [ $? -eq 0 ]; then return; fi
+
+  GetYesNo "Disable SSH password authentication"
+  if [ $? -ne 0 ]; then return; fi
+
+  echo "PasswordAuthentication no" >>/etc/ssh/sshd_config
+  killall -HUP /usr/sbin/sshd
+}
+
+###############################################################################
+
+function AddWirelessOpen {
+  ifconfig -a | grep -q -E '^(wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  GetYesNo "Add open wireless network"
+  if [ $? -ne 0 ]; then return; fi
+
+  printf "  Enter SSID:     "
+  read ssid
+
+  printf "\n"					>>/etc/wpa_supplicant.conf
+  printf "network={\n"				>>/etc/wpa_supplicant.conf
+  printf "\tssid=\"$ssid\"\n" "$ssid"		>>/etc/wpa_supplicant.conf
+  printf "\tkey_mgmt=NONE\n"			>>/etc/wpa_supplicant.conf
+  printf "}\n"					>>/etc/wpa_supplicant.conf
+
+  echo /etc/wpa_supplicant.conf >>/etc/changes.manifest
+}
+
+###############################################################################
+
+function AddWirelessWPA {
+  ifconfig -a | grep -q -E '^(wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  GetYesNo "Add WPA/PSK wireless network"
+  if [ $? -ne 0 ]; then return; fi
+
+  printf "  Enter SSID:     "
+  read ssid
+
+  printf "  Enter password: "
+  read password
+
+  printf "\n"					>>/etc/wpa_supplicant.conf
+  printf "network={\n"				>>/etc/wpa_supplicant.conf
+  printf "\tssid=\"$ssid\"\n" "$ssid"		>>/etc/wpa_supplicant.conf
+  printf "\tkey_mgmt=WPA-PSK\n"			>>/etc/wpa_supplicant.conf
+  printf "\tpsk=\"$password\"\n" "$password"	>>/etc/wpa_supplicant.conf
+  printf "}\n"					>>/etc/wpa_supplicant.conf
+
+  echo /etc/wpa_supplicant.conf >>/etc/changes.manifest
+}
+
+###############################################################################
+
+function AddWirelessWEP {
+  ifconfig -a | grep -q -E '^(wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  GetYesNo "Add WEP wireless network"
+  if [ $? -ne 0 ]; then return; fi
+
+  GetYesNo "  WEP is insecure and obsolete! Continue anyway?"
+  if [ $? -ne 0 ]; then return; fi
+
+  printf "  Enter SSID:     "
+  read ssid
+
+  printf "  Enter key:      "
+  read key
+
+  printf "\n"					>>/etc/wpa_supplicant.conf
+  printf "network={\n"				>>/etc/wpa_supplicant.conf
+  printf "\tssid=\"$ssid\"\n" "$ssid"		>>/etc/wpa_supplicant.conf
+  printf "\tkey_mgmt=NONE\n"			>>/etc/wpa_supplicant.conf
+  printf "\twep_key0=$key\n" "$key"		>>/etc/wpa_supplicant.conf
+  printf "}\n"					>>/etc/wpa_supplicant.conf
+
+  echo /etc/wpa_supplicant.conf >>/etc/changes.manifest
+}
+
+###############################################################################
+
+function AddWireless {
+  ifconfig -a | grep -q -E '^(wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  GetYesNo "Add a wireless network"
+  if [ $? -ne 0 ]; then return; fi
+
+  if [ ! -f /etc/wpa_supplicant.conf ]; then
+    printf "ctrl_interface=DIR=/var/run/wpa_supplicant\n" >/etc/wpa_supplicant.conf
+    printf "update_config=1\n\n" >>/etc/wpa_supplicant.conf
+  fi
+
+  true
+
+  while [ $? -eq 0 ]; do
+    AddWirelessOpen
+    AddWirelessWPA
+    AddWirelessWEP
+
+    GetYesNo "Add another wireless network"
+  done
+
+  chmod 400 /etc/wpa_supplicant.conf
+  /usr/libexec/hotplug.script net
+}
+
+###############################################################################
+
+function RemoveWLANInit {
+  ifconfig -a | grep -q -E '^(wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  if [ -f /boot/autoexec.d/00-wlan-init -a -f /etc/wpa_supplicant.conf ]; then
+    GetYesNo "Remove redundant 00-wlan-init"
+    if [ $? -ne 0 ]; then return; fi
+
+    rm /boot/autoexec.d/00-wlan-init
+
+    if [ -f /boot/checksums.md5 ]; then
+      sed -i /00-wlan-init/d /boot/checksums.md5
+    fi
+  fi
+}
+
+###############################################################################
+
+function DeviceTreeOverlays {
+  grep -q 'OVERLAYS=' /boot/config.txt
+  if [ $? -eq 0 ]; then return; fi
+
+  if [ ! -f /usr/share/sysconfig/overlays.${BOARDNAME} ]; then return; fi
+
+  GetYesNo "Enable MuntsOS default device tree overlays"
+  if [ $? -ne 0 ]; then return; fi
+
+  cat /usr/share/sysconfig/overlays.${BOARDNAME} >>/boot/config.txt
+
+  if [ -f /boot/checksums.md5 ]; then
+    savepwd=`pwd`
+    cd /boot
+    sed -i "s/.*config.txt/`md5sum -b config.txt`/g" checksums.md5
+    cd ${savepwd}
+  fi
+}
+
+###############################################################################
+
+function PinMux {
+  if [ -f /etc/pinmux.conf -o ! -f /usr/share/sysconfig/pinmux.${BOARDNAME} ]; then
+    return;
+  fi
+
+  GetYesNo "Install MuntsOS default pinmux.conf"
+  if [ $? -ne 0 ]; then return; fi
+
+  install -cm 0444 /usr/share/sysconfig/pinmux.${BOARDNAME} /etc/pinmux.conf
+  echo /etc/pinmux.conf >>/etc/changes.manifest
+}
+
+###############################################################################
+
+function Extensions {
+  ifconfig -a | grep -q -E '^(eth|wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  GetYesNo "Manage extensions"
+  if [ $? -ne 0 ]; then return; fi
+
+  EXTENSIONSDIR=${EXTENSIONSDIR:-http://repo.munts.com/muntsos/extensions}
+
+  wget -q -O /tmp/extensions.manifest ${EXTENSIONSDIR}/.extensions.manifest2.$BOARDBASE
+  if [ $? -ne 0 ]; then
+    echo "ERROR: Cannot download extensions manifest."
+    return;
+  fi
+
+  # Replace spaces with a colon so we can do awk -F ':' below
+  sed -r -i 's/ +/:/g' /tmp/extensions.manifest
+
+  for ERecord in `cat /tmp/extensions.manifest`; do
+    EName=`echo ${ERecord} | awk -F ':' '{ print $1 }'`
+    EURL=${EXTENSIONSDIR}/${EName}
+    NewSum=`echo ${ERecord} | awk -F ':' '{ print $2 }'`
+
+    echo ${EName} | egrep -q 'all.deb$'
+    if [ $? -eq 0 ]; then
+      EFile=/boot/packages/${EName}
+    else
+      EFile=/boot/packages/$BOARDBASE/${EName}
+    fi
+
+    # Upgrade this extension package
+    if [ -f ${EFile} ]; then
+      OldSum=`sha512sum ${EFile} | awk '{ print $1 }'`
+
+      if [ "$OldSum" != "$NewSum" ]; then
+        GetYesNo "Upgrade ${EName}"
+        if [ $? -eq 0 ]; then
+          wget -O ${EFile}.new ${EURL}
+          if [ $? -eq 0 ]; then
+            mv ${EFile}.new ${EFile}
+          else
+            echo "ERROR: Cannot download package ${EName}"
+            rm -f ${EFile}.new
+          fi
+          continue
+        fi
+      fi
+    fi
+
+    # Remove this extension package
+    if [ -f ${EFile} ]; then
+      GetYesNo "Remove  ${EName}"
+      if [ $? -eq 0 ]; then
+        rm -f ${EFile}
+        continue
+      fi
+    fi
+
+    # Install this extension package
+    if [ ! -f ${EFile} ]; then
+      GetYesNo "Install ${EName}"
+      if [ $? -eq 0 ]; then
+        wget -O ${EFile}.new ${EURL}
+        if [ $? -eq 0 ]; then
+          mv ${EFile}.new ${EFile}
+        else
+          echo "ERROR: Cannot download package ${EName}"
+          rm -f ${EFile}.new
+        fi
+      fi
+    fi
+  done
+
+  rm -f /tmp/extensions.manifest
+}
+
+###############################################################################
+
+function DynamicDNS {
+  ifconfig -a | grep -q -E '^(eth|wlan).*Link encap:'
+  if [ $? -eq 1 ]; then return; fi
+
+  interfaces=`sort </proc/net/dev | awk '$1 ~ /.*[0-9]:$/ { printf("%s ", substr($1, 1, length($1)-1)); }'`
+
+  for iface in $interfaces; do
+    if [ "`ethtool -i $iface 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" ]; then
+      continue;
+    fi
+
+    configfile=/usr/local/etc/noip2-$iface.conf
+
+    if [ -f $configfile ]; then continue; fi
+
+    GetYesNo "Register $iface for Dynamic DNS at noip.com"
+    if [ $? -ne 0 ]; then continue; fi
+
+    noip2 -C -F -I $iface -c $configfile
+    if [ $? -eq 0 ]; then
+      chmod 400 $configfile
+      noip2 -M -c $configfile
+    fi
+  done
+}
+
+###############################################################################
+
+function EditCmdline {
+  if [ ! -f /boot/cmdline.txt ]; then return; fi
+
+  GetYesNo "Edit cmdline.txt"
+  if [ $? -ne 0 ]; then return; fi
+
+  chmod u+w /boot/cmdline.txt
+
+  if [ -n "${EDITOR}" ]; then
+    ${EDITOR} /boot/cmdline.txt
+  else
+    vi /boot/cmdline.txt
+  fi
+
+  chmod ugo-w /boot/cmdline.txt
+
+  if [ -f /boot/checksums.md5 ]; then
+    savepwd=`pwd`
+    cd /boot
+    sed -i "s/.*cmdline.txt/`md5sum -b cmdline.txt`/g" checksums.md5
+    cd ${savepwd}
+  fi
+
+  clear
+}
+
+###############################################################################
+
+function EditConfig {
+  if [ ! -f /boot/config.txt ]; then return; fi
+
+  GetYesNo "Edit config.txt"
+  if [ $? -ne 0 ]; then return; fi
+
+  chmod u+w /boot/config.txt
+
+  if [ -n "${EDITOR}" ]; then
+    ${EDITOR} /boot/config.txt
+  else
+    vi /boot/config.txt
+  fi
+
+  chmod ugo-w /boot/config.txt
+
+  if [ -f /boot/checksums.md5 ]; then
+    savepwd=`pwd`
+    cd /boot
+    sed -i "s/.*config.txt/`md5sum -b config.txt`/g" checksums.md5
+    cd ${savepwd}
+  fi
+
+  clear
+}
+
+###############################################################################
+
+function Finalize {
+  sort -u </etc/changes.manifest >/etc/changes.manifest.new
+  mv /etc/changes.manifest.new /etc/changes.manifest
+  chmod 444 /etc/changes.manifest
+
+  rm -f /boot/tarballs/${oldhostname}.tgz
+
+  extratarballs=`ls /boot/tarballs/* 2>/dev/null`
+
+  if [ -n "${extratarballs}" ]; then
+    echo "Warning: Extra tarballs (possibly obsolete) in /boot/tarballs/"
+    echo ${extratarballs} | tr " " "\n"
+  fi
+
+  tar czf /boot/tarballs/`hostname -s`.tgz -T /etc/changes.manifest 2>&1 | grep -v 'removing leading'
+  chmod -R ugo-w /boot/*
+
+  sync
+  umount /boot
+}
+
+###############################################################################
+
+function Reboot {
+  GetYesNo "Reboot system (recommended)"
+  if [ $? -ne 0 ]; then return; fi
+
+  reboot
+}
+
+###############################################################################
+
+# Save files listed in /etc/changes.manifest
+
+if [ "$1" = "--save" ]; then
+  Prepare
+  Finalize
+  exit 0
+fi
+
+# Transform named parameters to environment variables
+
+for x ; do export ${x%=*}="${x#*=}"; done
+
+# Execute configuration operations in order
+
+Prepare
+Hostname
+NetConfig
+AddWireless
+RemoveWLANInit
+ServerSSHKeys
+RootPassword
+RootSSHKeys
+RootSSHAuth
+DisableSSHPasswords
+DeviceTreeOverlays
+PinMux
+Extensions
+DynamicDNS
+EditCmdline
+EditConfig
+Finalize
+Reboot

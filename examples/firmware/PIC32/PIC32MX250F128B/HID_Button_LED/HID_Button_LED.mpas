@@ -1,0 +1,86 @@
+{ PIC32MX250F128B USB HID device with a button on RD0 and an LED on RD1       }
+
+{ Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.             }
+{                                                                             }
+{ Redistribution and use in source and binary forms, with or without          }
+{ modification, are permitted provided that the following conditions are met: }
+{                                                                             }
+{ * Redistributions of source code must retain the above copyright notice,    }
+{   this list of conditions and the following disclaimer.                     }
+{                                                                             }
+{ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" }
+{ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE   }
+{ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE  }
+{ ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   }
+{ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         }
+{ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF        }
+{ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    }
+{ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN     }
+{ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)     }
+{ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE  }
+{ POSSIBILITY OF SUCH DAMAGE.                                                 }
+
+PROGRAM HID_Button_LED;
+
+VAR
+  readbuf   : ARRAY [HID_OUTPUT_REPORT_BYTES] OF byte;
+  writebuf  : ARRAY [HID_INPUT_REPORT_BYTES] OF byte;
+  Button  : sbit AT PORTA.b4;
+  LED    : sbit AT LATB.b5;
+  ButtonOld : boolean;
+  ButtonNew : boolean;
+
+  PROCEDURE USBInterrupt(); iv IVT_USB_1; ilevel 7; ics ICS_SOFT;
+
+  BEGIN
+    USB_Interrupt_Proc();
+  END;
+
+BEGIN
+  ANSELA := $0000;
+  ANSELB := $0000;
+
+  { Configure button input }
+
+  TRISA.b4 := 1;
+  ButtonOld := NOT Button;
+
+  { Configure LED output }
+
+  TRISB.b5 := 0;
+  LED := 0;
+
+  { Initialize HID library }
+
+  HID_Enable(@readbuf, @writebuf);
+
+  { Configure USB interrupt }
+
+  USBIP0_bit := 1;
+  USBIP1_bit := 1;
+  USBIP2_bit := 1;
+  EnableInterrupts();
+
+  { Main event loop }
+
+  WHILE True DO
+    BEGIN
+      { Send a report to the USB host if the button changed state }
+
+      ButtonNew := NOT Button;
+      IF ButtonNew <> ButtonOld THEN
+        BEGIN
+          memset(@writebuf, 0, sizeof(writebuf));
+          writebuf[0] := ButtonNew;
+          HID_write(@writebuf, sizeof(writebuf));
+          ButtonOld := ButtonNew;
+        END;
+
+      { Set LED state per command from the USB host }
+
+      IF HID_read() <> 0 THEN
+        BEGIN
+          LED := readbuf[0];
+        END;
+    END;
+END.

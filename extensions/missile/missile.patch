@@ -1,0 +1,16 @@
+--- missile_svc.c.orig	2013-12-27 09:09:00.876128324 +0100
++++ missile_svc.c	2013-12-27 09:09:00.896127878 +0100
+@@ -63,9 +63,13 @@
+ 	return;
+ }
+ 
++extern void missile_initialize(void);
++
+ int
+ main (int argc, char **argv)
+ {
++	missile_initialize();
++
+ 	register SVCXPRT *transp;
+ 
+ 	pmap_unset (MISSILE, MISSILE_VERS);

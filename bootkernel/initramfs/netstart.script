@@ -1,0 +1,137 @@
+#!/bin/sh
+
+# Configure a network interface using settings from /etc/network.conf
+
+# Copyright (C)2013-2018, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+INTERFACE=$1
+
+if [ -z "${INTERFACE}" ]; then
+  echo ""
+  echo "Usage: netstart.script <interface>"
+  echo ""
+  exit 1
+fi
+
+# Source some configuration variables
+
+. /etc/platform
+. /etc/network.conf
+
+# Extract settings for this interface
+
+eval MACADDR="\$${INTERFACE}_macaddr"
+eval ADDRESS="\$${INTERFACE}_address"
+eval NETMASK="\$${INTERFACE}_netmask"
+eval PEERADDR="\$${INTERFACE}_peer"
+
+# Start USB Network Gadget DHCP server, if requested
+
+if [ "`ethtool -i ${INTERFACE} 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" -a $((OPTIONS & 0x02)) -ne 0 ]; then
+  ifconfig ${INTERFACE} ${ADDRESS:-10.254.254.252} netmask ${NETMASK:-255.255.255.248}
+  iptables -I INPUT -i ${INTERFACE} -j ACCEPT
+  echo "# USB Ethernet Gadget DHCP server configuration"		>/var/run/udhcpd.${INTERFACE}.conf
+  echo ""								>>/var/run/udhcpd.${INTERFACE}.conf
+  echo "interface		${INTERFACE}"				>>/var/run/udhcpd.${INTERFACE}.conf
+  echo ""								>>/var/run/udhcpd.${INTERFACE}.conf
+  echo "lease_file		/var/run/udhcpd.${INTERFACE}.leases"	>>/var/run/udhcpd.${INTERFACE}.conf
+  echo "pidfile			/var/run/udhcpd.${INTERFACE}.pid"	>>/var/run/udhcpd.${INTERFACE}.conf
+  echo ""								>>/var/run/udhcpd.${INTERFACE}.conf
+  echo "max_leases		1"					>>/var/run/udhcpd.${INTERFACE}.conf
+  echo "start			${PEERADDR:-10.254.254.253}"		>>/var/run/udhcpd.${INTERFACE}.conf
+  echo "end			${PEERADDR:-10.254.254.253}"		>>/var/run/udhcpd.${INTERFACE}.conf
+  echo ""								>>/var/run/udhcpd.${INTERFACE}.conf
+  echo "option subnet		${NETMASK:-255.255.255.248}"		>>/var/run/udhcpd.${INTERFACE}.conf
+  chmod 444 /var/run/udhcpd.${INTERFACE}.conf
+  touch /var/run/udhcpd.${INTERFACE}.leases
+  udhcpd /var/run/udhcpd.${INTERFACE}.conf
+
+  if [ $((OPTIONS & 0x200)) -ne 0 ]; then
+    mdnsd ${INTERFACE} `hostname -s` ${ADDRESS:-10.254.254.252}
+  fi
+
+  if [ $((OPTIONS & 0x08)) -ne 0 ]; then
+    killall -q ntpd
+    ntpd
+  fi
+
+  exit 0
+fi
+
+# Change the MAC address, if applicable
+
+if [ -n "${MACADDR}" ]; then
+  ifconfig ${INTERFACE} 0.0.0.0 down hw ether ${MACADDR}
+fi
+
+# Delegate network configuration to udhcpc, if applicable
+
+if [ -z "${ADDRESS}" -o "${ADDRESS}" = "dhcp" ]; then
+  udhcpc -i ${INTERFACE} -p /var/run/udhcpc.${INTERFACE}.pid -b
+  exit $?
+fi
+
+# Configure the network interface
+
+if [ -n "${NETMASK}" ]; then
+  ifconfig ${INTERFACE} ${ADDRESS} netmask ${NETMASK}
+else
+  ifconfig ${INTERFACE} ${ADDRESS}
+fi
+
+# Configure default gateway
+
+if [ -n "${gateway}" ]; then
+  route add default gw ${gateway}
+fi
+
+if [ -n "${domain}" -o -n "${nameservers}" ]; then
+  echo "# Created by netstart.script" >/etc/resolv.conf
+
+# Configure domain
+
+  if [ -n "${domain}" ]; then
+    echo "domain ${domain}" >>/etc/resolv.conf
+  fi
+
+# Configure name servers
+
+  if [ -n "${nameservers}" ]; then
+    for N in ${nameservers} ; do
+      echo "nameserver $N" >>/etc/resolv.conf
+    done
+  fi
+fi
+
+# Start mdnsd
+
+if [ $((OPTIONS & 0x200)) -ne 0 ]; then
+  mdnsd ${INTERFACE} `hostname -s` ${ADDRESS}
+fi
+
+# Restart ntpd
+
+if [ $((OPTIONS & 0x08)) -ne 0 ]; then
+  killall -q ntpd
+  ntpd
+fi
+
+exit 0

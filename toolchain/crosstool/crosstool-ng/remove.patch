@@ -1,0 +1,11 @@
+--- scripts/functions.orig	2020-10-12 09:01:05.348510116 -0700
++++ scripts/functions	2020-10-12 09:02:37.849996967 -0700
+@@ -1199,7 +1199,7 @@
+ 
+     # Canonicalise it
+     if [ "${CT_TARGET_SKIP_CONFIG_SUB}" != "y" ]; then
+-        CT_TARGET=$(CT_DoConfigSub "${CT_TARGET}")
++        CT_TARGET=$(CT_DoConfigSub "${CT_TARGET}" | ${sed} 's/REMOVE-//g')
+ 
+         if [ -n "${CT_OMIT_TARGET_VENDOR}" ]; then
+             # config.sub always returns a 3- or 4-part tuple, with vendor

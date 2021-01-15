@@ -1,0 +1,101 @@
+#!/bin/sh
+
+# Event script for udhcpc
+
+# Copyright (C)2013-2018, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+. /etc/platform
+
+case $1 in
+    deconfig)
+	if [ -f /var/run/mdnsd.$1.pid ]; then
+	  kill -9 `cat /var/run/mdnsd.$1.pid`
+	  rm -f /var/run/mdnsd.$1.pid
+	fi
+
+        if [ $((OPTIONS & 0x08)) -ne 0 ]; then
+          killall ntpd
+          ntpd
+        fi
+
+	ifconfig $interface 0.0.0.0
+	;;
+
+    bound)
+	ifconfig $interface $ip netmask $subnet
+
+	if [ -n "$router" ]; then
+	  route add default gw $router
+        fi
+
+	if [ -n "$dns" ]; then
+	  echo "# Created by udhcpc.script" > /etc/resolv.conf
+
+	  if [ -n "$domain" ]; then
+	    echo "domain $domain" >> /etc/resolv.conf
+	  fi
+
+	  for n in $dns; do echo "nameserver $n" >> /etc/resolv.conf; done
+	fi
+
+	if [ -n "$hostname" ]; then
+	  hostname $hostname
+	fi
+
+	if [ -n "$meritdump" ]; then
+	  share=`echo $meritdump | cut -d ' ' -f 1`
+	  mountpoint=`echo $meritdump | cut -d ' ' -f 2`
+	  options=`echo $meritdump | cut -d ' ' -f 3`
+
+	  mkdir -p $mountpoint
+	  mount -o $options $share $mountpoint
+
+	  if [ $((OPTIONS & 0x100)) -ne 0 -a -d $mountpoint/autoexec.d ]; then
+            for s in $mountpoint/autoexec.d/* ; do
+              if [ -x "$s" ]; then
+                "$s"
+              fi
+            done
+	  fi
+
+	  echo $mountpoint >/var/run/udhcpc.$interface.mount
+	fi
+
+        if [ $((OPTIONS & 0x200)) -ne 0 ]; then
+          mdnsd $interface `hostname -s` $ip
+        fi
+
+        if [ $((OPTIONS & 0x08)) -ne 0 ]; then
+          killall ntpd
+          ntpd
+        fi
+
+	now=`date +%s`
+	then=`expr $now + $lease`
+	echo "Lease for $ip on $interface bound until `date -D '%s' -d $then`" >/var/run/udhcpc.$interface.lease
+	;;
+
+    renew)
+	now=`date +%s`
+	then=`expr $now + $lease`
+	echo "Lease for $ip on $interface renewed until `date -D '%s' -d $then`" >/var/run/udhcpc.$interface.lease
+    	;;
+esac

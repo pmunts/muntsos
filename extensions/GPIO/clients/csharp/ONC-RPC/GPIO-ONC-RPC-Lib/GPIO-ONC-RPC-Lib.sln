@@ -1,0 +1,31 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPIO-ONC-RPC-Lib-DLL", "GPIO-ONC-RPC-Lib-DLL.csproj", "{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "GPIO-ONC-RPC-Lib-Help", "GPIO-ONC-RPC-Lib-Help.shfbproj", "{05176164-8F5D-44C7-9BE6-5B576E8E770F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41} = {42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05176164-8F5D-44C7-9BE6-5B576E8E770F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05176164-8F5D-44C7-9BE6-5B576E8E770F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05176164-8F5D-44C7-9BE6-5B576E8E770F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05176164-8F5D-44C7-9BE6-5B576E8E770F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

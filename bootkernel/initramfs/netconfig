@@ -1,0 +1,149 @@
+#!/bin/sh
+
+# MuntsOS Network Configurator
+
+# Copyright (C)2017-2018, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+echo ""
+echo "MuntsOS Network Configurator"
+echo ""
+
+###############################################################################
+
+function GetYesNo {
+  printf "%-60s [y,N] " "$@"
+
+  read resp
+  resp=`echo $resp | tr '[:lower:]' '[:upper:]'`
+
+  if [ "$resp" != "Y" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+###############################################################################
+
+function ConfigureGateway {
+  printf "Enter default gateway IPv4 address: "
+  read GATEWAY
+
+  if [ -z "${GATEWAY}" ]; then
+    return
+  fi
+
+  sed -i -r "s/#*gateway=.*/gateway=${GATEWAY}/g" /etc/network.conf
+}
+
+###############################################################################
+
+function ConfigureDomain {
+  printf "Enter default domain: "
+  read DOMAIN
+
+  if [ -z "${DOMAIN}" ]; then
+    return
+  fi
+
+  sed -i -r "s/#*domain=.*/domain=${DOMAIN}/g" /etc/network.conf
+}
+
+###############################################################################
+
+function ConfigureNameservers {
+  printf "Enter domain name server IPv4 addresses (separated by spaces): "
+  read NAMESERVERS
+
+  if [ -z "${NAMESERVERS}" ]; then
+    return
+  fi
+
+  sed -i -r "s/#*nameservers=.*/nameservers=\"${NAMESERVERS}\"/g" /etc/network.conf
+}
+
+###############################################################################
+
+function ConfigureAddress {
+  printf "Enter IPv4 address for interface $1: "
+  read ADDRESS
+
+  if [ -z "${ADDRESS}" ]; then
+    return
+  fi
+
+  sed -i -r "/#*${1}_address/d" /etc/network.conf
+
+  echo "${1}_address=${ADDRESS}" >> /etc/network.conf
+}
+
+###############################################################################
+
+function ConfigureNetmask {
+  printf "Enter IPv4 netmask for interface $1: "
+  read NETMASK
+
+  if [ -z "${NETMASK}" ]; then
+    return
+  fi
+
+  sed -i -r "/#*${1}_netmask/d" /etc/network.conf
+
+  echo "${1}_netmask=${NETMASK}" >> /etc/network.conf
+}
+
+###############################################################################
+
+# Iterate network interfaces
+
+function ConfigureInterfaces {
+  for I in /sys/class/net/* ; do
+    if [ ! -L $I ]; then
+      continue;
+    fi
+
+    if [ "$I" = "/sys/class/net/lo" ]; then
+      continue;
+    fi
+
+    INTERFACE=`basename $I`
+
+    if [ "`ethtool -i ${INTERFACE} 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" ]; then
+      continue;
+    fi
+
+    ConfigureAddress ${INTERFACE}
+    ConfigureNetmask ${INTERFACE}
+
+    /usr/libexec/ifplugd.script ${INTERFACE} down
+    sleep 1
+    /usr/libexec/ifplugd.script ${INTERFACE} up
+  done
+}
+
+###############################################################################
+
+# Main program
+
+ConfigureGateway
+ConfigureDomain
+ConfigureNameservers
+ConfigureInterfaces

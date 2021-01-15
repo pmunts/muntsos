@@ -1,0 +1,55 @@
+--- mailutils/sendmail.c.orig	2019-06-10 03:50:53.000000000 -0700
++++ mailutils/sendmail.c	2020-04-28 20:54:58.870253084 -0700
+@@ -230,6 +230,7 @@
+ 	char *host = sane_address(safe_gethostname());
+ 	unsigned nheaders = 0;
+ 	int code;
++	bool fromalready = false;
+ 	enum {
+ 		HDR_OTHER = 0,
+ 		HDR_TOCC,
+@@ -441,6 +442,8 @@
+ 			continue;
+ 		}
+ 
++		if (!strncasecmp(s, "From:", 5)) fromalready = true;
++
+ 		// analyze headers
+ 		// To: or Cc: headers add recipients
+ 		check_hdr = (0 == strncasecmp("To:", s, 3));
+@@ -511,6 +514,17 @@
+ 			// in this case just bail out gracefully
+ 			if (354 != smtp_check("DATA", -1))
+ 				goto bail;
++
++			// OpenBSD smtpd, gmail and others require From: in the message header.
++			if (!fromalready)
++			{
++			  char *frombuf = xmalloc(256);
++			  memset(frombuf, 0, 256);
++			  snprintf(frombuf, 255, "From: %s", opt_from);
++			  send_r_n(frombuf);
++			  free(frombuf);
++			}
++
+ 			// dump the headers
+ 			while (list) {
+ 				send_r_n((char *) llist_pop(&list));
+--- networking/udhcp/common.c.orig	2020-06-26 11:47:44.000000000 -0700
++++ networking/udhcp/common.c	2020-10-02 14:54:36.619432946 -0700
+@@ -32,6 +32,7 @@
+ 	{ OPTION_IP | OPTION_LIST                 , 0x09 }, /* DHCP_LPR_SERVER    */
+ 	{ OPTION_STRING_HOST          | OPTION_REQ, 0x0c }, /* DHCP_HOST_NAME     */
+ 	{ OPTION_U16                              , 0x0d }, /* DHCP_BOOT_SIZE     */
++	{ OPTION_STRING                           , 0x0e }, /* DHCP_MERIT_DUMP    */
+ 	{ OPTION_STRING_HOST          | OPTION_REQ, 0x0f }, /* DHCP_DOMAIN_NAME   */
+ 	{ OPTION_IP                               , 0x10 }, /* DHCP_SWAP_SERVER   */
+ 	{ OPTION_STRING                           , 0x11 }, /* DHCP_ROOT_PATH     */
+@@ -106,6 +107,7 @@
+ 	"lprsrv" "\0"           /* DHCP_LPR_SERVER      */
+ 	"hostname" "\0"         /* DHCP_HOST_NAME       */
+ 	"bootsize" "\0"         /* DHCP_BOOT_SIZE       */
++	"meritdump" "\0"	/* DHCP_MERIT_DUMP      */
+ 	"domain" "\0"           /* DHCP_DOMAIN_NAME     */
+ 	"swapsrv" "\0"          /* DHCP_SWAP_SERVER     */
+ 	"rootpath" "\0"         /* DHCP_ROOT_PATH       */

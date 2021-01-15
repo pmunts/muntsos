@@ -1,0 +1,24 @@
+--- Makefile.orig	2020-09-30 14:37:00.000000000 -0700
++++ Makefile	2020-10-01 10:04:02.509714288 -0700
+@@ -1356,7 +1356,6 @@
+ 	fi
+ 	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
+ 	@sed 's:^:kernel/:' modules.builtin > $(MODLIB)/modules.builtin
+-	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
+ 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
+ 
+ # This depmod is only for convenience to give the initial
+--- arch/arm/Kconfig.orig	2020-10-02 07:46:16.000000000 -0700
++++ arch/arm/Kconfig	2020-10-06 20:57:37.952885452 -0700
+@@ -89,11 +89,6 @@
+ 	select HAVE_HW_BREAKPOINT if PERF_EVENTS && (CPU_V6 || CPU_V6K || CPU_V7)
+ 	select HAVE_IDE if PCI || ISA || PCMCIA
+ 	select HAVE_IRQ_TIME_ACCOUNTING
+-	select HAVE_KERNEL_GZIP
+-	select HAVE_KERNEL_LZ4
+-	select HAVE_KERNEL_LZMA
+-	select HAVE_KERNEL_LZO
+-	select HAVE_KERNEL_XZ
+ 	select HAVE_KPROBES if !XIP_KERNEL && !CPU_ENDIAN_BE32 && !CPU_V7M
+ 	select HAVE_KRETPROBES if HAVE_KPROBES
+ 	select HAVE_MOD_ARCH_SPECIFIC

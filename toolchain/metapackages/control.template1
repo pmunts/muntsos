@@ -1,0 +1,15 @@
+Section: misc
+Priority: optional
+Homepage: http://git.munts.com/muntsos
+Standards-Version: 3.9.2
+
+Package: muntsos-@@TOOLCHAIN@@
+Version: 1.3
+Maintainer: Philip Munts <phil@munts.net>
+Depends:
+  muntsos-@@TOOLCHAIN@@-aarch64,
+  muntsos-@@TOOLCHAIN@@-beaglebone,
+  muntsos-@@TOOLCHAIN@@-raspberrypi1,
+  muntsos-@@TOOLCHAIN@@-raspberrypi2
+Architecture: all
+Description: Cross-toolchain packages for MuntsOS

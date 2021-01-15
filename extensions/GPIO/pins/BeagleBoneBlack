@@ -1,0 +1,61 @@
+# BeagleBone Black/Black Wireless/Green, with eMMC pins commandeered
+
+# P9 left side
+
+48
+5
+
+49
+117
+115
+
+20
+
+# P9 right side
+
+60
+50
+51
+4
+
+# P8 left side
+
+66
+69
+45
+23
+47
+27
+22
+
+86
+87
+10
+9
+8
+
+76
+74
+72
+70
+
+# P8 right side
+
+67
+68
+44
+26
+46
+65
+
+61
+88
+89
+11
+81
+80
+
+77
+75
+73
+71

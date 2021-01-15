@@ -1,0 +1,1 @@
+CMDLINE=console=ttyS0 quiet OPTIONS=0x072E

@@ -1,0 +1,176 @@
+unit USBdsc;
+
+const USB_VENDOR_ID : word = 0x16D0;
+const USB_PRODUCT_ID : word = 0x0AFA;
+const USB_SELF_POWER : char = 0x80;            // Self powered 0xC0,  0x80 bus powered
+const USB_MAX_POWER : char = 250;              // Bus power required in units of 2 mA
+const HID_INPUT_REPORT_BYTES : char = 64;
+const HID_OUTPUT_REPORT_BYTES : char = 64;
+const EP_IN_INTERVAL : char = 1;
+const EP_OUT_INTERVAL : char = 1;
+
+const USB_INTERRUPT : char = 1;
+const USB_TRANSFER_TYPE : char = 0x03;         //0x03 Interrupt
+const USB_HID_EP : char = 1;
+const USB_HID_RPT_SIZE : char = 33;
+
+type device_descriptor = record
+    bLength : char;               // bLength         - Descriptor size in bytes (12h)
+    bDescriptorType : char;       // bDescriptorType - The constant DEVICE (01h)
+    bcdUSB : word;                // bcdUSB          - USB specification release number (BCD)
+    bDeviceClass : char;          // bDeviceClass    - Class Code
+    bDeviceSubClass : char;       // bDeviceSubClass - Subclass code
+    bDeviceProtocol : char;       // bDeviceProtocol - Protocol code
+    bMaxPacketSize0 : char;       // bMaxPacketSize0 - Maximum packet size for endpoint 0
+    idVendor : word;              // idVendor        - Vendor ID
+    idProduct : word;             // idProduct       - Product ID
+    bcdDevice : word;             // bcdDevice       - Device release number (BCD)
+    iManufacturer : char;         // iManufacturer   - Index of string descriptor for the manufacturer
+    iProduct : char;              // iProduct        - Index of string descriptor for the product.
+    iSerialNumber : char;         // iSerialNumber   - Index of string descriptor for the serial number.
+    bNumConfigurations : char;    // bNumConfigurations - Number of possible configurations
+end;
+
+const device_dsc : device_descriptor = (
+  0x12,                   // bLength
+  0x01,                   // bDescriptorType
+  0x0200,                 // bcdUSB
+  0x00,                   // bDeviceClass
+  0x00,                   // bDeviceSubClass
+  0x00,                   // bDeviceProtocol
+  8,                      // bMaxPacketSize0
+  USB_VENDOR_ID,          // idVendor
+  USB_PRODUCT_ID,         // idProduct
+  0x0001,                 // bcdDevice
+  0x01,                   // iManufacturer
+  0x02,                   // iProduct
+  0x00,                   // iSerialNumber
+  0x01                    // bNumConfigurations
+);
+
+// Configuration 1 Descriptor
+const configDescriptor1 : array[41] of byte = (
+    // Configuration Descriptor
+    0x09,                   // bLength             - Descriptor size in bytes
+    0x02,                   // bDescriptorType     - The constant CONFIGURATION (02h)
+    0x29,0x00,              // wTotalLength        - The number of bytes in the configuration descriptor and all of its subordinate descriptors
+    1,                      // bNumInterfaces      - Number of interfaces in the configuration
+    1,                      // bConfigurationValue - Identifier for Set Configuration and Get Configuration requests
+    0,                      // iConfiguration      - Index of string descriptor for the configuration
+    USB_SELF_POWER,         // bmAttributes        - Self/bus power and remote wakeup settings
+    USB_MAX_POWER,          // bMaxPower           - Bus power required in units of 2 mA
+
+    // Interface Descriptor
+    0x09,                   // bLength - Descriptor size in bytes (09h)
+    0x04,                   // bDescriptorType - The constant Interface (04h)
+    0,                      // bInterfaceNumber - Number identifying this interface
+    0,                      // bAlternateSetting - A number that identifies a descriptor with alternate settings for this bInterfaceNumber.
+    2,                      // bNumEndpoint - Number of endpoints supported not counting endpoint zero
+    0x03,                   // bInterfaceClass - Class code
+    0,                      // bInterfaceSubclass - Subclass code
+    0,                      // bInterfaceProtocol - Protocol code
+    0,                      // iInterface - Interface string index
+
+    // HID Class-Specific Descriptor
+    0x09,                   // bLength         - Descriptor size in bytes.
+    0x21,                   // bDescriptorType - This descriptor's type: 21h to indicate the HID class.
+    0x01,0x01,              // bcdHID          - HID specification release number (BCD).
+    0x00,                   // bCountryCode    - Numeric expression identifying the country for localized hardware (BCD) or 00h.
+    1,                      // bNumDescriptors - Number of subordinate report and physical descriptors.
+    0x22,                   // bDescriptorType - The type of a class-specific descriptor that follows
+    USB_HID_RPT_SIZE,0x00,  // wDescriptorLength - Total length of the descriptor identified above.
+
+    // Endpoint Descriptor
+    0x07,                   // bLength - Descriptor size in bytes (07h)
+    0x05,                   // bDescriptorType - The constant Endpoint (05h)
+    USB_HID_EP or 0x80,     // bEndpointAddress - Endpoint number and direction
+    USB_TRANSFER_TYPE,      // bmAttributes - Transfer type and supplementary information
+    0x40,0x00,              // wMaxPacketSize - Maximum packet size supported
+    EP_IN_INTERVAL,         // bInterval - Service interval or NAK rate
+
+    // Endpoint Descriptor
+    0x07,                   // bLength - Descriptor size in bytes (07h)
+    0x05,                   // bDescriptorType - The constant Endpoint (05h)
+    USB_HID_EP,             // bEndpointAddress - Endpoint number and direction
+    USB_TRANSFER_TYPE,      // bmAttributes - Transfer type and supplementary information
+    0x40,0x00,              // wMaxPacketSize - Maximum packet size supported
+    EP_OUT_INTERVAL         // bInterval - Service interval or NAK rate
+);
+
+type hid_report_descriptor = record
+  report : array[USB_HID_RPT_SIZE] of byte;
+end;
+
+const hid_rpt_desc : hid_report_descriptor = (
+  (0x06, 0x00, 0xFF,      // Usage Page = 0xFF00 (Vendor Defined Page 1)
+  0x09, 0x01,             // Usage (Vendor Usage 1)
+  0xA1, 0x01,             // Collection (Application)
+  // Input report
+  0x19, 0x01,             // Usage Minimum
+  0x29, 0x40,             // Usage Maximum
+  0x15, 0x00,             // Logical Minimum (data bytes in the report may have minimum value = 0x00)
+  0x26, 0xFF, 0x00,       // Logical Maximum (data bytes in the report may have maximum value = 0x00FF = unsigned 255)
+  0x75, 0x08,             // Report Size: 8-bit field size
+  0x95, HID_INPUT_REPORT_BYTES,// Report Count
+  0x81, 0x02,             // Input (Data, Array, Abs)
+  // Output report
+  0x19, 0x01,             // Usage Minimum
+  0x29, 0x40,             // Usage Maximum
+  0x75, 0x08,             // Report Size: 8-bit field size
+  0x95, HID_OUTPUT_REPORT_BYTES,// Report Count
+  0x91, 0x02,             // Output (Data, Array, Abs)
+  0xC0)                   // End Collection
+  );
+
+//Language code string descriptor
+type str1 = record
+  bLength : char;
+  bDscType : char;
+  str : array[1] of word;
+end;
+
+const strd1 : str1 = (
+  4,
+  0x03,
+  (0x0409)
+);
+
+//Manufacturer string descriptor
+type str2 = record
+  bLength : char;
+  bDscType : char;
+  str : array[18] of word;
+end;
+
+const strd2 : str2 = (
+  38,           //sizeof this descriptor string
+  0x03,
+  ('M','u','n','t','s',' ','T','e','c','h','n','o','l','o','g','i','e','s')
+);
+
+//Product string descriptor
+type str3 = record
+  bLength : char;
+  bDscType : char;
+  str : array[14] of word;
+end;
+const strd3 : str3 = (
+  30,           //sizeof this descriptor string
+  0x03,
+  ('U','S','B',' ','H','I','D',' ','D','e','v','i','c','e')
+);
+
+var USB_config_dsc_ptr : array[1] of ^const byte;
+
+var USB_string_dsc_ptr : array[3] of ^const byte;
+
+procedure USB_Init_desc();
+implementation
+  procedure USB_Init_desc();
+  begin
+    USB_config_dsc_ptr[0] := @configDescriptor1;
+    USB_string_dsc_ptr[0] := ^const byte(@strd1);
+    USB_string_dsc_ptr[1] := ^const byte(@strd2);
+    USB_string_dsc_ptr[2] := ^const byte(@strd3);
+  end;
+end.

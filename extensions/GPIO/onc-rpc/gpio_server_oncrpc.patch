@@ -1,0 +1,20 @@
+--- gpio_server_oncrpc_svc.c.orig	2016-05-09 11:50:02.517551908 +0200
++++ gpio_server_oncrpc_svc.c	2016-05-09 11:50:45.457553553 +0200
+@@ -16,6 +16,8 @@
+ #define SIG_PF void(*)(int)
+ #endif
+ 
++extern void gpio_server_oncrpc_initialize(void);
++
+ int
+ _gpio_open_1 (gpio_open_1_argument *argp, void *result, struct svc_req *rqstp)
+ {
+@@ -138,6 +140,8 @@
+ 		exit(1);
+ 	}
+ 
++	gpio_server_oncrpc_initialize();
++
+ 	svc_run ();
+ 	fprintf (stderr, "%s", "svc_run returned");
+ 	exit (1);

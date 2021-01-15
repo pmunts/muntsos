@@ -1,0 +1,7 @@
+Package: @@NAME@@
+Section: misc
+Priority: extra
+Maintainer: Philip Munts <phil@munts.net>
+Architecture: @@ARCH@@
+Version: @@VERSION@@
+Description: openvpn for MuntsOS

@@ -1,0 +1,52 @@
+# Beagle Bone Green Wireless, with eMMC and WL18xx pins commandeered
+
+# P9 left side
+
+48
+5
+
+49
+117
+115
+
+# P9 right side
+
+50
+51
+4
+
+# P8 left side
+
+66
+69
+
+23
+
+22
+
+86
+87
+10
+9
+8
+
+76
+74
+72
+70
+
+# P8 right side
+
+67
+68
+
+88
+89
+11
+81
+80
+
+77
+75
+73
+71

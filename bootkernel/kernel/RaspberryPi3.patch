@@ -1,0 +1,10 @@
+--- Makefile.orig	2020-09-30 14:37:00.000000000 -0700
++++ Makefile	2020-10-01 10:04:02.509714288 -0700
+@@ -1356,7 +1356,6 @@
+ 	fi
+ 	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
+ 	@sed 's:^:kernel/:' modules.builtin > $(MODLIB)/modules.builtin
+-	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
+ 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
+ 
+ # This depmod is only for convenience to give the initial

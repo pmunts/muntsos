@@ -1,0 +1,11 @@
+--- demo/LINUX/port/portserial.c.orig	2019-12-13 11:18:06.678659100 -0800
++++ demo/LINUX/port/portserial.c	2019-12-13 11:18:34.474111000 -0800
+@@ -98,7 +98,7 @@
+     struct termios  xNewTIO;
+     speed_t         xNewSpeed;
+ 
+-    snprintf( szDevice, 16, "/dev/ttyS%d", ucPort );
++    snprintf( szDevice, 16, "/dev/ttyGS0");
+ 
+     if( ( iSerialFd = open( szDevice, O_RDWR | O_NOCTTY ) ) < 0 )
+     {

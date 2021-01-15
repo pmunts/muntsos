@@ -1,0 +1,35 @@
+<h1>Dedicated GPIO Server using MuntsOS</h1>
+<p><a href="http://git.munts.com/muntsos">MuntsOS</a> is a very small
+embedded Linux distribution based on <a href=
+"http://www.busybox.net">BusyBox</a> and other components. MuntsOS is delivered
+as a single Linux kernel image file, which also contains the root file system
+using the <a href=
+"http://en.wikipedia.org/wiki/Initramfs"><tt>initramfs</tt></a> facility. After
+the Linux kernel has booted, the system runs entirely from RAM. There are
+several advantages to this, especially for remote and/or headless embedded
+systems:</p>
+<ul>
+<li>Boot time is significantly faster</li>
+<li>File system access is very fast</li>
+<li>Risk of SD card corruption is minimized</li>
+<li>No need to perform an orderly shutdown</li>
+</ul>
+<p>At boot time the MuntsOS environment can be extended by packages in
+<tt>/boot/packages</tt> or <i>extension modules</i> which are executable shell
+archive scripts installed in the directory <tt>autoexec.d</tt> on various media
+such as the SD card boot partition, USB mass storage device, USB CD-ROM, or NFS
+mount.</p>
+<p>This <tt>Makefile</tt> builds a <tt>.zip</tt> file containing everything
+needed to boot MuntsOS running the <a href=
+"http://git.munts.com/muntsos/extensions/GPIO">GPIO Server</a>
+Extension.</p>
+<p>Just download one of the GPIO Thin Server zip files from <a href=
+"http://repo.munts.com/muntsos/thinservers">http://repo.munts.com/muntsos/thinservers</a>
+and extract it to a freshly formatted FAT32 SD card, and insert it into the
+target system. You can then modify <tt>autoexec.d/00-wlan-init</tt> on the SD
+card to customize it for your wireless network environment, if desired.</p>
+<hr>
+Questions or comments to Philip Munts <a href=
+"mailto:phil@munts.net">phil@munts.net</a>
+<p>I am available for custom system development (hardware and software) of
+products based on embedded Linux microcomputers or other processors.</p>

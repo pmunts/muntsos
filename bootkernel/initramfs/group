@@ -1,0 +1,7 @@
+root::0:
+bin::1:
+daemon::2:
+gpio::3:
+led::4:
+mail::5:
+nogroup::65534:

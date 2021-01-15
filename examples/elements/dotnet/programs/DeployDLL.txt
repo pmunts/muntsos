@@ -1,0 +1,17 @@
+  <!-- Add the following goop to the bottom of a .Net Core project file to -->
+  <!-- automatically deploy the application DLL and JSON files to the      -->
+  <!-- specified MuntsOS Embedded Linux target board.                      -->
+  <!-- CUT HERE                                                            -->
+
+  <!-- Define the target host -->
+
+  <PropertyGroup>
+    <TargetHost>hostname.domain</TargetHost>
+  </PropertyGroup>
+
+  <!-- Deploy the application DLL and JSON files to the target host (MSBuild/Visual Studio) -->
+
+  <Target Name="DeployDLL" AfterTargets="Build">
+    <exec command="scp $(OutputPath.Replace('\', '/'))/*.dll root@$(TargetHost):." />
+    <exec command="scp $(OutputPath.Replace('\', '/'))/*.runtimeconfig.json root@$(TargetHost):." />
+  </Target>

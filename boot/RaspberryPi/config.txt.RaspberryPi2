@@ -1,0 +1,31 @@
+# Boot Configuration for MuntsOS on Raspberry Pi
+
+kernel=RaspberryPi2.img
+
+# Disable the rainbow splash screen
+disable_splash=1
+
+# Force HDMI video
+hdmi_force_hotplug=1
+
+# Minimize GPU memory
+gpu_mem=16
+
+# Enable I2C and SPI subsystems
+dtparam=i2c=on
+dtparam=spi=on
+
+[pi3]
+# Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
+dtoverlay=disable-bt
+
+# Disable onboard WiFi
+#dtoverlay=disable-wifi
+[all]
+
+# Additional device tree overlays go here.  See ./overlays/README.txt and
+# https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
+# for more information.
+
+#dtoverlay=Pi3ClickShield
+#dtoverlay=pwm

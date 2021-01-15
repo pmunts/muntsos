@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# This script sets up a Debian Linux amd64 machine for developing applications
+# for MuntsOS Embedded Linux
+
+# Copyright (C)2019, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+# Register Munts Technologies Debian package repository
+
+if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
+  wget http://repo.munts.com/debian10/PublicKey.txt && sudo apt-key add PublicKey.txt && rm PublicKey.txt
+  wget http://repo.munts.com/debian10/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+fi
+
+# Install packages
+
+sudo apt-get update
+sudo apt-get install -y openssh-client build-essential git gprbuild man subversion vim
+sudo apt-get install -y muntsos-linaro
+
+# Clone MuntsOS source code repository
+
+if [ ! -d muntsos ]; then
+  git clone https://github.com/pmunts/muntsos.git
+fi

@@ -1,0 +1,36 @@
+<h1>Embedded Linux Application Libraries</h1>
+<p>This directory contains a recipe for building some development libraries for
+a particular MuntsOS target.</p>
+<p>The following libraries are included:</p>
+<ul>
+<li><a href="http://www.gnu.org/software/ncurses">GNU ncurses library</a></li>
+<li><a href="http://www.libusb.org">libusb USB library</a></li>
+<li><a href="http://www.openssl.org">OpenSSL crypto library</a></li>
+<li><a href="http://www.zlib.net">zlib compression library</a></li>
+<li><a href="http://curl.haxx.se/libcurl">libcurl HTTP access library</a></li>
+<li><a href="http://xmlrpc-c.sourceforge.net">xmlrpc-c XML RPC library</a></li>
+<li><a href="http://dev.mysql.com/downloads/connector/c">MySQL database client
+library</a></li>
+<li><a href="http://www.tcpdump.org">libpcap packet capture libarary</a></li>
+<li><a href="http://www.infradead.org/~tgr/libnl">Netlink protocol
+library</a></li>
+<li><a href="https://github.com/alanxz/rabbitmq-c">RabbitMQ AMQP client
+library</a></li>
+<li><a href="https://download.libsodium.org/doc">libsodium crypto
+library</a></li>
+<li><a href="http://zeromq.org">ZeroMQ messaging library</a></li>
+<li><a href="http://www.gnu.org/software/gdbm">gdbm database library</a></li>
+</ul>
+<h2>Installation</h2>
+<p>Build the libraries with:</p>
+<p><tt>make BOARDNAME=RaspberryPi1</tt></p>
+<p>Build installation packages with either of:</p>
+<p><tt>make BOARDNAME=RaspberryPi1 package.deb</tt></p>
+<p><tt>make BOARDNAME=RaspberryPi1 tarball</tt></p>
+<p>Prebuilt toolchain packages are available at: <a href=
+"http://repo.munts.com">http://repo.munts.com</a>.</p>
+<hr>
+Questions or comments to Philip Munts <a href=
+"mailto:phil@munts.net">phil@munts.net</a>
+<p>I am available for custom system development (hardware and software) of
+products based on embedded Linux microcomputers or other processors.</p>

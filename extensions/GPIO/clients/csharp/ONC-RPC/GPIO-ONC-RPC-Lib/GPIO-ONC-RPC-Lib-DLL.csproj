@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPIO_ONC_RPC_Lib</RootNamespace>
+    <AssemblyName>GPIO-ONC-RPC-Lib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>.</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>GPIO-ONC-RPC-Lib.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GPIO-ONC-RPC-Lib.cs" />
+    <Compile Include="gpio_server_oncrpc.cs" />
+    <Compile Include="gpio_server_oncrpcClient.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcAcceptStatus.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcAuthConstants.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcAuthenticationException.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcAuthStatus.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcAuthType.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcBroadcastAdapter.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcBroadcastEvent.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcBroadcastListener.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcCallMessage.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcClient.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcClientAuth.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcClientAuthNone.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcClientAuthUnix.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcClientCallMessage.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcClientReplyMessage.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcClientStub.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcConstants.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcDumpResult.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcException.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcGetPortResult.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcMessage.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcMessageType.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcPortmapClient.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcPortmapServices.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcProgramNotRegisteredException.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcProtocols.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcRejectStatus.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcReplyMessage.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcReplyStatus.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcServerIdent.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcTcpClient.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcTimeoutException.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcUdpClient.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\OncRpcUdpRetransmissionMode.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrAble.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrBoolean.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrBufferDecodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrBufferEncodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrByte.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrBytes.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrChar.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrDecodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrDouble.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrDynamicOpaque.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrEncodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrFloat.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrInt.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrLong.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrOpaque.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrShort.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrString.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrTcpDecodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrTcpEncodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrUdpDecodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrUdpEncodingStream.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrUnion.cs" />
+    <Compile Include="..\..\..\..\..\..\examples\csharp\RemoteTea\XdrVoid.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

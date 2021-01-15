@@ -1,0 +1,105 @@
+/*
+#define CH_MODE_UNUSED			0
+#define CH_MODE_ADC			1
+#define CH_MODE_DAC			2
+#define CH_MODE_DAC_AND_ADC		3
+#define CH_MODE_GPIO			8
+
+#define CH_OFFSTATE_PULLDOWN		0
+#define CH_OFFSTATE_OUT_LOW		1
+#define CH_OFFSTATE_OUT_HIGH		2
+#define CH_OFFSTATE_OUT_TRISTATE	3
+*/
+
+/dts-v1/;
+/plugin/;
+
+/{
+	compatible = "brcm,bcm2708";
+
+	fragment@0 {
+		target = <&i2c>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			ad5593r@10 {
+				#size-cells = <0>;
+				#address-cells = <1>;
+				#gpio-cells = <2>;
+				compatible = "adi,ad5593r";
+				reg = <0x10>;
+				gpio-controller;
+
+				channel0: channel@0 {
+					reg = <0>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+
+				channel1: channel@1 {
+					reg = <1>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+
+				channel2: channel@2 {
+					reg = <2>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+
+				channel3: channel@3 {
+					reg = <3>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+
+				channel4: channel@4 {
+					reg = <4>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+
+				channel5: channel@5 {
+					reg = <5>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+
+				channel6: channel@6 {
+					reg = <6>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+
+				channel7: channel@7 {
+					reg = <7>;
+					adi,mode = <0>;
+					adi,off-state = <0>;
+				};
+			};
+		};
+	};
+
+	__overrides__ {
+		mode0 = <&channel0>,"adi,mode:0";
+		mode1 = <&channel1>,"adi,mode:0";
+		mode2 = <&channel2>,"adi,mode:0";
+		mode3 = <&channel3>,"adi,mode:0";
+		mode4 = <&channel4>,"adi,mode:0";
+		mode5 = <&channel5>,"adi,mode:0";
+		mode6 = <&channel6>,"adi,mode:0";
+		mode7 = <&channel7>,"adi,mode:0";
+
+		offstate0 = <&channel0>,"adi,off-state:0";
+		offstate1 = <&channel1>,"adi,off-state:0";
+		offstate2 = <&channel2>,"adi,off-state:0";
+		offstate3 = <&channel3>,"adi,off-state:0";
+		offstate4 = <&channel4>,"adi,off-state:0";
+		offstate5 = <&channel5>,"adi,off-state:0";
+		offstate6 = <&channel6>,"adi,off-state:0";
+		offstate7 = <&channel7>,"adi,off-state:0";
+	};
+};

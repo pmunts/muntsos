@@ -1,0 +1,80 @@
+{ PIC16F1455 USB HID device with a button on RC3 and an LED on RC4            }
+
+{ Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.             }
+{                                                                             }
+{ Redistribution and use in source and binary forms, with or without          }
+{ modification, are permitted provided that the following conditions are met: }
+{                                                                             }
+{ * Redistributions of source code must retain the above copyright notice,    }
+{   this list of conditions and the following disclaimer.                     }
+{                                                                             }
+{ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" }
+{ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE   }
+{ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE  }
+{ ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   }
+{ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         }
+{ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF        }
+{ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    }
+{ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN     }
+{ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)     }
+{ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE  }
+{ POSSIBILITY OF SUCH DAMAGE.                                                 }
+
+PROGRAM HID_Button_LED;
+
+VAR
+  cmd       : ARRAY [HID_OUTPUT_REPORT_BYTES] OF byte; LDM; ABSOLUTE $0A0;
+  resp      : ARRAY [HID_INPUT_REPORT_BYTES] OF byte; LDM; ABSOLUTE $120;
+  Button    : sbit AT PORTC.b3;
+  LED       : sbit AT LATA.b5;
+  ButtonOld : boolean;
+  ButtonNew : boolean;
+
+  PROCEDURE interrupt();
+
+  BEGIN
+    USB_Interrupt_Proc();
+  END;
+
+BEGIN
+  OSCCON := $FC; { Enable 3x PLL }
+  ANSELA := $00; { PORTA all GPIO }
+  ANSELC := $00; { PORTC all GPIO }
+
+  { Configure button input }
+
+  TRISC.b3 := 1;
+  ButtonOld := NOT Button;
+
+  { Configure LED output }
+
+  TRISA.b5 := 0;
+  LED := 0;
+
+  { Initialize HID library }
+
+  HID_Enable(@cmd, @resp);
+
+  { Main event loop }
+
+  WHILE True DO
+    BEGIN
+      { Send a report to the USB host if the button changed state }
+
+      ButtonNew := NOT Button;
+      IF ButtonNew <> ButtonOld THEN
+        BEGIN
+          memset(@resp, 0, sizeof(resp));
+          resp[0] := ButtonNew;
+          HID_write(@resp, sizeof(resp));
+          ButtonOld := ButtonNew;
+        END;
+
+      { Set LED state per command from the USB host }
+
+      IF HID_read() <> 0 THEN
+        BEGIN
+          LED := cmd[0];
+        END;
+    END;
+END.

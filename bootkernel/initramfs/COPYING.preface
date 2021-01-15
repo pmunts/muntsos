@@ -1,0 +1,15 @@
+               MuntsOS Embedded Linux Kernel Image
+               -----------------------------------
+
+This Linux kernel image is built from many software components that
+are downloaded at build time.  Everything you need to reproduce this
+Linux kernel image is available at:
+
+http://github.com/pmunts/muntsos
+
+It is the opinion of the author that, under prevailing copyright law,
+a program calling functions in a shared library is not a derivative
+work of that library.
+
+The copyright and/or license texts for all of the components that
+comprise this Linux kernel image are included below.

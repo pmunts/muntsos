@@ -1,0 +1,81 @@
+#!/bin/sh
+
+# Script to bring up a WiFi network interface
+
+# You need to tailor this script to specific your WLAN setup, by changing
+# YOURSSID and YOURPASSWD to what is appropriate for your own network.
+
+# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+# Uncomment the following to assign a custom host name (useful for mDNS)
+# Note, however, that this host name may be overwritten by one assigned by
+# a DHCP server.
+
+#if [ ! -f /etc/hostname ]; then
+#echo "YOURHOSTNAME" >/etc/hostname
+#fi
+
+# Create initial /etc/wpa_supplicant.conf, if it doesn't already exist
+
+if [ ! -f /etc/wpa_supplicant.conf ]; then
+cat <<EOD >/etc/wpa_supplicant.conf
+ctrl_interface=DIR=/var/run/wpa_supplicant
+update_config=1
+
+# Edit the one network stanza below that matches your wireless network
+# and delete all of the rest.
+
+# Open network (no password)
+
+network={
+	ssid="YOURSSID"
+        key_mgmt=NONE
+}
+
+# WPA/WPA2 pre-shared key
+
+network={
+        ssid="YOURSSID"
+        key_mgmt=WPA-PSK
+        psk="YOURPASSWORD"
+}
+
+# 64-bit WEP (INSECURE--NOT RECOMMENDED!)
+
+network={
+	ssid="YOURSSID"
+        key_mgmt=NONE
+        wep_key0=0123456789
+}
+
+# 128-bit WEP (INSECURE--NOT RECOMMENDED!)
+
+network={
+	ssid="YOURSSID"
+        key_mgmt=NONE
+        wep_key0=0123456789ABCDEF0123456789
+}
+EOD
+fi
+
+# Dispatch a hotplug event to finish bringing up the wireless network
+
+/usr/libexec/hotplug.script net

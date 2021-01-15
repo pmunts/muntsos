@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# Deconfigure a network interface
+
+# Copyright (C)2018, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+if [ -z "$1" ]; then
+  echo ""
+  echo "Usage: netstop.script <interface>"
+  echo ""
+  exit 1
+fi
+
+# Source some configuration variables
+
+. /etc/platform
+. /etc/network.conf
+
+# Kill processes bound to this interface
+
+if [ -f /var/run/mdnsd.$1.pid ]; then
+  kill -9 `cat /var/run/mdnsd.$1.pid`
+  rm -f /var/run/mdnsd.$1.pid
+fi
+
+if [ -f /var/run/udhcpc.$1.mount ]; then
+  force-umount `cat /var/run/udhcpc.$1.mount`
+  rm -f /var/run/udhcpc.$1.mount
+fi
+
+if [ -f /var/run/udhcpc.$1.pid ]; then
+  kill -9 `cat /var/run/udhcpc.$1.pid`
+  rm -f /var/run/udhcpc.$1.*
+fi
+
+if [ -f /var/run/udhcpd.$1.pid ]; then
+  kill -9 `cat /var/run/udhcpd.$1.pid`
+  rm -f /var/run/udhcpd.$1.*
+fi
+
+# Bring the interface down
+
+ifconfig $1 0.0.0.0 down
+
+# Restart ntpd
+
+if [ $((OPTIONS & 0x08)) -ne 0 ]; then
+  killall -q ntpd
+  ntpd
+fi

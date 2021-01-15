@@ -1,0 +1,134 @@
+<!-- WPF User Interface Specification for the ONC-RPC Missile Launcher Client    -->
+
+<!-- Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.             -->
+<!--                                                                             -->
+<!-- Redistribution and use in source and binary forms, with or without          -->
+<!-- modification, are permitted provided that the following conditions are met: -->
+<!--                                                                             -->
+<!-- * Redistributions of source code must retain the above copyright notice,    -->
+<!--   this list of conditions and the following disclaimer.                     -->
+<!--                                                                             -->
+<!-- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" -->
+<!-- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE   -->
+<!-- IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE  -->
+<!-- ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   -->
+<!-- LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         -->
+<!-- CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF        -->
+<!-- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    -->
+<!-- INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN     -->
+<!-- CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)     -->
+<!-- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE  -->
+<!-- POSSIBILITY OF SUCH DAMAGE.                                                 -->
+
+<Window x:Class="MissileClientWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WPF Missile Client"
+        Height="250"
+        Width="300"
+        ToolTip="WPF Client for the Dream Cheeky Thunder USB Missile Launcher ONC/RPC Server">
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                MinHeight="50" />
+            <RowDefinition
+                MinHeight="50" />
+            <RowDefinition
+                MinHeight="50" />
+            <RowDefinition
+                MinHeight="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                MinWidth="100" />
+            <ColumnDefinition
+                MinWidth="100" />
+            <ColumnDefinition
+                MinWidth="100" />
+        </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            Content="Server Name:"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Height="30"
+            Margin="10,0,0,0" HorizontalContentAlignment="Right" IsHitTestVisible="False" FontSize="13" FontWeight="SemiBold" />
+        <TextBox x:Name="ServerName"
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="3"
+            VerticalAlignment="Center"
+            Height="30"
+            Margin="0,0,10,0"
+            TextWrapping="Wrap"
+            ToolTip="Server IP address or domain name"
+            KeyDown="ServerName_KeyDown" VerticalContentAlignment="Center" FontSize="13" />
+        <Button x:Name="ButtonUp"
+            Content="Up"
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="75"
+            Height="28"
+            Margin="0"
+            ToolTip="Elevate launcher"
+            IsEnabled="False"
+            PreviewMouseDown="HandleMouseDown"
+            PreviewMouseUp="HandleMouseUp" />
+        <Button x:Name="ButtonCCW"
+            Content="CCW"
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="75"
+            Height="28"
+            Margin="0"
+            ToolTip="Turn launcher counter-clockwise"
+            IsEnabled="False"
+            PreviewMouseDown="HandleMouseDown"
+            PreviewMouseUp="HandleMouseUp" />
+        <Button x:Name="ButtonFire"
+            Content="Fire"
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="75"
+            Height="28"
+            Margin="0"
+            ToolTip="Fire a missile"
+            IsEnabled="False"
+            PreviewMouseDown="HandleMouseDown" />
+        <Button x:Name="ButtonCW"
+            Content="CW"
+            Grid.Row="2"
+            Grid.Column="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="75"
+            Height="28"
+            Margin="0"
+            ToolTip="Turn launcher clockwise"
+            IsEnabled="False"
+            PreviewMouseDown="HandleMouseDown"
+            PreviewMouseUp="HandleMouseUp" />
+        <Button x:Name="ButtonDown"
+            Content="Down"
+            Grid.Row="3"
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Width="75"
+            Height="28"
+            Margin="0"
+            ToolTip="Depress launcher"
+            IsEnabled="False"
+            PreviewMouseDown="HandleMouseDown"
+            PreviewMouseUp="HandleMouseUp" />
+    </Grid>
+</Window>

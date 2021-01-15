@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{42C5B7FB-8686-4EB1-B538-C6C33B8E6B41}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPIO_Extension</RootNamespace>
+    <AssemblyName>GPIO-Extension</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>GPIO-Extension.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>.</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>GPIO-Extension.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SmallBasicLibrary">
+      <HintPath>..\..\..\..\..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft\Small Basic\SmallBasicLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcAcceptStatus.cs">
+      <Link>OncRpcAcceptStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcAuthConstants.cs">
+      <Link>OncRpcAuthConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcAuthenticationException.cs">
+      <Link>OncRpcAuthenticationException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcAuthStatus.cs">
+      <Link>OncRpcAuthStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcAuthType.cs">
+      <Link>OncRpcAuthType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcBroadcastAdapter.cs">
+      <Link>OncRpcBroadcastAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcBroadcastEvent.cs">
+      <Link>OncRpcBroadcastEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcBroadcastListener.cs">
+      <Link>OncRpcBroadcastListener.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcCallMessage.cs">
+      <Link>OncRpcCallMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcClient.cs">
+      <Link>OncRpcClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcClientAuth.cs">
+      <Link>OncRpcClientAuth.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcClientAuthNone.cs">
+      <Link>OncRpcClientAuthNone.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcClientAuthUnix.cs">
+      <Link>OncRpcClientAuthUnix.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcClientCallMessage.cs">
+      <Link>OncRpcClientCallMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcClientReplyMessage.cs">
+      <Link>OncRpcClientReplyMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcClientStub.cs">
+      <Link>OncRpcClientStub.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcConstants.cs">
+      <Link>OncRpcConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcDumpResult.cs">
+      <Link>OncRpcDumpResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcException.cs">
+      <Link>OncRpcException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcGetPortResult.cs">
+      <Link>OncRpcGetPortResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcMessage.cs">
+      <Link>OncRpcMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcMessageType.cs">
+      <Link>OncRpcMessageType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcPortmapClient.cs">
+      <Link>OncRpcPortmapClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcPortmapServices.cs">
+      <Link>OncRpcPortmapServices.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcProgramNotRegisteredException.cs">
+      <Link>OncRpcProgramNotRegisteredException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcProtocols.cs">
+      <Link>OncRpcProtocols.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcRejectStatus.cs">
+      <Link>OncRpcRejectStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcReplyMessage.cs">
+      <Link>OncRpcReplyMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcReplyStatus.cs">
+      <Link>OncRpcReplyStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcServerIdent.cs">
+      <Link>OncRpcServerIdent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcTcpClient.cs">
+      <Link>OncRpcTcpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcTimeoutException.cs">
+      <Link>OncRpcTimeoutException.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcUdpClient.cs">
+      <Link>OncRpcUdpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\OncRpcUdpRetransmissionMode.cs">
+      <Link>OncRpcUdpRetransmissionMode.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrAble.cs">
+      <Link>XdrAble.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrBoolean.cs">
+      <Link>XdrBoolean.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrBufferDecodingStream.cs">
+      <Link>XdrBufferDecodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrBufferEncodingStream.cs">
+      <Link>XdrBufferEncodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrByte.cs">
+      <Link>XdrByte.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrBytes.cs">
+      <Link>XdrBytes.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrChar.cs">
+      <Link>XdrChar.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrDecodingStream.cs">
+      <Link>XdrDecodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrDouble.cs">
+      <Link>XdrDouble.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrDynamicOpaque.cs">
+      <Link>XdrDynamicOpaque.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrEncodingStream.cs">
+      <Link>XdrEncodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrFloat.cs">
+      <Link>XdrFloat.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrInt.cs">
+      <Link>XdrInt.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrLong.cs">
+      <Link>XdrLong.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrOpaque.cs">
+      <Link>XdrOpaque.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrShort.cs">
+      <Link>XdrShort.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrString.cs">
+      <Link>XdrString.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrTcpDecodingStream.cs">
+      <Link>XdrTcpDecodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrTcpEncodingStream.cs">
+      <Link>XdrTcpEncodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrUdpDecodingStream.cs">
+      <Link>XdrUdpDecodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrUdpEncodingStream.cs">
+      <Link>XdrUdpEncodingStream.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrUnion.cs">
+      <Link>XdrUnion.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\csharp\ONC-RPC\GPIO-ONC-RPC-Lib\RemoteTea\XdrVoid.cs">
+      <Link>XdrVoid.cs</Link>
+    </Compile>
+    <Compile Include="GPIO-Extension.cs" />
+    <Compile Include="GPIO_DIRECTION.cs" />
+    <Compile Include="exceptions.cs" />
+    <Compile Include="gpio_server_oncrpc.cs" />
+    <Compile Include="gpio_server_oncrpcClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Makefile" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

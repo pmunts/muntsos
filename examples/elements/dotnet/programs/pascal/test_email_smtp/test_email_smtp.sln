@@ -1,0 +1,26 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{656346D9-4656-40DA-A068-22D5425D4639}") = "test_email_smtp", "test_email_smtp.elements", "{0FB5C3D2-E94F-4E8F-8B56-CEEA4DFA2089}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FB5C3D2-E94F-4E8F-8B56-CEEA4DFA2089}.Debug|Default.ActiveCfg = Debug
+		{0FB5C3D2-E94F-4E8F-8B56-CEEA4DFA2089}.Debug|Default.Build.0 = Debug
+		{0FB5C3D2-E94F-4E8F-8B56-CEEA4DFA2089}.Debug|Default.Deploy.0 = Debug
+		{0FB5C3D2-E94F-4E8F-8B56-CEEA4DFA2089}.Release|Default.ActiveCfg = Release
+		{0FB5C3D2-E94F-4E8F-8B56-CEEA4DFA2089}.Release|Default.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5760B2BC-1480-441A-8DBD-4AC4C8FE3FDA}
+	EndGlobalSection
+EndGlobal

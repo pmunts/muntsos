@@ -1,0 +1,59 @@
+#!/bin/sh
+
+# Post-Install script for openvpn
+
+# Copyright (C)2020, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+if [ ! -f /usr/local/etc/openvpn.conf ]; then
+cat <<EOD >/usr/local/etc/openvpn.conf
+user nobody
+group nogroup
+daemon
+dev tun0
+remote fake.bogus.net
+ifconfig 10.0.1.2 10.0.1.1
+auth-nocache
+secret /usr/local/etc/openvpn.key
+inactive 0
+ping 5
+ping-restart 60
+persist-tun
+persist-key
+EOD
+chmod 444 /usr/local/etc/openvpn.conf
+fi
+
+if [ ! -f /usr/local/etc/openvpn.key ]; then
+cat <<EOD >/usr/local/etc/openvpn.key
+Replace this file with a key file.
+EOD
+chmod 400 /usr/local/etc/openvpn.key
+fi
+
+grep -q tun0 /etc/network.conf
+
+if [ $? -ne 0 ]; then
+echo "" >>/etc/network.conf
+echo "# OpenVPN tunnel configuration" >>/etc/network.conf
+echo "" >>/etc/network.conf
+echo tun0_address=10.0.1.2 >>/etc/network.conf
+echo tun0_netmask=255.255.255.255 >>/etc/network.conf
+fi
