@@ -24,7 +24,6 @@ include $(MUNTSOS)/include/ARMv7.mk
 
 BOARDBASE	= BeagleBone
 LOADER		= ld-linux-armhf.so.3
-MUNTSOS		= yes
 PLATFORM_NAME	= beagle
 
 KERNEL_IMGSRC	= zImage

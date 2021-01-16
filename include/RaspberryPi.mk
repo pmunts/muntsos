@@ -27,7 +27,6 @@
 include $(MUNTSOS)/include/ARMv6.mk
 
 LOADER		= ld-linux-armhf.so.3
-MUNTSOS		= yes
 PLATFORM_NAME	= rpi
 
 KERNEL_IMGSRC	= Image

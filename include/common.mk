@@ -22,8 +22,6 @@
 
 .PHONY: common_mk_default
 
-MUNTSOS		:= yes
-
 TEMP		?= /tmp
 
 DOWNLOADPREFIX	?= http://repo.munts.com/muntsos
