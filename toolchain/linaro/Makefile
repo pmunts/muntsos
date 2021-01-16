@@ -1,6 +1,6 @@
 # Makefile for building a Linaro ARM cross-toolchain
 
-# Copyright (C)2015-2017, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2015-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,9 +20,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-EMBLINUXBASE    ?= ../..
+MUNTSOS    ?= ../..
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 ABEURL		= http://git.linaro.org/git/toolchain/abe.git
 

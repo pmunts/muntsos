@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS SSH Thin Server
 
-# Copyright (C)2013-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,11 +21,11 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 BOARDNAME	?= UNDEFINED
-EMBLINUXBASE	?= $(shell pwd)/../..
+MUNTSOS		?= $(shell pwd)/../..
 
 ZIPFILE		= muntsos-$(BOARDNAME).zip
 
-include $(EMBLINUXBASE)/thinservers/common.mk
+include $(MUNTSOS)/thinservers/common.mk
 
 default: prebuilt.done $(ZIPFILE)
 

@@ -1,6 +1,6 @@
 # Makefile for building and packaging a Crosstool-NG cross-toolchain
 
-# Copyright (C)2017-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -23,9 +23,9 @@
 # Note: Set CT_EXTRA_CFLAGS_FOR_HOST="-mcpu=cortex-a7 -mfpu=neon-vfpv4" in
 # each target configuration file when building for 32-bit Raspberry Pi OS.
 
-EMBLINUXBASE    ?= ../..
+MUNTSOS    ?= ../..
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 CTNG		?= ct-ng
 

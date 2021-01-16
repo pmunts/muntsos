@@ -1,8 +1,8 @@
-EMBLINUXBASE	?= $(HOME)/muntsos
+MUNTSOS		?= $(HOME)/muntsos
 
 GPRBUILD	?= no
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
 

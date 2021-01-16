@@ -1,6 +1,6 @@
 # Global definitions for embedded Linux microcomputer framework
 
-# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@ TEMP		?= /tmp
 
 DOWNLOADPREFIX	?= http://repo.munts.com/muntsos
 
-KERNEL_SRC	= $(EMBLINUXBASE)/bootkernel/kernel/$(KERNEL_NAME)
+KERNEL_SRC	= $(MUNTSOS)/bootkernel/kernel/$(KERNEL_NAME)
 KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
 KERNEL_DTS	= $(KERNEL_SRC)/arch/$(ARCH)/boot/dts
 KERNEL_PATCH	= $(BOARDNAME).patch

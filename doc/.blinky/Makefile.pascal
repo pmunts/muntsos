@@ -1,6 +1,6 @@
-EMBLINUXBASE	?= $(HOME)/muntsos
+MUNTSOS		?= $(HOME)/muntsos
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/pascal/include/pascal.mk
 include $(LIBSIMPLEIO)/pascal/include/libsimpleio.mk
 

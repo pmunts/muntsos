@@ -1,6 +1,6 @@
 # Makefile to build C example programs for MuntsOS
 
-# Copyright (C)2015, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2015-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,15 +20,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-EMBLINUXBASE	?= ../../..
+MUNTSOS		?= ../../..
 
 # Modify the following macro to build out of tree
 
-C_SRC		?= $(EMBLINUXBASE)/examples/c
+C_SRC		?= $(MUNTSOS)/examples/c
 
 ifneq ($(BOARDNAME),)
 # Cross-compile for MuntsOS
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 CFLAGS		+= -D$(BOARDNAME)
 else
 # Native compile for Linux

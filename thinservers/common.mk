@@ -21,9 +21,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 ifeq ($(BOARDNAME), RaspberryPiGadget)
-include $(EMBLINUXBASE)/include/RaspberryPi.mk
+include $(MUNTSOS)/include/RaspberryPi.mk
 else
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 endif
 
 ifeq ($(BOARDNAME), RaspberryPi)
@@ -62,7 +62,7 @@ common_mk_default: default
 # Download prebuilt binaries
 
 common_mk_prebuilt:
-	for T in $(BOARDS) ; do $(MAKE) -C $(EMBLINUXBASE)/bootkernel download_prebuilt EMBLINUXBASE=$(EMBLINUXBASE) BOARDNAME=$$T ; done
+	for T in $(BOARDS) ; do $(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$$T ; done
 
 ###############################################################################
 
@@ -74,12 +74,12 @@ common_mk_populate:
 	mkdir -p					$(ZIPDIR)/tarballs
 	for S in $(BASES) ; do mkdir -p $(ZIPDIR)/packages/$$S ; done
 	for B in $(BOOTFILES) ; do $(TAR) xzf $(BOOTFILESDIR)/$$B -C $(ZIPDIR) ; done
-	for K in $(BOARDS) ; do $(TAR) xzf $(EMBLINUXBASE)/bootkernel/$$K-Kernel.tgz --skip-old-files -C $(ZIPDIR) ; done
+	for K in $(BOARDS) ; do $(TAR) xzf $(MUNTSOS)/bootkernel/$$K-Kernel.tgz --skip-old-files -C $(ZIPDIR) ; done
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	cp $(BOOTFILESDIR)/cmdline.txt.$(BOARDNAME)	$(ZIPDIR)/cmdline.txt
 endif
 	cp $(BOOTFILESDIR)/config.txt.$(BOARDNAME)	$(ZIPDIR)/config.txt
-	cp $(EMBLINUXBASE)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d
+	cp $(MUNTSOS)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d
 	find $(ZIPDIR) -type f -exec chmod 644 {} ";"
 	find $(ZIPDIR)/autoexec.d -type f -exec chmod 755 {} ";"
 	cd $(ZIPDIR) ; find * -type f -exec md5sum -b {} ";" | sort -k 2 | grep -v checksums >checksums.md5
@@ -101,8 +101,8 @@ common_mk_clean:
 	rm -rf $(ZIPFILE) $(ZIPDIR) populate.done
 
 common_mk_reallyclean: common_mk_clean
-	for T in $(BOARDS) ; do $(MAKE) -C $(EMBLINUXBASE)/bootkernel clean EMBLINUXBASE=$(EMBLINUXBASE) BOARDNAME=$$T ; done
+	for T in $(BOARDS) ; do $(MAKE) -C $(MUNTSOS)/bootkernel clean MUNTSOS=$(MUNTSOS) BOARDNAME=$$T ; done
 
 common_mk_distclean: common_mk_reallyclean
-	for T in $(BOARDS) ; do $(MAKE) -C $(EMBLINUXBASE)/bootkernel reallyclean EMBLINUXBASE=$(EMBLINUXBASE) BOARDNAME=$$T ; done
+	for T in $(BOARDS) ; do $(MAKE) -C $(MUNTSOS)/bootkernel reallyclean MUNTSOS=$(MUNTSOS) BOARDNAME=$$T ; done
 	rm -rf prebuilt.done

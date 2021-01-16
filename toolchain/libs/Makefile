@@ -1,6 +1,6 @@
 # Makefile for application libraries for an embedded Linux system
 
-# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,11 +20,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-EMBLINUXBASE	?= ../..
+MUNTSOS		?= ../..
 
 BUILDNUM	?= 1
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)

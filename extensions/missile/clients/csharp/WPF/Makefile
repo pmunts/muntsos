@@ -1,6 +1,6 @@
 # Makefile for building the WPF Missile Launcher Client
 
-# Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,8 +22,8 @@
 
 # Override the following macros to build out of tree
 
-EMBLINUXBASE		?= ../../../../..
-CSHARPSRC		?= $(EMBLINUXBASE)/examples/csharp
+MUNTSOS			?= ../../../../..
+CSHARPSRC		?= $(MUNTSOS)/examples/csharp
 
 default: MissileClientWPF.exe
 

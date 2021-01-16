@@ -1,6 +1,6 @@
 # Global make definitions for Raspberry Pi BCM283x ARM Linux microcomputer
 
-# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -24,7 +24,7 @@
 # base upon which software for the newer boards is built.  Their makefiles
 # will include this one and override macros as necessary.
 
-include $(EMBLINUXBASE)/include/ARMv6.mk
+include $(MUNTSOS)/include/ARMv6.mk
 
 LOADER		= ld-linux-armhf.so.3
 MUNTSOS		= yes
@@ -38,8 +38,8 @@ KERNEL_OVL	+= pwm pwm-2chan
 KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
 KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
-BOOTFILESDIR	= $(EMBLINUXBASE)/boot/RaspberryPi
-BOOTKERNELDIR	= $(EMBLINUXBASE)/bootkernel
+BOOTFILESDIR	= $(MUNTSOS)/boot/RaspberryPi
+BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 # Definitions for the Raspberry Pi kernel repository
@@ -52,7 +52,7 @@ KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tar.bz2
 
 TOOLCHAIN_BUILDER ?= crosstool
 
-include $(EMBLINUXBASE)/include/common.mk
-include $(EMBLINUXBASE)/include/$(TOOLCHAIN_BUILDER).mk
+include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 CFLAGS		+= -DRASPBERRYPI

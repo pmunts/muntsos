@@ -1,6 +1,6 @@
 # Makefile for building a dedicated GPIO server package for MuntsOS
 
-# Copyright (C)2014-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2014-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,12 +21,12 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 BOARDNAME	?= UNDEFINED
-EMBLINUXBASE	?= $(shell pwd)/../..
+MUNTSOS		?= $(shell pwd)/../..
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-BUILDFLAGS	:= BOARDNAME=$(BOARDNAME) EMBLINUXBASE=$(EMBLINUXBASE)
+BUILDFLAGS	:= BOARDNAME=$(BOARDNAME) MUNTSOS=$(MUNTSOS)
 OSNAME		:= muntsos-$(BOARDNAME)
 PKGNAME		:= GPIO-server
 PKGVERSION	:= $(shell date +%Y.%j)
@@ -45,7 +45,7 @@ subordinates.done:
 	$(MAKE) -C linx		$(BUILDFLAGS)
 	$(MAKE) -C onc-rpc	$(BUILDFLAGS)
 	$(MAKE) -C xml-rpc	$(BUILDFLAGS)
-	$(MAKE) -C $(EMBLINUXBASE)/examples/ada/programs remoteio_server $(BUILDFLAGS)
+	$(MAKE) -C $(MUNTSOS)/examples/ada/programs remoteio_server $(BUILDFLAGS)
 	touch $@
 
 ###############################################################################
@@ -73,7 +73,7 @@ $(PKGDIR): subordinates.done
 	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_xmltok.so.3		$@/usr/local/lib
 	install -cm 0755 http/gpio_server_http					$@/usr/local/libexec
 	install -cm 0755 linx/gpio_server_linx					$@/usr/local/libexec
-	install -cm 0755 $(EMBLINUXBASE)/examples/ada/programs/remoteio_server	$@/usr/local/libexec
+	install -cm 0755 $(MUNTSOS)/examples/ada/programs/remoteio_server	$@/usr/local/libexec
 	install -cm 0755 onc-rpc/gpio_server_oncrpc				$@/usr/local/libexec
 	install -cm 0755 xml-rpc/gpio_server_xmlrpc				$@/usr/local/libexec
 	find $@ -type f -exec $(CROSS_COMPILE)strip {} ";" >/dev/null 2>&1
@@ -100,7 +100,7 @@ clean:
 	$(MAKE) -C linx    clean	$(BUILDFLAGS)
 	$(MAKE) -C onc-rpc clean	$(BUILDFLAGS)
 	$(MAKE) -C xml-rpc clean	$(BUILDFLAGS)
-	$(MAKE) -C $(EMBLINUXBASE)/examples/ada/programs clean $(BUILDFLAGS)
+	$(MAKE) -C $(MUNTSOS)/examples/ada/programs clean $(BUILDFLAGS)
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -rf $(PKGFILE) ; fi
 
 reallyclean: clean

@@ -1,6 +1,6 @@
 # Makefile to build GPIO ONC-RPC client program
 
-# Copyright (C)2013-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,8 +22,8 @@
 
 ifneq ($(BOARDNAME),)
 # Cross-compile for MuntsOS
-EMBLINUXBASE	?= ../../../../..
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+MUNTSOS		?= ../../../../..
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 endif
 
 PROGRAMS	= Button_And_LED Toggle_Speed

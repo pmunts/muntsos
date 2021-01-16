@@ -1,6 +1,6 @@
 # Global make definitions for the BeagleBone ARM Linux microcomputer
 
-# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(EMBLINUXBASE)/include/ARMv7.mk
+include $(MUNTSOS)/include/ARMv7.mk
 
 BOARDBASE	= BeagleBone
 LOADER		= ld-linux-armhf.so.3
@@ -38,8 +38,8 @@ KERNEL_DTB	+= am335x-pocketbeagle
 KERNEL_DTB	+= am335x-sancloud-bbe
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
-BOOTFILESDIR	= $(EMBLINUXBASE)/boot/BeagleBone
-BOOTKERNELDIR	= $(EMBLINUXBASE)/bootkernel
+BOOTFILESDIR	= $(MUNTSOS)/boot/BeagleBone
+BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 # Definitions for the Beagleboard kernel repository
@@ -52,7 +52,7 @@ KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tar.bz2
 
 TOOLCHAIN_BUILDER ?= crosstool
 
-include $(EMBLINUXBASE)/include/common.mk
-include $(EMBLINUXBASE)/include/$(TOOLCHAIN_BUILDER).mk
+include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 CFLAGS		+= -DBEAGLEBONE

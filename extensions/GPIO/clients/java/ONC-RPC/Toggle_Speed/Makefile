@@ -1,6 +1,6 @@
 # Makefile for building a Java application for MuntsOS
 
-# Copyright (C)2017-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,11 +22,11 @@
 
 # Override the following macro to build out of tree
 
-EMBLINUXBASE	?= ../../../../../..
+MUNTSOS		?= ../../../../../..
 
 ifneq ($(BOARDNAME),)
 # Cross compile for MuntsOS
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 else
 # Native compile for Linux
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
@@ -34,14 +34,14 @@ endif
 
 include $(LIBSIMPLEIO)/java/include/java.mk
 
-JAVAC_CLASSPATH	:= .:$(LIBSIMPLEIO)/java/classes:$(EMBLINUXBASE)/examples/java/classes
+JAVAC_CLASSPATH	:= .:$(LIBSIMPLEIO)/java/classes:$(MUNTSOS)/examples/java/classes
 
 JAR_COMPONENTS	+= com org
 
 # Build the applicaton JAR file
 
 default:
-	jar xf $(EMBLINUXBASE)/examples/java/components/oncrpc.jar org/acplt/oncrpc
+	jar xf $(MUNTSOS)/examples/java/components/oncrpc.jar org/acplt/oncrpc
 	$(MAKE) Toggle_Speed.jar
 
 # Remove working files

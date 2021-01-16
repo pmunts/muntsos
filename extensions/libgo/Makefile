@@ -21,9 +21,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 BOARDNAME	?= UNDEFINED
-EMBLINUXBASE	?= $(shell pwd)/../..
+MUNTSOS		?= $(shell pwd)/../..
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
 OSNAME		= muntsos-$(BOARDNAME)

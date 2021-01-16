@@ -1,6 +1,6 @@
 # Makefile for building Ada example programs
 
-# Copyright (C)2018-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,11 +22,11 @@
 
 # Override the following macro to build out of tree
 
-EMBLINUXBASE	?= ../../..
+MUNTSOS		?= ../../..
 
 ifneq ($(BOARDNAME),)
 # Cross compile for MuntsOS
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 else
 # Native compile for Linux
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
@@ -35,7 +35,7 @@ endif
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
 include $(LIBSIMPLEIO)/ada/include/remoteio.mk
-include $(EMBLINUXBASE)/examples/ada/include/examples.mk
+include $(MUNTSOS)/examples/ada/include/examples.mk
 
 # Compile the test programs
 

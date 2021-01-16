@@ -1,4 +1,4 @@
-# Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,7 +20,7 @@
 
 # Override the following macro to build out of tree
 
-EMBLINUXBASE		?= $(shell pwd)/../../../../..
+MUNTSOS			?= $(shell pwd)/../../../../..
 
 INNOSETUPCOMPILER	?= iscc
 APPVERSION		:= $(shell date +%Y.%j)
@@ -30,7 +30,7 @@ default: installer
 # Build the installer
 
 installer:
-	cp $(EMBLINUXBASE)/extensions/GPIO/clients/csharp/ONC-RPC/GPIO-ONC-RPC-Lib/prebuilt/GPIO-ONC-RPC-Lib.dll .
+	cp $(MUNTSOS)/extensions/GPIO/clients/csharp/ONC-RPC/GPIO-ONC-RPC-Lib/prebuilt/GPIO-ONC-RPC-Lib.dll .
 	cp build/*.exe .
 	$(INNOSETUPCOMPILER) /dAPPVERSION=$(APPVERSION) installer.iss
 

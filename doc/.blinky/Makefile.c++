@@ -1,10 +1,10 @@
-EMBLINUXBASE	?= $(HOME)/muntsos
+MUNTSOS		?= $(HOME)/muntsos
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/c++/include/c++.mk
 include $(LIBSIMPLEIO)/c++/include/libsimpleio.mk
 
-CXXFLAGS	+= -I$(EMBLINUXBASE)/examples/c++/lib
+CXXFLAGS	+= -I$(MUNTSOS)/examples/c++/lib
 
 default: blinky
 

@@ -1,6 +1,6 @@
 # Makefile for building a GPIO server offering ONC-RPC
 
-# Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,9 +21,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 BOARDNAME	?= UNDEFINED
-EMBLINUXBASE	?= $(shell pwd)/../../..
+MUNTSOS		?= $(shell pwd)/../../..
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 CFLAGS		= -Wall -D$(BOARDNAME) -I.. -I$(GCCSYSROOT)/usr/include/tirpc
 ifneq ($(findstring RaspberryPi,$(BOARDNAME)),)

@@ -1,6 +1,6 @@
 # Generic Makefile template for building C# applications
 
-# Copyright (C)2014-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2014-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,8 +22,8 @@
 
 # Override the following macros to build out of tree
 
-EMBLINUXBASE	?= $(shell pwd)/../../../../../..
-CSHARPSRC	?= $(EMBLINUXBASE)/examples/csharp
+MUNTSOS		?= $(shell pwd)/../../../../../..
+CSHARPSRC	?= $(MUNTSOS)/examples/csharp
 
 RPCGEN		= mono $(CSHARPSRC)/utilities/jrpcgen.exe -noserver
 CONFIGURATION	= Release
@@ -58,7 +58,7 @@ endif
 # Compile RPC definitions
 
 gpio_server_oncrpc.cs:
-	cp $(EMBLINUXBASE)/extensions/GPIO/onc-rpc/gpio_server_oncrpc.x .
+	cp $(MUNTSOS)/extensions/GPIO/onc-rpc/gpio_server_oncrpc.x .
 	$(RPCGEN) gpio_server_oncrpc.x
 	rm gpio_server_oncrpc.x
 

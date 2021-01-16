@@ -1,6 +1,6 @@
 # Makefile for building the Small Basic GPIO Client Extension
 
-# Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,8 +22,8 @@
 
 # Override the following macros to build out of tree
 
-EMBLINUXBASE		?= ../../../../../..
-CSHARPSRC		?= $(EMBLINUXBASE)/examples/csharp
+MUNTSOS			?= ../../../../../..
+CSHARPSRC		?= $(MUNTSOS)/examples/csharp
 
 RPCGEN			= mono $(CSHARPSRC)/utilities/jrpcgen.exe -noserver
 CONFIGURATION		= Release
@@ -37,7 +37,7 @@ default: installer
 # Compile RPC definitions
 
 gpio_server_oncrpc.cs:
-	cp $(EMBLINUXBASE)/extensions/GPIO/gpio_server_oncrpc.x .
+	cp $(MUNTSOS)/extensions/GPIO/gpio_server_oncrpc.x .
 	$(RPCGEN) gpio_server_oncrpc.x
 	rm gpio_server_oncrpc.x
 

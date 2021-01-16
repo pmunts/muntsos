@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS SSH Thin Server
 
-# Copyright (C)2013-2019, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,20 +21,20 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 BOARDNAME	?= UNDEFINED
-EMBLINUXBASE	?= $(shell pwd)/../..
+MUNTSOS		?= $(shell pwd)/../..
 
 THINSERVERNAME	= gpio-server
-EXTPKGDIR	= $(EMBLINUXBASE)/extensions/GPIO
+EXTPKGDIR	= $(MUNTSOS)/extensions/GPIO
 EXTPKGPREFIX	= $(EXTPKGDIR)/GPIO-server-muntsos
 
-include $(EMBLINUXBASE)/thinservers/common.mk
+include $(MUNTSOS)/thinservers/common.mk
 
 default: prebuilt.done $(ZIPFILE)
 
 download_prebuilt: prebuilt.done
 
 prebuilt.done: common_mk_prebuilt
-	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR) download_prebuilt EMBLINUXBASE=$(EMBLINUXBASE) BOARDNAME=$$B ; done
+	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR) download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
 	touch $@
 
 populate.done: common_mk_populate
@@ -46,4 +46,4 @@ clean: common_mk_clean
 reallyclean: clean common_mk_reallyclean
 
 distclean: reallyclean common_mk_distclean
-	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR) reallyclean EMBLINUXBASE=$(EMBLINUXBASE) BOARDNAME=$$B ; done
+	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR) reallyclean MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done

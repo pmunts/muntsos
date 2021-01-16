@@ -1,6 +1,6 @@
 # Makefile for building Pascal example programs for MuntsOS
 
-# Copyright (C)2013-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,11 +22,11 @@
 
 # Override the following macro to build out of tree
 
-EMBLINUXBASE	?= ../../..
+MUNTSOS		?= ../../..
 
 ifneq ($(BOARDNAME),)
 # Cross compile for MuntsOS
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 else
 # Native compile for Linux
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
@@ -35,7 +35,7 @@ endif
 include $(LIBSIMPLEIO)/pascal/include/pascal.mk
 include $(LIBSIMPLEIO)/pascal/include/libsimpleio.mk
 
-FPC_FLAGS	+= -Fu$(EMBLINUXBASE)/examples/pascal/units
+FPC_FLAGS	+= -Fu$(MUNTSOS)/examples/pascal/units
 
 # Compile the test programs
 

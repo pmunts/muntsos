@@ -1,6 +1,6 @@
 # Global make definitions for Raspberry Pi 4 BCM2711 ARM Linux microcomputer
 
-# Copyright (C)2019-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2019-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,8 +20,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(EMBLINUXBASE)/include/RaspberryPi.mk
-include $(EMBLINUXBASE)/include/AArch64.mk
+include $(MUNTSOS)/include/RaspberryPi.mk
+include $(MUNTSOS)/include/AArch64.mk
 
 BOARDBASE	= RaspberryPi3
 

@@ -20,8 +20,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(EMBLINUXBASE)/include/RaspberryPi.mk
-include $(EMBLINUXBASE)/include/AArch64.mk
+include $(MUNTSOS)/include/RaspberryPi.mk
+include $(MUNTSOS)/include/AArch64.mk
 
 BOARDBASE	= RaspberryPi3
 

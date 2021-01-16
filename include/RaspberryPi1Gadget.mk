@@ -1,6 +1,6 @@
 # Global make definitions for Raspberry Pi 1 BCM2835 ARM Linux microcomputer
 
-# Copyright (C)2013-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(EMBLINUXBASE)/include/RaspberryPi.mk
+include $(MUNTSOS)/include/RaspberryPi.mk
 
 BOARDBASE	= RaspberryPi1
 

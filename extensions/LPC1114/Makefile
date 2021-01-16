@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS LPC1114 I/O Processor extension package
 
-# Copyright (C)2017-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,10 +22,10 @@
 
 ARMSRC		?= $(HOME)/arm-mcu
 BOARDNAME	?= UNDEFINED
-EMBLINUXBASE	?= ../..
+MUNTSOS		?= ../..
 RASPBERRYPI_LPC1114_SRC	?= $(HOME)/rpi-mcu/expansion/LPC1114/src
 
-include $(EMBLINUXBASE)/include/$(BOARDNAME).mk
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
 OSNAME		:= muntsos-$(BOARDNAME)

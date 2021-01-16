@@ -1,6 +1,6 @@
 # Makefile for building Free Pascal application programs
 
-# Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,11 +20,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-EMBLINUXBASE	?= ../../../../..
+MUNTSOS		?= ../../../../..
 
 # Override the following macro to build out of tree
 
-PASCAL_SRC	?= $(EMBLINUXBASE)/examples/pascal
+PASCAL_SRC	?= $(MUNTSOS)/examples/pascal
 
 include $(PASCAL_SRC)/include/pascal.mk
 
