@@ -1,6 +1,6 @@
 -- MuntsOS Remote I/O Server for Raspberry Pi & Qwiic HAT
 
--- Copyright (C)2018-2019, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:

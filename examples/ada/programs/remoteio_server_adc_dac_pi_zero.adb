@@ -3,7 +3,7 @@
 
 -- https://www.abelectronics.co.uk/p/74/adc-dac-pi-zero-raspberry-pi-adc-and-dac-expansion-board
 
--- Copyright (C)2018-2019, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
