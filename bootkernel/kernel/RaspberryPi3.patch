@@ -1,9 +1,10 @@
---- Makefile.orig	2020-09-30 14:37:00.000000000 -0700
-+++ Makefile	2020-10-01 10:04:02.509714288 -0700
-@@ -1356,7 +1356,6 @@
+--- Makefile.orig	2021-01-25 10:25:08.000000000 -0800
++++ Makefile	2021-01-27 11:28:00.345189031 -0800
+@@ -1429,8 +1429,6 @@
+ 		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
- 	@sed 's:^:kernel/:' modules.builtin > $(MODLIB)/modules.builtin
+-	@cp -f modules.builtin $(MODLIB)/
 -	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
  

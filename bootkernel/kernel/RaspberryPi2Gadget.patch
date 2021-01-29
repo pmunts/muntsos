@@ -1,16 +1,18 @@
 --- Makefile.orig	2020-09-30 14:37:00.000000000 -0700
-+++ Makefile	2020-10-01 10:04:02.509714288 -0700
-@@ -1356,7 +1356,6 @@
+--- Makefile.orig	2021-01-25 10:25:08.000000000 -0800
++++ Makefile	2021-01-27 11:28:00.345189031 -0800
+@@ -1429,8 +1429,6 @@
+ 		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
- 	@sed 's:^:kernel/:' modules.builtin > $(MODLIB)/modules.builtin
+-	@cp -f modules.builtin $(MODLIB)/
 -	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
  
  # This depmod is only for convenience to give the initial
---- arch/arm/Kconfig.orig	2020-10-02 07:46:16.000000000 -0700
-+++ arch/arm/Kconfig	2020-10-06 20:57:37.952885452 -0700
-@@ -89,11 +89,6 @@
+--- arch/arm/Kconfig.orig	2021-01-25 10:25:08.000000000 -0800
++++ arch/arm/Kconfig	2021-01-27 17:16:08.126244888 -0800
+@@ -91,11 +91,6 @@
  	select HAVE_HW_BREAKPOINT if PERF_EVENTS && (CPU_V6 || CPU_V6K || CPU_V7)
  	select HAVE_IDE if PCI || ISA || PCMCIA
  	select HAVE_IRQ_TIME_ACCOUNTING
@@ -82,9 +84,9 @@
  	status = platform_driver_probe(&hidg_plat_driver,
  				hidg_plat_driver_probe);
  	if (status < 0)
---- drivers/usb/dwc2/gadget.c.orig	2020-07-24 15:47:31.467144347 -0700
-+++ drivers/usb/dwc2/gadget.c	2020-07-24 15:54:47.949292864 -0700
-@@ -3359,6 +3359,8 @@
+--- drivers/usb/dwc2/gadget.c.orig	2021-01-25 10:25:08.000000000 -0800
++++ drivers/usb/dwc2/gadget.c	2021-01-27 15:28:03.281333022 -0800
+@@ -3384,6 +3384,8 @@
  	usbcfg &= ~GUSBCFG_TOUTCAL_MASK;
  	usbcfg |= GUSBCFG_TOUTCAL(7);
  

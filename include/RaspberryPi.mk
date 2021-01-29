@@ -46,7 +46,7 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 KERNEL_REPOSITORY = http://github.com/raspberrypi/linux.git
 KERNEL_NAME	= linux-$(PLATFORM_NAME)
 KERNEL_CLONE	= /usr/src/$(KERNEL_NAME)
-KERNEL_BRANCH	= rpi-5.4.y
+KERNEL_BRANCH	= rpi-5.10.y
 KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tar.bz2
 
 TOOLCHAIN_BUILDER ?= crosstool
