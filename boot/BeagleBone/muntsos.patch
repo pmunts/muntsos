@@ -89,7 +89,7 @@
 +	"load mmc ${mmcdev}:1 0x80000000 boards.img; "			\
 +	"source 0x80000000};"						\
 +	"echo; "							\
-+	"setenv CMDLINE console=${console} quiet OPTIONS=0x072C; "	\
++	"setenv CMDLINE console=${console} quiet OPTIONS=0x032C; "	\
 +	"echo Loading MuntsOS boot configuration file config.txt; "	\
 +	"load mmc ${mmcdev}:1 0x80000000 config.txt; "			\
 +	"env import -t -r 0x80000000 ${filesize}; "			\

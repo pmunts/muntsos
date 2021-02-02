@@ -1,1 +1,1 @@
-console=tty1 quiet BOOTPART=mmcblk0p1 OPTIONS=0x072C
+console=tty1 quiet BOOTPART=mmcblk0p1 OPTIONS=0x032C
