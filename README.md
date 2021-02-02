@@ -21,6 +21,13 @@ News
     Also added support to **`sysconfig`** for updating previously
     installed extension packages when newer packages have been released.
 -   12 January 2021 -- Upgraded the .Net runtime to 5.0.2.
+-   15 January 2021 -- Renamed the **`EMBLINUXBASE`** environment
+    variable to **`MUNTSOS`**.
+-   20 January 2021 -- Added [XML-RPC](http://xmlrpc.com) client and
+    server shared library extension packages.
+-   2 February 2021 -- Upgraded the BeagleBone kernel to 5.4.87.
+    Upgraded the Raspberry Pi kernel to 5.10.11. Upgraded BusyBox to
+    1.32.1, ethtool to 5.10, mailutils to 3.11.1, and nano to 5.5.
 
 Embedded Linux Distribution in a Kernel
 ---------------------------------------
