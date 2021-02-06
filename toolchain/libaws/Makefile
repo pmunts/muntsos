@@ -73,5 +73,11 @@ package.deb: libaws.a
 
 ###############################################################################
 
+# Remove working files
+
 clean:
 	rm -rf *.a obj $(PKGDIR) $(PKGFILE) src/aws-os_lib.ads
+
+reallyclean: clean
+
+distclean: reallyclean
