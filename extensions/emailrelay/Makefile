@@ -60,7 +60,7 @@ src.done: $(SRCDIST)
 # Compile sources
 
 build.done: src.done
-	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) --disable-ipv6 CXX=$(CROSS_COMPILE)g++
+	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) --disable-gui --disable-ipv6 CXX=$(CROSS_COMPILE)g++
 	$(MAKE) -C $(SRCDIR)
 	touch $@
 
