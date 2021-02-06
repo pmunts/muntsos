@@ -38,7 +38,7 @@ NCURSES_URL	= $(NCURSES_SERVER)/$(NCURSES_TARBALL)
 NCURSES_DIST	= $(TEMP)/$(NCURSES_TARBALL)
 
 LIBUSB_NAME	= libusb
-LIBUSB_VER	= 1.0.23
+LIBUSB_VER	= 1.0.24
 LIBUSB_SRC	= $(LIBUSB_NAME)-$(LIBUSB_VER)
 LIBUSB_TARBALL	= $(LIBUSB_NAME)-$(LIBUSB_VER).tar.bz2
 LIBUSB_SERVER	= https://github.com/libusb/libusb/releases/download/v$(LIBUSB_VER)
@@ -54,7 +54,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(TEMP)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 1.1.1h
+OPENSSL_VER	= 1.1.1i
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -71,15 +71,15 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(TEMP)/$(ZLIB_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 7.73.0
+CURL_VER	= 7.75.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
-CURL_SERVER	= http://curl.haxx.se/download
+CURL_SERVER	= http://curl.se/download
 CURL_URL	= $(CURL_SERVER)/$(CURL_TARBALL)
 CURL_DIST	= $(TEMP)/$(CURL_TARBALL)
 
 TIRPC_NAME	= libtirpc
-TIRPC_VER	= 1.2.6
+TIRPC_VER	= 1.3.1
 TIRPC_SRC	= libtirpc-$(TIRPC_VER)
 TIRPC_TARBALL	= libtirpc-$(TIRPC_VER).tar.bz2
 TIRPC_SERVER	= http://sourceforge.net/projects/libtirpc/files/libtirpc
@@ -93,7 +93,7 @@ XMLRPC_C_URL	= http://svn.code.sf.net/p/xmlrpc-c/code/stable
 XMLRPC_C_DIST	= $(TEMP)/$(XMLRPC_C_TARBALL)
 
 LIBPCAP_NAME	= libpcap
-LIBPCAP_VER	= 1.9.1
+LIBPCAP_VER	= 1.10.0
 LIBPCAP_SRC	= $(LIBPCAP_NAME)-$(LIBPCAP_VER)
 LIBPCAP_TARBALL	= $(LIBPCAP_SRC).tar.gz
 LIBPCAP_SERVER	= http://www.tcpdump.org/release
@@ -128,12 +128,20 @@ LIBMYSQLCLIENT_URL	= $(LIBMYSQLCLIENT_SERVER)/$(LIBMYSQLCLIENT_TARBALL)
 LIBMYSQLCLIENT_DIST	= $(TEMP)/$(LIBMYSQLCLIENT_TARBALL)
 
 GDBM_NAME	= gdbm
-GDBM_VER	= 1.18.1
+GDBM_VER	= 1.19
 GDBM_SRC	= $(GDBM_NAME)-$(GDBM_VER)
 GDBM_TARBALL	= $(GDBM_NAME)-$(GDBM_VER).tar.gz
 GDBM_SERVER	= http://ftp.gnu.org/pub/gnu/gdbm
 GDBM_URL	= $(GDBM_SERVER)/$(GDBM_TARBALL)
 GDBM_DIST	= $(TEMP)/$(GDBM_TARBALL)
+
+MQTT_NAME	= paho.mqtt.c
+MQTT_VER	= 1.3.8
+MQTT_SRC	= $(MQTT_NAME)-$(MQTT_VER)
+MQTT_TARBALL	= v$(MQTT_VER).tar.gz
+MQTT_SERVER	= https://github.com/eclipse/paho.mqtt.c/archive
+MQTT_URL	= $(MQTT_SERVER)/$(MQTT_TARBALL)
+MQTT_DIST	= $(TEMP)/$(MQTT_SRC).tar.gz
 
 RABBITMQ_NAME	= rabbitmq-c
 RABBITMQ_VER	= 0.10.0
@@ -144,7 +152,7 @@ RABBITMQ_URL	= $(RABBITMQ_SERVER)/$(RABBITMQ_TARBALL)
 RABBITMQ_DIST	= $(TEMP)/$(RABBITMQ_TARBALL)
 
 ZEROMQ_NAME	= zeromq
-ZEROMQ_VER	= 4.3.2
+ZEROMQ_VER	= 4.3.4
 ZEROMQ_SRC	= $(ZEROMQ_NAME)-$(ZEROMQ_VER)
 ZEROMQ_TARBALL	= $(ZEROMQ_NAME)-$(ZEROMQ_VER).tar.gz
 ZEROMQ_SERVER	= https://github.com/zeromq/libzmq/releases/download/v$(ZEROMQ_VER)
@@ -162,9 +170,9 @@ MODBUS_DIST	= $(TEMP)/$(MODBUS_TARBALL)
 DESTDIR		= $(shell pwd)
 INSTALLDIR	= gcc-$(TOOLCHAIN_NAME)-libs
 
-SUBORDINATES	= ncurses libusb hidapi openssl zlib curl tirpc xmlrpc libpcap libmnl libnl libsodium libmysqlclient gdbm rabbitmq zeromq modbus
-SRCDIRS		= $(NCURSES_SRC) $(LIBUSB_SRC) $(HIDAPI_SRC) $(OPENSSL_SRC) $(ZLIB_SRC) $(CURL_SRC) $(TIRPC_SRC) $(XMLRPC_C_SRC) $(LIBPCAP_SRC) $(LIBMNL_SRC) $(LIBNL_SRC) $(LIBSODIUM_SRC) $(LIBMYSQLCLIENT_SRC) $(GDBM_SRC) $(RABBITMQ_SRC) $(ZEROMQ_SRC) $(MODBUS_SRC)
-DISTFILES	= $(NCURSES_DIST) $(LIBUSB_DIST) $(HIDAPI_DIST) $(OPENSSL_DIST) $(ZLIB_DIST) $(CURL_DIST) $(TIRPC_DIST) $(XMLRPC_C_DIST) $(LIBPCAP_DIST) $(LIBNL_DIST) $(LIBSODIUM_DIST) $(LIBMYSQLCLIENT_DIST) $(GDBM_DIST) $(RABBITMQ_DIST) $(ZEROMQ_DIST) $(MODBUS_DIST)
+SUBORDINATES	= ncurses libusb hidapi openssl zlib curl tirpc xmlrpc libpcap libmnl libnl libsodium libmysqlclient gdbm mqtt rabbitmq zeromq modbus
+SRCDIRS		= $(NCURSES_SRC) $(LIBUSB_SRC) $(HIDAPI_SRC) $(OPENSSL_SRC) $(ZLIB_SRC) $(CURL_SRC) $(TIRPC_SRC) $(XMLRPC_C_SRC) $(LIBPCAP_SRC) $(LIBMNL_SRC) $(LIBNL_SRC) $(LIBSODIUM_SRC) $(LIBMYSQLCLIENT_SRC) $(GDBM_SRC) $(MQTT_SRC) $(RABBITMQ_SRC) $(ZEROMQ_SRC) $(MODBUS_SRC)
+DISTFILES	= $(NCURSES_DIST) $(LIBUSB_DIST) $(HIDAPI_DIST) $(OPENSSL_DIST) $(ZLIB_DIST) $(CURL_DIST) $(TIRPC_DIST) $(XMLRPC_C_DIST) $(LIBPCAP_DIST) $(LIBNL_DIST) $(LIBSODIUM_DIST) $(LIBMYSQLCLIENT_DIST) $(GDBM_DIST) $(MQTT_DIST) $(RABBITMQ_DIST) $(ZEROMQ_DIST) $(MODBUS_DIST)
 
 OSNAME		?= unknown
 PKGNAME		= gcc-$(TOOLCHAIN_NAME)-libs
@@ -513,6 +521,27 @@ gdbm: $(INSTALLDIR)/lib/libgdbm.a
 
 ###############################################################################
 
+# Download Paho MQTT C client library source distribution
+
+$(MQTT_DIST):
+	wget -nv -P $(TEMP) $(MQTT_URL)
+	mv $(TEMP)/$(MQTT_TARBALL) $@
+
+# Unpack Paho MQTT C client library source
+
+$(MQTT_SRC): $(MQTT_DIST)
+	tar xzf $(MQTT_DIST)
+
+# Build Paho MQTT C client library
+
+$(INSTALLDIR)/lib/libpaho-mqtt3a.so: $(MQTT_SRC)
+	$(MAKE) -C $(MQTT_SRC) CC=$(CROSS_COMPILE)gcc CFLAGS="-I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L$(DESTDIR)/$(INSTALLDIR)/lib"
+	$(MAKE) -C $(MQTT_SRC) CC=$(CROSS_COMPILE)gcc CFLAGS="-I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L$(DESTDIR)/$(INSTALLDIR)/lib" install DESTDIR=$(DESTDIR)/ prefix=$(INSTALLDIR) LDCONFIG=true
+
+mqtt: $(INSTALLDIR)/lib/libpaho-mqtt3a.so
+
+###############################################################################
+
 # Download RabbitMQ C library source distribution
 
 $(RABBITMQ_DIST):
@@ -635,6 +664,10 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo "**** gdbm:"				>>$@
 	@echo ""					>>$@
 	@cat $(GDBM_SRC)/COPYING			>>$@
+	@echo ""					>>$@
+	@echo "**** libmqtt:"	 			>>$@
+	@echo ""					>>$@
+	@cat $(MQTT_SRC)/LICENSE			>>$@
 	@echo ""					>>$@
 	@echo "**** rabbitmq-c:"			>>$@
 	@echo ""					>>$@
