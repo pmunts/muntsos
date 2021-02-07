@@ -114,6 +114,7 @@ allconfig:
 	$(MAKE) config.done reallyclean BOARDNAME=RaspberryPi3
 	$(MAKE) config.done reallyclean BOARDNAME=RaspberryPi3Gadget
 	$(MAKE) config.done reallyclean BOARDNAME=RaspberryPi4
+	$(MAKE) config.done reallyclean BOARDNAME=RaspberryPi4Gadget
 
 ###############################################################################
 
