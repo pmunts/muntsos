@@ -28,6 +28,11 @@ News
 -   2 February 2021 -- Upgraded the BeagleBone kernel to 5.4.87.
     Upgraded the Raspberry Pi kernel to 5.10.11. Upgraded BusyBox to
     1.32.1, ethtool to 5.10, mailutils to 3.11.1, and nano to 5.5.
+-   6 February 2021 -- Upgraded the Raspberry Pi kernel to 5.10.13.
+    Upgraded libusb to 1.0.24, OpenSSL to 1.1.1i, curl to 7.75.0,
+    libtirpc to 1.3.1, libpcap to 1.10.0, gdbm to 1.19 and zeromq to
+    4.3.4. Added the [Eclipse Paho MQTT C client
+    library](https://github.com/eclipse/paho.mqtt.c).
 
 Embedded Linux Distribution in a Kernel
 ---------------------------------------
