@@ -34,7 +34,7 @@ fi
 
 sudo apt-get update
 sudo apt-get install -y openssh-client build-essential git gprbuild man subversion vim
-sudo apt-get install -y muntsos-linaro
+sudo apt-get install -y muntsos-crosstoo
 
 # Clone MuntsOS source code repository
 
