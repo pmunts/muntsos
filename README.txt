@@ -29,6 +29,7 @@ News
        Upgraded libusb to 1.0.24, OpenSSL to 1.1.1i, curl to 7.75.0,
        libtirpc to 1.3.1, libpcap to 1.10.0, gdbm to 1.19 and zeromq to
        4.3.4. Added the [3]Eclipse Paho MQTT C client library.
+     * 10 February 2021 -- Upgraded the .Net runtime to 5.0.3.
 
 Quick Setup Instructions for the Impatient
 

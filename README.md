@@ -33,6 +33,7 @@ News
     libtirpc to 1.3.1, libpcap to 1.10.0, gdbm to 1.19 and zeromq to
     4.3.4. Added the [Eclipse Paho MQTT C client
     library](https://github.com/eclipse/paho.mqtt.c).
+-   10 February 2021 -- Upgraded the .Net runtime to 5.0.3.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
