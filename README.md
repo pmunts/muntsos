@@ -1,5 +1,5 @@
-MuntsOS Embedded Linux Framework
-================================
+MuntsOS Embedded Linux
+======================
 
 This framework supports Linux on several single board microcomputers.
 The goal of the MuntsOS project is to deliver a turnkey, RAM resident
@@ -33,6 +33,21 @@ News
     libtirpc to 1.3.1, libpcap to 1.10.0, gdbm to 1.19 and zeromq to
     4.3.4. Added the [Eclipse Paho MQTT C client
     library](https://github.com/eclipse/paho.mqtt.c).
+
+Quick Setup Instructions for the Impatient
+------------------------------------------
+
+Instructions for setting up the MuntsOS cross-toolchain development
+environment are found in [Application Note
+\#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
+[Application Note
+\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-Other.pdf).
+
+Instructions for installing MuntsOS to a target board are found in
+[Application Note
+\#3](http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
+and [Application Note
+\#15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
 
 Embedded Linux Distribution in a Kernel
 ---------------------------------------
