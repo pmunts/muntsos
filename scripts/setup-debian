@@ -3,7 +3,7 @@
 # This script sets up a Debian Linux amd64 machine for developing applications
 # for MuntsOS Embedded Linux
 
-# Copyright (C)2019, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2019-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -23,18 +23,29 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+MACHINE=`uname -m`
+
 # Register Munts Technologies Debian package repository
 
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
   wget http://repo.munts.com/debian10/PublicKey.txt && sudo apt-key add PublicKey.txt && rm PublicKey.txt
-  wget http://repo.munts.com/debian10/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+
+  if [ "${MACHINE}" = "x86_64" ]; then
+    wget http://repo.munts.com/debian10/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+  fi
+
+  grep -q "Raspbian" /etc/issue
+
+  if [ $? -eq 0 ]; then
+    wget http://repo.munts.com/debian10/raspberrypi/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+  fi
 fi
 
 # Install packages
 
 sudo apt-get update
 sudo apt-get install -y openssh-client build-essential git gprbuild man subversion vim
-sudo apt-get install -y muntsos-crosstoo
+sudo apt-get install -y muntsos-crosstool
 
 # Clone MuntsOS source code repository
 
