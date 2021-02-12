@@ -30,14 +30,25 @@ MACHINE=`uname -m`
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
   wget http://repo.munts.com/debian10/PublicKey.txt && sudo apt-key add PublicKey.txt && rm PublicKey.txt
 
-  if [ "${MACHINE}" = "x86_64" ]; then
-    wget http://repo.munts.com/debian10/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
-  fi
-
   grep -q "Raspbian" /etc/issue
 
   if [ $? -eq 0 ]; then
+    # 32-Bit armhf Raspberry Pi OS
     wget http://repo.munts.com/debian10/raspberrypi/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+  fi
+
+  grep -q "Debian" /etc/issue
+
+  if [ $? -eq 0 ]; then
+    if [ "${MACHINE}" = "x86_64" ]; then
+      # 64-Bit Debian amd64
+      wget http://repo.munts.com/debian10/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    fi
+
+    if [ "${MACHINE}" = "aarch64" ]; then
+      # 64-Bit Debian arm64
+      wget http://repo.munts.com/debian10/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    fi
   fi
 fi
 
