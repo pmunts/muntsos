@@ -33,6 +33,8 @@ PKGSUFFIX	= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE		= $(PKGDIR).deb
 
+GAINROOT	?= fakeroot
+
 default: package.deb
 
 ###############################################################################
@@ -67,9 +69,9 @@ package.deb: libaws.a
 	rm						$(PKGDIR)/$(GCCSYSROOT)/usr/include/aws/with_everything.adb
 	mkdir -p					$(PKGDIR)/$(GCCSYSROOT)/usr/lib/aws
 	install -cm 0644 *.a obj/*.ali			$(PKGDIR)/$(GCCSYSROOT)/usr/lib/aws
-	chmod -R ugo-w					$(PKGDIR)/usr
-	fakeroot dpkg-deb --build			$(PKGDIR)
-	chmod -R ugo+w					$(PKGDIR)/usr
+	$(GAINROOT) chown -R root.root			$(PKGDIR)
+	$(GAINROOT) dpkg-deb -Zgzip --build		$(PKGDIR)
+	$(GAINROOT) chown -R --reference=Makefile *.deb	$(PKGDIR)
 
 ###############################################################################
 
