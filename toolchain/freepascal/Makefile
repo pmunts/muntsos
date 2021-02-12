@@ -20,7 +20,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS    ?= ../..
+MUNTSOS		?= ../..
+
+BUILDNUM	?= 1
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
@@ -48,12 +50,13 @@ BUILDOPTS	+= OPT=-dFPC_ARMHF CROSSOPT="$(CPUOPTS)"
 endif
 ifeq ($(BOARDBASE), RaspberryPi3)
 ARCH		= aarch64
+CPUOPTS		= -CpARMV8
 BUILDOPTS	+= OPT=-dFPC_AARCH64 CROSSOPT="$(CPUOPTS)"
 endif
 
 OSNAME		?= unknown
 PKGNAME		:= fpc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(shell date +%Y.%j)
+PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
@@ -84,6 +87,9 @@ src.done: $(FPC_DIST)
 
 build.done: src.done
 	$(MAKE) -C $(FPC_SRCDIR) crossall $(BUILDOPTS)
+	# Work around a bug in the Free Pascall build procedure
+	-cp $(FPC_SRCDIR)/compiler/ppcarm $(FPC_SRCDIR)/compiler/ppcrossarm
+	-cp $(FPC_SRCDIR)/compiler/ppca64 $(FPC_SRCDIR)/compiler/ppcrossa64
 	touch $@
 
 ################################################################################
