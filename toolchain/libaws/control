@@ -4,4 +4,4 @@ Priority: extra
 Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
-Description: Ada Web Server library for @@BOARDNAME@@
+Description: GCC cross-toolchain Ada Web Server library for @@BOARDNAME@@

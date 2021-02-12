@@ -4,4 +4,4 @@ Priority: extra
 Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
-Description: Linaro GCC toolchain libraries for @@BOARDNAME@@
+Description: GCC cross-toolchain libraries for @@BOARDNAME@@
