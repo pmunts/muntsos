@@ -34,6 +34,8 @@ News
     4.3.4. Added the [Eclipse Paho MQTT C client
     library](https://github.com/eclipse/paho.mqtt.c).
 -   10 February 2021 -- Upgraded the .Net runtime to 5.0.3.
+-   12 February 2021 -- Cross-toolchain packages compiled for Debian
+    arm64 (aka AArch64 aka ARMv8) are now available.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------

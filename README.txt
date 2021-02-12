@@ -30,6 +30,8 @@ News
        libtirpc to 1.3.1, libpcap to 1.10.0, gdbm to 1.19 and zeromq to
        4.3.4. Added the [3]Eclipse Paho MQTT C client library.
      * 10 February 2021 -- Upgraded the .Net runtime to 5.0.3.
+     * 12 February 2021 -- Cross-toolchain packages compiled for Debian
+       arm64 (aka AArch64 aka ARMv8) are now available.
 
 Quick Setup Instructions for the Impatient
 
@@ -132,7 +134,7 @@ Thin Servers
 
    muntsos*BeagleBone.zip          For BeagleBone (White), Black,
                                    Black Wireless, Green, Green Wireless,
-                                   PocketBeagle -- ARMv7 32‑bit
+                                   PocketBeagle -- ARMv7 32-bit
 
    muntsos*RaspberryPi.zip         For all Raspberry Pi -- USB master
 
@@ -140,22 +142,22 @@ Thin Servers
                                    Zero W, 3 A+, CM3, 4 B -- USB slave
 
    muntsos*RaspberryPi1.zip        For all Raspberry Pi 1 and Zero --
-                                   ARMv6 32‑bit, USB master
+                                   ARMv6 32-bit, USB master
 
    muntsos*RaspberryPi1Gadget.zip  For Raspberry Pi 1 A, A+, CM, Zero,
-                                   Zero W -- ARMv6 32‑bit, USB slave
+                                   Zero W -- ARMv6 32-bit, USB slave
 
    muntsos*RaspberryPi2.zip        For all Raspberry Pi 2 and 3 -- ARMv7
-                                   32‑bit, USB master
+                                   32-bit, USB master
 
    muntsos*RaspberryPi2Gadget.zip  For Raspberry Pi 3 A+, CM3 -- ARMv7
-                                   32‑bit, USB slave
+                                   32-bit, USB slave
 
    muntsos*RaspberryPi3.zip        For all Raspberry Pi 3 -- ARMv8
-                                   64‑bit, USB master
+                                   64-bit, USB master
 
    muntsos*RaspberryPi3Gadget.zip  For Raspberry Pi 3 A+, CM3 -- ARMv8
-                                   64‑bit, USB slave
+                                   64-bit, USB slave
 
    muntsos*RaspberryPi4.zip        For all Raspberry Pi 4 -- ARMv8
                                    64-bit, USB master
