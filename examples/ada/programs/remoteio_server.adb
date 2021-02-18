@@ -21,8 +21,10 @@
 -- POSSIBILITY OF SUCH DAMAGE.
 
 WITH Ada.Directories;
+WITH Ada.Environment_Variables;
 WITH Ada.Strings.Fixed;
 
+WITH ClickBoard.Shields;
 WITH GPIO.UserLED;
 WITH RemoteIO.ADC;
 WITH RemoteIO.Executive;
@@ -43,6 +45,8 @@ WITH BeagleBone;
 WITH PocketBeagle;
 WITH RaspberryPi;
 
+USE TYPE ClickBoard.Shields.Kind;
+
 PROCEDURE remoteio_server IS
 
   title  : CONSTANT String := "MuntsOS Remote I/O Server";
@@ -56,6 +60,18 @@ PROCEDURE remoteio_server IS
   i2c    : RemoteIO.I2C.Dispatcher;
   pwm    : RemoteIO.PWM.Dispatcher;
   spi    : RemoteIO.SPI.Dispatcher;
+
+  -- Raspberry Pi subsystem configuration flags, to be calculated at run time.
+
+  ADC_configured   : Boolean;
+  I2C1_configured  : Boolean;
+  SPI00_configured : Boolean;
+  SPI01_configured : Boolean;
+  SPI10_configured : Boolean;
+  SPI11_configured : Boolean;
+  SPI12_configured : Boolean;
+  SPI0_configured  : Boolean;
+  SPI1_configured  : Boolean;
 
   PROCEDURE system(cmd : String);
     PRAGMA Import(C, system);
@@ -268,46 +284,95 @@ BEGIN
   -- Register Raspberry Pi Family I/O Resources
 
   ELSIF StartsWith(SystemInfo.BoardName, "raspberrypi") THEN
+    -- See if ADC inputs are configured
+    ADC_configured :=
+     (ClickBoard.Shields.Detect = ClickBoard.Shields.PiClick3) AND
+     Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0");
 
-    IF Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0") THEN
-      -- The following analog inputs are only available if the Mikroelektronika
-      -- Pi 3 Click Shield (MIKROE-2756) and its device tree overlay are
-      -- installed
+    -- See if I2C buses configured
+    I2C1_configured  := Ada.Directories.Exists("/dev/i2c-1");
+
+    -- See if SPI devices are configured
+    SPI00_configured := Ada.Directories.Exists("/dev/spidev0.0");
+    SPI01_configured := Ada.Directories.Exists("/dev/spidev0.1");
+    SPI10_configured := Ada.Directories.Exists("/dev/spidev1.0");
+    SPI11_configured := Ada.Directories.Exists("/dev/spidev1.1");
+    SPI12_configured := Ada.Directories.Exists("/dev/spidev1.2");
+
+    SPI0_configured  := SPI00_configured OR SPI01_configured;
+    SPI1_configured  := SPI10_configured OR SPI11_configured OR SPI12_configured;
+
+    -- The following analog inputs are only available if the MIKROE-2756
+    -- Pi 3 Click Shield and its device tree overlay are installed
+
+    IF ADC_configured THEN
       adc.Register(0, RaspberryPi.AIN0, 12);   -- 12-bit 4.096V range
       adc.Register(1, RaspberryPi.AIN1, 12);   -- 12-bit 4.096V range
     END IF;
 
-    -- All Raspberry Pi models
+    -- The following GPIO pins are available on all Raspberry Pi Models
+
+    IF NOT I2C1_configured THEN
+      gpio.Register(2,  RaspberryPi.GPIO2);    -- aka I2C1 SDA
+      gpio.Register(3,  RaspberryPi.GPIO3);    -- aka I2C1 SCL
+    END IF;
+
     gpio.Register(4,  RaspberryPi.GPIO4);
-    gpio.Register(17, RaspberryPi.GPIO17);
-    gpio.Register(18, RaspberryPi.GPIO18);     -- PWM0
+
+    IF NOT SPI01_configured THEN
+      gpio.Register(7,  RaspberryPi.GPIO7);    -- aka SPI0 SS1
+    END IF;
+
+    IF NOT SPI00_configured THEN
+      gpio.Register(8,  RaspberryPi.GPIO8);    -- aka SPI0 SS0
+    END IF;
+
+    IF NOT SPI0_configured THEN
+      gpio.Register(9,  RaspberryPi.GPIO9);    -- aka SPI0 MISO
+      gpio.Register(10, RaspberryPi.GPIO10);   -- aka SPI0 MOSI
+      gpio.Register(11, RaspberryPi.GPIO11);   -- aka SPI0 SCLK
+    END IF;
+
+    IF NOT SPI11_configured THEN
+      gpio.Register(17, RaspberryPi.GPIO17);   -- aka SPI1 SS1
+    END IF;
+
+    IF NOT SPI10_configured THEN
+      gpio.Register(18, RaspberryPi.GPIO18);   -- aka SPI1 SS0 aka PWM0
+    END IF;
+
     gpio.Register(22, RaspberryPi.GPIO22);
     gpio.Register(23, RaspberryPi.GPIO23);
     gpio.Register(24, RaspberryPi.GPIO24);
     gpio.Register(25, RaspberryPi.GPIO25);
     gpio.Register(27, RaspberryPi.GPIO27);
 
-    -- Raspberry Pi 1+ and later models
+    -- The following GPIO pins are only available on Raspberry Pi Model
+    -- B+ and later, with 40-pin expansion headers
+
     gpio.Register(5,  RaspberryPi.GPIO5);
     gpio.Register(6,  RaspberryPi.GPIO6);
-    gpio.Register(12, RaspberryPi.GPIO12);     -- PWM0
-    gpio.Register(13, RaspberryPi.GPIO13);     -- PWM1
+    gpio.Register(12, RaspberryPi.GPIO12);     -- aka PWM0
+    gpio.Register(13, RaspberryPi.GPIO13);     -- aka PWM1
 
-    IF NOT Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0") THEN
-      gpio.Register(16, RaspberryPi.GPIO16);   -- SPI1 SS2
-      gpio.Register(19, RaspberryPi.GPIO19);   -- SPI1 MISO or PWM1
-      gpio.Register(20, RaspberryPi.GPIO20);   -- SPI1 MOSI
-      gpio.Register(21, RaspberryPi.GPIO21);   -- SPI1 SCLK
+    IF NOT ADC_configured AND NOT SPI12_configured THEN
+      gpio.Register(16, RaspberryPi.GPIO16);   -- aka SPI1 SS2
+    END IF;
+
+    IF NOT ADC_configured AND NOT SPI1_configured THEN
+      gpio.Register(19, RaspberryPi.GPIO19);   -- aka SPI1 MISO aka PWM1
+      gpio.Register(20, RaspberryPi.GPIO20);   -- aka SPI1 MOSI
+      gpio.Register(21, RaspberryPi.GPIO21);   -- aka SPI1 SCLK
     END IF;
 
     gpio.Register(26, RaspberryPi.GPIO26);
 
-    IF Ada.Directories.Exists("/dev/i2c-1") THEN
+    IF I2C1_configured THEN
       i2c.Register(0, RaspberryPi.I2C1);
     END IF;
 
-    -- PWM outputs are only available if their respective device tree
-    -- overlays have been enabled in /boot/config.txt.
+    -- Hardware PWM outputs are only available if one of the proper
+    -- device tree overlays has been enabled in /boot/config.txt.
 
     IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
       -- Export BCM2835 PWM outputs
@@ -324,13 +389,26 @@ BEGIN
       END IF;
     END IF;
 
-    IF Ada.Directories.Exists("/dev/spidev0.0") THEN
+    IF SPI00_configured THEN
       spi.Register(0, RaspberryPi.SPI0_0);
     END IF;
 
-    IF Ada.Directories.Exists("/dev/spidev0.1") THEN
+    IF SPI01_configured THEN
       spi.Register(1, RaspberryPi.SPI0_1);
     END IF;
+
+    IF SPI10_configured THEN
+      spi.Register(2, RaspberryPi.SPI1_0);
+    END IF;
+
+    IF SPI11_configured THEN
+      spi.Register(3, RaspberryPi.SPI1_1);
+    END IF;
+
+    IF SPI12_configured THEN
+      spi.Register(4, RaspberryPi.SPI1_2);
+    END IF;
+
   END IF;
 
 END remoteio_server;
