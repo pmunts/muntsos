@@ -273,14 +273,14 @@ BEGIN
       -- The following analog inputs are only available if the Mikroelektronika
       -- Pi 3 Click Shield (MIKROE-2756) and its device tree overlay are
       -- installed
-      adc.Register(0, RaspberryPi.AIN0, 12);   -- 4.096V
-      adc.Register(1, RaspberryPi.AIN1, 12);   -- 4.096V
+      adc.Register(0, RaspberryPi.AIN0, 12);   -- 12-bit 4.096V range
+      adc.Register(1, RaspberryPi.AIN1, 12);   -- 12-bit 4.096V range
     END IF;
 
     -- All Raspberry Pi models
     gpio.Register(4,  RaspberryPi.GPIO4);
     gpio.Register(17, RaspberryPi.GPIO17);
-    gpio.Register(18, RaspberryPi.GPIO18);     -- PWM0 channel 0
+    gpio.Register(18, RaspberryPi.GPIO18);     -- PWM0
     gpio.Register(22, RaspberryPi.GPIO22);
     gpio.Register(23, RaspberryPi.GPIO23);
     gpio.Register(24, RaspberryPi.GPIO24);
@@ -290,15 +290,21 @@ BEGIN
     -- Raspberry Pi 1+ and later models
     gpio.Register(5,  RaspberryPi.GPIO5);
     gpio.Register(6,  RaspberryPi.GPIO6);
-    gpio.Register(12, RaspberryPi.GPIO12);
-    gpio.Register(13, RaspberryPi.GPIO13);
-    gpio.Register(16, RaspberryPi.GPIO16);     -- SPI1 SS0
-    gpio.Register(19, RaspberryPi.GPIO19);     -- SPI1 MISO or PWM1
-    gpio.Register(20, RaspberryPi.GPIO20);     -- SPI1 MOSI
-    gpio.Register(21, RaspberryPi.GPIO21);     -- SPI1 SCLK
+    gpio.Register(12, RaspberryPi.GPIO12);     -- PWM0
+    gpio.Register(13, RaspberryPi.GPIO13);     -- PWM1
+
+    IF NOT Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0") THEN
+      gpio.Register(16, RaspberryPi.GPIO16);   -- SPI1 SS2
+      gpio.Register(19, RaspberryPi.GPIO19);   -- SPI1 MISO or PWM1
+      gpio.Register(20, RaspberryPi.GPIO20);   -- SPI1 MOSI
+      gpio.Register(21, RaspberryPi.GPIO21);   -- SPI1 SCLK
+    END IF;
+
     gpio.Register(26, RaspberryPi.GPIO26);
 
-    i2c.Register(0, RaspberryPi.I2C1);
+    IF Ada.Directories.Exists("/dev/i2c-1") THEN
+      i2c.Register(0, RaspberryPi.I2C1);
+    END IF;
 
     -- PWM outputs are only available if their respective device tree
     -- overlays have been enabled in /boot/config.txt.
@@ -307,20 +313,24 @@ BEGIN
       -- Export BCM2835 PWM outputs
       system("echo 0 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
       system("echo 1 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
+      DELAY 1.0;
+
+      IF Ada.Directories.Exists("/dev/pwm-0:0") THEN
+        pwm.Register(0, RaspberryPi.PWM0);
+      END IF;
+
+      IF Ada.Directories.Exists("/dev/pwm-0:1") THEN
+        pwm.Register(1, RaspberryPi.PWM1);
+      END IF;
     END IF;
 
-    DELAY 1.0;
-
-    IF Ada.Directories.Exists("/dev/pwm-0:0") THEN
-      pwm.Register(0, RaspberryPi.PWM0_0); -- aka GPIO18
+    IF Ada.Directories.Exists("/dev/spidev0.0") THEN
+      spi.Register(0, RaspberryPi.SPI0_0);
     END IF;
 
-    IF Ada.Directories.Exists("/dev/pwm-0:1") THEN
-      pwm.Register(1, RaspberryPi.PWM0_1); -- aka GPIO19
+    IF Ada.Directories.Exists("/dev/spidev0.1") THEN
+      spi.Register(1, RaspberryPi.SPI0_1);
     END IF;
-
-    spi.Register(0, RaspberryPi.SPI0_0);
-    spi.Register(1, RaspberryPi.SPI0_1);
   END IF;
 
 END remoteio_server;
