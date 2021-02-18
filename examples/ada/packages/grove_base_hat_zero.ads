@@ -1,6 +1,6 @@
 -- Raspberry Pi with Grove Base Hat Zero (SKU 103030276) I/O Resources
 
--- Copyright (C)2020, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2020-2021, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -80,7 +80,7 @@ PACKAGE Grove_Base_Hat_Zero IS
   -- OR
   -- dtoverlay=pwm-2chan,pin=12,func=4,pin2=13,func2=4
 
-  PWM12 : Device.Designator RENAMES RaspberryPi.PWM0_0; -- Socket PWM pin 1
-  PWM13 : Device.Designator RENAMES RaspberryPi.PWM0_1; -- Socket PWM pin 2
+  PWM12 : Device.Designator RENAMES RaspberryPi.PWM0; -- Socket PWM pin 1
+  PWM13 : Device.Designator RENAMES RaspberryPi.PWM1; -- Socket PWM pin 2
 
 END Grove_Base_Hat_zero;
