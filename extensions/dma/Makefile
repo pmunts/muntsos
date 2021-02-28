@@ -39,6 +39,7 @@ default: package.deb
 
 source.done:
 	git clone https://github.com/corecode/dma.git
+	cd dma && patch -b -p0 <../dma.patch
 	touch $@
 
 compile.done: source.done
