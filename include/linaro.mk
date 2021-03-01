@@ -42,8 +42,6 @@ FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/$(FPC_COMMAND)
 
 GNATPREFIX	= $(CROSS_COMPILE)
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-GPRBUILDTARGET	= --target=$(CONFIGURE_NAME)
-GPRBUILDPROJECTS += -aP $(TOOLCHAIN_DIR)/share/gpr
 
 # libsimpleio
 
