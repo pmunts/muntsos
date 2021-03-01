@@ -32,6 +32,8 @@ News
      * 10 February 2021 -- Upgraded the .Net runtime to 5.0.3.
      * 12 February 2021 -- Cross-toolchain packages compiled for Debian
        arm64 (aka AArch64 aka ARMv8) are now available.
+     * 28 February 2021 -- Upgraded the Raspberry Pi kernel to 5.10.17.
+       Upgraded OpenSSL to 1.1.1j, mailutils to 3.12, and nano to 5.6.
 
 Quick Setup Instructions for the Impatient
 
