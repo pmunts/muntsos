@@ -1,16 +1,15 @@
-MUNTSOS		?= $(HOME)/muntsos
+.PHONY: default clean
 
+MUNTSOS		?= $(HOME)/muntsos
 GPRBUILD	?= no
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
 
-default: blinky
+PROGRAMS	+= blinky
+
+default: $(PROGRAMS)
 
 clean: ada_mk_clean
-	for F in *.adb ; do rm -f `basename $$F .adb` ; done
-
-reallyclean: clean ada_mk_reallyclean
-
-distclean: reallyclean ada_mk_distclean
+	rm -f $(PROGRAMS)
