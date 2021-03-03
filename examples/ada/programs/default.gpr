@@ -23,8 +23,8 @@
 WITH "aws";
 
 PROJECT Default IS
-  MUNTSOS := external("MUNTSOS", "~/muntsos");
-  LIBSIMPLEIO  := external("LIBSIMPLEIO", "/usr/local/share/libsimpleio");
+  MUNTSOS     := external("MUNTSOS", "~/muntsos");
+  LIBSIMPLEIO := external("LIBSIMPLEIO", "/usr/local/share/libsimpleio");
 
   FOR Source_Dirs USE (".",
     MUNTSOS & "/examples/ada/packages",
