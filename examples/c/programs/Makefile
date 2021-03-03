@@ -20,11 +20,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../../..
-
 # Modify the following macro to build out of tree
 
-C_SRC		?= $(MUNTSOS)/examples/c
+MUNTSOS		?= ../../..
 
 ifneq ($(BOARDNAME),)
 # Cross-compile for MuntsOS
@@ -35,23 +33,19 @@ else
 BOARDBASE	:= $(shell $(CROSS_COMPILE)gcc -dumpmachine)
 endif
 
-LIBSRC		?= $(C_SRC)/lib
+CSRC		?= $(MUNTSOS)/examples/c
+CLIBSRC		?= $(CSRC)/lib
 
 CC	 	= $(CROSS_COMPILE)gcc
 CFLAGS		+= -Wall $(DEBUGFLAGS) $(EXTRAFLAGS)
-CFLAGS		+= -I$(LIBSRC)
-LDFLAGS		+= -L$(LIBSRC) -lexamples-$(BOARDBASE) -lsimpleio
+CFLAGS		+= -I$(CLIBSRC)
+LDFLAGS		+= -L$(CLIBSRC) -lexamples-$(BOARDBASE) -lsimpleio
 STRIP		= $(CROSS_COMPILE)strip
-
-ifeq ($(shell uname), OpenBSD)
-CFLAGS		+= -I/usr/local/include
-LDFLAGS		+= -L/usr/local/lib
-endif
 
 # Define a pattern rule to compile a C program
 
 %: %.c
-	$(MAKE) -C $(LIBSRC)
+	$(MAKE) -C $(CLIBSRC)
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
 	$(STRIP) $@
 
@@ -66,6 +60,6 @@ clean:
 	for F in *.c ; do rm -f `basename $$F .c` ; done
 
 reallyclean: clean
-	$(MAKE) -C $(LIBSRC) clean
+	$(MAKE) -C $(CLIBSRC) clean
 
 distclean: reallyclean

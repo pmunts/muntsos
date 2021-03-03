@@ -20,11 +20,14 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# Modify the following macro to build out of tree
+
 MUNTSOS		?= ../../..
 
 ifneq ($(BOARDNAME),)
 # Cross-compile for MuntsOS
 include $(MUNTSOS)/include/$(BOARDNAME).mk
+CFLAGS		+= -D$(BOARDNAME)
 else
 # Native compile for Linux
 BOARDBASE	:= $(shell $(CROSS_COMPILE)gcc -dumpmachine)
@@ -34,15 +37,15 @@ AR		= $(CROSS_COMPILE)ar
 CC	 	= $(CROSS_COMPILE)gcc
 CFLAGS		+= -Wall -I. $(DEBUGFLAGS) $(EXTRAFLAGS)
 
-ifeq ($(shell uname), OpenBSD)
-CFLAGS		+= -I/usr/local/include
-endif
-
 default: libexamples-$(BOARDBASE).a
+
+# Compile the library components
 
 libexamples-$(BOARDBASE).a:
 	for F in *.c ; do $(CC) $(CFLAGS) -c -o `basename $$F .c`.o $$F ; done
 	$(AR) rcs $@ *.o
+
+# Remove working files
 
 clean:
 	rm -rf *.o *.a
