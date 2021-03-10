@@ -38,6 +38,10 @@ News
     arm64 (aka AArch64 aka ARMv8) are now available.
 -   28 February 2021 -- Upgraded the Raspberry Pi kernel to 5.10.17.
     Upgraded OpenSSL to 1.1.1j, mailutils to 3.12, and nano to 5.6.
+-   10 March 2021 -- Upgraded the Raspberry Pi kernel to 5.10.20. Added
+    **`anyspi.dtbo`** to all Raspberry Pi kernel releases. Upgraded
+    OpenSSH to 8.5p1. Upgraded nano to 5.6.1. Upgraded the .Net runtime
+    to 5.0.4.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
