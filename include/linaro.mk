@@ -1,6 +1,6 @@
 # Global definitions for cross-toolchains built with Linaro ABE
 
-# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -42,7 +42,3 @@ FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/$(FPC_COMMAND)
 
 GNATPREFIX	= $(CROSS_COMPILE)
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-
-# libsimpleio
-
-LIBSIMPLEIO	?= $(GCCSYSROOT)/usr/share/libsimpleio
