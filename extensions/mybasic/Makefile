@@ -27,8 +27,6 @@ MUNTSOS		?= $(shell pwd)/../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-LIBSIMPLEIO	?= $(GCCSYSROOT)/usr/share/libsimpleio
-
 SRCURL		= https://github.com/paladin-t/my_basic.git
 SRCDIR		= my_basic
 

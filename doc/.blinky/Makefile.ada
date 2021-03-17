@@ -1,5 +1,6 @@
 .PHONY: default clean
 
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 MUNTSOS		?= $(HOME)/muntsos
 GPRBUILD	?= no
 

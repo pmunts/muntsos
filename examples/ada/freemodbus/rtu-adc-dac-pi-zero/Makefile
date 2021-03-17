@@ -24,6 +24,8 @@ MUNTSOS		?= ../../../..
 
 MODBUS_SRC	:= $(MUNTSOS)/examples/ada/freemodbus
 
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+
 include $(MUNTSOS)/examples/ada/include/examples.mk
 include $(MODBUS_SRC)/freemodbus.mk
 

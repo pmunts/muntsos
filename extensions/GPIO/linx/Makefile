@@ -26,8 +26,6 @@ MUNTSOS		?= $(shell pwd)/../../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-LIBSIMPLEIO	?= $(GCCSYSROOT)/usr/share/libsimpleio
-
 CFLAGS		= -Wall -D$(BOARDNAME) -DBOARDNAME='"$(BOARDNAME)"'
 CFLAGS		+= -I.. -I$(LIBSIMPLEIO)/c++
 LDFLAGS		= -lsimpleio -lstdc++

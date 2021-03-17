@@ -27,10 +27,9 @@ MUNTSOS		?= ../../..
 ifneq ($(BOARDNAME),)
 # Cross compile for MuntsOS
 include $(MUNTSOS)/include/$(BOARDNAME).mk
-else
-# Native compile for Linux
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 endif
+
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
