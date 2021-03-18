@@ -20,16 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-ifneq ($(BOARDNAME),)
-# Override the following macro to build out of tree
-MUNTSOS    ?= $(HOME)/muntsos
-# Cross compile
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-else
-# Native compile
 LIBSIMPLEIO     ?= /usr/local/share/libsimpleio
-endif
-
 ELEMENTSSRC	?= $(LIBSIMPLEIO)/elements
 
 # Build the project

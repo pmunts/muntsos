@@ -20,14 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-ifneq ($(BOARDNAME),)
-# Cross compile for MuntsOS Embedded Linux
-MUNTSOS		?= $(HOME)/muntsos
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-else
-# Native compile
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-endif
 
 # Include subordinate makefiles
 
