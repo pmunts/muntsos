@@ -4,7 +4,6 @@ LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 MUNTSOS		?= $(HOME)/muntsos
 GPRBUILD	?= no
 
-include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
 
