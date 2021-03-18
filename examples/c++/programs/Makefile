@@ -23,17 +23,9 @@
 # Override the following macro to build out of tree
 
 MUNTSOS		?= ../../..
-
-ifneq ($(BOARDNAME),)
-# Cross compile for MuntsOS
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-else
-# Native compile for Linux
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-endif
 
 CXX_SRC		?= $(MUNTSOS)/examples/c++
-CXXDEPS		+= libsimpleio++.a
 CXXFLAGS	+= -I$(CXX_SRC)/lib
 
 include $(LIBSIMPLEIO)/c++/include/c++.mk
@@ -46,9 +38,9 @@ default:
 
 # Remove working files
 
-clean: cxx_mk_clean libsimpleio_mk_clean
+clean: cxx_mk_clean
 	for F in *.cpp ; do rm -f `basename $$F .cpp` ; done
 
-reallyclean: clean cxx_mk_reallyclean libsimpleio_mk_reallyclean
+reallyclean: clean cxx_mk_reallyclean
 
-distclean: reallyclean cxx_mk_distclean libsimpleio_mk_distclean
+distclean: reallyclean cxx_mk_distclean

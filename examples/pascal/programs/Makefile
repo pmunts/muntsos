@@ -24,13 +24,7 @@
 
 MUNTSOS		?= ../../..
 
-ifneq ($(BOARDNAME),)
-# Cross compile for MuntsOS
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-else
-# Native compile for Linux
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-endif
 
 include $(LIBSIMPLEIO)/pascal/include/pascal.mk
 include $(LIBSIMPLEIO)/pascal/include/libsimpleio.mk

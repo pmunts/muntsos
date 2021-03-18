@@ -23,15 +23,7 @@
 # Modify the following macro to build out of tree
 
 MUNTSOS		?= ../../..
-
-ifneq ($(BOARDNAME),)
-# Cross-compile for MuntsOS
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-CFLAGS		+= -D$(BOARDNAME)
-else
-# Native compile for Linux
-BOARDBASE	:= $(shell $(CROSS_COMPILE)gcc -dumpmachine)
-endif
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 CSRC		?= $(MUNTSOS)/examples/c
 CLIBSRC		?= $(CSRC)/lib

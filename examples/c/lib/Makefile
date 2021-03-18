@@ -20,18 +20,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Modify the following macro to build out of tree
+# Override the following macro to build out of tree
 
 MUNTSOS		?= ../../..
-
-ifneq ($(BOARDNAME),)
-# Cross-compile for MuntsOS
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-CFLAGS		+= -D$(BOARDNAME)
-else
-# Native compile for Linux
-BOARDBASE	:= $(shell $(CROSS_COMPILE)gcc -dumpmachine)
-endif
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 AR		= $(CROSS_COMPILE)ar
 CC	 	= $(CROSS_COMPILE)gcc

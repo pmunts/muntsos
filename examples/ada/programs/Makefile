@@ -23,12 +23,6 @@
 # Override the following macro to build out of tree
 
 MUNTSOS		?= ../../..
-
-ifneq ($(BOARDNAME),)
-# Cross compile for MuntsOS
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-endif
-
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk
