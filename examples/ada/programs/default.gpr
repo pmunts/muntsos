@@ -23,7 +23,7 @@
 WITH "aws";
 
 PROJECT Default IS
-  MUNTSOS     := external("MUNTSOS", "~/muntsos");
+  MUNTSOS     := external("MUNTSOS", external("HOME") & "/muntsos");
   LIBSIMPLEIO := external("LIBSIMPLEIO", "/usr/local/share/libsimpleio");
 
   FOR Source_Dirs USE (".",
