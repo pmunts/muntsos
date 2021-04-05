@@ -2,7 +2,7 @@
 
 # /etc/rc for an embedded Linux system
 
-# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@ echo " "
 # Options bit definitions:
 
 # Bit  0 -- Enable USB serial gadget with getty
-# Bit  1 -- Enable USB network gadget with udhcpd
+# Bit  1 -- Enable USB network gadget with DHCP server
 # Bit  2 -- Run crond
 # Bit  3 -- Run ntpd
 # Bit  4 -- Run rpcbind
@@ -41,7 +41,7 @@ echo " "
 # Bit  8 -- Run autoexec.script
 # Bit  9 -- Run mdnsd
 # Bit 10 -- Run inetd
-# Bit 11 -- Enable USB network gadget without udhcpd
+# Bit 11 -- Enable USB network gadget with DHCP client
 # Bit 12 -- Enable USB raw HID gadget
 
 # Configure path for this script
