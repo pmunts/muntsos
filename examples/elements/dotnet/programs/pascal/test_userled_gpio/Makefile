@@ -1,4 +1,4 @@
-# Makefile for building RemObjects Elements .Net Core applications
+# Makefile for building RemObjects Elements .Net 5 applications
 
 # Copyright (C)2019-2021, Philip Munts, President, Munts AM Corp.
 #
@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LIBSIMPLEIO     ?= /usr/local/share/libsimpleio
+LIBSIMPLEIO     ?= $(shell cygpath -m $(HOME)/libsimpleio)
 ELEMENTSSRC	?= $(LIBSIMPLEIO)/elements
 
 # Build the project
