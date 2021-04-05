@@ -148,7 +148,7 @@ function Hostname {
 
 function NetConfig {
   ifconfig -a | grep -q -E '^(eth|wlan).*Link encap:'
-  if [ $? -eq 1 ]; then return; fi
+  if [ $? -eq 1 -a $((OPTIONS & 0x800)) -eq 0 ]; then return; fi
 
   GetYesNo "Edit static network configuration"
   if [ $? -ne 0 ]; then return; fi
@@ -383,7 +383,7 @@ function PinMux {
 
 function Extensions {
   ifconfig -a | grep -q -E '^(eth|wlan).*Link encap:'
-  if [ $? -eq 1 ]; then return; fi
+  if [ $? -eq 1 -a $((OPTIONS & 0x800)) -eq 0 ]; then return; fi
 
   GetYesNo "Manage extensions"
   if [ $? -ne 0 ]; then return; fi
@@ -461,12 +461,12 @@ function Extensions {
 
 function DynamicDNS {
   ifconfig -a | grep -q -E '^(eth|wlan).*Link encap:'
-  if [ $? -eq 1 ]; then return; fi
+  if [ $? -eq 1 -a $((OPTIONS & 0x800)) -eq 0 ]; then return; fi
 
   interfaces=`sort </proc/net/dev | awk '$1 ~ /.*[0-9]:$/ { printf("%s ", substr($1, 1, length($1)-1)); }'`
 
   for iface in $interfaces; do
-    if [ "`ethtool -i $iface 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" ]; then
+    if [ "`ethtool -i $iface 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" -a $((OPTIONS & 0x800)) -eq 0 ]; then
       continue;
     fi
 
