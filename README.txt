@@ -38,6 +38,9 @@ News
        anyspi.dtbo to all Raspberry Pi kernel releases. Upgraded OpenSSH
        to 8.5p1. Upgraded nano to 5.6.1. Upgraded the .Net runtime to
        5.0.4.
+     * 6 April 2021 -- Upgraded the BeagleBone kernel to 5.4.106. Upgraded
+       the Raspberry Pi kernel to 5.10.25. Improved support for Internet
+       Connection Sharing in netconfig and sysconfig.
 
 Quick Setup Instructions for the Impatient
 
