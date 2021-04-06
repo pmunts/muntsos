@@ -473,13 +473,17 @@ endif
 	@head -n 22 mdnsd.c | tail -n 21 | cut -c 4-		>>$@
 	@echo "**** serialnumber:"				>>$@
 	@head -n 22 serialnumber.c | tail -n 21 | cut -c 4-	>>$@
+	@echo "** glibc:"                                       >>$@
+	@echo ""						>>$@
+	@cat $(TOOLCHAIN_DIR)/share/licenses/glibc/COPYING	>>$@
+	@echo ""						>>$@
 	@echo "** Shared Libraries:"				>>$@
 	@echo ""						>>$@
 	@cat $(GCCSYSROOT)/usr/COPYING				>>$@
 	@echo ""						>>$@
 	@echo "**** libsimpleio:"				>>$@
 	@echo ""						>>$@
-	@cat $(LIBSIMPLEIO)/doc/COPYING				>>$@
+	@cat $(GCCSYSROOT)/usr/share/doc/libsimpleio/COPYING	>>$@
 	@sed -i 's/\f//'					$@
 	@dos2unix						$@
 
