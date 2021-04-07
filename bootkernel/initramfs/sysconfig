@@ -75,26 +75,52 @@ function Prepare {
 /usr/local/etc
 EOD
 
+  if [ -f /etc/g_ether.conf ]; then
+    echo /etc/g_ether.conf >>/etc/changes.manifest
+    chmod 444 /etc/g_ether.conf
+  else
+    sed -i '/\/etc\/g_ether.conf/d' /etc/changes.manifest
+  fi
+
+  if [ -f /etc/g_hid.conf ]; then
+    echo /etc/g_hid.conf >>/etc/changes.manifest
+    chmod 444 /etc/g_hid.conf
+  else
+    sed -i '/\/etc\/g_hid.conf/d' /etc/changes.manifest
+  fi
+
   if [ -f /etc/hostname ]; then
     echo /etc/hostname >>/etc/changes.manifest
     chmod 444 /etc/hostname
+  else
+    sed -i '/\/etc\/hostname/d' /etc/changes.manifest
   fi
 
   if [ -f /etc/pinmux.conf ]; then
     echo /etc/pinmux.conf >>/etc/changes.manifest
+    chmod 444 /etc/pinmux.conf
+  else
+    sed -i '/\/etc\/pinmux.conf/d' /etc/changes.manifest
   fi
 
   if [ -d /etc/profile.d ]; then
     echo /etc/profile.d >>/etc/changes.manifest
+  else
+    sed -i '/\/etc\/profile.d/d' /etc/changes.manifest
   fi
 
   if [ -f /etc/rc.local ]; then
     echo /etc/rc.local >>/etc/changes.manifest
+    chmod 555 /etc/rc.local
+  else
+    sed -i '/\/etc\/rc.local/d' /etc/changes.manifest
   fi
 
   if [ -f /etc/wpa_supplicant.conf ]; then
     echo /etc/wpa_supplicant.conf >>/etc/changes.manifest
     chmod 400 /etc/wpa_supplicant.conf
+  else
+    sed -i '/\/etc\/wpa_supplicant.conf/d' /etc/changes.manifest
   fi
 
   # Don't save /etc/profile anymore.
