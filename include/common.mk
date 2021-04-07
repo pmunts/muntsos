@@ -32,6 +32,8 @@ KERNEL_DTS	= $(KERNEL_SRC)/arch/$(ARCH)/boot/dts
 KERNEL_PATCH	= $(BOARDNAME).patch
 KERNEL_CONFIG	= $(BOARDNAME).config
 
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+
 common_mk_default: default
 
 # Clone the kernel source repository
