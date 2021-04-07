@@ -101,24 +101,6 @@ if [ -n "${BOOTPART}" ]; then
   unset BOOTPART
 fi
 
-# Load USB Gadget Serial module
-
-if [ $((OPTIONS & 0x81)) -ne 0 ]; then
-  modprobe g_serial
-fi
-
-# Load USB Gadget Network module
-
-if [ $((OPTIONS & 0x802)) -ne 0 ]; then
-  modprobe g_ether dev_addr=${GETHMACADDR:-02:00:00:00:00:01} host_addr=${GETHMACADDRHOST:-02:00:00:00:00:02}
-fi
-
-# Load USB Gadget Raw HID module
-
-if [ $((OPTIONS & 0x1000)) -ne 0 ]; then
-  modprobe g_hid idVendor=${GHIDVID:-0x16D0} idProduct=${GHIDPID:-0x0AFA} iManufacturer="${GHIDMFG:-Munts Technologies}" iProduct="${GHIDPROD:-USB HID Device}" iSerialNumber="${GHIDSERIAL:-`serialnumber`}"
-fi
-
 # Load kernel modules for built-in, non-USB wireless network interfaces
 
 grep -q -i "BeagleBone Black Wireless" /proc/device-tree/model
@@ -267,6 +249,35 @@ if [ -f /etc/hostname ]; then
   hostname -F /etc/hostname
 else
   hostname `uname -r | awk -F '-' '{ printf("%s-%s\n", $3, $4); }'`
+fi
+
+# Load USB Gadget Serial module
+
+if [ $((OPTIONS & 0x81)) -ne 0 ]; then
+  modprobe g_serial
+  sleep 1
+fi
+
+# Load USB Gadget Network module
+
+if [ $((OPTIONS & 0x802)) -ne 0 ]; then
+  if [ -f /etc/g_ether.conf ]; then
+    . /etc/g_ether.conf
+  fi
+
+  modprobe g_ether dev_addr=${GETHMACADDR:-02:00:00:00:00:01} host_addr=${GETHMACADDRHOST:-02:00:00:00:00:02}
+  sleep 1
+fi
+
+# Load USB Gadget Raw HID module
+
+if [ $((OPTIONS & 0x1000)) -ne 0 ]; then
+  if [ -f /etc/g_hid.conf ]; then
+    . /etc/g_hid.conf
+  fi
+
+  modprobe g_hid idVendor=${GHIDVID:-0x16D0} idProduct=${GHIDPID:-0x0AFA} iManufacturer="${GHIDMFG:-Munts Technologies}" iProduct="${GHIDPROD:-USB HID Device}" iSerialNumber="${GHIDSERIAL:-`serialnumber`}"
+  sleep 1
 fi
 
 # Run getty on USB Gadget Serial interface, if requested
