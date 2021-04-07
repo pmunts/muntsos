@@ -661,6 +661,17 @@ endif
 	ln -s /proc/mounts					$@/etc/mtab
 	install -cm 0444 $(GCCSYSROOT)/usr/etc/netconfig	$@/etc
 	install -cm 0444 network.conf				$@/etc
+ifneq ($(findstring Gadget, $(BOARDNAME)),)
+	chmod 644						$@/etc/network.conf
+	echo ""						    >>	$@/etc/network.conf
+	echo "# USB Network Gadget interface configuration" >>  $@/etc/network.conf
+	echo ""						    >>	$@/etc/network.conf
+	echo "#usb0_macaddr=02:00:00:00:00:01"		    >>  $@/etc/network.conf
+	echo "#usb0_address=10.254.254.252"		    >>  $@/etc/network.conf
+	echo "#usb0_netmask=255.255.255.248"		    >>  $@/etc/network.conf
+	echo "#usb0_peer=10.254.254.253"		    >>	$@/etc/network.conf
+	chmod 444						$@/etc/network.conf
+endif
 	install -cm 0444 nsswitch.conf				$@/etc
 	install -cm 0444 ntp.conf				$@/etc
 	install -cm 0444 passwd					$@/etc
