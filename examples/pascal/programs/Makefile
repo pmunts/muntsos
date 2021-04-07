@@ -23,7 +23,6 @@
 # Override the following macro to build out of tree
 
 MUNTSOS		?= ../../..
-
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(LIBSIMPLEIO)/pascal/include/pascal.mk
