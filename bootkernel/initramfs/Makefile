@@ -666,7 +666,6 @@ ifneq ($(findstring Gadget, $(BOARDNAME)),)
 	echo ""						    >>	$@/etc/network.conf
 	echo "# USB Network Gadget interface configuration" >>  $@/etc/network.conf
 	echo ""						    >>	$@/etc/network.conf
-	echo "#usb0_macaddr=02:00:00:00:00:01"		    >>  $@/etc/network.conf
 	echo "#usb0_address=10.254.254.252"		    >>  $@/etc/network.conf
 	echo "#usb0_netmask=255.255.255.248"		    >>  $@/etc/network.conf
 	echo "#usb0_peer=10.254.254.253"		    >>	$@/etc/network.conf
