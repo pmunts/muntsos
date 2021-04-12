@@ -247,7 +247,6 @@ function DisableSSHPasswords {
   if [ $? -ne 0 ]; then return; fi
 
   echo "PasswordAuthentication no" >>/etc/ssh/sshd_config
-  killall -HUP /usr/sbin/sshd
 }
 
 ###############################################################################
