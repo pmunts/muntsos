@@ -44,7 +44,10 @@ News
     to 5.0.4.
 -   6 April 2021 -- Upgraded the BeagleBone kernel to 5.4.106. Upgraded
     the Raspberry Pi kernel to 5.10.25. Improved support for Internet
-    Connection Sharing in **`netconfig`** and **`sysconfig`**.
+    Connection Sharing in **`netconfig`** and **`sysconfig`**. Upgraded
+    the .Net Runtime to 5.0.5.
+-   12 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.27.
+    Modified **`sysconfig`** to not kill **`sshd`** anymore.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
