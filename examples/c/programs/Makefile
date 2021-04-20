@@ -23,7 +23,8 @@
 # Modify the following macro to build out of tree
 
 MUNTSOS		?= ../../..
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 CSRC		?= $(MUNTSOS)/examples/c
 CLIBSRC		?= $(CSRC)/lib

@@ -23,7 +23,8 @@
 # Override the following macro to build out of tree
 
 MUNTSOS		?= ../../..
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 AR		= $(CROSS_COMPILE)ar
 CC	 	= $(CROSS_COMPILE)gcc
