@@ -44,6 +44,8 @@ News
        Runtime to 5.0.5.
      * 12 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.27.
        Modified sysconfig to not kill sshd anymore.
+     * 24 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.31.
+       Upgraded OpenSSH to 8.6p1.
 
 Quick Setup Instructions for the Impatient
 
