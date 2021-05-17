@@ -39,7 +39,7 @@ PKGFILE		= $(PKGDIR).deb
 
 SOURCEFILES	+= $(SRCDIR)/core/my_basic.c
 SOURCEFILES	+= $(SRCDIR)/shell/main.c
-SOURCEFILES	+= $(LIBSIMPLEIO)/basic/bindings/libsimpleio.c
+SOURCEFILES	+= $(LIBSIMPLEIO)/mybasic/bindings/libsimpleio.c
 
 CFLAGS		+= -Wall
 CFLAGS		+= -I$(SRCDIR)/core
@@ -51,7 +51,7 @@ default: package.deb
 
 src.done:
 	git clone $(SRCURL)
-	patch -b -p0 <$(LIBSIMPLEIO)/basic/bindings/libsimpleio.patch
+	patch -b -p0 <$(LIBSIMPLEIO)/mybasic/bindings/libsimpleio.patch
 	touch $@
 
 # Compile sources
