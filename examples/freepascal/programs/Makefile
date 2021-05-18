@@ -25,7 +25,7 @@
 MUNTSOS		?= ../../..
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
-include $(LIBSIMPLEIO)/freepascal/include/pascal.mk
+include $(LIBSIMPLEIO)/freepascal/include/freepascal.mk
 include $(LIBSIMPLEIO)/freepascal/include/libsimpleio.mk
 
 FPC_FLAGS	+= -Fu$(MUNTSOS)/examples/freepascal/units
@@ -37,9 +37,9 @@ default:
 
 # Remove working files
 
-clean: pascal_mk_clean
+clean: freepascal_mk_clean
 	for F in *.pas ; do rm -f `basename $$F .pas` ; done
 
-reallyclean: pascal_mk_reallyclean clean
+reallyclean: freepascal_mk_reallyclean clean
 
-distclean: pascal_mk_distclean reallyclean
+distclean: freepascal_mk_distclean reallyclean
