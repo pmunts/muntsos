@@ -3,8 +3,8 @@
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 MUNTSOS		?= $(HOME)/muntsos
 
-include $(LIBSIMPLEIO)/pascal/include/pascal.mk
-include $(LIBSIMPLEIO)/pascal/include/libsimpleio.mk
+include $(LIBSIMPLEIO)/freepascal/include/pascal.mk
+include $(LIBSIMPLEIO)/freepascal/include/libsimpleio.mk
 
 PROGRAMS	+= blinky
 

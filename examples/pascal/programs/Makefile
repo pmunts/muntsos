@@ -25,10 +25,10 @@
 MUNTSOS		?= ../../..
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
-include $(LIBSIMPLEIO)/pascal/include/pascal.mk
-include $(LIBSIMPLEIO)/pascal/include/libsimpleio.mk
+include $(LIBSIMPLEIO)/freepascal/include/pascal.mk
+include $(LIBSIMPLEIO)/freepascal/include/libsimpleio.mk
 
-FPC_FLAGS	+= -Fu$(MUNTSOS)/examples/pascal/units
+FPC_FLAGS	+= -Fu$(MUNTSOS)/examples/freepascal/units
 
 # Compile the test programs
 
