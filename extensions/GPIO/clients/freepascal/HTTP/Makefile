@@ -20,13 +20,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Override the following macro to build out of tree
-
-MUNTSOS		?= ../../../../..
-
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(LIBSIMPLEIO)/freepascal/include/freepascal.mk
+include $(LIBSIMPLEIO)/freepascal/include/libsimpleio.mk
 
 PROGRAMS	+= Button_And_LED
 PROGRAMS	+= Toggle_Speed
