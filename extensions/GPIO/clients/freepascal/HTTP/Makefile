@@ -20,24 +20,22 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../../../../..
-
 # Override the following macro to build out of tree
 
-PASCAL_SRC	?= $(MUNTSOS)/examples/pascal
+MUNTSOS		?= ../../../../..
 
-include $(PASCAL_SRC)/include/pascal.mk
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
-FPC_FLAGS	+= -Fu$(PASCAL_SRC)/units
+include $(LIBSIMPLEIO)/freepascal/include/freepascal.mk
 
 PROGRAMS	+= Button_And_LED
 PROGRAMS	+= Toggle_Speed
 
 default: $(PROGRAMS)
 
-clean: pascal_mk_clean
+clean: freepascal_mk_clean
 	rm -f $(PROGRAMS)
 
-reallyclean: pascal_mk_reallyclean clean
+reallyclean: freepascal_mk_reallyclean clean
 
-distclean: pascal_mk_distclean reallyclean
+distclean: freepascal_mk_distclean reallyclean
