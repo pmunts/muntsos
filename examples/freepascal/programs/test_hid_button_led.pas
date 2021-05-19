@@ -1,6 +1,6 @@
 { Linux Simple I/O Library HID button and LED test                            }
 
-{ Copyright (C)2016-2020, Philip Munts, President, Munts AM Corp.             }
+{ Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.             }
 {                                                                             }
 { Redistribution and use in source and binary forms, with or without          }
 { modification, are permitted provided that the following conditions are met: }
@@ -42,7 +42,7 @@ BEGIN
 
   { Open the raw HID device }
 
-  dev := HID_libsimpleio.MessengerSubclass.Create(HID_Munts.VID, HID_Munts.PID, -1);
+  dev := HID_libsimpleio.MessengerSubclass.Create(HID_Munts.VID, HID_Munts.PID, '', -1);
 
   { Process incoming keypress reports }
 
