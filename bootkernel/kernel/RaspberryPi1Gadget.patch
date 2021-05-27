@@ -1,6 +1,6 @@
---- Makefile.orig	2021-04-06 08:41:15.000000000 -0700
-+++ Makefile	2021-04-06 10:05:19.158648677 -0700
-@@ -1431,8 +1431,6 @@
+--- Makefile.orig	2021-05-27 04:42:13.000000000 -0700
++++ Makefile	2021-05-27 08:22:27.092848010 -0700
+@@ -1445,8 +1445,6 @@
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
@@ -83,9 +83,9 @@
  	status = platform_driver_probe(&hidg_plat_driver,
  				hidg_plat_driver_probe);
  	if (status < 0)
---- drivers/usb/dwc2/gadget.c.orig	2021-04-06 08:41:15.000000000 -0700
-+++ drivers/usb/dwc2/gadget.c	2021-04-06 10:40:55.422205284 -0700
-@@ -3378,6 +3378,8 @@
+--- drivers/usb/dwc2/gadget.c.orig	2021-05-27 04:42:13.000000000 -0700
++++ drivers/usb/dwc2/gadget.c	2021-05-27 08:42:17.288689626 -0700
+@@ -3379,6 +3379,8 @@
  	usbcfg &= ~GUSBCFG_TOUTCAL_MASK;
  	usbcfg |= GUSBCFG_TOUTCAL(7);
  
