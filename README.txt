@@ -46,6 +46,8 @@ News
        Modified sysconfig to not kill sshd anymore.
      * 24 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.31.
        Upgraded OpenSSH to 8.6p1.
+     * 19 May 2021 -- Upgraded the .Net runtime to 5.0.6.
+     * 28 May 2021 -- Upgraded the Raspberry Pi kernel to 5.10.39.
 
 Quick Setup Instructions for the Impatient
 
