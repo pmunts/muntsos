@@ -74,7 +74,7 @@ $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http/spi_agent_http_server:
 # Cross-Compile the LabView LINX server for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx/spi_agent_linx_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -I$(GCCSYSROOT)/usr/share/libsimpleio/c++" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lstdc++ -lsimpleio" LIBSIMPLEIO=$(GCCSYSROOT)/usr/share/libsimpleio
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -I$(LIBSIMPLEIO)/c++" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lstdc++ -lsimpleio"
 
 ###############################################################################
 
