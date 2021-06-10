@@ -59,6 +59,8 @@ News
     Mariadb Connector/C) to 3.1.13, Paho MQTT client library to 1.3.9,
     and the RabbitMQ client library to 0.11.0. Also imported the latest
     Raspberry Pi boot files from Raspberry Pi OS.
+-   10 June 2021 -- Upgraded the .Net runtime to 5.0.7. Added
+    [hostapd](https://w1.fi/hostapd) extension packages.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
