@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# Startup script for hostapd
+
+# Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+for IFACE in wlan0 wlan1 wlan2 wlan3 wlan4 wlan5 wlan6 wlan7 wlan8 wlan9 ; do
+
+# Start hostapd on this wireless network interface IFF there is a
+# configuration file for it
+
+  if [ -f /usr/local/etc/hostapd-${IFACE}.conf ]; then
+    /usr/local/libexec/hostapd -B -i $IFACE /usr/local/etc/hostapd-${IFACE}.conf -P /var/run/hostapd.${IFACE}.pid
+
+# Start udhcpd on this wireless network interface IFF there is a
+# configuration file for it
+
+    if [ -f /usr/local/etc/udhcpd-${IFACE}.conf ]; then
+
+# Add iptables rule for the DHCP server
+
+      iptables -A INPUT -i ${IFACE} -p  udp -m conntrack --ctstate NEW --dport 67 -j ACCEPT
+
+# Wait until the wireless network interface has been configured
+
+      ifconfig ${IFACE} 2>&1 | grep -q 'inet addr'
+
+      while [ $? -ne 0 ]; do
+        sleep 1
+        ifconfig ${IFACE} 2>&1 | grep -q 'inet addr'
+      done
+
+# Create an empty DHCP leases file for udhcpd
+
+      touch /var/run/udhcpd.${IFACE}.leases
+
+# Start udhcpd
+
+      udhcpd -S /usr/local/etc/udhcpd-${IFACE}.conf
+    fi
+  fi
+done
