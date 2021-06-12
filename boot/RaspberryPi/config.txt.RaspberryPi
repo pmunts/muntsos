@@ -49,7 +49,7 @@ dtoverlay=disable-bt
 arm_64bit=1
 kernel=RaspberryPi4.img
 
-# Enable i2c0 and friends
+# Enable /dev/i2c-0 and friends
 #dtparam=i2c_vc=on
 
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header

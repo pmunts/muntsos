@@ -16,7 +16,7 @@ gpu_mem=16
 dtparam=i2c=on
 dtparam=spi=on
 
-# Enable i2c0 and friends
+# Enable /dev/i2c-0 and friends
 #dtparam=i2c_vc=on
 
 # Enable USB slave device mode
