@@ -33,7 +33,7 @@ KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDNAME).img
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 KERNEL_OVL	= disable-bt disable-wifi
-KERNEL_OVL	+= anyspi pwm pwm-2chan
+KERNEL_OVL	+= anyspi i2c-rtc pwm pwm-2chan
 KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
 KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
