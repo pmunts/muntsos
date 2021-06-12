@@ -16,6 +16,9 @@ gpu_mem=16
 dtparam=i2c=on
 dtparam=spi=on
 
+# Enable i2c0 and friends
+#dtparam=i2c_vc=on
+
 # Enable USB slave device mode
 dtoverlay=dwc2,dr_mode=peripheral
 
@@ -24,6 +27,11 @@ dtoverlay=disable-bt
 
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
+
+[cm4]
+# Enable the PCF85063A RTC on the I/O board
+#dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
+[all]
 
 # Additional device tree overlays go here.  See ./overlays/README.txt and
 # https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
