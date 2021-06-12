@@ -61,6 +61,8 @@ News
     Raspberry Pi boot files from Raspberry Pi OS.
 -   10 June 2021 -- Upgraded the .Net runtime to 5.0.7. Added
     [hostapd](https://w1.fi/hostapd) extension packages.
+-   11 June 2021 -- Added support for a number of I<sup>2</sup>C RTC
+    (Real Time Clock) devices to the Raspberry Pi kernels.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
