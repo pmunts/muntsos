@@ -4,9 +4,9 @@
 
 configuration project Default is
    for Target use "@@CONFIGURE_NAME@@";
-   for Toolchain_Version     ("Ada") use "GNAT 8";
-   for Runtime_Library_Dir   ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/8.3.0/adalib/";
-   for Runtime_Source_Dir    ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/8.3.0/adainclude/";
+   for Toolchain_Version     ("Ada") use "GNAT @@GCCMAJOR@@";
+   for Runtime_Library_Dir   ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/@@GCCVER@@/adalib/";
+   for Runtime_Source_Dir    ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/@@GCCVER@@/adainclude/";
    for Library_Builder  use "/usr/lib/gprbuild/gprlib";
    for Library_Support  use "full";
    for Shared_Library_Prefix use "lib";
