@@ -89,6 +89,7 @@ package.deb: build.done
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
 	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
+	ln -s ../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so $(PKGDIR)$(GCCLIBDIR)/libgnat.so
 	rm						$(PKGDIR)$(TOOLCHAIN_DIR)/build.log.bz2
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
