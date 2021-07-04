@@ -22,10 +22,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-echo " "
-echo "Starting MuntsOS ..."
-echo " "
-
 # Run time options are passed via OPTIONS=0xXX on the kernel command line.
 
 # Options bit definitions:
