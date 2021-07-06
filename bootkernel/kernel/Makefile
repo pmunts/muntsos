@@ -82,7 +82,7 @@ dtbs: config.done
 
 # Build kernel and copy binaries
 
-build.done: config.done modules.done ../initramfs/initramfs.cpio.gz
+build.done: config.done modules.done
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) $(KERNEL_TARGETS)
 	cp $(KERNEL_SRC)/arch/$(ARCH)/boot/$(KERNEL_IMGSRC) $(KERNEL_IMG)
 
