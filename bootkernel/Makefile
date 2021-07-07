@@ -38,14 +38,15 @@ default: $(TARBALL)
 
 ###############################################################################
 
-# Build the kernel image and associated files
+# Build the kernel
 
 kernel/build.done:
+	$(MAKE) -C kernel modules.done BOARDNAME=$(BOARDNAME) REVISION=$(REVISION)
 	for S in $(SUBORDINATES) ; do $(MAKE) -C $$S default BOARDNAME=$(BOARDNAME) REVISION=$(REVISION) ; done
 
 ###############################################################################
 
-# Build the bootkernel distribution tarball
+# Build the kernel distribution tarball
 
 $(TARBALL): kernel/build.done
 	mkdir -p $(DESTDIR)
@@ -65,7 +66,7 @@ endif
 	cd $(DESTDIR) ; tar czf ../$@ * --owner=nobody --group=nobody --mode=ugo-w
 	rm -rf $(DESTDIR)
 
-# Rebuild the bootkernel distribution tarball with new initramfs
+# Rebuild the kernel distribution tarball with new initramfs
 
 rebuild:
 	rm -rf kernel/build.done kernel/*.dtb* kernel/*.img

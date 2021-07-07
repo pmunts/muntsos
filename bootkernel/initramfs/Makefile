@@ -108,7 +108,7 @@ NANO_DIST		= $(TEMP)/$(NANO_TARBALL)
 # These are the subordinate component targets that have to be built before we
 # can start populating the root file system tree
 
-COMPONENT_TARGETS	= modules busybox openssh rpcbind force-umount iptables ethtool wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
+COMPONENT_TARGETS	= busybox openssh rpcbind force-umount iptables ethtool wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
 
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 COMPONENT_TARGETS	+= config-pin
@@ -119,13 +119,6 @@ endif
 # Make initramfs image suitable for building into the Linux kernel
 
 default: initramfs.cpio.gz
-
-###############################################################################
-
-# Build kernel modules
-
-modules:
-	$(MAKE) -C ../kernel modules.done
 
 ###############################################################################
 
@@ -944,7 +937,6 @@ clean:
 
 reallyclean: clean
 	$(MAKE) -C libmdns clean
-	rm -rf ../kernel/modules*
 	rm -rf $(BUSYBOX_SRC)
 	rm -rf $(OPENSSH_SRC)
 	rm -rf $(RPCBIND_SRC)

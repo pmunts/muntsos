@@ -58,7 +58,7 @@ menuconfig: src.done
 
 ###############################################################################
 
-# Build only kernel modules
+# Build kernel modules
 
 modules.done: config.done
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules
@@ -73,16 +73,17 @@ endif
 
 ###############################################################################
 
-# Build only kernel device tree blobs
+# Build kernel device tree blobs
 
-dtbs: config.done
+dtbs.done: config.done
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) dtbs
+	touch $@
 
 ###############################################################################
 
-# Build kernel and copy binaries
+# Build kernel and stage binaries
 
-build.done: config.done modules.done
+build.done: config.done modules.done dtbs.done
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) $(KERNEL_TARGETS)
 	cp $(KERNEL_SRC)/arch/$(ARCH)/boot/$(KERNEL_IMGSRC) $(KERNEL_IMG)
 
@@ -122,7 +123,7 @@ allconfig:
 
 clean:
 	-$(MAKE) -C $(KERNEL_SRC) mrproper
-	rm -rf *.img *.dtb *.dtbo modules config.done modules.done build.done
+	rm -rf *.img *.dtb *.dtbo modules config.done dtbs.done modules.done build.done
 
 reallyclean: clean
 	rm -rf $(KERNEL_SRC) src.done
