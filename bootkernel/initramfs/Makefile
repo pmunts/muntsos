@@ -650,6 +650,7 @@ endif
 	install -cm 0444 issue					$@/etc
 	install -cm 0444 ld.so.conf				$@/etc
 	install -cm 0644 mdev.conf				$@/etc
+	install -cm 0444 modules				$@/etc
 	install -cm 0444 motd					$@/etc
 	ln -s /proc/mounts					$@/etc/mtab
 	install -cm 0444 $(GCCSYSROOT)/usr/etc/netconfig	$@/etc

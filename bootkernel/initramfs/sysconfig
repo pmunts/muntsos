@@ -64,6 +64,7 @@ function Prepare {
 /etc/hosts
 /etc/httpd.conf
 /etc/inittab
+/etc/modules
 /etc/motd
 /etc/network.conf
 /etc/nsswitch.conf

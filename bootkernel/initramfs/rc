@@ -219,6 +219,16 @@ if [ $? -eq 0 ]; then
   umount /boot
 fi
 
+# Load kernel modules specified in /etc/modules
+
+if [ -f /etc/modules ]; then
+  sed -e '/^\s*#.*$/d' -e '/^\s*$/d' -e 's/^ *//g' -e 's/\s*$//g' -e 's/^/modprobe /' modules | sh
+fi
+
+# Create more device nodes
+
+mdev -s
+
 # Initialize the user LED
 
 if [ -f /dev/userled_trigger ]; then
@@ -234,10 +244,6 @@ chmod 660 /dev/userled
 # Start system logger
 
 syslogd
-
-# Create more device nodes
-
-mdev -s
 
 # Configure initial hostname
 
