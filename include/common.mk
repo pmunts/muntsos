@@ -34,6 +34,8 @@ KERNEL_CONFIG	= $(BOARDNAME).config
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
+CMAKE_TOOLCHAIN_FILE = $(MUNTSOS)/include/$(BOARDBASE).cmake_toolchain
+
 common_mk_default: default
 
 # Clone the kernel source repository
