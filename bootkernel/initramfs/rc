@@ -222,7 +222,7 @@ fi
 # Load kernel modules specified in /etc/modules
 
 if [ -f /etc/modules ]; then
-  sed -e '/^\s*#.*$/d' -e '/^\s*$/d' -e 's/^ *//g' -e 's/\s*$//g' -e 's/^/modprobe /' modules | sh
+  sed -e 's/#.*$//g' -e 's/^\s*//g' -e 's/\s*$//g' -e '/^$/d' -e 's/^/modprobe /' /etc/modules | sh
 fi
 
 # Create more device nodes
