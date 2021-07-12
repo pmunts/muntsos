@@ -392,6 +392,10 @@ if [ -d /sys/bus/usb/devices ]; then
   lsusb | awk '{ printf("modprobe usb:v%sp%sd*dc*dsc*dp*ic*isc*ip*in*\n", toupper(substr($6, 1, 4)), toupper(substr($6, 6, 4))); }' | sh 2>&1 | grep -v 'not found'
 fi
 
+# Reload /etc/inittab, in case it has been changed
+
+kill -HUP 1
+
 # Turn on the user LED to indicate startup is finished.
 
 echo 1 >/dev/userled
