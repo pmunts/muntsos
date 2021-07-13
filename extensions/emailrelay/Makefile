@@ -37,7 +37,7 @@ SRCSERVER	= https://sourceforge.net/projects/emailrelay/files/emailrelay/2.1
 SRCURL		= $(SRCSERVER)/$(SRCTARBALL)
 SRCDIST		= $(TEMP)/$(SRCTARBALL)
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= $(SRCNAME)
 PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)

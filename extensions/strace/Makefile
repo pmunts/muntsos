@@ -37,7 +37,7 @@ SRCSERVER	= https://github.com/strace/strace/releases/download/v$(SRCVER)
 SRCURL		= $(SRCSERVER)/$(SRCTARBALL)
 SRCDIST		= $(TEMP)/$(SRCTARBALL)
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= $(SRCNAME)
 PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)

@@ -37,7 +37,7 @@ SRCSERVER	= https://download.samba.org/pub/rsync/src
 SRCURL		= $(SRCSERVER)/$(SRCTARBALL)
 SRCDIST		= $(TEMP)/$(SRCTARBALL)
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= $(SRCNAME)
 PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)

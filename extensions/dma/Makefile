@@ -28,7 +28,7 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 
 SERVERNAME	?= nonexistent.munts.net
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= dma
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)

@@ -27,7 +27,7 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
 BUILDFLAGS	:= BOARDNAME=$(BOARDNAME) MUNTSOS=$(MUNTSOS)
-OSNAME		:= muntsos-$(BOARDNAME)
+OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= GPIO-server
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)

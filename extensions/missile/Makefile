@@ -30,7 +30,7 @@ CC		:= $(CROSS_COMPILE)gcc
 CFLAGS		+= -Wall -I$(GCCSYSROOT)/usr/include/tirpc
 LDFLAGS		+= -lusb-1.0 -ltirpc
 
-OSNAME		:= muntsos-$(BOARDNAME)
+OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= missile-server
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)

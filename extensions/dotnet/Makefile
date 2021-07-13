@@ -30,7 +30,7 @@ DOTNET_VERSION	:= 5.0.7
 DOTNET_TARBALL	:= dotnet-runtime-$(DOTNET_VERSION)-$(DOTNETARCH).tar.gz
 DOTNET_DIST	:= $(TEMP)/$(DOTNET_TARBALL)
 
-OSNAME		:= muntsos-$(BOARDNAME)
+OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= dotnet
 PKGVERSION	:= $(DOTNET_VERSION)-$(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)

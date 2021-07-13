@@ -26,7 +26,7 @@ MUNTSOS		?= $(shell pwd)/../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= libgo
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)

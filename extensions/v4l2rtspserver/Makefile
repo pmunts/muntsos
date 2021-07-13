@@ -29,7 +29,7 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 SRCURL		= https://github.com/mpromonet/v4l2rtspserver.git
 SRCDIR		= v4l2rtspserver.src
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= v4l2rtspserver
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)

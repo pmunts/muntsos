@@ -28,7 +28,7 @@ RASPBERRYPI_LPC1114_SRC	?= $(HOME)/rpi-mcu/expansion/LPC1114/src
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-OSNAME		:= muntsos-$(BOARDNAME)
+OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= LPC1114
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)

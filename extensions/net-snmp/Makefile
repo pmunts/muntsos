@@ -40,7 +40,7 @@ DESTDIR		= $(SRCDIR)/skeleton
 SBINDIR		= $(DESTDIR)/usr/local/sbin
 MIBSDIR		= $(DESTDIR)/usr/local/share/snmp/mibs
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= $(SRCNAME)
 PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)

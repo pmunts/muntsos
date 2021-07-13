@@ -30,7 +30,7 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 SRCURL		= https://github.com/paladin-t/my_basic.git
 SRCDIR		= my_basic
 
-OSNAME		= muntsos-$(BOARDNAME)
+OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= mybasic
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
