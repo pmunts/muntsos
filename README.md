@@ -63,6 +63,14 @@ News
     [hostapd](https://w1.fi/hostapd) extension packages.
 -   11 June 2021 -- Added support for a number of I<sup>2</sup>C RTC
     (Real Time Clock) devices to the Raspberry Pi kernels.
+-   13 July 2021 -- Upgraded the Raspberry Pi kernel to 5.10.48. Added
+    code to **`/etc/rc`** to load kernel modules specified in
+    **`/etc/modules`**. Added code to **`/etc/rc`** to reload
+    **`/etc/inittab`** at the end of the system boot process. Enabled
+    kernel support for Raspberry Pi camera modules. Added an RTSP video
+    server extension package. Many thanks to Faisal Puthuparackat for
+    his work to bring up support for the Raspberry Pi camera interface
+    in MuntsOS, and to port **`v4l2rtspserver`** to MuntsOS.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
