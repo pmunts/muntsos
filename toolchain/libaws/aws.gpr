@@ -25,7 +25,7 @@ LIBRARY PROJECT AWS IS
   FOR Source_Dirs      USE ("SYSROOT/usr/include/aws");
   FOR Library_Dir      USE "SYSROOT/usr/lib/aws";
   FOR Library_Kind     USE "static";
-  FOR Library_Name     USE "aws.a";
+  FOR Library_Name     USE "aws";
   FOR Externally_Built USE "true";
 
   PACKAGE Linker IS
