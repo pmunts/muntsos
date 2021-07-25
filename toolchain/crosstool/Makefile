@@ -78,6 +78,17 @@ build.done: source.done
 
 ################################################################################
 
+# Reconstitute previous build from installed files
+
+reconstitute:
+	cp -R -P -p $(TOOLCHAIN_DIR) gcc-$(CONFIGURE_NAME)
+	chmod -R u+w gcc-$(CONFIGURE_NAME)
+	rm gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnat.so
+	touch gcc-$(CONFIGURE_NAME)/build.log.bz2
+	touch build.done
+
+################################################################################
+
 # Create Debian package
 
 package.deb: build.done
