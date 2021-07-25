@@ -41,4 +41,4 @@ FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/$(FPC_COMMAND)
 # GNAT Ada
 
 GNATPREFIX	= $(CROSS_COMPILE)
-GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
