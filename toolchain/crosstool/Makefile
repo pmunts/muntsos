@@ -84,6 +84,7 @@ reconstitute:
 	cp -R -P -p $(TOOLCHAIN_DIR) gcc-$(CONFIGURE_NAME)
 	chmod -R u+w gcc-$(CONFIGURE_NAME)
 	rm gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnat.so
+	rm gcc-$(CONFIGURE_NAME)/share/gpr/$(BOARDBASE).cgpr
 	touch gcc-$(CONFIGURE_NAME)/build.log.bz2
 	touch build.done
 
@@ -108,6 +109,7 @@ package.deb: build.done
 	sed -i 's/@@GCCVER@@/$(GCCVER)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	ln -s $(CONFIGURE_NAME).cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr
