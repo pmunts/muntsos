@@ -83,8 +83,8 @@ build.done: source.done
 reconstitute:
 	cp -R -P -p $(TOOLCHAIN_DIR) gcc-$(CONFIGURE_NAME)
 	chmod -R u+w gcc-$(CONFIGURE_NAME)
-	rm gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnat.so
-	rm gcc-$(CONFIGURE_NAME)/share/gpr/$(BOARDBASE).cgpr
+	rm -f gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnat.so
+	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/$(BOARDBASE).cgpr
 	touch gcc-$(CONFIGURE_NAME)/build.log.bz2
 	touch build.done
 
