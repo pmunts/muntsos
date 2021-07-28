@@ -85,6 +85,9 @@ reconstitute:
 	chmod -R u+w gcc-$(CONFIGURE_NAME)
 	rm -f gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib*/libgnat.so
 	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/$(BOARDBASE).cgpr
+ifeq ($(BOARDBASE), RaspberryPi3)
+	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/RaspberryPi4.cgpr
+endif
 	touch gcc-$(CONFIGURE_NAME)/build.log.bz2
 	touch build.done
 
@@ -110,6 +113,9 @@ package.deb: build.done
 	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	ln -s $(CONFIGURE_NAME).cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
+ifeq ($(BOARDBASE), RaspberryPi3)
+	ln -s $(CONFIGURE_NAME).cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+endif
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr
