@@ -24,6 +24,7 @@
 WITH ADC;
 WITH Analog;
 WITH Device;
+WITH GPIO.libsimpleio;
 WITH RaspberryPi;
 WITH TLC1543;
 WITH Voltage;
@@ -63,7 +64,10 @@ PACKAGE Arduino.ARPI600 IS
   -- TLC1543 A/D converter device
 
   devadc : CONSTANT TLC1543.Device :=
-    TLC1543.Create(TLC1543_CLK, TLC1543_ADDR, TLC1543_DATA);
+    TLC1543.Create
+     (Standard.GPIO.libsimpleio.Create(TLC1543_CLK,  Standard.GPIO.Output),
+      Standard.GPIO.libsimpleio.Create(TLC1543_ADDR, Standard.GPIO.Output),
+      Standard.GPIO.libsimpleio.Create(TLC1543_DATA, Standard.GPIO.Input));
 
   -- TLC1543 A/D converter analog inputs
 
