@@ -101,7 +101,7 @@ clean:
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -f $(PKGFILE) ; fi
 
 reallyclean: clean
-	$(PKGFILE) $(PKGFILE).downloaded
+	rm -rf $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
 	rm -rf $(SRCDIST)
