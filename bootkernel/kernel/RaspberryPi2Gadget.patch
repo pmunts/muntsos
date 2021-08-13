@@ -23,9 +23,9 @@
  	select HAVE_KPROBES if !XIP_KERNEL && !CPU_ENDIAN_BE32 && !CPU_V7M
  	select HAVE_KRETPROBES if HAVE_KPROBES
  	select HAVE_MOD_ARCH_SPECIFIC
---- drivers/usb/gadget/legacy/hid.c.orig	2018-12-14 19:11:00.000000000 +0100
-+++ drivers/usb/gadget/legacy/hid.c	2019-01-14 09:45:47.789780753 +0100
-@@ -267,6 +267,48 @@
+--- drivers/usb/gadget/legacy/hid.c.orig	2021-08-12 06:02:44.000000000 -0700
++++ drivers/usb/gadget/legacy/hid.c	2021-08-13 08:44:30.325540734 -0700
+@@ -269,6 +269,48 @@
  	},
  };
  
@@ -74,7 +74,7 @@
  
  MODULE_DESCRIPTION(DRIVER_DESC);
  MODULE_AUTHOR("Fabien Chouteau, Peter Korsgaard");
-@@ -276,6 +318,8 @@
+@@ -278,6 +320,8 @@
  {
  	int status;
  
