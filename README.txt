@@ -67,6 +67,11 @@ News
        server extension package. Many thanks to Faisal Puthuparackat for
        his work to bring up support for the Raspberry Pi camera interface
        in MuntsOS, and to port v4l2rtspserver to MuntsOS.
+     * 13 August 2021 -- Lots of software component updates: Upgraded curl
+       to 7.78.0, libpcap to 1.10.1, MariaDB Connector/C to 3.2.3, and
+       gdbm to 1.20. Upgraded ethtool to 5.13, mailutils to 3.13, and nano
+       to 5.8. Upgraded the Raspberry Pi kernel to 5.10.52. Upgraded the
+       .Net runtime to 5.0.9.
 
 Quick Setup Instructions for the Impatient
 
