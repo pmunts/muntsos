@@ -28,7 +28,7 @@ BOARDNAME	?= RaspberryPi
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 BOARDNAMES	= BeagleBone RaspberryPi1 RaspberryPi2
-TOOLCHAIN	= Linaro
+TOOLCHAIN	= Crosstool
 
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 TOOLCHAINLC	:= $(shell echo $(TOOLCHAIN) | tr A-Z a-z)
