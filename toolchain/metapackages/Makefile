@@ -44,7 +44,7 @@ default:
 	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAINLC)/g' control.everything
 	equivs-build control.everything
 	rm control.everything
-	mv muntsos-$(TOOLCHAINLC)_$(PKGVERSION)_all.deb muntsos-$(TOOLCHAINLC)-all.deb
+	mv muntsos-$(TOOLCHAINLC)_$(PKGVERSION)_all.deb muntsos-$(TOOLCHAINLC)-$(PKGVERSION)-$(OSNAME)-all.deb
 	for P in $(BOARDNAMES) ; do $(MAKE) package BOARDNAME=$$P CONTROL=control.template2 ; done
 	$(MAKE) package BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-linux-gnu CONTROL=control.template3
 
