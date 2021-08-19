@@ -493,6 +493,7 @@ $(INSTALLDIR)/lib/libmysqlclient.a: $(LIBMYSQLCLIENT_SRC)
 	ln -s mariadb $(INSTALLDIR)/include/mysql
 	ln -s mariadb/libmysqlclient.a $(INSTALLDIR)/lib/libmysqlclient.a
 	ln -s mariadb/libmysqlclient.so $(INSTALLDIR)/lib/libmysqlclient.so
+	touch $@
 
 libmysqlclient: $(INSTALLDIR)/lib/libmysqlclient.a
 
@@ -584,7 +585,7 @@ $(ZEROMQ_SRC): $(ZEROMQ_DIST)
 # Build ZeroMQ
 
 $(INSTALLDIR)/lib/libzmq.a: $(ZEROMQ_SRC)
-	cd $(ZEROMQ_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --enable-static CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++ sodium_CFLAGS=-I$(DESTDIR)/$(INSTALLDIR)/include sodium_LIBS=-L$(DESTDIR)/$(INSTALLDIR)/lib
+	cd $(ZEROMQ_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --disable-libbsd --enable-static CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++ sodium_CFLAGS=-I$(DESTDIR)/$(INSTALLDIR)/include sodium_LIBS=-L$(DESTDIR)/$(INSTALLDIR)/lib
 	$(MAKE) -C $(ZEROMQ_SRC)
 	$(MAKE) -C $(ZEROMQ_SRC) install DESTDIR=$(DESTDIR)
 	touch $@
