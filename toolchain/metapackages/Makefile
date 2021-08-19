@@ -21,6 +21,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+OSNAME		?= unknown
 MUNTSOS		?= ../..
 BOARDNAME	?= RaspberryPi
 
@@ -33,7 +34,8 @@ BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 TOOLCHAINLC	:= $(shell echo $(TOOLCHAIN) | tr A-Z a-z)
 
 PKGNAME		:= muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)
-PKGFILE		:= $(PKGNAME)-all.deb
+PKGVERSION	:= 1.3
+PKGFILE		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-all.deb
 
 # Build metapackages for all platforms
 
@@ -42,7 +44,7 @@ default:
 	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAINLC)/g' control.everything
 	equivs-build control.everything
 	rm control.everything
-	mv muntsos-$(TOOLCHAINLC)_1.3_all.deb muntsos-$(TOOLCHAINLC)-all.deb
+	mv muntsos-$(TOOLCHAINLC)_$(PKGVERSION)_all.deb muntsos-$(TOOLCHAINLC)-all.deb
 	for P in $(BOARDNAMES) ; do $(MAKE) package BOARDNAME=$$P CONTROL=control.template2 ; done
 	$(MAKE) package BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-linux-gnu CONTROL=control.template3
 
@@ -55,7 +57,7 @@ $(PKGFILE):
 	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAINLC)/g' control.$(BOARDNAME)
 	equivs-build control.$(BOARDNAME)
 	rm control.$(BOARDNAME)
-	mv muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)_1.3_all.deb muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)-all.deb
+	mv muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)_$(PKGVERSION)_all.deb $(PKGFILE)
 
 package: $(PKGFILE)
 
