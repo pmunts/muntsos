@@ -26,7 +26,7 @@ BUILDNUM	?= 1
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-FPC_VERSION	= 3.2.0
+FPC_VERSION	= 3.2.2
 FPC_SRCDIR	= fpc-$(FPC_VERSION)
 FPC_TARBALL	= fpc-$(FPC_VERSION).source.tar.gz
 FPC_SERVER	= https://downloads.sourceforge.net/project/freepascal/Source/$(FPC_VERSION)
