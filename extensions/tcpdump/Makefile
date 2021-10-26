@@ -30,7 +30,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 SRCNAME		= tcpdump
-SRCVER		= 4.9.3
+SRCVER		= 4.99.1
 SRCDIR		= $(SRCNAME)-$(SRCVER)
 SRCTARBALL	= $(SRCDIR).tar.gz
 SRCSERVER	= http://www.tcpdump.org/release
