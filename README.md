@@ -77,6 +77,13 @@ News
     to 1.20. Upgraded ethtool to 5.13, mailutils to 3.13, and nano to
     5.8. Upgraded the Raspberry Pi kernel to 5.10.52. Upgraded the .Net
     runtime to 5.0.9.
+-   28 October 2021 -- Lots of software component updates: Upgraded Free
+    Pascal to 3.2.2. Upgraded hidapi to 0.11.0. Upgraded OpenSSL to
+    1.1.1l. Upgraded curl to 7.79.1. Upgraded MySQL client library to
+    3.2.4. Upgraded gdbm to 1.21. Upgraded BusyBox to 1.34.1. Upgraded
+    OpenSSH to 8.8p1. Upgraded ethtool to 5.14. Upgraded nano to 5.9.
+    Upgraded tcptump to 4.99.1. Upgraded the .Net Core Runtime to
+    5.0.11. Upgraded the Raspberry Pi kernel to 5.10.76.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
