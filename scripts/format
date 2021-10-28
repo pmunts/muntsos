@@ -52,6 +52,12 @@ for P in ${1}?*; do
   fi
 done
 
+# Nuke the drive
+
+dd if=/dev/zero of=${1} bs=512 count=10000 >/dev/null 2>&1
+partprobe
+sleep 1
+
 # Partition the drive
 
 echo ",,c,*" | sfdisk -q -w always $1
