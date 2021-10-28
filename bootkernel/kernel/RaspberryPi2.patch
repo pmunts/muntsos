@@ -1,6 +1,6 @@
---- Makefile.orig	2021-05-27 04:42:13.000000000 -0700
-+++ Makefile	2021-05-27 08:22:27.092848010 -0700
-@@ -1445,8 +1445,6 @@
+--- Makefile.orig	2021-10-28 05:19:51.000000000 -0700
++++ Makefile	2021-10-28 08:47:04.936230847 -0700
+@@ -1446,8 +1446,6 @@
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
@@ -9,9 +9,9 @@
  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
  
  # This depmod is only for convenience to give the initial
---- arch/arm/Kconfig.orig	2021-01-25 10:25:08.000000000 -0800
-+++ arch/arm/Kconfig	2021-01-27 17:16:08.126244888 -0800
-@@ -91,11 +91,6 @@
+--- arch/arm/Kconfig.orig	2021-10-28 05:19:51.000000000 -0700
++++ arch/arm/Kconfig	2021-10-28 08:47:04.936230847 -0700
+@@ -92,11 +92,6 @@
  	select HAVE_HW_BREAKPOINT if PERF_EVENTS && (CPU_V6 || CPU_V6K || CPU_V7)
  	select HAVE_IDE if PCI || ISA || PCMCIA
  	select HAVE_IRQ_TIME_ACCOUNTING
