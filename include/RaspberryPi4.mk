@@ -28,6 +28,7 @@ BOARDBASE	= RaspberryPi3
 KERNEL_IMGSRC	= Image
 
 KERNEL_DTB	+= bcm2711-rpi-4-b
+KERNEL_DTB	+= bcm2711-rpi-400
 KERNEL_DTB	+= bcm2711-rpi-cm4
 
 KERNEL_OVL	+= dwc2
