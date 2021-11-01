@@ -116,6 +116,11 @@ if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
 fi
 
+grep -q -i "Raspberry Pi Zero 2" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+fi
+
 grep -q -i "Raspberry Pi 3 Model A" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac

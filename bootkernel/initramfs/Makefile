@@ -763,6 +763,10 @@ ifneq ($(findstring RaspberryPi3, $(BOARDNAME)),)
 	install -cm 0644 $(FIRMWARE_SRC)/cypress/cyfmac43455-sdio.bin				$@/lib/firmware/brcm/brcmfmac43455-sdio.bin
 	install -cm 0644 $(FIRMWARE_SRC)/cypress/cyfmac43455-sdio.clm_blob			$@/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
 	install -cm 0644 $(FIRMWARE_SRC)/brcm/brcmfmac43455-sdio.raspberrypi,3-model-b-plus.txt	$@/lib/firmware/brcm/brcmfmac43455-sdio.txt
+	# Firmware for the Raspberry Pi Zero 2 built-in WLAN interface
+	install -cm 0644 brcmfmac43436-sdio.bin							$@/lib/firmware/brcm/brcmfmac43436-sdio.bin
+	install -cm 0644 brcmfmac43436-sdio.clm_blob						$@/lib/firmware/brcm/brcmfmac43436-sdio.clm_blob
+	install -cm 0644 brcmfmac43436-sdio.txt							$@/lib/firmware/brcm/brcmfmac43436-sdio.txt
 endif
 
 ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
