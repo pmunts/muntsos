@@ -77,6 +77,9 @@ to 7.79.1. Upgraded MySQL client library to 3.2.4. Upgraded gdbm to 1.21.
 Upgraded BusyBox to 1.34.1. Upgraded OpenSSH to 8.8p1. Upgraded ethtool to
 5.14. Upgraded nano to 5.9. Upgraded tcptump to 4.99.1. Upgraded the .Net Core
 Runtime to 5.0.11. Upgraded the Raspberry Pi kernel to 5.10.76.</li>
+<li>1 November 2021 -- Added support for the <a href=
+"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
+2</a>.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for setting up the MuntsOS cross-toolchain development
@@ -195,19 +198,19 @@ slave</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi2.zip</tt></b></td>
-<td>For all Raspberry Pi 2 and 3 -- ARMv7 32-bit, USB master</td>
+<td>For all Raspberry Pi 2, 3, and Zero 2 -- ARMv7 32-bit, USB master</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi2Gadget.zip&nbsp;</tt></b></td>
-<td>For Raspberry Pi 3 A+, CM3 -- ARMv7 32-bit, USB slave</td>
+<td>For Raspberry Pi 3 A+, CM3, and Zero 2 -- ARMv7 32-bit, USB slave</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi3.zip</tt></b></td>
-<td>For all Raspberry Pi 3 -- ARMv8 64-bit, USB master</td>
+<td>For all Raspberry Pi 3 and Zero 2 -- ARMv8 64-bit, USB master</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi3Gadget.zip&nbsp;</tt></b></td>
-<td>For Raspberry Pi 3 A+, CM3 -- ARMv8 64-bit, USB slave</td>
+<td>For Raspberry Pi 3 A+, CM3, and Zero 2 -- ARMv8 64-bit, USB slave</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi4.zip</tt></b></td>
@@ -364,7 +367,7 @@ match its progenitors, so BeagleBone capes cannot be used on it.</p>
 <h3>Raspberry Pi 1</h3>
 <p>The <a href="http://www.raspberrypi.org">Raspberry Pi</a> is a low cost
 Linux microcomputer selling for USD $5 to $35 (depending on model). Raspberry
-Pi 1 models have a BCM2835 ARMv6 single-core CPU running at 700 to 1000 MHz and
+Pi 1 models have a BCM2708 ARMv6 single-core CPU running at 700 to 1000 MHz and
 come with with 256 MB to 512 MB of RAM. They have 10/100 Ethernet, 1 to 4 USB
 ports, HDMI, RCA composite video and a stereo headphone or three-pole A/V jack.
 They also have several miniature connectors for camera and LCD display modules
@@ -386,23 +389,24 @@ MuntsOS Raspberry Pi 1 Gadget Thin Servers installed.</p>
 <h3>Raspberry Pi 2 and 3</h3>
 <p>The <a href=
 "https://www.raspberrypi.org/products/raspberry-pi-2-model-b">Rasbperry Pi 2
-Model B</a> has a 900 MHz ARMv7 Cortex-A7 BCM2836 (900 MHz ARMv8 Cortex-A53
-BCM2837 on later production boards) quad-core CPU and comes with 1 GB of RAM.
-It is mechanically compatible with the Raspberry Pi 1 Model B+, with 10/100
-Ethernet, 4 USB ports, 3.5 mm A/V jack, and a 40-pin GPIO expansion header.</p>
+Model B</a> has a 900 MHz BCM2709 ARMv7 Cortex-A7 (900 MHz BCM2710 ARMv8
+Cortex-A53 on later production boards) quad-core CPU and comes with 1 GB of
+RAM. It is mechanically compatible with the Raspberry Pi 1 Model B+, with
+10/100 Ethernet, 4 USB ports, 3.5 mm A/V jack, and a 40-pin GPIO expansion
+header.</p>
 <p>The <a href=
 "https://www.raspberrypi.org/products/raspberry-pi-3-model-b">Rasbperry Pi 3
-Model B</a> has a 1200 MHz ARMv8 Cortex-A53 BCM2837 quad-core CPU and has 1 GB
+Model B</a> has a 1200 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has 1 GB
 of RAM along with on-board Bluetooth and WiFi radios.</p>
 <p>The <a href=
 "https://www.raspberrypi.org/products/raspberry-pi-3-model-a-plus">Raspberry Pi
 3 Model A+</a> has the same form factor as the Raspberry Pi 1 Model A+, with
-only one USB host port and no wired Ethernet. It has a 1400 MHz ARMv8
-Cortex-A53 BCM2837 quad-core CPU and has 512 MB of RAM along with on-board
-Bluetooth and WiFi radios.</p>
+only one USB host port and no wired Ethernet. It has a 1400 MHz BCM2710 ARMv8
+Cortex-A53 quad-core CPU and has 512 MB of RAM along with on-board Bluetooth
+and WiFi radios.</p>
 <p>The <a href=
 "https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus">Raspberry Pi
-3 Model B+</a> has a 1400 MHz ARMv8 Cortex-A53 BCM2837 quad-core CPU and has
+3 Model B+</a> has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has
 improved power management and networking components.</p>
 <p>All Raspberry Pi 2 and 3 models can use the same 32-bit ARMv7 kernel and
 toolchains, with different device trees. There are also 64-bit AArch64
@@ -412,15 +416,17 @@ or less of RAM there is no particular advantage in running 64-bit.</p>
 kernels with dedicated USB Gadget support enabled, that run on the <a href=
 "https://www.raspberrypi.org/products/compute-module-3">CM3</a> and the
 Raspberry Pi 3 Model A+.</p>
-<p>This MuntsOS port enables the model 3 and 3+ WiFi radio, but disables the
-internal Bluetooth radio, in favor of the serial port on the expansion header.
-If the Model 3 B internal WiFi radio seems intermittent, check the power supply
-voltage. The wireless chip set seems to be sensitive to drooping supply
-voltage.</p>
+<p>The <a href=
+"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
+2</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
+ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board Bluetooth
+and WiFi radios.</p>
+<p>This MuntsOS port enables the on-board WiFi radio, but disables the on-board
+Bluetooth radio, in favor of the serial port on the expansion header.</p>
 <h3>Raspberry Pi 4</h3>
 <p>The <a href=
 "https://www.raspberrypi.org/products/raspberry-pi-4-model-b">Raspberry Pi 4
-Model B</a> has a 1500 MHz ARMv8 Cortex-A72 BCM2711 quad-core CPU and is
+Model B</a> has a 1500 MHz BCM2711 ARMv8 Cortex-A72 quad-core CPU and is
 available with 1 to 8 GB of RAM. It diverged significantly from the Raspberry
 Pi 1 B+ form factor, with the USB and Ethernet ports reversed, two micro-HDMI
 connectors instead of a single full size HDMI connector, and a USB-C power
@@ -435,7 +441,7 @@ Raspberry Pi 4 Model A. This kernel places the BCM2711 SOC USB port (connected
 to the <b><tt>J11</tt></b> micro-USB socket on the CM4 I/O board or the USB-C
 power connector on the Raspberry Pi 4 Model B) into USB device mode. (USB ports
 connected via PCIe on either board are always host ports.)</p>
-<p>This MuntsOS port enables the WiFi radio, but disables the internal
+<p>This MuntsOS port enables the on-board WiFi radio, but disables the on-board
 Bluetooth radio, in favor of the serial port on the expansion header.</p>
 <p>The Raspberry Pi Model 4 B is much more powerful than any previous Raspberry
 Pi, and is completely usable as a general purpose desktop computer. It does

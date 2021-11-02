@@ -32,8 +32,8 @@ BOARDS		:= RaspberryPi1 RaspberryPi2 RaspberryPi3 RaspberryPi4
 BASES		:= RaspberryPi1 RaspberryPi2 RaspberryPi3
 else ifeq ($(BOARDNAME), RaspberryPiGadget)
 BOOTFILES	:= bootfiles.tgz bootfiles4.tgz overlays.tgz
-BOARDS		:= RaspberryPi1Gadget RaspberryPi3Gadget RaspberryPi4Gadget
-BASES		:= RaspberryPi1 RaspberryPi3
+BOARDS		:= RaspberryPi1Gadget RaspberryPi2Gadget RaspberryPi3Gadget RaspberryPi4Gadget
+BASES		:= RaspberryPi1 RaspberryPi2 RaspberryPi3
 else ifeq ($(findstring RaspberryPi4, $(BOARDNAME)), RaspberryPi4)
 BOOTFILES	:= bootfiles4.tgz overlays.tgz
 BOARDS		:= $(BOARDNAME)
