@@ -26,6 +26,12 @@ dtoverlay=dwc2,dr_mode=peripheral
 kernel=RaspberryPi1Gadget.img
 [all]
 
+[pi02]
+kernel=RaspberryPi2Gadget.img
+#arm_64bit=1
+#kernel=RaspberryPi3Gadget.img
+[all]
+
 [pi1]
 kernel=RaspberryPi1Gadget.img
 [all]
@@ -35,8 +41,9 @@ kernel=RaspberryPi2Gadget.img
 [all]
 
 [pi3]
-arm_64bit=1
-kernel=RaspberryPi3Gadget.img
+kernel=RaspberryPi2Gadget.img
+#arm_64bit=1
+#kernel=RaspberryPi3Gadget.img
 [all]
 
 [pi4]

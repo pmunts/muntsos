@@ -23,6 +23,12 @@ dtoverlay=disable-bt
 kernel=RaspberryPi1.img
 [all]
 
+[pi02]
+kernel=RaspberryPi2.img
+#arm_64bit=1
+#kernel=RaspberryPi3.img
+[all]
+
 [pi1]
 kernel=RaspberryPi1.img
 [all]
@@ -32,8 +38,9 @@ kernel=RaspberryPi2.img
 [all]
 
 [pi3]
-arm_64bit=1
-kernel=RaspberryPi3.img
+kernel=RaspberryPi2.img
+#arm_64bit=1
+#kernel=RaspberryPi3.img
 [all]
 
 [pi4]
