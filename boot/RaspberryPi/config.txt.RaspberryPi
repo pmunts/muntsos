@@ -35,6 +35,8 @@ kernel=RaspberryPi1.img
 
 [pi2]
 kernel=RaspberryPi2.img
+#arm_64bit=1
+#kernel=RaspberryPi3.img
 [all]
 
 [pi3]

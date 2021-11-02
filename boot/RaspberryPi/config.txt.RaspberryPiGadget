@@ -38,6 +38,8 @@ kernel=RaspberryPi1Gadget.img
 
 [pi2]
 kernel=RaspberryPi2Gadget.img
+#arm_64bit=1
+#kernel=RaspberryPi3Gadget.img
 [all]
 
 [pi3]
