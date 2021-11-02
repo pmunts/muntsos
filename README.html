@@ -8,7 +8,7 @@ single chip microcontrollers.</p>
 <h2>News</h2>
 <ul>
 <li>8 January 2021 -- Added support for the <a href=
-"https://www.raspberrypi.org/products/compute-module-4">Raspberry Pi Compute
+"https://www.raspberrypi.com/products/compute-module-4">Raspberry Pi Compute
 Module 4</a>. This also necessitated adding a separate USB Gadget kernel for
 the Raspberry Pi 4. Removed obsolete application notes. Updated Application
 Note #12 for .Net 5.0.</li>
@@ -185,20 +185,19 @@ PocketBeagle -- ARMv7 32-bit</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPiGadget.zip</tt></b></td>
-<td>For Raspberry Pi 1 A, A+, CM, Zero, Zero W, 3 A+, CM3, 4 B -- USB
-slave</td>
+<td>For all Raspberry Pi -- USB slave</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi1.zip</tt></b></td>
-<td>For all Raspberry Pi 1 and Zero -- ARMv6 32-bit, USB master</td>
+<td>For all Raspberry Pi 1 -- ARMv6 32-bit, USB master</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi1Gadget.zip&nbsp;</tt></b></td>
-<td>For Raspberry Pi 1 A, A+, CM, Zero, Zero W -- ARMv6 32-bit, USB slave</td>
+<td>For Raspberry Pi 1 A, A+, CM1, Zero, Zero W -- ARMv6 32-bit, USB slave</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi2.zip</tt></b></td>
-<td>For all Raspberry Pi 2, 3, and Zero 2 -- ARMv7 32-bit, USB master</td>
+<td>For all Raspberry Pi 2, 3, Zero 2 -- ARMv7 32-bit, USB master</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi2Gadget.zip&nbsp;</tt></b></td>
@@ -206,7 +205,7 @@ slave</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi3.zip</tt></b></td>
-<td>For all Raspberry Pi 3 and Zero 2 -- ARMv8 64-bit, USB master</td>
+<td>For all Raspberry Pi 3, Zero 2 -- ARMv8 64-bit, USB master</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi3Gadget.zip&nbsp;</tt></b></td>
@@ -364,68 +363,62 @@ be plugged directly into the expansion headers.</p>
 USB cable, micro-SD card, or expansion headers.</p>
 <p>Unlike the Raspberry Pi Zero, the PocketBeagle expansion headers do not
 match its progenitors, so BeagleBone capes cannot be used on it.</p>
-<h3>Raspberry Pi 1</h3>
-<p>The <a href="http://www.raspberrypi.org">Raspberry Pi</a> is a low cost
-Linux microcomputer selling for USD $5 to $35 (depending on model). Raspberry
-Pi 1 models have a BCM2708 ARMv6 single-core CPU running at 700 to 1000 MHz and
-come with with 256 MB to 512 MB of RAM. They have 10/100 Ethernet, 1 to 4 USB
-ports, HDMI, RCA composite video and a stereo headphone or three-pole A/V jack.
-They also have several miniature connectors for camera and LCD display modules
-as well as a single 26 or 40 pin 2.54 mm pitch GPIO expansion connector, to
-which expansion boards like <a href=
-"http://git.munts.com/rpi-mcu/expansion/LPC1114">this</a> can be attached.</p>
+<h3>Raspberry Pi</h3>
+<p>The <a href="http://www.raspberrypi.com">Raspberry Pi</a> is a family of low
+cost Linux microcomputers selling for USD $5 to $75 (depending on model). There
+have been four generations of Raspberry Pi microcomputers, each using a
+successively more sophisticated Broadcom ARM core CPU.</p>
+<p>Some Raspberry Pi models have an on-board Bluetooth radio that uses the
+serial port signals that are brought out to the expansion header. By default,
+MuntsOS port disables the on-board Bluetooth radio, in favor of the serial port
+on the expansion header.</p>
+<h4>Raspberry Pi 1</h4>
+<p>Raspberry Pi 1 models have a BCM2708 ARMv6 single-core CPU running at 700 to
+1000 MHz and come with with 256 MB to 512 MB of RAM. They have 10/100 Ethernet,
+1 to 4 USB ports, HDMI, RCA composite video and a stereo headphone or
+three-pole A/V jack. They also have several miniature connectors for camera and
+LCD display modules as well as a single 26 or 40 pin 2.54 mm pitch GPIO
+expansion connector.</p>
 <p>All Raspberry Pi 1 models use the same 32-bit ARMv6 kernel and toolchains,
 with different device trees.</p>
-<p>MuntsOS also provides a separate kernel with dedicated USB Gadget support
-enabled. This kernel runs on the Models A, A+, CM1, Zero, and Zero Wireless and
-allows powering and communicating with a Raspberry Pi solely through the USB
-port. This kernel supports USB Network, Raw HID, and Serial Port gadgets,
-selected by bits in the <b><tt>OPTIONS</tt></b> word passed on the kernel
-command line. The USB Gadget Thin Servers have USB Network Gadget selected by
-default.</p>
-<p>The absolute minimum possible usable Raspberry Pi kit consists of a
-Raspberry Pi Zero, a micro-USB cable, and a micro-SD card with one of the
-MuntsOS Raspberry Pi 1 Gadget Thin Servers installed.</p>
-<h3>Raspberry Pi 2 and 3</h3>
+<p>With the advent of the <a href=
+"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
+2</a>, all Raspberry Pi 1 models are now obsolete. MuntsOS Embedded Linux will
+continue to support all Raspberry Pi 1 models.</p>
+<h4>Raspberry Pi 2 and 3</h4>
 <p>The <a href=
-"https://www.raspberrypi.org/products/raspberry-pi-2-model-b">Rasbperry Pi 2
+"https://www.raspberrypi.com/products/raspberry-pi-2-model-b">Rasbperry Pi 2
 Model B</a> has a 900 MHz BCM2709 ARMv7 Cortex-A7 (900 MHz BCM2710 ARMv8
 Cortex-A53 on later production boards) quad-core CPU and comes with 1 GB of
 RAM. It is mechanically compatible with the Raspberry Pi 1 Model B+, with
 10/100 Ethernet, 4 USB ports, 3.5 mm A/V jack, and a 40-pin GPIO expansion
 header.</p>
 <p>The <a href=
-"https://www.raspberrypi.org/products/raspberry-pi-3-model-b">Rasbperry Pi 3
+"https://www.raspberrypi.com/products/raspberry-pi-3-model-b">Rasbperry Pi 3
 Model B</a> has a 1200 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has 1 GB
 of RAM along with on-board Bluetooth and WiFi radios.</p>
 <p>The <a href=
-"https://www.raspberrypi.org/products/raspberry-pi-3-model-a-plus">Raspberry Pi
+"https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus">Raspberry Pi
 3 Model A+</a> has the same form factor as the Raspberry Pi 1 Model A+, with
 only one USB host port and no wired Ethernet. It has a 1400 MHz BCM2710 ARMv8
 Cortex-A53 quad-core CPU and has 512 MB of RAM along with on-board Bluetooth
 and WiFi radios.</p>
 <p>The <a href=
-"https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus">Raspberry Pi
+"https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus">Raspberry Pi
 3 Model B+</a> has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has
 improved power management and networking components.</p>
+<p>The <a href=
+"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
+2</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
+BCM2710 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
+Bluetooth and WiFi radios.</p>
 <p>All Raspberry Pi 2 and 3 models can use the same 32-bit ARMv7 kernel and
 toolchains, with different device trees. There are also 64-bit AArch64
 toolchains and ARMv8 kernels available for the Raspberry Pi 3, though with 1 GB
 or less of RAM there is no particular advantage in running 64-bit.</p>
-<p>MuntsOS also provides Raspberry Pi 2 (32-bit) and Raspberry Pi 3 (64-bit)
-kernels with dedicated USB Gadget support enabled, that run on the <a href=
-"https://www.raspberrypi.org/products/compute-module-3">CM3</a> and the
-Raspberry Pi 3 Model A+.</p>
+<h4>Raspberry Pi 4</h4>
 <p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
-2</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
-ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board Bluetooth
-and WiFi radios.</p>
-<p>This MuntsOS port enables the on-board WiFi radio, but disables the on-board
-Bluetooth radio, in favor of the serial port on the expansion header.</p>
-<h3>Raspberry Pi 4</h3>
-<p>The <a href=
-"https://www.raspberrypi.org/products/raspberry-pi-4-model-b">Raspberry Pi 4
+"https://www.raspberrypi.com/products/raspberry-pi-4-model-b">Raspberry Pi 4
 Model B</a> has a 1500 MHz BCM2711 ARMv8 Cortex-A72 quad-core CPU and is
 available with 1 to 8 GB of RAM. It diverged significantly from the Raspberry
 Pi 1 B+ form factor, with the USB and Ethernet ports reversed, two micro-HDMI
@@ -434,21 +427,24 @@ connector instead of micro-USB. Two of the USB ports are 3.0 and two are 2.0. A
 major improvement is a Gigabit Ethernet controller connected via PCI Express
 instead of the USB connected Ethernet used for all earlier models. The
 Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.</p>
-<p>MuntsOS also provides a Raspberry Pi 4 kernel with dedicated USB Gadget
-support enabled, that runs on the <a href=
-"https://www.raspberrypi.org/products/compute-module-4">CM4</a> and the
-Raspberry Pi 4 Model A. This kernel places the BCM2711 SOC USB port (connected
-to the <b><tt>J11</tt></b> micro-USB socket on the CM4 I/O board or the USB-C
-power connector on the Raspberry Pi 4 Model B) into USB device mode. (USB ports
-connected via PCIe on either board are always host ports.)</p>
-<p>This MuntsOS port enables the on-board WiFi radio, but disables the on-board
-Bluetooth radio, in favor of the serial port on the expansion header.</p>
 <p>The Raspberry Pi Model 4 B is much more powerful than any previous Raspberry
 Pi, and is completely usable as a general purpose desktop computer. It does
 require significantly more power and generates significantly more heat. It
 supports dual monitors, which is mostly irrelevant for embedded systems. I have
 some doubt about the long term physical robustness of the micro-HDMI
 connectors.</p>
+<h4>Raspberry Pi USB Gadget Kernels</h4>
+<p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
+"http://www.linux-usb.org/gadget">USB Gadget</a> support enabled. These kernels
+run on Models 1 A, A+, CM1, Zero, Zero Wireless, 3 A+, CM3, Zero 2, 4 B, and
+CM4. You can supply power to and communicate with a compatible Raspberry Pi
+solely through the USB port. This kernel supports USB Network, Raw HID, and
+Serial Port gadgets, selected by bits in the <b><tt>OPTIONS</tt></b> word
+passed on the kernel command line. The USB Gadget Thin Servers have USB Network
+Gadget selected by default.</p>
+<p>The absolute minimum possible usable Raspberry Pi kit consists of a
+Raspberry Pi Zero, Zero W, or Zero 2, a micro-USB cable, and a micro-SD card
+with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers installed.</p>
 <h2>Toolchains</h2>
 <p>I build a custom Ada/C/C++/Fortran/Go cross-toolchain (using <a href=
 "https://crosstool-ng.github.io">Crosstool-NG</a>) for each MuntsOS platform
