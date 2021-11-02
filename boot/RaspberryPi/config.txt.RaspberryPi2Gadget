@@ -1,6 +1,6 @@
 # Boot Configuration for MuntsOS on Raspberry Pi
 
-kernel=RaspberryPi2Gadget
+kernel=RaspberryPi2Gadget.img
 
 # Disable the rainbow splash screen
 disable_splash=1
@@ -18,13 +18,11 @@ dtparam=spi=on
 # Enable USB slave device mode
 dtoverlay=dwc2,dr_mode=peripheral
 
-[pi3]
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
 
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
-[all]
 
 # Additional device tree overlays go here.  See ./overlays/README.txt and
 # https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
