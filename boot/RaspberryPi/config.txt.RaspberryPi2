@@ -15,13 +15,11 @@ gpu_mem=16
 dtparam=i2c=on
 dtparam=spi=on
 
-[pi3]
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
 
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
-[all]
 
 # Additional device tree overlays go here.  See ./overlays/README.txt and
 # https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README

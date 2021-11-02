@@ -13,17 +13,14 @@ gpu_mem=16
 dtparam=i2c=on
 dtparam=spi=on
 
-[pi0]
-kernel=RaspberryPi1.img
-
-# Correct the polarity of the activity LED
-dtparam=act_led_activelow=on
-
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
 
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
+
+[pi0]
+kernel=RaspberryPi1.img
 [all]
 
 [pi1]
@@ -37,12 +34,6 @@ kernel=RaspberryPi2.img
 [pi3]
 arm_64bit=1
 kernel=RaspberryPi3.img
-
-# Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
-dtoverlay=disable-bt
-
-# Disable onboard WiFi
-#dtoverlay=disable-wifi
 [all]
 
 [pi4]
@@ -51,12 +42,6 @@ kernel=RaspberryPi4.img
 
 # Enable /dev/i2c-0 and friends
 #dtparam=i2c_vc=on
-
-# Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
-dtoverlay=disable-bt
-
-# Disable onboard WiFi
-#dtoverlay=disable-wifi
 [all]
 
 [cm4]

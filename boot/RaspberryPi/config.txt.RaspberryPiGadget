@@ -13,46 +13,40 @@ gpu_mem=16
 dtparam=i2c=on
 dtparam=spi=on
 
-# Enable USB slave device mode
-dtoverlay=dwc2,dr_mode=peripheral
-
-[pi0]
-kernel=RaspberryPi1Gadget.img
-
-# Correct the polarity of the activity LED
-dtparam=act_led_activelow=on
-
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
 
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
+
+# Enable USB slave device mode
+dtoverlay=dwc2,dr_mode=peripheral
+
+[pi0]
+kernel=RaspberryPi1Gadget.img
 [all]
 
 [pi1]
 kernel=RaspberryPi1Gadget.img
 [all]
 
+[pi2]
+kernel=RaspberryPi2Gadget.img
+[all]
+
 [pi3]
 arm_64bit=1
 kernel=RaspberryPi3Gadget.img
-
-# Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
-dtoverlay=disable-bt
-
-# Disable onboard WiFi
-#dtoverlay=disable-wifi
 [all]
 
 [pi4]
 arm_64bit=1
 kernel=RaspberryPi4Gadget.img
+[all]
 
-# Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
-dtoverlay=disable-bt
-
-# Disable onboard WiFi
-#dtoverlay=disable-wifi
+[cm4]
+# Enable the PCF85063A RTC on the I/O board
+#dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
 [all]
 
 # Additional device tree overlays go here.  See ./overlays/README.txt and

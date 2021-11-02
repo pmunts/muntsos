@@ -16,14 +16,14 @@ gpu_mem=16
 dtparam=i2c=on
 dtparam=spi=on
 
-# Enable USB slave device mode
-dtoverlay=dwc2,dr_mode=peripheral
-
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
 
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
+
+# Enable USB slave device mode
+dtoverlay=dwc2,dr_mode=peripheral
 
 # Additional device tree overlays go here.  See ./overlays/README.txt and
 # https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
