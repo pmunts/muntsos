@@ -27,5 +27,6 @@ BOARDBASE	= RaspberryPi2
 
 KERNEL_DTB	+= bcm2710-rpi-3-b-plus
 KERNEL_DTB	+= bcm2710-rpi-cm3
+KERNEL_DTB	+= bcm2710-rpi-zero-2
 
 KERNEL_OVL	+= dwc2
