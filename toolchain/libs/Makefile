@@ -20,12 +20,17 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../..
+ifneq ($(BOARDNAME),)
+# Build with MuntsOS Embedded Linux cross-toolchain
+include ../../include/$(BOARDNAME).mk
+INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)-libs
+else
+# Build with Debian cross-toolchain, selected by CROSS_COMPILE=
+CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | rev | cut -c 2- | rev)
+INSTALLDIR	:= $(CONFIGURE_NAME)-libs
+endif
 
 BUILDNUM	?= 1
-
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-
 BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
@@ -168,14 +173,13 @@ MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(TEMP)/$(MODBUS_TARBALL)
 
 DESTDIR		= $(shell pwd)
-INSTALLDIR	= gcc-$(TOOLCHAIN_NAME)-libs
 
 SUBORDINATES	= ncurses libusb hidapi openssl zlib curl tirpc xmlrpc libpcap libmnl libnl libsodium libmysqlclient gdbm mqtt rabbitmq zeromq modbus
 SRCDIRS		= $(NCURSES_SRC) $(LIBUSB_SRC) $(HIDAPI_SRC) $(OPENSSL_SRC) $(ZLIB_SRC) $(CURL_SRC) $(TIRPC_SRC) $(XMLRPC_C_SRC) $(LIBPCAP_SRC) $(LIBMNL_SRC) $(LIBNL_SRC) $(LIBSODIUM_SRC) $(LIBMYSQLCLIENT_SRC) $(GDBM_SRC) $(MQTT_SRC) $(RABBITMQ_SRC) $(ZEROMQ_SRC) $(MODBUS_SRC)
 DISTFILES	= $(NCURSES_DIST) $(LIBUSB_DIST) $(HIDAPI_DIST) $(OPENSSL_DIST) $(ZLIB_DIST) $(CURL_DIST) $(TIRPC_DIST) $(XMLRPC_C_DIST) $(LIBPCAP_DIST) $(LIBNL_DIST) $(LIBSODIUM_DIST) $(LIBMYSQLCLIENT_DIST) $(GDBM_DIST) $(MQTT_DIST) $(RABBITMQ_DIST) $(ZEROMQ_DIST) $(MODBUS_DIST)
 
 OSNAME		?= unknown
-PKGNAME		= gcc-$(TOOLCHAIN_NAME)-libs
+PKGNAME		= $(INSTALLDIR)
 PKGVER		= $(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		= all
 PKGSUFFIX	= $(PKGVER)-$(OSNAME)-$(PKGARCH)
@@ -323,7 +327,7 @@ $(CURL_SRC): $(CURL_DIST)
 # Build curl
 
 $(INSTALLDIR)/lib/libcurl.a: $(CURL_SRC)
-	cd $(CURL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) CC=$(CROSS_COMPILE)gcc --with-ssl=$(shell pwd)/$(INSTALLDIR) --with-zlib=$(shell pwd)/$(INSTALLDIR)
+	cd $(CURL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) CC=$(CROSS_COMPILE)gcc --with-ssl=$(shell pwd)/$(INSTALLDIR) --with-zlib=$(shell pwd)/$(INSTALLDIR) --without-brotli
 	$(MAKE) -C $(CURL_SRC)
 	$(MAKE) -C $(CURL_SRC) install DESTDIR=$(DESTDIR)
 	touch $@
@@ -491,8 +495,8 @@ $(INSTALLDIR)/lib/libmysqlclient.a: $(LIBMYSQLCLIENT_SRC)
 	$(MAKE) -C $(LIBMYSQLCLIENT_SRC)/cross
 	$(MAKE) -C $(LIBMYSQLCLIENT_SRC)/cross install DESTDIR=$(DESTDIR)
 	ln -s mariadb $(INSTALLDIR)/include/mysql
-	ln -s mariadb/libmysqlclient.a $(INSTALLDIR)/lib/libmysqlclient.a
-	ln -s mariadb/libmysqlclient.so $(INSTALLDIR)/lib/libmysqlclient.so
+	ln -s mariadb/libmariadbclient.a $(INSTALLDIR)/lib/libmysqlclient.a
+	ln -s mariadb/libmariadb.so $(INSTALLDIR)/lib/libmysqlclient.so
 	touch $@
 
 libmysqlclient: $(INSTALLDIR)/lib/libmysqlclient.a
@@ -565,6 +569,10 @@ $(INSTALLDIR)/lib/librabbitmq.a: $(RABBITMQ_SRC)
 	-DOPENSSL_CRYPTO_LIBRARY=$(DESTDIR)/$(INSTALLDIR)/lib/libcrypto.so \
 	-DOPENSSL_SSL_LIBRARY=$(DESTDIR)/$(INSTALLDIR)/lib/libssl.so
 	cd $(RABBITMQ_SRC)/build && cmake --build . --target install
+ifeq ($(BOARDNAME),)
+	mv $(DESTDIR)/$(INSTALLDIR)/lib/$(CONFIGURE_NAME)/pkgconfig/librabbitmq.pc $(DESTDIR)/$(INSTALLDIR)/lib/pkgconfig
+	rm -rf $(DESTDIR)/$(INSTALLDIR)/lib/$(CONFIGURE_NAME)/pkgconfig
+endif
 	sed -i "s@`pwd`@@g" $(DESTDIR)/$(INSTALLDIR)/lib/pkgconfig/librabbitmq.pc
 	touch $@
 
@@ -693,13 +701,21 @@ copying: $(INSTALLDIR)/COPYING
 
 package.deb: $(INSTALLDIR)/COPYING
 	mkdir -p					$(PKGDIR)/DEBIAN
-	mkdir -p					$(PKGDIR)$(GCCSYSROOT)/usr
 	install -cm 0644 control			$(PKGDIR)/DEBIAN
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
+ifneq ($(BOARDNAME),)
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
+	mkdir -p					$(PKGDIR)$(GCCSYSROOT)/usr
 	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(GCCSYSROOT)/usr
+else
+	sed -i s/@@BOARDNAME@@/$(CONFIGURE_NAME)/g	$(PKGDIR)/DEBIAN/control
+	mkdir -p					$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libs
+	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libs
+	cd $(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME) && for F in libs/lib/* ; do ln -s $$F ; done
+	rm						$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/$(CONFIGURE_NAME)
+endif
 	chmod -R ugo-w					$(PKGDIR)/usr/*
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R ugo+w					$(PKGDIR)
