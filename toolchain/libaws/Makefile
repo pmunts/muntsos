@@ -97,7 +97,8 @@ else
 	mkdir -p					$(PKGDIR)$(AWSDIR)/aws.src
 	install -cm 0644 src/*.ads src/*.adb		$(PKGDIR)$(AWSDIR)/aws.src
 	rm						$(PKGDIR)$(AWSDIR)/aws.src/with_everything.adb
-	ln -s aws/aws.gpr				$(PKGDIR)$(LIBDIR)/aws.gpr
+	mkdir -p					$(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr
+	ln -s /usr/local/lib/$(CONFIGURE_NAME)/aws/aws.gpr $(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr/aws.gpr
 endif
 	$(GAINROOT) chown -R root.root			$(PKGDIR)
 	$(GAINROOT) dpkg-deb -Zgzip --build		$(PKGDIR)
