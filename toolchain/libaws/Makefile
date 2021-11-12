@@ -20,13 +20,22 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../..
-include $(MUNTSOS)/include/$(BOARDNAME).mk
+ifneq ($(BOARDNAME),)
+# Build with MuntsOS Embedded Linux cross-toolchain
+include ../../include/$(BOARDNAME).mk
+INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)-libaws
+else
+# Build with Debian cross-toolchain, selected by CROSS_COMPILE=
+CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | rev | cut -c 2- | rev)
+INSTALLDIR	:= $(CONFIGURE_NAME)-libaws
+LIBDIR		:= /usr/local/lib/$(CONFIGURE_NAME)
+AWSDIR		:= $(LIBDIR)/aws
+endif
 
 BUILDNUM	?= 1
 
 OSNAME		?= unknown
-PKGNAME		= gcc-$(TOOLCHAIN_NAME)-libaws
+PKGNAME		= $(INSTALLDIR)
 PKGVER		= $(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		= all
 PKGSUFFIX	= $(PKGVER)-$(OSNAME)-$(PKGARCH)
@@ -44,9 +53,15 @@ default: package.deb
 libaws.a:
 	rm -rf obj
 	mkdir -p obj
+ifneq ($(BOARDNAME),)
 	cd src && ln -s aws-os_lib.ads-$(BOARDNAME) aws-os_lib.ads
 	$(CROSS_COMPILE)gcc -Wall -c -o obj/wrappers.o src/wrappers.c
 	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb
+else
+	cd src && ln -s aws-os_lib.ads-$(CONFIGURE_NAME) aws-os_lib.ads
+	$(CROSS_COMPILE)gcc -I/usr/local/lib/$(CONFIGURE_NAME)/libs/include -Wall -c -o obj/wrappers.o src/wrappers.c
+	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb
+endif
 	rm obj/with_everything.ali obj/with_everything.o
 	$(CROSS_COMPILE)ar cr $@ obj/*.o
 
@@ -60,6 +75,7 @@ package.deb: libaws.a
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
+ifneq ($(BOARDNAME),)
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/$(TOOLCHAIN_DIR)/share/gpr
 	install -cm 0644 aws.gpr			$(PKGDIR)/$(TOOLCHAIN_DIR)/share/gpr
@@ -69,6 +85,20 @@ package.deb: libaws.a
 	rm						$(PKGDIR)/$(GCCSYSROOT)/usr/include/aws/with_everything.adb
 	mkdir -p					$(PKGDIR)/$(GCCSYSROOT)/usr/lib/aws
 	install -cm 0644 *.a obj/*.ali			$(PKGDIR)/$(GCCSYSROOT)/usr/lib/aws
+else
+	sed -i s/@@BOARDNAME@@/$(CONFIGURE_NAME)/g	$(PKGDIR)/DEBIAN/control
+	mkdir -p					$(PKGDIR)$(AWSDIR)
+	install -cm 0644 src/COPYING			$(PKGDIR)$(AWSDIR)
+	install -cm 0644 aws.gpr			$(PKGDIR)$(AWSDIR)/aws.gpr
+	sed -i 's@SYSROOT/usr/include/aws@$(AWSDIR)/aws.src@g' $(PKGDIR)$(AWSDIR)/aws.gpr
+	sed -i 's@SYSROOT/usr/lib/aws@$(AWSDIR)/aws.lib@g' $(PKGDIR)$(AWSDIR)/aws.gpr
+	mkdir -p					$(PKGDIR)$(AWSDIR)/aws.lib
+	install -cm 0644 *.a obj/*.ali			$(PKGDIR)$(AWSDIR)/aws.lib
+	mkdir -p					$(PKGDIR)$(AWSDIR)/aws.src
+	install -cm 0644 src/*.ads src/*.adb		$(PKGDIR)$(AWSDIR)/aws.src
+	rm						$(PKGDIR)$(AWSDIR)/aws.src/with_everything.adb
+	ln -s aws/aws.gpr				$(PKGDIR)$(LIBDIR)/aws.gpr
+endif
 	$(GAINROOT) chown -R root.root			$(PKGDIR)
 	$(GAINROOT) dpkg-deb -Zgzip --build		$(PKGDIR)
 	$(GAINROOT) chown -R --reference=Makefile *.deb	$(PKGDIR)
