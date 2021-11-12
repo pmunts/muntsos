@@ -93,21 +93,21 @@ package body ZLib is
      (Z_Stream_Access, Thin.Z_Streamp);
 
    procedure Translate_GZip
-     (Filter   : in out Filter_Type;
-      In_Data  : in     Stream_Element_Array;
-      In_Last  :    out Stream_Element_Offset;
-      Out_Data :    out Stream_Element_Array;
-      Out_Last :    out Stream_Element_Offset;
-      Flush    : in     Flush_Mode);
+     (Filter    : in out Filter_Type;
+      In_Data   : in     Stream_Element_Array;
+      In_Last   :    out Stream_Element_Offset;
+      Out_Data  :    out Stream_Element_Array;
+      Out_Last  :    out Stream_Element_Offset;
+      Flush     : in     Flush_Mode);
    --  Separate translate routine for make gzip header
 
    procedure Translate_Auto
-     (Filter   : in out Filter_Type;
-      In_Data  : in     Stream_Element_Array;
-      In_Last  :    out Stream_Element_Offset;
-      Out_Data :    out Stream_Element_Array;
-      Out_Last :    out Stream_Element_Offset;
-      Flush    : in     Flush_Mode);
+     (Filter    : in out Filter_Type;
+      In_Data   : in     Stream_Element_Array;
+      In_Last   :    out Stream_Element_Offset;
+      Out_Data  :    out Stream_Element_Array;
+      Out_Last  :    out Stream_Element_Offset;
+      Flush     : in     Flush_Mode);
    --  translate routine without additional headers
 
    -----------
@@ -459,12 +459,12 @@ package body ZLib is
    ---------------
 
    procedure Translate
-     (Filter   : in out Filter_Type;
-      In_Data  : in     Stream_Element_Array;
-      In_Last  :    out Stream_Element_Offset;
-      Out_Data :    out Stream_Element_Array;
-      Out_Last :    out Stream_Element_Offset;
-      Flush    : in     Flush_Mode) is
+     (Filter    : in out Filter_Type;
+      In_Data   : in     Stream_Element_Array;
+      In_Last   :    out Stream_Element_Offset;
+      Out_Data  :    out Stream_Element_Array;
+      Out_Last  :    out Stream_Element_Offset;
+      Flush     : in     Flush_Mode) is
    begin
       if Filter.Header = GZip and then Filter.Compression then
          Translate_GZip
@@ -490,14 +490,13 @@ package body ZLib is
    --------------------
 
    procedure Translate_Auto
-     (Filter   : in out Filter_Type;
-      In_Data  : in     Stream_Element_Array;
-      In_Last  :    out Stream_Element_Offset;
-      Out_Data :    out Stream_Element_Array;
-      Out_Last :    out Stream_Element_Offset;
-      Flush    : in     Flush_Mode)
+     (Filter    : in out Filter_Type;
+      In_Data   : in     Stream_Element_Array;
+      In_Last   :    out Stream_Element_Offset;
+      Out_Data  :    out Stream_Element_Array;
+      Out_Last  :    out Stream_Element_Offset;
+      Flush     : in     Flush_Mode)
    is
-      use type Thin.ULong;
       Code : Thin.Int;
 
    begin
@@ -523,8 +522,7 @@ package body ZLib is
         and then
           (Code /= Thin.Z_BUF_ERROR
            or else Flush = No_Flush
-           or else In_Data'Length > 0
-           or else Total_In (Filter.Strm.all) = 0)
+           or else In_Data'Length > 0)
       then
          Raise_Error
            (Return_Code_Enum'Image (Return_Code (Code))
@@ -542,12 +540,12 @@ package body ZLib is
    --------------------
 
    procedure Translate_GZip
-     (Filter   : in out Filter_Type;
-      In_Data  : in     Stream_Element_Array;
-      In_Last  :    out Stream_Element_Offset;
-      Out_Data :    out Stream_Element_Array;
-      Out_Last :    out Stream_Element_Offset;
-      Flush    : in     Flush_Mode)
+     (Filter    : in out Filter_Type;
+      In_Data   : in     Stream_Element_Array;
+      In_Last   :    out Stream_Element_Offset;
+      Out_Data  :    out Stream_Element_Array;
+      Out_Last  :    out Stream_Element_Offset;
+      Flush     : in     Flush_Mode)
    is
       Out_First : Stream_Element_Offset;
 
