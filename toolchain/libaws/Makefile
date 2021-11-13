@@ -100,8 +100,10 @@ else
 	ln -s /usr/local/lib/$(CONFIGURE_NAME)/aws.gpr $(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr/aws.gpr
 endif
 	$(GAINROOT) chown -R root.root			$(PKGDIR)
+	$(GAINROOT) chmod -R ugo-w			$(PKGDIR)
 	$(GAINROOT) dpkg-deb -Zgzip --build		$(PKGDIR)
 	$(GAINROOT) chown -R --reference=Makefile *.deb	$(PKGDIR)
+	$(GAINROOT) chmod -R u+w			$(PKGDIR)
 
 ###############################################################################
 
