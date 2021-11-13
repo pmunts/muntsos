@@ -1,0 +1,111 @@
+# Makefile to build the Linux Simple I/O Library
+
+# Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+CROSS_COMPILE	?= unknown-
+
+LIBSIMPLEIO	:= $(shell pwd)
+CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | sed 's/.$$//')
+AR		:= $(CROSS_COMPILE)ar
+CC		:= $(CROSS_COMPILE)gcc
+RANLIB		:= $(CROSS_COMPILE)ranlib
+
+CFLAGS		= -Wall -fPIC -I. -I.. $(DEBUGFLAGS)
+
+BUILDNUM	?= 1
+OSNAME		?= unknown
+PKGNAME		:= $(CONFIGURE_NAME)-libsimpleio
+PKGVERSION	:= $(shell date +%Y.%j).$(BUILDNUM)
+PKGARCH		:= all
+PKGDIR		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-$(PKGARCH)
+PKGFILE		:= $(PKGDIR).deb
+
+CROSSLIB	:= /usr/lib/gcc-cross/$(CONFIGURE_NAME)/10/adalib
+
+include include/dpkg.mk
+
+default: package.deb
+
+SIMPLEIO_COMPONENTS	= errmsg.o libevent.o libgpio.o libhidraw.o libi2c.o
+SIMPLEIO_COMPONENTS	+= libserial.o libspi.o liblinux.o liblinx.o
+SIMPLEIO_COMPONENTS	+= libpwm.o libipv4.o libstream.o libwatchdog.o
+SIMPLEIO_COMPONENTS	+= libadc.o
+
+# Compile C and C++ source files
+
+compile.done:
+	ln -s c libsimpleio
+	rm -rf obj
+	mkdir obj
+	for F in c/*.c ; do $(CC) $(CFLAGS) -c -o obj/`basename $$F .c`.o $$F ; done
+	touch $@
+
+# Create static libarary
+
+libsimpleio.a: compile.done
+	$(AR) rcs $@ obj/*.o
+	$(RANLIB) $@
+
+# Create shared library
+
+libsimpleio.so: compile.done
+	$(CC) -shared -o $@ obj/*.o
+
+# Precompile Ada library projects
+
+adalibs.done:
+	$(MAKE) -C ada/lib/cross CONFIGURE_NAME=$(CONFIGURE_NAME) LIBSIMPLEIO=$(LIBSIMPLEIO)
+	touch $@
+
+# Create Debian package file
+
+$(PKGDIR): libsimpleio.a libsimpleio.so adalibs.done
+	mkdir -p				$(PKGDIR)/DEBIAN
+	install -cm 0644 control.cross		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@TARGET@@/$(CONFIGURE_NAME)/g	$(PKGDIR)/DEBIAN/control
+	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g	$(PKGDIR)/DEBIAN/control
+	mkdir -p				$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
+	install -cm 0644 COPYING		$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.COPYING
+	install -cm 0644 libsimpleio.a		$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
+	install -cm 0755 libsimpleio.so		$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
+	install -cm 0644  ada/lib/cross/libsimpleio.gpr	$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
+	sed -i '/LIBSIMPLEIO :=/,+1 d'		$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.gpr
+	sed -i '/Object_Dir/,+1 d'		$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.gpr
+	sed -i 's:false:true:g'			$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.gpr
+	sed -i 's:LIBSIMPLEIO & "/ada/lib:"/usr/local/lib/$(CONFIGURE_NAME):g' $(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.gpr
+	sed -i 's:LIBSIMPLEIO & "/ada:"/usr/local/share/libsimpleio/ada:g' $(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.gpr
+	cp -R -P -p ada/lib/libsimpleio.lib	$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
+	mkdir -p				$(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr
+	ln -s /usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.gpr $(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr
+
+package.deb: $(PKGFILE)
+
+# Remove working files
+
+clean:
+	$(MAKE) -C ada/lib/muntsos clean LIBSIMPLEIO=$(LIBSIMPLEIO)
+	-rm -rf libsimpleio obj *.done *.a *.so $(PKGDIR) *.deb
+
+reallyclean: clean
+
+distclean: reallyclean
