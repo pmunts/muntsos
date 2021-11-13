@@ -29,7 +29,6 @@ else
 CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | rev | cut -c 2- | rev)
 INSTALLDIR	:= $(CONFIGURE_NAME)-libaws
 LIBDIR		:= /usr/local/lib/$(CONFIGURE_NAME)
-AWSDIR		:= $(LIBDIR)/aws
 endif
 
 BUILDNUM	?= 1
@@ -87,18 +86,18 @@ ifneq ($(BOARDNAME),)
 	install -cm 0644 *.a obj/*.ali			$(PKGDIR)/$(GCCSYSROOT)/usr/lib/aws
 else
 	sed -i s/@@BOARDNAME@@/$(CONFIGURE_NAME)/g	$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)$(AWSDIR)
-	install -cm 0644 src/COPYING			$(PKGDIR)$(AWSDIR)
-	install -cm 0644 aws.gpr			$(PKGDIR)$(AWSDIR)/aws.gpr
-	sed -i 's@SYSROOT/usr/include/aws@$(AWSDIR)/aws.src@g' $(PKGDIR)$(AWSDIR)/aws.gpr
-	sed -i 's@SYSROOT/usr/lib/aws@$(AWSDIR)/aws.lib@g' $(PKGDIR)$(AWSDIR)/aws.gpr
-	mkdir -p					$(PKGDIR)$(AWSDIR)/aws.lib
-	install -cm 0644 *.a obj/*.ali			$(PKGDIR)$(AWSDIR)/aws.lib
-	mkdir -p					$(PKGDIR)$(AWSDIR)/aws.src
-	install -cm 0644 src/*.ads src/*.adb		$(PKGDIR)$(AWSDIR)/aws.src
-	rm						$(PKGDIR)$(AWSDIR)/aws.src/with_everything.adb
+	mkdir -p					$(PKGDIR)$(LIBDIR)
+	install -cm 0644 src/COPYING			$(PKGDIR)$(LIBDIR)/aws.COPYING
+	install -cm 0644 aws.gpr			$(PKGDIR)$(LIBDIR)/aws.gpr
+	sed -i 's@SYSROOT/usr/include/aws@$(LIBDIR)/aws.src@g' $(PKGDIR)$(LIBDIR)/aws.gpr
+	sed -i 's@SYSROOT/usr/lib/aws@$(LIBDIR)/aws.lib@g' $(PKGDIR)$(LIBDIR)/aws.gpr
+	mkdir -p					$(PKGDIR)$(LIBDIR)/aws.lib
+	install -cm 0644 *.a obj/*.ali			$(PKGDIR)$(LIBDIR)/aws.lib
+	mkdir -p					$(PKGDIR)$(LIBDIR)/aws.src
+	install -cm 0644 src/*.ads src/*.adb		$(PKGDIR)$(LIBDIR)/aws.src
+	rm						$(PKGDIR)$(LIBDIR)/aws.src/with_everything.adb
 	mkdir -p					$(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr
-	ln -s /usr/local/lib/$(CONFIGURE_NAME)/aws/aws.gpr $(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr/aws.gpr
+	ln -s /usr/local/lib/$(CONFIGURE_NAME)/aws.gpr $(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr/aws.gpr
 endif
 	$(GAINROOT) chown -R root.root			$(PKGDIR)
 	$(GAINROOT) dpkg-deb -Zgzip --build		$(PKGDIR)
