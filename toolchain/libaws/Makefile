@@ -32,7 +32,6 @@ LIBDIR		:= /usr/local/lib/$(CONFIGURE_NAME)
 endif
 
 BUILDNUM	?= 1
-
 OSNAME		?= unknown
 PKGNAME		= $(INSTALLDIR)
 PKGVER		= $(shell date +%Y.%j).$(BUILDNUM)
