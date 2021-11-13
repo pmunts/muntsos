@@ -30,67 +30,60 @@ MUNTSOS		?= $(HOME)/muntsos
 ifneq ($(BOARDNAME),)
 # Build with MuntsOS Embedded Linux cross-toolchain
 include ../../include/$(BOARDNAME).mk
-INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)-libaws
+LIBNAME		:= gcc-$(TOOLCHAIN_NAME)-libaws
+GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
+LIBDIR		:= $(GCCSYSROOT)/usr/lib
+TARGET		:= $(BOARDBASE)
 else
 # Build with Debian cross-toolchain, selected by CROSS_COMPILE=
 CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | rev | cut -c 2- | rev)
-INSTALLDIR	:= $(CONFIGURE_NAME)-libaws
+LIBNAME		:= $(CONFIGURE_NAME)-libaws
+GPRDIR		:= /usr/$(CONFIGURE_NAME)/share/gpr
 LIBDIR		:= /usr/local/lib/$(CONFIGURE_NAME)
+TARGET	 	:= $(CONFIGURE_NAME)
 endif
 
 AR		:= $(CROSS_COMPILE)ar
 CC		:= $(CROSS_COMPILE)gcc
 RANLIB		:= $(CROSS_COMPILE)ranlib
 
-CFLAGS		:= -Wall -fPIC -I$(shell pwd) $(DEBUGFLAGS)
-OBJDIR		:= $(shell pwd)/obj
-
 BUILDNUM	?= 1
 OSNAME		?= unknown
-PKGNAME		:= $(INSTALLDIR)
+PKGNAME		:= $(LIBNAME)
 PKGVERSION	:= $(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= all
 PKGDIR		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
 
+include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
 default: package.deb
 
-SIMPLEIO_COMPONENTS	= errmsg.o libevent.o libgpio.o libhidraw.o libi2c.o
-SIMPLEIO_COMPONENTS	+= libserial.o libspi.o liblinux.o liblinx.o
-SIMPLEIO_COMPONENTS	+= libpwm.o libipv4.o libstream.o libwatchdog.o
-SIMPLEIO_COMPONENTS	+= libadc.o
-
 # Compile C and C++ source files
 
 compile.done:
-	rm -rf $(OBJDIR)
-	mkdir $(OBJDIR)
+	rm -rf obj
+	mkdir obj
 	ln -s -f $(LIBSIMPLEIO)/c libsimpleio
-	for F in $(LIBSIMPLEIO)/c/*.c ; do $(CC) $(CFLAGS) -c -o $(OBJDIR)/`basename $$F .c`.o $$F ; done
-	rm libsimpleio
+	for F in $(LIBSIMPLEIO)/c/*.c ; do $(CC) -Wall -fPIC -I$(shell pwd) -c -o obj/`basename $$F .c`.o $$F ; done
 	touch $@
 
 # Create static libarary
 
 libsimpleio.a: compile.done
-	$(AR) rcs $@ $(OBJDIR)/*.o
+	$(AR) rcs $@ obj/*.o
 	$(RANLIB) $@
 
 # Create shared library
 
 libsimpleio.so: compile.done
-	$(CC) -shared -o $@ $(OBJDIR)/*.o
+	$(CC) -shared -o $@ obj/*.o
 
-# Precompile Ada library projects
+# Precompile the Ada library project
 
 libsimpleio.lib:
-ifneq ($(BOARDNAME),)
-	$(MAKE) -C adalib/muntsos BOARDNAME=$(BOARDNAME) LIBSIMPLEIO=$(LIBSIMPLEIO) build clean
-else
-	$(MAKE) -C adalib/cross CROSS_COMPILE=$(CROSS_COMPILE) LIBSIMPLEIO=$(LIBSIMPLEIO)
-endif
+	LIBSIMPLEIO=$(LIBSIMPLEIO) $(GPRBUILD) $(GPRBUILDFLAGS) -P build
 	touch $@
 
 # Create Debian package file
@@ -101,41 +94,23 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g	$(PKGDIR)/DEBIAN/control
-ifneq ($(BOARDNAME),)
-	sed -i s/@@TARGET@@/$(BOARDBASE)/g	$(PKGDIR)/DEBIAN/control
-	mkdir -p				$(PKGDIR)$(GCCSYSROOT)/usr/include/libsimpleio
-	install -cm 0644 $(LIBSIMPLEIO)/c/*.h	$(PKGDIR)$(GCCSYSROOT)/usr/include/libsimpleio
-	mkdir -p				$(PKGDIR)$(GCCSYSROOT)/usr/lib
-	cp $(LIBSIMPLEIO)/COPYING		$(PKGDIR)$(GCCSYSROOT)/usr/lib/libsimpleio.COPYING
-	install -cm 0644 libsimpleio.a		$(PKGDIR)$(GCCSYSROOT)/usr/lib
-	install -cm 0755 adalib/muntsos/libsimpleio.gpr	$(PKGDIR)$(GCCSYSROOT)/usr/lib
-	install -cm 0755 libsimpleio.so		$(PKGDIR)$(GCCSYSROOT)/usr/lib
-	cp -R -P -p libsimpleio.lib		$(PKGDIR)$(GCCSYSROOT)/usr/lib
-	mkdir -p				$(PKGDIR)$(GCCSYSROOT)/../../share/gpr
-	ln -s $(GCCSYSROOT)/usr/lib/libsimpleio.gpr $(PKGDIR)$(GCCSYSROOT)/../../share/gpr/libsimpleio.gpr
-else
-	sed -i s/@@TARGET@@/$(CONFIGURE_NAME)/g	$(PKGDIR)/DEBIAN/control
-	mkdir -p				$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
-	install -cm 0644 $(LIBSIMPLEIO)/COPYING	$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.COPYING
-	install -cm 0644 libsimpleio.a		$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
-	install -cm 0755 adalib/cross/libsimpleio.gpr	$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
-	install -cm 0755 libsimpleio.so		$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
-	cp -R -P -p $(LIBSIMPLEIO)/ada/lib/libsimpleio.lib	$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
-	mkdir -p				$(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr
-	ln -s /usr/local/lib/$(CONFIGURE_NAME)/libsimpleio.gpr $(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr
-endif
+	sed -i s/@@TARGET@@/$(TARGET)/g		$(PKGDIR)/DEBIAN/control
+	mkdir -p				$(PKGDIR)$(LIBDIR)
+	cp $(LIBSIMPLEIO)/COPYING		$(PKGDIR)$(LIBDIR)/libsimpleio.COPYING
+	install -cm 0644 libsimpleio.a		$(PKGDIR)$(LIBDIR)
+	install -cm 0755 libsimpleio.gpr	$(PKGDIR)$(LIBDIR)
+	sed -i 's:@@LIBDIR@@:$(LIBDIR):g'	$(PKGDIR)$(LIBDIR)/libsimpleio.gpr
+	install -cm 0755 libsimpleio.so		$(PKGDIR)$(LIBDIR)
+	cp -R -P -p libsimpleio.lib		$(PKGDIR)$(LIBDIR)
+	mkdir -p				$(PKGDIR)$(GPRDIR)
+	ln -s $(LIBDIR)/libsimpleio.gpr		$(PKGDIR)$(GPRDIR)/libsimpleio.gpr
 
 package.deb: $(PKGFILE)
 
 # Remove working files
 
 clean:
-ifneq ($(BOARDNAME),)
-	$(MAKE) -C adalib/muntsos clean LIBSIMPLEIO=$(LIBSIMPLEIO)
-else
-	$(MAKE) -C adalib/cross clean LIBSIMPLEIO=$(LIBSIMPLEIO)
-endif
-	-rm -rf libsimpleio libsimpleio.lib obj *.done *.a *.gpr *.so $(PKGDIR) *.deb
+	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.so obj $(PKGDIR) *.deb
 
 reallyclean: clean
 
