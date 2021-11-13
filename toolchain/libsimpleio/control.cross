@@ -1,8 +1,0 @@
-Package: @@NAME@@
-Section: misc
-Priority: extra
-Maintainer: Philip Munts <phil@munts.net>
-Architecture: @@ARCH@@
-Version: @@VERSION@@
-Description: Linux Simple I/O library cross-compiled for @@TARGET@@
-Depends: munts-libsimpleio
