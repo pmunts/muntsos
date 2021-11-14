@@ -30,14 +30,14 @@ MUNTSOS		?= $(HOME)/muntsos
 ifneq ($(BOARDNAME),)
 # Build with MuntsOS Embedded Linux cross-toolchain
 include ../../include/$(BOARDNAME).mk
-LIBNAME		:= gcc-$(TOOLCHAIN_NAME)-libaws
+LIBNAME		:= gcc-$(TOOLCHAIN_NAME)-libsimpleio
 GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
 LIBDIR		:= $(GCCSYSROOT)/usr/lib
 TARGET		:= $(BOARDBASE)
 else
 # Build with Debian cross-toolchain, selected by CROSS_COMPILE=
 CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | rev | cut -c 2- | rev)
-LIBNAME		:= $(CONFIGURE_NAME)-libaws
+LIBNAME		:= $(CONFIGURE_NAME)-libsimpleio
 GPRDIR		:= /usr/$(CONFIGURE_NAME)/share/gpr
 LIBDIR		:= /usr/local/lib/$(CONFIGURE_NAME)
 TARGET	 	:= $(CONFIGURE_NAME)
