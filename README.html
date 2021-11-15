@@ -80,6 +80,16 @@ Runtime to 5.0.11. Upgraded the Raspberry Pi kernel to 5.10.76.</li>
 <li>1 November 2021 -- Added support for the <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
 2</a>.</li>
+<li>13 November 2021 -- I have successfully built all of the libraries for
+MuntsOS using the ARMv7 and AArch64 cross-toolchains available for Debian 11
+(Bullseye). Packages for ARMv7 and AArch64 are now available from the <a href=
+"http://repo.munts.com/debian11">Munts Technologies Debian Package
+Repository</a>. In principle, it should now be possible to build a MuntsOS
+kernel image with one of the Debian cross-toolchains. In practice, the
+organization of library directories is radically different between the
+Crosstool-NG and Linaro based cross-toolchains I have been using and the new
+Debian cross-toolchains, and it will be a lot of work to modify the build
+procedure to work.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for setting up the MuntsOS cross-toolchain development
