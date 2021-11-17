@@ -26,7 +26,7 @@ MUNTSOS		?= $(shell pwd)/../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-DOTNET_VERSION	:= 5.0.11
+DOTNET_VERSION	:= 6.0.0
 DOTNET_TARBALL	:= dotnet-runtime-$(DOTNET_VERSION)-$(DOTNETARCH).tar.gz
 DOTNET_DIST	:= $(TEMP)/$(DOTNET_TARBALL)
 
