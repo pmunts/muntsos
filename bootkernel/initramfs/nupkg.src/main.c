@@ -63,7 +63,7 @@ static void CreateDestinationDirectory(char *appname)
   snprintf(dirname, sizeof(dirname), "/usr/local/lib/%s", appname);
 
   // Remove existing directory just in case
-  char cmdbuf[256];
+  char cmdbuf[512];
   memset(cmdbuf, 0, sizeof(cmdbuf));
   snprintf(cmdbuf, sizeof(cmdbuf), "rm -rf %s", dirname);
   system(cmdbuf);
@@ -262,6 +262,12 @@ int main(int argc, char *argv[])
     // Extract what we want from the NuGet package
 
     if (!strncmp(filename, "lib/netcoreapp", 14))
+      CopyFile(zf, appname, basename(filename));
+
+    if (!strncmp(filename, "lib/net5.0", 10))
+      CopyFile(zf, appname, basename(filename));
+
+    if (!strncmp(filename, "lib/net6.0", 10))
       CopyFile(zf, appname, basename(filename));
 
     if (!strncmp(filename, "rc.d/", 5))
