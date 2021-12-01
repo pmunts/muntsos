@@ -476,7 +476,7 @@ endif
 	@echo ""						>>$@
 	@echo "**** libsimpleio:"				>>$@
 	@echo ""						>>$@
-	@cat $(GCCSYSROOT)/usr/share/libsimpleio/COPYING	>>$@
+	@cat /usr/local/share/libsimpleio/doc/COPYING		>>$@
 	@sed -i 's/\f//'					$@
 	@dos2unix						$@
 
