@@ -97,6 +97,8 @@ News
     Linaro based cross-toolchains I have been using and the new Debian
     cross-toolchains, and it will be a lot of work to modify the build
     procedure to work.
+-   30 November 2021 -- Upgraded **`nupkg`** for .Net 5 and .Net 6.
+    Upgraded the Raspberry Pi kernel to 5.10.82.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
