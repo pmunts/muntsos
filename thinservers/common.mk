@@ -69,7 +69,7 @@ common_mk_prebuilt:
 # Populate the boot file system for a MuntsOS Thin Server
 
 common_mk_populate:
-	mkdir -p					$(ZIPDIR)/autoexec.d
+	for S in $(BASES) ; do mkdir -p $(ZIPDIR)/autoexec.d/$$S ; done
 	mkdir -p					$(ZIPDIR)/overlays
 	mkdir -p					$(ZIPDIR)/tarballs
 	for S in $(BASES) ; do mkdir -p $(ZIPDIR)/packages/$$S ; done
