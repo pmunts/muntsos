@@ -44,7 +44,7 @@ WITH RaspberryPi;
 
 PROCEDURE remoteio_server_munts_0018 IS
 
-  title  : CONSTANT String := "MuntsOS Remote I/O Server";
+  title  : CONSTANT String := "MuntsOS Remote I/O Server for MUNTS-0018 Tutorial I/O Board";
   caps   : CONSTANT String := "ADC GPIO I2C PWM";
   exec   : RemoteIO.Executive.Executor;
   srvh   : RemoteIO.Server.Instance;
