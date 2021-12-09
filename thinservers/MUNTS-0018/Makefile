@@ -26,6 +26,8 @@ MUNTSOS		?= $(shell pwd)/../..
 
 THINSERVERNAME	= munts-0018-remoteio-server
 
+ADAPROGRAMS	:= $(MUNTSOS)/examples/ada/programs
+
 include $(MUNTSOS)/thinservers/common.mk
 
 default: prebuilt.done $(ZIPFILE)
@@ -35,17 +37,20 @@ download_prebuilt: prebuilt.done
 prebuilt.done: common_mk_prebuilt
 	touch $@
 
+remoteio_server:
+	$(MAKE) -C $(ADAPROGRAMS) clean remoteio_server_munts_0018 BOARDNAME=$(BOARDNAME)
+	cp $(ADAPROGRAMS)/remoteio_server_munts_0018 $(ZIPDIR)/autoexec.d/$(BOARDNAME)/remoteio_server
+
 populate.done: common_mk_populate
 	sed -i '/#dtoverlay=Pi3ClickShield/d'	$(ZIPDIR)/config.txt
 	sed -i '/#dtoverlay=pwm/d'		$(ZIPDIR)/config.txt
 	echo dtoverlay=anyspi,spi0-1,dev="microchip,mcp3204",speed=1000000	>>$(ZIPDIR)/config.txt
 	echo dtoverlay=pwm-2chan,pin=12,func=4,pin2=19,func2=2			>>$(ZIPDIR)/config.txt
-	$(MAKE) -C $(MUNTSOS)/examples/ada/programs remoteio_server_munts_0018
-	cp $(MUNTSOS)/examples/ada/programs/remoteio_server_munts_0018		$(ZIPDIR)/autoexec.d
+	for B in $(BASES) ; do $(MAKE) remoteio_server BOARDNAME=$$B ; done
 	touch $@
 
 clean: common_mk_clean
-	$(MAKE) -C $(MUNTSOS)/examples/ada/programs clean
+	$(MAKE) -C $(MUNTSOS)/examples/ada/programs clean BOARDNAME=""
 
 reallyclean: clean common_mk_reallyclean
 
