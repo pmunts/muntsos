@@ -22,7 +22,7 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
 
-ADA_INCLUDES		+= -I$(MODBUS_SRC)
+CFLAGS	+= -I$(MUNTSOS)/examples/ada/freemodbus
 
 FREEMODBUS_NAME		= freemodbus
 FREEMODBUS_VER		= v1.6
@@ -33,11 +33,11 @@ FREEMODBUS_URL		= $(FREEMODBUS_SERVER)/$(FREEMODBUS_ZIP)
 FREEMODBUS_DIST		= $(TEMP)/$(FREEMODBUS_ZIP)
 
 CC	= $(CROSS_COMPILE)gcc
-CFLAGS	+= -c -Wall $(DEBUGFLAGS) $(EXTRAFLAGS) -pthread
-CFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/demo/LINUX/port
-CFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/modbus/rtu
-CFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/modbus/ascii
-CFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/modbus/include
+CCFLAGS	+= -c -Wall $(DEBUGFLAGS) $(EXTRAFLAGS) -pthread
+CCFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/demo/LINUX/port
+CCFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/modbus/rtu
+CCFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/modbus/ascii
+CCFLAGS	+= -I$(MODBUS_SRC)/$(FREEMODBUS_SRC)/modbus/include
 
 CSRC	=  $(MODBUS_SRC)/freemodbus-rtu.c
 CSRC	+= $(MODBUS_SRC)/$(FREEMODBUS_SRC)/demo/LINUX/port/portevent.c
@@ -77,7 +77,7 @@ $(MODBUS_SRC)/source.done: $(FREEMODBUS_DIST)
 
 $(MODBUS_SRC)/compile.done: $(MODBUS_SRC)/source.done
 	mkdir -p $(MODBUS_SRC)/obj
-	for F in $(CSRC) ; do $(CC) $(CFLAGS) -o$(MODBUS_SRC)/obj/`basename $$F .c`.o $$F ; done
+	for F in $(CSRC) ; do $(CC) $(CCFLAGS) -o$(MODBUS_SRC)/obj/`basename $$F .c`.o $$F ; done
 	touch $@
 
 modbus_rtu_mk_freemodbus: $(MODBUS_SRC)/source.done $(MODBUS_SRC)/compile.done
