@@ -25,6 +25,11 @@
 
 MACHINE=`uname -m`
 
+# Install necessary packages from the Debian package repository
+
+sudo apt update
+sudo apt install -y openssh-client build-essential git gnat gprbuild libncurses5 wget
+
 # Register Munts Technologies Debian package repository
 
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
@@ -52,12 +57,7 @@ if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
   fi
 fi
 
-# Install necessary packages from the Debian package repository
-
-sudo apt update
-sudo apt install -y openssh-client build-essential git gnat gprbuild libncurses5
-
-# Install packages from the Munts Technologies repo
+# Install packages from the Munts Technologies Debian package repository
 
 sudo apt install -y muntsos-crosstool
 
