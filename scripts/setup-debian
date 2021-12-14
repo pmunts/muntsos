@@ -55,7 +55,7 @@ fi
 # Install necessary packages from the Debian package repository
 
 sudo apt update
-sudo apt install -y openssh-client build-essential git gnat gnat-gps gprbuild libncurses5 man
+sudo apt install -y openssh-client build-essential git gnat gprbuild libncurses5
 
 # Install packages from the Munts Technologies repo
 
