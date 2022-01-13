@@ -83,7 +83,8 @@ build.done: source.done
 reconstitute:
 	cp -R -P -p $(TOOLCHAIN_DIR) gcc-$(CONFIGURE_NAME)
 	chmod -R u+w gcc-$(CONFIGURE_NAME)
-	rm -f gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib*/libgnat.so
+	rm -f gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnarl.so
+	rm -f gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnat.so
 	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/$(BOARDBASE).cgpr
 ifeq ($(BOARDBASE), RaspberryPi3)
 	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/RaspberryPi4.cgpr
@@ -104,6 +105,7 @@ package.deb: build.done
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
 	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
+	ln -s ../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(PKGDIR)$(GCCLIBDIR)/libgnarl.so
 	ln -s ../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so $(PKGDIR)$(GCCLIBDIR)/libgnat.so
 	rm						$(PKGDIR)$(TOOLCHAIN_DIR)/build.log.bz2
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
