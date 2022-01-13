@@ -1,6 +1,6 @@
 # Global make definitions for ARM AArch64 platforms
 
-# Copyright (C)2019-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2019-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,9 +26,3 @@ DOTNETARCH	= linux-arm64
 GCCABI		= gnu
 GCCARCH		= aarch64
 WORDSIZE	= 64
-
-TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-muntsos-$(TOOLCHAIN_BUILDER)
-GCCLIBDIR	= $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/lib64
-LOADER		= ld-linux-aarch64.so.1
-
-FPC_COMMAND	= ppcrossa64

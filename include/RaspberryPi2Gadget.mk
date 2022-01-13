@@ -1,6 +1,6 @@
 # Global make definitions for Raspberry Pi 2 BCM2836 ARM Linux microcomputer
 
-# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,8 +20,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(MUNTSOS)/include/RaspberryPi.mk
 include $(MUNTSOS)/include/ARMv7.mk
+include $(MUNTSOS)/include/crosstool.mk
+include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/RaspberryPi.mk
 
 BOARDBASE	= RaspberryPi2
 
@@ -30,3 +32,5 @@ KERNEL_DTB	+= bcm2710-rpi-cm3
 KERNEL_DTB	+= bcm2710-rpi-zero-2
 
 KERNEL_OVL	+= dwc2
+
+LOADER		= ld-linux-armhf.so.3

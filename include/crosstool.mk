@@ -1,6 +1,6 @@
 # Global definitions for cross-toolchains built with Crosstool-NG
 
-# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,14 +20,20 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+TOOLCHAIN_BUILDER := crosstool
+
 CONFIGURE_NAME	= $(GCCARCH)-linux-$(GCCABI)
+ifeq ($(GCCARCH), aarch64)
+TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-muntsos-$(TOOLCHAIN_BUILDER)
+else
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-muntsos-$(BOARDBASE)-$(TOOLCHAIN_BUILDER)
+endif
 TOOLCHAIN_DIR	= /usr/local/gcc-$(TOOLCHAIN_NAME)
 CROSS_COMPILE	= $(TOOLCHAIN_DIR)/bin/$(CONFIGURE_NAME)-
-GCCINCDIR	= $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/include
 GCCLIBDIR	= $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/lib
 GCCSYSROOT	= $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/libc
 GCCLDLINUX	= $(GCCSYSROOT)/lib/$(LOADER)
+GLIBC_COPYRIGHT	= $(GCCSYSROOT)/usr/COPYING
 
 # C/C++
 
@@ -35,7 +41,11 @@ CFLAGS		+= -DMUNTSOS
 
 # Free Pascal
 
+ifeq ($(GCCARCH), aarch64)
+FPC_COMMAND	= ppcrossa64
+else
 FPC_COMMAND	= ppcross$(ARCH)
+endif
 FPC_FLAGS	+= -dMUNTSOS
 FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/$(FPC_COMMAND)
 

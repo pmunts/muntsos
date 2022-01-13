@@ -1,6 +1,6 @@
 # Global make definitions for the BeagleBone ARM Linux microcomputer
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,10 +21,12 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 include $(MUNTSOS)/include/ARMv7.mk
+include $(MUNTSOS)/include/crosstool.mk
+include $(MUNTSOS)/include/common.mk
+
+PLATFORM_NAME	= beagle
 
 BOARDBASE	= BeagleBone
-LOADER		= ld-linux-armhf.so.3
-PLATFORM_NAME	= beagle
 
 KERNEL_IMGSRC	= zImage
 KERNEL_IMG	= BeagleBone.img
@@ -37,6 +39,8 @@ KERNEL_DTB	+= am335x-pocketbeagle
 KERNEL_DTB	+= am335x-sancloud-bbe
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
+LOADER		= ld-linux-armhf.so.3
+
 BOOTFILESDIR	= $(MUNTSOS)/boot/BeagleBone
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
@@ -48,10 +52,5 @@ KERNEL_NAME	= linux-$(PLATFORM_NAME)
 KERNEL_CLONE	= /usr/src/$(KERNEL_NAME)
 KERNEL_BRANCH	= 5.4
 KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tar.bz2
-
-TOOLCHAIN_BUILDER ?= crosstool
-
-include $(MUNTSOS)/include/common.mk
-include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 CFLAGS		+= -DBEAGLEBONE
