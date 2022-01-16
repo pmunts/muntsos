@@ -20,14 +20,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-ifneq ($(BOARDNAME),)
-# Build with MuntsOS Embedded Linux cross-toolchain
 include ../../include/$(BOARDNAME).mk
-INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)-libs
+
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+BOARDBASE	:= $(CONFIGURE_NAME)
+INSTALLDIR	:= $(CONFIGURE_NAME)
+LIBDESTDIR	:= /usr/local/$(CONFIGURE_NAME)
 else
-# Build with Debian cross-toolchain, selected by CROSS_COMPILE=
-CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | rev | cut -c 2- | rev)
-INSTALLDIR	:= $(CONFIGURE_NAME)-libs
+INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
+LIBDESTDIR	:= $(GCCSYSROOT)/usr
 endif
 
 BUILDNUM	?= 1
@@ -179,7 +180,7 @@ SRCDIRS		= $(NCURSES_SRC) $(LIBUSB_SRC) $(HIDAPI_SRC) $(OPENSSL_SRC) $(ZLIB_SRC)
 DISTFILES	= $(NCURSES_DIST) $(LIBUSB_DIST) $(HIDAPI_DIST) $(OPENSSL_DIST) $(ZLIB_DIST) $(CURL_DIST) $(TIRPC_DIST) $(XMLRPC_C_DIST) $(LIBPCAP_DIST) $(LIBNL_DIST) $(LIBSODIUM_DIST) $(LIBMYSQLCLIENT_DIST) $(GDBM_DIST) $(MQTT_DIST) $(RABBITMQ_DIST) $(ZEROMQ_DIST) $(MODBUS_DIST)
 
 OSNAME		?= unknown
-PKGNAME		= $(INSTALLDIR)
+PKGNAME		= $(INSTALLDIR)-libs
 PKGVER		= $(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		= all
 PKGSUFFIX	= $(PKGVER)-$(OSNAME)-$(PKGARCH)
@@ -569,11 +570,12 @@ $(INSTALLDIR)/lib/librabbitmq.a: $(RABBITMQ_SRC)
 	-DOPENSSL_CRYPTO_LIBRARY=$(DESTDIR)/$(INSTALLDIR)/lib/libcrypto.so \
 	-DOPENSSL_SSL_LIBRARY=$(DESTDIR)/$(INSTALLDIR)/lib/libssl.so
 	cd $(RABBITMQ_SRC)/build && cmake --build . --target install
-ifeq ($(BOARDNAME),)
-	mv $(DESTDIR)/$(INSTALLDIR)/lib/$(CONFIGURE_NAME)/pkgconfig/librabbitmq.pc $(DESTDIR)/$(INSTALLDIR)/lib/pkgconfig
-	rm -rf $(DESTDIR)/$(INSTALLDIR)/lib/$(CONFIGURE_NAME)/pkgconfig
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+	rm -rf $(INSTALLDIR)/lib/$(CONFIGURE_NAME)/cmake
+	rm -rf $(INSTALLDIR)/lib/$(CONFIGURE_NAME)/pkgconfig
+	mv $(INSTALLDIR)/lib/$(CONFIGURE_NAME)/* $(INSTALLDIR)/lib
+	rm -rf $(INSTALLDIR)/lib/$(CONFIGURE_NAME)
 endif
-	sed -i "s@`pwd`@@g" $(DESTDIR)/$(INSTALLDIR)/lib/pkgconfig/librabbitmq.pc
 	touch $@
 
 rabbitmq: $(INSTALLDIR)/lib/librabbitmq.a
@@ -705,17 +707,11 @@ package.deb: $(INSTALLDIR)/COPYING
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
-ifneq ($(BOARDNAME),)
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)$(GCCSYSROOT)/usr
-	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(GCCSYSROOT)/usr
-else
-	sed -i s/@@BOARDNAME@@/$(CONFIGURE_NAME)/g	$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libs
-	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/libs
-	cd $(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME) && for F in libs/lib/* ; do ln -s $$F ; done
-	rm						$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)/$(CONFIGURE_NAME)
-endif
+	mkdir -p					$(PKGDIR)$(LIBDESTDIR)
+	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(LIBDESTDIR)
+	rm -rf						$(PKGDIR)$(LIBDESTDIR)/lib/cmake
+	rm -rf						$(PKGDIR)$(LIBDESTDIR)/lib/pkgconfig
 	chmod -R ugo-w					$(PKGDIR)/usr/*
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R ugo+w					$(PKGDIR)
