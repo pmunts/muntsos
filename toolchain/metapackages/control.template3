@@ -3,14 +3,13 @@ Priority: optional
 Homepage: http://git.munts.com/muntsos
 Standards-Version: 3.9.2
 Package: muntsos-@@TOOLCHAIN@@-@@BOARDNAME@@
-Version: 1.3
+Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
   gcc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@,
   gcc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libs,
   gcc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libaws,
-  gcc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libsimpleio,
-  gcc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libspiagent
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libsimpleio
 Recommends:
   fpc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@
 Architecture: all

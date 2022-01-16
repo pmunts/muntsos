@@ -1,7 +1,6 @@
-# Makefile for building a metapackages for all MuntsOS cross-toolchain
-# packages
+# Makefile for building metapackages for all MuntsOS cross-toolchains
 
-# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -27,39 +26,44 @@ BOARDNAME	?= RaspberryPi
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-BOARDNAMES	= BeagleBone RaspberryPi1 RaspberryPi2
-TOOLCHAIN	= Crosstool
+BOARDNAMES	:= BeagleBone RaspberryPi1 RaspberryPi2
+TOOLCHAIN	:= Crosstool
 
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 TOOLCHAINLC	:= $(shell echo $(TOOLCHAIN) | tr A-Z a-z)
 
-PKGNAME		:= muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)
-PKGVERSION	:= 1.3
-PKGFILE		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-all.deb
+PKGVERSION1	:= 1.3
+PKGVERSION2	:= 1.4
+PKGVERSION3	:= 1.4
 
 # Build metapackages for all platforms
 
 default:
+	$(MAKE) allplatforms PKGVERSION=$(PKGVERSION1)
+	for P in $(BOARDNAMES) ; do $(MAKE) oneplatform BOARDNAME=$$P CONTROL=control.template2 PKGVERSION=$(PKGVERSION2); done
+	$(MAKE) oneplatform BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-linux-gnu CONTROL=control.template3 PKGVERSION=$(PKGVERSION3)
+
+# Build a metapackage for all platforms
+
+allplatforms:
 	cp control.template1 control.everything
 	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAINLC)/g' control.everything
+	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.everything
 	equivs-build control.everything
 	rm control.everything
 	mv muntsos-$(TOOLCHAINLC)_$(PKGVERSION)_all.deb muntsos-$(TOOLCHAINLC)-$(PKGVERSION)-$(OSNAME)-all.deb
-	for P in $(BOARDNAMES) ; do $(MAKE) package BOARDNAME=$$P CONTROL=control.template2 ; done
-	$(MAKE) package BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-linux-gnu CONTROL=control.template3
 
-# Generate the control file for a single platform
+# Build a metapackage for a single platform
 
-$(PKGFILE):
+oneplatform:
 	cp $(CONTROL) control.$(BOARDNAME)
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' control.$(BOARDNAME)
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAMELC)/g' control.$(BOARDNAME)
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' control.$(BOARDNAME)
 	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAINLC)/g' control.$(BOARDNAME)
+	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.$(BOARDNAME)
 	equivs-build control.$(BOARDNAME)
 	rm control.$(BOARDNAME)
-	mv muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)_$(PKGVERSION)_all.deb $(PKGFILE)
-
-package: $(PKGFILE)
+	mv muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)_$(PKGVERSION)_all.deb muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)-$(PKGVERSION)-$(OSNAME)-all.deb
 
 # Remove working files
 
