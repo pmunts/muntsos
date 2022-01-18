@@ -1,6 +1,6 @@
 # Make root file system for an embedded Linux system
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -470,7 +470,7 @@ endif
 	@echo ""						>>$@
 	@echo "**** glibc:"					>>$@
 	@echo ""						>>$@
-	@cat $(TOOLCHAIN_DIR)/share/licenses/glibc/COPYING	>>$@
+	@cat  $(GLIBC_COPYRIGHT)			 	>>$@
 	@echo ""						>>$@
 	@cat $(GCCSYSROOT)/usr/COPYING				>>$@
 	@echo ""						>>$@
