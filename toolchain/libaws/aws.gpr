@@ -1,6 +1,6 @@
 -- Project for using the Ada Web Server library
 
--- Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -21,14 +21,14 @@
 -- POSSIBILITY OF SUCH DAMAGE.
 
 LIBRARY PROJECT AWS IS
-  FOR Languages        USE ("Ada");
-  FOR Source_Dirs      USE ("SYSROOT/usr/include/aws");
-  FOR Library_Dir      USE "SYSROOT/usr/lib/aws";
-  FOR Library_Kind     USE "static";
-  FOR Library_Name     USE "aws";
   FOR Externally_Built USE "true";
+  FOR Languages        USE ("Ada");
+  FOR Library_Name     USE "aws";
+  FOR Library_Dir      USE "LIBDIR/aws.lib";
+  FOR Library_Kind     USE "static";
+  FOR Source_Dirs      USE ("LIBDIR/aws.src");
 
   PACKAGE Linker IS
-    FOR Linker_Options USE ("-laws", "-lcrypto", "-lssl", "-lz");
+    FOR Linker_Options USE ("-lcrypto", "-lssl", "-lz");
   END Linker;
 END AWS;

@@ -1,6 +1,6 @@
 # Makefile definitions for building GNAT Ada application programs
 
-# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,27 +20,33 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-ifneq ($(BOARDNAME),)
-# Build with MuntsOS Embedded Linux cross-toolchain
-include ../../include/$(BOARDNAME).mk
-INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)-libaws
+MUNTSOS		?= $(HOME)/muntsos
+
+include $(MUNTSOS)/include/$(BOARDNAME).mk
+
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+BOARDBASE	:= $(CONFIGURE_NAME)
+INSTALLDIR	:= $(CONFIGURE_NAME)
+LIBDIR		:= /usr/local/$(CONFIGURE_NAME)/usr/lib
+GPRDIR		:= /usr/$(CONFIGURE_NAME)/share/gpr
 else
-# Build with Debian cross-toolchain, selected by CROSS_COMPILE=
-CONFIGURE_NAME	:= $(shell echo $(CROSS_COMPILE) | rev | cut -c 2- | rev)
-INSTALLDIR	:= $(CONFIGURE_NAME)-libaws
-LIBDIR		:= /usr/local/lib/$(CONFIGURE_NAME)
+INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
+LIBDIR		:= $(GCCSYSROOT)/usr/lib
+GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
 endif
 
 BUILDNUM	?= 1
 OSNAME		?= unknown
-PKGNAME		= $(INSTALLDIR)
-PKGVER		= $(shell date +%Y.%j).$(BUILDNUM)
-PKGARCH		= all
-PKGSUFFIX	= $(PKGVER)-$(OSNAME)-$(PKGARCH)
-PKGDIR		= $(PKGNAME)-$(PKGSUFFIX)
-PKGFILE		= $(PKGDIR).deb
+PKGNAME		:= $(INSTALLDIR)-libaws
+PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+PKGARCH		:= all
+PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(OSNAME)-$(PKGARCH)
+PKGFILE		:= $(PKGDIR).deb
 
 GAINROOT	?= fakeroot
+
+include $(LIBSIMPLEIO)/ada/include/ada.mk
+include $(LIBSIMPLEIO)/include/dpkg.mk
 
 default: package.deb
 
@@ -51,15 +57,11 @@ default: package.deb
 libaws.a:
 	rm -rf obj
 	mkdir -p obj
-ifneq ($(BOARDNAME),)
-	cd src && ln -s aws-os_lib.ads-$(BOARDNAME) aws-os_lib.ads
+	cd src && ln -s aws-os_lib.ads-$(BOARDBASE) aws-os_lib.ads
 	$(CROSS_COMPILE)gcc -Wall -c -o obj/wrappers.o src/wrappers.c
 	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb
-else
-	cd src && ln -s aws-os_lib.ads-$(CONFIGURE_NAME) aws-os_lib.ads
-	$(CROSS_COMPILE)gcc -I/usr/local/lib/$(CONFIGURE_NAME)/libs/include -Wall -c -o obj/wrappers.o src/wrappers.c
+	$(CROSS_COMPILE)gcc -I$(LIBDIR)/../include -Wall -c -o obj/wrappers.o src/wrappers.c
 	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb
-endif
 	rm obj/with_everything.ali obj/with_everything.o
 	$(CROSS_COMPILE)ar cr $@ obj/*.o
 
@@ -67,48 +69,35 @@ endif
 
 # Create Debian package
 
-package.deb: libaws.a
+$(PKGDIR): libaws.a
 	mkdir -p					$(PKGDIR)/DEBIAN
 	install -cm 0644 control			$(PKGDIR)/DEBIAN
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
-ifneq ($(BOARDNAME),)
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)/$(TOOLCHAIN_DIR)/share/gpr
-	install -cm 0644 aws.gpr			$(PKGDIR)/$(TOOLCHAIN_DIR)/share/gpr
-	sed -i s@SYSROOT@$(GCCSYSROOT)@g		$(PKGDIR)/$(TOOLCHAIN_DIR)/share/gpr/aws.gpr
-	mkdir -p					$(PKGDIR)/$(GCCSYSROOT)/usr/include/aws
-	install -cm 0644 src/*.ads src/*.adb		$(PKGDIR)/$(GCCSYSROOT)/usr/include/aws
-	rm						$(PKGDIR)/$(GCCSYSROOT)/usr/include/aws/with_everything.adb
-	mkdir -p					$(PKGDIR)/$(GCCSYSROOT)/usr/lib/aws
-	install -cm 0644 *.a obj/*.ali			$(PKGDIR)/$(GCCSYSROOT)/usr/lib/aws
-else
-	sed -i s/@@BOARDNAME@@/$(CONFIGURE_NAME)/g	$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)$(LIBDIR)
 	install -cm 0644 src/COPYING			$(PKGDIR)$(LIBDIR)/aws.COPYING
-	install -cm 0644 aws.gpr			$(PKGDIR)$(LIBDIR)/aws.gpr
-	sed -i 's@SYSROOT/usr/include/aws@$(LIBDIR)/aws.src@g' $(PKGDIR)$(LIBDIR)/aws.gpr
-	sed -i 's@SYSROOT/usr/lib/aws@$(LIBDIR)/aws.lib@g' $(PKGDIR)$(LIBDIR)/aws.gpr
-	mkdir -p					$(PKGDIR)$(LIBDIR)/aws.lib
-	install -cm 0644 *.a obj/*.ali			$(PKGDIR)$(LIBDIR)/aws.lib
+	install -cm 0644 aws.gpr			$(PKGDIR)$(LIBDIR)
+	sed -i 's@LIBDIR@$(LIBDIR)@g'			$(PKGDIR)$(LIBDIR)/aws.gpr
 	mkdir -p					$(PKGDIR)$(LIBDIR)/aws.src
 	install -cm 0644 src/*.ads src/*.adb		$(PKGDIR)$(LIBDIR)/aws.src
 	rm						$(PKGDIR)$(LIBDIR)/aws.src/with_everything.adb
-	mkdir -p					$(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr
-	ln -s /usr/local/lib/$(CONFIGURE_NAME)/aws.gpr $(PKGDIR)/usr/$(CONFIGURE_NAME)/share/gpr/aws.gpr
-endif
-	chmod -R ugo-w					$(PKGDIR)/usr/*
-	fakeroot dpkg-deb --build			$(PKGDIR)
-	chmod -R ugo+w					$(PKGDIR)
+	mkdir -p					$(PKGDIR)$(LIBDIR)/aws.lib
+	install -cm 0644 *.a obj/*.ali			$(PKGDIR)$(LIBDIR)/aws.lib
+	mkdir -p					$(PKGDIR)$(GPRDIR)
+	ln -s $(LIBDIR)/aws.gpr				$(PKGDIR)$(GPRDIR)/aws.gpr
+
+package.deb: $(PKGFILE)
 
 ###############################################################################
 
 # Remove working files
 
 clean:
-	rm -rf *.a obj $(PKGDIR) $(PKGFILE) src/aws-os_lib.ads
+	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
+	rm -rf *.a obj src/aws-os_lib.ads
 
 distclean: reallyclean

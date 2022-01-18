@@ -1,4 +1,4 @@
--- Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -20,7 +20,7 @@
 
 WITH "aws";
 
-LIBRARY PROJECT libsimpleio IS
+LIBRARY PROJECT build IS
   LIBSIMPLEIO := external("LIBSIMPLEIO", "/usr/local/share/libsimpleio");
 
   FOR Languages    USE ("Ada");
@@ -34,4 +34,4 @@ LIBRARY PROJECT libsimpleio IS
     LIBSIMPLEIO & "/ada/devices",
     LIBSIMPLEIO & "/ada/interfaces",
     LIBSIMPLEIO & "/ada/objects/**");
-END libsimpleio;
+END build;
