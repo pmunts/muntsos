@@ -20,17 +20,20 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+LIBSIMPLEIO	?= $(HOME)/libsimpleio
 MUNTSOS		?= $(HOME)/muntsos
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 ifeq ($(TOOLCHAIN_BUILDER), debian)
 BOARDBASE	:= $(CONFIGURE_NAME)
-INSTALLDIR	:= $(CONFIGURE_NAME)
-LIBDIR		:= /usr/local/$(CONFIGURE_NAME)/usr/lib
+INSTALLDIR	:= $(CONFIGURE_NAME)-muntsos-debian
+INCDIR		:= /usr/local/$(INSTALLDIR)/include
+LIBDIR		:= /usr/local/$(INSTALLDIR)/lib
 GPRDIR		:= /usr/$(CONFIGURE_NAME)/share/gpr
 else
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
+INCDIR		:= $(GCCSYSROOT)/usr/include
 LIBDIR		:= $(GCCSYSROOT)/usr/lib
 GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
 endif
@@ -58,7 +61,7 @@ libaws.a:
 	rm -rf obj
 	mkdir -p obj
 	cd src && ln -s aws-os_lib.ads-$(BOARDBASE) aws-os_lib.ads
-	$(CROSS_COMPILE)gcc -Wall -c -o obj/wrappers.o src/wrappers.c
+	$(CROSS_COMPILE)gcc -Wall -I$(INCDIR) -c -o obj/wrappers.o src/wrappers.c
 	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb
 	$(CROSS_COMPILE)gcc -I$(LIBDIR)/../include -Wall -c -o obj/wrappers.o src/wrappers.c
 	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb

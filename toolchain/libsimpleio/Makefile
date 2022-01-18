@@ -1,6 +1,6 @@
 # Makefile to build the Linux Simple I/O Library for MuntsOS Embedded Linux
 
-# Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -31,8 +31,8 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 ifeq ($(TOOLCHAIN_BUILDER), debian)
 BOARDBASE	:= $(CONFIGURE_NAME)
-INSTALLDIR	:= $(CONFIGURE_NAME)
-LIBDIR		:= /usr/local/$(CONFIGURE_NAME)/usr/lib
+INSTALLDIR	:= $(CONFIGURE_NAME)-muntsos-debian
+LIBDIR		:= /usr/local/$(INSTALLDIR)/lib
 GPRDIR		:= /usr/$(CONFIGURE_NAME)/share/gpr
 else
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)

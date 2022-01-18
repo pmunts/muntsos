@@ -24,11 +24,11 @@ include ../../include/$(BOARDNAME).mk
 
 ifeq ($(TOOLCHAIN_BUILDER), debian)
 BOARDBASE	:= $(CONFIGURE_NAME)
-INSTALLDIR	:= $(CONFIGURE_NAME)
-LIBDESTDIR	:= /usr/local/$(CONFIGURE_NAME)
+INSTALLDIR	:= $(CONFIGURE_NAME)-muntsos-debian
+FINALDIR	:= /usr/local/$(INSTALLDIR)
 else
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
-LIBDESTDIR	:= $(GCCSYSROOT)/usr
+FINALDIR	:= $(GCCSYSROOT)/usr
 endif
 
 BUILDNUM	?= 1
@@ -708,13 +708,17 @@ package.deb: $(INSTALLDIR)/COPYING
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)$(LIBDESTDIR)
-	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(LIBDESTDIR)
-	rm -rf						$(PKGDIR)$(LIBDESTDIR)/lib/cmake
-	rm -rf						$(PKGDIR)$(LIBDESTDIR)/lib/pkgconfig
+	mkdir -p					$(PKGDIR)$(FINALDIR)
+	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(FINALDIR)
+	rm -rf						$(PKGDIR)$(FINALDIR)/lib/cmake
+	rm -rf						$(PKGDIR)$(FINALDIR)/lib/pkgconfig
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+	mkdir -p					$(PKGDIR)/usr/local/lib
+	ln -s ../$(INSTALLDIR)/lib			$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
+endif
 	chmod -R ugo-w					$(PKGDIR)/usr/*
 	fakeroot dpkg-deb --build			$(PKGDIR)
-	chmod -R ugo+w					$(PKGDIR)
+	chmod -R u+w					$(PKGDIR)/usr/*
 
 ###############################################################################
 
