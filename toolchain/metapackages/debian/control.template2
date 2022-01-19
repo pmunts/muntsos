@@ -6,6 +6,11 @@ Package: muntsos-debian-@@CONFIGURE_NAME@@
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
+  g++-@@CONFIGURE_NAME@@,
+  gccgo-@@CONFIGURE_NAME@@,
+  gfortran-@@CONFIGURE_NAME@@,
+  gm2-@@CONFIGURE_NAME@@,
+  gnat-10-@@CONFIGURE_NAME@@,
   @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libs,
   @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libaws,
   @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libsimpleio
