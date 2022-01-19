@@ -103,9 +103,15 @@ install.done: build.done
 	install -cm 0644 fpc.cfg			$(INSTALLDIR)/etc
 	sed -i s#@@ARCH@@#$(ARCH)#g			$(INSTALLDIR)/etc/fpc.cfg
 	sed -i s#@@CROSSCOMPILE@@#$(CROSS_COMPILE)#g	$(INSTALLDIR)/etc/fpc.cfg
-	sed -i s#@@STARTUPDIR@@#$(shell dirname $(shell find $(TOOLCHAIN_DIR) -name crtbegin.o))#g $(INSTALLDIR)/etc/fpc.cfg
 	sed -i s#@@INSTALLDIR@@#/usr/local/$(PKGNAME)#g	$(INSTALLDIR)/etc/fpc.cfg
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+	sed -i s#@@STARTUPDIR@@#/usr/lib/gcc-cross/$(CONFIGURE_NAME)/$(GCCMAJOR)#g $(INSTALLDIR)/etc/fpc.cfg
+	sed -i s#@@SYSROOT@@/lib#/usr/$(CONFIGURE_NAME)/lib# $(INSTALLDIR)/etc/fpc.cfg
+	sed -i s#@@SYSROOT@@/usr/lib#/usr/local/lib/$(CONFIGURE_NAME)# $(INSTALLDIR)/etc/fpc.cfg
+else
+	sed -i s#@@STARTUPDIR@@#$(shell dirname $(shell find $(TOOLCHAIN_DIR) -name crtbegin.o))#g $(INSTALLDIR)/etc/fpc.cfg
 	sed -i s#@@SYSROOT@@#$(GCCSYSROOT)#g		$(INSTALLDIR)/etc/fpc.cfg
+endif
 	sed -i s#@@VERSION@@#$(FPC_VERSION)#g		$(INSTALLDIR)/etc/fpc.cfg
 	for c in $(CPUOPTS) ; do echo $$c >>		$(INSTALLDIR)/etc/fpc.cfg ; done
 	ln -s ../../etc					$(INSTALLDIR)/lib/fpc/etc
@@ -131,9 +137,10 @@ package.deb: install.done
 # Remove working files
 
 clean:
-	rm -rf *.done $(FPC_SRCDIR) $(PKGDIR) $(PKGFILE)
+	rm -rf install.done $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
+	rm -rf build.done src.done $(FPC_SRCDIR)
 
 distclean: reallyclean
 	-rm $(FPC_DIST)
