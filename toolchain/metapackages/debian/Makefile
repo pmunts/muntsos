@@ -56,7 +56,7 @@ oneplatform:
 	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAIN)/g' control.$(CONFIGNAME)
 	sed -i 's/@@VERSION@@/$(PKGVERSION2)/g' control.$(CONFIGNAME)
 	equivs-build control.$(CONFIGNAME)
-	#rm control.$(CONFIGNAME) *.buildinfo *.changes
+	rm control.$(CONFIGNAME) *.buildinfo *.changes
 	mv muntsos-$(TOOLCHAIN)-$(CONFIGNAME)_$(PKGVERSION2)_all.deb muntsos-$(TOOLCHAIN)-$(CONFIGNAME)-$(PKGVERSION2)-$(OSNAME)-all.deb
 
 # Remove working files
