@@ -20,9 +20,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(MUNTSOS)/include/AArch64.mk
-include $(MUNTSOS)/include/crosstool.mk
-include $(MUNTSOS)/include/common.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
 
 BOARDBASE	= RaspberryPi3
@@ -40,3 +37,7 @@ KERNEL_OVL	+= spi5-1cs spi5-2cs spi6-1cs spi6-2cs
 KERNEL_OVL	+= uart2 uart3 uart4 uart5
 
 LOADER		= ld-linux-aarch64.so.1
+
+include $(MUNTSOS)/include/AArch64.mk
+include $(MUNTSOS)/include/crosstool.mk
+include $(MUNTSOS)/include/common.mk

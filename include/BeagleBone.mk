@@ -20,10 +20,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(MUNTSOS)/include/ARMv7.mk
-include $(MUNTSOS)/include/crosstool.mk
-include $(MUNTSOS)/include/common.mk
-
 PLATFORM_NAME	= beagle
 
 BOARDBASE	= BeagleBone
@@ -54,3 +50,7 @@ KERNEL_BRANCH	= 5.4
 KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tar.bz2
 
 CFLAGS		+= -DBEAGLEBONE
+
+include $(MUNTSOS)/include/ARMv7.mk
+include $(MUNTSOS)/include/crosstool.mk
+include $(MUNTSOS)/include/common.mk

@@ -20,9 +20,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(MUNTSOS)/include/ARMv6.mk
-include $(MUNTSOS)/include/crosstool.mk
-include $(MUNTSOS)/include/common.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
 
 BOARDBASE	= RaspberryPi1
@@ -35,3 +32,7 @@ KERNEL_DTB	+= bcm2708-rpi-zero
 KERNEL_DTB	+= bcm2708-rpi-zero-w
 
 LOADER		= ld-linux-armhf.so.3
+
+include $(MUNTSOS)/include/ARMv6.mk
+include $(MUNTSOS)/include/crosstool.mk
+include $(MUNTSOS)/include/common.mk
