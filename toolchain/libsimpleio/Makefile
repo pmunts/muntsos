@@ -32,10 +32,12 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 ifeq ($(TOOLCHAIN_BUILDER), debian)
 BOARDBASE	:= $(CONFIGURE_NAME)
 INSTALLDIR	:= $(CONFIGURE_NAME)-muntsos-debian
+INCDIR		:= /usr/local/$(INSTALLDIR)/include
 LIBDIR		:= /usr/local/$(INSTALLDIR)/lib
 GPRDIR		:= /usr/$(CONFIGURE_NAME)/share/gpr
 else
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
+INCDIR		:= $(GCCSYSROOT)/usr/include
 LIBDIR		:= $(GCCSYSROOT)/usr/lib
 GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
 endif
@@ -102,6 +104,8 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g	$(PKGDIR)/DEBIAN/control
 	sed -i s/@@TARGET@@/$(TARGET)/g		$(PKGDIR)/DEBIAN/control
+	mkdir -p				$(PKGDIR)$(INCDIR)
+	ln -s /usr/local/include/libsimpleio	$(PKGDIR)$(INCDIR)/libsimpleio
 	mkdir -p				$(PKGDIR)$(LIBDIR)
 	install -cm 0644 $(LIBSIMPLEIO)/COPYING	$(PKGDIR)$(LIBDIR)/libsimpleio.COPYING
 	install -cm 0644 libsimpleio.a		$(PKGDIR)$(LIBDIR)
