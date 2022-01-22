@@ -1,6 +1,6 @@
 # Makefile for building the v4l2rtspserver extension package for MuntsOS
 
-# Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -49,6 +49,7 @@ src.done:
 
 build.done: src.done
 	cd $(SRCDIR) && CROSS_COMPILE=${CROSS_COMPILE} cmake -D CMAKE_TOOLCHAIN_FILE=$(CMAKE_TOOLCHAIN_FILE)
+	sed -i 's@/usr/lib/x86_64-linux-gnu@$(GCCSYSROOT)/usr/lib@g' v4l2rtspserver.src/CMakeFiles/v4l2rtspserver.dir/link.txt
 	$(MAKE) -C $(SRCDIR)
 	touch $@
 
