@@ -8,112 +8,28 @@ With MuntsOS installed, such microcomputers can treated as components,
 as *Linux microcontrollers*, and integrated into other projects just
 like traditional single chip microcontrollers.
 
-News
-----
-
--   8 January 2021 -- Added support for the [Raspberry Pi Compute Module
-    4](https://www.raspberrypi.com/products/compute-module-4). This also
-    necessitated adding a separate USB Gadget kernel for the Raspberry
-    Pi 4. Removed obsolete application notes. Updated Application Note
-    \#12 for .Net 5.0.
--   11 January 2021 -- Modified **`sysconfig`** to drop support for
-    extension *programs*. Now it only supports extension *packages*.
-    Also added support to **`sysconfig`** for updating previously
-    installed extension packages when newer packages have been released.
--   12 January 2021 -- Upgraded the .Net runtime to 5.0.2.
--   15 January 2021 -- Renamed the **`EMBLINUXBASE`** environment
-    variable to **`MUNTSOS`**.
--   20 January 2021 -- Added [XML-RPC](http://xmlrpc.com) client and
-    server shared library extension packages.
--   2 February 2021 -- Upgraded the BeagleBone kernel to 5.4.87.
-    Upgraded the Raspberry Pi kernel to 5.10.11. Upgraded BusyBox to
-    1.32.1, ethtool to 5.10, mailutils to 3.11.1, and nano to 5.5.
--   6 February 2021 -- Upgraded the Raspberry Pi kernel to 5.10.13.
-    Upgraded libusb to 1.0.24, OpenSSL to 1.1.1i, curl to 7.75.0,
-    libtirpc to 1.3.1, libpcap to 1.10.0, gdbm to 1.19 and zeromq to
-    4.3.4. Added the [Eclipse Paho MQTT C client
-    library](https://github.com/eclipse/paho.mqtt.c).
--   10 February 2021 -- Upgraded the .Net runtime to 5.0.3.
--   12 February 2021 -- Cross-toolchain packages compiled for Debian
-    arm64 (aka AArch64 aka ARMv8) are now available.
--   28 February 2021 -- Upgraded the Raspberry Pi kernel to 5.10.17.
-    Upgraded OpenSSL to 1.1.1j, mailutils to 3.12, and nano to 5.6.
--   10 March 2021 -- Upgraded the Raspberry Pi kernel to 5.10.20. Added
-    **`anyspi.dtbo`** to all Raspberry Pi kernel releases. Upgraded
-    OpenSSH to 8.5p1. Upgraded nano to 5.6.1. Upgraded the .Net runtime
-    to 5.0.4.
--   6 April 2021 -- Upgraded the BeagleBone kernel to 5.4.106. Upgraded
-    the Raspberry Pi kernel to 5.10.25. Improved support for Internet
-    Connection Sharing in **`netconfig`** and **`sysconfig`**. Upgraded
-    the .Net Runtime to 5.0.5.
--   12 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.27.
-    Modified **`sysconfig`** to not kill **`sshd`** anymore.
--   24 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.31.
-    Upgraded OpenSSH to 8.6p1.
--   19 May 2021 -- Upgraded the .Net runtime to 5.0.6.
--   28 May 2021 -- Upgraded the Raspberry Pi kernel to 5.10.39.
--   1 June 2021 -- Upgraded some root file system software components:
-    BusyBox to 1.33.1, rpcbind to 1.2.6, ethtool to 5.12, and nano to
-    5.7. Upgraded some toolchain library software components: OpenSSL to
-    1.1.1k, curl to 7.77.0, libtirpc to 1.3.2, MySQL client library (aka
-    Mariadb Connector/C) to 3.1.13, Paho MQTT client library to 1.3.9,
-    and the RabbitMQ client library to 0.11.0. Also imported the latest
-    Raspberry Pi boot files from Raspberry Pi OS.
--   10 June 2021 -- Upgraded the .Net runtime to 5.0.7. Added
-    [hostapd](https://w1.fi/hostapd) extension packages.
--   11 June 2021 -- Added support for a number of I<sup>2</sup>C RTC
-    (Real Time Clock) devices to the Raspberry Pi kernels.
--   13 July 2021 -- Upgraded the Raspberry Pi kernel to 5.10.48.
-    Upgraded the .Net runtime to 5.0.8. Added code to **`/etc/rc`** to
-    load kernel modules specified in **`/etc/modules`**. Added code to
-    **`/etc/rc`** to reload **`/etc/inittab`** at the end of the system
-    boot process. Enabled kernel support for Raspberry Pi camera
-    modules. Added an RTSP video server extension package. Many thanks
-    to Faisal Puthuparackat for his work to bring up support for the
-    Raspberry Pi camera interface in MuntsOS, and to port
-    **`v4l2rtspserver`** to MuntsOS.
--   13 August 2021 -- Lots of software component updates: Upgraded curl
-    to 7.78.0, libpcap to 1.10.1, MariaDB Connector/C to 3.2.3, and gdbm
-    to 1.20. Upgraded ethtool to 5.13, mailutils to 3.13, and nano to
-    5.8. Upgraded the Raspberry Pi kernel to 5.10.52. Upgraded the .Net
-    runtime to 5.0.9.
--   28 October 2021 -- Lots of software component updates: Upgraded Free
-    Pascal to 3.2.2. Upgraded hidapi to 0.11.0. Upgraded OpenSSL to
-    1.1.1l. Upgraded curl to 7.79.1. Upgraded MySQL client library to
-    3.2.4. Upgraded gdbm to 1.21. Upgraded BusyBox to 1.34.1. Upgraded
-    OpenSSH to 8.8p1. Upgraded ethtool to 5.14. Upgraded nano to 5.9.
-    Upgraded tcptump to 4.99.1. Upgraded the .Net Core Runtime to
-    5.0.11. Upgraded the Raspberry Pi kernel to 5.10.76.
--   1 November 2021 -- Added support for the [Raspberry Pi Zero
-    2](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w).
--   13 November 2021 -- I have successfully built all of the libraries
-    for MuntsOS using the ARMv7 and AArch64 cross-toolchains available
-    for Debian 11 (Bullseye). Packages for ARMv7 and AArch64 are now
-    available from the [Munts Technologies Debian Package
-    Repository](http://repo.munts.com/debian11). In principle, it should
-    now be possible to build a MuntsOS kernel image with one of the
-    Debian cross-toolchains. In practice, the organization of library
-    directories is radically different between the Crosstool-NG and
-    Linaro based cross-toolchains I have been using and the new Debian
-    cross-toolchains, and it will be a lot of work to modify the build
-    procedure to work.
--   30 November 2021 -- Upgraded **`nupkg`** for .Net 5 and .Net 6.
-    Upgraded the Raspberry Pi kernel to 5.10.82.
-
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
-Instructions for setting up the MuntsOS cross-toolchain development
-environment are found in [Application Note
+Instructions for installing the MuntsOS cross-toolchain development
+environment onto a **host computer** are found in [Application Note
 \#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
 [Application Note
 \#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-Other.pdf).
 
-Instructions for installing MuntsOS to a target board are found in
-[Application Note
+Instructions for installing MuntsOS to a **target computer** are found
+in [Application Note
 \#3](http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
 and [Application Note
 \#15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
+
+Documentation
+-------------
+
+The documentation for MuntsOS (mostly application notes) is available
+online at:
+
+<http://git.munts.com/muntsos/doc>
 
 Embedded Linux Distribution in a Kernel
 ---------------------------------------
@@ -279,12 +195,13 @@ version of the BeagleBone. It currently sells for about USD $55. The
 BeagleBone Black originally sold for USD $45 at its launch in April
 2013, which would have been an impressive feat except that the Raspberry
 Pi had already arrived on the market a few months earlier at USD $35.
-Although the BeagleBone Black was more capable than the first couple of
-Raspberry Pi generations, it has been overshadowed by the Raspberry Pi
-Model 2 and 3, which sport quad-core processors. The great strength of
-the BeagleBone Black and its kin compared to the Raspberry Pi family is
-the sheer number of GPIO pins and peripheral ports available on its two
-46-pin [expansion
+Although the BeagleBone Black was more capable
+thttp://git.munts.com/muntsos/doc/han the first couple of Raspberry Pi
+generations, it has been overshadowed by the Raspberry Pi Model 2 and 3,
+which sport quad-core processors. The great strength of the BeagleBone
+Black and its kin compared to the Raspberry Pi family is the sheer
+number of GPIO pins and peripheral ports available on its two 46-pin
+[expansion
 headers](http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf). Even
 after eMMC, I<sup>2</sup>C, SPI, and UART pins have been allocated,
 there are 42 GPIO pins available.
@@ -336,10 +253,11 @@ Changes from the BeagleBone Black design are:
 The BeagleBone Green uses the same kernel as the BeagleBone, with a
 different device tree.
 
-The BeagleBone Green is cost competitive with the Raspberry Pi, costing
-only a little more but including on board eMMC and a USB cable. It has
-only a single core processor, compared to the quad-core Raspberry Pi 3,
-but provides many more GPIO pins on its two 46-pin [expansion
+The BeagleBone Green http://git.munts.com/muntsos/doc/is cost
+competitive with the Raspberry Pi, costing only a little more but
+including on board eMMC and a USB cable. It has only a single core
+processor, compared to the quad-core Raspberry Pi 3, but provides many
+more GPIO pins on its two 46-pin [expansion
 headers](http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf). It also
 has separate dedicated host and slave USB ports as well as the two Grove
 sockets.
@@ -355,8 +273,8 @@ is a variant of the BeagleBone Green that has replaced the wired
 Ethernet interface with a built-in Wifi radio. It is otherwise highly
 compatible with the BeagleBone Green. It sells for about USD $53.
 
-The BeagleBone Green Wireless uses the same kernel as the BeagleBone,
-with a different device tree.
+The BeagleBone Green http://git.munts.com/muntsos/doc/Wireless uses the
+same kernel as the BeagleBone, with a different device tree.
 
 MuntsOS does not currently support the on-board Bluetooth radio.
 
@@ -509,8 +427,18 @@ Raspberry Pi Zero, Zero W, or Zero 2, a micro-USB cable, and a micro-SD
 card with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers
 installed.
 
-Toolchains
-----------
+Cross-Toolchains
+----------------
+
+### Standard Cross-Toolchains
+
+Research into suitability of the cross-toolchain packages available from
+the standard Debian package repository
+<https://packages.debian.org/stable> (*e.g.*
+**`gcc-aarch64-linux-gnu`**) is ongoing. At some point I hope to cut
+over to those standard cross-toolchains, for at least some platforms.
+
+### Custom Cross-Toolchains
 
 I build a custom Ada/C/C++/Fortran/Go cross-toolchain (using
 [Crosstool-NG](https://crosstool-ng.github.io)) for each MuntsOS

@@ -7,100 +7,21 @@
    as Linux microcontrollers, and integrated into other projects just like
    traditional single chip microcontrollers.
 
-News
-
-     * 8 January 2021 -- Added support for the [1]Raspberry Pi Compute
-       Module 4. This also necessitated adding a separate USB Gadget
-       kernel for the Raspberry Pi 4. Removed obsolete application notes.
-       Updated Application Note #12 for .Net 5.0.
-     * 11 January 2021 -- Modified sysconfig to drop support for extension
-       programs. Now it only supports extension packages. Also added
-       support to sysconfig for updating previously installed extension
-       packages when newer packages have been released.
-     * 12 January 2021 -- Upgraded the .Net runtime to 5.0.2.
-     * 15 January 2021 -- Renamed the EMBLINUXBASE environment variable to
-       MUNTSOS.
-     * 20 January 2021 -- Added [2]XML-RPC client and server shared
-       library extension packages.
-     * 2 February 2021 -- Upgraded the BeagleBone kernel to 5.4.87.
-       Upgraded the Raspberry Pi kernel to 5.10.11. Upgraded BusyBox to
-       1.32.1, ethtool to 5.10, mailutils to 3.11.1, and nano to 5.5.
-     * 6 February 2021 -- Upgraded the Raspberry Pi kernel to 5.10.13.
-       Upgraded libusb to 1.0.24, OpenSSL to 1.1.1i, curl to 7.75.0,
-       libtirpc to 1.3.1, libpcap to 1.10.0, gdbm to 1.19 and zeromq to
-       4.3.4. Added the [3]Eclipse Paho MQTT C client library.
-     * 10 February 2021 -- Upgraded the .Net runtime to 5.0.3.
-     * 12 February 2021 -- Cross-toolchain packages compiled for Debian
-       arm64 (aka AArch64 aka ARMv8) are now available.
-     * 28 February 2021 -- Upgraded the Raspberry Pi kernel to 5.10.17.
-       Upgraded OpenSSL to 1.1.1j, mailutils to 3.12, and nano to 5.6.
-     * 10 March 2021 -- Upgraded the Raspberry Pi kernel to 5.10.20. Added
-       anyspi.dtbo to all Raspberry Pi kernel releases. Upgraded OpenSSH
-       to 8.5p1. Upgraded nano to 5.6.1. Upgraded the .Net runtime to
-       5.0.4.
-     * 6 April 2021 -- Upgraded the BeagleBone kernel to 5.4.106. Upgraded
-       the Raspberry Pi kernel to 5.10.25. Improved support for Internet
-       Connection Sharing in netconfig and sysconfig. Upgraded the .Net
-       Runtime to 5.0.5.
-     * 12 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.27.
-       Modified sysconfig to not kill sshd anymore.
-     * 24 April 2021 -- Upgraded the Raspberry Pi kernel to 5.10.31.
-       Upgraded OpenSSH to 8.6p1.
-     * 19 May 2021 -- Upgraded the .Net runtime to 5.0.6.
-     * 28 May 2021 -- Upgraded the Raspberry Pi kernel to 5.10.39.
-     * 1 June 2021 -- Upgraded some root file system software components:
-       BusyBox to 1.33.1, rpcbind to 1.2.6, ethtool to 5.12, and nano to
-       5.7. Upgraded some toolchain library software components: OpenSSL
-       to 1.1.1k, curl to 7.77.0, libtirpc to 1.3.2, MySQL client library
-       (aka Mariadb Connector/C) to 3.1.13, Paho MQTT client library to
-       1.3.9, and the RabbitMQ client library to 0.11.0. Also imported the
-       latest Raspberry Pi boot files from Raspberry Pi OS.
-     * 10 June 2021 -- Upgraded the .Net runtime to 5.0.7. Added
-       [4]hostapd extension packages.
-     * 11 June 2021 -- Added support for a number of I2C RTC (Real Time
-       Clock) devices to the Raspberry Pi kernels.
-     * 13 July 2021 -- Upgraded the Raspberry Pi kernel to 5.10.48.
-       Upgraded the .Net runtime to 5.0.8. Added code to /etc/rc to load
-       kernel modules specified in /etc/modules. Added code to /etc/rc to
-       reload /etc/inittab at the end of the system boot process. Enabled
-       kernel support for Raspberry Pi camera modules. Added an RTSP video
-       server extension package. Many thanks to Faisal Puthuparackat for
-       his work to bring up support for the Raspberry Pi camera interface
-       in MuntsOS, and to port v4l2rtspserver to MuntsOS.
-     * 13 August 2021 -- Lots of software component updates: Upgraded curl
-       to 7.78.0, libpcap to 1.10.1, MariaDB Connector/C to 3.2.3, and
-       gdbm to 1.20. Upgraded ethtool to 5.13, mailutils to 3.13, and nano
-       to 5.8. Upgraded the Raspberry Pi kernel to 5.10.52. Upgraded the
-       .Net runtime to 5.0.9.
-     * 28 October 2021 -- Lots of software component updates: Upgraded
-       Free Pascal to 3.2.2. Upgraded hidapi to 0.11.0. Upgraded OpenSSL
-       to 1.1.1l. Upgraded curl to 7.79.1. Upgraded MySQL client library
-       to 3.2.4. Upgraded gdbm to 1.21. Upgraded BusyBox to 1.34.1.
-       Upgraded OpenSSH to 8.8p1. Upgraded ethtool to 5.14. Upgraded nano
-       to 5.9. Upgraded tcptump to 4.99.1. Upgraded the .Net Core Runtime
-       to 5.0.11. Upgraded the Raspberry Pi kernel to 5.10.76.
-     * 1 November 2021 -- Added support for the [5]Raspberry Pi Zero 2.
-     * 13 November 2021 -- I have successfully built all of the libraries
-       for MuntsOS using the ARMv7 and AArch64 cross-toolchains available
-       for Debian 11 (Bullseye). Packages for ARMv7 and AArch64 are now
-       available from the [6]Munts Technologies Debian Package Repository.
-       In principle, it should now be possible to build a MuntsOS kernel
-       image with one of the Debian cross-toolchains. In practice, the
-       organization of library directories is radically different between
-       the Crosstool-NG and Linaro based cross-toolchains I have been
-       using and the new Debian cross-toolchains, and it will be a lot of
-       work to modify the build procedure to work.
-     * 30 November 2021 -- Upgraded nupkg for .Net 5 and .Net 6. Upgraded
-       the Raspberry Pi kernel to 5.10.82.
-
 Quick Setup Instructions for the Impatient
 
-   Instructions for setting up the MuntsOS cross-toolchain development
-   environment are found in [7]Application Note #1 and [8]Application Note
-   #2.
+   Instructions for installing the MuntsOS cross-toolchain development
+   environment onto a host computer are found in [1]Application Note #1
+   and [2]Application Note #2.
 
-   Instructions for installing MuntsOS to a target board are found in
-   [9]Application Note #3 and [10]Application Note #15.
+   Instructions for installing MuntsOS to a target computer are found in
+   [3]Application Note #3 and [4]Application Note #15.
+
+Documentation
+
+   The documentation for MuntsOS (mostly application notes) is available
+   online at:
+
+   [5]http://git.munts.com/muntsos/doc
 
 Embedded Linux Distribution in a Kernel
 
@@ -111,14 +32,14 @@ Embedded Linux Distribution in a Kernel
 
    Each kernel release tarball contains a kernel image file (.img), which
    may be common to several different microcomputer boards, and one or
-   more [11]device tree files (.dtb) that are specific to particular
+   more [6]device tree files (.dtb) that are specific to particular
    microcomputer boards. Some kernel release tarballs also contain one or
    more device tree overlay files (.dtbo) that can make small changes to
    the device tree at boot time.
 
    Prebuilt MuntsOS kernel release tarballs are available at:
 
-   [12]http://repo.munts.com/muntsos/kernels
+   [7]http://repo.munts.com/muntsos/kernels
 
 Extensions
 
@@ -132,13 +53,13 @@ Extensions
 
    Second, if /boot/packages/${BOARDBASE} exists, any Debian package files
    (.deb) in it will be installed into the root file system. Note that
-   packages from the [13]Debian project will probably not work with
+   packages from the [8]Debian project will probably not work with
    MuntsOS. Packages should be built specifically for MuntsOS. (The .deb
    package file format is simply convenient to use, as it is supported by
    BusyBox.)
 
-   The [14]GPIO Server extension package demonstrates how to build a
-   Debian package that adds application specific software to MuntsOS.
+   The [9]GPIO Server extension package demonstrates how to build a Debian
+   package that adds application specific software to MuntsOS.
 
    Thirdly, the system startup script /etc/rc can be configured via a
    kernel command line option to search for a subdirectory called
@@ -155,7 +76,7 @@ Extensions
 
    Prebuilt MuntsOS extension packages and programs are available at:
 
-   [15]http://repo.munts.com/muntsos/extensions
+   [10]http://repo.munts.com/muntsos/extensions
 
 Thin Servers
 
@@ -181,16 +102,16 @@ Thin Servers
    MuntsOS, log in from the console or via SSH (user "root", password
    "default") and run sysconfig to perform more system configuration.
 
-   Note: BeagleBone boards require the [16]boot flag to be set on the
+   Note: BeagleBone boards require the [11]boot flag to be set on the
    FAT32 boot partition on the SD card or on-board eMMC. The ROM boot
    loader in the CPU will ignore any partitions that are not marked as
    bootable.
-   MuntsOS Application Notes [17]3 and [18]15 contain more detailed
+   MuntsOS Application Notes [12]3 and [13]15 contain more detailed
    instructions about how to install a MuntsOS Thin Server.
 
    Prebuilt MuntsOS Thin Servers are at available at:
 
-   [19]http://repo.munts.com/muntsos/thinservers
+   [14]http://repo.munts.com/muntsos/thinservers
 
    muntsos*BeagleBone.zip          For BeagleBone (White), Black, Black Wireless,
                                    Green, Green Wireless, PocketBeagle -- ARMv7
@@ -228,17 +149,17 @@ Boards
 
   BeagleBone
 
-   The [20]BeagleBone was one of the first low cost Linux microcomputers.
+   The [15]BeagleBone was one of the first low cost Linux microcomputers.
    It originally sold for USD $89 at its launch in October 2011.
 
-   The BeagleBone has a Texas Instruments [21]Sitara AM3359 processor
+   The BeagleBone has a Texas Instruments [16]Sitara AM3359 processor
    running at 720 MHz and 256 MB of RAM. It has two USB port sockets: One
    type A host port and one type mini-B device port. Unlike any of its
    successors, the original BeagleBone has its USB device port connected
    to a USB hub instead of directly to the AM3359. Three distinct USB
    devices are visible to the host on the device port socket: The AM3359
    device port, a USB JTAG device, and a USB serial port device connected
-   to the AM3359 console serial port. The BeagleBone also has two [22]PRU
+   to the AM3359 console serial port. The BeagleBone also has two [17]PRU
    (Programmable Realtime Unit) I/O processors on board that are capable
    of very fast I/O operations.
 
@@ -246,7 +167,7 @@ Boards
    that allow configuring any of the expansion header GPIO pins with
    config-pin. The system startup script /etc/rc will initialize GPIO pin
    modes according to /etc/pinmux.conf. By default, the following devices
-   are are enabled on the two 46-pin [23]expansion headers:
+   are are enabled on the two 46-pin [18]expansion headers:
 
      * I2C bus controller device /dev/i2c-2
      * Serial port device /dev/ttyS1
@@ -257,24 +178,24 @@ Boards
      * SPI slave device /dev/spidev2.1
 
    Newly manufactured BeagleBone boards assembled with a 1 GHz AM3358
-   processor are apparently still available from [24]Special Computing.
+   processor are apparently still available from [19]Special Computing.
 
   BeagleBone Black
 
-   The [25]BeagleBone Black is a cost reduced version of the BeagleBone.
+   The [20]BeagleBone Black is a cost reduced version of the BeagleBone.
    It currently sells for about USD $55. The BeagleBone Black originally
    sold for USD $45 at its launch in April 2013, which would have been an
    impressive feat except that the Raspberry Pi had already arrived on the
    market a few months earlier at USD $35. Although the BeagleBone Black
-   was more capable than the first couple of Raspberry Pi generations, it
-   has been overshadowed by the Raspberry Pi Model 2 and 3, which sport
-   quad-core processors. The great strength of the BeagleBone Black and
-   its kin compared to the Raspberry Pi family is the sheer number of GPIO
-   pins and peripheral ports available on its two 46-pin [26]expansion
-   headers. Even after eMMC, I2C, SPI, and UART pins have been allocated,
-   there are 42 GPIO pins available.
+   was more capable thttp://git.munts.com/muntsos/doc/han the first couple
+   of Raspberry Pi generations, it has been overshadowed by the Raspberry
+   Pi Model 2 and 3, which sport quad-core processors. The great strength
+   of the BeagleBone Black and its kin compared to the Raspberry Pi family
+   is the sheer number of GPIO pins and peripheral ports available on its
+   two 46-pin [21]expansion headers. Even after eMMC, I2C, SPI, and UART
+   pins have been allocated, there are 42 GPIO pins available.
 
-   The BeagleBone Black has a Texas Instruments [27]Sitara AM3358
+   The BeagleBone Black has a Texas Instruments [22]Sitara AM3358
    processor running at 1 GHz, 512 MB of RAM and 4 GB eMMC flash on board.
    It uses the same kernel as the BeagleBone, with a different device
    tree.
@@ -287,7 +208,7 @@ Boards
 
   BeagleBone Black Wireless
 
-   The [28]BeagleBone Black Wireless is a variant of the BeagleBone Black
+   The [23]BeagleBone Black Wireless is a variant of the BeagleBone Black
    that has replaced the wired Ethernet interface with a built-in Wifi
    radio. It also has replaced the mini-B slave USB receptacle with a more
    modern micro-B receptacle. It is otherwise highly compatible with the
@@ -302,26 +223,27 @@ Boards
 
   BeagleBone Green
 
-   The [29]BeagleBone Green is a cost reduced version of the BeagleBone
-   Black, from Chinese manufacturer [30]Seeed Studio, that sells for about
+   The [24]BeagleBone Green is a cost reduced version of the BeagleBone
+   Black, from Chinese manufacturer [25]Seeed Studio, that sells for about
    USD $44. Changes from the BeagleBone Black design are:
 
      * Removed coaxial power jack . (+5V can be supplied via the slave USB
        port or P9 expansion header instead.)
      * Removed HDMI receptacle and support circuitry.
      * Changed the slave USB receptacle from mini-B to micro-B.
-     * Added two [31]Grove System connectors, one carrying 3.3V [32]I2C
-       signals and one carrying 3.3V logic level [33]serial port signals.
+     * Added two [26]Grove System connectors, one carrying 3.3V [27]I2C
+       signals and one carrying 3.3V logic level [28]serial port signals.
 
    The BeagleBone Green uses the same kernel as the BeagleBone, with a
    different device tree.
 
-   The BeagleBone Green is cost competitive with the Raspberry Pi, costing
-   only a little more but including on board eMMC and a USB cable. It has
-   only a single core processor, compared to the quad-core Raspberry Pi 3,
-   but provides many more GPIO pins on its two 46-pin [34]expansion
-   headers. It also has separate dedicated host and slave USB ports as
-   well as the two Grove sockets.
+   The BeagleBone Green http://git.munts.com/muntsos/doc/is cost
+   competitive with the Raspberry Pi, costing only a little more but
+   including on board eMMC and a USB cable. It has only a single core
+   processor, compared to the quad-core Raspberry Pi 3, but provides many
+   more GPIO pins on its two 46-pin [29]expansion headers. It also has
+   separate dedicated host and slave USB ports as well as the two Grove
+   sockets.
 
    The BeagleBone Green plus a USB WiFi adapter is about USD $20 cheaper
    than a BeagleBone Black Wireless, while retaining the possibility for
@@ -329,13 +251,13 @@ Boards
 
   BeagleBone Green Wireless
 
-   The [35]BeagleBone Green Wireless is a variant of the BeagleBone Green
+   The [30]BeagleBone Green Wireless is a variant of the BeagleBone Green
    that has replaced the wired Ethernet interface with a built-in Wifi
    radio. It is otherwise highly compatible with the BeagleBone Green. It
    sells for about USD $53.
 
-   The BeagleBone Green Wireless uses the same kernel as the BeagleBone,
-   with a different device tree.
+   The BeagleBone Green http://git.munts.com/muntsos/doc/Wireless uses the
+   same kernel as the BeagleBone, with a different device tree.
 
    MuntsOS does not currently support the on-board Bluetooth radio.
 
@@ -343,12 +265,12 @@ Boards
    and on-board WiFi, but commandeers quite a few of the expansion header
    GPIO pins for the on-board radios. Among other things, this seems to
    prohibit using SPI1. Also, the physical layout prevents using the
-   [36]BeagleBone Click Shield, which has some advantages over the newer
-   [37]mikroBus Cape.
+   [31]BeagleBone Click Shield, which has some advantages over the newer
+   [32]mikroBus Cape.
 
   PocketBeagle
 
-   The [38]PocketBeagle is a cost and size reduced version of the
+   The [33]PocketBeagle is a cost and size reduced version of the
    BeagleBone Black. It currently sells for about USD $25 and is intended
    for the same market niche as the Rasperry Pi Zero. Although
    considerably more expensive than either version of the Raspberry Pi
@@ -357,7 +279,7 @@ Boards
 
    The PocketBeagle uses the same kernel as the BeagleBone, with a
    different device tree. The PocketBeagle device tree enables the
-   following devices on its two 36-pin [39]expansion headers:
+   following devices on its two 36-pin [34]expansion headers:
 
      * USB host port
      * I2C bus controller device /dev/i2c-1
@@ -370,8 +292,8 @@ Boards
      * SPI slave device /dev/spidev2.1
 
    The expansion headers are cleverly arranged such that the two inner
-   rows match the [40]MikroElektronika mikroBUS specification. If female
-   sockets are installed on the top of the PocketBeagle, two [41]Click
+   rows match the [35]MikroElektronika mikroBUS specification. If female
+   sockets are installed on the top of the PocketBeagle, two [36]Click
    Boards can be plugged directly into the expansion headers.
 
    Like the Raspberry Pi Zero, the PocketBeagle comes without on-board
@@ -382,7 +304,7 @@ Boards
 
   Raspberry Pi
 
-   The [42]Raspberry Pi is a family of low cost Linux microcomputers
+   The [37]Raspberry Pi is a family of low cost Linux microcomputers
    selling for USD $5 to $75 (depending on model). There have been four
    generations of Raspberry Pi microcomputers, each using a successively
    more sophisticated Broadcom ARM core CPU.
@@ -404,32 +326,32 @@ Boards
    All Raspberry Pi 1 models use the same 32-bit ARMv6 kernel and
    toolchains, with different device trees.
 
-   With the advent of the [43]Raspberry Pi Zero 2, all Raspberry Pi 1
+   With the advent of the [38]Raspberry Pi Zero 2, all Raspberry Pi 1
    models are now obsolete. MuntsOS Embedded Linux will continue to
    support all Raspberry Pi 1 models.
 
     Raspberry Pi 2 and 3
 
-   The [44]Rasbperry Pi 2 Model B has a 900 MHz BCM2709 ARMv7 Cortex-A7
+   The [39]Rasbperry Pi 2 Model B has a 900 MHz BCM2709 ARMv7 Cortex-A7
    (900 MHz BCM2710 ARMv8 Cortex-A53 on later production boards) quad-core
    CPU and comes with 1 GB of RAM. It is mechanically compatible with the
    Raspberry Pi 1 Model B+, with 10/100 Ethernet, 4 USB ports, 3.5 mm A/V
    jack, and a 40-pin GPIO expansion header.
 
-   The [45]Rasbperry Pi 3 Model B has a 1200 MHz BCM2710 ARMv8 Cortex-A53
+   The [40]Rasbperry Pi 3 Model B has a 1200 MHz BCM2710 ARMv8 Cortex-A53
    quad-core CPU and has 1 GB of RAM along with on-board Bluetooth and
    WiFi radios.
 
-   The [46]Raspberry Pi 3 Model A+ has the same form factor as the
+   The [41]Raspberry Pi 3 Model A+ has the same form factor as the
    Raspberry Pi 1 Model A+, with only one USB host port and no wired
    Ethernet. It has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and
    has 512 MB of RAM along with on-board Bluetooth and WiFi radios.
 
-   The [47]Raspberry Pi 3 Model B+ has a 1400 MHz BCM2710 ARMv8 Cortex-A53
+   The [42]Raspberry Pi 3 Model B+ has a 1400 MHz BCM2710 ARMv8 Cortex-A53
    quad-core CPU and has improved power management and networking
    components.
 
-   The [48]Raspberry Pi Zero 2 has the same form factor as the Raspberry
+   The [43]Raspberry Pi Zero 2 has the same form factor as the Raspberry
    Pi Zero W, with a 1000 MHz BCM2710 ARMv8 Cortex-A53 quad core CPU and
    512 MB of RAM along with on-board Bluetooth and WiFi radios.
 
@@ -441,7 +363,7 @@ Boards
 
     Raspberry Pi 4
 
-   The [49]Raspberry Pi 4 Model B has a 1500 MHz BCM2711 ARMv8 Cortex-A72
+   The [44]Raspberry Pi 4 Model B has a 1500 MHz BCM2711 ARMv8 Cortex-A72
    quad-core CPU and is available with 1 to 8 GB of RAM. It diverged
    significantly from the Raspberry Pi 1 B+ form factor, with the USB and
    Ethernet ports reversed, two micro-HDMI connectors instead of a single
@@ -460,7 +382,7 @@ Boards
 
     Raspberry Pi USB Gadget Kernels
 
-   MuntsOS also provides Raspberry Pi kernels with dedicated [50]USB
+   MuntsOS also provides Raspberry Pi kernels with dedicated [45]USB
    Gadget support enabled. These kernels run on Models 1 A, A+, CM1, Zero,
    Zero Wireless, 3 A+, CM3, Zero 2, 4 B, and CM4. You can supply power to
    and communicate with a compatible Raspberry Pi solely through the USB
@@ -474,15 +396,25 @@ Boards
    card with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers
    installed.
 
-Toolchains
+Cross-Toolchains
+
+  Standard Cross-Toolchains
+
+   Research into suitability of the cross-toolchain packages available
+   from the standard Debian package repository
+   [46]https://packages.debian.org/stable (e.g. gcc-aarch64-linux-gnu) is
+   ongoing. At some point I hope to cut over to those standard
+   cross-toolchains, for at least some platforms.
+
+  Custom Cross-Toolchains
 
    I build a custom Ada/C/C++/Fortran/Go cross-toolchain (using
-   [51]Crosstool-NG) for each MuntsOS platform family. Each
+   [47]Crosstool-NG) for each MuntsOS platform family. Each
    cross-toolchain requires a number of additional software component
    libraries, which are packaged and distributed separately but installed
    into the same directory tree as the parent cross-toolchain.
 
-   I also build [52]Free Pascal cross-compilers. These rely on the
+   I also build [48]Free Pascal cross-compilers. These rely on the
    libraries in the Ada/C/C++/Fortran/Go cross-toolchain, which must be
    installed first.
 
@@ -493,23 +425,23 @@ Toolchains
    use the same cross-toolchains (the 64-bit AArch64 cross-toolchains
    nominally built for the Raspberry Pi 3).
 
-   Cross-toolchain packages built for [53]Debian Linux are available at:
-   [54]http://repo.munts.com/debian10
+   Cross-toolchain packages built for [49]Debian Linux are available at:
+   [50]http://repo.munts.com/debian10
 
    Since they are statically linked, it may be possible to use these
    cross-toolchain packages on other Linux distributions (possibly with
-   the help off a conversion utility like [55]alien).
+   the help off a conversion utility like [51]alien).
 
    For the convenience of users of Linux distributions other than Debian,
    snapshot toolchain tarballs for each platform family are available at:
 
-   [56]http://repo.munts.com/muntsos/toolchains
+   [52]http://repo.munts.com/muntsos/toolchains
 
 Git Repository
 
    The source code for MuntsOS is available at:
 
-   [57]https://github.com/pmunts/muntsos
+   [53]https://github.com/pmunts/muntsos
 
    Use the following command to clone it:
 
@@ -519,80 +451,76 @@ File Repository
 
    Prebuilt binaries for MuntsOS are available at:
 
-   [58]http://repo.munts.com/muntsos
+   [54]http://repo.munts.com/muntsos
 
-[59]Make With Ada Projects
+[55]Make With Ada Projects
 
-     * 2017 [60]Ada Embedded Linux Framework
-     * 2019 [61]Modbus RTU Framework for Ada (Prize Winner!)
+     * 2017 [56]Ada Embedded Linux Framework
+     * 2019 [57]Modbus RTU Framework for Ada (Prize Winner!)
    _______________________________________________________________________
 
-   Questions or comments to Philip Munts [62]phil@munts.net
+   Questions or comments to Philip Munts [58]phil@munts.net
 
    I am available for custom system development (hardware and software) of
    products based on embedded Linux microcomputers or other processors.
 
 References
 
-   1. https://www.raspberrypi.com/products/compute-module-4
-   2. http://xmlrpc.com/
-   3. https://github.com/eclipse/paho.mqtt.c
-   4. https://w1.fi/hostapd
-   5. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
-   6. http://repo.munts.com/debian11
-   7. http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf
-   8. http://git.munts.com/muntsos/doc/AppNote2-Setup-Other.pdf
-   9. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
-  10. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
-  11. http://elinux.org/Device_Tree_Reference
-  12. http://repo.munts.com/muntsos/kernels
-  13. http://www.debian.org/
-  14. http://git.munts.com/muntsos/extensions/GPIO
-  15. http://repo.munts.com/muntsos/extensions
-  16. https://en.wikipedia.org/wiki/Boot_flag
-  17. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
-  18. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
-  19. http://repo.munts.com/muntsos/thinservers
-  20. http://beagleboard.org/bone-original
-  21. http://www.ti.com/product/AM3359
-  22. http://beagleboard.org/pru
-  23. http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf
-  24. https://specialcomp.com/beagleboard/bone.htm
-  25. http://beagleboard.org/black
-  26. http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf
-  27. http://www.ti.com/product/AM3358
-  28. https://beagleboard.org/black-wireless
-  29. https://beagleboard.org/green
-  30. https://www.seeedstudio.com/
-  31. http://wiki.seeed.cc/Grove_System
-  32. https://en.wikipedia.org/wiki/I2C
-  33. https://en.wikipedia.org/wiki/Serial_port
-  34. http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf
-  35. https://beagleboard.org/green-wireless
-  36. https://www.mikroe.com/beaglebone
-  37. https://www.mikroe.com/beaglebone-mikrobus-cape
-  38. https://beagleboard.org/pocket
-  39. http://git.munts.com/muntsos/doc/PocketBeaglePinout.pdf
-  40. https://www.mikroe.com/mikrobus
-  41. https://shop.mikroe.com/click
-  42. http://www.raspberrypi.com/
+   1. http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf
+   2. http://git.munts.com/muntsos/doc/AppNote2-Setup-Other.pdf
+   3. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
+   4. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
+   5. http://git.munts.com/muntsos/doc
+   6. http://elinux.org/Device_Tree_Reference
+   7. http://repo.munts.com/muntsos/kernels
+   8. http://www.debian.org/
+   9. http://git.munts.com/muntsos/extensions/GPIO
+  10. http://repo.munts.com/muntsos/extensions
+  11. https://en.wikipedia.org/wiki/Boot_flag
+  12. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
+  13. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
+  14. http://repo.munts.com/muntsos/thinservers
+  15. http://beagleboard.org/bone-original
+  16. http://www.ti.com/product/AM3359
+  17. http://beagleboard.org/pru
+  18. http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf
+  19. https://specialcomp.com/beagleboard/bone.htm
+  20. http://beagleboard.org/black
+  21. http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf
+  22. http://www.ti.com/product/AM3358
+  23. https://beagleboard.org/black-wireless
+  24. https://beagleboard.org/green
+  25. https://www.seeedstudio.com/
+  26. http://wiki.seeed.cc/Grove_System
+  27. https://en.wikipedia.org/wiki/I2C
+  28. https://en.wikipedia.org/wiki/Serial_port
+  29. http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf
+  30. https://beagleboard.org/green-wireless
+  31. https://www.mikroe.com/beaglebone
+  32. https://www.mikroe.com/beaglebone-mikrobus-cape
+  33. https://beagleboard.org/pocket
+  34. http://git.munts.com/muntsos/doc/PocketBeaglePinout.pdf
+  35. https://www.mikroe.com/mikrobus
+  36. https://shop.mikroe.com/click
+  37. http://www.raspberrypi.com/
+  38. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
+  39. https://www.raspberrypi.com/products/raspberry-pi-2-model-b
+  40. https://www.raspberrypi.com/products/raspberry-pi-3-model-b
+  41. https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus
+  42. https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus
   43. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
-  44. https://www.raspberrypi.com/products/raspberry-pi-2-model-b
-  45. https://www.raspberrypi.com/products/raspberry-pi-3-model-b
-  46. https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus
-  47. https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus
-  48. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
-  49. https://www.raspberrypi.com/products/raspberry-pi-4-model-b
-  50. http://www.linux-usb.org/gadget
-  51. https://crosstool-ng.github.io/
-  52. https://www.freepascal.org/
-  53. https://www.debian.org/
-  54. http://repo.munts.com/debian10
-  55. https://admin.fedoraproject.org/pkgdb/package/rpms/alien
-  56. http://repo.munts.com/muntsos/toolchains
-  57. https://github.com/pmunts/muntsos
-  58. http://repo.munts.com/muntsos
-  59. https://www.makewithada.org/
-  60. https://www.makewithada.org/entry/ada_linux_sensor_framework
-  61. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
-  62. mailto:phil@munts.net
+  44. https://www.raspberrypi.com/products/raspberry-pi-4-model-b
+  45. http://www.linux-usb.org/gadget
+  46. https://packages.debian.org/stable
+  47. https://crosstool-ng.github.io/
+  48. https://www.freepascal.org/
+  49. https://www.debian.org/
+  50. http://repo.munts.com/debian10
+  51. https://admin.fedoraproject.org/pkgdb/package/rpms/alien
+  52. http://repo.munts.com/muntsos/toolchains
+  53. https://github.com/pmunts/muntsos
+  54. http://repo.munts.com/muntsos
+  55. https://www.makewithada.org/
+  56. https://www.makewithada.org/entry/ada_linux_sensor_framework
+  57. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
+  58. mailto:phil@munts.net
