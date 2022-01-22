@@ -9,9 +9,9 @@
  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
  
  # This depmod is only for convenience to give the initial
---- drivers/usb/gadget/legacy/hid.c.orig	2021-08-12 06:02:44.000000000 -0700
-+++ drivers/usb/gadget/legacy/hid.c	2021-08-13 08:44:30.325540734 -0700
-@@ -269,6 +269,48 @@
+--- drivers/usb/gadget/legacy/hid.c.orig	2022-01-22 05:56:56.000000000 -0800
++++ drivers/usb/gadget/legacy/hid.c	2022-01-22 09:26:47.326896150 -0800
+@@ -271,6 +271,48 @@
  	},
  };
  
@@ -60,7 +60,7 @@
  
  MODULE_DESCRIPTION(DRIVER_DESC);
  MODULE_AUTHOR("Fabien Chouteau, Peter Korsgaard");
-@@ -278,6 +320,8 @@
+@@ -280,6 +322,8 @@
  {
  	int status;
  
