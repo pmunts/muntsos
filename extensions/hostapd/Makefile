@@ -61,7 +61,8 @@ src.done: $(SRCDIST)
 # Compile sources
 
 build.done: src.done
-	cp defconfig $(SRCDIR)/hostapd/.config
+	cp defconfig					$(SRCDIR)/hostapd/.config
+	sed -i  's#@@SYSROOT@@#$(GCCSYSROOT)#g'		$(SRCDIR)/hostapd/.config
 	$(MAKE) $(MAKEJOBS) -C $(SRCDIR)/hostapd CC=$(CROSS_COMPILE)gcc
 	touch $@
 
