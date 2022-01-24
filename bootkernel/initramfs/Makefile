@@ -470,7 +470,7 @@ endif
 	@echo ""						>>$@
 	@echo "**** glibc:"					>>$@
 	@echo ""						>>$@
-	@cat  $(GLIBC_COPYRIGHT)			 	>>$@
+	@cat  $(GLIBCCOPYRIGHT)				 	>>$@
 	@echo ""						>>$@
 	@echo "**** libsimpleio:"				>>$@
 	@echo ""						>>$@
@@ -651,7 +651,7 @@ endif
 	install -cm 0444 modules				$@/etc
 	install -cm 0444 motd					$@/etc
 	ln -s /proc/mounts					$@/etc/mtab
-	install -cm 0444 $(GCCSYSROOT)/usr/etc/netconfig	$@/etc
+	install -cm 0444 $(LIBSETCDIR)/netconfig		$@/etc
 	install -cm 0444 network.conf				$@/etc
 ifneq ($(findstring Gadget, $(BOARDNAME)),)
 	chmod 644						$@/etc/network.conf
