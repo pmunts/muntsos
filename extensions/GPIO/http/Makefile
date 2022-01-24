@@ -1,6 +1,6 @@
 # Makefile for building GPIO server offering HTTP
 
-# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,7 +25,7 @@ MUNTSOS		?= $(shell pwd)/../../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-CFLAGS		= -Wall -D$(BOARDNAME) -I..
+CFLAGS		= -Wall -D$(BOARDNAME) -I.. -I$(LIBSINCDIR)
 ifneq ($(findstring RaspberryPi,$(BOARDNAME)),)
 CFLAGS		+= -DRaspberryPi
 endif

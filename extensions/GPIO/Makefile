@@ -1,6 +1,6 @@
 # Makefile for building a dedicated GPIO server package for MuntsOS
 
-# Copyright (C)2014-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2014-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -63,14 +63,14 @@ $(PKGDIR): subordinates.done
 	mkdir -p								$@/usr/local/lib
 	mkdir -p								$@/usr/local/libexec
 	install -cm 0755 startup						$@/etc/rc.d/S50-gpio_server
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc.so.3			$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_abyss.so.3		$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_client.so.3		$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_server.so.3		$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_server_abyss.so.3	$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_util.so.4		$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_xmlparse.so.3		$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_xmltok.so.3		$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc.so.3				$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_abyss.so.3			$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_client.so.3			$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_server.so.3			$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_server_abyss.so.3		$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_util.so.4			$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmlparse.so.3			$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmltok.so.3			$@/usr/local/lib
 	install -cm 0755 http/gpio_server_http					$@/usr/local/libexec
 	install -cm 0755 linx/gpio_server_linx					$@/usr/local/libexec
 	install -cm 0755 $(MUNTSOS)/examples/ada/programs/remoteio_server	$@/usr/local/libexec

@@ -1,7 +1,7 @@
 # Makefile for Raspberry Pi LPC1114 I/O Processor Expansion Board
 # SPI Agent National Instruments LabView Linx server program
 
-# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -27,7 +27,7 @@ MUNTSOS		?= $(shell pwd)/../../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 CFLAGS		= -Wall -D$(BOARDNAME) -DBOARDNAME='"$(BOARDNAME)"'
-CFLAGS		+= -I.. -I$(LIBSIMPLEIO)/c++
+CFLAGS		+= -I.. -I$(LIBSINCDIR) -I$(LIBSIMPLEIO)/c++
 LDFLAGS		= -lsimpleio -lstdc++
 
 SOURCES		= main.cpp
