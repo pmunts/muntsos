@@ -1,6 +1,6 @@
 # Makefile for building the hostapd package for MuntsOS
 
-# Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -62,7 +62,7 @@ src.done: $(SRCDIST)
 
 build.done: src.done
 	cp defconfig					$(SRCDIR)/hostapd/.config
-	sed -i  's#@@SYSROOT@@#$(GCCSYSROOT)#g'		$(SRCDIR)/hostapd/.config
+	sed -i  's#@@LIBSINCDIR@@#$(LIBSINCDIR)#g'	$(SRCDIR)/hostapd/.config
 	$(MAKE) $(MAKEJOBS) -C $(SRCDIR)/hostapd CC=$(CROSS_COMPILE)gcc
 	touch $@
 

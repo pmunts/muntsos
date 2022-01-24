@@ -392,6 +392,7 @@ CONFIG_TLS=openssl
 
 # Custom flags for MuntsOS Embedded Linux
 
-CFLAGS += -I@@SYSROOT@@/usr/include/libnl3
-PKG_CONFIG := true
+CFLAGS += -I@@LIBSINCDIR@@
+CFLAGS += -I@@LIBSINCDIR@@/libnl3
+PKG_CONFIG=true
 #V=1
