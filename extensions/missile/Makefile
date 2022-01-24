@@ -1,6 +1,6 @@
 # Makefile for building the USB Missile Launcher server package for MuntsOS
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -27,7 +27,7 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
 CC		:= $(CROSS_COMPILE)gcc
-CFLAGS		+= -Wall -I$(GCCSYSROOT)/usr/include/tirpc
+CFLAGS		+= -Wall -I$(LIBSINCDIR)/tirpc
 LDFLAGS		+= -lusb-1.0 -ltirpc
 
 OSNAME		:= muntsos-$(BOARDBASE)
@@ -80,7 +80,7 @@ $(PKGDIR): missile_server missile_client
 	mkdir -p					$@/usr/local/libexec
 	install -cm 0755 startup			$@/etc/rc.d/S50-missile_server
 	install -cm 0755 missile_client			$@/usr/local/bin
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libusb-1.0.so.0 $@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libusb-1.0.so.0	$@/usr/local/lib
 	install -cm 0755 missile_server			$@/usr/local/libexec
 	find $@ -type f -exec $(CROSS_COMPILE)strip {} ";" >/dev/null 2>&1
 	touch $@
