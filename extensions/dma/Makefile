@@ -1,6 +1,6 @@
 # Makefile for building DragonFly Mail Agent package for MuntsOS
 
-# Copyright (C)2020-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2020-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -35,6 +35,8 @@ PKGARCH		= $(DEBARCH)
 PKGDIR		= $(PKGNAME)-$(OSNAME)
 PKGFILE		= $(PKGDIR).deb
 
+CFLAGS		+= -I$(LIBSINCDIR)
+
 default: package.deb
 
 source.done:
@@ -42,7 +44,7 @@ source.done:
 	touch $@
 
 compile.done: source.done
-	$(MAKE) -C dma CC=$(CROSS_COMPILE)gcc CONFDIR=/usr/local/etc/dma
+	CFLAGS="$(CFLAGS)" CONFDIR=/usr/local/etc/dma LIBEXEC=/usr/local/libexec $(MAKE) -C dma CC=$(CROSS_COMPILE)gcc
 	touch $@
 
 # Build the Debian package file
