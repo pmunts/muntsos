@@ -1,6 +1,6 @@
 # Makefile for building the rsync package for MuntsOS
 
-# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -60,7 +60,7 @@ src.done: $(SRCDIST)
 # Compile sources
 
 build.done: src.done
-	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc --disable-lz4 --disable-simd --disable-xxhash --disable-zstd
+	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc CFLAGS=-I$(LIBSINCDIR) --disable-lz4 --disable-simd --disable-xxhash --disable-zstd --without-included-zlib
 	$(MAKE) -C $(SRCDIR)
 	touch $@
 
