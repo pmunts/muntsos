@@ -684,30 +684,35 @@ endif
 # Install files to /lib
 
 	install -cm 0755 $(GCCLDLINUX)				$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libgcc_s.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libstdc++.so.6		$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libc.so.6		$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libcrypt.so.1	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libdl.so.2		$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libm.so.6		$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libnsl.so.1		$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libnss_dns.so.2	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libnss_files.so.2 	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libpthread.so.0	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libresolv.so.2	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/librt.so.1		$@/lib
-	install -cm 0755 $(GCCSYSROOT)/lib/libutil.so.1		$@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libcrypto.so.1.1 $@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libmnl.so.0	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libncurses.so.6	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libnl-3.so.200	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libnl-genl-3.so.200 $@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libssl.so.1.1	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libtirpc.so.3	$@/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libz.so.1	$@/lib
+	install -cm 0755 $(GCCLIBDIR1)/libgcc_s.so.1		$@/lib
+	install -cm 0755 $(GCCLIBDIR1)/libstdc++.so.6		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libc.so.6		$@/lib
+ifneq ($(TOOLCHAIN_BUILDER), debian)
+	install -cm 0755 $(GCCLIBDIR2)/libcrypt.so.1		$@/lib
+endif
+	install -cm 0755 $(GCCLIBDIR2)/libdl.so.2		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libm.so.6		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libnsl.so.1		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libnss_dns.so.2		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libnss_files.so.2 	$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libpthread.so.0		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libresolv.so.2		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/librt.so.1		$@/lib
+	install -cm 0755 $(GCCLIBDIR2)/libutil.so.1		$@/lib
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+	install -cm 0755 $(LIBSLIBDIR)/libcrypt.so.1		$@/lib
+endif
+	install -cm 0755 $(LIBSLIBDIR)/libcrypto.so.1.1 	$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libmnl.so.0		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libncurses.so.6		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libnl-3.so.200		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libnl-genl-3.so.200	$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libssl.so.1.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libtirpc.so.3		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libz.so.1		$@/lib
 
 ifeq ($(findstring Gadget, $(BOARDNAME)),)
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libusb-1.0.so.0	$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libusb-1.0.so.0		$@/lib
 endif
 
 # Install firmware blobs to /lib/firmware
@@ -808,7 +813,7 @@ endif
 
 # Install files to /usr/lib
 
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libsimpleio.so	$@/usr/lib
+	install -cm 0755 $(LIBSLIBDIR)/libsimpleio.so		$@/usr/lib
 
 # Install files to /usr/libexec
 
