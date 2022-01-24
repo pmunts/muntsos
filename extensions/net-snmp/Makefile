@@ -1,6 +1,6 @@
 # Makefile for building the net-snmp package for MuntsOS
 
-# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,7 +30,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 SRCNAME		= net-snmp
-SRCVER		= 5.8
+SRCVER		= 5.9.1
 SRCDIR		= $(SRCNAME)-$(SRCVER)
 SRCTARBALL	= $(SRCDIR).tar.gz
 SRCSERVER	= https://sourceforge.net/projects/net-snmp/files/net-snmp/$(SRCVER)
@@ -65,7 +65,7 @@ src.done: $(SRCDIST)
 # Compile sources
 
 build.done: src.done
-	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc --enable-mini-agent --with-mib-modules="mibII ip-mib if-mib tcp-mib udp-mib ucd_snmp target agent_mibs notification-log-mib snmpv3mibs notification" --without-perl-modules --disable-embedded-perl --disable-shared --with-default-snmp-version="2" --with-sys-contact="root" --with-sys-location="unknown" --with-logfile="/var/log/snmpd.log" --with-persistent-directory="/var/net-snmp" --disable-manuals
+	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc CFLAGS=-I$(LIBSINCDIR) --disable-ipv6 --enable-mini-agent --with-mib-modules="mibII ip-mib if-mib tcp-mib udp-mib ucd_snmp target agent_mibs notification-log-mib snmpv3mibs notification" --without-perl-modules --disable-embedded-perl --disable-shared --with-default-snmp-version="2" --with-sys-contact="root" --with-sys-location="unknown" --with-logfile="/var/log/snmpd.log" --with-persistent-directory="/var/net-snmp" --disable-manuals --without-pcre
 	$(MAKE) -C $(SRCDIR)
 	mkdir -p $(SRCDIR)/skeleton
 	$(MAKE) -C $(SRCDIR) install DESTDIR=$(shell pwd)/$(DESTDIR)
