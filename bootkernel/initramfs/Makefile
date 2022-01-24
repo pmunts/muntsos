@@ -168,7 +168,7 @@ $(OPENSSH_SRC): $(OPENSSH_DIST)
 # Build OpenSSH
 
 $(OPENSSH_SRC)/skeleton: $(OPENSSH_SRC)
-	cd $(OPENSSH_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/usr --sysconfdir=/etc/ssh --with-privsep-user=nobody --with-privsep-path=/var/empty --disable-strip CC=$(CROSS_COMPILE)gcc
+	cd $(OPENSSH_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/usr --sysconfdir=/etc/ssh --with-privsep-user=nobody --with-privsep-path=/var/empty --disable-strip CC=$(CROSS_COMPILE)gcc CFLAGS=-I$(LIBSINCDIR) LDFLAGS=-L$(LIBSLIBDIR)
 	$(MAKE) $(MAKEJOBS) -C $(OPENSSH_SRC)
 	$(MAKE) -C $(OPENSSH_SRC) install DESTDIR=skeleton
 	rm -rf $(OPENSSH_SRC)/skeleton/usr/share
@@ -262,7 +262,7 @@ $(ETHTOOL_SRC): $(ETHTOOL_DIST)
 # Build ethtool
 
 $(ETHTOOL_SRC)/ethtool: $(ETHTOOL_SRC)
-	cd $(ETHTOOL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc MNL_CFLAGS="-DMuntsOS" MNL_LIBS="-lmnl"
+	cd $(ETHTOOL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc MNL_CFLAGS="-DMuntsOS -I$(LIBSINCDIR)" MNL_LIBS="-L$(LIBSLIBDIR) -lmnl"
 	$(MAKE) $(MAKEJOBS) -C $(ETHTOOL_SRC)
 	touch $@
 
@@ -280,13 +280,13 @@ $(WPASUPP_DIST):
 $(WPASUPP_SRC): $(WPASUPP_DIST)
 	tar xzf $(WPASUPP_DIST)
 	cp wpa_supplicant.config $(WPASUPP_SRC)/wpa_supplicant/.config
-	sed -i 's#@@LIBNL3DIR@@#$(GCCSYSROOT)/usr/include/libnl3#g' $(WPASUPP_SRC)/wpa_supplicant/.config
+	sed -i 's#@@LIBSINCDIR@@#$(LIBSINCDIR)#g' $(WPASUPP_SRC)/wpa_supplicant/.config
 	touch $@
 
 # Build wpa_supplicant
 
 $(WPASUPP_SRC)/wpa_supplicant/wpa_supplicant: $(WPASUPP_SRC)
-	env PKG_CONFIG_PATH=$(GCCSYSROOT)/usr/lib/pkgconfig $(MAKE) $(MAKEJOBS) -C $(WPASUPP_SRC)/wpa_supplicant CC=$(CROSS_COMPILE)gcc
+	$(MAKE) $(MAKEJOBS) -C $(WPASUPP_SRC)/wpa_supplicant CC=$(CROSS_COMPILE)gcc
 	touch $@
 
 wpasupp: $(WPASUPP_SRC)/wpa_supplicant/wpa_supplicant
@@ -307,7 +307,7 @@ $(MAILUTILS_SRC): $(MAILUTILS_DIST)
 # Build mailutils
 
 $(MAILUTILS_SRC)/mail/mail: $(MAILUTILS_SRC)
-	cd $(MAILUTILS_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --sysconfdir=/etc --disable-ipv6 --disable-imap --disable-pop --disable-nntp --disable-mh --disable-maildir --disable-dotmail --disable-smtp --disable-prog --disable-radios --disable-python --disable-cxx --disable-build-servers --disable-build-clients --enable-build-mail CC=$(CROSS_COMPILE)gcc LDFLAGS=-static
+	cd $(MAILUTILS_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --sysconfdir=/etc --disable-ipv6 --disable-imap --disable-pop --disable-nntp --disable-mh --disable-maildir --disable-dotmail --disable-smtp --disable-prog --disable-radius --disable-python --disable-cxx --disable-build-servers --disable-build-clients --enable-build-mail --without-fribidi CC=$(CROSS_COMPILE)gcc LDFLAGS=-static
 	$(MAKE) $(MAKEJOBS) -C $(MAILUTILS_SRC)
 	touch $@
 
@@ -559,8 +559,8 @@ endif
 
 # Install ldd
 
-	install -cm 0755 $(GCCSYSROOT)/usr/bin/ldd		$@/usr/bin
-	sed -i 's/bash/sh/g'					$@/usr/bin/ldd
+	install -cm 0755 ldd					$@/usr/bin
+	sed -i 's#@@GCCLDLINUX@@#$(shell basename $(GCCLDLINUX))#g' $@/usr/bin/ldd
 
 # Install linklibs
 
