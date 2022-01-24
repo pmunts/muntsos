@@ -1,6 +1,6 @@
 # Makefile for building the tcpdump package for MuntsOS
 
-# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -60,7 +60,7 @@ src.done: $(SRCDIST)
 # Compile sources
 
 build.done: src.done
-	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) --without-smi --with-system-libpcap CC=$(CROSS_COMPILE)gcc
+	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) --without-smi --with-system-libpcap CC=$(CROSS_COMPILE)gcc CFLAGS=-I$(LIBSINCDIR)
 	$(MAKE) -C $(SRCDIR)
 	touch $@
 
@@ -76,7 +76,7 @@ $(PKGDIR): build.done
 	sed -i s/@@NAME@@/$(PKGNAME)/g				$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$(PKGDIR)/DEBIAN/control
 	install -cm 0755 $(SRCDIR)/tcpdump			$(PKGDIR)/usr/local/bin
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libpcap.so.1	$(PKGDIR)/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libpcap.so.1		$(PKGDIR)/usr/local/lib
 	$(CROSS_COMPILE)strip					$(PKGDIR)/usr/local/bin/*
 	$(CROSS_COMPILE)strip					$(PKGDIR)/usr/local/lib/*
 	find $(PKGDIR) -type f -name '*.py' -exec chmod 0644 {} ";"
