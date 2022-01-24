@@ -472,8 +472,6 @@ endif
 	@echo ""						>>$@
 	@cat  $(GLIBC_COPYRIGHT)			 	>>$@
 	@echo ""						>>$@
-	@cat $(GCCSYSROOT)/usr/COPYING				>>$@
-	@echo ""						>>$@
 	@echo "**** libsimpleio:"				>>$@
 	@echo ""						>>$@
 	@cat /usr/local/share/libsimpleio/doc/COPYING		>>$@
