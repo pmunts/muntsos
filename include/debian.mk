@@ -29,7 +29,8 @@ CROSS_COMPILE	= $(TOOLCHAIN_DIR)/bin/$(CONFIGURE_NAME)-
 GCCLIBDIR	= /usr/$(CONFIGURE_NAME)/lib
 GCCLDLINUX	= $(GCCLIBDIR/$(LOADER)
 GCCMAJOR	= 10
-GLIBC_COPYRIGHT	= /usr/share/doc/libc6-$(DEBARCH)-cross/copyright
+GLIBCCOPYRIGHT	= /usr/share/doc/libc6-$(DEBARCH)-cross/copyright
+LIBSETCDIR	= /usr/local/$(CONFIGURE_NAME)-muntsos-$(TOOLCHAIN_BUILDER)/etc
 LIBSINCDIR	= /usr/local/$(CONFIGURE_NAME)-muntsos-$(TOOLCHAIN_BUILDER)/include
 LIBSLIBDIR	= /usr/local/$(CONFIGURE_NAME)-muntsos-$(TOOLCHAIN_BUILDER)/lib
 
