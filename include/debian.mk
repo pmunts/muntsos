@@ -30,6 +30,8 @@ GCCLIBDIR	= /usr/$(CONFIGURE_NAME)/lib
 GCCLDLINUX	= $(GCCLIBDIR/$(LOADER)
 GCCMAJOR	= 10
 GLIBC_COPYRIGHT	= /usr/share/doc/libc6-$(DEBARCH)-cross/copyright
+LIBSINCDIR	= /usr/local/$(CONFIGURE_NAME)-muntsos-$(TOOLCHAIN_BUILDER)/include
+LIBSLIBDIR	= /usr/local/$(CONFIGURE_NAME)-muntsos-$(TOOLCHAIN_BUILDER)/lib
 
 # C/C++
 
