@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS LPC1114 I/O Processor extension package
 
-# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -40,8 +40,8 @@ default: package.deb
 ###############################################################################
 
 HOST_CC		= $(CROSS_COMPILE)gcc
-HOST_CFLAGS	= -Wall -I$(GCCSYSROOT)/c/include -I$(RASPBERRYPI_LPC1114_SRC)/c/include -DMUNTSOS
-HOST_LDFLAGS	= -L$(GCCSYSROOT)/lib -lspiagent
+HOST_CFLAGS	= -Wall -DMUNTSOS -I$(LIBSINCDIR) -I$(LIBSINCDIR)/tirpc -I$(RASPBERRYPI_LPC1114_SRC)/c/include
+HOST_LDFLAGS	= -L$(LIBSLIBDIR) -lspiagent -lsimpleio
 
 COMPONENTS	= $(RASPBERRYPI_LPC1114_SRC)/spi-agent/LPC1114-spi-agent.hex		\
 		  $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http/spi_agent_http_server	\
@@ -67,63 +67,63 @@ $(RASPBERRYPI_LPC1114_SRC)/spi-agent/LPC1114-spi-agent.hex:
 # Cross-Compile the HTTP transport server for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http/spi_agent_http_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -Imongoose" HOST_LDFLAGS:="$(HOST_LDFLAGS) -ldl -lpthread -lsimpleio"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -Imongoose" HOST_LDFLAGS:="$(HOST_LDFLAGS) -ldl -lpthread"
 
 ###############################################################################
 
 # Cross-Compile the LabView LINX server for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx/spi_agent_linx_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -I$(LIBSIMPLEIO)/c++" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lstdc++ -lsimpleio"
-
-###############################################################################
-
-# Cross-Compile the Remote I/O server for MuntsOS
-
-$(RASPBERRYPI_LPC1114_SRC)/spi-agent-remoteio/spi_agent_remoteio_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-remoteio HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lsimpleio"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -I$(LIBSIMPLEIO)/c++" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lstdc++"
 
 ###############################################################################
 
 # Cross-Compile the ONC/RPC transport server for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-oncrpc/spi_agent_oncrpc_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-oncrpc HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -I$(GCCSYSROOT)/usr/include/tirpc" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lsimpleio -ltirpc"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-oncrpc HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -I$(LIBSINCDIR)/tirpc" HOST_LDFLAGS:="$(HOST_LDFLAGS) -ltirpc"
+
+###############################################################################
+
+# Cross-Compile the Remote I/O server for MuntsOS
+
+$(RASPBERRYPI_LPC1114_SRC)/spi-agent-remoteio/spi_agent_remoteio_server:
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-remoteio HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS)"
 
 ###############################################################################
 
 # Cross-Compile the XML-RPC transport server for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-xmlrpc/spi_agent_xmlrpc_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-xmlrpc HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lxmlrpc -lxmlrpc_abyss -lxmlrpc_server -lxmlrpc_server_abyss -lxmlrpc_xmlparse -lxmlrpc_xmltok -lxmlrpc_util -lpthread -lsimpleio"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-xmlrpc HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lxmlrpc -lxmlrpc_abyss -lxmlrpc_server -lxmlrpc_server_abyss -lxmlrpc_xmlparse -lxmlrpc_xmltok -lxmlrpc_util -lpthread"
 
 ###############################################################################
 
 # Cross-Compile the ZeroMQ transport server for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-zeromq/spi_agent_zeromq_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-zeromq HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lzmq -lsimpleio"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-zeromq HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lzmq"
 
 ###############################################################################
 
 # Cross-Compile the SPI Agent test program for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-lib/clients/c/spi_agent_test:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-lib/clients/c HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lspiagent"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-lib/clients/c HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS)"
 
 ###############################################################################
 
 # Cross-Compile expansion_lpc1114_isp for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/utils/isp/expansion_lpc1114_isp:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/utils/isp HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lsimpleio -lspiagent"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/utils/isp HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS)"
 
 ###############################################################################
 
 # Cross-Compile expansion_lpc1114_reset for MuntsOS
 
 $(RASPBERRYPI_LPC1114_SRC)/utils/isp/expansion_lpc1114_reset:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/utils/reset HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lsimpleio -lspiagent"
+	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/utils/reset HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS)" HOST_LDFLAGS:="$(HOST_LDFLAGS)"
 
 ###############################################################################
 
@@ -160,18 +160,18 @@ endif
 ifneq ($(findstring RaspberryPi,$(BOARDNAME)),)
 	install -cm 0644 expansion_lpc1114.config.RaspberryPi					$@/usr/local/etc/expansion_lpc1114.config
 endif
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libcurl.so.4					$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libsodium.so.23					$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libspiagent.so					$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc.so.3					$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_abyss.so.3				$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_client.so.3				$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_server.so.3				$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_server_abyss.so.3			$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_util.so.4				$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_xmlparse.so.3				$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_xmltok.so.3				$@/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libzmq.so.5					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libcurl.so.4						$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libsodium.so.23						$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libspiagent.so						$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc.so.3						$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_abyss.so.3					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_client.so.3					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_server.so.3					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_server_abyss.so.3				$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_util.so.4					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmlparse.so.3					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmltok.so.3					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libzmq.so.5						$@/usr/local/lib
 	install -cm 0644 $(RASPBERRYPI_LPC1114_SRC)/spi-agent/LPC1114-spi-agent.hex		$@/usr/local/lib/firmware
 	install -cm 0644 $(RASPBERRYPI_LPC1114_SRC)/python/spiagent*.py				$@/usr/local/lib/python3
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/scripts/expansion_lpc1114_flash		$@/usr/local/libexec
