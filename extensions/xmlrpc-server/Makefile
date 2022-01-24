@@ -1,6 +1,6 @@
 # Makefile for building the XML-RPC server library package for MuntsOS
 
-# Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -38,20 +38,20 @@ default: package.deb
 # Build the Debian package file
 
 $(PKGDIR):
-	mkdir -p					$(PKGDIR)/DEBIAN
-	install -cm 0644 control			$(PKGDIR)/DEBIAN
-	install -cm 0755 postinst			$@/DEBIAN
-	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc.so.3			$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_abyss.so.3		$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_server.so.3		$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_server_abyss.so.3	$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_util.so.4		$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_xmlparse.so.3		$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libxmlrpc_xmltok.so.3		$(PKGDIR)/usr/local/lib
+	mkdir -p							$@/DEBIAN
+	install -cm 0644 control					$@/DEBIAN
+	install -cm 0755 postinst					$@/DEBIAN
+	sed -i s/@@ARCH@@/$(PKGARCH)/g					$@/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g					$@/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g				$@/DEBIAN/control
+	mkdir -p							$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc.so.3			$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_abyss.so.3		$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_server.so.3		$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_server_abyss.so.3	$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_util.so.4		$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmlparse.so.3		$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmltok.so.3		$@/usr/local/lib
 	touch $@
 
 package.deb: $(PKGFILE)
