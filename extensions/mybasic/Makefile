@@ -1,7 +1,7 @@
 # Makefile for building the MY-BASIC package for MuntsOS
 # including bindings for libsimpleio
 
-# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -42,6 +42,7 @@ SOURCEFILES	+= $(SRCDIR)/shell/main.c
 SOURCEFILES	+= $(LIBSIMPLEIO)/mybasic/bindings/libsimpleio.c
 
 CFLAGS		+= -Wall
+CFLAGS		+= -I$(LIBSINCDIR)
 CFLAGS		+= -I$(SRCDIR)/core
 LDFLAGS		+= -lm -lsimpleio
 
