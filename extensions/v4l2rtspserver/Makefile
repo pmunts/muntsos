@@ -28,6 +28,7 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 
 SRCURL		= https://github.com/mpromonet/v4l2rtspserver.git
 SRCDIR		= v4l2rtspserver.src
+SRCDIST		= /tmp/v4l2rtspserver.tgz
 
 OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= v4l2rtspserver
@@ -36,20 +37,33 @@ PKGARCH		= $(DEBARCH)
 PKGDIR		= $(PKGNAME)-$(OSNAME)
 PKGFILE		= $(PKGDIR).deb
 
+CMAKEFLAGS	+= -DCMAKE_SYSTEM_NAME=Linux
+CMAKEFLAGS	+= -DCMAKE_C_COMPILER=$(CROSS_COMPILE)gcc
+CMAKEFLAGS	+= -DCMAKE_C_FLAGS=-I$(LIBSINCDIR)
+CMAKEFLAGS	+= -DCMAKE_CXX_COMPILER=$(CROSS_COMPILE)g++
+CMAKEFLAGS	+= -DCMAKE_CXX_FLAGS=-I$(LIBSINCDIR)
+
 default: package.deb
 
-# Clone source repo
+# Clone source repo and create source tarball
 
-src.done:
-	git clone $(SRCURL) $(SRCDIR)
-	cd $(SRCDIR) && git submodule init && git submodule update
+$(SRCDIST):
+	git clone --recurse-submodules $(SRCURL) $(SRCDIR)
+	tar czf $@ --exclude='.*' $(SRCDIR)
+	rm -rf $(SRCDIR)
+
+# Unpack source tarball
+
+source.done: $(SRCDIST)
+	tar xzf $^
 	touch $@
 
 # Compile sources
 
-build.done: src.done
-	cd $(SRCDIR) && CROSS_COMPILE=${CROSS_COMPILE} cmake -D CMAKE_TOOLCHAIN_FILE=$(CMAKE_TOOLCHAIN_FILE)
-	sed -i 's@/usr/lib/x86_64-linux-gnu@$(GCCSYSROOT)/usr/lib@g' v4l2rtspserver.src/CMakeFiles/v4l2rtspserver.dir/link.txt
+build.done: source.done
+	cd $(SRCDIR) && cmake $(CMAKEFLAGS)
+	# Workaround for a cmake bug
+	sed -i 's@/usr/lib/x86_64-linux-gnu@$(LIBSLIBDIR)@g' v4l2rtspserver.src/CMakeFiles/v4l2rtspserver.dir/link.txt
 	$(MAKE) -C $(SRCDIR)
 	touch $@
 
@@ -89,6 +103,6 @@ clean:
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -f $(PKGFILE) ; fi
 
 reallyclean: clean
-	rm -rf build.done src.done $(SRCDIR) $(PKGFILE) $(PKGFILE).downloaded
+	rm -rf build.done source.done $(SRCDIR) $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
