@@ -1,6 +1,6 @@
 # Global definitions for embedded Linux microcomputer framework
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -33,8 +33,6 @@ KERNEL_PATCH	= $(BOARDNAME).patch
 KERNEL_CONFIG	= $(BOARDNAME).config
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-
-CMAKE_TOOLCHAIN_FILE = $(MUNTSOS)/include/$(BOARDBASE).cmake_toolchain
 
 common_mk_default: default
 
