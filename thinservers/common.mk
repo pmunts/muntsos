@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS SSH Thin Server
 
-# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -37,15 +37,11 @@ BASES		:= RaspberryPi1 RaspberryPi2 RaspberryPi3
 else ifeq ($(findstring RaspberryPi4, $(BOARDNAME)), RaspberryPi4)
 BOOTFILES	:= bootfiles4.tgz overlays.tgz
 BOARDS		:= $(BOARDNAME)
-BASES		:= RaspberryPi3
-else ifneq ($(findstring Gadget,$(BOARDNAME)),)
-BOOTFILES	:= bootfiles.tgz overlays.tgz
-BOARDS		:= $(BOARDNAME)
-BASES		:= $(subst Gadget,,$(BOARDNAME))
+BASES		:= $(BOARDBASE)
 else
 BOOTFILES	:= bootfiles.tgz overlays.tgz
 BOARDS		:= $(BOARDNAME)
-BASES		:= $(BOARDS)
+BASES		:= $(BOARDBASE)
 endif
 
 SED		?= sed
