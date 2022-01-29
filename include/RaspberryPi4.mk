@@ -20,9 +20,17 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include $(MUNTSOS)/include/RaspberryPi.mk
+TOOLCHAIN_BUILDER ?= crosstool
 
-BOARDBASE	= RaspberryPi3
+include $(MUNTSOS)/include/AArch64.mk
+include $(MUNTSOS)/include/RaspberryPi.mk
+include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
+
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+BOARDBASE	:= $(CONFIGURE_NAME)
+else
+BOARDBASE	:= RaspberryPi3
+endif
 
 KERNEL_IMGSRC	= Image
 
@@ -38,6 +46,4 @@ KERNEL_OVL	+= uart2 uart3 uart4 uart5
 
 LOADER		= ld-linux-aarch64.so.1
 
-include $(MUNTSOS)/include/AArch64.mk
-include $(MUNTSOS)/include/crosstool.mk
 include $(MUNTSOS)/include/common.mk

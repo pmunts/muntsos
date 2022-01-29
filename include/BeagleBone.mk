@@ -22,7 +22,16 @@
 
 PLATFORM_NAME	= beagle
 
-BOARDBASE	= BeagleBone
+TOOLCHAIN_BUILDER ?= crosstool
+
+include $(MUNTSOS)/include/ARMv7.mk
+include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
+
+ifeq ($(TOOLCHAIN_BUILDER), debian)
+BOARDBASE	:= $(CONFIGURE_NAME)
+else
+BOARDBASE	:= BeagleBone
+endif
 
 KERNEL_IMGSRC	= zImage
 KERNEL_IMG	= BeagleBone.img
@@ -51,6 +60,4 @@ KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tar.bz2
 
 CFLAGS		+= -DBEAGLEBONE
 
-include $(MUNTSOS)/include/ARMv7.mk
-include $(MUNTSOS)/include/crosstool.mk
 include $(MUNTSOS)/include/common.mk
