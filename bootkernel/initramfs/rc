@@ -184,19 +184,19 @@ if [ $? -eq 0 ]; then
 
 # Install packages, if any
 
-  for p in /boot/packages/@@BOARDBASE@@/*.deb /boot/packages/*all.deb ; do
+  for p in /boot/packages/${BOARDBASE}/*.deb /boot/packages/*all.deb ; do
     if [ -f $p ]; then
       dpkg -i $p >/dev/null
     fi
   done
 
-  for p in /boot/packages/@@BOARDBASE@@/*.rpm /boot/packages/*noarch.rpm ; do
+  for p in /boot/packages/${BOARDBASE}/*.rpm /boot/packages/*noarch.rpm ; do
     if [ -f $p ]; then
       rpm -i $p >/dev/null
     fi
   done
 
-  for p in /boot/packages/@@BOARDBASE@@/*.nupkg /boot/packages/*.nupkg ; do
+  for p in /boot/packages/${BOARDBASE}/*.nupkg /boot/packages/*.nupkg ; do
     if [ -f $p ]; then
       nupkg $p
     fi
