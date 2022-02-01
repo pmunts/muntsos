@@ -4,4 +4,4 @@ Priority: extra
 Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
-Description: net-snmp for MuntsOS
+Description: SNMP server for MuntsOS
