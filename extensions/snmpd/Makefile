@@ -41,7 +41,7 @@ SBINDIR		= $(DESTDIR)/usr/local/sbin
 MIBSDIR		= $(DESTDIR)/usr/local/share/snmp/mibs
 
 OSNAME		= muntsos-$(BOARDBASE)
-PKGNAME		= $(SRCNAME)
+PKGNAME		= snmpd
 PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
 PKGDIR		= $(PKGNAME)-$(OSNAME)
