@@ -1,4 +1,4 @@
-# Makefile for building libcrypt for a Debian cross-toolchain
+# Makefile for building glibc for a Debian cross-toolchain
 
 # Copyright (C)2022, Philip Munts, President, Munts AM Corp.
 #
@@ -20,68 +20,66 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# NOTE: The Debian cross-toolchain libc6 packages are incomplete, so we have
+# to build the full glibc ourself.
+
 include ../../include/$(BOARDNAME).mk
 
-LIBXCRYPT_NAME		:= libxcrypt
-LIBXCRYPT_VER		:= 4.4.27
-LIBXCRYPT_SRC		:= $(LIBXCRYPT_NAME)-$(LIBXCRYPT_VER)
-LIBXCRYPT_TARBALL	:= $(LIBXCRYPT_SRC).tar.xz
-LIBXCRYPT_SERVER	:= https://github.com/besser82/libxcrypt/releases/download/v$(LIBXCRYPT_VER)
-LIBXCRYPT_URL		:= $(LIBXCRYPT_SERVER)/$(LIBXCRYPT_TARBALL)
-LIBXCRYPT_DIST		:= $(TEMP)/$(LIBXCRYPT_TARBALL)
+GLIBC_NAME		:= glibc
+GLIBC_VER		:= 2.31
+GLIBC_SRC		:= $(GLIBC_NAME)-$(GLIBC_VER)
+GLIBC_TARBALL		:= $(GLIBC_NAME)-$(GLIBC_VER).tar.xz
+GLIBC_SERVER		:= http://ftp.gnu.org/gnu/glibc
+GLIBC_URL		:= $(GLIBC_SERVER)/$(GLIBC_TARBALL)
+GLIBC_DIST		:= $(TEMP)/$(GLIBC_TARBALL)
+GLIBC_BLD		:= $(GLIBC_NAME)-$(GLIBC_VER)-build
 
 BOARDBASE		:= $(CONFIGURE_NAME)
 BUILDOS			:= --build=`uname -m`
 TARGETOS		:= --host=$(CONFIGURE_NAME)
-INSTALLDIR		:= $(CONFIGURE_NAME)-muntsos-debian
-DESTDIR			:= $(shell pwd)
-FINALDIR		:= /usr/local/$(INSTALLDIR)
+INSTALLDIR		:= /usr/local/$(CONFIGURE_NAME)-muntsos-debian
 
 BUILDNUM		?= 1
 OSNAME			?= unknown
-PKGNAME			= $(CONFIGURE_NAME)-muntsos-debian-libcrypt
-PKGVER			= $(LIBXCRYPT_VER)-$(BUILDNUM)
+PKGNAME			= $(CONFIGURE_NAME)-muntsos-debian-glibc
+PKGVER			= $(GLIBC_VER)-$(BUILDNUM)
 PKGARCH			= all
 PKGSUFFIX		= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR			= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE			= $(PKGDIR).deb
 
+DESTDIR			:= $(shell pwd)/$(PKGDIR)
+
 default: package.deb
 
 ###############################################################################
 
-# Download libxcrypt source distribution
+# Download glibc source distribution
 
-$(LIBXCRYPT_DIST):
-	wget -nv -P $(TEMP) $(LIBXCRYPT_URL)
+$(GLIBC_DIST):
+	wget -nv -P $(TEMP) $(GLIBC_URL)
 
-# Unpack libxcrypt source
+# Unpack glibc source
 
-$(LIBXCRYPT_SRC): $(LIBXCRYPT_DIST)
-	tar xJf $(LIBXCRYPT_DIST)
+source.done: $(GLIBC_DIST)
+	tar xJf $(GLIBC_DIST)
 	touch $@
-
-source: $(LIBXCRYPT_SRC)
 
 ###############################################################################
 
-# Build libxcrypt
+# Build glibc
 
-$(INSTALLDIR)/lib/libcrypt.a: $(LIBXCRYPT_SRC)
-	cd $(LIBXCRYPT_SRC) && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --disable-xcrypt-compat-files CC=$(CROSS_COMPILE)gcc
-	$(MAKE) -C $(LIBXCRYPT_SRC)
-	$(MAKE) -C $(LIBXCRYPT_SRC) install DESTDIR=$(DESTDIR)
-	rm -f $(INSTALLDIR)/lib/libowcrypt.*
-	rm -rf $(INSTALLDIR)/lib/pkgconfig
-	cp $(LIBXCRYPT_SRC)/COPYING.LIB $(INSTALLDIR)/lib/libcrypt.COPYING
-
-build: $(INSTALLDIR)/lib/libcrypt.a
+build.done: source.done
+	mkdir -p $(GLIBC_BLD)
+	cd $(GLIBC_BLD) && ../$(GLIBC_SRC)/configure $(BUILDOS) $(TARGETOS) --prefix=$(INSTALLDIR) CC=$(CROSS_COMPILE)gcc
+	$(MAKE) -C $(GLIBC_BLD)
+	touch $@
 
 ###############################################################################
 
 # Create Debian package
 
-package.deb: $(INSTALLDIR)/lib/libcrypt.a
+package.deb: build.done
 	mkdir -p					$(PKGDIR)/DEBIAN
 	install -cm 0644 control			$(PKGDIR)/DEBIAN
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
@@ -89,7 +87,7 @@ package.deb: $(INSTALLDIR)/lib/libcrypt.a
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
-	cp -R -P -p $(INSTALLDIR)			$(PKGDIR)/usr/local
+	$(MAKE) -C $(GLIBC_BLD) install DESTDIR=$(DESTDIR)
 	chmod -R ugo-w					$(PKGDIR)/usr/*
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr/*
@@ -99,8 +97,10 @@ package.deb: $(INSTALLDIR)/lib/libcrypt.a
 # Remove working files
 
 clean:
-	rm -rf $(LIBXCRYPT_SRC) $(INSTALLDIR) $(PKGDIR) $(PKGFILE)
+	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
+	rm -rf *.done $(GLIBC_SRC) $(GLIBC_BLD)
 
 distclean: reallyclean
+	rm -f $(GLIBC_DIST)

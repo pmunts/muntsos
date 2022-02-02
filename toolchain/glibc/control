@@ -4,4 +4,4 @@ Priority: extra
 Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
-Description: libcrypt for MuntsOS Embedded Linux for @@BOARDNAME@@
+Description: glibc for @@BOARDNAME@@
