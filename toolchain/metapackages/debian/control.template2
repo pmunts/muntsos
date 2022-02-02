@@ -11,9 +11,9 @@ Depends:
   gfortran-@@CONFIGURE_NAME@@,
   gm2-@@CONFIGURE_NAME@@,
   gnat-10-@@CONFIGURE_NAME@@,
+  @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-glibc,
   @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libs,
   @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libaws,
-  @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libcrypt,
   @@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@-libsimpleio
 Recommends:
   fpc-@@CONFIGURE_NAME@@-muntsos-@@TOOLCHAIN@@

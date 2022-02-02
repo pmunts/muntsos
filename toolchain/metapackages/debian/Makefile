@@ -30,7 +30,7 @@ CONFIGNAMES	:= aarch64-linux-gnu arm-linux-gnueabihf
 TOOLCHAIN	:= debian
 
 PKGVERSION1	:= 1.0
-PKGVERSION2	:= 1.1
+PKGVERSION2	:= 1.2
 
 # Build metapackages for all platforms
 
