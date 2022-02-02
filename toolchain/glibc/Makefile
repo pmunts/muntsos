@@ -39,6 +39,11 @@ BUILDOS			:= --build=`uname -m`
 TARGETOS		:= --host=$(CONFIGURE_NAME)
 INSTALLDIR		:= /usr/local/$(CONFIGURE_NAME)-muntsos-debian
 
+CONFIGFLAGS		+= $(BUILDOS) $(TARGETOS)
+CONFIGFLAGS		+= --prefix=$(INSTALLDIR)
+CONFIGFLAGS		+= CC=$(CROSS_COMPILE)gcc
+CONFIGFLAGS		+= $(EXTRACONFIGFLAGS)
+
 BUILDNUM		?= 1
 OSNAME			?= unknown
 PKGNAME			= $(CONFIGURE_NAME)-muntsos-debian-glibc
@@ -71,7 +76,7 @@ source.done: $(GLIBC_DIST)
 
 build.done: source.done
 	mkdir -p $(GLIBC_BLD)
-	cd $(GLIBC_BLD) && ../$(GLIBC_SRC)/configure $(BUILDOS) $(TARGETOS) --prefix=$(INSTALLDIR) CC=$(CROSS_COMPILE)gcc
+	cd $(GLIBC_BLD) && ../$(GLIBC_SRC)/configure $(CONFIGFLAGS)
 	$(MAKE) -C $(GLIBC_BLD)
 	touch $@
 
