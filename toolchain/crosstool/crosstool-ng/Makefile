@@ -1,6 +1,6 @@
-# Makefile for building crosstools-ng package for Debian
+# Makefile for building crosstool-ng package for Debian
 
-# Copyright (C)2017-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,16 +20,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-CTNG_NAME	:= crosstool-ng
-CTNG_VERSION	:= 1.24.0
-CTNG_SRC	:= $(CTNG_NAME)-$(CTNG_VERSION)
-CTNG_TARBALL	:= $(CTNG_SRC).tar.xz
-CTNG_SERVER	:= http://crosstool-ng.org/download/crosstool-ng
-CTNG_URL	:= $(CTNG_SERVER)/$(CTNG_TARBALL)
-CTNG_DIST	:= $(TEMP)/$(CTNG_TARBALL)
+CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
+CTNG_SRC	:= crosstool-ng.src
 
 OSNAME		?= unknown
-PKGNAME		:= $(CTNG_NAME)
+PKGNAME		:= crosstool-ng
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGDIR		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-$(PKGARCH)
@@ -37,21 +32,16 @@ PKGFILE		:= $(PKGDIR).deb
 
 default: $(PKGFILE)
 
-# Download source distribution
+# Clone source distribution
 
-$(CTNG_DIST):
-	wget -P $(TEMP) $(CTNG_URL)
-
-# Unpack source distribution
-
-src.done: $(CTNG_DIST)
-	tar xJf $(CTNG_DIST)
-	cd $(CTNG_SRC) ; patch -p0 <../remove.patch
+src.done:
+	git clone $(CTNG_URL) $(CTNG_SRC)
 	touch $@
 
 # Build crosstool-ng
 
 build.done: src.done
+	cd $(CTNG_SRC) && ./bootstrap
 	cd $(CTNG_SRC) && ./configure
 	$(MAKE) -C $(CTNG_SRC) MAKELEVEL=0
 	touch $@
