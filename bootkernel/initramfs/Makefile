@@ -146,9 +146,9 @@ busybox.menuconfig: $(BUSYBOX_SRC)
 
 $(BUSYBOX_SRC)/skeleton: $(BUSYBOX_SRC)
 	cp busybox.config $(BUSYBOX_SRC)/.config
-	$(MAKE) -C $(BUSYBOX_SRC) oldconfig CROSS_COMPILE=$(CROSS_COMPILE) GCCSYSROOT=$(GCCSYSROOT)
-	$(MAKE) $(MAKEJOBS) -C $(BUSYBOX_SRC) CROSS_COMPILE=$(CROSS_COMPILE) GCCSYSROOT=$(GCCSYSROOT) SKIP_STRIP=y
-	$(MAKE) -C $(BUSYBOX_SRC) install CROSS_COMPILE=$(CROSS_COMPILE) GCCSYSROOT=$(GCCSYSROOT) SKIP_STRIP=y
+	$(MAKE) -C $(BUSYBOX_SRC) oldconfig CROSS_COMPILE=$(CROSS_COMPILE)
+	$(MAKE) $(MAKEJOBS) -C $(BUSYBOX_SRC) CROSS_COMPILE=$(CROSS_COMPILE) SKIP_STRIP=y
+	$(MAKE) -C $(BUSYBOX_SRC) install CROSS_COMPILE=$(CROSS_COMPILE) SKIP_STRIP=y
 
 busybox: $(BUSYBOX_SRC)/skeleton
 
@@ -193,7 +193,7 @@ $(RPCBIND_SRC): $(RPCBIND_DIST)
 # Build rpcbind
 
 $(RPCBIND_SRC)/rpcbind: $(RPCBIND_SRC)
-	cd $(RPCBIND_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --without-statedir --without-systemdsystemunitdir CC=$(CROSS_COMPILE)gcc TIRPC_CFLAGS=-I$(GCCSYSROOT)/usr/include/tirpc TIRPC_LIBS=-ltirpc
+	cd $(RPCBIND_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --without-statedir --without-systemdsystemunitdir CC=$(CROSS_COMPILE)gcc TIRPC_CFLAGS=-I$(LIBSINCDIR)/tirpc TIRPC_LIBS=-ltirpc
 	$(MAKE) $(MAKEJOBS) -C $(RPCBIND_SRC)
 	touch $@
 
@@ -600,7 +600,7 @@ endif
 
 # Install openssl
 
-	install -cm 0755 $(GCCSYSROOT)/usr/bin/openssl		$@/usr/bin
+	install -cm 0755 $(LIBSBINDIR)/openssl			$@/usr/bin
 
 # Install entropypump
 
@@ -684,24 +684,19 @@ endif
 # Install files to /lib
 
 	install -cm 0755 $(GCCLDLINUX)				$@/lib
-	install -cm 0755 $(GCCLIBDIR1)/libgcc_s.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR1)/libstdc++.so.6		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libc.so.6		$@/lib
-ifneq ($(TOOLCHAIN_BUILDER), debian)
-	install -cm 0755 $(GCCLIBDIR2)/libcrypt.so.1		$@/lib
-endif
-	install -cm 0755 $(GCCLIBDIR2)/libdl.so.2		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libm.so.6		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libnsl.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libnss_dns.so.2		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libnss_files.so.2 	$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libpthread.so.0		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libresolv.so.2		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/librt.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR2)/libutil.so.1		$@/lib
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-	install -cm 0755 $(LIBSLIBDIR)/libcrypt.so.1		$@/lib
-endif
+	install -cm 0755 $(GCCLIBDIR)/libc.so.6			$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libcrypt.so.1		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libdl.so.2		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libgcc_s.so.1		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libm.so.6			$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libnsl.so.1		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libnss_dns.so.2		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libnss_files.so.2 	$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libpthread.so.0		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libresolv.so.2		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/librt.so.1		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libstdc++.so.6		$@/lib
+	install -cm 0755 $(GCCLIBDIR)/libutil.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libcrypto.so.1.1 	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libmnl.so.0		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libncurses.so.6		$@/lib
@@ -834,7 +829,7 @@ endif
 
 # Install files to /usr/share
 
-	cp -R -P -p $(GCCSYSROOT)/usr/share/terminfo		$@/usr/share
+	cp -R -P -p $(LIBSSHAREDIR)/terminfo			$@/usr/share
 
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	install -cm 0444 pinmux.*Beagle*			$@/usr/share/sysconfig
