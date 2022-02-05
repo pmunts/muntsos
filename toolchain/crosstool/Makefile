@@ -29,16 +29,17 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 CTNG		?= ct-ng
 
+GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' $(BOARDNAME).config)
+GCCMAJOR	:= $(shell echo $(GCCVER) | head -c 2)
+INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
+
 OSNAME		?= unknown
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(shell date +%Y.%j)
+PKGVER		:= $(shell date +%Y.%j)-$(GCCVER)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
-
-GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' $(BOARDNAME).config)
-GCCMAJOR	:= $(shell echo $(GCCVER) | head -c 1)
 
 default: package.deb
 
@@ -74,6 +75,13 @@ source.done: config.done
 
 build.done: source.done
 	$(CTNG) build
+ifneq ($(wildcard $(INSTALLDIR)/$(CONFIGURE_NAME)/lib64),)
+	cd $(INSTALLDIR)/$(CONFIGURE_NAME) && rmdir lib && mv lib64 lib && ln -s lib lib64
+endif
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
+	ln -s ../libc/lib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/lib/libgnat.so
+	ln -s ../libc/lib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/lib/libgnarl.so
 	touch $@
 
 ################################################################################
@@ -83,12 +91,7 @@ build.done: source.done
 reconstitute:
 	cp -R -P -p $(TOOLCHAIN_DIR) gcc-$(CONFIGURE_NAME)
 	chmod -R u+w gcc-$(CONFIGURE_NAME)
-	rm -f gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnarl.so
-	rm -f gcc-$(CONFIGURE_NAME)/$(CONFIGURE_NAME)/lib/libgnat.so
-	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/$(BOARDBASE).cgpr
-ifeq ($(BOARDBASE), RaspberryPi3)
-	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/RaspberryPi4.cgpr
-endif
+	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/*.cgpr
 	touch gcc-$(CONFIGURE_NAME)/build.log.bz2
 	touch build.done
 
@@ -105,8 +108,6 @@ package.deb: build.done
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
 	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
-	ln -s ../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(PKGDIR)$(GCCLIBDIR)/libgnarl.so
-	ln -s ../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so $(PKGDIR)$(GCCLIBDIR)/libgnat.so
 	rm						$(PKGDIR)$(TOOLCHAIN_DIR)/build.log.bz2
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
@@ -127,11 +128,12 @@ endif
 # Remove working files
 
 clean:
+	-chmod -R u+w $(PKGDIR)
 	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
 	-chmod -R u+w gcc-$(CONFIGURE_NAME)
-	rm -rf .build .config* build* config* *.done gcc-$(CONFIGURE_NAME)
+	rm -rf .build .config* build* config* *.done gcc-$(CONFIGURE_NAME) include
 
 distclean: reallyclean
 	rm -rf distfiles
