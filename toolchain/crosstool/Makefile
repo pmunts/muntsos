@@ -78,6 +78,13 @@ build.done: source.done
 ifneq ($(wildcard $(INSTALLDIR)/$(CONFIGURE_NAME)/lib64),)
 	cd $(INSTALLDIR)/$(CONFIGURE_NAME) && rmdir lib && mv lib64 lib && ln -s lib lib64
 endif
+	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/debug-root/usr/ $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr
+	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/etc/       $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/etc
+	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin/      $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/debug-root
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/etc
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/var
 	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
 	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
 	ln -s ../libc/lib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/lib/libgnat.so
