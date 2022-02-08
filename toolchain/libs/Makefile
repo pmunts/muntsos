@@ -22,14 +22,8 @@
 
 include ../../include/$(BOARDNAME).mk
 
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-BOARDBASE	:= $(CONFIGURE_NAME)
-INSTALLDIR	:= $(CONFIGURE_NAME)-muntsos-debian
-FINALDIR	:= /usr/local/$(INSTALLDIR)
-else
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
 FINALDIR	:= $(GCCSYSROOT)/usr
-endif
 
 BUILDNUM	?= 1
 BUILDOS		= --build=`uname -m`
@@ -570,12 +564,6 @@ $(INSTALLDIR)/lib/librabbitmq.a: $(RABBITMQ_SRC)
 	-DOPENSSL_CRYPTO_LIBRARY=$(DESTDIR)/$(INSTALLDIR)/lib/libcrypto.so \
 	-DOPENSSL_SSL_LIBRARY=$(DESTDIR)/$(INSTALLDIR)/lib/libssl.so
 	cd $(RABBITMQ_SRC)/build && cmake --build . --target install
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-	rm -rf $(INSTALLDIR)/lib/$(CONFIGURE_NAME)/cmake
-	rm -rf $(INSTALLDIR)/lib/$(CONFIGURE_NAME)/pkgconfig
-	mv $(INSTALLDIR)/lib/$(CONFIGURE_NAME)/* $(INSTALLDIR)/lib
-	rm -rf $(INSTALLDIR)/lib/$(CONFIGURE_NAME)
-endif
 	touch $@
 
 rabbitmq: $(INSTALLDIR)/lib/librabbitmq.a
@@ -712,10 +700,6 @@ package.deb: $(INSTALLDIR)/COPYING
 	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(FINALDIR)
 	rm -rf						$(PKGDIR)$(FINALDIR)/lib/cmake
 	rm -rf						$(PKGDIR)$(FINALDIR)/lib/pkgconfig
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-	mkdir -p					$(PKGDIR)/usr/local/lib
-	ln -s ../$(INSTALLDIR)/lib			$(PKGDIR)/usr/local/lib/$(CONFIGURE_NAME)
-endif
 	chmod -R ugo-w					$(PKGDIR)/usr/*
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr/*

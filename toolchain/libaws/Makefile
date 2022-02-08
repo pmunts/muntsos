@@ -25,18 +25,10 @@ MUNTSOS		?= $(HOME)/muntsos
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-BOARDBASE	:= $(CONFIGURE_NAME)
-INSTALLDIR	:= $(CONFIGURE_NAME)-muntsos-debian
-INCDIR		:= /usr/local/$(INSTALLDIR)/include
-LIBDIR		:= /usr/local/$(INSTALLDIR)/lib
-GPRDIR		:= /usr/$(CONFIGURE_NAME)/share/gpr
-else
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
 INCDIR		:= $(GCCSYSROOT)/usr/include
 LIBDIR		:= $(GCCSYSROOT)/usr/lib
 GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
-endif
 
 BUILDNUM	?= 1
 OSNAME		?= unknown
