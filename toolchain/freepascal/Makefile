@@ -1,6 +1,6 @@
 # Makefile for packaging Free Pascal ARM cross-toolchain for MuntsOS
 
-# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,8 +21,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 MUNTSOS		?= ../..
-
-BUILDNUM	?= 1
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
@@ -56,7 +54,7 @@ endif
 
 OSNAME		?= unknown
 PKGNAME		:= fpc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+PKGVER		:= $(shell date +%Y.%j)-$(FPC_VERSION)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
@@ -104,14 +102,8 @@ install.done: build.done
 	sed -i s#@@ARCH@@#$(ARCH)#g			$(INSTALLDIR)/etc/fpc.cfg
 	sed -i s#@@CROSSCOMPILE@@#$(CROSS_COMPILE)#g	$(INSTALLDIR)/etc/fpc.cfg
 	sed -i s#@@INSTALLDIR@@#/usr/local/$(PKGNAME)#g	$(INSTALLDIR)/etc/fpc.cfg
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-	sed -i s#@@STARTUPDIR@@#/usr/lib/gcc-cross/$(CONFIGURE_NAME)/$(GCCMAJOR)#g $(INSTALLDIR)/etc/fpc.cfg
-	sed -i s#@@SYSROOT@@/lib#/usr/$(CONFIGURE_NAME)/lib# $(INSTALLDIR)/etc/fpc.cfg
-	sed -i s#@@SYSROOT@@/usr/lib#/usr/local/lib/$(CONFIGURE_NAME)# $(INSTALLDIR)/etc/fpc.cfg
-else
 	sed -i s#@@STARTUPDIR@@#$(shell dirname $(shell find $(TOOLCHAIN_DIR) -name crtbegin.o))#g $(INSTALLDIR)/etc/fpc.cfg
 	sed -i s#@@SYSROOT@@#$(GCCSYSROOT)#g		$(INSTALLDIR)/etc/fpc.cfg
-endif
 	sed -i s#@@VERSION@@#$(FPC_VERSION)#g		$(INSTALLDIR)/etc/fpc.cfg
 	for c in $(CPUOPTS) ; do echo $$c >>		$(INSTALLDIR)/etc/fpc.cfg ; done
 	ln -s ../../etc					$(INSTALLDIR)/lib/fpc/etc
