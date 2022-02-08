@@ -6,3 +6,5 @@ Architecture: @@ARCH@@
 Version: @@VERSION@@
 Description: Linux Simple I/O library for @@TARGET@@
 Depends: munts-libsimpleio
+Conflicts: @@NAME@@-crosstool
+Replaces: @@NAME@@-crosstool

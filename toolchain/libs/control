@@ -5,3 +5,5 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
 Description: GCC cross-toolchain libraries for @@BOARDNAME@@
+Conflicts: @@NAME@@-crosstool
+Replaces: @@NAME@@-crosstool
