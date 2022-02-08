@@ -3,13 +3,15 @@ Priority: optional
 Homepage: http://git.munts.com/muntsos
 Standards-Version: 3.9.2
 
-Package: muntsos-@@TOOLCHAIN@@
+Package: muntsos-dev
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
-  muntsos-@@TOOLCHAIN@@-aarch64,
-  muntsos-@@TOOLCHAIN@@-beaglebone,
-  muntsos-@@TOOLCHAIN@@-raspberrypi1,
-  muntsos-@@TOOLCHAIN@@-raspberrypi2
+  muntsos-dev-aarch64,
+  muntsos-dev-beaglebone,
+  muntsos-dev-raspberrypi1,
+  muntsos-dev-raspberrypi2
+Conflicts: muntsos-crosstool
+Replaces: muntsos-crosstool
 Architecture: all
 Description: Cross-toolchain packages for MuntsOS

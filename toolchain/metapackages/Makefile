@@ -27,14 +27,11 @@ BOARDNAME	?= RaspberryPi
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 BOARDNAMES	:= BeagleBone RaspberryPi1 RaspberryPi2
-TOOLCHAIN	:= Crosstool
-
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
-TOOLCHAINLC	:= $(shell echo $(TOOLCHAIN) | tr A-Z a-z)
 
-PKGVERSION1	:= 1.3
-PKGVERSION2	:= 1.4
-PKGVERSION3	:= 1.4
+PKGVERSION1	:= 1.0
+PKGVERSION2	:= 1.0
+PKGVERSION3	:= 1.0
 
 # Build metapackages for all platforms
 
@@ -42,16 +39,16 @@ default:
 	$(MAKE) allplatforms PKGVERSION=$(PKGVERSION1)
 	for P in $(BOARDNAMES) ; do $(MAKE) oneplatform BOARDNAME=$$P CONTROL=control.template2 PKGVERSION=$(PKGVERSION2); done
 	$(MAKE) oneplatform BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-linux-gnu CONTROL=control.template3 PKGVERSION=$(PKGVERSION3)
+	-rm *.buildinfo *.changes
 
 # Build a metapackage for all platforms
 
 allplatforms:
 	cp control.template1 control.everything
-	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAINLC)/g' control.everything
 	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.everything
 	equivs-build control.everything
 	rm control.everything
-	mv muntsos-$(TOOLCHAINLC)_$(PKGVERSION)_all.deb muntsos-$(TOOLCHAINLC)-$(PKGVERSION)-$(OSNAME)-all.deb
+	mv muntsos-dev_$(PKGVERSION)_all.deb muntsos-dev-$(PKGVERSION)-$(OSNAME)-all.deb
 
 # Build a metapackage for a single platform
 
@@ -59,11 +56,10 @@ oneplatform:
 	cp $(CONTROL) control.$(BOARDNAME)
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAMELC)/g' control.$(BOARDNAME)
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' control.$(BOARDNAME)
-	sed -i 's/@@TOOLCHAIN@@/$(TOOLCHAINLC)/g' control.$(BOARDNAME)
 	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.$(BOARDNAME)
 	equivs-build control.$(BOARDNAME)
 	rm control.$(BOARDNAME)
-	mv muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)_$(PKGVERSION)_all.deb muntsos-$(TOOLCHAINLC)-$(BOARDNAMELC)-$(PKGVERSION)-$(OSNAME)-all.deb
+	mv muntsos-dev-$(BOARDNAMELC)_$(PKGVERSION)_all.deb muntsos-dev-$(BOARDNAMELC)-$(PKGVERSION)-$(OSNAME)-all.deb
 
 # Remove working files
 

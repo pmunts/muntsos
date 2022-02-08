@@ -1,0 +1,20 @@
+Section: misc
+Priority: optional
+Homepage: http://git.munts.com/muntsos
+Standards-Version: 3.9.2
+Package: muntsos-dev-@@BOARDNAME@@
+Version: @@VERSION@@
+Maintainer: Philip Munts <phil@munts.net>
+Depends:
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@,
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-libs,
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-libaws,
+  gcc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-libsimpleio
+Recommends:
+  fpc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@
+Conflicts:
+  muntsos-crosstool-@@BOARDNAME@@
+Replaces:
+  muntsos-crosstool-@@BOARDNAME@@
+Architecture: all
+Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@
