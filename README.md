@@ -430,16 +430,6 @@ installed.
 Cross-Toolchains
 ----------------
 
-### Standard Cross-Toolchains
-
-Research into suitability of the cross-toolchain packages available from
-the standard Debian package repository
-<https://packages.debian.org/stable> (*e.g.*
-**`gcc-aarch64-linux-gnu`**) is ongoing. At some point I hope to cut
-over to those standard cross-toolchains, for at least some platforms.
-
-### Custom Cross-Toolchains
-
 I build a custom Ada/C/C++/Fortran/Go cross-toolchain (using
 [Crosstool-NG](https://crosstool-ng.github.io)) for each MuntsOS
 platform family. Each cross-toolchain requires a number of additional
