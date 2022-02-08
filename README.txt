@@ -416,7 +416,7 @@ Cross-Toolchains
    nominally built for the Raspberry Pi 3).
 
    Cross-toolchain packages built for [49]Debian Linux are available at:
-   [50]http://repo.munts.com/debian10
+   [50]http://repo.munts.com/debian11
 
    Since they are statically linked, it may be possible to use these
    cross-toolchain packages on other Linux distributions (possibly with
@@ -505,7 +505,7 @@ References
   47. https://crosstool-ng.github.io/
   48. https://www.freepascal.org/
   49. https://www.debian.org/
-  50. http://repo.munts.com/debian10
+  50. http://repo.munts.com/debian11
   51. https://admin.fedoraproject.org/pkgdb/package/rpms/alien
   52. http://repo.munts.com/muntsos/toolchains
   53. https://github.com/pmunts/muntsos

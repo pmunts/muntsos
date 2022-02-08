@@ -451,7 +451,7 @@ nominally built for the Raspberry Pi 3).
 Cross-toolchain packages built for [Debian](https://www.debian.org)
 Linux are available at:
 
-<http://repo.munts.com/debian10>
+<http://repo.munts.com/debian11>
 
 Since they are statically linked, it may be possible to use these
 cross-toolchain packages on other Linux distributions (possibly with the
