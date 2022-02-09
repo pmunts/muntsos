@@ -1,6 +1,6 @@
 # Create a toolchains tarball (e.g. for Arch Linux)
 
-# Copyright (C)2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,20 +20,18 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-BOARDNAME	?= UNKNOWN
-TOOLCHAIN	?= crosstool
-
 BUILDNUM	?= 1
 
 ARCH		:= $(shell dpkg --print-architecture)
+BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 VERSION		:= $(shell date +%Y.%j).$(BUILDNUM)
-TARBALL		:= $(shell pwd)/toolchains-muntsos-$(BOARDNAME)-$(TOOLCHAIN)-$(VERSION)-$(ARCH).tgz
+TARBALL		:= $(shell pwd)/muntsos-dev-$(BOARDNAMELC)-$(VERSION)-$(ARCH).tgz
 
 $(TARBALL):
 ifeq ($(BOARDNAME), AArch64)
-	cd /usr/local ; tar czf $(TARBALL) *aarch64*muntsos*$(TOOLCHAIN) --owner=root --group=root --mode=ugo-w
+	cd /usr/local ; tar czf $(TARBALL) *aarch64*muntsos* --owner=root --group=root --mode=ugo-w
 else
-	cd /usr/local ; tar czf $(TARBALL) *muntsos-$(BOARDNAME)-$(TOOLCHAIN) --owner=root --group=root --mode=ugo-w
+	cd /usr/local ; tar czf $(TARBALL) *muntsos-$(BOARDNAMELC) --owner=root --group=root --mode=ugo-w
 endif
 	touch $@
 
