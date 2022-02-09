@@ -552,8 +552,7 @@ endif
 
 # Install ldconfig
 
-	install -cm 0755 $(GCCSYSROOT)/sbin/ldconfig		$@/sbin
-	if [ -f $(GCCSYSROOT)/sbin/ldconfig.real ]; then install -cm 0755 $(GCCSYSROOT)/sbin/ldconfig.real $@/sbin ; fi
+	install -cm 0755 $(LIBSBINDIR)/ldconfig			$@/sbin
 
 # Install ldd
 
