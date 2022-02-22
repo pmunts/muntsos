@@ -3,7 +3,7 @@
 # This script sets up a Debian Linux machine for developing applications for
 # MuntsOS Embedded Linux
 
-# Copyright (C)2019-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2019-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -33,25 +33,18 @@ sudo apt install -y openssh-client build-essential git gnat gprbuild libncurses5
 # Register Munts Technologies Debian package repository
 
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
-  wget http://repo.munts.com/debian11/PublicKey.txt && sudo apt-key add PublicKey.txt && rm PublicKey.txt
-
-  grep -q "Raspbian" /etc/issue
-
-  if [ $? -eq 0 ]; then
-    # 32-Bit armhf Raspberry Pi OS
-    wget http://repo.munts.com/debian11/raspberrypi/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
-  fi
-
   grep -q "Debian" /etc/issue
 
   if [ $? -eq 0 ]; then
     if [ "${MACHINE}" = "x86_64" ]; then
       # 64-Bit Debian amd64
+      wget http://repo.munts.com/debian11/PublicKey.txt && sudo apt-key add PublicKey.txt && rm PublicKey.txt
       wget http://repo.munts.com/debian11/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
     fi
 
     if [ "${MACHINE}" = "aarch64" ]; then
       # 64-Bit Debian arm64
+      wget http://repo.munts.com/debian11/PublicKey.txt && sudo apt-key add PublicKey.txt && rm PublicKey.txt
       wget http://repo.munts.com/debian11/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
     fi
   fi
@@ -60,7 +53,7 @@ fi
 # Install packages from the Munts Technologies Debian package repository
 
 sudo apt update
-sudo apt install -y muntsos-crosstool
+sudo apt install -y muntsos-dev
 
 # Clone MuntsOS source code repository
 
