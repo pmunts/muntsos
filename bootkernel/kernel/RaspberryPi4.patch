@@ -1,11 +1,11 @@
---- Makefile.orig	2021-10-28 05:19:51.000000000 -0700
-+++ Makefile	2021-10-28 08:47:04.936230847 -0700
-@@ -1446,8 +1446,6 @@
+--- Makefile.orig	2022-04-12 14:03:13.843902542 -0700
++++ Makefile	2022-04-12 14:10:03.754019761 -0700
+@@ -1502,8 +1502,6 @@
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
 -	@cp -f modules.builtin $(MODLIB)/
 -	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
- 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
  
- # This depmod is only for convenience to give the initial
+ endif # CONFIG_MODULES
+ 
