@@ -40,6 +40,8 @@
 # Bit 11 -- Enable USB network gadget with DHCP client
 # Bit 12 -- Enable USB raw HID gadget
 
+echo "Starting MuntsOS Embedded Linux"
+
 # Configure path for this script
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
