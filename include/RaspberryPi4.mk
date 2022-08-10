@@ -34,9 +34,9 @@ endif
 
 KERNEL_IMGSRC	= Image
 
-KERNEL_DTB	+= bcm2711-rpi-4-b
-KERNEL_DTB	+= bcm2711-rpi-400
-KERNEL_DTB	+= bcm2711-rpi-cm4
+KERNEL_DTB	+= broadcom/bcm2711-rpi-4-b
+KERNEL_DTB	+= broadcom/bcm2711-rpi-400
+KERNEL_DTB	+= broadcom/bcm2711-rpi-cm4
 
 KERNEL_OVL	+= dwc2
 KERNEL_OVL	+= i2c3 i2c4 i2c5 i2c6

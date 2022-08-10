@@ -32,12 +32,12 @@ else
 BOARDBASE	:= RaspberryPi2
 endif
 
-KERNEL_DTB	+= bcm2709-rpi-2-b
-KERNEL_DTB	+= bcm2710-rpi-2-b
-KERNEL_DTB	+= bcm2710-rpi-3-b
-KERNEL_DTB	+= bcm2710-rpi-3-b-plus
-KERNEL_DTB	+= bcm2710-rpi-cm3
-KERNEL_DTB	+= bcm2710-rpi-zero-2
+KERNEL_DTB	+= broadcom/bcm2709-rpi-2-b
+KERNEL_DTB	+= broadcom/bcm2710-rpi-2-b
+KERNEL_DTB	+= broadcom/bcm2710-rpi-3-b
+KERNEL_DTB	+= broadcom/bcm2710-rpi-3-b-plus
+KERNEL_DTB	+= broadcom/bcm2710-rpi-cm3
+KERNEL_DTB	+= broadcom/bcm2710-rpi-zero-2
 
 LOADER		= ld-linux-armhf.so.3
 

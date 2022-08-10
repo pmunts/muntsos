@@ -26,9 +26,9 @@ TEMP		?= /tmp
 
 DOWNLOADPREFIX	?= http://repo.munts.com/muntsos
 
-KERNEL_SRC	= $(MUNTSOS)/bootkernel/kernel/$(KERNEL_NAME)
+KERNEL_WORK	= $(MUNTSOS)/bootkernel/kernel/work
+KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)
 KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
-KERNEL_DTS	= $(KERNEL_SRC)/arch/$(ARCH)/boot/dts
 KERNEL_PATCH	= $(BOARDNAME).patch
 KERNEL_CONFIG	= $(BOARDNAME).config
 

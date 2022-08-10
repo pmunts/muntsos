@@ -1,6 +1,6 @@
 # Makefile for boot kernel for an embedded Linux system
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,8 +28,6 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 DESTDIR         = fakeroot
 TARBALL         = $(BOARDNAME)-Kernel.tgz
 
-SUBORDINATES	= initramfs kernel
-
 REVISION	?= test
 
 .PHONY: default download download_prebuilt clean reallyclean distclean
@@ -40,46 +38,47 @@ default: $(TARBALL)
 
 # Build the kernel
 
-kernel/build.done:
-	$(MAKE) -C kernel modules.done BOARDNAME=$(BOARDNAME) REVISION=$(REVISION)
-	for S in $(SUBORDINATES) ; do $(MAKE) -C $$S default BOARDNAME=$(BOARDNAME) REVISION=$(REVISION) ; done
+$(KERNEL_WORK)/build.done:
+	$(MAKE) -C kernel BOARDNAME=$(BOARDNAME) REVISION=$(REVISION)
 
 ###############################################################################
 
 # Build the kernel distribution tarball
 
-$(TARBALL): kernel/build.done
+$(TARBALL): $(KERNEL_WORK)/build.done
 	mkdir -p $(DESTDIR)
 	cp initramfs/COPYING $(DESTDIR)
-	cp kernel/$(KERNEL_IMG) $(DESTDIR)
+	cp $(KERNEL_WORK)/$(KERNEL_IMG) $(DESTDIR)
 
 ifneq ($(KERNEL_DTB),)
-	for f in $(KERNEL_DTB) ; do cp kernel/$$f.dtb $(DESTDIR) ; done
+	for f in $(KERNEL_DTB) ; do cp $(KERNEL_WORK)/dtbs/$$f.dtb $(DESTDIR) ; done
 endif
 
 ifneq ($(KERNEL_OVL),)
 	mkdir -p $(DESTDIR)/overlays
-	for f in $(KERNEL_OVL) ; do cp kernel/$$f.dtbo $(DESTDIR)/overlays ; done
+	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/overlays/$$f.dtbo $(DESTDIR)/overlays ; done
 endif
 
 	cd $(DESTDIR) ; find * -type f -exec md5sum -b {} ";" | sort -k 2 | grep -v kernel.md5 >kernel.md5
 	cd $(DESTDIR) ; tar czf ../$@ * --owner=nobody --group=nobody --mode=ugo-w
 	rm -rf $(DESTDIR)
 
+###############################################################################
+
 # Rebuild the kernel distribution tarball with new initramfs
 
 rebuild:
-	rm -rf kernel/build.done kernel/*.dtb* kernel/*.img
-	rm -rf initramfs/initramfs* initramfs/COPYING
+	rm -f $(KERNEL_WORK)/build.done
+	rm -f $(KERNEL_WORK)/config.done
+	rm -f $(KERNEL_WORK)/dtbs.done
+	rm -f $(KERNEL_WORK)/initramfs.done
+	rm -f $(KERNEL_WORK)/modules.done
+	rm -f $(KERNEL_WORK)/$(KERNEL_IMG)
+	rm -rf $(KERNEL_WORK)/dtbs
+	rm -rf $(KERNEL_WORK)/modules
+	rm -rf $(KERNEL_WORK)/overlays
 	rm -f $(TARBALL)
 	$(MAKE) $(TARBALL)
-
-###############################################################################
-
-# Download sources, for offline build
-
-download:
-	for S in $(SUBORDINATES) ; do $(MAKE) -C $$S $@ BOARDNAME=$(BOARDNAME); done
 
 ###############################################################################
 
@@ -96,13 +95,14 @@ $(TARBALL).downloaded:
 # Clean out working files
 
 clean:
-	for S in $(SUBORDINATES) ; do $(MAKE) -C $$S $@ BOARDNAME=$(BOARDNAME); done
 	rm -rf $(DESTDIR)
 	if [ ! -f $(TARBALL).downloaded ]; then rm -rf $(TARBALL) ; fi
 
 reallyclean: clean
-	for S in $(SUBORDINATES) ; do $(MAKE) -C $$S $@ BOARDNAME=$(BOARDNAME); done
+	$(MAKE) -C initramfs reallyclean
+	$(MAKE) -C kernel reallyclean
 	rm -rf *.tgz *.downloaded
 
 distclean: reallyclean
-	for S in $(SUBORDINATES) ; do $(MAKE) -C $$S $@ BOARDNAME=$(BOARDNAME); done
+	$(MAKE) -C initramfs distclean
+	$(MAKE) -C kernel distclean

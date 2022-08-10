@@ -412,7 +412,7 @@ COPYING: $(COMPONENT_TARGETS)
 	@echo ""						>>$@
 	@echo "** Linux Kernel:"				>>$@
 	@echo ""						>>$@
-	@cat ../kernel/$(KERNEL_NAME)/COPYING			>>$@
+	@cat $(KERNEL_SRC)/COPYING				>>$@
 	@echo ""						>>$@
 	@echo "** Root File System:"				>>$@
 	@echo ""						>>$@
@@ -797,7 +797,7 @@ endif
 
 # Install kernel modules
 
-	cp -R -P -p ../kernel/modules/lib/modules		$@/lib
+	cp -R -P -p $(KERNEL_WORK)/modules/lib/modules		$@/lib
 	find $@/lib/modules -type d -name '*MuntsOS' -exec ln -s modules.dep.bb {}/modules.dep ";"
 
 # Install files to /root

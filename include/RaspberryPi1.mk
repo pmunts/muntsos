@@ -28,12 +28,12 @@ include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 BOARDBASE	:= RaspberryPi1
 
-KERNEL_DTB	+= bcm2708-rpi-b
-KERNEL_DTB	+= bcm2708-rpi-b-plus
-KERNEL_DTB	+= bcm2708-rpi-b-rev1
-KERNEL_DTB	+= bcm2708-rpi-cm
-KERNEL_DTB	+= bcm2708-rpi-zero
-KERNEL_DTB	+= bcm2708-rpi-zero-w
+KERNEL_DTB	+= broadcom/bcm2708-rpi-b
+KERNEL_DTB	+= broadcom/bcm2708-rpi-b-plus
+KERNEL_DTB	+= broadcom/bcm2708-rpi-b-rev1
+KERNEL_DTB	+= broadcom/bcm2708-rpi-cm
+KERNEL_DTB	+= broadcom/bcm2708-rpi-zero
+KERNEL_DTB	+= broadcom/bcm2708-rpi-zero-w
 
 LOADER		= ld-linux-armhf.so.3
 

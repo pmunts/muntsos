@@ -1,6 +1,6 @@
 # Makefile for an embedded Linux boot kernel
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,36 +20,42 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+.PHONY: default src config menuconfig dtbs modules initramfs build allconfig clean reallyclean distclean
+
 MUNTSOS		?= ../..
 BOARDNAME	?= UNDEFINED
 MAKEJOBS	?= -j 2
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-default: build.done
+default: build
 
 ###############################################################################
 
 # Prepare kernel source tree
 
-src.done: $(KERNEL_DIST)
-	rm -rf $(KERNEL_SRC)
-	mkdir $(KERNEL_SRC)
-	tar xf $(KERNEL_DIST)
-	if [ -f $(KERNEL_PATCH) ]; then cd $(KERNEL_SRC) ; patch -b -p0 <../$(KERNEL_PATCH) ; fi
+$(KERNEL_WORK)/src.done: $(KERNEL_DIST)
+	rm -rf $(KERNEL_WORK)
+	mkdir -p $(KERNEL_WORK)
+	cd $(KERNEL_WORK) && tar xf $(KERNEL_DIST)
+	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) ; patch -b -p0 <../../$(KERNEL_PATCH) ; fi
 	touch $@
+
+src: $(KERNEL_WORK)/src.done
 
 ###############################################################################
 
 # Configure kernel
 
-config.done: src.done
+$(KERNEL_WORK)/config.done: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_CONFIG) $(KERNEL_SRC)/.config
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $@
 
-menuconfig: src.done
+config: $(KERNEL_WORK)/config.done
+
+menuconfig: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_CONFIG) $(KERNEL_SRC)/.config
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) menuconfig
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) oldconfig
@@ -58,49 +64,51 @@ menuconfig: src.done
 
 ###############################################################################
 
-# Build kernel modules
+# Build device tree blobs and overlays
 
-modules.done: config.done
+$(KERNEL_WORK)/dtbs.done: $(KERNEL_WORK)/config.done
+	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) dtbs dtbs_install INSTALL_DTBS_PATH=$(KERNEL_WORK)/dtbs
+	cd $(KERNEL_WORK)/dtbs && mv overlays ..
+	touch $@
+
+dtbs: $(KERNEL_WORK)/dtbs.done
+
+###############################################################################
+
+# Build modules
+
+$(KERNEL_WORK)/modules.done: $(KERNEL_WORK)/config.done
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules_install INSTALL_MOD_PATH=$(shell pwd)/modules
-	rm modules/lib/modules/*/build
-	rm modules/lib/modules/*/source
+	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules_install INSTALL_MOD_PATH=$(KERNEL_WORK)/modules
+	rm $(KERNEL_WORK)/modules/lib/modules/*/build
+	rm $(KERNEL_WORK)/modules/lib/modules/*/source
 	rm -rf modules/lib/modules/*/kernel/drivers/net/wireless/realtek/rtl8192cu
-ifneq ($(EXTRAMODULES),)
-	$(MAKE) $(EXTRAMODULES)
-endif
 	touch $@
+
+modules: $(KERNEL_WORK)/modules.done
 
 ###############################################################################
 
-# Build kernel device tree blobs
+# Build initramfs
 
-dtbs.done: config.done
-	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) dtbs
+$(KERNEL_WORK)/initramfs.done: $(KERNEL_WORK)/modules.done
+	rm -rf ../initramfs/COPYING ../initramfs/initramfs*
+	$(MAKE) -C ../initramfs
 	touch $@
+
+initramfs: $(KERNEL_WORK)/initramfs.done
 
 ###############################################################################
 
-# Build kernel and stage binaries
+# Build kernel
 
-build.done: config.done modules.done dtbs.done
+$(KERNEL_WORK)/build.done: config dtbs modules initramfs
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) $(KERNEL_TARGETS)
-	cp $(KERNEL_SRC)/arch/$(ARCH)/boot/$(KERNEL_IMGSRC) $(KERNEL_IMG)
-
-ifneq ($(KERNEL_DTB),)
-# Special precopy for Raspberry Pi 3 and 4
-	-cp $(KERNEL_DTS)/broadcom/*.dtb $(KERNEL_DTS)
-# Copy device tree blobs
-	for f in $(KERNEL_DTB) ; do cp $(KERNEL_DTS)/$$f.dtb . ; done
-endif
-
-ifneq ($(KERNEL_OVL),)
-# Copy device tree overlays
-	for f in $(KERNEL_OVL) ; do cp $(KERNEL_DTS)/overlays/$$f.dtbo . ; done
-endif
-
-	chmod 644 $(KERNEL_IMG)
+	cp $(KERNEL_SRC)/arch/$(ARCH)/boot/$(KERNEL_IMGSRC) $(KERNEL_WORK)/$(KERNEL_IMG)
+	chmod 644 $(KERNEL_WORK)/$(KERNEL_IMG)
 	touch $@
+
+build: $(KERNEL_WORK)/build.done
 
 ###############################################################################
 
@@ -122,11 +130,19 @@ allconfig:
 # Clean out working files
 
 clean:
-	-$(MAKE) -C $(KERNEL_SRC) mrproper
-	rm -rf *.img *.dtb *.dtbo modules config.done dtbs.done modules.done build.done
+	-if [ -d $(KERNEL_SRC) ] ; then $(MAKE) -C $(KERNEL_SRC) mrproper ; fi
+	$(MAKE) -C ../initramfs clean
+	rm -rf $(KERNEL_WORK)/config.done
+	rm -rf $(KERNEL_WORK)/dtbs.done
+	rm -rf $(KERNEL_WORK)/modules.done
+	rm -rf $(KERNEL_WORK)/initramfs.done
+	rm -f  $(KERNEL_WORK)/*.img
+	rm -rf $(KERNEL_WORK)/dtbs $(KERNEL_WORK)/modules $(KERNEL_WORK)/overlays
 
 reallyclean: clean
-	rm -rf $(KERNEL_SRC) src.done
+	$(MAKE) -C ../initramfs reallyclean
+	rm -rf $(KERNEL_WORK)
 
 distclean: reallyclean
-	rm -f $(KERNEL_DIST)
+	$(MAKE) -C ../initramfs distclean
+	rm -f  $(KERNEL_DIST)
