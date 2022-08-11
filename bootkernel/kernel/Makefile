@@ -130,7 +130,7 @@ allconfig:
 # Clean out working files
 
 clean:
-	-if [ -d $(KERNEL_SRC) ] ; then $(MAKE) -C $(KERNEL_SRC) mrproper ; fi
+	-if [ -d $(KERNEL_SRC) -a "$(MAKECMDGOALS)" = "clean" ] ; then $(MAKE) -C $(KERNEL_SRC) mrproper ; fi
 	$(MAKE) -C ../initramfs clean
 	rm -rf $(KERNEL_WORK)/config.done
 	rm -rf $(KERNEL_WORK)/dtbs.done
