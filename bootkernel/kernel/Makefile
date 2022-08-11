@@ -37,8 +37,8 @@ default: build
 $(KERNEL_WORK)/src.done: $(KERNEL_DIST)
 	rm -rf $(KERNEL_WORK)
 	mkdir -p $(KERNEL_WORK)
-	cd $(KERNEL_WORK) && tar xf $(KERNEL_DIST)
-	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) ; patch -b -p0 <../../$(KERNEL_PATCH) ; fi
+	tar xjf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
+	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) && patch -b -p0 <../../$(KERNEL_PATCH) ; fi
 	touch $@
 
 src: $(KERNEL_WORK)/src.done
@@ -60,7 +60,7 @@ menuconfig: $(KERNEL_WORK)/src.done
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) menuconfig
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
-	touch config.done
+	touch $(KERNEL_WORK)/config.done
 
 ###############################################################################
 
