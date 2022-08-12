@@ -78,15 +78,11 @@ dtbs: $(KERNEL_WORK)/dtbs.done
 # Build modules
 
 $(KERNEL_WORK)/modules.done: $(KERNEL_WORK)/config.done
-	# Workaround for broken kernel makefile(s):
-	if [ ! -f $(KERNEL_WORK)/initramfs.done ]; then touch ../initramfs/initramfs.cpio.gz ; fi
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules_install INSTALL_MOD_PATH=$(KERNEL_WORK)/modules
 	rm $(KERNEL_WORK)/modules/lib/modules/*/build
 	rm $(KERNEL_WORK)/modules/lib/modules/*/source
 	rm -rf modules/lib/modules/*/kernel/drivers/net/wireless/realtek/rtl8192cu
-	# Workaround for broken kernel makefile(s):
-	if [ ! -f $(KERNEL_WORK)/initramfs.done ]; then rm ../initramfs/initramfs.cpio.gz ; fi
 	touch $@
 
 modules: $(KERNEL_WORK)/modules.done
