@@ -8,7 +8,7 @@
 -	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
  
  endif # CONFIG_MODULES
-
+ 
 --- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-08-12 19:13:39.220639886 -0700
 +++ drivers/clk/bcm/clk-raspberrypi.c	2022-08-12 19:14:28.093295791 -0700
 @@ -376,7 +376,7 @@
