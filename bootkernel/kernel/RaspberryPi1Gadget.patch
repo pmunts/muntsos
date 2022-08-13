@@ -9,6 +9,28 @@
  
  endif # CONFIG_MODULES
  
+--- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-08-12 19:13:39.220639886 -0700
++++ drivers/clk/bcm/clk-raspberrypi.c	2022-08-12 19:14:28.093295791 -0700
+@@ -376,7 +376,7 @@
+ 		struct raspberrypi_clk_variant *variant;
+ 
+ 		if (clks->id > RPI_FIRMWARE_NUM_CLK_ID) {
+-			dev_err(rpi->dev, "Unknown clock id: %u", clks->id);
++			dev_warn(rpi->dev, "Unknown clock id: %u", clks->id);
+ 			return -EINVAL;
+ 		}
+ 
+--- fs/super.c.orig	2022-08-12 19:08:49.164747059 -0700
++++ fs/super.c	2022-08-12 19:09:27.133256640 -0700
+@@ -1242,7 +1242,7 @@
+ 
+ 	bdev = blkdev_get_by_path(fc->source, mode, fc->fs_type);
+ 	if (IS_ERR(bdev)) {
+-		errorf(fc, "%s: Can't open blockdev", fc->source);
++		warnf(fc, "%s: Can't open blockdev", fc->source);
+ 		return PTR_ERR(bdev);
+ 	}
+ 
 --- arch/arm/Kconfig.orig	2022-04-12 07:12:05.000000000 -0700
 +++ arch/arm/Kconfig	2022-04-12 14:17:08.779623562 -0700
 @@ -96,11 +96,6 @@
