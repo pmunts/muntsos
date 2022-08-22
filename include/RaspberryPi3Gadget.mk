@@ -26,13 +26,9 @@ include $(MUNTSOS)/include/AArch64.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
 include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-BOARDBASE	:= $(CONFIGURE_NAME)
-else
 BOARDBASE	:= RaspberryPi3
-endif
 
-KERNEL_IMGSRC	= Image
+KERNEL_BRANCH	= rpi-5.15.y
 
 KERNEL_DTB	+= broadcom/bcm2710-rpi-3-b-plus
 KERNEL_DTB	+= broadcom/bcm2710-rpi-cm3
@@ -43,3 +39,4 @@ KERNEL_OVL	+= dwc2
 LOADER		= ld-linux-aarch64.so.1
 
 include $(MUNTSOS)/include/common.mk
+KERNEL_BRANCH	= rpi-5.15.y

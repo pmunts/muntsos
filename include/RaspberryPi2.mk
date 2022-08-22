@@ -26,11 +26,9 @@ include $(MUNTSOS)/include/ARMv7.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
 include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-BOARDBASE	:= $(CONFIGURE_NAME)
-else
 BOARDBASE	:= RaspberryPi2
-endif
+
+KERNEL_BRANCH	= rpi-5.10.y
 
 KERNEL_DTB	+= bcm2709-rpi-2-b
 KERNEL_DTB	+= bcm2710-rpi-2-b
