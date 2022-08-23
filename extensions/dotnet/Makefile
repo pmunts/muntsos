@@ -1,6 +1,6 @@
 # Makefile for building a .Net Core Runtime package for MuntsOS
 
-# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -26,7 +26,7 @@ MUNTSOS		?= $(shell pwd)/../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-DOTNET_VERSION	:= 6.0.1
+DOTNET_VERSION	:= 6.0.8
 DOTNET_TARBALL	:= dotnet-runtime-$(DOTNET_VERSION)-$(DOTNETARCH).tar.gz
 DOTNET_DIST	:= $(TEMP)/$(DOTNET_TARBALL)
 
