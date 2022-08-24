@@ -8,6 +8,16 @@ With MuntsOS installed, such microcomputers can treated as components,
 as *Linux microcontrollers*, and integrated into other projects just
 like traditional single chip microcontrollers.
 
+News
+----
+
+-   24 August 2022 -- Migrated Raspberry Pi 2, 3, 4 to Linux kernel
+    5.15.x. Migrating to 5.15.x has proved to be a grueling exercise,
+    easily the most difficult kernel migration in the history of MuntsOS
+    Embedded Linux. Linux kernel 5.15.x still doesn't work right on
+    Raspberry Pi 1 boards, so they are still frozen at kernel 5.10.95 for
+    the moment.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
