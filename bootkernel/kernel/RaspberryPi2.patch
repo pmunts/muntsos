@@ -1,19 +1,41 @@
---- Makefile.orig	2021-10-28 05:19:51.000000000 -0700
-+++ Makefile	2021-10-28 08:47:04.936230847 -0700
-@@ -1446,8 +1446,6 @@
+--- Makefile.orig	2022-07-22 06:23:23.000000000 -0700
++++ Makefile	2022-08-02 08:49:56.954717769 -0700
+@@ -1520,8 +1520,6 @@
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
 -	@cp -f modules.builtin $(MODLIB)/
 -	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
- 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
  
- # This depmod is only for convenience to give the initial
---- arch/arm/Kconfig.orig	2021-10-28 05:19:51.000000000 -0700
-+++ arch/arm/Kconfig	2021-10-28 08:47:04.936230847 -0700
-@@ -92,11 +92,6 @@
+ endif # CONFIG_MODULES
+ 
+--- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-08-12 19:13:39.220639886 -0700
++++ drivers/clk/bcm/clk-raspberrypi.c	2022-08-12 19:14:28.093295791 -0700
+@@ -376,7 +376,7 @@
+ 		struct raspberrypi_clk_variant *variant;
+ 
+ 		if (clks->id > RPI_FIRMWARE_NUM_CLK_ID) {
+-			dev_err(rpi->dev, "Unknown clock id: %u", clks->id);
++			dev_warn(rpi->dev, "Unknown clock id: %u", clks->id);
+ 			return -EINVAL;
+ 		}
+ 
+--- fs/super.c.orig	2022-08-12 19:08:49.164747059 -0700
++++ fs/super.c	2022-08-12 19:09:27.133256640 -0700
+@@ -1242,7 +1242,7 @@
+ 
+ 	bdev = blkdev_get_by_path(fc->source, mode, fc->fs_type);
+ 	if (IS_ERR(bdev)) {
+-		errorf(fc, "%s: Can't open blockdev", fc->source);
++		warnf(fc, "%s: Can't open blockdev", fc->source);
+ 		return PTR_ERR(bdev);
+ 	}
+ 
+--- arch/arm/Kconfig.orig	2022-04-12 07:12:05.000000000 -0700
++++ arch/arm/Kconfig	2022-04-12 14:17:08.779623562 -0700
+@@ -96,11 +96,6 @@
+ 	select HAVE_GCC_PLUGINS
  	select HAVE_HW_BREAKPOINT if PERF_EVENTS && (CPU_V6 || CPU_V6K || CPU_V7)
- 	select HAVE_IDE if PCI || ISA || PCMCIA
  	select HAVE_IRQ_TIME_ACCOUNTING
 -	select HAVE_KERNEL_GZIP
 -	select HAVE_KERNEL_LZ4
