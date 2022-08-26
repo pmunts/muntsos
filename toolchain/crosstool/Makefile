@@ -60,6 +60,12 @@ menuconfig:
 	cp .config $(BOARDBASE).config
 	touch config.done
 
+upgradeconfig:
+	cp $(BOARDBASE).config .config
+	$(CTNG) upgradeconfig
+	cp .config $(BOARDBASE).config
+	touch config.done
+	
 ################################################################################
 
 # Download source distributions
