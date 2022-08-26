@@ -36,7 +36,6 @@ KERNEL_DTB	+= bcm2708-rpi-cm
 KERNEL_DTB	+= bcm2708-rpi-zero
 KERNEL_DTB	+= bcm2708-rpi-zero-w
 
-KERNEL_OVL	+= dwc2
 
 LOADER		= ld-linux-armhf.so.3
 

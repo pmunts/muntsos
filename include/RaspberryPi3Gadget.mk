@@ -34,7 +34,6 @@ KERNEL_DTB	+= broadcom/bcm2710-rpi-3-b-plus
 KERNEL_DTB	+= broadcom/bcm2710-rpi-cm3
 KERNEL_DTB	+= broadcom/bcm2710-rpi-zero-2
 
-KERNEL_OVL	+= dwc2
 
 LOADER		= ld-linux-aarch64.so.1
 
