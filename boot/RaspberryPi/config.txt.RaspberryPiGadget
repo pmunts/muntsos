@@ -19,10 +19,11 @@ dtoverlay=disable-bt
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
 
-# Enable USB slave device mode
-dtoverlay=dwc2,dr_mode=peripheral
-
 [pi0]
+kernel=RaspberryPi1Gadget.img
+[all]
+
+[pi1]
 kernel=RaspberryPi1Gadget.img
 [all]
 
@@ -30,34 +31,51 @@ kernel=RaspberryPi1Gadget.img
 kernel=RaspberryPi2Gadget.img
 #arm_64bit=1
 #kernel=RaspberryPi3Gadget.img
-[all]
 
-[pi1]
-kernel=RaspberryPi1Gadget.img
+# Enable USB slave device mode
+dtoverlay=dwc2,dr_mode=peripheral
 [all]
 
 [pi2]
 kernel=RaspberryPi2Gadget.img
 #arm_64bit=1
 #kernel=RaspberryPi3Gadget.img
+
+# Enable USB slave device mode
+dtoverlay=dwc2,dr_mode=peripheral
 [all]
 
 [pi3]
 kernel=RaspberryPi2Gadget.img
 #arm_64bit=1
 #kernel=RaspberryPi3Gadget.img
+
+# Enable USB slave device mode
+dtoverlay=dwc2,dr_mode=peripheral
 [all]
 
 [pi4]
 arm_64bit=1
 kernel=RaspberryPi4Gadget.img
 
+# Enable USB slave device mode
+dtoverlay=dwc2,dr_mode=peripheral
+
 # Enable /dev/i2c-0 and friends
 #dtparam=i2c_vc=on
 [all]
 
 [cm4]
-# Enable the PCF85063A RTC on the I/O board
+arm_64bit=1
+kernel=RaspberryPi4Gadget.img
+
+# Enable USB slave device mode
+dtoverlay=dwc2,dr_mode=peripheral
+
+# Enable /dev/i2c-0 and friends
+#dtparam=i2c_vc=on
+
+# Enable the PCF85063A RTC on the CM4 I/O board
 #dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
 [all]
 
