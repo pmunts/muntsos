@@ -51,6 +51,9 @@ kernel=RaspberryPi2Gadget.img
 [pi4]
 arm_64bit=1
 kernel=RaspberryPi4Gadget.img
+
+# Enable /dev/i2c-0 and friends
+#dtparam=i2c_vc=on
 [all]
 
 [cm4]

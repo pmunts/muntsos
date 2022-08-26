@@ -13,6 +13,9 @@ gpu_mem=16
 dtparam=i2c=on
 dtparam=spi=on
 
+# Enable USB host mode
+dtoverlay=dwc2,dr_mode=host
+
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
 
@@ -54,9 +57,6 @@ kernel=RaspberryPi4.img
 [all]
 
 [cm4]
-# Enable USB host device mode
-dtoverlay=dwc2,dr_mode=host
-
 # Enable the PCF85063A RTC on the I/O board
 #dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
 [all]
