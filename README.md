@@ -15,8 +15,8 @@ News
     5.15.x. Migrating to 5.15.x has proved to be a grueling exercise,
     easily the most difficult kernel migration in the history of MuntsOS
     Embedded Linux. Linux kernel 5.15.x still doesn't work right on
-    Raspberry Pi 1 boards, so they are still frozen at kernel 5.10.95 for
-    the moment.
+    Raspberry Pi 1 boards, so they are still frozen at kernel 5.10.95
+    for the moment.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
@@ -146,8 +146,6 @@ Prebuilt MuntsOS Thin Servers are at available at:
 |                                       |                                                                                                    |
 |---------------------------------------|----------------------------------------------------------------------------------------------------|
 | **`muntsos*BeagleBone.zip`**          | For BeagleBone (White), Black, Black Wireless, Green, Green Wireless, PocketBeagle -- ARMv7 32-bit |
-| **`muntsos*RaspberryPi.zip`**         | For all Raspberry Pi -- USB master                                                                 |
-| **`muntsos*RaspberryPiGadget.zip`**   | For all Raspberry Pi -- USB slave                                                                  |
 | **`muntsos*RaspberryPi1.zip`**        | For all Raspberry Pi 1 -- ARMv6 32-bit, USB master                                                 |
 | **`muntsos*RaspberryPi1Gadget.zip `** | For Raspberry Pi 1 A, A+, CM1, Zero, Zero W -- ARMv6 32-bit, USB slave                             |
 | **`muntsos*RaspberryPi2.zip`**        | For all Raspberry Pi 2, 3, Zero 2 -- ARMv7 32-bit, USB master                                      |

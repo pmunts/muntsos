@@ -126,10 +126,6 @@ Thin Servers
                                    Green, Green Wireless, PocketBeagle -- ARMv7
                                    32-bit
 
-   muntsos*RaspberryPi.zip         For all Raspberry Pi -- USB master
-
-   muntsos*RaspberryPiGadget.zip   For all Raspberry Pi -- USB slave
-
    muntsos*RaspberryPi1.zip        For all Raspberry Pi 1 -- ARMv6 32-bit, USB
                                    master
 
