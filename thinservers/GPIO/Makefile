@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS SSH Thin Server
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -23,9 +23,11 @@
 BOARDNAME	?= UNDEFINED
 MUNTSOS		?= $(shell pwd)/../..
 
-THINSERVERNAME	= gpio-server
-EXTPKGDIR	= $(MUNTSOS)/extensions/GPIO
-EXTPKGPREFIX	= $(EXTPKGDIR)/GPIO-server-muntsos
+THINSERVERNAME	:= gpio-server
+EXTPKGDIR1	:= $(MUNTSOS)/extensions/dma
+EXTPKGPREFIX1	:= $(EXTPKGDIR1)/dma-muntsos
+EXTPKGDIR2	:= $(MUNTSOS)/extensions/GPIO
+EXTPKGPREFIX2	:= $(EXTPKGDIR2)/GPIO-server-muntsos
 
 include $(MUNTSOS)/thinservers/common.mk
 
@@ -34,11 +36,13 @@ default: prebuilt.done $(ZIPFILE)
 download_prebuilt: prebuilt.done
 
 prebuilt.done: common_mk_prebuilt
-	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR) download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
+	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR1) download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
+	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR2) download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
 	touch $@
 
 populate.done: common_mk_populate
-	for B in $(BASES) ; do cp $(EXTPKGPREFIX)-$$B.deb $(ZIPDIR)/packages/$$B ; done
+	for B in $(BASES) ; do cp $(EXTPKGPREFIX1)-$$B.deb $(ZIPDIR)/packages/$$B ; done
+	for B in $(BASES) ; do cp $(EXTPKGPREFIX2)-$$B.deb $(ZIPDIR)/packages/$$B ; done
 	touch $@
 
 clean: common_mk_clean
@@ -46,4 +50,5 @@ clean: common_mk_clean
 reallyclean: clean common_mk_reallyclean
 
 distclean: reallyclean common_mk_distclean
-	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR) reallyclean MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
+	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR1) reallyclean MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
+	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR2) reallyclean MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
