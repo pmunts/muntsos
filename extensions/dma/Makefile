@@ -61,11 +61,21 @@ $(PKGDIR): compile.done
 
 package.deb: $(PKGFILE)
 
+# Download prebuilt package
+
+download_prebuilt: $(PKGFILE).downloaded
+
+$(PKGFILE).downloaded:
+	wget -q -nc $(DOWNLOADPREFIX)/extensions/$(PKGFILE)
+	touch $(PKGFILE).downloaded
+
 # Remove working files
 
 clean:
-	rm -rf *.done dma $(PKGDIR) *.deb
+	rm -rf *.done dma $(PKGDIR)
+	if [ ! -f $(PKGFILE).downloaded ]; then rm -rf $(PKGFILE) ; fi
 
 reallyclean: clean
+	rm -rf *.done $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
