@@ -20,6 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+CTNG_BRANCH	?= -b crosstool-ng-1.25.0
 CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
 CTNG_SRC	:= crosstool-ng.src
 
@@ -35,7 +36,7 @@ default: $(PKGFILE)
 # Clone source distribution
 
 src.done:
-	git clone $(CTNG_URL) $(CTNG_SRC)
+	git clone --depth 1 $(CTNG_BRANCH) $(CTNG_URL) $(CTNG_SRC)
 	touch $@
 
 # Build crosstool-ng
