@@ -28,8 +28,6 @@ include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 BOARDBASE	:= RaspberryPi3
 
-KERNEL_BRANCH	= rpi-5.15.y
-
 KERNEL_DTB	+= broadcom/bcm2711-rpi-4-b
 KERNEL_DTB	+= broadcom/bcm2711-rpi-cm4
 KERNEL_DTB	+= broadcom/bcm2711-rpi-cm4s

@@ -43,6 +43,7 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 KERNEL_REPOSITORY = http://github.com/raspberrypi/linux.git
 KERNEL_NAME	= linux-$(PLATFORM_NAME)
 KERNEL_CLONE	= /usr/src/$(KERNEL_NAME)
+KERNEL_BRANCH	= rpi-5.15.y
 KERNEL_DIST	= $(TEMP)/linux-$(KERNEL_BRANCH).tar.bz2
 
 CFLAGS		+= -DRASPBERRYPI
