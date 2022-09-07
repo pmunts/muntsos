@@ -65,7 +65,7 @@ upgradeconfig:
 	$(CTNG) upgradeconfig
 	cp .config $(BOARDBASE).config
 	touch config.done
-	
+
 ################################################################################
 
 # Download source distributions
