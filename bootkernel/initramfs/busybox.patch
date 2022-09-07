@@ -1,6 +1,6 @@
---- mailutils/sendmail.c.orig	2019-06-10 03:50:53.000000000 -0700
-+++ mailutils/sendmail.c	2020-04-28 20:54:58.870253084 -0700
-@@ -230,6 +230,7 @@
+--- mailutils/sendmail.c.orig	2021-12-26 08:53:21.000000000 -0800
++++ mailutils/sendmail.c	2022-09-07 16:47:04.178417356 -0700
+@@ -225,6 +225,7 @@
  	char *host = sane_address(safe_gethostname());
  	unsigned nheaders = 0;
  	int code;
@@ -8,7 +8,7 @@
  	enum {
  		HDR_OTHER = 0,
  		HDR_TOCC,
-@@ -441,6 +442,8 @@
+@@ -437,6 +438,8 @@
  			continue;
  		}
  
@@ -17,7 +17,7 @@
  		// analyze headers
  		// To: or Cc: headers add recipients
  		check_hdr = (0 == strncasecmp("To:", s, 3));
-@@ -511,6 +514,17 @@
+@@ -507,6 +510,17 @@
  			// in this case just bail out gracefully
  			if (354 != smtp_check("DATA", -1))
  				goto bail;
