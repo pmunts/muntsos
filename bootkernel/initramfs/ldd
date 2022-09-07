@@ -155,7 +155,7 @@ for file do
     ret=1
     for rtld in ${RTLDLIST}; do
       if test -x $rtld; then
-	dummy=`$rtld 2>&1` 
+	dummy=`$rtld 2>&1`
 	if test $? = 127; then
 	  verify_out=`${rtld} --verify "$file"`
 	  ret=$?
