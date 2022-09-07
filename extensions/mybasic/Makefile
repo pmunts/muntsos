@@ -76,6 +76,11 @@ $(PKGDIR): build.done
 
 package.deb: $(PKGFILE)
 
+# Upload package to repository
+
+upload: $(PKGFILE)
+	scp $^ $(REPOSITORY)
+
 # Download prebuilt package
 
 download_prebuilt: $(PKGFILE).downloaded

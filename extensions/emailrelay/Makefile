@@ -1,6 +1,6 @@
 # Makefile for building the E-MailRelay package for MuntsOS
 
-# Copyright (C)2020-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2020-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -81,6 +81,11 @@ $(PKGDIR): build.done
 	touch $@
 
 package.deb: $(PKGFILE)
+
+# Upload package to repository
+
+upload: $(PKGFILE)
+	scp $^ $(REPOSITORY)
 
 # Download prebuilt package
 
