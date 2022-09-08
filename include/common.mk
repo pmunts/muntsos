@@ -39,9 +39,12 @@ common_mk_default: default
 # Clone the kernel source repository
 
 $(KERNEL_CLONE)/.git:
-	git clone $(KERNEL_REPOSITORY) $(KERNEL_CLONE)
+	git clone $(KERNEL_REPO) $(KERNEL_CLONE)
 
 # Build a kernel source archive
 
+KERNEL_TREEISH	?= $(KERNEL_BRANCH)
+
 $(KERNEL_DIST): $(KERNEL_CLONE)/.git
-	cd $(KERNEL_CLONE) ; git archive --format=tar --prefix=$(KERNEL_NAME)/ $(KERNEL_BRANCH) | bzip2 >$(KERNEL_DIST)
+	cd $(KERNEL_CLONE) ; git archive --format=tar --prefix=$(KERNEL_NAME)/ $(KERNEL_TREEISH) | bzip2 >$(KERNEL_DIST)
+	cd $(KERNEL_CLONE) ; git show $(KERNEL_TREEISH) | head -n 1 | awk '{ print $$2 }' >$(KERNEL_COMMIT)

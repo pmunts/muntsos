@@ -668,8 +668,12 @@ endif
 	install -cm 0444 profile				$@/etc
 	install -cm 0444 /etc/protocols				$@/etc
 	install -cm 0755 rc					$@/etc
-	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			$@/etc/rc
 	sed -i 's/@@BOARDBASE@@/$(BOARDBASE)/g'			$@/etc/rc
+	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			$@/etc/rc
+	sed -i 's#@@KERNELREPO@@#$(KERNEL_REPO)#g'		$@/etc/rc
+	sed -i 's/@@KERNELBRANCH@@/$(KERNEL_BRANCH)/g'		$@/etc/rc
+	sed -i 's/@@KERNELCOMMIT@@/$(shell cat $(KERNEL_COMMIT))/g' $@/etc/rc
+	sed -i 's/@@REVISION@@/$(REVISION)/g'			$@/etc/rc
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	sed -i '/mount -a/a if [ -f /sys/class/leds/led1/brightness ]; then echo 255 >/sys/class/leds/led1/brightness ; fi' $@/etc/rc
 	sed -i '/mount -a/G'					$@/etc/rc

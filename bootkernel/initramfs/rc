@@ -71,20 +71,20 @@ mdev -s
 
 # Set platform identification environment variables
 
-export OSNAME=MuntsOS
 export BOARDBASE=@@BOARDBASE@@
-
-if [ -z "${BOARDNAME}" ]; then
-  export BOARDNAME=@@BOARDNAME@@
-fi
+export BOARDNAME=@@BOARDNAME@@
 
 # Create /etc/platform
 
-echo "BOARDNAME=${BOARDNAME}"	   >/etc/platform
-echo "BOARDBASE=${BOARDBASE}"	   >>/etc/platform
-echo "OPTIONS=${OPTIONS}"	   >>/etc/platform
-echo "OSNAME=${OSNAME}"		   >>/etc/platform
-echo "SERIALNUMBER=`serialnumber`" >>/etc/platform
+echo "OSNAME=MuntsOS"			>/etc/platform
+echo "OSREVISION=@@REVISION@@"		>>/etc/platform
+echo "BOARDBASE=${BOARDBASE}"		>>/etc/platform
+echo "BOARDNAME=${BOARDNAME}"		>>/etc/platform
+echo "KERNELREPO=@@KERNELREPO@@"	>>/etc/platform
+echo "KERNELBRANCH=@@KERNELBRANCH@@"	>>/etc/platform
+echo "KERNELCOMMIT=@@KERNELCOMMIT@@"	>>/etc/platform
+echo "OPTIONS=${OPTIONS}"		>>/etc/platform
+echo "SERIALNUMBER=`serialnumber`"	>>/etc/platform
 
 if [ -n "${SHIELDNAME}" ]; then
   echo "SHIELDNAME=${SHIELDNAME}"  >>/etc/platform
