@@ -1,4 +1,4 @@
-# Makefile for building Ada example programs
+# Makefile for building Ada programs for MuntsOS Embedded Linux
 
 # Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
@@ -20,22 +20,20 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Override the following macro to build out of tree
+.PHONY: default clean
 
-MUNTSOS		?= $(HOME)/muntsos
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk
-include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
-include $(LIBSIMPLEIO)/ada/include/remoteio.mk
-include $(MUNTSOS)/examples/ada/include/examples.mk
 
-# Compile the test programs
+PROGRAMS	:= $(shell for F in *.adb ; do echo `basename $$F .adb` ; done)
 
-default:
-	for F in *.adb ; do $(MAKE) `basename $$F .adb` ; done
+# Compile programs
+
+default: $(PROGRAMS)
 
 # Remove working files
 
 clean: ada_mk_clean
-	for F in *.adb ; do rm -f `basename $$F .adb` ; done
+	rm -f $(PROGRAMS)
