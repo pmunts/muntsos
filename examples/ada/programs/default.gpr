@@ -1,6 +1,6 @@
 -- Project for building an Ada program using the libsimpleio prebuilt library
 
--- Copyright (C)2020-2021, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2020-2022, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -23,7 +23,9 @@
 WITH "libsimpleio";
 
 PROJECT Default IS
+  MUNTSOS := external("MUNTSOS", "/usr/local/share/muntsos");
+
   FOR Object_Dir  USE "./obj";
   FOR Exec_Dir    USE ".";
-  FOR Source_Dirs USE (".", "../packages");
+  FOR Source_Dirs USE (".", MUNTSOS & "/examples/ada/packages");
 END Default;
