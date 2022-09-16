@@ -5,6 +5,6 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
 Description: Linux Simple I/O library for @@TARGET@@
-Depends: munts-libsimpleio
+Depends: munts-libsimpleio, muntsos-common
 Conflicts: @@NAME@@-crosstool
 Replaces: @@NAME@@-crosstool
