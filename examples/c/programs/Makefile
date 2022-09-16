@@ -1,6 +1,6 @@
 # Makefile to build C example programs for MuntsOS
 
-# Copyright (C)2015-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2015-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,7 +22,7 @@
 
 # Modify the following macro to build out of tree
 
-MUNTSOS		?= ../../..
+MUNTSOS		?= $(HOME)/muntsos
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 

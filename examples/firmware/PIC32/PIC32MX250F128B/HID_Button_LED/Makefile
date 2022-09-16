@@ -1,6 +1,6 @@
 # Makefile for building a Mikropascal PIC32 application program
 
-# Copyright (C)2015-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2015-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,7 +22,7 @@
 
 # Override the following macros to build out of tree
 
-MUNTSOS		?= ../../../../..
+MUNTSOS		?= $(HOME)/muntsos
 FIRMWARESRC	?= $(MUNTSOS)/examples/firmware
 
 MCU		:= PIC32MX250F128B

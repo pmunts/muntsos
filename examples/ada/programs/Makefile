@@ -1,6 +1,6 @@
 # Makefile for building Ada example programs
 
-# Copyright (C)2018-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,7 +22,7 @@
 
 # Override the following macro to build out of tree
 
-MUNTSOS		?= ../../..
+MUNTSOS		?= $(HOME)/muntsos
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk
