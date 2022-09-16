@@ -483,13 +483,8 @@ Linux are available at:
 
 Since they are statically linked, it may be possible to use these
 cross-toolchain packages on other Linux distributions (possibly with the
-help off a conversion utility like
+help of a package conversion utility like
 [**`alien`**](https://admin.fedoraproject.org/pkgdb/package/rpms/alien)).
-
-For the convenience of users of Linux distributions other than Debian,
-snapshot toolchain tarballs for each platform family are available at:
-
-<http://repo.munts.com/muntsos/toolchains>
 
 Git Repository
 --------------

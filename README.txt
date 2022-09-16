@@ -424,12 +424,12 @@ Boards
 Cross-Toolchains
 
    I build a custom Ada/C/C++/Fortran/Go cross-toolchain (using
-   [47]Crosstool-NG) for each MuntsOS platform family. Each
+   [46]Crosstool-NG) for each MuntsOS platform family. Each
    cross-toolchain requires a number of additional software component
    libraries, which are packaged and distributed separately but installed
    into the same directory tree as the parent cross-toolchain.
 
-   I also build [48]Free Pascal cross-compilers. These rely on the
+   I also build [47]Free Pascal cross-compilers. These rely on the
    libraries in the Ada/C/C++/Fortran/Go cross-toolchain, which must be
    installed first.
 
@@ -440,23 +440,18 @@ Cross-Toolchains
    use the same cross-toolchains (the 64-bit AArch64 cross-toolchains
    nominally built for the Raspberry Pi 3).
 
-   Cross-toolchain packages built for [49]Debian Linux are available at:
-   [50]http://repo.munts.com/debian11
+   Cross-toolchain packages built for [48]Debian Linux are available at:
+   [49]http://repo.munts.com/debian11
 
    Since they are statically linked, it may be possible to use these
    cross-toolchain packages on other Linux distributions (possibly with
-   the help off a conversion utility like [51]alien).
-
-   For the convenience of users of Linux distributions other than Debian,
-   snapshot toolchain tarballs for each platform family are available at:
-
-   [52]http://repo.munts.com/muntsos/toolchains
+   the help of a package conversion utility like [50]alien).
 
 Git Repository
 
    The source code for MuntsOS is available at:
 
-   [53]https://github.com/pmunts/muntsos
+   [51]https://github.com/pmunts/muntsos
 
    Use the following command to clone it:
 
@@ -466,15 +461,15 @@ File Repository
 
    Prebuilt binaries for MuntsOS are available at:
 
-   [54]http://repo.munts.com/muntsos
+   [52]http://repo.munts.com/muntsos
 
-[55]Make With Ada Projects
+[53]Make With Ada Projects
 
-     * 2017 [56]Ada Embedded Linux Framework
-     * 2019 [57]Modbus RTU Framework for Ada (Prize Winner!)
+     * 2017 [54]Ada Embedded Linux Framework
+     * 2019 [55]Modbus RTU Framework for Ada (Prize Winner!)
    _______________________________________________________________________
 
-   Questions or comments to Philip Munts [58]phil@munts.net
+   Questions or comments to Philip Munts [56]phil@munts.net
 
    I am available for custom system development (hardware and software) of
    products based on embedded Linux microcomputers or other processors.
@@ -526,16 +521,14 @@ References
   43. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
   44. https://www.raspberrypi.com/products/raspberry-pi-4-model-b
   45. http://www.linux-usb.org/gadget
-  46. https://packages.debian.org/stable
-  47. https://crosstool-ng.github.io/
-  48. https://www.freepascal.org/
-  49. https://www.debian.org/
-  50. http://repo.munts.com/debian11
-  51. https://admin.fedoraproject.org/pkgdb/package/rpms/alien
-  52. http://repo.munts.com/muntsos/toolchains
-  53. https://github.com/pmunts/muntsos
-  54. http://repo.munts.com/muntsos
-  55. https://www.makewithada.org/
-  56. https://www.makewithada.org/entry/ada_linux_sensor_framework
-  57. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
-  58. mailto:phil@munts.net
+  46. https://crosstool-ng.github.io/
+  47. https://www.freepascal.org/
+  48. https://www.debian.org/
+  49. http://repo.munts.com/debian11
+  50. https://admin.fedoraproject.org/pkgdb/package/rpms/alien
+  51. https://github.com/pmunts/muntsos
+  52. http://repo.munts.com/muntsos
+  53. https://www.makewithada.org/
+  54. https://www.makewithada.org/entry/ada_linux_sensor_framework
+  55. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
+  56. mailto:phil@munts.net
