@@ -20,8 +20,16 @@ Crosstoo-NG release 1.24.0, providing GCC 8.3.0. The Raspberry Pi 1 kernel has
 now been advanced to 5.15.61, as with the Raspberry Pi 2/3/4. MuntsOS for the
 ARMv6 Raspberry Pi 1 is now in maintenance mode. I will keep supporting the
 Raspberry Pi 1 for as long as possible.</li>
-<li>15 September 2022 -- Refreshed the MuntsOS cross-toolchain tarballs and the
+<li>15 September 2022 -- Refreshed the MuntsOS Embedded Linux development
 virtual machine appliance.</li>
+<li>16 September 2022 -- Added a new toolchain package,
+<b><tt>muntsos-common</tt></b>. It contains documentation files, example
+programs, and some <b><tt>make</tt></b> include files. With this new package,
+it will no longer be necessary to clone the MuntsOS Embedded Linux source code
+repository for developing application programs.<br>
+External dependencies are making it more difficult to install the MuntsOS
+Embedded Linux cross-toolchains on non-Debian Linux host computers, so the
+cross-toolchain tarballs have been removed from the repository.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
