@@ -26,6 +26,8 @@ News
     to 5.15.61, as with the Raspberry Pi 2/3/4. MuntsOS for the ARMv6
     Raspberry Pi 1 is now in maintenance mode. I will keep supporting
     the Raspberry Pi 1 for as long as possible.
+-   15 September 2022 -- Refreshed the MuntsOS cross-toolchain tarballs
+    and the virtual machine appliance.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
