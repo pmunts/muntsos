@@ -1,7 +1,7 @@
 .PHONY: default clean
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-MUNTSOS		?= $(HOME)/muntsos
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(LIBSIMPLEIO)/c++/include/c++.mk
 include $(LIBSIMPLEIO)/c++/include/libsimpleio.mk

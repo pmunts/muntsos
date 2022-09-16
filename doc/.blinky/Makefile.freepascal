@@ -1,7 +1,7 @@
 .PHONY: default clean
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-MUNTSOS		?= $(HOME)/muntsos
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(LIBSIMPLEIO)/freepascal/include/freepascal.mk
 include $(LIBSIMPLEIO)/freepascal/include/libsimpleio.mk

@@ -1,7 +1,7 @@
 .PHONY: default clean
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-MUNTSOS		?= $(HOME)/muntsos
+MUNTSOS		?= /usr/local/share/muntsos
 GPRBUILD	?= no
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk

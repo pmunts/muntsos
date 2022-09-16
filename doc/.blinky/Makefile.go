@@ -1,7 +1,7 @@
 .PHONY: default clean
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-MUNTSOS		?= $(HOME)/muntsos
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(LIBSIMPLEIO)/go/include/gccgo.mk
 include $(LIBSIMPLEIO)/go/include/libsimpleio.mk
