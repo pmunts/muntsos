@@ -32,7 +32,7 @@ News
     **`muntsos-common`**. It contains documentation files, example
     programs, and some **`make`** include files. With this new package,
     it will no longer be necessary to clone the MuntsOS Embedded Linux
-    source code repository for developing application programs.  
+    source code repository for developing application programs.
     External dependencies are making it more difficult to install the
     MuntsOS Embedded Linux cross-toolchains on non-Debian Linux host
     computers, so the cross-toolchain tarballs have been removed from
