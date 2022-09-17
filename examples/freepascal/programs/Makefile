@@ -1,4 +1,4 @@
-# Makefile for building Pascal example programs for MuntsOS
+# Makefile for building Pascal programs for MuntsOS Embedded Linux
 
 # Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
 #
@@ -20,17 +20,17 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Override the following macro to build out of tree
+.PHONY: default clean
 
-MUNTSOS		?= $(HOME)/muntsos
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(LIBSIMPLEIO)/freepascal/include/freepascal.mk
 include $(LIBSIMPLEIO)/freepascal/include/libsimpleio.mk
 
 FPC_FLAGS	+= -Fu$(MUNTSOS)/examples/freepascal/units
 
-# Compile the test programs
+# Compile programs
 
 default:
 	for F in *.pas ; do $(MAKE) `basename $$F .pas` ; done
@@ -39,7 +39,3 @@ default:
 
 clean: freepascal_mk_clean
 	for F in *.pas ; do rm -f `basename $$F .pas` ; done
-
-reallyclean: freepascal_mk_reallyclean clean
-
-distclean: freepascal_mk_distclean reallyclean

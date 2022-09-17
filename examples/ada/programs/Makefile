@@ -26,14 +26,14 @@ LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 MUNTSOS		?= /usr/local/share/muntsos
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk
-
-PROGRAMS	:= $(shell for F in *.adb ; do echo `basename $$F .adb` ; done)
+include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
 
 # Compile programs
 
-default: $(PROGRAMS)
+default:
+	for F in *.adb ; do $(MAKE) `basename $$F .adb` ; done
 
 # Remove working files
 
 clean: ada_mk_clean
-	rm -f $(PROGRAMS)
+	for F in *.adb ; do rm -f `basename $$F .adb` ; done
