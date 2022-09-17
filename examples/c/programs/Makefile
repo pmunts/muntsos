@@ -1,4 +1,4 @@
-# Makefile to build C example programs for MuntsOS
+# Makefile for building C programs for MuntsOS Embedded Linux
 
 # Copyright (C)2015-2022, Philip Munts, President, Munts AM Corp.
 #
@@ -20,29 +20,31 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Modify the following macro to build out of tree
+.PHONY: default clean
 
-MUNTSOS		?= $(HOME)/muntsos
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-CSRC		?= $(MUNTSOS)/examples/c
-CLIBSRC		?= $(CSRC)/lib
+CLIBSRC		?= $(MUNTSOS)/examples/c/lib
+
+OBJ		:= $(shell pwd)/obj
 
 CC	 	= $(CROSS_COMPILE)gcc
 CFLAGS		+= -Wall $(DEBUGFLAGS) $(EXTRAFLAGS)
 CFLAGS		+= -I$(CLIBSRC)
-LDFLAGS		+= -L$(CLIBSRC) -lexamples-$(BOARDBASE) -lsimpleio
+LDFLAGS		+= -L$(OBJ) -lexamples-$(BOARDBASE) -lsimpleio
 STRIP		= $(CROSS_COMPILE)strip
 
 # Define a pattern rule to compile a C program
 
 %: %.c
-	$(MAKE) -C $(CLIBSRC)
+	$(MAKE) -C $(CLIBSRC) OBJ=$(OBJ)
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
 	$(STRIP) $@
 
-# Compile the test programs
+# Compile programs
 
 default:
 	for F in *.c ; do $(MAKE) `basename $$F .c` ; done
@@ -50,9 +52,6 @@ default:
 # Remove working files
 
 clean:
+	rm -rf $(OBJ)
 	for F in *.c ; do rm -f `basename $$F .c` ; done
 
-reallyclean: clean
-	$(MAKE) -C $(CLIBSRC) clean
-
-distclean: reallyclean

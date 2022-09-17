@@ -22,23 +22,25 @@
 
 # Override the following macro to build out of tree
 
-MUNTSOS		?= $(HOME)/muntsos
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 AR		= $(CROSS_COMPILE)ar
 CC	 	= $(CROSS_COMPILE)gcc
 CFLAGS		+= -Wall -I. $(DEBUGFLAGS) $(EXTRAFLAGS)
+OBJ		= /nonexistent
 
-default: libexamples-$(BOARDBASE).a
+default: $(OBJ)/libexamples-$(BOARDBASE).a
 
 # Compile the library components
 
-libexamples-$(BOARDBASE).a:
-	for F in *.c ; do $(CC) $(CFLAGS) -c -o `basename $$F .c`.o $$F ; done
-	$(AR) rcs $@ *.o
+$(OBJ)/libexamples-$(BOARDBASE).a:
+	mkdir -p $(OBJ)
+	for F in *.c ; do $(CC) $(CFLAGS) -c -o $(OBJ)/`basename $$F .c`.o $$F ; done
+	$(AR) rcs $@ $(OBJ)/*.o
 
 # Remove working files
 
 clean:
-	rm -rf *.o *.a
+	rm -rf $(OBJ)
