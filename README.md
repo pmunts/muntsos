@@ -26,17 +26,14 @@ News
     to 5.15.61, as with the Raspberry Pi 2/3/4. MuntsOS for the ARMv6
     Raspberry Pi 1 is now in maintenance mode. I will keep supporting
     the Raspberry Pi 1 for as long as possible.
--   15 September 2022 -- Refreshed the MuntsOS Embedded Linux
-    development virtual machine appliance.
 -   16 September 2022 -- Added a new toolchain package,
     **`muntsos-common`**. It contains documentation files, example
     programs, and some **`make`** include files. With this new package,
     it will no longer be necessary to clone the MuntsOS Embedded Linux
     source code repository for developing application programs.
-    External dependencies are making it more difficult to install the
-    MuntsOS Embedded Linux cross-toolchains on non-Debian Linux host
-    computers, so the cross-toolchain tarballs have been removed from
-    the repository.
+    Refreshed the virtual machine appliance
+    **`Debian11-MuntsOS-Dev.ova`**. Removed the cross-toolchain tarballs
+    from the repository.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
