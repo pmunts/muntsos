@@ -1,6 +1,6 @@
 // NuGet Application Package Installer for MuntSOS
 
-// Copyright (C)2020, Philip Munts, President, Munts AM Corp.
+// Copyright (C)2020-2022, Philip Munts, President, Munts AM Corp.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -268,6 +268,9 @@ int main(int argc, char *argv[])
       CopyFile(zf, appname, basename(filename));
 
     if (!strncmp(filename, "lib/net6.0", 10))
+      CopyFile(zf, appname, basename(filename));
+
+    if (!strncmp(filename, "lib/net7.0", 10))
       CopyFile(zf, appname, basename(filename));
 
     if (!strncmp(filename, "rc.d/", 5))
