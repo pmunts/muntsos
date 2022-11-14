@@ -261,16 +261,7 @@ int main(int argc, char *argv[])
 
     // Extract what we want from the NuGet package
 
-    if (!strncmp(filename, "lib/netcoreapp", 14))
-      CopyFile(zf, appname, basename(filename));
-
-    if (!strncmp(filename, "lib/net5.0", 10))
-      CopyFile(zf, appname, basename(filename));
-
-    if (!strncmp(filename, "lib/net6.0", 10))
-      CopyFile(zf, appname, basename(filename));
-
-    if (!strncmp(filename, "lib/net7.0", 10))
+    if (!strncmp(filename, "lib/net", 7))
       CopyFile(zf, appname, basename(filename));
 
     if (!strncmp(filename, "rc.d/", 5))
