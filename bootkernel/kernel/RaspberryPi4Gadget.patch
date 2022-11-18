@@ -1,6 +1,6 @@
---- Makefile.orig	2022-09-07 01:53:07.000000000 -0700
-+++ Makefile	2022-09-07 16:10:50.169258057 -0700
-@@ -1530,8 +1530,6 @@
+--- Makefile.orig	2022-11-08 06:44:58.000000000 -0800
++++ Makefile	2022-11-18 12:26:08.115955355 -0800
+@@ -1534,8 +1534,6 @@
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
@@ -9,9 +9,9 @@
  
  endif # CONFIG_MODULES
  
---- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-08-12 19:13:39.220639886 -0700
-+++ drivers/clk/bcm/clk-raspberrypi.c	2022-08-12 19:14:28.093295791 -0700
-@@ -376,7 +376,7 @@
+--- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-11-08 06:44:58.000000000 -0800
++++ drivers/clk/bcm/clk-raspberrypi.c	2022-11-18 12:26:08.115955355 -0800
+@@ -362,7 +362,7 @@
  		struct raspberrypi_clk_variant *variant;
  
  		if (clks->id > RPI_FIRMWARE_NUM_CLK_ID) {
