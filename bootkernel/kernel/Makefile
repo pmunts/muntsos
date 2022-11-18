@@ -115,7 +115,7 @@ build: $(KERNEL_WORK)/build.done
 # Refresh kernel configuration files
 
 allconfig:
-	#$(MAKE) config reallyclean BOARDNAME=BeagleBone
+	$(MAKE) config reallyclean BOARDNAME=BeagleBone
 	$(MAKE) config reallyclean BOARDNAME=RaspberryPi1
 	$(MAKE) config reallyclean BOARDNAME=RaspberryPi1Gadget
 	$(MAKE) config reallyclean BOARDNAME=RaspberryPi2
