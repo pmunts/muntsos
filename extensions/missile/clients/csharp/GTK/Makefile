@@ -1,6 +1,6 @@
 # Makefile for building the Mono GTK# Missile Launcher Client
 
-# Copyright (C)2016-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,7 +22,7 @@
 
 # Override the following macros to build out of tree
 
-MUNTSOS			?= ../../../../..
+MUNTSOS			?= /usr/local/share/muntsos
 CSHARPSRC		?= $(MUNTSOS)/examples/csharp
 
 default: MissileClientGTK.exe

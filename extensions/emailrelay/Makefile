@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 BOARDNAME	?= UNDEFINED
-MUNTSOS		?= $(shell pwd)/../..
+MUNTSOS		?= /usr/local/share/muntsos
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk

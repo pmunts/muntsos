@@ -22,7 +22,7 @@
 
 # Override the following macros to build out of tree
 
-MUNTSOS			?= ../../../../..
+MUNTSOS			?= /usr/local/share/muntsos
 CSHARPSRC		?= $(MUNTSOS)/examples/csharp
 
 default: MissileClientWPF.exe

@@ -22,7 +22,6 @@
 
 BOARDNAME	?= UNDEFINED
 MUNTSOS		?= /usr/local/share/muntsos
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk

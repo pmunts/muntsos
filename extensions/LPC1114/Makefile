@@ -22,7 +22,7 @@
 
 ARMSRC		?= $(HOME)/arm-mcu
 BOARDNAME	?= UNDEFINED
-MUNTSOS		?= ../..
+MUNTSOS		?= /usr/local/share/muntsos
 RASPBERRYPI_LPC1114_SRC	?= $(HOME)/rpi-mcu/expansion/LPC1114/src
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
