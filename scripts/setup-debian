@@ -28,7 +28,7 @@ MACHINE=`uname -m`
 # Install necessary packages from the Debian package repository
 
 sudo apt update
-sudo apt install -y bc bison build-essential curl dos2unix flex git gnat gprbuild libncurses5 libssl-dev openssh-client wget
+sudo apt install -y autotools-dev bc bison build-essential cmake curl dos2unix flex git gnat gprbuild libncurses5 libssl-dev openssh-client wget
 
 # Register Munts Technologies Debian package repository
 
