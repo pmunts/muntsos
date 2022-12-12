@@ -2,7 +2,7 @@
 
 # Format media (e.g. SD card) for MuntsOS Embedded Linux
 
-# Copyright (C)2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -60,7 +60,7 @@ sleep 1
 
 # Partition the drive
 
-echo ",,c,*" | sfdisk -q -w always $1
+echo ",+,0x0C,*" | sfdisk -q -w always $1
 partprobe
 sleep 1
 
