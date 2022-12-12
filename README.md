@@ -34,6 +34,8 @@ News
     Refreshed the virtual machine appliance
     **`Debian11-MuntsOS-Dev.ova`**. Removed the cross-toolchain tarballs
     from the repository.
+-   10 December 2022 -- Refreshed the BeagleBone kernel (still 5.4.x).
+    Added TCP Blast extension package, for network performance testing.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
