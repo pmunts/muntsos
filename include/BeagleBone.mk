@@ -27,11 +27,7 @@ TOOLCHAIN_BUILDER ?= crosstool
 include $(MUNTSOS)/include/ARMv7.mk
 include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
-ifeq ($(TOOLCHAIN_BUILDER), debian)
-BOARDBASE	:= $(CONFIGURE_NAME)
-else
 BOARDBASE	:= BeagleBone
-endif
 
 KERNEL_IMGSRC	= zImage
 KERNEL_IMG	= BeagleBone.img
@@ -52,7 +48,7 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 # Definitions for the Beagleboard kernel repository
 
-KERNEL_REPOSITORY = https://github.com/beagleboard/linux.git
+KERNEL_REPO     = https://github.com/beagleboard/linux.git
 KERNEL_NAME	= linux-$(PLATFORM_NAME)
 KERNEL_CLONE	= /usr/src/$(KERNEL_NAME)
 KERNEL_BRANCH	= 5.4
