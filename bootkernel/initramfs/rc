@@ -257,7 +257,7 @@ syslogd
 if [ -f /etc/hostname ]; then
   hostname -F /etc/hostname
 else
-  hostname `uname -r | awk -F '-' '{ printf("%s-%s\n", $3, $4); }'`
+  hostname `uname -r | awk -F '-' '{ printf("%s-%s\n", $2, $3); }'`
 fi
 
 # Load USB Gadget Serial module
