@@ -22,8 +22,8 @@
 
 .PHONY: default src config menuconfig dtbs modules initramfs build allconfig clean reallyclean distclean
 
-MUNTSOS		?= ../..
 BOARDNAME	?= UNDEFINED
+MUNTSOS		?= $(shell pwd)/../..
 MAKEJOBS	?= -j 2
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk

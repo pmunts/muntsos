@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 BOARDNAME	?= UNDEFINED
-MUNTSOS		?= ..
+MUNTSOS		:= $(shell pwd)/..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
