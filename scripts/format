@@ -67,7 +67,7 @@ sleep 1
 # Format the FAT32 filesystem
 
 if [ -n "$2" ]; then
-  mkfs.vfat -F 32 -n "`echo $2 | tr '[a-z]' '[A-Z]'`" ${1}1
+  mkfs.vfat -F 32 -n "`echo $2 | awk '{ print substr(toupper($1), 1, 11) }'`" ${1}1
 else
   mkfs.vfat -F 32 ${1}1
 fi
