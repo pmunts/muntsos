@@ -60,7 +60,7 @@ sleep 1
 
 # Partition the drive
 
-echo ",+,0x0C,*" | sfdisk -q -w always $1
+echo "16,+,0x0C,*" | sfdisk -q -w always $1
 partprobe
 sleep 1
 
