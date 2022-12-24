@@ -133,8 +133,8 @@ BEGIN
     gpio.Register(14,  BeagleBone.GPIO14);     -- P9.26  UART1 RXD
     gpio.Register(15,  BeagleBone.GPIO15);     -- P9.24  UART1 TXD
     gpio.Register(20,  BeagleBone.GPIO20);     -- P9.41
-    gpio.Register(22,  BeagleBone.GPIO22);     -- P8.19
-    gpio.Register(23,  BeagleBone.GPIO23);     -- P8.13
+    gpio.Register(22,  BeagleBone.GPIO22);     -- P8.19  EHRPWM2A
+    gpio.Register(23,  BeagleBone.GPIO23);     -- P8.13  EHRPWM2B
     gpio.Register(26,  BeagleBone.GPIO26);     -- P8.14
     gpio.Register(27,  BeagleBone.GPIO27);     -- P8.17
     gpio.Register(30,  BeagleBone.GPIO30);     -- P9.11  UART4 RXD
@@ -156,8 +156,8 @@ BEGIN
     gpio.Register(47,  BeagleBone.GPIO47);     -- P8.15
     gpio.Register(48,  BeagleBone.GPIO48);     -- P9.15
     gpio.Register(49,  BeagleBone.GPIO49);     -- P9.23
-    gpio.Register(50,  BeagleBone.GPIO50);     -- P9.14
-    gpio.Register(51,  BeagleBone.GPIO51);     -- P9.16
+    gpio.Register(50,  BeagleBone.GPIO50);     -- P9.14  EHRPWM1A
+    gpio.Register(51,  BeagleBone.GPIO51);     -- P9.16  EHRPWM1B
     gpio.Register(60,  BeagleBone.GPIO60);     -- P9.12
     gpio.Register(61,  BeagleBone.GPIO61);     -- P8.26
     IF SystemInfo.BoardName = "beaglebone" THEN
@@ -195,8 +195,15 @@ BEGIN
 
     i2c.Register(0, BeagleBone.I2C2);
 
-    spi.Register(0, BeagleBone.SPI2_0);
-    spi.Register(1, BeagleBone.SPI2_1);
+    pwm.Register(0, BeagleBone.EHRPWM1A);
+    pwm.Register(0, BeagleBone.EHRPWM1B);
+    pwm.Register(0, BeagleBone.EHRPWM2A);
+    pwm.Register(0, BeagleBone.EHRPWM2B);
+
+    spi.Register(0, BeagleBone.SPI0_0);
+    spi.Register(1, BeagleBone.SPI0_1);
+    spi.Register(2, BeagleBone.SPI1_0);
+    spi.Register(3, BeagleBone.SPI1_1);
 
   -- Register PocketBeagle I/O Resources
 
