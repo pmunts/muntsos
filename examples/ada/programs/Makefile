@@ -27,6 +27,7 @@ MUNTSOS		?= /usr/local/share/muntsos
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/ada/include/libsimpleio.mk
+include $(MUNTSOS)/examples/ada/include/examples.mk
 
 # Compile programs
 
