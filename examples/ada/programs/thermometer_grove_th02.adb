@@ -1,6 +1,6 @@
 -- Seeed Studio Grove TH02 Sensor Module Internet Thermometer Example Program
 
--- Copyright (C)2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2018-2023, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -45,8 +45,8 @@ PROCEDURE thermometer_grove_th02 IS
     newline;
   title   : CONSTANT String := "<h1>Ada Internet of Things Thermometer</h1>" &
     newline & "<h2>Using the Seeed Studio Grove TH02 Sensor Module</h2>" & newline;
+  sep     : CONSTANT String := "&nbsp;&nbsp;&nbsp;";
   socket1 : ClickBoard.SimpleIO.Socket;
-  socket2 : ClickBoard.SimpleIO.Socket;
   bus     : I2C.Bus;
   sensor  : TH02.Device;
   display : ClickBoard.SevenSegment.Display;
@@ -58,11 +58,10 @@ PROCEDURE thermometer_grove_th02 IS
   outbuf2 : String(1 .. 20);
 
 BEGIN
-  socket1 := ClickBoard.SimpleIO.Create(1);
-  socket2 := ClickBoard.SimpleIO.Create(2);
+  socket1 := ClickBoard.SimpleIO.Create(socknum => 1);
   bus     := I2C.libsimpleio.Create(socket1.I2C);
   sensor  := TH02.Create(bus);
-  display := ClickBoard.SevenSegment.SimpleIO.Create(socket2);
+  display := ClickBoard.SevenSegment.SimpleIO.Create(socknum => 2, pwmfreq => 0);
   display.Clear;
 
   DELAY 5.0;
@@ -85,8 +84,8 @@ BEGIN
     Put(outbuf2, H, 1, 0);
 
     Webserver.HashTable.Publish("/", refresh & title & "<p>" &
-      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC -- " &
-      Ada.Strings.Fixed.Trim(outbuf1, Ada.Strings.Left) & " &deg;C" & " -- " &
+      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC" & sep &
+      Ada.Strings.Fixed.Trim(outbuf1, Ada.Strings.Left) & " &deg;C" & sep &
       Ada.Strings.Fixed.Trim(outbuf2, Ada.Strings.Left) & " % RH</p>" &
       newline);
 
