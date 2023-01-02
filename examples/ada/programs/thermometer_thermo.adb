@@ -1,6 +1,6 @@
 -- Mikroelektronika Thermo Click Internet Thermometer Example Program
 
--- Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2016-2023, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -22,7 +22,6 @@
 
 WITH Ada.Calendar.Formatting;
 WITH Ada.Strings.Fixed;
-WITH ClickBoard.SimpleIO;
 WITH ClickBoard.Thermo.SimpleIO;
 WITH ClickBoard.SevenSegment.SimpleIO;
 WITH libLinux;
@@ -42,6 +41,7 @@ PROCEDURE thermometer_thermo IS
     newline;
   title   : CONSTANT String := "<h1>Ada Internet of Things Thermometer</h1>" &
     newline & "<h2>Using the Mikroelektronika Thermo Click</h2>" & newline;
+  sep     : CONSTANT String := "&nbsp;&nbsp;&nbsp;";
   sensor  : MAX31855.Device;
   display : ClickBoard.SevenSegment.Display;
   wd      : Watchdog.Timer;
@@ -50,8 +50,8 @@ PROCEDURE thermometer_thermo IS
   outbuf  : String(1 .. 20);
 
 BEGIN
-  sensor  := ClickBoard.Thermo.SimpleIO.Create(1);
-  display := ClickBoard.SevenSegment.SimpleIO.Create(2);
+  sensor  := ClickBoard.Thermo.SimpleIO.Create(socknum => 1);
+  display := ClickBoard.SevenSegment.SimpleIO.Create(socknum => 2, pwmfreq => 0);
   display.Clear;
 
   DELAY 5.0;
@@ -72,7 +72,7 @@ BEGIN
     Put(outbuf, T, 1, 0);
 
     Webserver.HashTable.Publish("/", refresh & title & "<p>" &
-      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC -- " &
+      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC" & sep &
       Ada.Strings.Fixed.Trim(outbuf, Ada.Strings.Left) & " &deg;C</p>" &
       newline);
 
