@@ -1,6 +1,6 @@
 -- Digilent Pmod HYGRO Internet Thermometer Example Program
 
--- Copyright (C)2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2018-2023, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -23,8 +23,8 @@
 WITH Ada.Calendar.Formatting;
 WITH Ada.Strings.Fixed;
 WITH ClickBoard.SimpleIO;
+WITH ClickBoard.PmodHygro.SimpleIO;
 WITH ClickBoard.SevenSegment.SimpleIO;
-WITH I2C.libsimpleio;
 WITH libLinux;
 WITH HDC1080;
 WITH Humidity;
@@ -45,9 +45,7 @@ PROCEDURE thermometer_pmod_hygro IS
     newline;
   title   : CONSTANT String := "<h1>Ada Internet of Things Thermometer</h1>" &
     newline & "<h2>Using the Digilent Pmod HYGRO Module</h2>" & newline;
-  socket1 : ClickBoard.SimpleIO.Socket;
-  socket2 : ClickBoard.SimpleIO.Socket;
-  bus     : I2C.Bus;
+  sep     : CONSTANT String := "&nbsp;&nbsp;&nbsp;";
   sensor  : HDC1080.Device;
   display : ClickBoard.SevenSegment.Display;
   wd      : Watchdog.Timer;
@@ -58,11 +56,8 @@ PROCEDURE thermometer_pmod_hygro IS
   outbuf2 : String(1 .. 20);
 
 BEGIN
-  socket1 := ClickBoard.SimpleIO.Create(1);
-  socket2 := ClickBoard.SimpleIO.Create(2);
-  bus     := I2C.libsimpleio.Create(socket1.I2C);
-  sensor  := HDC1080.Create(bus);
-  display := ClickBoard.SevenSegment.SimpleIO.Create(socket2);
+  sensor  := ClickBoard.PmodHygro.SimpleIO.Create(socknum => 1);
+  display := ClickBoard.SevenSegment.SimpleIO.Create(socknum => 2, pwmfreq => 0);
   display.Clear;
 
   DELAY 5.0;
@@ -85,8 +80,8 @@ BEGIN
     Put(outbuf2, H, 1, 0);
 
     Webserver.HashTable.Publish("/", refresh & title & "<p>" &
-      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC -- " &
-      Ada.Strings.Fixed.Trim(outbuf1, Ada.Strings.Left) & " &deg;C" & " -- " &
+      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC" & sep &
+      Ada.Strings.Fixed.Trim(outbuf1, Ada.Strings.Left) & " &deg;C" & sep &
       Ada.Strings.Fixed.Trim(outbuf2, Ada.Strings.Left) & " % RH</p>" &
       newline);
 
