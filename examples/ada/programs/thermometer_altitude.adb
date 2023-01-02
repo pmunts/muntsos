@@ -1,6 +1,6 @@
 -- Mikroelektronika Altitude Click Internet Thermometer Example Program
 
--- Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2016-2023, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -25,7 +25,6 @@
 
 WITH Ada.Calendar.Formatting;
 WITH Ada.Strings.Fixed;
-WITH ClickBoard.SimpleIO;
 WITH ClickBoard.Altitude.SimpleIO;
 WITH ClickBoard.SevenSegment.SimpleIO;
 WITH libLinux;
@@ -48,6 +47,7 @@ PROCEDURE thermometer_altitude IS
     newline;
   title   : CONSTANT String := "<h1>Ada Internet of Things Thermometer</h1>" &
     newline & "<h2>Using the Mikroelektronika Altitude Click</h2>" & newline;
+  sep     : CONSTANT String := "&nbsp;&nbsp;&nbsp;";
   sensor  : MPL3115A2.Device;
   display : ClickBoard.SevenSegment.Display;
   wd      : Watchdog.Timer;
@@ -58,8 +58,8 @@ PROCEDURE thermometer_altitude IS
   outbuf2 : String(1 .. 20);
 
 BEGIN
-  sensor  := ClickBoard.Altitude.SimpleIO.Create(1);
-  display := ClickBoard.SevenSegment.SimpleIO.Create(2);
+  sensor  := ClickBoard.Altitude.SimpleIO.Create(socknum => 1);
+  display := ClickBoard.SevenSegment.SimpleIO.Create(socknum => 2, pwmfreq => 0);
   display.Clear;
 
   DELAY 5.0;
@@ -82,8 +82,8 @@ BEGIN
     Put(outbuf2, P, 2, 0);
 
     Webserver.HashTable.Publish("/", refresh & title & "<p>" &
-      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC -- " &
-      Ada.Strings.Fixed.Trim(outbuf1, Ada.Strings.Left) & " &deg;C -- " &
+      Ada.Calendar.Formatting.Image(Ada.Calendar.Clock) & " UTC" & sep &
+      Ada.Strings.Fixed.Trim(outbuf1, Ada.Strings.Left) & " &deg;C" & sep &
       Ada.Strings.Fixed.Trim(outbuf2, Ada.Strings.Left) & " hPa</p>" & newline);
 
     IF T < -0.5 THEN
