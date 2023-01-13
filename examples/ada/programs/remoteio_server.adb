@@ -119,10 +119,10 @@ BEGIN
       adc.register(6, BeagleBone.AIN6, 12);    -- P9.35 1.8V
     END IF;
 
-    gpio.Register(2,   BeagleBone.GPIO2);      -- P9.22  UART2 RXD
-    gpio.Register(3,   BeagleBone.GPIO3);      -- P9.21  UART2 TXD
-    gpio.Register(4,   BeagleBone.GPIO4);      -- P9.18
-    gpio.Register(5,   BeagleBone.GPIO5);      -- P9.17
+    gpio.Register(2,   BeagleBone.GPIO2);      -- P9.22  SPI0 SCK  UART2 RXD EHRPWM0B
+    gpio.Register(3,   BeagleBone.GPIO3);      -- P9.21  SPI0 MISO UART2 TXD
+    gpio.Register(4,   BeagleBone.GPIO4);      -- P9.18  SPI0 MOSI
+    gpio.Register(5,   BeagleBone.GPIO5);      -- P9.17  SPI0 SS0
     gpio.Register(7,   BeagleBone.GPIO7);      -- P9.42  SPI1 SS1
     gpio.Register(8,   BeagleBone.GPIO8);      -- P8.35
     gpio.Register(9,   BeagleBone.GPIO9);      -- P8.33
@@ -170,8 +170,8 @@ BEGIN
     gpio.Register(67,  BeagleBone.GPIO67);     -- P8.8
     gpio.Register(68,  BeagleBone.GPIO68);     -- P8.10
     gpio.Register(69,  BeagleBone.GPIO69);     -- P8.9
-    gpio.Register(70,  BeagleBone.GPIO70);     -- P8.45
-    gpio.Register(71,  BeagleBone.GPIO71);     -- P8.46
+    gpio.Register(70,  BeagleBone.GPIO70);     -- P8.45  EHRPWM2A
+    gpio.Register(71,  BeagleBone.GPIO71);     -- P8.46  EHRPWM2B
     gpio.Register(72,  BeagleBone.GPIO72);     -- P8.43
     gpio.Register(73,  BeagleBone.GPIO73);     -- P8.44
     gpio.Register(74,  BeagleBone.GPIO74);     -- P8.41
@@ -180,13 +180,13 @@ BEGIN
     gpio.Register(77,  BeagleBone.GPIO77);     -- P8.40
     gpio.Register(78,  BeagleBone.GPIO78);     -- P8.37  UART5 TXD
     gpio.Register(79,  BeagleBone.GPIO79);     -- P8.38  UART5 RXD
-    gpio.Register(80,  BeagleBone.GPIO80);     -- P8.36
-    gpio.Register(81,  BeagleBone.GPIO81);     -- P8.34
+    gpio.Register(80,  BeagleBone.GPIO80);     -- P8.36  EHRPWM1A
+    gpio.Register(81,  BeagleBone.GPIO81);     -- P8.34  EHRPWM1B
     gpio.Register(86,  BeagleBone.GPIO86);     -- P8.27
     gpio.Register(87,  BeagleBone.GPIO87);     -- P8.29
     gpio.Register(88,  BeagleBone.GPIO88);     -- P8.28
     gpio.Register(89,  BeagleBone.GPIO89);     -- P8.30
-    gpio.Register(110, BeagleBone.GPIO110);    -- P9.31  SPI1 SCLK
+    gpio.Register(110, BeagleBone.GPIO110);    -- P9.31  SPI1 SCLK EHRPWM0A
     gpio.Register(111, BeagleBone.GPIO111);    -- P9.29  SPI1 MISO
     gpio.Register(112, BeagleBone.GPIO112);    -- P9.30  SPI1 MOSI
     gpio.Register(113, BeagleBone.GPIO113);    -- P9.28  SPI1 SS0
@@ -203,7 +203,6 @@ BEGIN
     spi.Register(0, BeagleBone.SPI1_0);
     spi.Register(1, BeagleBone.SPI1_1);
     spi.Register(2, BeagleBone.SPI0_0);
-    spi.Register(3, BeagleBone.SPI0_1);
 
   -- Register PocketBeagle I/O Resources
 
