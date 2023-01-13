@@ -196,14 +196,14 @@ BEGIN
     i2c.Register(0, BeagleBone.I2C2);
 
     pwm.Register(0, BeagleBone.EHRPWM1A);
-    pwm.Register(0, BeagleBone.EHRPWM1B);
-    pwm.Register(0, BeagleBone.EHRPWM2A);
-    pwm.Register(0, BeagleBone.EHRPWM2B);
+    pwm.Register(1, BeagleBone.EHRPWM1B);
+    pwm.Register(2, BeagleBone.EHRPWM2A);
+    pwm.Register(3, BeagleBone.EHRPWM2B);
 
-    spi.Register(0, BeagleBone.SPI0_0);
-    spi.Register(1, BeagleBone.SPI0_1);
-    spi.Register(2, BeagleBone.SPI1_0);
-    spi.Register(3, BeagleBone.SPI1_1);
+    spi.Register(0, BeagleBone.SPI1_0);
+    spi.Register(1, BeagleBone.SPI1_1);
+    spi.Register(2, BeagleBone.SPI0_0);
+    spi.Register(3, BeagleBone.SPI0_1);
 
   -- Register PocketBeagle I/O Resources
 
