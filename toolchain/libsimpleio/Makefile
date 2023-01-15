@@ -79,7 +79,7 @@ libsimpleio.so: compile.done
 
 ###############################################################################
 
-# Precompile the Ada library project
+# Build the precompiled Ada package library for MuntsOS
 
 libsimpleio.lib:
 	LIBSIMPLEIO=$(LIBSIMPLEIO) $(GPRBUILD) $(GPRBUILDFLAGS) -P build
@@ -118,6 +118,6 @@ clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.so obj
+	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so
 
 distclean: reallyclean
