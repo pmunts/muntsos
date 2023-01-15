@@ -1,4 +1,4 @@
--- Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2021-2023, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -22,14 +22,23 @@ WITH "aws";
 
 LIBRARY PROJECT libsimpleio IS
   FOR Externally_Built USE "true";
-  FOR Languages    USE ("Ada");
-  FOR Library_Name USE "libsimpleio";
-  FOR Library_Dir  USE "LIBDIR/libsimpleio.lib";
-  FOR Library_Kind USE "static";
-
-  FOR Source_Dirs  USE
+  FOR Languages        USE ("Ada");
+  FOR Library_Name     USE "libsimpleio";
+  FOR Library_Dir      USE "LIBDIR/libsimpleio.lib";
+  FOR Library_Kind     USE "static";
+  FOR Source_Dirs      USE
    ("/usr/local/share/libsimpleio/ada/bindings",
     "/usr/local/share/libsimpleio/ada/devices",
     "/usr/local/share/libsimpleio/ada/interfaces",
     "/usr/local/share/libsimpleio/ada/objects/**");
+
+  Ada_Compiler_Switches :=
+   ("-O3",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-gnato1",
+    "-gnatwa",
+    "-gnatVa",
+    "-gnat2012"
+   );
 END libsimpleio;
