@@ -1,4 +1,6 @@
--- Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
+-- Project file for building the precompiled Ada package library for MuntsOS
+
+-- Copyright (C)2021-2023, Philip Munts, President, Munts AM Corp.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -23,15 +25,29 @@ WITH "aws";
 LIBRARY PROJECT build IS
   LIBSIMPLEIO := external("LIBSIMPLEIO", "/usr/local/share/libsimpleio");
 
+  Ada_Compiler_Switches :=
+   ("-O3",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-gnato1",
+    "-gnatwa",
+    "-gnatVa",
+    "-gnat2012"
+   );
+
   FOR Languages    USE ("Ada");
   FOR Library_Name USE "libsimpleio";
   FOR Library_Kind USE "static";
   FOR Library_Dir  USE "libsimpleio.lib";
-  FOR Object_Dir   USE "obj";
+  FOR Object_Dir   USE "libsimpleio.obj";
 
   FOR Source_Dirs  USE
    (LIBSIMPLEIO & "/ada/bindings",
     LIBSIMPLEIO & "/ada/devices",
     LIBSIMPLEIO & "/ada/interfaces",
     LIBSIMPLEIO & "/ada/objects/**");
+
+  PACKAGE Compiler IS
+    FOR Default_Switches("Ada") USE Ada_Compiler_Switches;
+  END Compiler;
 END build;
