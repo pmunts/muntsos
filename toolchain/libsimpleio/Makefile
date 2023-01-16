@@ -118,6 +118,6 @@ clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so
+	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so obj
 
 distclean: reallyclean
