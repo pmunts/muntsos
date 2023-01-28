@@ -122,17 +122,30 @@ package.deb: build.done
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDBASELC)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
+	mkdir -p					$(PKGDIR)/usr/share/gpr
 	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
 	rm						$(PKGDIR)$(TOOLCHAIN_DIR)/build.log.bz2
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	install -cm 0644 template1.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@GCCVER@@/$(GCCVER)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	ln -s $(CONFIGURE_NAME).cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
+	install -cm 0644 template2.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's/@@GCCVER@@/$(GCCVER)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	ln -s $(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr $(PKGDIR)/usr/share/gpr/$(BOARDNAME).cgpr
 ifeq ($(BOARDBASE), RaspberryPi3)
-	ln -s $(CONFIGURE_NAME).cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	install -cm 0644 template2.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@BOARDNAME@@/RaspberryPi4/g'		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@GCCVER@@/$(GCCVER)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	ln -s $(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr $(PKGDIR)/usr/share/gpr/RaspberryPi4.cgpr
 endif
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb --build			$(PKGDIR)
