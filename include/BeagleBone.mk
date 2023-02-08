@@ -1,6 +1,6 @@
 # Global make definitions for the BeagleBone ARM Linux microcomputer
 
-# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2023, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,7 +30,7 @@ include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 BOARDBASE	:= BeagleBone
 
 KERNEL_IMGSRC	= zImage
-KERNEL_IMG	= BeagleBone.img
+KERNEL_IMG	= $(BOARDBASE).img
 KERNEL_DTB	= am335x-bone
 KERNEL_DTB	+= am335x-boneblack
 KERNEL_DTB	+= am335x-boneblack-wireless
@@ -42,7 +42,7 @@ KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
 LOADER		= ld-linux-armhf.so.3
 
-BOOTFILESDIR	= $(MUNTSOS)/boot/BeagleBone
+BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
