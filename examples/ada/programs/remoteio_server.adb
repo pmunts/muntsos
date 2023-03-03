@@ -263,8 +263,8 @@ BEGIN
     gpio.Register(116, PocketBeagle.GPIO116);  -- P2.28
     gpio.Register(117, PocketBeagle.GPIO117);  -- P1.29
 
-    i2c.Register(0, PocketBeagle.I2C1);
-    i2c.Register(1, PocketBeagle.I2C2);
+    i2c.Register(1, PocketBeagle.I2C1);
+    i2c.Register(2, PocketBeagle.I2C2);
 
     IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
       system("echo 0 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
