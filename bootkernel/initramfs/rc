@@ -72,7 +72,7 @@ mdev -s
 # Set platform identification environment variables
 
 export BOARDBASE=@@BOARDBASE@@
-export BOARDNAME=@@BOARDNAME@@
+export BOARDNAME=${BOARDNAME:-@@BOARDNAME@@}
 
 # Create /etc/platform
 
