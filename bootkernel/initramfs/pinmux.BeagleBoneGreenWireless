@@ -1,6 +1,6 @@
 # BeagleBone Green Wireless GPIO Pin Configuration
 
-# Copyright (C)2018, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2023, Philip Munts.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -19,6 +19,18 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+
+# I2C buses
+
+P9_19	i2c	# I2C2 SCL
+P9_20	i2c	# I2C2 SDA
+
+# PWM outputs
+
+P8_13	pwm	# EHRPWM2B
+P8_19	pwm	# EHRPWM2A
+P9_14	pwm	# EHRPWM1A
+P9_16	pwm	# EHRPWM1B
 
 # Serial ports
 
