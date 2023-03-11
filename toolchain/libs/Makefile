@@ -20,7 +20,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-include ../../include/$(BOARDNAME).mk
+MUNTSOS		?= $(HOME)/muntsos
+
+include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
 FINALDIR	:= $(GCCSYSROOT)/usr
@@ -30,7 +32,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 NCURSES_NAME	= ncurses
-NCURSES_VER	= 6.3
+NCURSES_VER	= 6.4
 NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
 NCURSES_TARBALL	= $(NCURSES_NAME)-$(NCURSES_VER).tar.gz
 NCURSES_SERVER	= http://ftp.gnu.org/pub/gnu/ncurses
@@ -46,7 +48,7 @@ LIBUSB_URL	= $(LIBUSB_SERVER)/$(LIBUSB_TARBALL)
 LIBUSB_DIST	= $(TEMP)/$(LIBUSB_TARBALL)
 
 HIDAPI_NAME	= hidapi
-HIDAPI_VER	= 0.12.0
+HIDAPI_VER	= 0.13.0
 HIDAPI_SRC	= hidapi-$(HIDAPI_NAME)-$(HIDAPI_VER)
 HIDAPI_TARBALL	= $(HIDAPI_NAME)-$(HIDAPI_VER).tar.gz
 HIDAPI_SERVER	= https://github.com/libusb/hidapi/archive
@@ -54,7 +56,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(TEMP)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 1.1.1q
+OPENSSL_VER	= 1.1.1t
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -63,7 +65,7 @@ OPENSSL_DIST	= $(TEMP)/$(OPENSSL_TARBALL)
 OPENSSL_OS	= linux-generic32
 
 ZLIB_NAME	= zlib
-ZLIB_VER	= 1.2.12
+ZLIB_VER	= 1.2.13
 ZLIB_SRC	= $(ZLIB_NAME)-$(ZLIB_VER)
 ZLIB_TARBALL	= $(ZLIB_NAME)-$(ZLIB_VER).tar.gz
 ZLIB_SERVER	= http://zlib.net
@@ -71,7 +73,7 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(TEMP)/$(ZLIB_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 7.82.0
+CURL_VER	= 7.88.1
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -93,7 +95,7 @@ XMLRPC_C_URL	= http://svn.code.sf.net/p/xmlrpc-c/code/stable
 XMLRPC_C_DIST	= $(TEMP)/$(XMLRPC_C_TARBALL)
 
 LIBPCAP_NAME	= libpcap
-LIBPCAP_VER	= 1.10.1
+LIBPCAP_VER	= 1.10.3
 LIBPCAP_SRC	= $(LIBPCAP_NAME)-$(LIBPCAP_VER)
 LIBPCAP_TARBALL	= $(LIBPCAP_SRC).tar.gz
 LIBPCAP_SERVER	= http://www.tcpdump.org/release
@@ -120,7 +122,7 @@ LIBSODIUM_URL	= $(LIBSODIUM_SERVER)/$(LIBSODIUM_TARBALL)
 LIBSODIUM_DIST	= $(TEMP)/$(LIBSODIUM_TARBALL)
 
 LIBMYSQLCLIENT_NAME	= mariadb-connector-c
-LIBMYSQLCLIENT_VER	= 3.3.2
+LIBMYSQLCLIENT_VER	= 3.3.4
 LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src
 LIBMYSQLCLIENT_TARBALL	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src.tar.gz
 LIBMYSQLCLIENT_SERVER	= https://downloads.mariadb.com/Connectors/c/connector-c-$(LIBMYSQLCLIENT_VER)
@@ -136,7 +138,7 @@ GDBM_URL	= $(GDBM_SERVER)/$(GDBM_TARBALL)
 GDBM_DIST	= $(TEMP)/$(GDBM_TARBALL)
 
 MQTT_NAME	= paho.mqtt.c
-MQTT_VER	= 1.3.10
+MQTT_VER	= 1.3.12
 MQTT_SRC	= $(MQTT_NAME)-$(MQTT_VER)
 MQTT_TARBALL	= v$(MQTT_VER).tar.gz
 MQTT_SERVER	= https://github.com/eclipse/paho.mqtt.c/archive
@@ -144,7 +146,7 @@ MQTT_URL	= $(MQTT_SERVER)/$(MQTT_TARBALL)
 MQTT_DIST	= $(TEMP)/$(MQTT_SRC).tar.gz
 
 RABBITMQ_NAME	= rabbitmq-c
-RABBITMQ_VER	= 0.11.0
+RABBITMQ_VER	= 0.13.0
 RABBITMQ_SRC	= $(RABBITMQ_NAME)-$(RABBITMQ_VER)
 RABBITMQ_TARBALL = $(RABBITMQ_NAME)-$(RABBITMQ_VER).tar.gz
 RABBITMQ_SERVER	= http://github.com/alanxz/rabbitmq-c/archive/v$(RABBITMQ_VER)
@@ -160,7 +162,7 @@ ZEROMQ_URL	= $(ZEROMQ_SERVER)/$(ZEROMQ_TARBALL)
 ZEROMQ_DIST	= $(TEMP)/$(ZEROMQ_TARBALL)
 
 MODBUS_NAME	= libmodbus
-MODBUS_VER	= 3.1.8
+MODBUS_VER	= 3.1.10
 MODBUS_SRC	= libmodbus-$(MODBUS_VER)
 MODBUS_TARBALL	= libmodbus-$(MODBUS_VER).tar.gz
 MODBUS_SERVER	= https://github.com/stephane/libmodbus/releases/download/v$(MODBUS_VER)
@@ -670,7 +672,7 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo ""					>>$@
 	@echo "**** rabbitmq-c:"			>>$@
 	@echo ""					>>$@
-	@cat $(RABBITMQ_SRC)/LICENSE-MIT		>>$@
+	@cat $(RABBITMQ_SRC)/LICENSE			>>$@
 	@echo ""					>>$@
 	@echo "**** zeromq:"				>>$@
 	@echo ""					>>$@
