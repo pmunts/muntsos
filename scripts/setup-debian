@@ -3,7 +3,7 @@
 # This script sets up a Debian Linux machine for developing applications for
 # MuntsOS Embedded Linux
 
-# Copyright (C)2019-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2019-2023, Philip Munts.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@ MACHINE=`uname -m`
 # Install necessary packages from the Debian package repository
 
 sudo apt update
-sudo apt install -y autotools-dev bc bison build-essential cmake curl dos2unix flex git gnat gprbuild libncurses5 libssl-dev openssh-client wget
+sudo apt install -y build-essential git gnat gprbuild libncurses5 libssl-dev openssh-client wget
 
 # Register Munts Technologies Debian package repository
 
