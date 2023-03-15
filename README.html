@@ -29,6 +29,25 @@ appliance <b><tt>Debian11-MuntsOS-Dev.ova</tt></b>. Removed the cross-toolchain
 tarballs from the repository.</li>
 <li>10 December 2022 -- Refreshed the BeagleBone kernel (still 5.4.x). Added
 TCP Blast extension package, for network performance testing.</li>
+<li>9 March 2023 -- <a href="https://alire.ada.dev">Alire</a> crates for
+targeting MuntsOS Embedded Linux have been published. All you need to do
+prepare an Alire project for for a MuntsOS target is:
+<pre>
+alr init --bin myprogram
+cd myprogram
+alr with muntsos_raspberrypi1
+</pre>
+The new crates (<b><tt>muntsos_beaglebone</tt></b>,
+<b><tt>muntsos_raspberrypi1</tt></b>, <b><tt>muntsos_raspberrypi2</tt></b>,
+<b><tt>muntsos_raspberrypi3</tt></b>, and <b><tt>muntsos_raspberrypi4</tt></b>)
+each point to one of the MuntsOS cross-toolchains, which still have to be
+installed exactly as before.
+<p><a href=
+"http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">Application
+Note #7</a> has been updated accordingly.</p>
+</li>
+<li>14 March 2023 -- New kernels with many, many updated components have been
+published.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development

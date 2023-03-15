@@ -17,6 +17,7 @@ News
     Embedded Linux. Linux kernel 5.15.x still doesn't work right on
     Raspberry Pi 1 boards, so they are still frozen at kernel 5.10.95
     for the moment.
+
 -   29 August 2022 -- Refreshed all toolchain packages, kernels, and
     extensions. Toolchains for the BeagleBone and Raspberry Pi 2/3/4
     have been built with Crosstool-NG release 1.25.0, providing GCC
@@ -26,6 +27,7 @@ News
     to 5.15.61, as with the Raspberry Pi 2/3/4. MuntsOS for the ARMv6
     Raspberry Pi 1 is now in maintenance mode. I will keep supporting
     the Raspberry Pi 1 for as long as possible.
+
 -   16 September 2022 -- Added a new toolchain package,
     **`muntsos-common`**. It contains documentation files, example
     programs, and some **`make`** include files. With this new package,
@@ -34,8 +36,30 @@ News
     Refreshed the virtual machine appliance
     **`Debian11-MuntsOS-Dev.ova`**. Removed the cross-toolchain tarballs
     from the repository.
+
 -   10 December 2022 -- Refreshed the BeagleBone kernel (still 5.4.x).
     Added TCP Blast extension package, for network performance testing.
+
+-   9 March 2023 -- [Alire](https://alire.ada.dev) crates for targeting
+    MuntsOS Embedded Linux have been published. All you need to do
+    prepare an Alire project for for a MuntsOS target is:
+
+        alr init --bin myprogram
+        cd myprogram
+        alr with muntsos_raspberrypi1
+
+    The new crates (**`muntsos_beaglebone`**,
+    **`muntsos_raspberrypi1`**, **`muntsos_raspberrypi2`**,
+    **`muntsos_raspberrypi3`**, and **`muntsos_raspberrypi4`**) each
+    point to one of the MuntsOS cross-toolchains, which still have to be
+    installed exactly as before.
+
+    [Application Note
+    \#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
+    has been updated accordingly.
+
+-   14 March 2023 -- New kernels with many, many updated components have
+    been published.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
