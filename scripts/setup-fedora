@@ -43,6 +43,8 @@ sudo dnf -y -q install git
 sudo dnf -y -q install gprbuild
 sudo dnf -y -q install wget
 
+sudo ln -s -f ../libexec/gprbuild /usr/lib/gprbuild
+
 echo ""
 echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
 echo ""
