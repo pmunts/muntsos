@@ -41,13 +41,12 @@ package.rpm:
 	mkdir -p				$(DSTDIR)
 	cp -R -P -p $(MUNTSOS)/*		$(DSTDIR)
 	chmod -R u+w				$(DSTDIR)
-	cp $(LIBSIMPLEIO)/ada/projects/default.gpr $(DSTDIR)/examples/ada/programs
 	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(DSTDIR)/examples/*/*/Makefile
 	cd $(RPMDIR) && find usr/local/share/muntsos -type d -exec echo "%dir /{}" ";" >>../specfile
 	cd $(RPMDIR) && find usr/local/share/muntsos -type f -exec echo "/{}" ";"      >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
 	cp rpmbuild/RPMS/*/*.rpm .	
-	rm -rf rpmbuild
+	rm -rf rpmbuild specfile
 
 ###############################################################################
 
