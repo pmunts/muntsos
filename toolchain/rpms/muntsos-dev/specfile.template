@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Summary:	MuntsOS Embedded Linux cross-toolchain for @@TARGET@@
-Name:		muntsos-dev-aarch64
+Name:		muntsos-dev-@@SUFFIX@@
 Version:	@@VERSION@@
 Release:	1
 BuildArch:	x86_64

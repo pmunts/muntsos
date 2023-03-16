@@ -40,8 +40,9 @@ default: package.rpm
 
 package.rpm:
 	cp specfile.template			specfile
-	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
 	sed -i 's/@@TARGET@@/$(RPMTARGET)/g'	specfile
+	sed -i 's/@@SUFFIX@@/$(RPMSUFFIX)/g'	specfile
+	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
 	mkdir -p				$(RPMDIR)/usr/local
 	cp -R -P -p /usr/local/fpc-$(RPMTUPLE)	$(RPMDIR)/usr/local
 	cp -R -P -p /usr/local/gcc-$(RPMTUPLE)	$(RPMDIR)/usr/local
