@@ -36,7 +36,7 @@ build:
 
 # Upload RPM packages to repository
 
-upload: build
+upload:
 	scp */*.rpm $(SERVERDIR)
 
 # Remove artifacts
