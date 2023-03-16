@@ -54,9 +54,3 @@ fi
 
 sudo apt update
 sudo apt install -y muntsos-dev
-
-# Clone MuntsOS source code repository
-
-if [ ! -d muntsos ]; then
-  git clone https://github.com/pmunts/muntsos.git
-fi
