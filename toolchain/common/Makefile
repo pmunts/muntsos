@@ -82,8 +82,8 @@ package.rpm:
 	rm -rf					$(RPMDIR)/usr/local/share/muntsos/examples/firmware
 	rm -rf					$(RPMDIR)/usr/local/share/muntsos/examples/ada/freemodbus
 	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(RPMDIR)/usr/local/share/muntsos/examples/*/*/Makefile
-	cd $(RPMDIR) && $(FIND) * -type d -exec echo "%dir /{}" ";" | grep -v DEBIAN >>../specfile
-	cd $(RPMDIR) && $(FIND) * -type f -exec echo "/{}" ";" | grep -v DEBIAN >>../specfile
+	cd $(RPMDIR) && $(FIND) /usr/local/share/muntsos -type d -exec echo "%dir /{}" ";" | grep -v DEBIAN >>../specfile
+	cd $(RPMDIR) && $(FIND) /usr/local/share/muntsos -type f -exec echo "/{}" ";" | grep -v DEBIAN >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
 	cp rpmbuild/RPMS/*/*.rpm .	
 	rm -rf rpmbuild
