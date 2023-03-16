@@ -7,28 +7,6 @@ microcontrollers</i>, and integrated into other projects just like traditional
 single chip microcontrollers.</p>
 <h2>News</h2>
 <ul>
-<li>24 August 2022 -- Migrated Raspberry Pi 2, 3, 4 to Linux kernel 5.15.x.
-Migrating to 5.15.x has proved to be a grueling exercise, easily the most
-difficult kernel migration in the history of MuntsOS Embedded Linux. Linux
-kernel 5.15.x still doesn't work right on Raspberry Pi 1 boards, so they are
-still frozen at kernel 5.10.95 for the moment.</li>
-<li>29 August 2022 -- Refreshed all toolchain packages, kernels, and
-extensions. Toolchains for the BeagleBone and Raspberry Pi 2/3/4 have been
-built with Crosstool-NG release 1.25.0, providing GCC 10.3.0. GCC 10.3.0 causes
-problems for the now obsolete Raspberry Pi 1 so its toolchain was built with
-Crosstoo-NG release 1.24.0, providing GCC 8.3.0. The Raspberry Pi 1 kernel has
-now been advanced to 5.15.61, as with the Raspberry Pi 2/3/4. MuntsOS for the
-ARMv6 Raspberry Pi 1 is now in maintenance mode. I will keep supporting the
-Raspberry Pi 1 for as long as possible.</li>
-<li>16 September 2022 -- Added a new toolchain package,
-<b><tt>muntsos-common</tt></b>. It contains documentation files, example
-programs, and some <b><tt>make</tt></b> include files. With this new package,
-it will no longer be necessary to clone the MuntsOS Embedded Linux source code
-repository for developing application programs. Refreshed the virtual machine
-appliance <b><tt>Debian11-MuntsOS-Dev.ova</tt></b>. Removed the cross-toolchain
-tarballs from the repository.</li>
-<li>10 December 2022 -- Refreshed the BeagleBone kernel (still 5.4.x). Added
-TCP Blast extension package, for network performance testing.</li>
 <li>9 March 2023 -- <a href="https://alire.ada.dev">Alire</a> crates for
 targeting MuntsOS Embedded Linux have been published. All you need to do
 prepare an Alire project for for a MuntsOS target is:
@@ -48,6 +26,9 @@ Note #7</a> has been updated accordingly.</p>
 </li>
 <li>14 March 2023 -- New kernels with many, many updated components have been
 published.</li>
+<li>Dropped support for the virtual machine appliance preloaded with
+cross-toolchains for MuntsOS Embedded Linux. It was just too big to
+upload.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -459,3 +440,5 @@ Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
 <p>I am available for custom system development (hardware and software) of
 products based on embedded Linux microcomputers or other processors.</p>
+</li>
+</ul>

@@ -11,35 +11,6 @@ like traditional single chip microcontrollers.
 News
 ----
 
--   24 August 2022 -- Migrated Raspberry Pi 2, 3, 4 to Linux kernel
-    5.15.x. Migrating to 5.15.x has proved to be a grueling exercise,
-    easily the most difficult kernel migration in the history of MuntsOS
-    Embedded Linux. Linux kernel 5.15.x still doesn't work right on
-    Raspberry Pi 1 boards, so they are still frozen at kernel 5.10.95
-    for the moment.
-
--   29 August 2022 -- Refreshed all toolchain packages, kernels, and
-    extensions. Toolchains for the BeagleBone and Raspberry Pi 2/3/4
-    have been built with Crosstool-NG release 1.25.0, providing GCC
-    10.3.0. GCC 10.3.0 causes problems for the now obsolete Raspberry Pi
-    1 so its toolchain was built with Crosstoo-NG release 1.24.0,
-    providing GCC 8.3.0. The Raspberry Pi 1 kernel has now been advanced
-    to 5.15.61, as with the Raspberry Pi 2/3/4. MuntsOS for the ARMv6
-    Raspberry Pi 1 is now in maintenance mode. I will keep supporting
-    the Raspberry Pi 1 for as long as possible.
-
--   16 September 2022 -- Added a new toolchain package,
-    **`muntsos-common`**. It contains documentation files, example
-    programs, and some **`make`** include files. With this new package,
-    it will no longer be necessary to clone the MuntsOS Embedded Linux
-    source code repository for developing application programs.
-    Refreshed the virtual machine appliance
-    **`Debian11-MuntsOS-Dev.ova`**. Removed the cross-toolchain tarballs
-    from the repository.
-
--   10 December 2022 -- Refreshed the BeagleBone kernel (still 5.4.x).
-    Added TCP Blast extension package, for network performance testing.
-
 -   9 March 2023 -- [Alire](https://alire.ada.dev) crates for targeting
     MuntsOS Embedded Linux have been published. All you need to do
     prepare an Alire project for for a MuntsOS target is:
@@ -60,6 +31,10 @@ News
 
 -   14 March 2023 -- New kernels with many, many updated components have
     been published.
+
+-   Dropped support for the virtual machine appliance preloaded with
+    cross-toolchains for MuntsOS Embedded Linux. It was just too big to
+    upload.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
