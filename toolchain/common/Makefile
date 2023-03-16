@@ -1,6 +1,6 @@
 # Makefile to build the MuntsOS Embedded Linux Common Files package
 
-# Copyright (C)2022-2023, Philip Munts.
+# Copyright (C)2022, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,8 +20,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-MUNTSOS		?= ../..
+LIBSIMPLEIO	?= $(HOME)/libsimpleio
+MUNTSOS		?= $(HOME)/muntsos
 
 BUILDNUM	?= 1
 OSNAME		?= unknown
@@ -34,9 +34,7 @@ PKGFILE		:= $(PKGDIR).deb
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-default: package.deb package.rpm
-
-###############################################################################
+default: package.deb
 
 # Create Debian package file
 
@@ -63,37 +61,10 @@ package.deb: $(PKGFILE)
 
 ###############################################################################
 
-# Create RPM package file
-
-RPMDIR	:= $(PKGNAME)
-RPMFILE	:= $(PKGNAME)-$(PKGVER)-$(BUILDNUM).noarch.rpm
-
-package.rpm:
-	cp specfile.template			specfile
-	$(SED) -i 's/@@VERSION@@/$(PKGVER)/g'	specfile
-	mkdir -p				$(RPMDIR)/usr/local/share/muntsos
-	cp -R -P -p $(MUNTSOS)/doc		$(RPMDIR)/usr/local/share/muntsos
-	cp -R -P -p $(MUNTSOS)/examples		$(RPMDIR)/usr/local/share/muntsos
-	cp -R -P -p $(MUNTSOS)/include		$(RPMDIR)/usr/local/share/muntsos
-	cp $(MUNTSOS)/COPYING			$(RPMDIR)/usr/local/share/muntsos/doc
-	rm -rf					$(RPMDIR)/usr/local/share/muntsos/doc/.blinky
-	rm -rf					$(RPMDIR)/usr/local/share/muntsos/doc/.rawhid
-	rm -rf					$(RPMDIR)/usr/local/share/muntsos/examples/README.*
-	rm -rf					$(RPMDIR)/usr/local/share/muntsos/examples/firmware
-	rm -rf					$(RPMDIR)/usr/local/share/muntsos/examples/ada/freemodbus
-	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(RPMDIR)/usr/local/share/muntsos/examples/*/*/Makefile
-	cd $(RPMDIR) && $(FIND) /usr/local/share/muntsos -type d -exec echo "%dir /{}" ";" | grep -v DEBIAN >>../specfile
-	cd $(RPMDIR) && $(FIND) /usr/local/share/muntsos -type f -exec echo "/{}" ";" | grep -v DEBIAN >>../specfile
-	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
-	cp rpmbuild/RPMS/*/*.rpm .	
-	rm -rf rpmbuild
-
-###############################################################################
-
 # Remove working files
 
 clean:
-	-rm -rf $(PKGDIR) $(PKGFILE) $(RPMDIR) $(RPMFILE) rpmbuild specfile
+	-rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
 
