@@ -20,7 +20,13 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-default:
+SERVERDIR	?= $(HOME)
+
+default: build
+
+# Build RPM packages
+
+build:
 	$(MAKE) -C libsimpleio-common
 	$(MAKE) -C muntsos-common
 	$(MAKE) -C muntsos-dev RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-linux-gnu-muntsos
@@ -28,8 +34,12 @@ default:
 	$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi1
 	$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi2
 
-upload:
+# Upload RPM packages to repository
+
+upload: build
 	scp */*.rpm $(SERVERDIR)
+
+# Remove artifacts
 
 clean:
 	$(MAKE) -C libsimpleio-common clean
