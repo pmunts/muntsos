@@ -210,13 +210,13 @@ Boards
    sold for USD $45 at its launch in April 2013, which would have been an
    impressive feat except that the Raspberry Pi had already arrived on the
    market a few months earlier at USD $35. Although the BeagleBone Black
-   was more capable thttp://git.munts.com/muntsos/doc/han the first couple
-   of Raspberry Pi generations, it has been overshadowed by the Raspberry
-   Pi Model 2 and 3, which sport quad-core processors. The great strength
-   of the BeagleBone Black and its kin compared to the Raspberry Pi family
-   is the sheer number of GPIO pins and peripheral ports available on its
-   two 46-pin [25]expansion headers. Even after eMMC, I2C, SPI, and UART
-   pins have been allocated, there are 42 GPIO pins available.
+   was more capable than the first couple of Raspberry Pi generations, it
+   has been overshadowed by the Raspberry Pi Model 2 and 3, which sport
+   quad-core processors. The great strength of the BeagleBone Black and
+   its kin compared to the Raspberry Pi family is the sheer number of GPIO
+   pins and peripheral ports available on its two 46-pin [25]expansion
+   headers. Even after eMMC, I2C, SPI, and UART pins have been allocated,
+   there are 42 GPIO pins available.
 
    The BeagleBone Black has a Texas Instruments [26]Sitara AM3358
    processor running at 1 GHz, 512 MB of RAM and 4 GB eMMC flash on board.
@@ -260,13 +260,12 @@ Boards
    The BeagleBone Green uses the same kernel as the BeagleBone, with a
    different device tree.
 
-   The BeagleBone Green http://git.munts.com/muntsos/doc/is cost
-   competitive with the Raspberry Pi, costing only a little more but
-   including on board eMMC and a USB cable. It has only a single core
-   processor, compared to the quad-core Raspberry Pi 3, but provides many
-   more GPIO pins on its two 46-pin [33]expansion headers. It also has
-   separate dedicated host and slave USB ports as well as the two Grove
-   sockets.
+   The BeagleBone Green is cost competitive with the Raspberry Pi, costing
+   only a little more but including on board eMMC and a USB cable. It has
+   only a single core processor, compared to the quad-core Raspberry Pi 3,
+   but provides many more GPIO pins on its two 46-pin [33]expansion
+   headers. It also has separate dedicated host and slave USB ports as
+   well as the two Grove sockets.
 
    The BeagleBone Green plus a USB WiFi adapter is about USD $20 cheaper
    than a BeagleBone Black Wireless, while retaining the possibility for
@@ -279,8 +278,8 @@ Boards
    radio. It is otherwise highly compatible with the BeagleBone Green. It
    sells for about USD $53.
 
-   The BeagleBone Green http://git.munts.com/muntsos/doc/Wireless uses the
-   same kernel as the BeagleBone, with a different device tree.
+   The BeagleBone Green Wireless uses the same kernel as the BeagleBone,
+   with a different device tree.
 
    MuntsOS does not currently support the on-board Bluetooth radio.
 
