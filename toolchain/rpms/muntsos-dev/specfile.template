@@ -30,6 +30,7 @@ License:	Mixed
 Packager:	Philip Munts <phil@munts.net>
 Source:		https://github.com/pmunts/muntsos
 Requires:	libsimpleio-common, muntsos-common
+AutoReqProv:	no
 
 %description
 MuntsOS Embedded Linux cross-toolchain for @@TARGET@@
