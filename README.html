@@ -29,6 +29,13 @@ published.</li>
 <li>Dropped support for the virtual machine appliance preloaded with
 cross-toolchains for MuntsOS Embedded Linux. It was just too big to
 upload.</li>
+<li>16 March 2023 -- Cross-toolchain RPM packages and tarballs are now being
+published. These contain the exact same statically linked binaries originally
+built on Debian 11. They are verified to work on Fedora 37. Available at:
+<a href=
+"http://repo.munts.com/muntsos/rpms">http://repo.munts.com/muntsos/rpms</a> and
+<a href=
+"http://repo.munts.com/muntsos/tarballs">http://repo.munts.com/muntsos/tarballs</a>.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -410,10 +417,13 @@ the Raspberry Pi 3).</p>
 <p>Cross-toolchain packages built for <a href=
 "https://www.debian.org">Debian</a> Linux are available at:</p>
 <a href="http://repo.munts.com/debian11">http://repo.munts.com/debian11</a>
-<p>Since they are statically linked, it may be possible to use these
-cross-toolchain packages on other Linux distributions (possibly with the help
-of a package conversion utility like <a href=
-"https://admin.fedoraproject.org/pkgdb/package/rpms/alien"><b><tt>alien</tt></b></a>).</p>
+<p>RPM packages containing the exact same binaries and known to work on Fedora
+37 are available at:</p>
+<a href=
+"http://repo.munts.com/muntsos/rpms">http://repo.munts.com/muntsos/rpms</a>
+<p>Tarballs containing the exact same binaries are available at:</p>
+<a href=
+"http://repo.munts.com/muntsos/tarballs">http://repo.munts.com/muntsos/tarballs</a>
 <h2>Git Repository</h2>
 <p>The source code for MuntsOS is available at:</p>
 <p><a href=
@@ -440,5 +450,3 @@ Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
 <p>I am available for custom system development (hardware and software) of
 products based on embedded Linux microcomputers or other processors.</p>
-</li>
-</ul>

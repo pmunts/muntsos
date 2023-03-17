@@ -36,6 +36,12 @@ News
     cross-toolchains for MuntsOS Embedded Linux. It was just too big to
     upload.
 
+-   16 March 2023 -- Cross-toolchain RPM packages and tarballs are now
+    being published. These contain the exact same statically linked
+    binaries originally built on Debian 11. They are verified to work on
+    Fedora 37. Available at: <http://repo.munts.com/muntsos/rpms> and
+    <http://repo.munts.com/muntsos/tarballs>.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
@@ -479,10 +485,14 @@ Linux are available at:
 
 <http://repo.munts.com/debian11>
 
-Since they are statically linked, it may be possible to use these
-cross-toolchain packages on other Linux distributions (possibly with the
-help of a package conversion utility like
-[**`alien`**](https://admin.fedoraproject.org/pkgdb/package/rpms/alien)).
+RPM packages containing the exact same binaries and known to work on
+Fedora 37 are available at:
+
+<http://repo.munts.com/muntsos/rpms>
+
+Tarballs containing the exact same binaries are available at:
+
+<http://repo.munts.com/muntsos/tarballs>
 
 Git Repository
 --------------
