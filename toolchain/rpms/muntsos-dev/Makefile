@@ -47,12 +47,20 @@ package.rpm:
 	cp -R -P -p /usr/local/fpc-$(RPMTUPLE)	$(RPMDIR)/usr/local
 	cp -R -P -p /usr/local/gcc-$(RPMTUPLE)	$(RPMDIR)/usr/local
 	chmod -R u+w				$(RPMDIR)/usr/local
+	mkdir -p				$(RPMDIR)/usr/share/gpr
+ifeq ($(RPMTARGET), AArch64)
+	cp -P /usr/share/gpr/RaspberryPi3.cgpr	$(RPMDIR)/usr/share/gpr
+	cp -P /usr/share/gpr/RaspberryPi4.cgpr	$(RPMDIR)/usr/share/gpr
+else
+	cp -P /usr/share/gpr/$(RPMTARGET).cgpr	$(RPMDIR)/usr/share/gpr
+endif
 	cd $(RPMDIR) && find usr/local/fpc-$(RPMTUPLE) -type d -exec echo "%dir /{}" ";" >>../specfile
 	cd $(RPMDIR) && find usr/local/fpc-$(RPMTUPLE) -type f -exec echo "/{}" ";"      >>../specfile
 	cd $(RPMDIR) && find usr/local/fpc-$(RPMTUPLE) -type l -exec echo "/{}" ";"      >>../specfile
 	cd $(RPMDIR) && find usr/local/gcc-$(RPMTUPLE) -type d -exec echo "%dir /{}" ";" >>../specfile
 	cd $(RPMDIR) && find usr/local/gcc-$(RPMTUPLE) -type f -exec echo "/{}" ";"      >>../specfile
 	cd $(RPMDIR) && find usr/local/gcc-$(RPMTUPLE) -type l -exec echo "/{}" ";"      >>../specfile
+	cd $(RPMDIR) && find usr/share/gpr             -type l -exec echo "/{}" ";"      >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
 	cp rpmbuild/RPMS/*/*.rpm .	
 	rm -rf rpmbuild specfile
