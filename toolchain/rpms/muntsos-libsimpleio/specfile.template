@@ -29,7 +29,7 @@ Group:		Programming
 License:	BSD-1-Clause
 Packager:	Philip Munts <phil@munts.net>
 Source:		https://github.com/pmunts/libsimpleio
-Provides:	libsimpleio
+Provides:	libsimpleio-muntsos
 Obsoletes:	libsimpleio-common
 
 %description

@@ -29,7 +29,7 @@ Group:		Programming
 License:	Mixed
 Packager:	Philip Munts <phil@munts.net>
 Source:		https://github.com/pmunts/muntsos
-Requires:	libsimpleio-common, muntsos-common
+Requires:	muntsos-common, libsimpleio-muntsos
 AutoReqProv:	no
 
 %description
