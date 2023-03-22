@@ -50,7 +50,7 @@ echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
 echo ""
 
 wget -q -r -np http://repo.munts.com/muntsos/rpms/
-sudo rpm -U --force repo.munts.com/muntsos/rpms/*.rpm
+sudo rpm -U repo.munts.com/muntsos/rpms/*.rpm
 rm -rf repo.munts.com
 
 echo ""
