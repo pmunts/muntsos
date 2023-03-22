@@ -1,4 +1,4 @@
-# Makefile to build RPM package libsimpleio-common
+# Makefile to build RPM package muntsos-libsimpleio
 
 # Copyright (C)2023, Philip Munts.
 #
@@ -22,7 +22,7 @@
 
 LIBSIMPLEIO	?= ..
 BUILDNUM	?= 1
-RPMDIR		:= libsimpleio-common
+RPMDIR		:= muntsos-libsimpleio
 RPMVER		:= $(shell date +%Y.%j).$(BUILDNUM)
 RPMFILE		:= $(RPMDIR)-$(RPMVER)-$(BUILDNUM).noarch.rpm
 
@@ -39,8 +39,6 @@ package.rpm:
 	mkdir -p				$(DSTDIR)
 	cp -R -P -p $(SRCDIR)/*			$(DSTDIR)
 	chmod -R u+w				$(DSTDIR)
-	cp $(SRCDIR)/ada/projects/default.gpr	$(DSTDIR)/ada/programs
-	cp $(SRCDIR)/ada/projects/default.gpr	$(DSTDIR)/ada/programs/munts-0018
 	rm -rf					$(DSTDIR)/ada/lib
 	rm -rf					$(DSTDIR)/ada/projects
 	cd $(RPMDIR) && find usr/local/share/libsimpleio -type d -exec echo "%dir /{}" ";" >>../specfile

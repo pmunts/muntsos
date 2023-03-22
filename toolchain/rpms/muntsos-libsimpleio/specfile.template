@@ -20,8 +20,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-Summary:	Linux Simple I/O Library common files
-Name:		libsimpleio-common
+Summary:	Linux Simple I/O Library files for MuntsOS croos-toolchains
+Name:		muntsos-libsimpleio
 Version:	@@VERSION@@
 Release:	1
 BuildArch:	noarch
@@ -29,9 +29,11 @@ Group:		Programming
 License:	BSD-1-Clause
 Packager:	Philip Munts <phil@munts.net>
 Source:		https://github.com/pmunts/libsimpleio
+Provides:	libsimpleio
+Obsoletes:	libsimpleio-common
 
 %description
-Linux Simple I/O Library common files
+Linux Simple I/O Library files for MuntsOS croos-toolchains
 
 %files
 %defattr(-,root,root)

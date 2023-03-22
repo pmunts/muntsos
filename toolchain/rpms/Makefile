@@ -27,12 +27,12 @@ default: build
 # Build RPM packages
 
 build:
-	$(MAKE) -C libsimpleio-common
 	$(MAKE) -C muntsos-common
 	$(MAKE) -C muntsos-dev RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-linux-gnu-muntsos
 	$(MAKE) -C muntsos-dev RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-linux-gnueabihf-muntsos-beaglebone
 	$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi1
 	$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi2
+	$(MAKE) -C muntsos-libsimpleio
 
 # Upload RPM packages to repository
 
@@ -42,9 +42,9 @@ upload:
 # Remove artifacts
 
 clean:
-	$(MAKE) -C libsimpleio-common clean
 	$(MAKE) -C muntsos-common clean
 	$(MAKE) -C muntsos-dev clean RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-linux-gnu-muntsos
 	$(MAKE) -C muntsos-dev clean RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-linux-gnueabihf-muntsos-beaglebone
 	$(MAKE) -C muntsos-dev clean RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi1
 	$(MAKE) -C muntsos-dev clean RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi2
+	$(MAKE) -C muntsos-libsimpleio clean
