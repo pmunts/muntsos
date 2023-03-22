@@ -22,7 +22,7 @@
 
 SERVERDIR	?= $(HOME)
 
-default: build
+default: build upload clean
 
 # Build RPM packages
 
