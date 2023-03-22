@@ -29,8 +29,8 @@ Group:		Programming
 License:	BSD-1-Clause
 Packager:	Philip Munts <phil@munts.net>
 Source:		https://github.com/pmunts/libsimpleio
-Provides:	libsimpleio-muntsos
-Obsoletes:	libsimpleio-common
+Provides:	libsimpleio-common
+Conflicts:	libsimpleio-common
 
 %description
 Linux Simple I/O Library files for MuntsOS croos-toolchains
