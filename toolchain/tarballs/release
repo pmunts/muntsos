@@ -25,10 +25,16 @@
 BUILDNUM=1
 VERSION=`date +%Y.%j.${BUILDNUM}`
 
-tar czf muntsos-dev-beaglebone-${VERSION}.tgz   /usr/local/*-arm-linux-gnueabihf-muntsos-beaglebone   /usr/local/share/libsimpleio /usr/local/share/muntsos
-tar czf muntsos-dev-raspberrypi1-${VERSION}.tgz /usr/local/*-arm-linux-gnueabihf-muntsos-raspberrypi1 /usr/local/share/libsimpleio /usr/local/share/muntsos
-tar czf muntsos-dev-rapsberrypi2-${VERSION}.tgz /usr/local/*-arm-linux-gnueabihf-muntsos-raspberrypi2 /usr/local/share/libsimpleio /usr/local/share/muntsos
-tar czf muntsos-dev-aarch64-${VERSION}.tgz      /usr/local/*-aarch64-linux-gnu-muntsos                /usr/local/share/libsimpleio /usr/local/share/muntsos
+tarone()
+{
+  echo ${1}
+  tar czf muntsos-dev-${1}.tgz -C /usr/local fpc-${2} gcc-${2} share/libsimpleio share/muntsos
+}
+
+tarone beaglebone   arm-linux-gnueabihf-muntsos-beaglebone
+tarone raspberrypi1 arm-linux-gnueabihf-muntsos-raspberrypi1
+tarone raspberrypi2 arm-linux-gnueabihf-muntsos-raspberrypi2
+tarone aarch64      aarch64-linux-gnu-muntsos
 
 scp *.tgz root@munts.net:/var/www/htdocs/munts.com/repo/muntsos/tarballs
 rm *.tgz
