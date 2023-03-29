@@ -28,7 +28,7 @@ VERSION=`date +%Y.%j.${BUILDNUM}`
 tarone()
 {
   echo ${1}
-  tar czf muntsos-dev-${1}.tgz -C /usr/local fpc-${2} gcc-${2} share/libsimpleio share/muntsos
+  tar czf muntsos-dev-${1}-${VERSION}.tgz -C /usr/local fpc-${2} gcc-${2} share/libsimpleio share/muntsos
 }
 
 tarone beaglebone   arm-linux-gnueabihf-muntsos-beaglebone
