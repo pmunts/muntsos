@@ -38,8 +38,6 @@ echo ""
 
 sudo dnf -y -q group install "C Development Tools and Libraries"
 sudo dnf -y -q group install "Development Tools"
-sudo dnf -y -q install gcc-gnat
-sudo dnf -y -q install git
 sudo dnf -y -q install gprbuild
 sudo dnf -y -q install wget
 
