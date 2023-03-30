@@ -47,19 +47,29 @@ wget -q -r -np http://repo.munts.com/muntsos/rpms/
 sudo rpm -U repo.munts.com/muntsos/rpms/*.rpm
 rm -rf repo.munts.com
 
-echo ""
-echo "Install Alire..."
-echo ""
+which alr >/dev/null 2>&1
 
-wget -q https://github.com/alire-project/alire/releases/download/v1.2.2/alr-1.2.2-bin-x86_64-linux.zip
-sudo unzip -o -q alr*.zip bin/alr -d /usr/local
-sudo chmod 555 /usr/local/bin/alr
-rm alr*.zip
+if [ $? -eq 1 ]; then
+  echo ""
+  echo "Install Alire..."
+  echo ""
 
-echo ""
-echo "Install Alire gprbuild..."
-echo ""
+  wget -q https://github.com/alire-project/alire/releases/download/v1.2.2/alr-1.2.2-bin-x86_64-linux.zip
+  sudo unzip -o -q alr*.zip bin/alr -d /usr/local
+  sudo chmod 555 /usr/local/bin/alr
+  rm alr*.zip
+fi
 
-sudo /usr/local/bin/alr toolchain --install-dir /usr/local --install gprbuild
-sudo ln -s -f /usr/local/gprbuild*/libexec/gprbuild /usr/lib/gprbuild
-cd /usr/local/bin && for P in ../gprbuild*/bin/* ; do sudo ln -s -f $P ; done
+which gprbuild >/dev/null 2>&1
+
+if [ $? -eq 1 ]; then
+  echo ""
+  echo "Install Alire gprbuild..."
+  echo ""
+
+  sudo /usr/local/bin/alr toolchain --install-dir /usr/local --install gprbuild
+  sudo ln -s -f /usr/local/gprbuild*/libexec/gprbuild /usr/lib/gprbuild
+  cd /usr/local/bin && for P in ../gprbuild*/bin/* ; do sudo ln -s -f $P ; done
+fi
+
+alr toolchain --disable-assistant
