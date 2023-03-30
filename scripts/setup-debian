@@ -28,7 +28,7 @@ MACHINE=`uname -m`
 # Install necessary packages from the Debian package repository
 
 sudo apt update
-sudo apt install -y build-essential git gnat gprbuild libncurses5 libssl-dev openssh-client wget
+sudo apt install -y build-essential git gprbuild wget
 
 # Register Munts Technologies Debian package repository
 
