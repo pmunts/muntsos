@@ -53,4 +53,4 @@ fi
 # Install packages from the Munts Technologies Debian package repository
 
 sudo apt update
-sudo apt install -y muntsos-dev
+sudo apt install -y muntsos-dev alire
