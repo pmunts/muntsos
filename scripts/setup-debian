@@ -28,7 +28,8 @@ MACHINE=`uname -m`
 # Install necessary packages from the Debian package repository
 
 sudo apt update
-sudo apt install -y build-essential git gprbuild wget
+sudo apt -y upgrade
+sudo apt -y install build-essential git gprbuild wget
 
 # Register Munts Technologies Debian package repository
 
@@ -53,4 +54,4 @@ fi
 # Install packages from the Munts Technologies Debian package repository
 
 sudo apt update
-sudo apt install -y muntsos-dev alire
+sudo apt -y install muntsos-dev alire
