@@ -26,22 +26,19 @@
 MACHINE=`uname -m`
 
 echo ""
-echo "Check for Fedora system package updates..."
+echo "Upgrade any outdated system packages..."
 echo ""
 
 sudo dnf check-update
 sudo dnf -y upgrade
 
 echo ""
-echo "Install some Fedora system packages..."
+echo "Install some system packages..."
 echo ""
 
 sudo dnf -y -q group install "C Development Tools and Libraries"
 sudo dnf -y -q group install "Development Tools"
-sudo dnf -y -q install gprbuild
 sudo dnf -y -q install wget
-
-sudo ln -s -f ../libexec/gprbuild /usr/lib/gprbuild
 
 echo ""
 echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
@@ -59,3 +56,11 @@ wget -q https://github.com/alire-project/alire/releases/download/v1.2.2/alr-1.2.
 sudo unzip -o -q alr*.zip bin/alr -d /usr/local
 sudo chmod 555 /usr/local/bin/alr
 rm alr*.zip
+
+echo ""
+echo "Install Alire gprbuild..."
+echo ""
+
+sudo /usr/local/bin/alr toolchain --install-dir /usr/local --install gprbuild
+sudo ln -s -f /usr/local/gprbuild*/libexec/gprbuild /usr/lib/gprbuild
+cd /usr/local/bin && for P in ../gprbuild*/bin/* ; do sudo ln -s -f $P ; done
