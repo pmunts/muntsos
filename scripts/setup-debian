@@ -55,3 +55,5 @@ fi
 
 sudo apt update
 sudo apt -y install muntsos-dev alire
+
+alr toolchain --disable-assistant
