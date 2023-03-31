@@ -38,7 +38,12 @@ echo ""
 
 sudo dnf -y -q group install "C Development Tools and Libraries"
 sudo dnf -y -q group install "Development Tools"
+sudo dnf -y -q install gprbuild
 sudo dnf -y -q install wget
+
+if [ -d /usr/libexec/gprbuild ]; then
+  sudo ln -s -f ../libexec/gprbuild /usr/lib/gprbuild
+fi
 
 echo ""
 echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
@@ -59,18 +64,6 @@ if [ $? -eq 1 ]; then
   sudo unzip -o -q alr*.zip bin/alr -d /usr/local
   sudo chmod 555 /usr/local/bin/alr
   rm alr*.zip
-fi
-
-which gprbuild >/dev/null 2>&1
-
-if [ $? -eq 1 ]; then
-  echo ""
-  echo "Install Alire gprbuild..."
-  echo ""
-
-  sudo /usr/local/bin/alr toolchain --install-dir /usr/local --install gprbuild
-  sudo ln -s -f /usr/local/gprbuild*/libexec/gprbuild /usr/lib/gprbuild
-  cd /usr/local/bin && for P in ../gprbuild*/bin/* ; do sudo ln -s -f $P ; done
 fi
 
 alr toolchain --disable-assistant
