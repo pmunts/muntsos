@@ -26,7 +26,7 @@ MUNTSOS		?= /usr/local/share/muntsos
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-DOTNET_VERSION	:= 7.0.3
+DOTNET_VERSION	:= 7.0.4
 DOTNET_TARBALL	:= dotnet-runtime-$(DOTNET_VERSION)-$(DOTNETARCH).tar.gz
 DOTNET_DIST	:= $(TEMP)/$(DOTNET_TARBALL)
 
