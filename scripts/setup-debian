@@ -31,6 +31,10 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y install build-essential git gprbuild wget
 
+if [ -d /usr/libexec/gprbuild ]; then
+  sudo ln -s -f ../libexec/gprbuild /usr/lib/gprbuild
+fi
+
 # Register Munts Technologies Debian package repository
 
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
