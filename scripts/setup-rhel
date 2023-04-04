@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This script sets up a CentOS 9 Linux machine for developing applications for
+# This script sets up a RHEL Linux machine for developing applications for
 # MuntsOS Embedded Linux
 
 # Copyright (C)2023, Philip Munts.
@@ -46,19 +46,6 @@ echo ""
 wget -q -r -np http://repo.munts.com/muntsos/rpms/
 sudo rpm -U repo.munts.com/muntsos/rpms/*.rpm
 rm -rf repo.munts.com
-
-which alr >/dev/null 2>&1
-
-if [ $? -eq 1 ]; then
-  echo ""
-  echo "Install Alire..."
-  echo ""
-
-  wget -q https://github.com/alire-project/alire/releases/download/v1.2.2/alr-1.2.2-bin-x86_64-linux.zip
-  sudo unzip -o -q alr*.zip bin/alr -d /usr/local
-  sudo chmod 555 /usr/local/bin/alr
-  rm alr*.zip
-fi
 
 which gprbuild >/dev/null 2>&1
 
