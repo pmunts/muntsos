@@ -39,7 +39,15 @@ package.rpm:
 	cp specfile.template			specfile
 	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
 	mkdir -p				$(DSTDIR)
-	cp -R -P -p $(MUNTSOS)/*		$(DSTDIR)
+	cp -R -P -p $(MUNTSOS)/doc		$(DSTDIR)
+	cp -R -P -p $(MUNTSOS)/examples		$(DSTDIR)
+	cp -R -P -p $(MUNTSOS)/include		$(DSTDIR)
+	cp $(MUNTSOS)/COPYING			$(DSTDIR)/doc
+	rm -rf					$(DSTDIR)/doc/.blinky
+	rm -rf					$(DSTDIR)/doc/.rawhid
+	rm -rf					$(DSTDIR)/examples/README.*
+	rm -rf					$(DSTDIR)/examples/firmware
+	rm -rf					$(DSTDIR)/examples/ada/freemodbus
 	chmod -R u+w				$(DSTDIR)
 	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(DSTDIR)/examples/*/*/Makefile
 	cd $(RPMDIR) && find usr/local/share/muntsos -type d -exec echo "%dir /{}" ";" >>../specfile
