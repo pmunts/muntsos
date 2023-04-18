@@ -54,7 +54,7 @@ package.rpm:
 	cd $(RPMDIR) && find usr/local/gcc-$(RPMTUPLE) -type f -exec echo "/{}" ";"      >>../specfile
 	cd $(RPMDIR) && find usr/local/gcc-$(RPMTUPLE) -type l -exec echo "/{}" ";"      >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
-	cp rpmbuild/RPMS/*/*.rpm .	
+	cp rpmbuild/RPMS/*/*.rpm .
 	rm -rf rpmbuild specfile
 
 ###############################################################################

@@ -53,7 +53,7 @@ package.rpm:
 	cd $(RPMDIR) && find usr/local/share/muntsos -type d -exec echo "%dir /{}" ";" >>../specfile
 	cd $(RPMDIR) && find usr/local/share/muntsos -type f -exec echo "/{}" ";"      >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
-	cp rpmbuild/RPMS/*/*.rpm .	
+	cp rpmbuild/RPMS/*/*.rpm .
 	rm -rf rpmbuild specfile
 
 ###############################################################################
