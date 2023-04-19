@@ -42,7 +42,6 @@ package.rpm:
 	cp -R -P -p $(MUNTSOS)/doc		$(DSTDIR)
 	cp -R -P -p $(MUNTSOS)/examples		$(DSTDIR)
 	cp -R -P -p $(MUNTSOS)/include		$(DSTDIR)
-	cp $(MUNTSOS)/COPYING			$(DSTDIR)/doc
 	rm -rf					$(DSTDIR)/doc/.blinky
 	rm -rf					$(DSTDIR)/doc/.rawhid
 	rm -rf					$(DSTDIR)/examples/README.*
