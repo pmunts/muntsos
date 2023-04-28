@@ -23,9 +23,7 @@ News
     **`muntsos_raspberrypi1`**, **`muntsos_raspberrypi2`**,
     **`muntsos_raspberrypi3`**, and **`muntsos_raspberrypi4`**) each
     point to one of the MuntsOS cross-toolchains, which still have to be
-    installed exactly as before.
-
-    [Application Note
+    installed exactly as before. [Application Note
     \#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
     has been updated accordingly.
 
@@ -39,7 +37,9 @@ News
 -   16 March 2023 -- Cross-toolchain RPM packages and tarballs are now
     being published. These contain the exact same statically linked
     binaries originally built on Debian 11. They are verified to work on
-    Fedora 37. Available at: <http://repo.munts.com/muntsos/rpms> and
+    Fedora 37, RHEL 9.1 and its derivatives CentOS Stream 9, AlmaLinux
+    9.1, and Rocky Linux 9.1. Available at:
+    <http://repo.munts.com/muntsos/rpms> and
     <http://repo.munts.com/muntsos/tarballs>.
 
 Quick Setup Instructions for the Impatient
@@ -47,9 +47,10 @@ Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
 environment onto a **host computer** are found in [Application Note
-\#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
+\#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf),
 [Application Note
-\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-Other.pdf).
+\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-Tarballs.pdf), and
+[Application Note \#8]().
 
 Instructions for installing MuntsOS to a **target computer** are found
 in [Application Note
