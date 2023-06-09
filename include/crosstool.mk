@@ -1,6 +1,6 @@
 # Global definitions for cross-toolchains built with Crosstool-NG
 
-# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2023, Philip Munts dba Munts Technologies
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -58,3 +58,7 @@ FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/$(FPC_COMMAND)
 
 GNATPREFIX	= $(CROSS_COMPILE)
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
+
+# Alire
+
+ALRFLAGS	+= -- $(GPRBUILDCONFIG)
