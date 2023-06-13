@@ -50,7 +50,13 @@ environment onto a **host computer** are found in [Application Note
 \#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf),
 [Application Note
 \#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-Tarballs.pdf), and
-[Application Note \#8]().
+[Application Note
+\#8](http://git.munts.com/muntsos/doc/AppNote8-Setup-RPM.pdf). Or just
+download and run one of the following quick setup scripts:
+
+[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
+[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
+[setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel)
 
 Instructions for installing MuntsOS to a **target computer** are found
 in [Application Note
