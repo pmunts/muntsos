@@ -1,6 +1,6 @@
 # Build Munts OS Embedded Linux cross-toolchain using Linaro ABE
 
-# Copyright (C)2023, Philip Munts.
+# Copyright (C)2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -71,7 +71,7 @@ reconstitute:
 	rmdir $(DESTFILES)
 	cp -R -P -p $(TOOLCHAIN_DIR) $(DESTFILES)
 	chmod -R u+w $(DESTFILES)
-	rm -f $(DESTFILES)/share/gpr
+	rm -rf $(DESTFILES)/share/gpr
 	touch abe.done cross.done
 
 ################################################################################
