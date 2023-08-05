@@ -4,9 +4,9 @@
 
 configuration project Default is
    for Target use "@@CONFIGURE_NAME@@";
-   for Toolchain_Version     ("Ada") use "Linaro GNAT 7.4.1";
-   for Runtime_Library_Dir   ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/7.4.1/adalib/";
-   for Runtime_Source_Dir    ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/7.4.1/adainclude/";
+   for Toolchain_Version     ("Ada") use "@@TOOLCHAIN_VERS@@";
+   for Runtime_Library_Dir   ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/@@TOOLCHAIN_VERN@@/adalib/";
+   for Runtime_Source_Dir    ("Ada") use "@@TOOLCHAIN_DIR@@/lib/gcc/@@CONFIGURE_NAME@@/@@TOOLCHAIN_VERN@@/adainclude/";
    for Library_Builder  use "/usr/lib/gprbuild/gprlib";
    for Library_Support  use "full";
    for Shared_Library_Prefix use "lib";

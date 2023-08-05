@@ -1,4 +1,5 @@
-# Build Munts OS Embedded Linux cross-toolchain using Linaro ABE
+# Build a Munts OS Embedded Linux cross-toolchain using Linaro ABE and
+# Arm GNU Toolchain manifest
 
 # Copyright (C)2023, Philip Munts dba Munts Technologies.
 #
@@ -32,6 +33,9 @@ MANIFEST	:= AArch64.manifest
 else
 MANIFEST	:= $(BOARDNAME).manifest
 endif
+
+TOOLCHAIN_VERS	= $(shell $(DESTFILES)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/muntsos/ { print $$0 }')
+TOOLCHAIN_VERN	= $(shell $(DESTFILES)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/muntsos/ { print $$3 }')
 
 BUILDNUM	?= 1
 OSNAME		?= unknown
@@ -96,6 +100,8 @@ endif
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 ifeq ($(BOARDNAME), RaspberryPi3)
 	ln -s $(CONFIGURE_NAME).cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi3.cgpr
 	ln -s $(CONFIGURE_NAME).cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
