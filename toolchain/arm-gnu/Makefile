@@ -68,18 +68,6 @@ cross.done: abe.done
 
 ################################################################################
 
-# Reconstitute previous build from installed files
-
-reconstitute:
-	mkdir -p $(DESTFILES)
-	rmdir $(DESTFILES)
-	cp -R -P -p $(TOOLCHAIN_DIR) $(DESTFILES)
-	chmod -R u+w $(DESTFILES)
-	rm -rf $(DESTFILES)/share/gpr
-	touch abe.done cross.done
-
-################################################################################
-
 # Create Debian package
 
 package.deb: cross.done
@@ -112,6 +100,32 @@ endif
 	chmod -R ugo-w					$(PKGDIR)$(TOOLCHAIN_DIR)
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R ugo+w					$(PKGDIR)
+
+################################################################################
+
+# Reconstitute previous build from installed files
+
+reconstitute:
+	mkdir -p $(DESTFILES)
+	rmdir $(DESTFILES)
+	cp -R -P -p $(TOOLCHAIN_DIR) $(DESTFILES)
+	chmod -R u+w $(DESTFILES)
+	rm -rf $(DESTFILES)/share/gpr
+	touch abe.done cross.done
+
+################################################################################
+
+# Build and upload Debian package files for all targets.  Note this is an all
+# night job!
+
+SERVERDIR	?= $(HOME)
+PLATFORMS	:= BeagleBone RaspberryPi1 RaspberryPi2 RaspberryPi3
+
+upload: package.deb
+	scp *.deb $(SERVERDIR)
+
+allplatforms:
+	for P in $(PLATFORMS) ; do $(MAKE) upload distclean BOARDNAME=$$P ; done
 
 ################################################################################
 
