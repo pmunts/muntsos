@@ -1,6 +1,6 @@
 # Makefile for building and packaging a Crosstool-NG cross-toolchain
 
-# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -35,7 +35,7 @@ INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 OSNAME		?= unknown
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(shell date +%Y.%j)-$(GCCVER)
+PKGVER		:= $(GCCVER)-$(shell date +%Y.%j)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
