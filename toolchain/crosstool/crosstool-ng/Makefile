@@ -20,13 +20,14 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-CTNG_BRANCH	?= -b crosstool-ng-1.25.0
+CTNG_VERSION	?= 1.25.0
+CTNG_BRANCH	:= -b crosstool-ng-$(CTNG_VERSION)
 CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
 CTNG_SRC	:= crosstool-ng.src
 
 OSNAME		?= unknown
 PKGNAME		:= crosstool-ng
-PKGVERSION	:= $(shell date +%Y.%j)
+PKGVERSION	:= $(CTNG_VERSION)-$(shell date +%Y.%j)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGDIR		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
