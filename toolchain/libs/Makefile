@@ -581,6 +581,7 @@ $(ZEROMQ_DIST):
 
 $(ZEROMQ_SRC): $(ZEROMQ_DIST)
 	tar xzf $(ZEROMQ_DIST)
+	cd $(ZEROMQ_SRC) && patch -b -p0 <../zeromq.patch
 
 # Build ZeroMQ
 
