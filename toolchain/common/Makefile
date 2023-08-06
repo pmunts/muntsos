@@ -1,6 +1,6 @@
 # Makefile to build the MuntsOS Embedded Linux Common Files package
 
-# Copyright (C)2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2022-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 LIBSIMPLEIO	?= $(HOME)/libsimpleio
-MUNTSOS		?= $(HOME)/muntsos
+MUNTSOS		?= ../..
 
 BUILDNUM	?= 1
 OSNAME		?= unknown

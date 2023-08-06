@@ -1,6 +1,6 @@
 # Makefile to build the Linux Simple I/O Library for MuntsOS Embedded Linux
 
-# Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,7 +25,7 @@ undefine CC
 undefine RANLIB
 
 LIBSIMPLEIO	?= $(HOME)/libsimpleio
-MUNTSOS		?= $(HOME)/muntsos
+MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
