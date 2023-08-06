@@ -40,13 +40,13 @@ TOOLCHAIN_VERN	= $(shell $(DESTFILES)/bin/$(CONFIGURE_NAME)-gcc --version | awk 
 BUILDNUM	?= 1
 OSNAME		?= unknown
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+PKGVER		:= $(TOOLCHAIN_VERN)-$(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
 
-default: package.deb
+default: cross.done
 
 ################################################################################
 
