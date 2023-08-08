@@ -6,12 +6,12 @@ Package: muntsos-dev-@@BOARDNAME@@
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
-  gcc-@@CONFIGURE_NAME@@-muntsos,
-  gcc-@@CONFIGURE_NAME@@-muntsos-libs,
-  gcc-@@CONFIGURE_NAME@@-muntsos-libaws,
-  gcc-@@CONFIGURE_NAME@@-muntsos-libsimpleio
+  gcc-@@CONFIGURE_NAME@@-abe,
+  gcc-@@CONFIGURE_NAME@@-abe-libs,
+  gcc-@@CONFIGURE_NAME@@-abe-libaws,
+  gcc-@@CONFIGURE_NAME@@-abe-libsimpleio
 Recommends:
-  fpc-@@CONFIGURE_NAME@@-muntsos
+  fpc-@@CONFIGURE_NAME@@-abe
 Conflicts:
   muntsos-crosstool-@@BOARDNAME@@
 Replaces:

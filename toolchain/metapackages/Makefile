@@ -29,9 +29,9 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 BOARDNAMES	:= BeagleBone RaspberryPi1 RaspberryPi2
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
-PKGVERSION1	:= 1.0
-PKGVERSION2	:= 1.0
-PKGVERSION3	:= 1.0
+PKGVERSION1	:= 2.0
+PKGVERSION2	:= 2.0
+PKGVERSION3	:= 2.0
 
 # Build metapackages for all platforms
 
