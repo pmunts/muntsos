@@ -11,9 +11,5 @@ Depends:
   muntsos-dev-beaglebone,
   muntsos-dev-raspberrypi1,
   muntsos-dev-raspberrypi2
-Conflicts:
-  muntsos-crosstool
-Replaces:
-  muntsos-crosstool
 Architecture: all
 Description: Cross-toolchain packages for MuntsOS

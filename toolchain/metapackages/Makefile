@@ -29,16 +29,16 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 BOARDNAMES	:= BeagleBone RaspberryPi1 RaspberryPi2
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
-PKGVERSION1	:= 2.0
-PKGVERSION2	:= 2.0
-PKGVERSION3	:= 2.0
+PKGVERSION1	:= 2.1
+PKGVERSION2	:= 2.1
+PKGVERSION3	:= 2.1
 
 # Build metapackages for all platforms
 
 default:
 	$(MAKE) allplatforms PKGVERSION=$(PKGVERSION1)
 	for P in $(BOARDNAMES) ; do $(MAKE) oneplatform BOARDNAME=$$P CONTROL=control.template2 PKGVERSION=$(PKGVERSION2); done
-	$(MAKE) oneplatform BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-linux-gnu CONTROL=control.template3 PKGVERSION=$(PKGVERSION3)
+	$(MAKE) oneplatform BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-muntsos-linux-gnu CONTROL=control.template3 PKGVERSION=$(PKGVERSION3)
 	-rm *.buildinfo *.changes
 
 # Build a metapackage for all platforms

@@ -11,10 +11,6 @@ Depends:
   gcc-@@CONFIGURE_NAME@@-abe-@@BOARDNAME@@-libaws,
   gcc-@@CONFIGURE_NAME@@-abe-@@BOARDNAME@@-libsimpleio
 Recommends:
-  fpc-@@CONFIGURE_NAME@@-muntsos-@@BOARDNAME@@-abe
-Conflicts:
-  muntsos-crosstool-@@BOARDNAME@@
-Replaces:
-  muntsos-crosstool-@@BOARDNAME@@
+  fpc-@@CONFIGURE_NAME@@-abe-@@BOARDNAME@@
 Architecture: all
 Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@
