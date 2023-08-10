@@ -24,4 +24,10 @@ ARCH		= arm
 DEBARCH		= armhf
 GCCABI		= gnueabihf
 GCCARCH		= arm
+ifeq ($(TOOLCHAIN_BUILDER), crosstool)
+LOADER		= ld-linux-armhf.so.3
+endif
+ifeq ($(TOOLCHAIN_BUILDER), arm-gnu)
+LOADER		= ld-linux.so.3
+endif
 WORDSIZE	= 32

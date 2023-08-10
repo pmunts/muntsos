@@ -25,4 +25,5 @@ DEBARCH		= arm64
 DOTNETARCH	= linux-arm64
 GCCABI		= gnu
 GCCARCH		= aarch64
+LOADER		= ld-linux-aarch64.so.1
 WORDSIZE	= 64
