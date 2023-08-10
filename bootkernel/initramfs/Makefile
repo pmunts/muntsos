@@ -467,10 +467,14 @@ endif
 	@echo "**** serialnumber:"				>>$@
 	@head -n 22 serialnumber.c | tail -n 21 | cut -c 4-	>>$@
 	@echo "** Shared Libraries:"				>>$@
-	@echo ""						>>$@
+ifeq ($(TOOLCHAIN_BUILDER), crosstool)
+	@echo ""
 	@echo "**** glibc:"					>>$@
 	@echo ""						>>$@
 	@cat  $(GLIBCCOPYRIGHT)				 	>>$@
+endif
+	@echo ""						>>$@
+	@cat $(LIBSDIR)/COPYING					>>$@
 	@echo ""						>>$@
 	@echo "**** libsimpleio:"				>>$@
 	@echo ""						>>$@
