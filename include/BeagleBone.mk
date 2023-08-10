@@ -40,8 +40,6 @@ KERNEL_DTB	+= am335x-pocketbeagle
 KERNEL_DTB	+= am335x-sancloud-bbe
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
-LOADER		= ld-linux-armhf.so.3
-
 BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz

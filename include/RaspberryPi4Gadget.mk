@@ -37,6 +37,4 @@ KERNEL_OVL	+= spi3-1cs spi3-2cs spi4-1cs spi4-2cs
 KERNEL_OVL	+= spi5-1cs spi5-2cs spi6-1cs spi6-2cs
 KERNEL_OVL	+= uart2 uart3 uart4 uart5
 
-LOADER		= ld-linux-aarch64.so.1
-
 include $(MUNTSOS)/include/common.mk

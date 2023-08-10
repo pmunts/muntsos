@@ -33,6 +33,4 @@ KERNEL_DTB	+= bcm2710-rpi-cm3
 KERNEL_DTB	+= bcm2710-rpi-zero-2
 
 
-LOADER		= ld-linux-armhf.so.3
-
 include $(MUNTSOS)/include/common.mk
