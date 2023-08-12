@@ -23,6 +23,8 @@
 
 MUNTSOS    ?= ../..
 
+TOOLCHAIN_BUILDER := arm-gnu
+
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 ABEURL		= http://git.linaro.org/git/toolchain/abe.git
@@ -84,8 +86,12 @@ endif
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)
 	rmdir						$(PKGDIR)$(TOOLCHAIN_DIR)
 	cp -R -P -p $(DESTFILES)			$(PKGDIR)$(TOOLCHAIN_DIR)
-	ln -s -f ../../sbin/ldconfig			$(PKGDIR)$(LIBSBINDIR)/ldconfig
-	ln -s -f ../../sbin/sln				$(PKGDIR)$(LIBSBINDIR)/sln
+	# Massage the sysroot directory tree
+	rm -rf						$(PKGDIR)$(GCCSYSROOT)/etc
+	rm -rf						$(PKGDIR)$(GCCSYSROOT)/var
+	cd $(PKGDIR)$(LIBSBINDIR) ; for F in ../../sbin/* ; do ln -s -f $$F ; done
+	cd $(PKGDIR)$(LIBSLIBDIR) ; for F in ../../lib/* ; do ln -s -f $$F ; done
+	# Install .cgpr files
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr

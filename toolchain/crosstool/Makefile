@@ -25,6 +25,8 @@
 
 MUNTSOS    ?= ../..
 
+TOOLCHAIN_BUILDER := crosstool
+
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 CTNG		?= ct-ng
@@ -97,6 +99,7 @@ endif
 	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
 	ln -s ../libc/lib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/lib/libgnat.so
 	ln -s ../libc/lib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/lib/libgnarl.so
+	cd $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
 	touch $@
 
 ################################################################################

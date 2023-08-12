@@ -684,20 +684,19 @@ endif
 
 # Install files to /lib
 
-	install -cm 0755 $(GCCLDLINUX)				$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libc.so.6			$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libcrypt.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libdl.so.2		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libgcc_s.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libm.so.6			$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libnsl.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libnss_dns.so.2		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libnss_files.so.2 	$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libpthread.so.0		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libresolv.so.2		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/librt.so.1		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libstdc++.so.6		$@/lib
-	install -cm 0755 $(GCCLIBDIR)/libutil.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libc.so.6		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libcrypt.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libdl.so.2		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libgcc_s.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libm.so.6		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libnsl.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libnss_dns.so.2		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libnss_files.so.2 	$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libpthread.so.0		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libresolv.so.2		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/librt.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libstdc++.so.6		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libutil.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libcrypto.so.1.1 	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libmnl.so.0		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libncurses.so.6		$@/lib
@@ -706,6 +705,7 @@ endif
 	install -cm 0755 $(LIBSLIBDIR)/libssl.so.1.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libtirpc.so.3		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libz.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/$(LOADER)		$@/lib
 
 ifeq ($(findstring Gadget, $(BOARDNAME)),)
 	install -cm 0755 $(LIBSLIBDIR)/libusb-1.0.so.0		$@/lib
