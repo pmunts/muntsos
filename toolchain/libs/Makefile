@@ -482,7 +482,7 @@ $(INSTALLDIR)/lib/libmysqlclient.a: $(LIBMYSQLCLIENT_SRC)
 	echo "set(CMAKE_BUILD_TYPE Release)"					>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	echo "set(CMAKE_C_COMPILER $(CROSS_COMPILE)gcc)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	echo "set(CMAKE_CXX_COMPILER $(CROSS_COMPILE)g++)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
-	echo "set(CMAKE_FIND_ROOT_PATH $(GCCLIBDIR) $(DESTDIR)/$(INSTALLDIR))" 	>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
+	echo "set(CMAKE_FIND_ROOT_PATH $(DESTDIR)/$(INSTALLDIR))" 		>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	echo "set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	echo "set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	echo "set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
