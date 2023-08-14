@@ -24,7 +24,7 @@ undefine AR
 undefine CC
 undefine RANLIB
 
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+LIBSIMPLEIO	?= ../../../libsimpleio
 MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
