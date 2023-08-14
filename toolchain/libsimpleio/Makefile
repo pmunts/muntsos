@@ -39,7 +39,6 @@ CC		:= $(CROSS_COMPILE)gcc
 RANLIB		:= $(CROSS_COMPILE)ranlib
 
 BUILDNUM	?= 1
-GCCVER		:= $(shell $(CROSS_COMPILE)gcc --version | awk '/muntsos/ { print $$3 }')
 OSNAME		?= unknown
 PKGNAME		:= $(INSTALLDIR)-libsimpleio
 PKGVER		:= $(GCCVER)-$(shell date +%Y.%j).$(BUILDNUM)

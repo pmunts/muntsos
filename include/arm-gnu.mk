@@ -37,6 +37,8 @@ LIBSINCDIR	= $(GCCSYSROOT)/usr/include
 LIBSLIBDIR	= $(GCCSYSROOT)/usr/lib
 LIBSSHAREDIR	= $(GCCSYSROOT)/usr/share
 
+GCCVER		= $(shell $(CROSS_COMPILE)gcc --version | awk '/muntsos/ { print $$3 }')
+
 # C/C++
 
 CFLAGS		+= -DMUNTSOS
