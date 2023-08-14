@@ -1,6 +1,6 @@
 # Makefile for building metapackages for all MuntsOS cross-toolchains
 
-# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 OSNAME		?= unknown
-MUNTSOS		?= ../..
+MUNTSOS		?= ../../..
 BOARDNAME	?= RaspberryPi
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
@@ -29,9 +29,9 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 BOARDNAMES	:= BeagleBone RaspberryPi1 RaspberryPi2
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
-PKGVERSION1	:= 2.1
-PKGVERSION2	:= 2.1
-PKGVERSION3	:= 2.1
+PKGVERSION1	:= 1.0
+PKGVERSION2	:= 1.0
+PKGVERSION3	:= 1.0
 
 # Build metapackages for all platforms
 
@@ -48,7 +48,7 @@ allplatforms:
 	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.everything
 	equivs-build control.everything
 	rm control.everything
-	mv muntsos-dev_$(PKGVERSION)_all.deb muntsos-dev-$(PKGVERSION)-$(OSNAME)-all.deb
+	mv muntsos-dev-abe_$(PKGVERSION)_all.deb muntsos-dev-abe-$(PKGVERSION)-$(OSNAME)-all.deb
 
 # Build a metapackage for a single platform
 
@@ -59,7 +59,7 @@ oneplatform:
 	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.$(BOARDNAME)
 	equivs-build control.$(BOARDNAME)
 	rm control.$(BOARDNAME)
-	mv muntsos-dev-$(BOARDNAMELC)_$(PKGVERSION)_all.deb muntsos-dev-$(BOARDNAMELC)-$(PKGVERSION)-$(OSNAME)-all.deb
+	mv muntsos-dev-abe-$(BOARDNAMELC)_$(PKGVERSION)_all.deb muntsos-dev-abe-$(BOARDNAMELC)-$(PKGVERSION)-$(OSNAME)-all.deb
 
 # Remove working files
 

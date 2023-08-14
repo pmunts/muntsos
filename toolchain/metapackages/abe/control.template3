@@ -2,7 +2,7 @@ Section: misc
 Priority: optional
 Homepage: http://git.munts.com/muntsos
 Standards-Version: 3.9.2
-Package: muntsos-dev-@@BOARDNAME@@
+Package: muntsos-dev-abe-@@BOARDNAME@@
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
@@ -12,5 +12,7 @@ Depends:
   gcc-@@CONFIGURE_NAME@@-abe-libsimpleio
 Recommends:
   fpc-@@CONFIGURE_NAME@@-abe
+Suggests:
+  gcc-@@CONFIGURE_NAME@@-abe-libspiagent
 Architecture: all
-Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@
+Description: Arm GNU Cross-toolchain packages built with Linaro ABE, for MuntsOS on @@BOARDNAME@@ boards.
