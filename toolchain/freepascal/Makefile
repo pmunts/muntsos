@@ -54,7 +54,7 @@ endif
 
 OSNAME		?= unknown
 PKGNAME		:= fpc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(shell date +%Y.%j)-$(FPC_VERSION)
+PKGVER		:= $(FPC_VERSION)-$(shell date +%Y.%j)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
