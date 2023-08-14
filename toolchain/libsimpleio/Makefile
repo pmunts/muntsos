@@ -39,9 +39,10 @@ CC		:= $(CROSS_COMPILE)gcc
 RANLIB		:= $(CROSS_COMPILE)ranlib
 
 BUILDNUM	?= 1
+GCCVER		:= $(shell $(CROSS_COMPILE)gcc --version | awk '/muntsos/ { print $$3 }')
 OSNAME		?= unknown
 PKGNAME		:= $(INSTALLDIR)-libsimpleio
-PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+PKGVER		:= $(GCCVER)-$(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= all
 PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
