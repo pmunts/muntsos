@@ -1,6 +1,6 @@
 -- Digilent Pmod HYGRO Internet Thermometer Example Program
 
--- Copyright (C)2018-2023, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2018-2023, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -22,15 +22,15 @@
 
 WITH Ada.Calendar.Formatting;
 WITH Ada.Strings.Fixed;
-WITH ClickBoard.SimpleIO;
-WITH ClickBoard.PmodHygro.SimpleIO;
 WITH ClickBoard.SevenSegment.SimpleIO;
-WITH libLinux;
+WITH ClickBoard.SimpleIO;
 WITH HDC1080;
 WITH Humidity;
+WITH I2C.libsimpleio;
 WITH Temperature;
 WITH Watchdog.libsimpleio;
 WITH Webserver.HashTable;
+WITH libLinux;
 
 USE TYPE Humidity.Relative;
 USE TYPE Temperature.Celsius;
@@ -46,6 +46,7 @@ PROCEDURE thermometer_pmod_hygro IS
   title   : CONSTANT String := "<h1>Ada Internet of Things Thermometer</h1>" &
     newline & "<h2>Using the Digilent Pmod HYGRO Module</h2>" & newline;
   sep     : CONSTANT String := "&nbsp;&nbsp;&nbsp;";
+  bus     : I2C.Bus;
   sensor  : HDC1080.Device;
   display : ClickBoard.SevenSegment.Display;
   wd      : Watchdog.Timer;
@@ -56,7 +57,8 @@ PROCEDURE thermometer_pmod_hygro IS
   outbuf2 : String(1 .. 20);
 
 BEGIN
-  sensor  := ClickBoard.PmodHygro.SimpleIO.Create(socknum => 1);
+  bus     := I2C.libsimpleio.Create(ClickBoard.SimpleIO.Create(1).I2C);
+  sensor  := HDC1080.Create(bus);
   display := ClickBoard.SevenSegment.SimpleIO.Create(socknum => 2, pwmfreq => 0);
   display.Clear;
 
