@@ -1,4 +1,4 @@
--- Copyright (C)2017-2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -20,10 +20,11 @@
 
 WITH I2C.libsimpleio;
 WITH PCA9685;
+WITH RaspberryPi;
 
 PACKAGE ABElectronics_Servo_Pi_Zero IS
 
-  bus : CONSTANT I2C.Bus        := I2C.libsimpleio.Create("/dev/i2c-1");
+  bus : CONSTANT I2C.Bus        := I2C.libsimpleio.Create(RaspberryPi.I2C1);
   dev : CONSTANT PCA9685.Device := PCA9685.Create(bus, 16#40#);
 
 END;

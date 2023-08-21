@@ -1,6 +1,6 @@
 -- Adafruit Raspberry Pi Motor Hat services
 
--- Copyright (C)2017-2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -41,10 +41,10 @@ WITH Motor.PWM;
 WITH PCA9685.GPIO;
 WITH PCA9685.PWM;
 WITH PWM;
+WITH RaspberryPi;
 
 PACKAGE BODY Adafruit_MotorHat IS
 
-  i2cbus  : CONSTANT String := "/dev/i2c-1";
   i2caddr : CONSTANT I2C.Address := 16#60#;
 
   dev     : PCA9685.Device;
@@ -63,7 +63,7 @@ PACKAGE BODY Adafruit_MotorHat IS
   PROCEDURE Init(frequency : Positive) IS
 
   BEGIN
-    dev := PCA9685.Create(I2C.libsimpleio.Create(i2cbus), i2caddr, frequency);
+    dev := PCA9685.Create(I2C.libsimpleio.Create(RaspberryPi.I2C1), i2caddr, frequency);
   END Init;
 
   -- Motor constructor

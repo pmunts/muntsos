@@ -1,6 +1,6 @@
 -- Raspberry Pi Sense Hat parent package
 
--- Copyright (C)2016-2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2016-2023, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -21,12 +21,9 @@
 -- POSSIBILITY OF SUCH DAMAGE.
 
 WITH I2C.libsimpleio;
+WITH RaspberryPi;
 
 PACKAGE SenseHAT IS
-
-  -- I2C device node
-
-  Bus_Name                : CONSTANT String := "/dev/i2c-1";
 
   -- I2C addresses of the devices on the sense hat.
 
@@ -39,6 +36,6 @@ PACKAGE SenseHAT IS
   -- This I2C bus device will be shared among all SenseHAT child packages
   -- because everything on the Sense Hat is connected to the same I2C bus.
 
-  bus : I2C.Bus := I2C.libsimpleio.Create(Bus_Name);
+  bus : I2C.Bus := I2C.libsimpleio.Create(RaspberryPi.I2C1);
 
 END SenseHAT;

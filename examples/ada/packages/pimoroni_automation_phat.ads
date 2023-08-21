@@ -1,6 +1,6 @@
 -- Pimoroni Automation pHAT services
 
--- Copyright (C)2017-2018, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2017-2023, Philip Munts dba Munts Technologies
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -48,7 +48,7 @@ PACKAGE Pimoroni_Automation_pHAT IS
 
   -- I2C bus controller object
 
-  Bus : CONSTANT I2C.Bus := I2C.libsimpleio.Create("/dev/i2c-1");
+  Bus : CONSTANT I2C.Bus := I2C.libsimpleio.Create(RaspberryPi.I2C1);
 
   -- I2C addresses of devices on the Automation pHAT
 

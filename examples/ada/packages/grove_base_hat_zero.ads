@@ -1,6 +1,6 @@
 -- Raspberry Pi with Grove Base Hat Zero (SKU 103030276) I/O Resources
 
--- Copyright (C)2020-2021, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2020-2023, Philip Munts dba Munts Technologies
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -31,7 +31,7 @@ PACKAGE Grove_Base_Hat_Zero IS
 
   -- I2C bus controller object
 
-  Bus : CONSTANT I2C.Bus := I2C.libsimpleio.Create("/dev/i2c-1");
+  Bus : CONSTANT I2C.Bus := I2C.libsimpleio.Create(RaspberryPi.I2C1);
 
   -- Analog Inputs
 
