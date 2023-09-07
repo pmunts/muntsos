@@ -27,7 +27,7 @@ TEMP		?= /tmp
 DOWNLOADPREFIX	?= http://repo.munts.com/muntsos
 
 KERNEL_WORK	= $(MUNTSOS)/bootkernel/kernel/work
-KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)
+KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)-$(KERNEL_BRANCH)
 KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
 KERNEL_PATCH	= $(BOARDNAME).patch
 KERNEL_CONFIG	= $(BOARDNAME).config
@@ -43,8 +43,12 @@ $(KERNEL_CLONE)/.git:
 
 # Build a kernel source archive
 
+ifeq ($(PLATFORM_NAME), raspberrypi)
+KERNEL_TREEISH	?= rpi-$(KERNEL_BRANCH).y
+else
 KERNEL_TREEISH	?= $(KERNEL_BRANCH)
+endif
 
 $(KERNEL_DIST): $(KERNEL_CLONE)/.git
-	cd $(KERNEL_CLONE) ; git archive --format=tar --prefix=$(KERNEL_NAME)/ $(KERNEL_TREEISH) | bzip2 >$(KERNEL_DIST)
+	cd $(KERNEL_CLONE) ; git archive --output=$(KERNEL_DIST) --prefix=$(KERNEL_NAME)-$(KERNEL_BRANCH)/ $(KERNEL_TREEISH)
 	cd $(KERNEL_CLONE) ; git show $(KERNEL_TREEISH) | head -n 1 | awk '{ print $$2 }' >$(KERNEL_COMMIT)

@@ -24,7 +24,7 @@
 # base upon which software for the newer boards is built.  Their makefiles
 # will include this one and override macros as necessary.
 
-PLATFORM_NAME	= rpi
+PLATFORM_NAME	= raspberrypi
 
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDNAME).img
@@ -43,8 +43,8 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 KERNEL_REPO	= http://github.com/raspberrypi/linux.git
 KERNEL_NAME	= linux-$(PLATFORM_NAME)
 KERNEL_CLONE	= /usr/src/$(KERNEL_NAME)
-KERNEL_BRANCH	= rpi-5.15.y
-KERNEL_DIST	= $(TEMP)/linux-$(KERNEL_BRANCH).tar.bz2
-KERNEL_COMMIT	= $(TEMP)/linux-$(KERNEL_BRANCH).commit
+KERNEL_BRANCH	= 5.15
+KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME)-$(KERNEL_BRANCH).tgz
+KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME)-$(KERNEL_BRANCH).commit
 
 CFLAGS		+= -DRASPBERRYPI
