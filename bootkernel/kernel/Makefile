@@ -1,6 +1,6 @@
 # Makefile for an embedded Linux boot kernel
 
-# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@ MAKEJOBS	?= -j 2
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-default: build
+default: $(KERNEL_WORK)/build.done
 
 ###############################################################################
 
@@ -37,7 +37,7 @@ default: build
 $(KERNEL_WORK)/src.done: $(KERNEL_DIST)
 	rm -rf $(KERNEL_WORK)
 	mkdir -p $(KERNEL_WORK)
-	tar xjf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
+	tar xzf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
 	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) && patch -b -p0 <../../$(KERNEL_PATCH) ; fi
 	touch $@
 
@@ -53,14 +53,14 @@ $(KERNEL_WORK)/config.done: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $@
 
-config: $(KERNEL_WORK)/config.done
-
 menuconfig: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_CONFIG) $(KERNEL_SRC)/.config
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) menuconfig
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $(KERNEL_WORK)/config.done
+
+config: $(KERNEL_WORK)/config.done
 
 ###############################################################################
 
@@ -91,7 +91,7 @@ modules: $(KERNEL_WORK)/modules.done
 
 # Build initramfs
 
-$(KERNEL_WORK)/initramfs.done: $(KERNEL_WORK)/modules.done
+$(KERNEL_WORK)/initramfs.done: $(KERNEL_WORK)/dtbs.done $(KERNEL_WORK)/modules.done
 	rm -rf ../initramfs/COPYING ../initramfs/initramfs*
 	$(MAKE) -C ../initramfs
 	touch $@
@@ -102,7 +102,7 @@ initramfs: $(KERNEL_WORK)/initramfs.done
 
 # Build kernel
 
-$(KERNEL_WORK)/build.done: config dtbs modules initramfs
+$(KERNEL_WORK)/build.done: $(KERNEL_WORK)/initramfs.done
 	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) $(KERNEL_TARGETS)
 	cp $(KERNEL_SRC)/arch/$(ARCH)/boot/$(KERNEL_IMGSRC) $(KERNEL_WORK)/$(KERNEL_IMG)
 	chmod 644 $(KERNEL_WORK)/$(KERNEL_IMG)
@@ -145,4 +145,4 @@ reallyclean: clean
 
 distclean: reallyclean
 	$(MAKE) -C ../initramfs distclean
-	rm -f  $(KERNEL_DIST)
+	rm -f $(KERNEL_COMMIT) $(KERNEL_DIST)
