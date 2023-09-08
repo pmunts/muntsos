@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-.PHONY: default src config menuconfig dtbs modules initramfs build allconfig clean reallyclean distclean
+.PHONY: default src oldconfig defconfig menuconfig dtbs modules initramfs build allconfig clean reallyclean distclean
 
 BOARDNAME	?= UNDEFINED
 MUNTSOS		?= $(shell pwd)/../..
@@ -53,6 +53,8 @@ $(KERNEL_WORK)/config.done: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $@
 
+oldconfig: $(KERNEL_WORK)/config.done
+
 defconfig: $(KERNEL_WORK)/src.done
 ifeq ($(BOARDBASE), BeagleBone)
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) omap2plus_defconfig
@@ -67,7 +69,7 @@ ifeq ($(BOARDBASE), RaspberryPi3)
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel8 bcm2711_defconfig
 endif
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
-	touch $@
+	touch $(KERNEL_WORK)/config.done
 
 menuconfig: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_CONFIG) $(KERNEL_SRC)/.config
@@ -75,8 +77,6 @@ menuconfig: $(KERNEL_WORK)/src.done
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $(KERNEL_WORK)/config.done
-
-config: $(KERNEL_WORK)/config.done
 
 ###############################################################################
 
