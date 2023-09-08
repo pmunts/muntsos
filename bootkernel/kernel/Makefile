@@ -59,6 +59,9 @@ defconfig: $(KERNEL_WORK)/src.done
 ifeq ($(BOARDBASE), BeagleBone)
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) omap2plus_defconfig
 endif
+ifeq ($(BOARDBASE), LePotato)
+	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) defconfig
+endif
 ifeq ($(BOARDBASE), RaspberryPi1)
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel  bcmrpi_defconfig
 endif
