@@ -27,7 +27,7 @@ TEMP		?= /tmp
 DOWNLOADPREFIX	?= http://repo.munts.com/muntsos
 
 KERNEL_WORK	= $(MUNTSOS)/bootkernel/kernel/work
-KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)-$(KERNEL_BRANCH)
+KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)
 KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
 KERNEL_PATCH	= $(BOARDNAME).patch
 KERNEL_CONFIG	= $(BOARDNAME).config
@@ -35,11 +35,6 @@ KERNEL_CONFIG	= $(BOARDNAME).config
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 common_mk_default: default
-
-# Clone the kernel source repository
-
-$(KERNEL_CLONE)/.git:
-	git clone $(KERNEL_REPO) $(KERNEL_CLONE)
 
 # Build a kernel source archive
 
@@ -49,6 +44,9 @@ else
 KERNEL_TREEISH	?= $(KERNEL_BRANCH)
 endif
 
-$(KERNEL_DIST): $(KERNEL_CLONE)/.git
-	cd $(KERNEL_CLONE) ; git archive --output=$(KERNEL_DIST) --prefix=$(KERNEL_NAME)-$(KERNEL_BRANCH)/ $(KERNEL_TREEISH)
+$(KERNEL_DIST):
+	if [ ! -d $(KERNEL_CLONE) ]; then git clone --depth 1 $(KERNEL_REPO) -b $(KERNEL_TREEISH) $(KERNEL_CLONE) ; fi
+	cd $(KERNEL_CLONE) ; git archive --output=$(KERNEL_DIST) --prefix=$(KERNEL_NAME)/ $(KERNEL_TREEISH)
 	cd $(KERNEL_CLONE) ; git show $(KERNEL_TREEISH) | head -n 1 | awk '{ print $$2 }' >$(KERNEL_COMMIT)
+	if [ "$(shell dirname $(KERNEL_CLONE))" = "$(TEMP)" ]; then rm -rf $(KERNEL_CLONE) ; fi
+	touch $@

@@ -47,11 +47,11 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 # Definitions for the Beagleboard kernel repository
 
 KERNEL_REPO     = https://github.com/beagleboard/linux.git
-KERNEL_NAME	= linux-$(PLATFORM_NAME)
-KERNEL_CLONE	= /usr/src/$(KERNEL_NAME)
 KERNEL_BRANCH	= 5.4
-KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME)-$(KERNEL_BRANCH).tgz
-KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME)-$(KERNEL_BRANCH).commit
+KERNEL_NAME	= linux-$(PLATFORM_NAME)-$(KERNEL_BRANCH)
+KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
+KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tgz
+KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME).commit
 
 CFLAGS		+= -DBEAGLEBONE
 

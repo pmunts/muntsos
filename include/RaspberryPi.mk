@@ -40,11 +40,11 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 # Definitions for the Raspberry Pi kernel repository
 
-KERNEL_REPO	= http://github.com/raspberrypi/linux.git
-KERNEL_NAME	= linux-$(PLATFORM_NAME)
-KERNEL_CLONE	= /usr/src/$(KERNEL_NAME)
+KERNEL_REPO	= https://github.com/raspberrypi/linux.git
 KERNEL_BRANCH	= 5.15
-KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME)-$(KERNEL_BRANCH).tgz
-KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME)-$(KERNEL_BRANCH).commit
+KERNEL_NAME	= linux-$(PLATFORM_NAME)-$(KERNEL_BRANCH)
+KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
+KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tgz
+KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME).commit
 
 CFLAGS		+= -DRASPBERRYPI
