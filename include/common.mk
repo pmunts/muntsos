@@ -38,12 +38,6 @@ common_mk_default: default
 
 # Build a kernel source archive
 
-ifeq ($(PLATFORM_NAME), raspberrypi)
-KERNEL_TREEISH	?= rpi-$(KERNEL_BRANCH).y
-else
-KERNEL_TREEISH	?= $(KERNEL_BRANCH)
-endif
-
 $(KERNEL_DIST):
 	if [ ! -d $(KERNEL_CLONE) ]; then git clone --depth 1 $(KERNEL_REPO) -b $(KERNEL_TREEISH) $(KERNEL_CLONE) ; fi
 	cd $(KERNEL_CLONE) ; git archive --output=$(KERNEL_DIST) --prefix=$(KERNEL_NAME)/ $(KERNEL_TREEISH)
