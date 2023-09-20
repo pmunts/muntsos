@@ -24,7 +24,7 @@
 
 TEMP		?= /tmp
 
-DOWNLOADPREFIX	?= http://repo.munts.com/muntsos
+DOWNLOADPREFIX	?= http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)
 
 KERNEL_WORK	= $(MUNTSOS)/bootkernel/kernel/work
 KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)
