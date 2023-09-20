@@ -2,7 +2,7 @@
 
 # MuntsOS System Configurator
 
-# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -414,7 +414,7 @@ function Extensions {
   GetYesNo "Manage extensions"
   if [ $? -ne 0 ]; then return; fi
 
-  EXTENSIONSDIR=${EXTENSIONSDIR:-http://repo.munts.com/muntsos/extensions/${TOOLCHAINREVISION}}
+  EXTENSIONSDIR=${EXTENSIONSDIR:-http://repo.munts.com/muntsos/${TOOLCHAINREVISION}/extensions}
 
   wget -q -O /tmp/extensions.manifest ${EXTENSIONSDIR}/.extensions.manifest2.$BOARDBASE
   if [ $? -ne 0 ]; then
