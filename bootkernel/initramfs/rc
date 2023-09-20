@@ -85,6 +85,7 @@ echo "KERNELBRANCH=@@KERNELBRANCH@@"	>>/etc/platform
 echo "KERNELCOMMIT=@@KERNELCOMMIT@@"	>>/etc/platform
 echo "OPTIONS=${OPTIONS}"		>>/etc/platform
 echo "SERIALNUMBER=`serialnumber`"	>>/etc/platform
+echo "TOOLCHAINREVISION=@@TCREV@@"	>>/etc/platform
 
 if [ -n "${SHIELDNAME}" ]; then
   echo "SHIELDNAME=${SHIELDNAME}"  >>/etc/platform
