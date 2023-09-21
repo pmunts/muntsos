@@ -71,11 +71,9 @@ use the new Linaro ABE cross-toolchains installed by the new
 <p>Instructions for installing the MuntsOS cross-toolchain development
 environment onto a <b>host computer</b> are found in <a href=
 "http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf">Application Note
-#1</a>, <a href=
-"http://git.munts.com/muntsos/doc/AppNote2-Setup-Tarballs.pdf">Application Note
-#2</a>, and <a href=
-"http://git.munts.com/muntsos/doc/AppNote8-Setup-RPM.pdf">Application Note
-#8</a>. Or just download and run one of the following quick setup scripts:</p>
+#1</a> and <a href=
+"http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf">Application Note
+#2</a>,. Or just download and run one of the following quick setup scripts:</p>
 <p><a href=
 "http://git.munts.com/muntsos/scripts/setup-debian">setup-debian</a><br>
 <a href=
@@ -437,14 +435,13 @@ Gadget selected by default.</p>
 Raspberry Pi Zero, Zero W, or Zero 2, a micro-USB cable, and a micro-SD card
 with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers installed.</p>
 <h2>Cross-Toolchains</h2>
-<p>I build a custom Ada/C/C++/Fortran/Go cross-toolchain (using <a href=
-"https://crosstool-ng.github.io">Crosstool-NG</a>) for each MuntsOS platform
-family. Each cross-toolchain requires a number of additional software component
-libraries, which are packaged and distributed separately but installed into the
-same directory tree as the parent cross-toolchain.</p>
+<p>I build a custom Ada/C/C++/Fortran/Go cross-toolchain for each MuntsOS
+platform family. Each cross-toolchain requires a number of additional software
+component libraries, which are packaged and distributed separately but
+installed into the same directory tree as the parent cross-toolchain.</p>
 <p>I also build <a href="https://www.freepascal.org">Free Pascal</a>
 cross-compilers. These rely on the libraries in the Ada/C/C++/Fortran/Go
-cross-toolchain, which must be installed first.</p>
+cross-toolchain package, which must be installed first.</p>
 <p>Sometimes cross-toolchains can be shared among different platforms: For
 example, the Raspberry Pi 2 and Raspberry Pi 3 can use the same
 cross-toolchains (the 32-bit ARMv7 cross-toolchains nominally built for the
@@ -455,12 +452,9 @@ the Raspberry Pi 3).</p>
 "https://www.debian.org">Debian</a> Linux are available at:</p>
 <a href="http://repo.munts.com/debian11">http://repo.munts.com/debian11</a>
 <p>RPM packages containing the exact same binaries and known to work on Fedora
-37 are available at:</p>
+37 and RHEL 9.1 and its derivatives are available at:</p>
 <a href=
 "http://repo.munts.com/muntsos/rpms">http://repo.munts.com/muntsos/rpms</a>
-<p>Tarballs containing the exact same binaries are available at:</p>
-<a href=
-"http://repo.munts.com/muntsos/tarballs">http://repo.munts.com/muntsos/tarballs</a>
 <h2>Git Repository</h2>
 <p>The source code for MuntsOS is available at:</p>
 <p><a href=

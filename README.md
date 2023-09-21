@@ -71,11 +71,9 @@ Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
 environment onto a **host computer** are found in [Application Note
-\#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf),
+\#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
 [Application Note
-\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-Tarballs.pdf), and
-[Application Note
-\#8](http://git.munts.com/muntsos/doc/AppNote8-Setup-RPM.pdf). Or just
+\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf),. Or just
 download and run one of the following quick setup scripts:
 
 [setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
@@ -491,16 +489,15 @@ installed.
 Cross-Toolchains
 ----------------
 
-I build a custom Ada/C/C++/Fortran/Go cross-toolchain (using
-[Crosstool-NG](https://crosstool-ng.github.io)) for each MuntsOS
+I build a custom Ada/C/C++/Fortran/Go cross-toolchain for each MuntsOS
 platform family. Each cross-toolchain requires a number of additional
 software component libraries, which are packaged and distributed
 separately but installed into the same directory tree as the parent
 cross-toolchain.
 
 I also build [Free Pascal](https://www.freepascal.org) cross-compilers.
-These rely on the libraries in the Ada/C/C++/Fortran/Go cross-toolchain,
-which must be installed first.
+These rely on the libraries in the Ada/C/C++/Fortran/Go cross-toolchain
+package, which must be installed first.
 
 Sometimes cross-toolchains can be shared among different platforms: For
 example, the Raspberry Pi 2 and Raspberry Pi 3 can use the same
@@ -515,13 +512,9 @@ Linux are available at:
 <http://repo.munts.com/debian11>
 
 RPM packages containing the exact same binaries and known to work on
-Fedora 37 are available at:
+Fedora 37 and RHEL 9.1 and its derivatives are available at:
 
 <http://repo.munts.com/muntsos/rpms>
-
-Tarballs containing the exact same binaries are available at:
-
-<http://repo.munts.com/muntsos/tarballs>
 
 Git Repository
 --------------
