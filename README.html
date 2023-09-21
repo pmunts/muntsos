@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+<title></title>
+</head>
+<body>
 <h1>MuntsOS Embedded Linux</h1>
 <p>This framework supports Linux on several single board microcomputers. The
 goal of the MuntsOS project is to deliver a turnkey, RAM resident Linux
@@ -35,6 +42,30 @@ derivatives CentOS Stream 9, AlmaLinux 9.1, and Rocky Linux 9.1. Available at:
 "http://repo.munts.com/muntsos/rpms">http://repo.munts.com/muntsos/rpms</a> and
 <a href=
 "http://repo.munts.com/muntsos/tarballs">http://repo.munts.com/muntsos/tarballs</a>.</li>
+<li>20 September 2023 -- After a long (years) hiatus, I have successfully built
+MuntsOS cross-toolchains for Debian 12 using <a href=
+"https://wiki-archive.linaro.org/ABE">Linaro ABE</a> (Advanced Build
+Environment) using manifests derived from the latest <a href=
+"https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">Arm GNU
+Toolchain</a> release, Version 12.3.Rel1 July 28, 2023. These GCC 12.3.1
+toolchains are significantly fresher that what can currently be built using
+<a href="https://crosstool-ng.github.io">Crosstool-NG</a>.<br>
+Unfortunately, the Linaro ABE cross-toolchains cannot be built on Debian 11.
+Kernels, extensions, and thin servers all depend on the cross-toolchain because
+of differing shared library versions, so continuing to support Debian 11
+presents a conundrum.<br>
+I have decided to split the MuntsOS distribution repository, moving stuff built
+with Crosstool-NG on Debian11 to <a href=
+"http://repo.munts.com/muntsos/7">http://repo.munts.com/muntsos/7</a> and stuff
+built with Linaro ABE on Debian 12 to <a href=
+"http://repo.munts.com/muntsos/8">http://repo.munts.com/muntsos/8</a>. I have
+modified <b><tt>sysconfig</tt></b> to automagically fetch extensions from the
+proper directory.<br>
+On Debian 11, you must continue to use the Crosstool-NG cross-toolchains
+installed by the <b><tt>muntsos-dev</tt></b> meta-package. On Debian 12, you
+can continue to use the Crosstool-NG cross-toolchains <b><i>or</i></b> you can
+use the new Linaro ABE cross-toolchains installed by the new
+<b><tt>muntsos-dev-abe</tt></b> meta-package.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -456,3 +487,5 @@ Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
 <p>I am available for custom system development (hardware and software) of
 products based on embedded Linux microcomputers or other processors.</p>
+</body>
+</html>

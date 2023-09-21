@@ -42,6 +42,30 @@ News
     <http://repo.munts.com/muntsos/rpms> and
     <http://repo.munts.com/muntsos/tarballs>.
 
+-   20 September 2023 -- After a long (years) hiatus, I have
+    successfully built MuntsOS cross-toolchains for Debian 12 using
+    [Linaro ABE](https://wiki-archive.linaro.org/ABE) (Advanced Build
+    Environment) using manifests derived from the latest [Arm GNU
+    Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+    release, Version 12.3.Rel1 July 28, 2023. These GCC 12.3.1
+    toolchains are significantly fresher that what can currently be
+    built using [Crosstool-NG](https://crosstool-ng.github.io).  
+    Unfortunately, the Linaro ABE cross-toolchains cannot be built on
+    Debian 11. Kernels, extensions, and thin servers all depend on the
+    cross-toolchain because of differing shared library versions, so
+    continuing to support Debian 11 presents a conundrum.  
+    I have decided to split the MuntsOS distribution repository, moving
+    stuff built with Crosstool-NG on Debian11 to
+    <http://repo.munts.com/muntsos/7> and stuff built with Linaro ABE on
+    Debian 12 to <http://repo.munts.com/muntsos/8>. I have modified
+    **`sysconfig`** to automagically fetch extensions from the proper
+    directory.  
+    On Debian 11, you must continue to use the Crosstool-NG
+    cross-toolchains installed by the **`muntsos-dev`** meta-package. On
+    Debian 12, you can continue to use the Crosstool-NG cross-toolchains
+    ***or*** you can use the new Linaro ABE cross-toolchains installed
+    by the new **`muntsos-dev-abe`** meta-package.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
