@@ -672,7 +672,8 @@ endif
 	sed -i 's/@@KERNELBRANCH@@/$(KERNEL_BRANCH)/g'		$@/etc/rc
 	sed -i 's/@@KERNELCOMMIT@@/$(shell cat $(KERNEL_COMMIT))/g' $@/etc/rc
 	sed -i 's/@@REVISION@@/$(REVISION)/g'			$@/etc/rc
-	sed -i 's/@@TCREV@@/$(TOOLCHAIN_REV)/g'			$@/etc/rc
+	sed -i 's/@@TOOLCHAINBUILDER@@/$(TOOLCHAIN_BUILDER)/g'	$@/etc/rc
+	sed -i 's/@@TOOLCHAINREVISION@@/$(TOOLCHAIN_REV)/g'	$@/etc/rc
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	sed -i '/mount -a/a if [ -f /sys/class/leds/led1/brightness ]; then echo 255 >/sys/class/leds/led1/brightness ; fi' $@/etc/rc
 	sed -i '/mount -a/G'					$@/etc/rc
