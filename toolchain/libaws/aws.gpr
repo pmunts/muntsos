@@ -29,6 +29,6 @@ LIBRARY PROJECT AWS IS
   FOR Source_Dirs      USE ("LIBDIR/aws.src");
 
   PACKAGE Linker IS
-    FOR Linker_Options USE ("-lcrypto", "-lssl", "-lz");
+    FOR Linker_Options USE ("-lssl", "-lcrypto", "-lz");
   END Linker;
 END AWS;
