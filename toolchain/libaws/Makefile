@@ -52,7 +52,7 @@ default: package.deb
 libaws.a:
 	rm -rf obj
 	mkdir -p obj
-ifeq ($(BOARDNAME), RaspberryPi1)
+ifeq ($(GCCVER), 8.3.0)
 	cd src && ln -s aws-net-std.adb-8.3.0 aws-net-std.adb
 else
 	cd src && ln -s aws-net-std.adb-10.3.0 aws-net-std.adb
