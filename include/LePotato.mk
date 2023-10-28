@@ -1,6 +1,6 @@
-# Global make definitions for the BeagleBone ARM Linux microcomputer
+# Global make definitions for the Le Potato ARM Linux microcomputer
 
-# Copyright (C)2013-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -39,7 +39,7 @@ BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
-# Definitions for the Beagleboard kernel repository
+# Definitions for the Le Potato kernel repository
 
 KERNEL_REPO     = https://github.com/libre-computer-project/libretech-linux.git
 KERNEL_BRANCH	= 6.1
