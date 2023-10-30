@@ -140,6 +140,11 @@ if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
 fi
 
+grep -q -i "Raspberry Pi Compute Module 4" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+fi
+
 # Fix top level GPIO subsystem permissions
 
 chown root:gpio /sys/class/gpio
