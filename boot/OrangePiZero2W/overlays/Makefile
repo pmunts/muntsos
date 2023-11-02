@@ -38,15 +38,16 @@ overlays.done:
 # Release compiled overlays
 
 release: overlays.done
-	cd .. ; md5sum -b overlays/*.dtbo | sort -k 2 >overlays.md5
-	cd .. ; tar czf overlays.tgz overlays.md5 overlays/*.dtbo --owner=nobody --group=nobody --mode=ugo-w
+	mkdir -p overlays/allwinner
+	cp *.dtbo overlays/allwinner
+	find overlays -type f -exec md5sum -b {} ";" >overlays.md5
+	tar czf ../overlays.tgz overlays.md5 overlays --owner=nobody --group=nobody --mode=ugo-w
 
 # Remove working files
 
 clean:
-	rm -f overlays.done *.dtbo ../overlays.md5
+	rm -rf *.done *.dtbo *.md5 overlays
 
 reallyclean: clean
-	rm -f dtc.done
 
 distclean: reallyclean
