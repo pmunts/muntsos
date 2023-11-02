@@ -49,17 +49,17 @@ News
     Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
     release, Version 12.3.Rel1 July 28, 2023. These GCC 12.3.1
     toolchains are significantly fresher that what can currently be
-    built using [Crosstool-NG](https://crosstool-ng.github.io).  
+    built using [Crosstool-NG](https://crosstool-ng.github.io).
     Unfortunately, the Linaro ABE cross-toolchains cannot be built on
     Debian 11. Kernels, extensions, and thin servers all depend on the
     cross-toolchain because of differing shared library versions, so
-    continuing to support Debian 11 presents a conundrum.  
+    continuing to support Debian 11 presents a conundrum.
     I have decided to split the MuntsOS distribution repository, moving
     stuff built with Crosstool-NG on Debian11 to
     <http://repo.munts.com/muntsos/7> and stuff built with Linaro ABE on
     Debian 12 to <http://repo.munts.com/muntsos/8>. I have modified
     **`sysconfig`** to automagically fetch extensions from the proper
-    directory.  
+    directory.
     On Debian 11, you must continue to use the Crosstool-NG
     cross-toolchains installed by the **`muntsos-dev`** meta-package. On
     Debian 12, you can continue to use the Crosstool-NG cross-toolchains
@@ -76,8 +76,8 @@ environment onto a **host computer** are found in [Application Note
 \#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf),. Or just
 download and run one of the following quick setup scripts:
 
-[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
-[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
+[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)
+[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)
 [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel)
 
 Instructions for installing MuntsOS to a **target computer** are found
