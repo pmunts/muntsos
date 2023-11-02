@@ -17,6 +17,7 @@
 	};
 
 	// Enable PWM1 on GPIO267 aka Raspberry Pi GPIO12
+	// and    PWM2 on GPIO268 aka Raspberry Pi GPIO13
 
 	fragment@1 {
 		target = <&pwm>;
@@ -33,9 +34,17 @@
 		};
 	};	
 
+	fragment@3 {
+		target = <&pwm2>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&pwm2_pi_pin>;
+		};
+	};	
+
 	// Enable MCP3204 on GPIO233 aka Raspberry Pi GPIO7
 
-	fragment@3 {
+	fragment@4 {
 		target = <&spi1>;
 		__overlay__ {
 			#address-cells = <1>;
