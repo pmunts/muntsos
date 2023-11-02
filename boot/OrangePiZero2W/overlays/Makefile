@@ -21,32 +21,34 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 DTC	?= dtc
+DESTDIR	?= dtb/allwinner/overlay
+PREFIX	?= sun50i-h616
 
-default: overlays.done
+default: compile.done
 
-# Define a pattern rule for compiling device tree overlays
+# Define a pattern rule for compiling a device tree overlay
 
 %.dtbo: %.dts
 	$(DTC) -@ -b 0 -I dts -O dtb -o $@ $^
 
 # Compile device tree overlays
 
-overlays.done:
+compile.done:
 	for F in *.dts ; do $(MAKE) `basename $$F .dts`.dtbo ; done
 	touch $@
 
 # Release compiled overlays
 
-release: overlays.done
-	mkdir -p overlays/allwinner
-	cp *.dtbo overlays/allwinner
-	find overlays -type f -exec md5sum -b {} ";" >overlays.md5
-	tar czf ../overlays.tgz overlays.md5 overlays --owner=nobody --group=nobody --mode=ugo-w
+release: compile.done
+	mkdir -p $(DESTDIR)
+	for F in *.dtbo ; do cp $$F $(DESTDIR)/$(PREFIX)-$$F ; done
+	md5sum -b $(DESTDIR)/* >overlays.md5
+	tar czf ../overlays.tgz overlays.md5 $(DESTDIR)/* --owner=nobody --group=nobody --mode=ugo-w
 
 # Remove working files
 
 clean:
-	rm -rf *.done *.dtbo *.md5 overlays
+	rm -rf *.done *.dtbo *.md5 dtb
 
 reallyclean: clean
 
