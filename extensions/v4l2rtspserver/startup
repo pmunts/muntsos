@@ -30,7 +30,7 @@
 
 for port in $PORTLIST ; do
   for proto in tcp ; do
-    iptables -A INPUT -p $proto --dport $port -j ACCEPT
+    iptables -w -A INPUT -p $proto --dport $port -j ACCEPT
   done
 done
 

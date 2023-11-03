@@ -2,7 +2,7 @@
 
 # /etc/rc for an embedded Linux system
 
-# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -308,30 +308,30 @@ ifconfig lo 127.0.0.1 netmask 255.255.255.0
 
 # Block everything coming in
 
-iptables -P INPUT DROP
-iptables -P FORWARD DROP
+iptables -w -P INPUT DROP
+iptables -w -P FORWARD DROP
 
 # Allow everything going out
 
-iptables -P OUTPUT ACCEPT
+iptables -w -P OUTPUT ACCEPT
 
 # Allow unrestricted access to localhost
 
-iptables -I INPUT -i lo -j ACCEPT
+iptables -w -I INPUT -i lo -j ACCEPT
 
 # Allow ping
 
-iptables -A INPUT -p icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
+iptables -w -A INPUT -p icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
 
 # Allow mdns
 
 if [ $((OPTIONS & 0x200)) -ne 0 ]; then
-  iptables -A INPUT -p udp -m pkttype --pkt-type multicast -d 224.0.0.251 --dport 5353 -j ACCEPT
+  iptables -w -A INPUT -p udp -m pkttype --pkt-type multicast -d 224.0.0.251 --dport 5353 -j ACCEPT
 fi
 
 # Allow established or related
 
-iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -w -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
 # Configure network interfaces via hotplug script
 
@@ -346,22 +346,22 @@ fi
 # Start ONC/RPC endpoint mapper
 
 if [ $((OPTIONS & 0x10)) -ne 0 ]; then
-  iptables -A INPUT -p tcp -m conntrack --ctstate NEW --dport 111 -j ACCEPT
-  iptables -A INPUT -p udp -m conntrack --ctstate NEW --dport 111 -j ACCEPT
+  iptables -w -A INPUT -p tcp -m conntrack --ctstate NEW --dport 111 -j ACCEPT
+  iptables -w -A INPUT -p udp -m conntrack --ctstate NEW --dport 111 -j ACCEPT
   rpcbind
 fi
 
 # Start SSH server
 
 if [ $((OPTIONS & 0x20)) -ne 0 -a -d /etc/ssh ]; then
-  iptables -A INPUT -p tcp -m conntrack --ctstate NEW --dport 22 -j ACCEPT
+  iptables -w -A INPUT -p tcp -m conntrack --ctstate NEW --dport 22 -j ACCEPT
   /usr/sbin/sshd
 fi
 
 # Start web server
 
 if [ $((OPTIONS & 0x40)) -ne 0 -a -f /etc/httpd.conf -a -d /www ]; then
-  iptables -A INPUT -p tcp -m conntrack --ctstate NEW --dport 80 -j ACCEPT
+  iptables -w -A INPUT -p tcp -m conntrack --ctstate NEW --dport 80 -j ACCEPT
   httpd -c /etc/httpd.conf -u 65534:65534 -h /www
 fi
 

@@ -35,9 +35,9 @@ for IFACE in wlan0 wlan1 wlan2 wlan3 wlan4 wlan5 wlan6 wlan7 wlan8 wlan9 ; do
 
     if [ -f /usr/local/etc/udhcpd-${IFACE}.conf ]; then
 
-# Add iptables rule for the DHCP server
+# Add iptables -w rule for the DHCP server
 
-      iptables -A INPUT -i ${IFACE} -p  udp -m conntrack --ctstate NEW --dport 67 -j ACCEPT
+      iptables -w -A INPUT -i ${IFACE} -p  udp -m conntrack --ctstate NEW --dport 67 -j ACCEPT
 
 # Wait until the wireless network interface has been configured
 

@@ -24,7 +24,7 @@
 
 # Add a firewall rule for SNMP
 
-iptables -A INPUT -p udp -m conntrack --ctstate NEW --dport 161 -j ACCEPT
+iptables -w -A INPUT -p udp -m conntrack --ctstate NEW --dport 161 -j ACCEPT
 
 # Start the SNMP daemon
 
