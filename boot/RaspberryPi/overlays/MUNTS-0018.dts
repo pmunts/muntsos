@@ -29,12 +29,6 @@
 		};
 	};
 
-	__overrides__ {
-		pin   = <&pwm_pins>,"brcm,pins:0";
-		func  = <&pwm_pins>,"brcm,function:0";
-		clock = <&frag1>,"assigned-clock-rates:0";
-	};
-
 	// Enable MCP3204 on GPIO7
 
 	fragment@2 {
