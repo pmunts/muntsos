@@ -1,6 +1,6 @@
 -- Toggle a GPIO output
 
--- Copyright (C)2017-2020, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -36,11 +36,12 @@ WITH I2C.RemoteIO;
 WITH MCP2221.GPIO;
 WITH MCP2221.I2C;
 WITH MCP2221.libsimpleio;
-WITH MCP23017.GPIO;
+WITH MCP23x17.GPIO;
 WITH Message64;
 WITH Message64.UDP;
 WITH PCA8574.GPIO;
 WITH PCA9534.GPIO;
+WITH RaspberryPi;
 WITH RemoteIO.Client;
 
 USE ALL TYPE Ada.Strings.Unbounded.Unbounded_String;
@@ -81,41 +82,46 @@ PROCEDURE test_gpio_toggle IS
     RETURN GPIO.RemoteIO.Create(remdev, number, GPIO.Output);
   END Create_remoteio_UDP;
 
-  FUNCTION Create_MCP23017_Expand2Click(number : Integer) RETURN GPIO.Pin IS
+  FUNCTION Create_MCP23x17_Expand2Click(number : Integer) RETURN GPIO.Pin IS
 
-    device : MCP23017.Device := ClickBoard.Expand2.SimpleIO.Create(1);
-
-  BEGIN
-    RETURN MCP23017.GPIO.Create(device, MCP23017.GPIO.PinNumber(number),
-      GPIO.Output);
-  END Create_MCP23017_Expand2Click;
-
-  FUNCTION Create_MCP23017_MCP2221(number : Integer) RETURN GPIO.Pin IS
-
-    bus    : I2C.Bus := MCP2221.I2C.Create(MCP2221.libsimpleio.Create);
-    device : MCP23017.Device := MCP23017.Create(bus, 16#20#);
+    dev : MCP23x17.Device := ClickBoard.Expand2.SimpleIO.Create(1);
 
   BEGIN
-    RETURN MCP23017.GPIO.Create(device, MCP23017.GPIO.PinNumber(number),
-      GPIO.Output);
-  END Create_MCP23017_MCP2221;
+    RETURN MCP23x17.GPIO.Create(dev, MCP23x17.GPIO.PinNumber(number), GPIO.Output);
+  END Create_MCP23x17_Expand2Click;
 
-  FUNCTION Create_MCP23017_Remote(number : Integer) RETURN GPIO.Pin IS
+  FUNCTION Create_MCP23x17_MCP2221(number : Integer) RETURN GPIO.Pin IS
+
+    rstdesg : Device.Designator;
+    rstpin  : GPIO.Pin;
+    bus     : I2C.Bus;
+    dev     : MCP23x17.Device;
+
+  BEGIN
+    rstdesg := Device.GetDesignator("Reset GPIO pin: ");
+    rstpin  := GPIO.libsimpleio.Create(rstdesg, GPIO.Output);
+    bus     := MCP2221.I2C.Create(MCP2221.libsimpleio.Create);
+    dev     := MCP23x17.Create(rstpin, bus, 16#20#);
+
+    RETURN MCP23x17.GPIO.Create(dev, MCP23x17.GPIO.PinNumber(number), GPIO.Output);
+  END Create_MCP23x17_MCP2221;
+
+  FUNCTION Create_MCP23x17_Remote(number : Integer) RETURN GPIO.Pin IS
 
     remdev : RemoteIO.Client.Device :=
       RemoteIO.Client.Create(HID.libsimpleio.Create(HID.Munts.VID,
       HID.Munts.PID));
-    bus    : I2C.Bus := I2C.RemoteIO.Create(remdev, 0, I2C.SpeedFast);
-    device : MCP23017.Device := MCP23017.Create(bus, 16#20#);
+    bus    : I2C.Bus         := I2C.RemoteIO.Create(remdev, 0, I2C.SpeedFast);
+    device : MCP23x17.Device := MCP23x17.Create(bus, 16#20#);
 
   BEGIN
-    RETURN MCP23017.GPIO.Create(device, MCP23017.GPIO.PinNumber(number),
+    RETURN MCP23x17.GPIO.Create(device, MCP23x17.GPIO.PinNumber(number),
       GPIO.Output);
-  END Create_MCP23017_Remote;
+  END Create_MCP23x17_Remote;
 
   FUNCTION Create_PCA8574_Local(number : Integer) RETURN GPIO.Pin IS
 
-    bus    : I2C.Bus := I2C.libsimpleio.Create("/dev/i2c-1");
+    bus    : I2C.Bus := I2C.libsimpleio.Create(RaspberryPi.I2C1);
     device : PCA8574.Device := PCA8574.Create(bus, 16#38#);
 
   BEGIN
@@ -148,7 +154,7 @@ PROCEDURE test_gpio_toggle IS
 
   FUNCTION Create_PCA9534_Local(number : Integer) RETURN GPIO.Pin IS
 
-    bus    : I2C.Bus := I2C.libsimpleio.Create("/dev/i2c-1");
+    bus    : I2C.Bus := I2C.libsimpleio.Create(RaspberryPi.I2C1);
     device : PCA9534.Device := PCA9534.Create(bus, 16#27#);
 
   BEGIN
@@ -201,14 +207,14 @@ PROCEDURE test_gpio_toggle IS
      (Create_remoteio_UDP'Access,
       To_Unbounded_String("Remote I/O UDP")),
 
-     (Create_MCP23017_Expand2Click'Access,
-      To_Unbounded_String("MCP23017 (Expand2 Click in socket 1)")),
+     (Create_MCP23x17_Expand2Click'Access,
+      To_Unbounded_String("MCP23x17 (Expand2 Click in socket 1)")),
 
-     (Create_MCP23017_MCP2221'Access,
-      To_Unbounded_String("MCP23017 (via MCP2221)")),
+     (Create_MCP23x17_MCP2221'Access,
+      To_Unbounded_String("MCP23x17 (via MCP2221)")),
 
-     (Create_MCP23017_Remote'Access,
-      To_Unbounded_String("MCP23017 (via Remote I/O)")),
+     (Create_MCP23x17_Remote'Access,
+      To_Unbounded_String("MCP23x17 (via Remote I/O)")),
 
      (Create_PCA8574_Local'Access,
       To_Unbounded_String("PCA8574")),
