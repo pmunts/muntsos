@@ -68,6 +68,9 @@ endif
 ifeq ($(BOARDBASE), RaspberryPi3)
 	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel8 bcm2711_defconfig
 endif
+ifeq ($(BOARDBASE), RaspberryPi4)
+	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel8 bcm2711_defconfig
+endif
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $(KERNEL_WORK)/config.done
 
