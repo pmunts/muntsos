@@ -21,22 +21,34 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-TOOLCHAIN_BUILDER := arm-gnu
+MUNTSOS    ?= ../..
 
-BOARDNAME	?= RaspberryPi3
-MUNTSOS		?= ../..
-BUILDNUM	?= 1
-OSNAME		?= unknown
+TOOLCHAIN_BUILDER := arm-gnu
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-default: package.deb
+ABEURL		= http://git.linaro.org/git/toolchain/abe.git
+DISTFILES	= $(shell pwd)/distfiles
+DESTFILES	= cross/builds/destdir/x86_64-pc-linux-gnu
+MANIFEST	= $(BOARDNAME).manifest
+
+TOOLCHAIN_VERS	= $(shell $(DESTFILES)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/muntsos/ { print $$0 }')
+TOOLCHAIN_VERN	= $(shell $(DESTFILES)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/muntsos/ { print $$3 }')
+
+BUILDNUM	?= 1
+OSNAME		?= unknown
+PKGNAME		= gcc-$(TOOLCHAIN_NAME)
+PKGVER		= $(TOOLCHAIN_VERN)-$(shell date +%Y.%j).$(BUILDNUM)
+PKGARCH		= $(shell dpkg --print-architecture)
+PKGSUFFIX	= $(PKGVER)-$(OSNAME)-$(PKGARCH)
+PKGDIR		= $(PKGNAME)-$(PKGSUFFIX)
+PKGFILE		= $(PKGNAME)-$(PKGSUFFIX).deb
+
+default: cross.done
 
 ################################################################################
 
 # Clone ABE
-
-abe.done: ABEURL := http://git.linaro.org/git/toolchain/abe.git
 
 abe.done:
 	git clone $(ABEURL)
@@ -44,38 +56,19 @@ abe.done:
 
 ################################################################################
 
-# Build cross-toolchain using ABE
-
-cross.done: DISTFILES := $(shell pwd)/distfiles
+# Build cross-toolchain
 
 cross.done: abe.done
 	test -x /usr/local/bin/git-new-workdir
 	test ! -d cross && mkdir cross && cd cross && ../abe/configure
-	cd cross && ../abe/abe.sh --snapshots $(DISTFILES) --manifest ../$(BOARDNAME).manifest --build all
+	cd cross && ../abe/abe.sh --snapshots $(DISTFILES) --manifest ../$(MANIFEST) --build all
 	touch $@
 
 ################################################################################
 
 # Create Debian package
 
-ifeq ($(shell dpkg --print-architecture), amd64)
-DESTFILES	:= cross/builds/destdir/x86_64-pc-linux-gnu
-else ifeq ($(shell dpkg --print-architecture), arm64)
-DESTFILES	:= cross/builds/destdir/aarch64-unknown-linux-gnu
-endif
-
-package.deb : TOOLCHAIN_VERS	:= $(shell $(DESTFILES)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/muntsos/ { print $$0 }')
-package.deb : TOOLCHAIN_VERN	:= $(shell $(DESTFILES)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/muntsos/ { print $$3 }')
-
-package.deb : PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-package.deb : PKGVER		:= $(TOOLCHAIN_VERN)-$(shell date +%Y.%j).$(BUILDNUM)
-package.deb : PKGARCH		:= $(shell dpkg --print-architecture)
-package.deb : PKGSUFFIX		:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
-package.deb : PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
-package.deb : PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
-
-package.deb:
-	$(MAKE) cross.done
+package.deb: cross.done
 	mkdir -p					$(PKGDIR)/DEBIAN
 	install -cm 0644 control			$(PKGDIR)/DEBIAN
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
@@ -117,12 +110,24 @@ ifeq ($(BOARDNAME), BeagleBone)
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
 endif
 ifeq ($(BOARDNAME), RaspberryPi3)
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@TARGET_NAME@@/OrangePiZero2W/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's/@@TARGET_NAME@@/RaspberryPi4/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's/@@TARGET_NAME@@/RaspberryPi5/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
 endif
 	find $(PKGDIR)/usr/local/$(PKGNAME) -type f -executable -exec strip {} ";" 2>&1 | grep -v recognize | grep -v recognise ; true
 	chmod -R ugo-w					$(PKGDIR)$(TOOLCHAIN_DIR)
@@ -146,27 +151,24 @@ reconstitute:
 # Build and upload Debian package files for all targets.  Note this is an all
 # night job!
 
-oneplatform: SERVERDIR	?= $(HOME)
+SERVERDIR	?= $(HOME)
+PLATFORMS	:= BeagleBone RaspberryPi1 RaspberryPi2 RaspberryPi3
 
-oneplatform:
-	$(MAKE) package.deb
+upload: package.deb
 	scp *.deb $(SERVERDIR)
-	$(MAKE) distclean
-	
-allplatforms: PLATFORMS	?= BeagleBone RaspberryPi1 RaspberryPi2 RaspberryPi3
 
 allplatforms:
-	for P in $(PLATFORMS) ; do $(MAKE) oneplatform BOARDNAME=$$P OSNAME=$(OSNAME); done
+	for P in $(PLATFORMS) ; do $(MAKE) upload distclean BOARDNAME=$$P ; done
 
 ################################################################################
 
 # Remove working files
 
 clean:
-	rm -rf gcc* 
+	rm -rf gcc*
 
 reallyclean: clean
 	rm -rf cross*
 
 distclean: reallyclean
-	rm -rf abe* distfiles
+	rm -rf abe* $(DISTFILES)
