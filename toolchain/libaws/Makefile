@@ -85,6 +85,7 @@ $(PKGDIR): libaws.a
 	install -cm 0644 *.a obj/*.ali			$(PKGDIR)$(LIBDIR)/aws.lib
 	mkdir -p					$(PKGDIR)$(GPRDIR)
 	ln -s $(LIBDIR)/aws.gpr				$(PKGDIR)$(GPRDIR)/aws.gpr
+	touch $@
 
 package.deb: $(PKGFILE)
 
