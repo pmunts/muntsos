@@ -38,8 +38,6 @@ PKGARCH		:= all
 PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
 
-GAINROOT	?= fakeroot
-
 include $(LIBSIMPLEIO)/ada/include/ada.mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
