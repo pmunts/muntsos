@@ -174,6 +174,8 @@ SUBORDINATES	= ncurses libusb hidapi openssl zlib curl tirpc xmlrpc libpcap libm
 SRCDIRS		= $(NCURSES_SRC) $(LIBUSB_SRC) $(HIDAPI_SRC) $(OPENSSL_SRC) $(ZLIB_SRC) $(CURL_SRC) $(TIRPC_SRC) $(XMLRPC_C_SRC) $(LIBPCAP_SRC) $(LIBMNL_SRC) $(LIBNL_SRC) $(LIBSODIUM_SRC) $(LIBMYSQLCLIENT_SRC) $(GDBM_SRC) $(MQTT_SRC) $(RABBITMQ_SRC) $(ZEROMQ_SRC) $(MODBUS_SRC)
 DISTFILES	= $(NCURSES_DIST) $(LIBUSB_DIST) $(HIDAPI_DIST) $(OPENSSL_DIST) $(ZLIB_DIST) $(CURL_DIST) $(TIRPC_DIST) $(XMLRPC_C_DIST) $(LIBPCAP_DIST) $(LIBNL_DIST) $(LIBSODIUM_DIST) $(LIBMYSQLCLIENT_DIST) $(GDBM_DIST) $(MQTT_DIST) $(RABBITMQ_DIST) $(ZEROMQ_DIST) $(MODBUS_DIST)
 
+GAINROOT	?= fakeroot
+
 BUILDNUM	?= 1
 OSNAME		?= unknown
 PKGNAME		:= $(INSTALLDIR)-libs
@@ -704,7 +706,7 @@ package.deb: $(INSTALLDIR)/COPYING
 	rm -rf						$(PKGDIR)$(FINALDIR)/lib/cmake
 	rm -rf						$(PKGDIR)$(FINALDIR)/lib/pkgconfig
 	chmod -R ugo-w					$(PKGDIR)/usr/*
-	fakeroot dpkg-deb --build			$(PKGDIR)
+	$(GAINROOT) dpkg-deb --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr/*
 
 ###############################################################################
