@@ -55,7 +55,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(TEMP)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 1.1.1v
+OPENSSL_VER	= 1.1.1w
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -64,7 +64,7 @@ OPENSSL_DIST	= $(TEMP)/$(OPENSSL_TARBALL)
 OPENSSL_OS	= linux-generic32
 
 ZLIB_NAME	= zlib
-ZLIB_VER	= 1.2.13
+ZLIB_VER	= 1.3
 ZLIB_SRC	= $(ZLIB_NAME)-$(ZLIB_VER)
 ZLIB_TARBALL	= $(ZLIB_NAME)-$(ZLIB_VER).tar.gz
 ZLIB_SERVER	= http://zlib.net
@@ -72,7 +72,7 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(TEMP)/$(ZLIB_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.2.1
+CURL_VER	= 8.4.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -80,7 +80,7 @@ CURL_URL	= $(CURL_SERVER)/$(CURL_TARBALL)
 CURL_DIST	= $(TEMP)/$(CURL_TARBALL)
 
 TIRPC_NAME	= libtirpc
-TIRPC_VER	= 1.3.3
+TIRPC_VER	= 1.3.4
 TIRPC_SRC	= libtirpc-$(TIRPC_VER)
 TIRPC_TARBALL	= libtirpc-$(TIRPC_VER).tar.bz2
 TIRPC_SERVER	= http://sourceforge.net/projects/libtirpc/files/libtirpc
@@ -94,7 +94,7 @@ XMLRPC_C_URL	= http://svn.code.sf.net/p/xmlrpc-c/code/stable
 XMLRPC_C_DIST	= $(TEMP)/$(XMLRPC_C_TARBALL)
 
 LIBPCAP_NAME	= libpcap
-LIBPCAP_VER	= 1.10.3
+LIBPCAP_VER	= 1.10.4
 LIBPCAP_SRC	= $(LIBPCAP_NAME)-$(LIBPCAP_VER)
 LIBPCAP_TARBALL	= $(LIBPCAP_SRC).tar.gz
 LIBPCAP_SERVER	= http://www.tcpdump.org/release
@@ -105,15 +105,15 @@ LIBMNL_SRC	= libmnl.src
 LIBMNL_URL	= git://git.netfilter.org/libmnl
 
 LIBNL_NAME	= libnl
-LIBNL_VER	= 3.7.0
+LIBNL_VER	= 3.8.0
 LIBNL_SRC	= $(LIBNL_NAME)-$(LIBNL_VER)
 LIBNL_TARBALL	= $(LIBNL_SRC).tar.gz
-LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_7_0
+LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_8_0
 LIBNL_URL	= $(LIBNL_SERVER)/$(LIBNL_TARBALL)
 LIBNL_DIST	= $(TEMP)/$(LIBNL_TARBALL)
 
 LIBSODIUM_NAME	= libsodium
-LIBSODIUM_VER	= 1.0.18
+LIBSODIUM_VER	= 1.0.19
 LIBSODIUM_SRC	= $(LIBSODIUM_NAME)-$(LIBSODIUM_VER)
 LIBSODIUM_TARBALL	= $(LIBSODIUM_NAME)-$(LIBSODIUM_VER).tar.gz
 LIBSODIUM_SERVER	= https://download.libsodium.org/libsodium/releases
@@ -121,7 +121,7 @@ LIBSODIUM_URL	= $(LIBSODIUM_SERVER)/$(LIBSODIUM_TARBALL)
 LIBSODIUM_DIST	= $(TEMP)/$(LIBSODIUM_TARBALL)
 
 LIBMYSQLCLIENT_NAME	= mariadb-connector-c
-LIBMYSQLCLIENT_VER	= 3.3.5
+LIBMYSQLCLIENT_VER	= 3.3.8
 LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src
 LIBMYSQLCLIENT_TARBALL	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src.tar.gz
 LIBMYSQLCLIENT_SERVER	= https://downloads.mariadb.com/Connectors/c/connector-c-$(LIBMYSQLCLIENT_VER)
@@ -137,7 +137,7 @@ GDBM_URL	= $(GDBM_SERVER)/$(GDBM_TARBALL)
 GDBM_DIST	= $(TEMP)/$(GDBM_TARBALL)
 
 MQTT_NAME	= paho.mqtt.c
-MQTT_VER	= 1.3.12
+MQTT_VER	= 1.3.13
 MQTT_SRC	= $(MQTT_NAME)-$(MQTT_VER)
 MQTT_TARBALL	= v$(MQTT_VER).tar.gz
 MQTT_SERVER	= https://github.com/eclipse/paho.mqtt.c/archive
@@ -153,7 +153,7 @@ RABBITMQ_URL	= $(RABBITMQ_SERVER)/$(RABBITMQ_TARBALL)
 RABBITMQ_DIST	= $(TEMP)/$(RABBITMQ_TARBALL)
 
 ZEROMQ_NAME	= zeromq
-ZEROMQ_VER	= 4.3.4
+ZEROMQ_VER	= 4.3.5
 ZEROMQ_SRC	= $(ZEROMQ_NAME)-$(ZEROMQ_VER)
 ZEROMQ_TARBALL	= $(ZEROMQ_NAME)-$(ZEROMQ_VER).tar.gz
 ZEROMQ_SERVER	= https://github.com/zeromq/libzmq/releases/download/v$(ZEROMQ_VER)
@@ -452,6 +452,7 @@ $(LIBSODIUM_DIST):
 
 $(LIBSODIUM_SRC): $(LIBSODIUM_DIST)
 	tar xzf $(LIBSODIUM_DIST)
+	mv libsodium-stable $@
 
 # Build Sodium
 
@@ -581,7 +582,6 @@ $(ZEROMQ_DIST):
 
 $(ZEROMQ_SRC): $(ZEROMQ_DIST)
 	tar xzf $(ZEROMQ_DIST)
-	cd $(ZEROMQ_SRC) && patch -b -p0 <../zeromq.patch
 
 # Build ZeroMQ
 
@@ -677,7 +677,7 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo ""					>>$@
 	@echo "**** zeromq:"				>>$@
 	@echo ""					>>$@
-	@cat $(ZEROMQ_SRC)/COPYING			>>$@
+	@cat $(ZEROMQ_SRC)/LICENSE			>>$@
 	@echo ""					>>$@
 	@echo "**** libmodbus:"				>>$@
 	@echo ""					>>$@
