@@ -107,6 +107,7 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib
 	cp -R -P -p libsimpleio.lib		$(PKGDIR)$(LIBDIR)
 	mkdir -p				$(PKGDIR)$(GPRDIR)
 	ln -s $(LIBDIR)/libsimpleio.gpr		$(PKGDIR)$(GPRDIR)/libsimpleio.gpr
+	touch $@
 
 package.deb: $(PKGFILE)
 
