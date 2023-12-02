@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS LPC1114 I/O Processor extension package
 
-# Copyright (C)2017-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -161,7 +161,7 @@ ifneq ($(findstring RaspberryPi,$(BOARDNAME)),)
 	install -cm 0644 expansion_lpc1114.config.RaspberryPi					$@/usr/local/etc/expansion_lpc1114.config
 endif
 	install -cm 0755 $(LIBSLIBDIR)/libcurl.so.4						$@/usr/local/lib
-	install -cm 0755 $(LIBSLIBDIR)/libsodium.so.23						$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libsodium.so.26						$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libspiagent.so						$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc.so.3						$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_abyss.so.3					$@/usr/local/lib
