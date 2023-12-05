@@ -57,10 +57,10 @@ prepare.done:
 	sudo apt -y install bison
 	sudo apt -y install build-essential
 	sudo apt -y install flex
-	sudo apt -y install g++-13
-	sudo apt -y install gcc-13
-	sudo apt -y install gm2-13
-	sudo apt -y install gnat-13
+	sudo apt -y install g++-12
+	sudo apt -y install gcc-12
+	sudo apt -y install gm2-12
+	sudo apt -y install gnat-12
 	sudo apt -y install m4
 	sudo apt -y install zlib1g-dev
 	touch $@
@@ -104,10 +104,11 @@ source.done: config.done
 
 build.done: source.done
 	$(CTNG) build
-	cp -R -P -p $(INSTALLDIR) $(INSTALLDIR).orig
-ifneq ($(wildcard $(INSTALLDIR)/$(CONFIGURE_NAME)/lib64),)
-	cd $(INSTALLDIR)/$(CONFIGURE_NAME) && rmdir lib && mv lib64 lib && ln -s lib lib64
-endif
+	#cp -R -P -p $(INSTALLDIR) $(INSTALLDIR).orig
+	#rm -rf $(INSTALLDIR)
+	#cp -R -P -p $(INSTALLDIR).orig $(INSTALLDIR)
+	rm $(INSTALLDIR)/build.log.bz2
+	# Rearrange sysroot directory tree
 	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/debug-root/usr/ $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr
 	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/etc/       $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/etc
 	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin/      $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/bin
@@ -119,8 +120,6 @@ endif
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/var
 	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
 	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
-	ln -s ../libc/lib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/lib/libgnat.so
-	ln -s ../libc/lib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/lib/libgnarl.so
 	cd $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
 	touch $@
 
@@ -129,10 +128,9 @@ endif
 # Reconstitute previous build from installed files
 
 reconstitute:
-	cp -R -P -p $(TOOLCHAIN_DIR) gcc-$(CONFIGURE_NAME)
-	chmod -R u+w gcc-$(CONFIGURE_NAME)
-	rm -f gcc-$(CONFIGURE_NAME)/share/gpr/*.cgpr
-	touch gcc-$(CONFIGURE_NAME)/build.log.bz2
+	cp -R -P -p $(TOOLCHAIN_DIR) $(INSTALLDIR)
+	chmod -R u+w $(INSTALLDIR)
+	rm -f $(INSTALLDIR)/share/gpr
 	touch build.done
 
 ################################################################################
@@ -148,26 +146,46 @@ package.deb: build.done
 	sed -i s/@@BOARDNAME@@/$(BOARDBASELC)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
 	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
-	rm						$(PKGDIR)$(TOOLCHAIN_DIR)/build.log.bz2
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
-	install -cm 0644 template1.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@GCCVER@@/$(GCCVER)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	install -cm 0644 template2.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
-	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
-	sed -i 's/@@GCCVER@@/$(GCCVER)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
-	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's/@@TARGET_NAME@@/$(BOARDNAME)/g'	 $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
-ifeq ($(BOARDBASE), RaspberryPi3)
-	install -cm 0644 template2.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's/@@BOARDNAME@@/RaspberryPi4/g'		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
+ifeq ($(BOARDNAME), BeagleBone)
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
+	sed -i 's/@@TARGET_NAME@@/PocketBeagle/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
+endif
+ifeq ($(BOARDNAME), RaspberryPi3)
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@TARGET_NAME@@/OrangePiZero2W/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's/@@GCCVER@@/$(GCCVER)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's/@@GCCMAJOR@@/$(GCCMAJOR)/g' 		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@TARGET_NAME@@/RaspberryPi4/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's/@@TARGET_NAME@@/RaspberryPi5/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
 endif
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb --build			$(PKGDIR)
