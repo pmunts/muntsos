@@ -21,3 +21,5 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 include $(MUNTSOS)/include/BeagleBone.mk
+
+CFLAGS += -DPOCKETBEAGLE
