@@ -1,4 +1,4 @@
-# Makefile for building and packaging a Crosstool-NG cross-toolchain
+# Makefile for building and packaging a crosstool-NG cross-toolchain
 
 # Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
 #
@@ -47,9 +47,29 @@ default: package.deb
 
 ################################################################################
 
+# Prepare the system for building a Crosstool-NG toolchain
+
+prepare.done:
+	@echo "GCCVER   => $(GCCVER)"
+	@echo "GCCMAJOR => $(GCCMAJOR)"
+	# Packages necessary for Ubuntu 23.10
+	sudo apt -y install autoconf
+	sudo apt -y install bison
+	sudo apt -y install build-essential
+	sudo apt -y install flex
+	sudo apt -y install g++-13
+	sudo apt -y install gcc-13
+	sudo apt -y install gm2-13
+	sudo apt -y install gnat-13
+	sudo apt -y install m4
+	sudo apt -y install zlib1g-dev
+	touch $@
+
+################################################################################
+
 # Configure the cross-toolchain
 
-config.done:
+config.done: prepare.done
 	cp $(BOARDBASE).config .config
 	$(CTNG) oldconfig
 	cp .config $(BOARDBASE).config
@@ -75,6 +95,7 @@ upgradeconfig:
 source.done: config.done
 	mkdir -p distfiles
 	$(CTNG) source
+	rm -f wget-log*
 	touch $@
 
 ################################################################################
@@ -83,6 +104,7 @@ source.done: config.done
 
 build.done: source.done
 	$(CTNG) build
+	cp -R -P -p $(INSTALLDIR) $(INSTALLDIR).orig
 ifneq ($(wildcard $(INSTALLDIR)/$(CONFIGURE_NAME)/lib64),)
 	cd $(INSTALLDIR)/$(CONFIGURE_NAME) && rmdir lib && mv lib64 lib && ln -s lib lib64
 endif
@@ -160,8 +182,8 @@ clean:
 	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	-chmod -R u+w gcc-$(CONFIGURE_NAME)
-	rm -rf .build .config* build* config* *.done gcc-$(CONFIGURE_NAME) include
+	-chmod -R u+w gcc*
+	rm -rf .build .config* build* config* *.done gcc* include
 
 distclean: reallyclean
 	rm -rf distfiles
