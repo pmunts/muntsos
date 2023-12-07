@@ -50,12 +50,7 @@ default: package.deb
 libaws.a:
 	rm -rf obj
 	mkdir -p obj
-ifeq ($(GCCVER), 8.3.0)
-	cd src && ln -s aws-net-std.adb-8.3.0 aws-net-std.adb
-else
-	cd src && ln -s aws-net-std.adb-10.3.0 aws-net-std.adb
-endif
-	cd src && ln -s aws-os_lib.ads-$(BOARDBASE) aws-os_lib.ads
+	cd src && ln -s -f aws-os_lib.ads-$(BOARDBASE) aws-os_lib.ads
 	$(CROSS_COMPILE)gcc -Wall -I$(INCDIR) -c -o obj/wrappers.o src/wrappers.c
 	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb
 	$(CROSS_COMPILE)gcc -I$(LIBDIR)/../include -Wall -c -o obj/wrappers.o src/wrappers.c
@@ -97,6 +92,6 @@ clean:
 	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	rm -rf *.a obj src/aws-os_lib.ads src/aws-net-std.adb
+	rm -rf *.a obj src/aws-os_lib.ads
 
 distclean: reallyclean
