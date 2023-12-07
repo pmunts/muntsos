@@ -36,7 +36,7 @@ pragma Style_Checks ("M32766");
 
 --  This file is generated automatically, do not modify it by hand! Instead,
 --  make changes to aws-os_lib-tmplt.c and rebuild the AWS library.
---  This is the version for arm-linux-gnueabihf
+--  This is the version for arm-muntsos-linux-gnueabihf
 
 with Interfaces.C.Strings;
 with System;
@@ -57,7 +57,7 @@ package AWS.OS_Lib is
    --  equality with a constant value to implement conditional compilation,
    --  which normally generates a constant condition warning.
 
-   Target_Name          : constant String  := "arm-linux-gnueabihf";
+   Target_Name          : constant String  := "arm-muntsos-linux-gnueabihf";
 
    Executable_Extension : constant String    := "";
    Directory_Separator  : constant Character := '/';

@@ -36,7 +36,7 @@ pragma Style_Checks ("M32766");
 
 --  This file is generated automatically, do not modify it by hand! Instead,
 --  make changes to aws-os_lib-tmplt.c and rebuild the AWS library.
---  This is the version for arm-linux-gnueabihf
+--  This is the version for aarch64-muntsos-linux-gnu
 
 with Interfaces.C.Strings;
 with System;
@@ -57,7 +57,7 @@ package AWS.OS_Lib is
    --  equality with a constant value to implement conditional compilation,
    --  which normally generates a constant condition warning.
 
-   Target_Name          : constant String  := "arm-linux-gnueabihf";
+   Target_Name          : constant String  := "aarch64-muntsos-linux-gnu";
 
    Executable_Extension : constant String    := "";
    Directory_Separator  : constant Character := '/';
@@ -69,14 +69,14 @@ package AWS.OS_Lib is
    SIZEOF_fd_set        : constant := 128;   --  fd_set
    FD_SETSIZE           : constant := 1024;  --  Max fd value
    SIZEOF_sin_family    : constant := 16;    --  Size of sa.sin_family
-   SIZEOF_nfds_t        : constant := 32;    --  Size of nfds_t
+   SIZEOF_nfds_t        : constant := 64;    --  Size of nfds_t
    SIZEOF_pollfd_events : constant := 16;    --  Size of pollfd.events
    SIZEOF_fd_type       : constant := 32;    --  Size of socket fd
    SIZEOF_socklen_t     : constant := 32;    --  Size of socklen_t
 
    --  Sizes (in bytes) of the components of struct timeval
-   SIZEOF_tv_sec        : constant := 32;    --  tv_sec
-   SIZEOF_tv_usec       : constant := 32;    --  tv_usec
+   SIZEOF_tv_sec        : constant := 64;    --  tv_sec
+   SIZEOF_tv_usec       : constant := 64;    --  tv_usec
 
    --  Poll values
 

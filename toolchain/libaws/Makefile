@@ -50,7 +50,7 @@ default: package.deb
 libaws.a:
 	rm -rf obj
 	mkdir -p obj
-	cd src && ln -s -f aws-os_lib.ads-$(BOARDBASE) aws-os_lib.ads
+	cd src && ln -s -f aws-os_lib.ads-$(CONFIGURE_NAME) aws-os_lib.ads
 	$(CROSS_COMPILE)gcc -Wall -I$(INCDIR) -c -o obj/wrappers.o src/wrappers.c
 	$(CROSS_COMPILE)gnatmake -Wall -D obj -gnat2012 -c src/with_everything.adb
 	$(CROSS_COMPILE)gcc -I$(LIBDIR)/../include -Wall -c -o obj/wrappers.o src/wrappers.c
