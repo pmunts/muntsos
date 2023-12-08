@@ -33,24 +33,30 @@ RPMVER		:= $(shell date +%Y.%j).$(BUILDNUM)
 RPMDIR		:= $(RPMNAME)
 RPMFILE		:= $(RPMNAME)-$(RPMVER)-$(BUILDNUM).noarch.rpm
 
-DSTDIR		:= $(RPMDIR)/usr/local/share/muntsos
+DSTDIR1		:= $(RPMDIR)/usr/local/share/muntsos
+DSTDIR2		:= $(RPMDIR)/usr/local/share/libsimpleio
 
 package.rpm:
 	cp specfile.template			specfile
 	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
-	mkdir -p				$(DSTDIR)
-	cp -R -P -p $(MUNTSOS)/doc		$(DSTDIR)
-	cp -R -P -p $(MUNTSOS)/examples		$(DSTDIR)
-	cp -R -P -p $(MUNTSOS)/include		$(DSTDIR)
-	rm -rf					$(DSTDIR)/doc/.blinky
-	rm -rf					$(DSTDIR)/doc/.rawhid
-	rm -rf					$(DSTDIR)/examples/README.*
-	rm -rf					$(DSTDIR)/examples/firmware
-	rm -rf					$(DSTDIR)/examples/ada/freemodbus
-	chmod -R u+w				$(DSTDIR)
-	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(DSTDIR)/examples/*/*/Makefile
-	cd $(RPMDIR) && find usr/local/share/muntsos -type d -exec echo "%dir /{}" ";" >>../specfile
-	cd $(RPMDIR) && find usr/local/share/muntsos -type f -exec echo "/{}" ";"      >>../specfile
+	mkdir -p				$(DSTDIR1)
+	cp -R -P -p $(MUNTSOS)/doc		$(DSTDIR1)
+	cp -R -P -p $(MUNTSOS)/examples		$(DSTDIR1)
+	cp -R -P -p $(MUNTSOS)/include		$(DSTDIR1)
+	rm -rf					$(DSTDIR1)/doc/.blinky
+	rm -rf					$(DSTDIR1)/doc/.rawhid
+	rm -rf					$(DSTDIR1)/examples/README.*
+	rm -rf					$(DSTDIR1)/examples/firmware
+	rm -rf					$(DSTDIR1)/examples/ada/freemodbus
+	chmod -R u+w				$(DSTDIR1)
+	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(DSTDIR1)/examples/*/*/Makefile
+	mkdir -p				$(DSTDIR2)
+	cp -R -P -p $(LIBSIMPLEIO)/*		$(DSTDIR2)
+	chmod -R u+w				$(DSTDIR2)
+	rm -rf					$(DSTDIR2)/ada/lib
+	rm -rf					$(DSTDIR2)/ada/projects
+	cd $(RPMDIR) && find usr/local/share -type d -exec echo "%dir /{}" ";" >>../specfile
+	cd $(RPMDIR) && find usr/local/share -type f -exec echo "/{}" ";"      >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
 	cp rpmbuild/RPMS/*/*.rpm .
 	rm -rf rpmbuild specfile
