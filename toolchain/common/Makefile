@@ -49,6 +49,7 @@ $(PKGDIR):
 	cp -R -P -p $(MUNTSOS)/doc		$(PKGDIR)/usr/local/share/muntsos
 	cp -R -P -p $(MUNTSOS)/examples		$(PKGDIR)/usr/local/share/muntsos
 	cp -R -P -p $(MUNTSOS)/include		$(PKGDIR)/usr/local/share/muntsos
+	cp -R -P -p $(MUNTSOS)/scripts		$(PKGDIR)/usr/local/share/muntsos
 	cp $(MUNTSOS)/COPYING			$(PKGDIR)/usr/local/share/muntsos/doc
 	rm -rf					$(PKGDIR)/usr/local/share/muntsos/doc/.blinky
 	rm -rf					$(PKGDIR)/usr/local/share/muntsos/doc/.rawhid
