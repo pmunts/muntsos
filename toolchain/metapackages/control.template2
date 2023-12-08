@@ -6,6 +6,7 @@ Package: muntsos-dev-@@FLAVOR@@-@@BOARDNAMELC@@
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
+  muntsos-common,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libs,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libaws,
