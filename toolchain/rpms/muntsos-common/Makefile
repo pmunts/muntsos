@@ -1,6 +1,6 @@
 # Makefile to build the MuntsOS Embedded Linux Common Files package
 
-# Copyright (C)2023, Philip Munts.
+# Copyright (C)2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,7 @@ default: package.rpm
 
 BUILDNUM	?= 1
 RPMNAME		:= muntsos-common
-RPMVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+RPMVER		:= $(shell date +%Y.%j)
 RPMDIR		:= $(RPMNAME)
 RPMFILE		:= $(RPMNAME)-$(RPMVER)-$(BUILDNUM).noarch.rpm
 
@@ -38,6 +38,7 @@ DSTDIR2		:= $(RPMDIR)/usr/local/share/libsimpleio
 
 package.rpm:
 	cp specfile.template			specfile
+	sed -i 's/@@BUILDNUM@@/$(BUILDNUM)/g'	specfile
 	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
 	mkdir -p				$(DSTDIR1)
 	cp -R -P -p $(MUNTSOS)/doc		$(DSTDIR1)

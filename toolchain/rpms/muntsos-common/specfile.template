@@ -23,7 +23,7 @@
 Summary:	MuntsOS Embedded Linux development common files
 Name:		muntsos-common
 Version:	@@VERSION@@
-Release:	1
+Release:	@@BUILDNUM@@
 BuildArch:	noarch
 Group:		Programming
 License:	BSD-1-Clause
