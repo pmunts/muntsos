@@ -46,11 +46,7 @@ CFLAGS		+= -DMUNTSOS
 
 # Free Pascal
 
-ifeq ($(GCCARCH), aarch64)
-FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/ppcrossa64
-else
-FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/ppcross$(ARCH)
-endif
+FPC		= /usr/local/fpc-$(TOOLCHAIN_NAME)/bin/fpc
 FPC_FLAGS	+= -dMUNTSOS
 
 # GNAT Ada
