@@ -8,8 +8,8 @@ Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
   muntsos-dev-@@FLAVOR@@-aarch64,
-  muntsos-dev-@@FLAVOR@@-armhf-beaglebone,
-  muntsos-dev-@@FLAVOR@@-armhf-raspberrypi1,
-  muntsos-dev-@@FLAVOR@@-armhf-raspberrypi2
+  muntsos-dev-@@FLAVOR@@-beaglebone,
+  muntsos-dev-@@FLAVOR@@-raspberrypi1,
+  muntsos-dev-@@FLAVOR@@-raspberrypi2
 Architecture: all
 Description: Cross-toolchain packages for MuntsOS.
