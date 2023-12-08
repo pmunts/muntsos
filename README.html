@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
-<title></title>
-</head>
-<body>
 <h1>MuntsOS Embedded Linux</h1>
 <p>This framework supports Linux on several single board microcomputers. The
 goal of the MuntsOS project is to deliver a turnkey, RAM resident Linux
@@ -34,38 +27,28 @@ published.</li>
 <li>Dropped support for the virtual machine appliance preloaded with
 cross-toolchains for MuntsOS Embedded Linux. It was just too big to
 upload.</li>
-<li>16 March 2023 -- Cross-toolchain RPM packages and tarballs are now being
-published. These contain the exact same statically linked binaries originally
-built on Debian 11. They are verified to work on Fedora 37, RHEL 9.1 and its
-derivatives CentOS Stream 9, AlmaLinux 9.1, and Rocky Linux 9.1. Available at:
-<a href=
-"http://repo.munts.com/muntsos/rpms">http://repo.munts.com/muntsos/rpms</a> and
-<a href=
-"http://repo.munts.com/muntsos/tarballs">http://repo.munts.com/muntsos/tarballs</a>.</li>
+<li>16 March 2023 -- Cross-toolchain RPM packages are now being published.
+These contain the exact same statically linked binaries originally built on
+Debian 11. They are verified to work on Fedora 37, RHEL 9.1 and its derivatives
+CentOS Stream 9, AlmaLinux 9.1, and Rocky Linux 9.1. Available at: <a href=
+"http://repo.munts.com/muntsos/rpms">http://repo.munts.com/muntsos/rpms</a>.</li>
 <li>20 September 2023 -- After a long (years) hiatus, I have successfully built
 MuntsOS cross-toolchains for Debian 12 using <a href=
 "https://wiki-archive.linaro.org/ABE">Linaro ABE</a> (Advanced Build
 Environment) using manifests derived from the latest <a href=
 "https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">Arm GNU
-Toolchain</a> release, Version 12.3.Rel1 July 28, 2023. These GCC 12.3.1
-toolchains are significantly fresher that what can currently be built using
-<a href="https://crosstool-ng.github.io">Crosstool-NG</a>.<br>
-Unfortunately, the Linaro ABE cross-toolchains cannot be built on Debian 11.
-Kernels, extensions, and thin servers all depend on the cross-toolchain because
-of differing shared library versions, so continuing to support Debian 11
-presents a conundrum.<br>
-I have decided to split the MuntsOS distribution repository, moving stuff built
-with Crosstool-NG on Debian11 to <a href=
-"http://repo.munts.com/muntsos/7">http://repo.munts.com/muntsos/7</a> and stuff
-built with Linaro ABE on Debian 12 to <a href=
-"http://repo.munts.com/muntsos/8">http://repo.munts.com/muntsos/8</a>. I have
-modified <b><tt>sysconfig</tt></b> to automagically fetch extensions from the
-proper directory.<br>
-On Debian 11, you must continue to use the Crosstool-NG cross-toolchains
-installed by the <b><tt>muntsos-dev</tt></b> meta-package. On Debian 12, you
-can continue to use the Crosstool-NG cross-toolchains <b><i>or</i></b> you can
-use the new Linaro ABE cross-toolchains installed by the new
-<b><tt>muntsos-dev-abe</tt></b> meta-package.</li>
+Toolchain</a> release 12.3.Rel1.<br></li>
+<li>8 December 2023 -- <a href=
+"https://crosstool-ng.github.io/2023/09/24/release-1.26.0.html">Crosstool-NG
+1.26.0</a> has been released. I have rebuilt all of the MuntsOS
+cross-toolchains on Debian 12 (Bookworm), bumping GCC to 13.2.0 and picking up
+the Modula-2 programming language. The <a href=
+"https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads">Arm GNU
+Toolchain version 13.2.Rel1</a> has also been released and I will be
+experimenting with it as well. The advantage of Crosstool-NG is that its
+program files can be linked statically, and should run on any recent Linux
+distribution. The advantage of Arm GNU is that it is updated far more
+frequently, at least twice a year.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -73,7 +56,7 @@ environment onto a <b>host computer</b> are found in <a href=
 "http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf">Application Note
 #1</a> and <a href=
 "http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf">Application Note
-#2</a>,. Or just download and run one of the following quick setup scripts:</p>
+#2</a>. Or just download and run one of the following quick setup scripts:</p>
 <p><a href=
 "http://git.munts.com/muntsos/scripts/setup-debian">setup-debian</a><br>
 <a href=
@@ -435,13 +418,14 @@ Gadget selected by default.</p>
 Raspberry Pi Zero, Zero W, or Zero 2, a micro-USB cable, and a micro-SD card
 with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers installed.</p>
 <h2>Cross-Toolchains</h2>
-<p>I build a custom Ada/C/C++/Fortran/Go cross-toolchain for each MuntsOS
-platform family. Each cross-toolchain requires a number of additional software
-component libraries, which are packaged and distributed separately but
+<p>I build a custom Ada/C/C++/Fortran/Go/Modula-2 cross-toolchain for each
+MuntsOS platform family. Each cross-toolchain requires a number of additional
+software component libraries, which are packaged and distributed separately but
 installed into the same directory tree as the parent cross-toolchain.</p>
 <p>I also build <a href="https://www.freepascal.org">Free Pascal</a>
-cross-compilers. These rely on the libraries in the Ada/C/C++/Fortran/Go
-cross-toolchain package, which must be installed first.</p>
+cross-compilers. These rely on the libraries in the
+Ada/C/C++/Fortran/Go/Modula-2 cross-toolchain package, which must be installed
+first.</p>
 <p>Sometimes cross-toolchains can be shared among different platforms: For
 example, the Raspberry Pi 2 and Raspberry Pi 3 can use the same
 cross-toolchains (the 32-bit ARMv7 cross-toolchains nominally built for the
@@ -450,7 +434,7 @@ same cross-toolchains (the 64-bit AArch64 cross-toolchains nominally built for
 the Raspberry Pi 3).</p>
 <p>Cross-toolchain packages built for <a href=
 "https://www.debian.org">Debian</a> Linux are available at:</p>
-<a href="http://repo.munts.com/debian11">http://repo.munts.com/debian11</a>
+<a href="http://repo.munts.com/debian12">http://repo.munts.com/debian12</a>
 <p>RPM packages containing the exact same binaries and known to work on Fedora
 37 and RHEL 9.1 and its derivatives are available at:</p>
 <a href=
@@ -481,5 +465,3 @@ Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
 <p>I am available for custom system development (hardware and software) of
 products based on embedded Linux microcomputers or other processors.</p>
-</body>
-</html>

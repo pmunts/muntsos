@@ -1,5 +1,4 @@
-MuntsOS Embedded Linux
-======================
+# MuntsOS Embedded Linux
 
 This framework supports Linux on several single board microcomputers.
 The goal of the MuntsOS project is to deliver a turnkey, RAM resident
@@ -8,17 +7,16 @@ With MuntsOS installed, such microcomputers can treated as components,
 as *Linux microcontrollers*, and integrated into other projects just
 like traditional single chip microcontrollers.
 
-News
-----
+## News
 
--   9 March 2023 -- [Alire](https://alire.ada.dev) crates for targeting
+  - 9 March 2023 -- [Alire](https://alire.ada.dev) crates for targeting
     MuntsOS Embedded Linux have been published. All you need to do
     prepare an Alire project for for a MuntsOS target is:
-
+    
         alr init --bin myprogram
         cd myprogram
         alr with muntsos_raspberrypi1
-
+    
     The new crates (**`muntsos_beaglebone`**,
     **`muntsos_raspberrypi1`**, **`muntsos_raspberrypi2`**,
     **`muntsos_raspberrypi3`**, and **`muntsos_raspberrypi4`**) each
@@ -27,57 +25,50 @@ News
     \#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
     has been updated accordingly.
 
--   14 March 2023 -- New kernels with many, many updated components have
+  - 14 March 2023 -- New kernels with many, many updated components have
     been published.
 
--   Dropped support for the virtual machine appliance preloaded with
+  - Dropped support for the virtual machine appliance preloaded with
     cross-toolchains for MuntsOS Embedded Linux. It was just too big to
     upload.
 
--   16 March 2023 -- Cross-toolchain RPM packages and tarballs are now
-    being published. These contain the exact same statically linked
-    binaries originally built on Debian 11. They are verified to work on
-    Fedora 37, RHEL 9.1 and its derivatives CentOS Stream 9, AlmaLinux
-    9.1, and Rocky Linux 9.1. Available at:
-    <http://repo.munts.com/muntsos/rpms> and
-    <http://repo.munts.com/muntsos/tarballs>.
+  - 16 March 2023 -- Cross-toolchain RPM packages are now being
+    published. These contain the exact same statically linked binaries
+    originally built on Debian 11. They are verified to work on Fedora
+    37, RHEL 9.1 and its derivatives CentOS Stream 9, AlmaLinux 9.1, and
+    Rocky Linux 9.1. Available at: <http://repo.munts.com/muntsos/rpms>.
 
--   20 September 2023 -- After a long (years) hiatus, I have
+  - 20 September 2023 -- After a long (years) hiatus, I have
     successfully built MuntsOS cross-toolchains for Debian 12 using
     [Linaro ABE](https://wiki-archive.linaro.org/ABE) (Advanced Build
     Environment) using manifests derived from the latest [Arm GNU
     Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
-    release, Version 12.3.Rel1 July 28, 2023. These GCC 12.3.1
-    toolchains are significantly fresher that what can currently be
-    built using [Crosstool-NG](https://crosstool-ng.github.io).
-    Unfortunately, the Linaro ABE cross-toolchains cannot be built on
-    Debian 11. Kernels, extensions, and thin servers all depend on the
-    cross-toolchain because of differing shared library versions, so
-    continuing to support Debian 11 presents a conundrum.
-    I have decided to split the MuntsOS distribution repository, moving
-    stuff built with Crosstool-NG on Debian11 to
-    <http://repo.munts.com/muntsos/7> and stuff built with Linaro ABE on
-    Debian 12 to <http://repo.munts.com/muntsos/8>. I have modified
-    **`sysconfig`** to automagically fetch extensions from the proper
-    directory.
-    On Debian 11, you must continue to use the Crosstool-NG
-    cross-toolchains installed by the **`muntsos-dev`** meta-package. On
-    Debian 12, you can continue to use the Crosstool-NG cross-toolchains
-    ***or*** you can use the new Linaro ABE cross-toolchains installed
-    by the new **`muntsos-dev-abe`** meta-package.
+    release 12.3.Rel1.  
 
-Quick Setup Instructions for the Impatient
-------------------------------------------
+  - 8 December 2023 -- [Crosstool-NG
+    1.26.0](https://crosstool-ng.github.io/2023/09/24/release-1.26.0.html)
+    has been released. I have rebuilt all of the MuntsOS
+    cross-toolchains on Debian 12 (Bookworm), bumping GCC to 13.2.0 and
+    picking up the Modula-2 programming language. The [Arm GNU Toolchain
+    version
+    13.2.Rel1](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+    has also been released and I will be experimenting with it as well.
+    The advantage of Crosstool-NG is that its program files can be
+    linked statically, and should run on any recent Linux distribution.
+    The advantage of Arm GNU is that it is updated far more frequently,
+    at least twice a year.
+
+## Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
 environment onto a **host computer** are found in [Application Note
 \#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
 [Application Note
-\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf),. Or just
+\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
 download and run one of the following quick setup scripts:
 
-[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)
-[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)
+[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
+[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
 [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel)
 
 Instructions for installing MuntsOS to a **target computer** are found
@@ -86,16 +77,14 @@ in [Application Note
 and [Application Note
 \#15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
 
-Documentation
--------------
+## Documentation
 
 The documentation for MuntsOS (mostly application notes) is available
 online at:
 
 <http://git.munts.com/muntsos/doc>
 
-Embedded Linux Distribution in a Kernel
----------------------------------------
+## Embedded Linux Distribution in a Kernel
 
 MuntsOS is a stripped down Linux distribution that includes a small
 compressed root file system within the kernel image binary itself. At
@@ -114,8 +103,7 @@ Prebuilt MuntsOS kernel release tarballs are available at:
 
 <http://repo.munts.com/muntsos/kernels>
 
-Extensions
-----------
+## Extensions
 
 The MuntsOS root file system can be *extended* at boot time using any of
 three mechanisms:
@@ -154,8 +142,7 @@ Prebuilt MuntsOS extension packages and programs are available at:
 
 <http://repo.munts.com/muntsos/extensions>
 
-Thin Servers
-------------
+## Thin Servers
 
 ### Boot Files + Kernel Files + Extensions = Thin Server
 
@@ -197,7 +184,7 @@ Prebuilt MuntsOS Thin Servers are at available at:
 <http://repo.munts.com/muntsos/thinservers>
 
 |                                       |                                                                                                    |
-|---------------------------------------|----------------------------------------------------------------------------------------------------|
+| ------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | **`muntsos*BeagleBone.zip`**          | For BeagleBone (White), Black, Black Wireless, Green, Green Wireless, PocketBeagle -- ARMv7 32-bit |
 | **`muntsos*RaspberryPi1.zip`**        | For all Raspberry Pi 1 -- ARMv6 32-bit, USB master                                                 |
 | **`muntsos*RaspberryPi1Gadget.zip `** | For Raspberry Pi 1 A, A+, CM1, Zero, Zero W -- ARMv6 32-bit, USB slave                             |
@@ -208,8 +195,7 @@ Prebuilt MuntsOS Thin Servers are at available at:
 | **`muntsos*RaspberryPi4.zip`**        | For all Raspberry Pi 4 -- ARMv8 64-bit, USB master                                                 |
 | **`muntsos*RaspberryPi4Gadget.zip`**  | For all Raspberry Pi 4 -- ARMv8 64-bit, USB slave                                                  |
 
-Boards
-------
+## Boards
 
 ### BeagleBone
 
@@ -237,13 +223,13 @@ default, the following devices are are enabled on the two 46-pin
 [expansion
 headers](http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf):
 
--   I<sup>2</sup>C bus controller device **`/dev/i2c-2`**
--   Serial port device **`/dev/ttyS1`**
--   Serial port device **`/dev/ttyS2`**
--   Serial port device **`/dev/ttyS4`**
--   Serial port device **`/dev/ttyS5`**
--   SPI slave device **`/dev/spidev2.0`**
--   SPI slave device **`/dev/spidev2.1`**
+  - I<sup>2</sup>C bus controller device **`/dev/i2c-2`**
+  - Serial port device **`/dev/ttyS1`**
+  - Serial port device **`/dev/ttyS2`**
+  - Serial port device **`/dev/ttyS4`**
+  - Serial port device **`/dev/ttyS5`**
+  - SPI slave device **`/dev/spidev2.0`**
+  - SPI slave device **`/dev/spidev2.1`**
 
 Newly manufactured BeagleBone boards assembled with a 1 GHz AM3358
 processor are apparently still available from [Special
@@ -300,11 +286,11 @@ version of the BeagleBone Black, from Chinese manufacturer [Seeed
 Studio](https://www.seeedstudio.com), that sells for about USD $44.
 Changes from the BeagleBone Black design are:
 
--   Removed coaxial power jack . (+5V can be supplied via the slave USB
+  - Removed coaxial power jack . (+5V can be supplied via the slave USB
     port or **P9** expansion header instead.)
--   Removed HDMI receptacle and support circuitry.
--   Changed the slave USB receptacle from mini-B to micro-B.
--   Added two [Grove System](http://wiki.seeed.cc/Grove_System)
+  - Removed HDMI receptacle and support circuitry.
+  - Changed the slave USB receptacle from mini-B to micro-B.
+  - Added two [Grove System](http://wiki.seeed.cc/Grove_System)
     connectors, one carrying 3.3V
     [I<sup>2</sup>C](https://en.wikipedia.org/wiki/I2C) signals and one
     carrying 3.3V logic level [serial
@@ -359,15 +345,15 @@ different device tree. The PocketBeagle device tree enables the
 following devices on its two 36-pin [expansion
 headers](http://git.munts.com/muntsos/doc/PocketBeaglePinout.pdf):
 
--   USB host port
--   I<sup>2</sup>C bus controller device **`/dev/i2c-1`**
--   I<sup>2</sup>C bus controller device **`/dev/i2c-2`**
--   PWM output **`0:0`**
--   PWM output **`2:0`**
--   Serial port device **`/dev/ttyS0`**
--   Serial port device **`/dev/ttyS4`**
--   SPI slave device **`/dev/spidev1.0`**
--   SPI slave device **`/dev/spidev2.1`**
+  - USB host port
+  - I<sup>2</sup>C bus controller device **`/dev/i2c-1`**
+  - I<sup>2</sup>C bus controller device **`/dev/i2c-2`**
+  - PWM output **`0:0`**
+  - PWM output **`2:0`**
+  - Serial port device **`/dev/ttyS0`**
+  - Serial port device **`/dev/ttyS4`**
+  - SPI slave device **`/dev/spidev1.0`**
+  - SPI slave device **`/dev/spidev2.1`**
 
 The expansion headers are cleverly arranged such that the two inner rows
 match the [MikroElektronika mikroBUS](https://www.mikroe.com/mikrobus)
@@ -486,18 +472,17 @@ Raspberry Pi Zero, Zero W, or Zero 2, a micro-USB cable, and a micro-SD
 card with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers
 installed.
 
-Cross-Toolchains
-----------------
+## Cross-Toolchains
 
-I build a custom Ada/C/C++/Fortran/Go cross-toolchain for each MuntsOS
-platform family. Each cross-toolchain requires a number of additional
-software component libraries, which are packaged and distributed
-separately but installed into the same directory tree as the parent
-cross-toolchain.
+I build a custom Ada/C/C++/Fortran/Go/Modula-2 cross-toolchain for each
+MuntsOS platform family. Each cross-toolchain requires a number of
+additional software component libraries, which are packaged and
+distributed separately but installed into the same directory tree as the
+parent cross-toolchain.
 
 I also build [Free Pascal](https://www.freepascal.org) cross-compilers.
-These rely on the libraries in the Ada/C/C++/Fortran/Go cross-toolchain
-package, which must be installed first.
+These rely on the libraries in the Ada/C/C++/Fortran/Go/Modula-2
+cross-toolchain package, which must be installed first.
 
 Sometimes cross-toolchains can be shared among different platforms: For
 example, the Raspberry Pi 2 and Raspberry Pi 3 can use the same
@@ -509,15 +494,14 @@ nominally built for the Raspberry Pi 3).
 Cross-toolchain packages built for [Debian](https://www.debian.org)
 Linux are available at:
 
-<http://repo.munts.com/debian11>
+<http://repo.munts.com/debian12>
 
 RPM packages containing the exact same binaries and known to work on
 Fedora 37 and RHEL 9.1 and its derivatives are available at:
 
 <http://repo.munts.com/muntsos/rpms>
 
-Git Repository
---------------
+## Git Repository
 
 The source code for MuntsOS is available at:
 
@@ -527,23 +511,21 @@ Use the following command to clone it:
 
     git clone https://github.com/pmunts/muntsos.git
 
-File Repository
----------------
+## File Repository
 
 Prebuilt binaries for MuntsOS are available at:
 
 <http://repo.munts.com/muntsos>
 
-[Make With Ada](https://www.makewithada.org/) Projects
-------------------------------------------------------
+## [Make With Ada](https://www.makewithada.org/) Projects
 
--   2017 [Ada Embedded Linux
+  - 2017 [Ada Embedded Linux
     Framework](https://www.makewithada.org/entry/ada_linux_sensor_framework)
--   2019 [Modbus RTU Framework for
+  - 2019 [Modbus RTU Framework for
     Ada](https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6)
-    (Prize Winner!)
+    (Prize Winner\!)
 
-------------------------------------------------------------------------
+-----
 
 Questions or comments to Philip Munts <phil@munts.net>
 
