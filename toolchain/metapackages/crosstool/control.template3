@@ -2,19 +2,15 @@ Section: misc
 Priority: optional
 Homepage: http://git.munts.com/muntsos
 Standards-Version: 3.9.2
-Package: muntsos-dev-@@BOARDNAME@@
+Package: muntsos-dev-@@FLAVOR@@-aarch64
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
-  gcc-@@CONFIGURE_NAME@@-muntsos,
-  gcc-@@CONFIGURE_NAME@@-muntsos-libs,
-  gcc-@@CONFIGURE_NAME@@-muntsos-libaws,
-  gcc-@@CONFIGURE_NAME@@-muntsos-libsimpleio
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@,
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libs,
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libaws,
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libsimpleio
 Recommends:
-  fpc-@@CONFIGURE_NAME@@-muntsos
-Conflicts:
-  muntsos-crosstool-@@BOARDNAME@@
-Replaces:
-  muntsos-crosstool-@@BOARDNAME@@
+  fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@
 Architecture: all
-Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@
+Description: Cross-toolchain packages for MuntsOS on AArch64.

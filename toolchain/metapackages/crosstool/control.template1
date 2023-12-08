@@ -3,17 +3,13 @@ Priority: optional
 Homepage: http://git.munts.com/muntsos
 Standards-Version: 3.9.2
 
-Package: muntsos-dev
+Package: muntsos-dev-@@FLAVOR@@
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
 Depends:
-  muntsos-dev-aarch64,
-  muntsos-dev-beaglebone,
-  muntsos-dev-raspberrypi1,
-  muntsos-dev-raspberrypi2
-Conflicts:
-  muntsos-crosstool
-Replaces:
-  muntsos-crosstool
+  muntsos-dev-@@FLAVOR@@-aarch64,
+  muntsos-dev-@@FLAVOR@@-armhf-beaglebone,
+  muntsos-dev-@@FLAVOR@@-armhf-raspberrypi1,
+  muntsos-dev-@@FLAVOR@@-armhf-raspberrypi2
 Architecture: all
-Description: Cross-toolchain packages for MuntsOS
+Description: Cross-toolchain packages for MuntsOS.

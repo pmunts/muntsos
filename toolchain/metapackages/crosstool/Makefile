@@ -22,44 +22,60 @@
 
 OSNAME		?= unknown
 MUNTSOS		?= ../../..
-BOARDNAME	?= RaspberryPi
+BOARDNAME	?= BeagleBone
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-BOARDNAMES	:= BeagleBone RaspberryPi1 RaspberryPi2
+ifeq ($(TOOLCHAIN_BUILDER), crosstool)
+FLAVOR		:= ctng
+else ifeq ($(TOOLCHAIN_BUILDER), arm-gnu)
+FLAVOR		:= abe
+endif
+
+BOARDNAMES	:= BeagleBone RaspberryPi1 RaspberryPi2 RaspberryPi3
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
-PKGVERSION1	:= 1.0
-PKGVERSION2	:= 1.0
-PKGVERSION3	:= 1.0
-
-# Build metapackages for all platforms
+PKGVERSION1	:= 2.0
+PKGVERSION2	:= 2.0
+PKGVERSION3	:= 2.0
 
 default:
-	$(MAKE) allplatforms PKGVERSION=$(PKGVERSION1)
-	for P in $(BOARDNAMES) ; do $(MAKE) oneplatform BOARDNAME=$$P CONTROL=control.template2 PKGVERSION=$(PKGVERSION2); done
-	$(MAKE) oneplatform BOARDNAME=AArch64 CONFIGURE_NAME=aarch64-linux-gnu CONTROL=control.template3 PKGVERSION=$(PKGVERSION3)
+	$(MAKE) allplatforms
+	for P in $(BOARDNAMES) ; do $(MAKE) oneplatform BOARDNAME=$$P ; done
 	-rm *.buildinfo *.changes
 
 # Build a metapackage for all platforms
 
 allplatforms:
 	cp control.template1 control.everything
-	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.everything
+	sed -i 's/@@FLAVOR@@/$(FLAVOR)/g' control.everything
+	sed -i 's/@@VERSION@@/$(PKGVERSION1)/g' control.everything
 	equivs-build control.everything
 	rm control.everything
-	mv muntsos-dev_$(PKGVERSION)_all.deb muntsos-dev-$(PKGVERSION)-$(OSNAME)-all.deb
+	mv muntsos-dev-$(FLAVOR)_$(PKGVERSION1)_all.deb muntsos-dev-$(FLAVOR)-$(PKGVERSION1)-$(OSNAME)-all.deb
 
 # Build a metapackage for a single platform
 
 oneplatform:
-	cp $(CONTROL) control.$(BOARDNAME)
-	sed -i 's/@@BOARDNAME@@/$(BOARDNAMELC)/g' control.$(BOARDNAME)
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' control.$(BOARDNAME)
-	sed -i 's/@@VERSION@@/$(PKGVERSION)/g' control.$(BOARDNAME)
-	equivs-build control.$(BOARDNAME)
-	rm control.$(BOARDNAME)
-	mv muntsos-dev-$(BOARDNAMELC)_$(PKGVERSION)_all.deb muntsos-dev-$(BOARDNAMELC)-$(PKGVERSION)-$(OSNAME)-all.deb
+ifneq ($(BOARDNAME), RaspberryPi3)
+	cp control.template2					control.$(BOARDNAME)
+	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			control.$(BOARDNAME)
+	sed -i 's/@@BOARDNAMELC@@/$(BOARDNAMELC)/g'		control.$(BOARDNAME)
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g'	control.$(BOARDNAME)
+	sed -i 's/@@FLAVOR@@/$(FLAVOR)/g'			control.$(BOARDNAME)
+	sed -i 's/@@VERSION@@/$(PKGVERSION2)/g'			control.$(BOARDNAME)
+	equivs-build						control.$(BOARDNAME)
+	rm							control.$(BOARDNAME)
+	mv muntsos-dev-$(FLAVOR)-$(BOARDNAMELC)_$(PKGVERSION2)_all.deb muntsos-dev-$(FLAVOR)-$(BOARDNAMELC)-$(PKGVERSION2)-$(OSNAME)-all.deb
+else
+	cp control.template3					control.aarch64
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g'	control.aarch64
+	sed -i 's/@@FLAVOR@@/$(FLAVOR)/g'			control.aarch64
+	sed -i 's/@@VERSION@@/$(PKGVERSION3)/g'			control.aarch64
+	equivs-build						control.aarch64
+	rm							control.aarch64
+	mv muntsos-dev-$(FLAVOR)-aarch64_$(PKGVERSION3)_all.deb muntsos-dev-$(FLAVOR)-aarch64-$(PKGVERSION3)-$(OSNAME)-all.deb
+endif
 
 # Remove working files
 
