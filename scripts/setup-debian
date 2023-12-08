@@ -40,12 +40,12 @@ fi
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
   if [ "${MACHINE}" = "x86_64" ]; then
     # 64-Bit Debian amd64
-    wget http://repo.munts.com/debian11/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget http://repo.munts.com/debian12/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 
   if [ "${MACHINE}" = "aarch64" ]; then
     # 64-Bit Debian arm64
-    wget http://repo.munts.com/debian11/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget http://repo.munts.com/debian12/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 fi
 
