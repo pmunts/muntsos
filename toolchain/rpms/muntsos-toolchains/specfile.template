@@ -1,4 +1,4 @@
-# Specfile for muntsos-dev-<target>
+# Specfile for muntsos-<target>
 
 # Copyright (C)2023, Philip Munts.
 #
@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Summary:	MuntsOS Embedded Linux cross-toolchain for @@TARGET@@
-Name:		muntsos-dev-@@SUFFIX@@
+Name:		muntsos-@@SUFFIX@@
 Version:	@@VERSION@@
 Release:	1
 BuildArch:	x86_64

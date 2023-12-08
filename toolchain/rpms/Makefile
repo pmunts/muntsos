@@ -1,6 +1,6 @@
 # Makefile for building MuntsOS Embedded Linux development RPM packages
 
-# Copyright (C)2023, Philip Munts.
+# Copyright (C)2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,6 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+FLAVOR		?= ctng
 SERVERDIR	?= $(HOME)
 
 default: build upload clean
@@ -28,11 +29,11 @@ default: build upload clean
 
 build:
 	$(MAKE) -C muntsos-common
-	$(MAKE) -C muntsos-dev RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-linux-gnu-muntsos
-	$(MAKE) -C muntsos-dev RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-linux-gnueabihf-muntsos-beaglebone
-	$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi1
-	$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi2
 	$(MAKE) -C muntsos-libsimpleio
+	$(MAKE) -C muntsos-toolchains RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
+	$(MAKE) -C muntsos-toolchains RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
+	$(MAKE) -C muntsos-toolchains RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	$(MAKE) -C muntsos-toolchains RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
 
 # Upload RPM packages to repository
 
@@ -43,8 +44,8 @@ upload:
 
 clean:
 	$(MAKE) -C muntsos-common clean
-	$(MAKE) -C muntsos-dev clean RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-linux-gnu-muntsos
-	$(MAKE) -C muntsos-dev clean RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-linux-gnueabihf-muntsos-beaglebone
-	$(MAKE) -C muntsos-dev clean RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi1
-	$(MAKE) -C muntsos-dev clean RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-linux-gnueabihf-muntsos-raspberrypi2
 	$(MAKE) -C muntsos-libsimpleio clean
+	$(MAKE) -C muntsos-toolchains clean RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
+	$(MAKE) -C muntsos-toolchains clean RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
+	$(MAKE) -C muntsos-toolchains clean RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	$(MAKE) -C muntsos-toolchains clean RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
