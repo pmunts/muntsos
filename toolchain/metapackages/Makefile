@@ -21,7 +21,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 OSNAME		?= unknown
-MUNTSOS		?= ../../..
+MUNTSOS		?= ../..
 BOARDNAME	?= BeagleBone
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
