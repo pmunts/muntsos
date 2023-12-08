@@ -1,0 +1,15 @@
+--- a/rtl/linux/aarch64/cprt0.as
++++ b/rtl/linux/aarch64/cprt0.as
+@@ -41,10 +41,8 @@ _start:
+ 	                     init, fini, rtld_fini, stack_end) */
+ 	adrp	x0,:got:PASCALMAIN
+ 	ldr	x0,[x0,#:got_lo12:PASCALMAIN]
+-	adrp	x3,:got:__libc_csu_init
+-	ldr	x3,[x3,#:got_lo12:__libc_csu_init]
+-	adrp	x4,:got:__libc_csu_fini
+-	ldr	x4,[x4,#:got_lo12:__libc_csu_fini]
++	mov	x3, #0		/* Used to be init.  */
++	mov	x4, #0		/* Used to be fini.  */
+ 	bl	__libc_start_main
+ 
+ 	/* This should never happen */

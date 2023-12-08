@@ -77,6 +77,7 @@ $(FPC_DIST):
 
 src.done: $(FPC_DIST)
 	tar xzf $^
+	cd $(FPC_SRCDIR) && patch -b -p1 <../freepascal.patch
 	touch $@
 
 ################################################################################
