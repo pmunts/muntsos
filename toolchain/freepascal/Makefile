@@ -52,9 +52,10 @@ CPUOPTS		= -CpARMV8
 BUILDOPTS	+= OPT=-dFPC_AARCH64 CROSSOPT="$(CPUOPTS)"
 endif
 
+BUILDNUM	?= 1
 OSNAME		?= unknown
 PKGNAME		:= fpc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(FPC_VERSION)-$(shell date +%Y.%j)
+PKGVER		:= $(FPC_VERSION)-$(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
@@ -97,7 +98,11 @@ build.done: src.done
 
 install.done: build.done
 	$(MAKE) -C $(FPC_SRCDIR) crossinstall $(BUILDOPTS) INSTALL_PREFIX=$(INSTALLDIR)
-	ln -s ../lib/fpc/$(FPC_VERSION)/$(FPC_COMMAND)	$(INSTALLDIR)/bin/$(FPC_COMMAND)
+ifeq ($(BOARDNAME), RaspberryPi3)
+	ln -s ../lib/fpc/$(FPC_VERSION)/ppcrossa64	$(INSTALLDIR)/bin/fpc
+else
+	ln -s ../lib/fpc/$(FPC_VERSION)/ppcross$(ARCH)	$(INSTALLDIR)/bin/fpc
+endif
 	mkdir -p					$(INSTALLDIR)/etc
 	install -cm 0644 fpc.cfg			$(INSTALLDIR)/etc
 	sed -i s#@@ARCH@@#$(ARCH)#g			$(INSTALLDIR)/etc/fpc.cfg
