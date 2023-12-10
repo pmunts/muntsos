@@ -24,8 +24,8 @@ undefine AR
 undefine CC
 undefine RANLIB
 
-LIBSIMPLEIO	?= ../../../libsimpleio
-MUNTSOS		?= ../..
+LIBSIMPLEIO	?= $(shell pwd)/../../../libsimpleio
+MUNTSOS		?= $(shell pwd)/../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
@@ -87,9 +87,16 @@ libsimpleio.lib:
 
 ###############################################################################
 
+# Build the precompiled Go import library for MuntsOS
+
+munts.com.a:
+	$(MAKE) -C $(LIBSIMPLEIO)/go/lib BOARDNAME=$(BOARDNAME) LIBSIMPLEIO=$(LIBSIMPLEIO) GO_LIB=$(shell pwd)
+
+###############################################################################
+
 # Create Debian package file
 
-$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib
+$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib munts.com.a
 	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
@@ -105,6 +112,8 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib
 	sed -i 's@LIBDIR@$(LIBDIR)@g'		$(PKGDIR)$(LIBDIR)/libsimpleio.gpr
 	install -cm 0755 libsimpleio.so		$(PKGDIR)$(LIBDIR)
 	cp -R -P -p libsimpleio.lib		$(PKGDIR)$(LIBDIR)
+	mkdir -p				$(PKGDIR)$(LIBDIR)/go
+	cp -R -P -p munts.com*			$(PKGDIR)$(LIBDIR)/go
 	mkdir -p				$(PKGDIR)$(GPRDIR)
 	ln -s $(LIBDIR)/libsimpleio.gpr		$(PKGDIR)$(GPRDIR)/libsimpleio.gpr
 	touch $@
@@ -119,6 +128,6 @@ clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so obj
+	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so munts.com* obj
 
 distclean: reallyclean
