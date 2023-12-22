@@ -52,7 +52,7 @@ default: package.deb
 prepare.done:
 	@echo "GCCVER   => $(GCCVER)"
 	@echo "GCCMAJOR => $(GCCMAJOR)"
-	# Packages necessary for Ubuntu 23.10
+	# Install necessary system packages
 	sudo apt -y install autoconf
 	sudo apt -y install bison
 	sudo apt -y install build-essential
