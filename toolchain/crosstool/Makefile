@@ -56,11 +56,12 @@ prepare.done:
 	sudo apt -y install autoconf
 	sudo apt -y install bison
 	sudo apt -y install build-essential
+	sudo apt -y install curl
 	sudo apt -y install flex
-	sudo apt -y install g++-12
-	sudo apt -y install gcc-12
-	sudo apt -y install gm2-12
-	sudo apt -y install gnat-12
+	sudo apt -y install g++-13
+	sudo apt -y install gcc-13
+	sudo apt -y install gm2-13
+	sudo apt -y install gnat-13
 	sudo apt -y install m4
 	sudo apt -y install zlib1g-dev
 	touch $@
