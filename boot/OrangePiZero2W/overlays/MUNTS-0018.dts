@@ -32,7 +32,7 @@
 			pinctrl-names = "default";
 			pinctrl-0 = <&pwm1_pi_pin>;
 		};
-	};	
+	};
 
 	fragment@3 {
 		target = <&pwm2>;
@@ -40,7 +40,7 @@
 			pinctrl-names = "default";
 			pinctrl-0 = <&pwm2_pi_pin>;
 		};
-	};	
+	};
 
 	// Enable MCP3204 on GPIO233 aka Raspberry Pi GPIO7
 
