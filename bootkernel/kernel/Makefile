@@ -28,6 +28,14 @@ MAKEJOBS	?= -j 2
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
+MAKE_ARGS	= -C $(KERNEL_SRC)
+MAKE_ARGS	+= ARCH=$(ARCH)
+MAKE_ARGS	+= CROSS_COMPILE=$(CROSS_COMPILE)
+
+ifneq ($(KERNEL),)
+MAKE_ARGS	+= KERNEL=$(KERNEL)
+endif
+
 default: $(KERNEL_WORK)/build.done
 
 ###############################################################################
@@ -49,35 +57,22 @@ src: $(KERNEL_WORK)/src.done
 
 $(KERNEL_WORK)/config.done: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_CONFIG) $(KERNEL_SRC)/.config
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) oldconfig
+	$(MAKE) $(MAKE_ARGS) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $@
 
 oldconfig: $(KERNEL_WORK)/config.done
 
 defconfig: $(KERNEL_WORK)/src.done
-ifeq ($(BOARDBASE), BeagleBone)
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) omap2plus_defconfig
-endif
-ifeq ($(BOARDBASE), RaspberryPi1)
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel  bcmrpi_defconfig
-endif
-ifeq ($(BOARDBASE), RaspberryPi2)
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel7 bcm2709_defconfig
-endif
-ifeq ($(BOARDBASE), RaspberryPi3)
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel8 bcm2711_defconfig
-endif
-ifeq ($(BOARDBASE), RaspberryPi4)
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) KERNEL=kernel8 bcm2711_defconfig
-endif
+	$(MAKE) $(MAKE_FLAGS) $(KERNEL_DEFCONF)
+	$(MAKE) $(MAKE_ARGS) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $(KERNEL_WORK)/config.done
 
 menuconfig: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_CONFIG) $(KERNEL_SRC)/.config
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) menuconfig
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) oldconfig
+	$(MAKE) $(MAKE_ARGS) menuconfig
+	$(MAKE) $(MAKE_ARGS) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $(KERNEL_WORK)/config.done
 
@@ -86,7 +81,7 @@ menuconfig: $(KERNEL_WORK)/src.done
 # Build device tree blobs and overlays
 
 $(KERNEL_WORK)/dtbs.done: $(KERNEL_WORK)/config.done
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) dtbs dtbs_install INSTALL_DTBS_PATH=$(KERNEL_WORK)/dtbs
+	$(MAKE) $(MAKE_ARGS) dtbs dtbs_install INSTALL_DTBS_PATH=$(KERNEL_WORK)/dtbs
 	cd $(KERNEL_WORK)/dtbs && mv overlays ..
 	touch $@
 
@@ -97,8 +92,8 @@ dtbs: $(KERNEL_WORK)/dtbs.done
 # Build modules
 
 $(KERNEL_WORK)/modules.done: $(KERNEL_WORK)/config.done
-	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules
-	$(MAKE) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) modules_install INSTALL_MOD_PATH=$(KERNEL_WORK)/modules
+	$(MAKE) $(MAKEJOBS) $(MAKE_ARGS) modules
+	$(MAKE) $(MAKE_ARGS) modules_install INSTALL_MOD_PATH=$(KERNEL_WORK)/modules
 	rm $(KERNEL_WORK)/modules/lib/modules/*/build
 	rm $(KERNEL_WORK)/modules/lib/modules/*/source
 	rm -rf modules/lib/modules/*/kernel/drivers/net/wireless/realtek/rtl8192cu
@@ -122,7 +117,7 @@ initramfs: $(KERNEL_WORK)/initramfs.done
 # Build kernel
 
 $(KERNEL_WORK)/build.done: $(KERNEL_WORK)/initramfs.done
-	$(MAKE) $(MAKEJOBS) -C $(KERNEL_SRC) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) $(KERNEL_TARGETS)
+	$(MAKE) $(MAKEJOBS) $(MAKE_ARGS) $(KERNEL_TARGETS)
 	cp $(KERNEL_SRC)/arch/$(ARCH)/boot/$(KERNEL_IMGSRC) $(KERNEL_WORK)/$(KERNEL_IMG)
 	chmod 644 $(KERNEL_WORK)/$(KERNEL_IMG)
 	touch $@
@@ -149,18 +144,10 @@ allconfig:
 # Clean out working files
 
 clean:
-	-if [ -d $(KERNEL_SRC) -a "$(MAKECMDGOALS)" = "clean" ] ; then $(MAKE) -C $(KERNEL_SRC) mrproper ; fi
-	$(MAKE) -C ../initramfs clean
-	rm -rf $(KERNEL_WORK)/config.done
-	rm -rf $(KERNEL_WORK)/dtbs.done
-	rm -rf $(KERNEL_WORK)/modules.done
-	rm -rf $(KERNEL_WORK)/initramfs.done
-	rm -f  $(KERNEL_WORK)/*.img
-	rm -rf $(KERNEL_WORK)/dtbs $(KERNEL_WORK)/modules $(KERNEL_WORK)/overlays
-
-reallyclean: clean
 	$(MAKE) -C ../initramfs reallyclean
 	rm -rf $(KERNEL_WORK)
+
+reallyclean: clean
 
 distclean: reallyclean
 	$(MAKE) -C ../initramfs distclean
