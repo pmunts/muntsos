@@ -1,6 +1,6 @@
 --- Makefile.orig	2022-11-08 06:44:58.000000000 -0800
 +++ Makefile	2022-11-18 12:26:08.115955355 -0800
-@@ -1534,8 +1534,6 @@
+@@ -1537,8 +1537,6 @@
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
