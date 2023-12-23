@@ -64,7 +64,7 @@ $(KERNEL_WORK)/config.done: $(KERNEL_WORK)/src.done
 oldconfig: $(KERNEL_WORK)/config.done
 
 defconfig: $(KERNEL_WORK)/src.done
-	$(MAKE) $(MAKE_FLAGS) $(KERNEL_DEFCONF)
+	$(MAKE) $(MAKE_ARGS) $(KERNEL_DEFCONF)
 	$(MAKE) $(MAKE_ARGS) oldconfig
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $(KERNEL_WORK)/config.done
