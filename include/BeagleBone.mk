@@ -29,6 +29,7 @@ include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 BOARDBASE	:= BeagleBone
 
+KERNEL_DEFCONF	= omap2plus_defconfig
 KERNEL_IMGSRC	= zImage
 KERNEL_IMG	= $(BOARDBASE).img
 KERNEL_DTB	= am335x-bone

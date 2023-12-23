@@ -28,6 +28,8 @@ include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 BOARDBASE	:= RaspberryPi1
 
+KERNEL		:= kernel
+KERNEL_DEFCONF	:= bcmrpi_defconfig
 KERNEL_DTB	+= bcm2708-rpi-b
 KERNEL_DTB	+= bcm2708-rpi-b-plus
 KERNEL_DTB	+= bcm2708-rpi-cm

@@ -22,15 +22,18 @@
 
 TOOLCHAIN_BUILDER ?= crosstool
 
+KERNEL_BRANCH	:= 6.1
+
 include $(MUNTSOS)/include/AArch64.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
 include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 BOARDBASE	:= RaspberryPi3
 
+KERNEL		:= kernel8
+KERNEL_DEFCONF	:= bcm2711_defconfig
 KERNEL_DTB	+= broadcom/bcm2710-rpi-3-b-plus
 KERNEL_DTB	+= broadcom/bcm2710-rpi-cm3
 KERNEL_DTB	+= broadcom/bcm2710-rpi-zero-2
-
 
 include $(MUNTSOS)/include/common.mk
