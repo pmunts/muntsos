@@ -47,7 +47,7 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 # Definitions for the Beagleboard kernel repository
 
 KERNEL_REPO     = https://github.com/beagleboard/linux.git
-KERNEL_BRANCH	= 5.4
+KERNEL_BRANCH	?= 5.4
 KERNEL_TREEISH	= $(KERNEL_BRANCH)
 KERNEL_NAME	= linux-$(PLATFORM_NAME)-$(KERNEL_BRANCH)
 KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
