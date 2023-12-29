@@ -52,6 +52,6 @@ fi
 # Install packages from the Munts Technologies Debian package repository
 
 sudo apt update
-sudo apt -y install muntsos-dev-ctng
+sudo apt -y install muntsos-dev
 
 alr toolchain --disable-assistant
