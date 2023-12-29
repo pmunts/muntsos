@@ -52,6 +52,17 @@ News
        The advantage of Arm GNU is that it is updated far more frequently,
        at least twice a year.
 
+     * 28 December 2023 -- Renamed the MuntsOS cross-toolchain metapackage
+       from muntsos-dev-ctng-2.0 to muntsos-dev-9.0 to solve an Alire
+       package conundrum.
+
+     * 29 December 2023 -- MuntsOS GCC 13.2.0 cross-toolchains running on
+       ARM64 Linux are now available. I built these on a Raspberry Pi CM4
+       with 8 GB of RAM running Ubuntu 23.10 (for the GCC 13 native
+       toolchain necessary to build my cross-toolchains). Each
+       cross-toolchain took about 5 hours to build. They run on 64-bit
+       Raspberry Pi OS and on low cost ARM Chromebooks.
+
 Quick Setup Instructions for the Impatient
 
    Instructions for installing the MuntsOS cross-toolchain development

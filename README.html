@@ -49,6 +49,14 @@ experimenting with it as well. The advantage of Crosstool-NG is that its
 program files can be linked statically, and should run on any recent Linux
 distribution. The advantage of Arm GNU is that it is updated far more
 frequently, at least twice a year.</li>
+<li>28 December 2023 -- Renamed the MuntsOS cross-toolchain metapackage from
+<b><tt>muntsos-dev-ctng-2.0</tt></b> to <b><tt>muntsos-dev-9.0</tt></b> to
+solve an Alire package conundrum.</li>
+<li>29 December 2023 -- MuntsOS GCC 13.2.0 cross-toolchains running on ARM64
+Linux are now available. I built these on a Raspberry Pi CM4 with 8 GB of RAM
+running Ubuntu 23.10 (for the GCC 13 native toolchain necessary to build my
+cross-toolchains). Each cross-toolchain took about 5 hours to build. They run
+on 64-bit Raspberry Pi OS and on low cost ARM Chromebooks.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
