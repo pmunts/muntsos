@@ -8,9 +8,6 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: all
 Description: Cross-toolchain packages for MuntsOS on AArch64.
 
-Conflicts:
-  muntsos-dev-ctng-aarch64
-
 Depends:
   muntsos-common,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@,
@@ -20,6 +17,9 @@ Depends:
 
 Recommends:
   fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@
+
+Conflicts:
+  muntsos-dev-ctng-aarch64
 
 Replaces:
   muntsos-dev-ctng-aarch64

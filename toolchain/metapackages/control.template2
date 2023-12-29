@@ -8,9 +8,6 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: all
 Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@.
 
-Conflicts:
-  muntsos-dev-@@BOARDNAMELC@@
-
 Depends:
   muntsos-common,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@,
@@ -20,6 +17,9 @@ Depends:
 
 Recommends:
   fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@
+
+Conflicts:
+  muntsos-dev-ctng-@@BOARDNAMELC@@
 
 Replaces:
   muntsos-dev-ctng-@@BOARDNAMELC@@
