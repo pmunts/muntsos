@@ -131,7 +131,7 @@ build.done: source.done
 reconstitute:
 	cp -R -P -p $(TOOLCHAIN_DIR) $(INSTALLDIR)
 	chmod -R u+w $(INSTALLDIR)
-	rm -f $(INSTALLDIR)/share/gpr
+	rm -rf $(INSTALLDIR)/share/gpr
 	touch build.done
 
 ################################################################################
