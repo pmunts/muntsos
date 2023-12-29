@@ -2,16 +2,24 @@ Section: misc
 Priority: optional
 Homepage: http://git.munts.com/muntsos
 Standards-Version: 3.9.2
-Package: muntsos-dev-@@FLAVOR@@-@@BOARDNAMELC@@
+Package: muntsos-dev-@@BOARDNAMELC@@
 Version: @@VERSION@@
 Maintainer: Philip Munts <phil@munts.net>
+Architecture: all
+Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@.
+
+Conflicts:
+  muntsos-dev-@@BOARDNAMELC@@
+
 Depends:
   muntsos-common,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libs,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libaws,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libsimpleio
+
 Recommends:
   fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@
-Architecture: all
-Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@.
+
+Replaces:
+  muntsos-dev-ctng-@@BOARDNAMELC@@
