@@ -180,7 +180,7 @@ ifeq ($(BOARDNAME), RaspberryPi3)
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPiZero2W.cgpr
 endif
 	chmod -R ugo-w					$(PKGDIR)/usr
-	fakeroot dpkg-deb --build			$(PKGDIR)
+	fakeroot dpkg-deb -Zxz --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr
 
 ################################################################################
