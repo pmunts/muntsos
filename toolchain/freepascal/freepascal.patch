@@ -1,3 +1,25 @@
+--- a/Makefile	2023-12-28 21:58:36.447939136 -0800
++++ b/Makefile	2023-12-28 22:00:09.240939142 -0800
+@@ -332,7 +332,7 @@
+ override PACKAGE_NAME=fpc
+ override PACKAGE_VERSION=3.2.2
+ REQUIREDVERSION=3.0.4
+-REQUIREDVERSION2=3.2.0
++REQUIREDVERSION2=3.2.2
+ ifndef inOS2
+ override FPCDIR:=$(BASEDIR)
+ export FPCDIR
+--- a/Makefile.fpc	2023-12-28 21:58:43.410939137 -0800
++++ b/Makefile.fpc	2023-12-28 22:00:34.848939143 -0800
+@@ -21,7 +21,7 @@
+ 
+ [prerules]
+ REQUIREDVERSION=3.0.4
+-REQUIREDVERSION2=3.2.0
++REQUIREDVERSION2=3.2.2
+ 
+ 
+ # make versions < 3.77 (OS2 version) are buggy
 --- a/rtl/linux/aarch64/cprt0.as
 +++ b/rtl/linux/aarch64/cprt0.as
 @@ -41,10 +41,8 @@ _start:
