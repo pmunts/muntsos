@@ -35,11 +35,10 @@ GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' $(BOARDNAME).con
 GCCMAJOR	:= $(shell echo $(GCCVER) | head -c 2)
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
-OSNAME		?= unknown
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
 PKGVER		:= $(GCCVER)-$(shell date +%Y.%j)
 PKGARCH		:= $(shell dpkg --print-architecture)
-PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
+PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
 
