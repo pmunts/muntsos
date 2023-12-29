@@ -49,28 +49,16 @@ default: package.deb
 
 # Prepare the system for building a Crosstool-NG toolchain
 
-prepare.done:
+prepare:
 	@echo "GCCVER   => $(GCCVER)"
 	@echo "GCCMAJOR => $(GCCMAJOR)"
-	# Install necessary system packages
-	sudo apt -y install autoconf
-	sudo apt -y install bison
-	sudo apt -y install build-essential
-	sudo apt -y install curl
-	sudo apt -y install flex
-	sudo apt -y install g++-13
-	sudo apt -y install gcc-13
-	sudo apt -y install gm2-13
-	sudo apt -y install gnat-13
-	sudo apt -y install m4
-	sudo apt -y install zlib1g-dev
-	touch $@
+	sudo apt -y install autoconf bison build-essential curl flex gcc-13 g++-13 gm2-13  gnat-13 m4 zlib1g-dev
 
 ################################################################################
 
 # Configure the cross-toolchain
 
-config.done: prepare.done
+config.done:
 	cp $(BOARDBASE).config .config
 	$(CTNG) oldconfig
 	cp .config $(BOARDBASE).config
@@ -105,9 +93,6 @@ source.done: config.done
 
 build.done: source.done
 	$(CTNG) build
-	#cp -R -P -p $(INSTALLDIR) $(INSTALLDIR).orig
-	#rm -rf $(INSTALLDIR)
-	#cp -R -P -p $(INSTALLDIR).orig $(INSTALLDIR)
 	rm $(INSTALLDIR)/build.log.bz2
 	# Rearrange sysroot directory tree
 	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/debug-root/usr/ $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr
