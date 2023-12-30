@@ -1,6 +1,6 @@
 # Makefile for building Raspberry Pi device tree overlays
 
-# Copyright (C)2017-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2017-2021, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,43 +20,26 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../../..
-BOARDNAME	?= RaspberryPi1
-
-include $(MUNTSOS)/include/$(BOARDNAME).mk
+DTC		?= dtc
 
 default: overlays.done
 
 # Define a pattern rule for compiling device tree overlays
 
 %.dtbo: %.dts
-	$(KERNEL_DTC) -@ -b 0 -I dts -O dtb -o $@ $^
-
-# Compile the device tree compiler
-
-dtc.done:
-	$(MAKE) -C $(MUNTSOS)/bootkernel/kernel dtbs BOARDNAME=$(BOARDNAME)
-	touch $@
+	$(DTC) -@ -b 0 -I dts -O dtb -o $@ $^
 
 # Compile device tree overlays
 
-overlays.done: dtc.done
+overlays.done:
 	for F in *.dts ; do $(MAKE) `basename $$F .dts`.dtbo ; done
 	touch $@
-
-# Release compiled overlays
-
-release: overlays.done
-	cd .. ; md5sum -b overlays/README.txt overlays/*.dtbo | sort -k 2 >overlays.md5
-	cd .. ; tar czf overlays.tgz overlays.md5 overlays/README.txt overlays/*.dtbo --owner=nobody --group=nobody --mode=ugo-w
 
 # Remove working files
 
 clean:
-	rm -f overlays.done *.dtbo ../overlays.md5
+	rm -f overlays.done *.dtbo
 
 reallyclean: clean
-	$(MAKE) -C $(MUNTSOS)/bootkernel/kernel reallyclean BOARDNAME=$(BOARDNAME)
-	rm -f dtc.done
 
 distclean: reallyclean
