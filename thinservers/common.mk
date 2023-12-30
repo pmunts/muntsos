@@ -27,19 +27,19 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 endif
 
 ifeq ($(BOARDNAME), RaspberryPi)
-BOOTFILES	:= bootfiles.tgz bootfiles4.tgz overlays.tgz
+BOOTFILES	:= bootfiles.tgz bootfiles4.tgz
 BOARDS		:= RaspberryPi1 RaspberryPi2 RaspberryPi3 RaspberryPi4
 BASES		:= RaspberryPi1 RaspberryPi2 RaspberryPi3
 else ifeq ($(BOARDNAME), RaspberryPiGadget)
-BOOTFILES	:= bootfiles.tgz bootfiles4.tgz overlays.tgz
+BOOTFILES	:= bootfiles.tgz bootfiles4.tgz
 BOARDS		:= RaspberryPi1Gadget RaspberryPi2Gadget RaspberryPi3Gadget RaspberryPi4Gadget
 BASES		:= RaspberryPi1 RaspberryPi2 RaspberryPi3
 else ifeq ($(findstring RaspberryPi4, $(BOARDNAME)), RaspberryPi4)
-BOOTFILES	:= bootfiles4.tgz overlays.tgz
+BOOTFILES	:= bootfiles4.tgz
 BOARDS		:= $(BOARDNAME)
 BASES		:= $(BOARDBASE)
 else
-BOOTFILES	:= bootfiles.tgz overlays.tgz
+BOOTFILES	:= bootfiles.tgz
 BOARDS		:= $(BOARDNAME)
 BASES		:= $(BOARDBASE)
 endif
@@ -66,7 +66,6 @@ common_mk_prebuilt:
 
 common_mk_populate:
 	for S in $(BASES) ; do mkdir -p $(ZIPDIR)/autoexec.d/$$S ; done
-	mkdir -p					$(ZIPDIR)/overlays
 	mkdir -p					$(ZIPDIR)/tarballs
 	for S in $(BASES) ; do mkdir -p $(ZIPDIR)/packages/$$S ; done
 	for B in $(BOOTFILES) ; do $(TAR) xzf $(BOOTFILESDIR)/$$B -C $(ZIPDIR) ; done
