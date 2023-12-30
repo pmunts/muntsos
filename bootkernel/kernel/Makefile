@@ -81,7 +81,8 @@ menuconfig: $(KERNEL_WORK)/src.done
 # Build device tree blobs and overlays
 
 $(KERNEL_WORK)/dtbs.done: $(KERNEL_WORK)/config.done
-	$(MAKE) $(MAKE_ARGS) dtbs dtbs_install INSTALL_DTBS_PATH=$(KERNEL_WORK)/dtbs
+	$(MAKE) $(MAKE_ARGS) dtbs
+	$(MAKE) $(MAKE_ARGS) dtbs_install INSTALL_DTBS_PATH=$(KERNEL_WORK)/dtbs
 	cd $(KERNEL_WORK)/dtbs && mv overlays ..
 	touch $@
 
