@@ -1,4 +1,4 @@
-                       Raspberry Pi Device Tree Overlays
+         MuntsOS Embedded Linux Extra Raspberry Pi Device Tree Overlays
 
    Here are some collected device tree overlays for the Raspberry Pi,
    customized for MuntsOS.
@@ -103,7 +103,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
    Redistributed works herein are copyrighted and/or licensed by their
    respective authors.
-   ___________________________________________________________________
+   _______________________________________________________________________
 
    Questions or comments to Philip Munts [15]phil@munts.net
 
