@@ -59,6 +59,19 @@ ifneq ($(KERNEL_OVL),)
 	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/overlays/$$f.dtbo $(DESTDIR)/overlays ; done
 endif
 
+ifeq ($(PLATFORM_NAME), beaglebone)
+	$(MAKE) -C $(MUNTSOS)/boot/BeagleBone/overlays DTC=$(KERNEL_DTC)
+	mkdir -p $(DESTDIR)/overlays
+	cp $(MUNTSOS)/boot/BeagleBone/overlays/*.dtbo $(DESTDIR)/overlays
+endif
+
+ifeq ($(PLATFORM_NAME), raspberrypi)
+	$(MAKE) -C $(MUNTSOS)/boot/RaspberryPi/overlays DTC=$(KERNEL_DTC)
+	mkdir -p $(DESTDIR)/overlays
+	cp $(MUNTSOS)/boot/RaspberryPi/overlays/*.dtbo     $(DESTDIR)/overlays
+	cp $(MUNTSOS)/boot/RaspberryPi/overlays/README.txt $(DESTDIR)/overlays
+endif
+
 	cd $(DESTDIR) ; find * -type f -exec md5sum -b {} ";" | sort -k 2 | grep -v kernel.md5 >kernel.md5
 	cd $(DESTDIR) ; tar czf ../$@ * --owner=nobody --group=nobody --mode=ugo-w
 	rm -rf $(DESTDIR)
@@ -102,6 +115,8 @@ reallyclean: clean
 	$(MAKE) -C initramfs reallyclean
 	$(MAKE) -C kernel reallyclean
 	rm -rf *.tgz *.downloaded
+	$(MAKE) -C $(MUNTSOS)/boot/BeagleBone/overlays clean
+	$(MAKE) -C $(MUNTSOS)/boot/RaspberryPi/overlays clean
 
 distclean: reallyclean
 	$(MAKE) -C initramfs distclean
