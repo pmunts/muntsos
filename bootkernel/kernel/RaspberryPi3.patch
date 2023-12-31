@@ -1,6 +1,6 @@
---- Makefile.orig	2023-12-21 06:06:09.000000000 -0800
-+++ Makefile	2023-12-23 09:43:27.536046553 -0800
-@@ -1577,8 +1577,6 @@
+--- Makefile.orig	2022-11-08 06:44:58.000000000 -0800
++++ Makefile	2022-11-18 12:26:08.115955355 -0800
+@@ -1534,8 +1534,6 @@
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
@@ -9,20 +9,20 @@
  
  endif # CONFIG_MODULES
  
---- drivers/clk/bcm/clk-raspberrypi.c.orig	2023-12-23 09:43:27.536046553 -0800
-+++ drivers/clk/bcm/clk-raspberrypi.c	2023-12-23 09:44:47.945092107 -0800
-@@ -373,7 +373,7 @@
+--- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-11-08 06:44:58.000000000 -0800
++++ drivers/clk/bcm/clk-raspberrypi.c	2022-11-18 12:26:08.115955355 -0800
+@@ -362,7 +362,7 @@
  		struct raspberrypi_clk_variant *variant;
  
- 		if (clks->id >= RPI_FIRMWARE_NUM_CLK_ID) {
--			dev_err(rpi->dev, "Unknown clock id: %u (max: %u)\n",
-+			dev_warn(rpi->dev, "Unknown clock id: %u (max: %u)\n",
- 					   clks->id, RPI_FIRMWARE_NUM_CLK_ID - 1);
+ 		if (clks->id > RPI_FIRMWARE_NUM_CLK_ID) {
+-			dev_err(rpi->dev, "Unknown clock id: %u", clks->id);
++			dev_warn(rpi->dev, "Unknown clock id: %u", clks->id);
  			return -EINVAL;
  		}
---- fs/super.c.orig	2023-12-21 06:06:09.000000000 -0800
-+++ fs/super.c	2023-12-23 09:43:27.536046553 -0800
-@@ -1302,7 +1302,7 @@
+ 
+--- fs/super.c.orig	2022-11-29 14:38:39.000000000 +0000
++++ fs/super.c	2022-11-29 23:21:22.426057053 +0000
+@@ -1243,7 +1243,7 @@
  
  	bdev = blkdev_get_by_path(fc->source, mode, fc->fs_type);
  	if (IS_ERR(bdev)) {
