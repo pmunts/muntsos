@@ -41,7 +41,11 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 # Definitions for the Raspberry Pi kernel repository
 
 KERNEL_REPO	= https://github.com/raspberrypi/linux.git
+ifeq ($(GCCARCH), aarch64)
+KERNEL_BRANCH	?= 6.1
+else
 KERNEL_BRANCH	?= 5.15
+endif
 KERNEL_TREEISH	= rpi-$(KERNEL_BRANCH).y
 KERNEL_NAME	= linux-$(PLATFORM_NAME)-$(KERNEL_BRANCH)
 KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
