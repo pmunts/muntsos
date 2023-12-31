@@ -675,10 +675,25 @@ endif
 	sed -i 's/@@TOOLCHAINBUILDER@@/$(TOOLCHAIN_BUILDER)/g'	$@/etc/rc
 	sed -i 's/@@TOOLCHAINREVISION@@/$(TOOLCHAIN_REV)/g'	$@/etc/rc
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
-	sed -i '/mount -a/a if [ -f /sys/class/leds/led1/brightness ]; then echo 255 >/sys/class/leds/led1/brightness ; fi' $@/etc/rc
+ifeq ($(KERNEL_BRANCH), 5.15)
+	sed -i '/mount -a/a fi'					 $@/etc/rc
+	sed -i '/mount -a/a ZZecho 255  >/sys/class/leds/led1/brightness' $@/etc/rc
+	sed -i '/mount -a/a ZZecho none >/sys/class/leds/led1/trigger' $@/etc/rc
+	sed -i '/mount -a/a if [ -f /sys/class/leds/led1/brightness ]; then' $@/etc/rc
 	sed -i '/mount -a/G'					$@/etc/rc
-	sed -i '/mount -a/a # Turn on the power LED, if it has been changed to led1' $@/etc/rc
+	sed -i '/mount -a/a # Turn on the power LED, if it is led1' $@/etc/rc
 	sed -i '/mount -a/G'					$@/etc/rc
+	sed -i 's/ZZ/  /g'					$@/etc/rc
+endif
+ifeq ($(KERNEL_BRANCH), 6.1)
+	sed -i '/mount -a/a fi'					 $@/etc/rc
+	sed -i '/mount -a/a ZZecho default-on >/sys/class/leds/PWR/trigger' $@/etc/rc
+	sed -i '/mount -a/a if [ -f /sys/class/leds/PWR/trigger ]; then' $@/etc/rc
+	sed -i '/mount -a/G'					$@/etc/rc
+	sed -i '/mount -a/a # Turn on the power LED, if it is ACT' $@/etc/rc
+	sed -i '/mount -a/G'					$@/etc/rc
+	sed -i 's/ZZ/  /g'					$@/etc/rc
+endif
 endif
 	install -cm 0444 rpc					$@/etc
 	install -cm 0444 services				$@/etc
@@ -869,8 +884,14 @@ ifneq ($(findstring Beagle, $(BOARDNAME)),)
 endif
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
+ifeq ($(KERNEL_BRANCH), 5.15)
 	ln -s /sys/class/leds/led0/brightness			$@/dev/userled
 	ln -s /sys/class/leds/led0/trigger			$@/dev/userled_trigger
+endif
+ifeq ($(KERNEL_BRANCH), 6.1)
+	ln -s /sys/class/leds/ACT/brightness			$@/dev/userled
+	ln -s /sys/class/leds/ACT/trigger			$@/dev/userled_trigger
+endif
 
 	sed -i 's/-h -L 115200 ttyS0/115200 tty1/g'		$@/etc/inittab
 
