@@ -22,8 +22,6 @@
 
 TOOLCHAIN_BUILDER ?= crosstool
 
-KERNEL_BRANCH	:= 6.1
-
 include $(MUNTSOS)/include/AArch64.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
 include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
