@@ -680,24 +680,22 @@ endif
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 ifeq ($(KERNEL_BRANCH), 5.15)
 	sed -i 's#@@USERLED@@#/sys/class/leds/led0#g'		$@/etc/rc
-	sed -i '/mount -a/a fi'					 $@/etc/rc
-	sed -i '/mount -a/a ZZecho 255  >/sys/class/leds/led1/brightness' $@/etc/rc
-	sed -i '/mount -a/a ZZecho none >/sys/class/leds/led1/trigger' $@/etc/rc
-	sed -i '/mount -a/a if [ -f /sys/class/leds/led1/brightness ]; then' $@/etc/rc
-	sed -i '/mount -a/G'					$@/etc/rc
-	sed -i '/mount -a/a # Initialize the power LED (if necessary)' $@/etc/rc
-	sed -i '/mount -a/G'					$@/etc/rc
-	sed -i 's/ZZ/  /g'					$@/etc/rc
+	sed -i '/# Initialize user LED/i # Initialize power LED (if necessary)' $@/etc/rc
+	sed -i '/# Initialize user LED/i\\'			$@/etc/rc
+	sed -i '/# Initialize user LED/i if [ -f /sys/class/leds/led1/trigger ]; then' $@/etc/rc
+	sed -i '/# Initialize user LED/i\\  echo none >/sys/class/leds/led1/trigger' $@/etc/rc
+	sed -i '/# Initialize user LED/i\\  echo 1 >/sys/class/leds/led1/brightness' $@/etc/rc
+	sed -i '/# Initialize user LED/i fi'			$@/etc/rc
+	sed -i '/# Initialize user LED/i\\'			$@/etc/rc
 endif
 ifeq ($(KERNEL_BRANCH), 6.1)
 	sed -i 's#@@USERLED@@#/sys/class/leds/ACT#g'		$@/etc/rc
-	sed -i '/mount -a/a fi'					 $@/etc/rc
-	sed -i '/mount -a/a ZZecho default-on >/sys/class/leds/PWR/trigger' $@/etc/rc
-	sed -i '/mount -a/a if [ -f /sys/class/leds/PWR/trigger ]; then' $@/etc/rc
-	sed -i '/mount -a/G'					$@/etc/rc
-	sed -i '/mount -a/a # Initialize the power LED (if necessary)' $@/etc/rc
-	sed -i '/mount -a/G'					$@/etc/rc
-	sed -i 's/ZZ/  /g'					$@/etc/rc
+	sed -i '/# Initialize user LED/i # Initialize power LED (if necessary)' $@/etc/rc
+	sed -i '/# Initialize user LED/i\\'			$@/etc/rc
+	sed -i '/# Initialize user LED/i if [ -f /sys/class/leds/PWR/trigger ]; then' $@/etc/rc
+	sed -i '/# Initialize user LED/i\\  echo default-on >/sys/class/leds/PWR/trigger' $@/etc/rc
+	sed -i '/# Initialize user LED/i fi'			$@/etc/rc
+	sed -i '/# Initialize user LED/i\\'			$@/etc/rc
 endif
 endif
 	install -cm 0444 rpc					$@/etc
