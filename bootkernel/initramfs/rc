@@ -42,6 +42,49 @@
 
 echo "Starting MuntsOS Embedded Linux"
 
+# Define a function to wait for a device node to be created
+
+WaitForDevice()
+{
+  mdev -s
+
+  while [ ! $1 $2 ]
+  do
+    #echo "Wait for $2"
+    mdev -s
+    usleep 100000
+  done
+}
+
+# Define a function to wait for a directory to be created
+
+WaitForDir()
+{
+  while [ ! -d $1 ]
+  do
+    #echo "Wait for $1"
+    usleep 100000
+  done
+}
+
+# Define a function to wait for a network interface to be created
+
+WaitForNetIF()
+{
+  mdev -s
+
+  grep -q ${1}: /proc/net/dev
+
+  while [ $? -ne 0 ]
+  do
+    #echo "Wait for $1"
+    mdev -s
+    usleep 100000
+
+    grep -q ${1}: /proc/net/dev
+  done
+}
+
 # Configure path for this script
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -49,22 +92,22 @@ export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 # Mount all file systems
 
 mount -a
-sleep 1
-
-# Create initial device nodes
-
+WaitForDir /proc
+WaitForDir /sys
+WaitForDir /sys/kernel/config
+WaitForDir /sys/kernel/debug
+WaitForDir /dev/shm
+WaitForDir /dev/pts
 mdev -s
-sleep 4
+
+# Wait a while for USB devices to power up and enumerate
+
+sleep 5
 
 # Create a symbolic link to the boot partition
 
 if [ -n "${BOOTPART}" ]; then
-  while [ ! -b /dev/${BOOTPART} ]
-  do
-    mdev -s
-    sleep 1
-  done
-
+  WaitForDevice -b /dev/${BOOTPART}
   ln -s ${BOOTPART} /dev/bootdisk
   unset BOOTPART
 fi
@@ -117,48 +160,51 @@ grep -q -i "BeagleBone Black Wireless" /proc/device-tree/model
 if [ $? -eq 0 ]; then
   modprobe wl18xx
   modprobe wlcore_sdio
+  WaitForNetIF wlan0
 fi
 
 grep -q -i "BeagleBone Green Wireless" /proc/device-tree/model
 if [ $? -eq 0 ]; then
   modprobe wl18xx
   modprobe wlcore_sdio
+  WaitForNetIF wlan0
 fi
 
 grep -q -i "Raspberry Pi Zero W" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
+  WaitForNetIF wlan0
 fi
 
 grep -q -i "Raspberry Pi Zero 2" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
+  WaitForNetIF wlan0
 fi
 
 grep -q -i "Raspberry Pi 3 Model A" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
+  WaitForNetIF wlan0
 fi
 
 grep -q -i "Raspberry Pi 3 Model B" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
+  WaitForNetIF wlan0
 fi
 
 grep -q -i "Raspberry Pi 4 Model B" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
+  WaitForNetIF wlan0
 fi
 
 grep -q -i "Raspberry Pi Compute Module 4" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
+  WaitForNetIF wlan0
 fi
-
-# Create more device nodes
-
-mdev -s
-sleep 1
 
 # Fix top level GPIO subsystem permissions
 
@@ -191,6 +237,7 @@ if [ $? -eq 0 ]; then
 # Install the device tree overlays requested in /boot/overlays.txt
 
   /usr/libexec/install-overlays
+  mdev -s
 
 # Extract tarballs, if any
 
@@ -257,7 +304,6 @@ fi
 # Create more device nodes
 
 mdev -s
-sleep 1
 
 # Start system logger
 
@@ -271,13 +317,6 @@ else
   hostname `uname -r | awk -F '-' '{ printf("%s-%s\n", $2, $3); }'`
 fi
 
-# Load USB Gadget Serial module
-
-if [ $((OPTIONS & 0x81)) -ne 0 ]; then
-  modprobe g_serial
-  sleep 1
-fi
-
 # Load USB Gadget Network module
 
 if [ $((OPTIONS & 0x802)) -ne 0 ]; then
@@ -286,7 +325,7 @@ if [ $((OPTIONS & 0x802)) -ne 0 ]; then
   fi
 
   modprobe g_ether dev_addr=${GETHMACADDR:-02:00:00:00:00:01} host_addr=${GETHMACADDRHOST:-02:00:00:00:00:02}
-  sleep 1
+  WaitForNetIF usb0
 fi
 
 # Load USB Gadget Raw HID module
@@ -297,7 +336,14 @@ if [ $((OPTIONS & 0x1000)) -ne 0 ]; then
   fi
 
   modprobe g_hid idVendor=${GHIDVID:-0x16D0} idProduct=${GHIDPID:-0x0AFA} iManufacturer="${GHIDMFG:-Munts Technologies}" iProduct="${GHIDPROD:-USB HID Device}" iSerialNumber="${GHIDSERIAL:-`serialnumber`}"
-  sleep 1
+  WaitForDevice -c /dev/hidg0
+fi
+
+# Load USB Gadget Serial module
+
+if [ $((OPTIONS & 0x81)) -ne 0 ]; then
+  modprobe g_serial
+  WaitForDevice -c /dev/ttyGS0
 fi
 
 # Run getty on USB Gadget Serial interface, if requested
@@ -408,6 +454,7 @@ fi
 
 if [ -d /sys/bus/usb/devices ]; then
   lsusb | awk '{ printf("modprobe usb:v%sp%sd*dc*dsc*dp*ic*isc*ip*in*\n", toupper(substr($6, 1, 4)), toupper(substr($6, 6, 4))); }' | sh 2>&1 | grep -v 'not found'
+  mdev -s
 fi
 
 # Reload /etc/inittab, in case it has been changed
