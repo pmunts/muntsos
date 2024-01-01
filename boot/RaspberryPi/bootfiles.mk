@@ -33,7 +33,7 @@ BOOTFILES_LIST		+= start_cd.elf
 BOOTFILES_LIST		+= start_db.elf
 BOOTFILES_LIST		+= start_x.elf
 
-BOOTFILES_SRCDIR	?= /boot
+BOOTFILES_SRCDIR	?= /boot/firmware
 BOOTFILES_DSTDIR	:= $(shell pwd)/bootfiles
 BOOTFILES_TARBALL	:= $(BOOTFILES_DSTDIR).tgz
 
