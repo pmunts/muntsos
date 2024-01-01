@@ -46,17 +46,30 @@ echo "Starting MuntsOS Embedded Linux"
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
-# Wait for USB devices to settle
-
-if [ -d /sys/bus/usb/devices ]; then
-  sleep 5
-fi
-
 # Mount all file systems
 
 mount -a
+sleep 1
 
-# Initialize the user LED
+# Create initial device nodes
+
+mdev -s
+sleep 4
+
+# Create a symbolic link to the boot partition
+
+if [ -n "${BOOTPART}" ]; then
+  while [ ! -b /dev/${BOOTPART} ]
+  do
+    mdev -s
+    sleep 1
+  done
+
+  ln -s ${BOOTPART} /dev/bootdisk
+  unset BOOTPART
+fi
+
+# Initialize user LED
 
 echo none >    @@USERLED@@/trigger
 echo 0 >       @@USERLED@@/brightness
@@ -72,10 +85,6 @@ chmod 755 /
 
 linklibs
 ldconfig
-
-# Create initial device nodes
-
-mdev -s
 
 # Set platform identification environment variables
 
@@ -101,13 +110,6 @@ if [ -n "${SHIELDNAME}" ]; then
 fi
 
 chmod 444 /etc/platform
-
-# Create a symbolic link to the boot partition
-
-if [ -n "${BOOTPART}" ]; then
-  ln -s -f ${BOOTPART} /dev/bootdisk
-  unset BOOTPART
-fi
 
 # Load kernel modules for built-in, non-USB wireless network interfaces
 
@@ -152,6 +154,11 @@ grep -q -i "Raspberry Pi Compute Module 4" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
 fi
+
+# Create more device nodes
+
+mdev -s
+sleep 1
 
 # Fix top level GPIO subsystem permissions
 
@@ -250,6 +257,7 @@ fi
 # Create more device nodes
 
 mdev -s
+sleep 1
 
 # Start system logger
 
