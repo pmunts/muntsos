@@ -33,90 +33,24 @@ SetPerms()
   chmod $2 $1
 }
 
-DEVNAME=`basename ${DEVPATH}`
-REGEXCHIPMATCH="^pwmchip[0-9]+$"
-REGEXCHIPSUBST="pwmchip"
-
 # Handle PWM chip events
 
-echo ${DEVNAME} | egrep "${REGEXCHIPMATCH}"
-if [ $? -eq 0 ]; then
-  if [ "${ACTION}" = "add" ]; then
-    SetPerms /sys${DEVPATH}          0750
-    SetPerms /sys${DEVPATH}/export   0220
-    SetPerms /sys${DEVPATH}/npwm     0440
-    SetPerms /sys${DEVPATH}/unexport 0220
-    ln -s -f /sys${DEVPATH} /dev/${DEVNAME}
-    exit 0
-  fi
-
-  if [ "${ACTION}" = "remove" ]; then
-    rm -f /dev/${DEVNAME}
-    exit 0
-  fi
-
-# Handle PWM chip change events (kernel 4.19)
-
-  if [ "${ACTION}" = "change" ]; then
-    if [ -n "${EXPORT}" ]; then
-      CHIP=`echo ${DEVNAME} | sed -r "s/${REGEXCHIPSUBST}//g"`
-      CHAN=`echo ${EXPORT}  | sed -r "s/pwm//g"`
-      CHANPATH=/sys${DEVPATH}/${EXPORT}
-      LINKNAME=pwm-${CHIP}:${CHAN}
-
-      SetPerms ${CHANPATH}            0750
-      SetPerms ${CHANPATH}/capture    0440
-      SetPerms ${CHANPATH}/duty_cycle 0660
-      SetPerms ${CHANPATH}/enable     0660
-      SetPerms ${CHANPATH}/period     0660
-      SetPerms ${CHANPATH}/polarity   0660
-
-      ln -s -f ${CHANPATH} /dev/${LINKNAME}
-      exit 0
-    fi
-
-    if [ -n "${UNEXPORT}" ]; then
-      CHIP=`echo ${DEVNAME}  | sed -r "s/${REGEXCHIPSUBST}//g"`
-      CHAN=`echo ${UNEXPORT} | sed -r "s/pwm//g"`
-      LINKNAME=pwm-${CHIP}:${CHAN}
-
-      rm -f /dev/pwm-${CHIP}:${CHAN}
-      exit 0
-    fi
-  fi
-
+if [ "${ACTION}" = "add" ]; then
+  SetPerms /sys${DEVPATH}          0750
+  SetPerms /sys${DEVPATH}/export   0220
+  SetPerms /sys${DEVPATH}/npwm     0440
+  SetPerms /sys${DEVPATH}/unexport 0220
   exit 0
 fi
 
-# Handle PWM channel events (kernel 4.14)
+# Handle PWM channel events
 
-REGEXCHANMATCH="^(pwm-[0-9]+:[0-9]+)|(pwm[0-9]+)$"
-REGEXCHANSUBST="(pwm-[0-9]+:)|(pwm)"
-
-echo ${DEVNAME} | egrep "${REGEXCHANMATCH}"
-if [ $? -eq 0 ]; then
-  PARENTPATH=`dirname ${DEVPATH}`
-  PARENTNAME=`basename ${PARENTPATH}`
-
-  CHIP=`echo ${PARENTNAME} | sed -r "s/${REGEXCHIPSUBST}//g"`
-  CHAN=`echo ${DEVNAME}    | sed -r "s/${REGEXCHANSUBST}//g"`
-
-  if [ "${ACTION}" = "add" ]; then
-    SetPerms /sys${DEVPATH}            0750
-    SetPerms /sys${DEVPATH}/capture    0440
-    SetPerms /sys${DEVPATH}/duty_cycle 0660
-    SetPerms /sys${DEVPATH}/enable     0660
-    SetPerms /sys${DEVPATH}/period     0660
-    SetPerms /sys${DEVPATH}/polarity   0660
-
-    ln -s -f /sys${DEVPATH} /dev/pwm-${CHIP}:${CHAN}
-    exit 0
-  fi
-
-  if [ "${ACTION}" = "remove" ]; then
-    rm -f /dev/pwm-${CHIP}:${CHAN}
-    exit 0
-  fi
-
+if [ "${ACTION}" = "change" -a -n "${EXPORT}" ]; then
+  SetPerms /sys${DEVPATH}/${EXPORT}            0750
+  SetPerms /sys${DEVPATH}/${EXPORT}/capture    0440
+  SetPerms /sys${DEVPATH}/${EXPORT}/duty_cycle 0660
+  SetPerms /sys${DEVPATH}/${EXPORT}/enable     0660
+  SetPerms /sys${DEVPATH}/${EXPORT}/period     0660
+  SetPerms /sys${DEVPATH}/${EXPORT}/polarity   0660
   exit 0
 fi
