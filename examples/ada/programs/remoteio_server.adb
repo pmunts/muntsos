@@ -276,11 +276,11 @@ BEGIN
 
     DELAY 1.0;
 
-    IF Ada.Directories.Exists("/dev/pwm-0:0") THEN
+    IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
       pwm.Register(0, PocketBeagle.PWM0_0);
     END IF;
 
-    IF Ada.Directories.Exists("/dev/pwm-2:0") THEN
+    IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm0") THEN
       pwm.Register(1, PocketBeagle.PWM2_0);
     END IF;
 
@@ -386,11 +386,11 @@ BEGIN
       system("echo 1 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
       DELAY 1.0;
 
-      IF Ada.Directories.Exists("/dev/pwm-0:0") THEN
+      IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
         pwm.Register(0, RaspberryPi.PWM0);
       END IF;
 
-      IF Ada.Directories.Exists("/dev/pwm-0:1") THEN
+      IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm1") THEN
         pwm.Register(1, RaspberryPi.PWM1);
       END IF;
     END IF;

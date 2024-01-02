@@ -127,11 +127,11 @@ BEGIN
 
     -- Register BCM2835 PWM outputs
 
-    IF Ada.Directories.Exists("/dev/pwm-0:0") THEN
+    IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
       pwm.Register(12, Grove_Base_Hat_Zero.PWM12);
     END IF;
 
-    IF Ada.Directories.Exists("/dev/pwm-0:1") THEN
+    IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm1") THEN
       pwm.Register(13, Grove_Base_Hat_Zero.PWM13);
     END IF;
   ELSE
