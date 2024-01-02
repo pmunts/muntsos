@@ -36,9 +36,11 @@ SetPerms()
 # Handle PWM chip events
 
 if [ "${ACTION}" = "add" ]; then
-  SetPerms /sys${DEVPATH}          0750
+  SetPerms /sys${DEVPATH}          0550
   SetPerms /sys${DEVPATH}/export   0220
   SetPerms /sys${DEVPATH}/npwm     0440
+  SetPerms /sys${DEVPATH}/power    0550
+  SetPerms /sys${DEVPATH}/uevent   0220
   SetPerms /sys${DEVPATH}/unexport 0220
   exit 0
 fi
@@ -46,11 +48,13 @@ fi
 # Handle PWM channel events
 
 if [ "${ACTION}" = "change" -a -n "${EXPORT}" ]; then
-  SetPerms /sys${DEVPATH}/${EXPORT}            0750
+  SetPerms /sys${DEVPATH}/${EXPORT}            0550
   SetPerms /sys${DEVPATH}/${EXPORT}/capture    0440
   SetPerms /sys${DEVPATH}/${EXPORT}/duty_cycle 0660
   SetPerms /sys${DEVPATH}/${EXPORT}/enable     0660
   SetPerms /sys${DEVPATH}/${EXPORT}/period     0660
   SetPerms /sys${DEVPATH}/${EXPORT}/polarity   0660
+  SetPerms /sys${DEVPATH}/${EXPORT}/power      0550
+  SetPerms /sys${DEVPATH}/${EXPORT}/uevent     0220
   exit 0
 fi
