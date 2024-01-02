@@ -77,7 +77,6 @@ endif
 	cp $(MUNTSOS)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d
 	find $(ZIPDIR) -type f -exec chmod 644 {} ";"
 	find $(ZIPDIR)/autoexec.d -type f -exec chmod 755 {} ";"
-	cd $(ZIPDIR) ; find * -type f -exec md5sum -b {} ";" | sort -k 2 | grep -v checksums >checksums.md5
 
 ###############################################################################
 
