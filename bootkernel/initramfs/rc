@@ -46,7 +46,7 @@ WaitForFile()
 {
   while [ ! $1 $2 ]
   do
-    echo "Wait for $2"
+    #echo "Wait for $2"
     usleep 100000
   done
 }
