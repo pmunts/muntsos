@@ -9,65 +9,13 @@ like traditional single chip microcontrollers.
 
 ## News
 
-  - 9 March 2023 -- [Alire](https://alire.ada.dev) crates for targeting
-    MuntsOS Embedded Linux have been published. All you need to do
-    prepare an Alire project for for a MuntsOS target is:
-    
-        alr init --bin myprogram
-        cd myprogram
-        alr with muntsos_raspberrypi1
-    
-    The new crates (**`muntsos_beaglebone`**,
-    **`muntsos_raspberrypi1`**, **`muntsos_raspberrypi2`**,
-    **`muntsos_raspberrypi3`**, and **`muntsos_raspberrypi4`**) each
-    point to one of the MuntsOS cross-toolchains, which still have to be
-    installed exactly as before. [Application Note
-    \#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
-    has been updated accordingly.
-
-  - 14 March 2023 -- New kernels with many, many updated components have
-    been published.
-
-  - Dropped support for the virtual machine appliance preloaded with
-    cross-toolchains for MuntsOS Embedded Linux. It was just too big to
-    upload.
-
-  - 16 March 2023 -- Cross-toolchain RPM packages are now being
-    published. These contain the exact same statically linked binaries
-    originally built on Debian 11. They are verified to work on Fedora
-    37, RHEL 9.1 and its derivatives CentOS Stream 9, AlmaLinux 9.1, and
-    Rocky Linux 9.1. Available at: <http://repo.munts.com/muntsos/rpms>.
-
-  - 20 September 2023 -- After a long (years) hiatus, I have
-    successfully built MuntsOS cross-toolchains for Debian 12 using
-    [Linaro ABE](https://wiki-archive.linaro.org/ABE) (Advanced Build
-    Environment) using manifests derived from the latest [Arm GNU
-    Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
-    release 12.3.Rel1.  
-
-  - 8 December 2023 -- [Crosstool-NG
-    1.26.0](https://crosstool-ng.github.io/2023/09/24/release-1.26.0.html)
-    has been released. I have rebuilt all of the MuntsOS
-    cross-toolchains on Debian 12 (Bookworm), bumping GCC to 13.2.0 and
-    picking up the Modula-2 programming language. The [Arm GNU Toolchain
-    version
-    13.2.Rel1](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
-    has also been released and I will be experimenting with it as well.
-    The advantage of Crosstool-NG is that its program files can be
-    linked statically, and should run on any recent Linux distribution.
-    The advantage of Arm GNU is that it is updated far more frequently,
-    at least twice a year.
-
-  - 28 December 2023 -- Renamed the MuntsOS cross-toolchain metapackage
-    from **`muntsos-dev-ctng-2.0`** to **`muntsos-dev-9.0`** to solve an
-    Alire package conundrum.
-
-  - 29 December 2023 -- MuntsOS GCC 13.2.0 cross-toolchains running on
-    ARM64 Linux are now available. I built these on a Raspberry Pi CM4
-    with 8 GB of RAM running Ubuntu 23.10 (for the GCC 13 native
-    toolchain necessary to build my cross-toolchains). Each
-    cross-toolchain took about 5 hours to build. They run on 64-bit
-    Raspberry Pi OS and on low cost ARM Chromebooks.
+  - 1 January 2024 -- I have decided to freeze all development for
+    32-bit kernels. The 32-bit BeagleBone kernel is frozen at 5.4.106.
+    The 32-bit Raspberry Pi 1 and 2 kernels are frozen at 5.15.92. The
+    frozen 32-bit kernels will still be rebuilt regularly to incorporate
+    userland improvements.  
+    The 64-bit Raspberry Pi 3 and 4 kernels have been upgraded to 6.1.69
+    and will track <https://github.com/raspberrypi/linux> again.
 
 ## Quick Setup Instructions for the Impatient
 
@@ -198,11 +146,11 @@ Prebuilt MuntsOS Thin Servers are at available at:
 | ------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | **`muntsos*BeagleBone.zip`**          | For BeagleBone (White), Black, Black Wireless, Green, Green Wireless, PocketBeagle -- ARMv7 32-bit |
 | **`muntsos*RaspberryPi1.zip`**        | For all Raspberry Pi 1 -- ARMv6 32-bit, USB master                                                 |
-| **`muntsos*RaspberryPi1Gadget.zip `** | For Raspberry Pi 1 A, A+, CM1, Zero, Zero W -- ARMv6 32-bit, USB slave                             |
-| **`muntsos*RaspberryPi2.zip`**        | For all Raspberry Pi 2, 3, Zero 2 -- ARMv7 32-bit, USB master                                      |
-| **`muntsos*RaspberryPi2Gadget.zip `** | For Raspberry Pi 3 A+, CM3, and Zero 2 -- ARMv7 32-bit, USB slave                                  |
-| **`muntsos*RaspberryPi3.zip`**        | For all Raspberry Pi 3, Zero 2 -- ARMv8 64-bit, USB master                                         |
-| **`muntsos*RaspberryPi3Gadget.zip `** | For Raspberry Pi 3 A+, CM3, and Zero 2 -- ARMv8 64-bit, USB slave                                  |
+| **`muntsos*RaspberryPi1Gadget.zip `** | For Raspberry Pi 1 A, 1 A+, CM1, Zero, Zero W -- ARMv6 32-bit, USB slave                           |
+| **`muntsos*RaspberryPi2.zip`**        | For all Raspberry Pi 2, 3, Zero 2 W -- ARMv7 32-bit, USB master                                    |
+| **`muntsos*RaspberryPi2Gadget.zip `** | For Raspberry Pi 3 A+, CM3, and Zero 2 W -- ARMv7 32-bit, USB slave                                |
+| **`muntsos*RaspberryPi3.zip`**        | For all Raspberry Pi 3, Zero 2 W -- ARMv8 64-bit, USB master                                       |
+| **`muntsos*RaspberryPi3Gadget.zip `** | For Raspberry Pi 3 A+, CM3, and Zero 2 W-- ARMv8 64-bit, USB slave                                 |
 | **`muntsos*RaspberryPi4.zip`**        | For all Raspberry Pi 4 -- ARMv8 64-bit, USB master                                                 |
 | **`muntsos*RaspberryPi4Gadget.zip`**  | For all Raspberry Pi 4 -- ARMv8 64-bit, USB slave                                                  |
 
@@ -399,23 +347,36 @@ stereo headphone or three-pole A/V jack. They also have several
 miniature connectors for camera and LCD display modules as well as a
 single 26 or 40 pin 2.54 mm pitch GPIO expansion connector.
 
-All Raspberry Pi 1 models use the same 32-bit ARMv6 kernel and
-toolchains, with different device trees.
+All Raspberry Pi 1 models use the same 32-bit ARMv6 toolchain and
+kernel, but different device trees.
 
-With the advent of the [Raspberry Pi Zero
-2](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w), all
+With the advent of the [Raspberry Pi Zero 2
+W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w), all
 Raspberry Pi 1 models are now obsolete. MuntsOS Embedded Linux will
-continue to support all Raspberry Pi 1 models.
+continue to support them, albeit with the kernel frozen at 5.15.92.
 
-#### Raspberry Pi 2 and 3
+#### Raspberry Pi 2
 
 The [Rasbperry Pi 2 Model
 B](https://www.raspberrypi.com/products/raspberry-pi-2-model-b) has a
-900 MHz BCM2709 ARMv7 Cortex-A7 (900 MHz BCM2710 ARMv8 Cortex-A53 on
-later production boards) quad-core CPU and comes with 1 GB of RAM. It is
-mechanically compatible with the Raspberry Pi 1 Model B+, with 10/100
-Ethernet, 4 USB ports, 3.5 mm A/V jack, and a 40-pin GPIO expansion
-header.
+900 MHz BCM2709 ARMv7 Cortex-A7 quad-core CPU and comes with 1 GB of
+RAM. It is mechanically compatible with the Raspberry Pi 1 Model B+,
+with 10/100 Ethernet, 4 USB ports, 3.5 mm A/V jack, and a 40-pin GPIO
+expansion header.
+
+The Raspberry Pi 2 uses a unique 32-bit ARMv7 toolchain and kernel.
+
+The 32-bit Raspberry Pi 2 Model B is now obsolete. MuntsOS Embedded
+Linux will continue to support it, albeit with the kernel frozen at
+5.15.92.
+
+#### Raspberry Pi 3
+
+The 64-bit [Raspberry Pi 2 Model
+B](https://www.raspberrypi.com/products/raspberry-pi-2-model-b) Revision
+1.2 with the 900 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU can be
+treated as a power conserving Raspberry Pi 3 Model B− and is useful for
+industrial applications where wired Ethernet is preferred.
 
 The [Rasbperry Pi 3 Model
 B](https://www.raspberrypi.com/products/raspberry-pi-3-model-b) has a
@@ -440,11 +401,8 @@ same form factor as the Raspberry Pi Zero W, with a 1000 MHz BCM2710
 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
 Bluetooth and WiFi radios.
 
-All Raspberry Pi 2 and 3 models can use the same 32-bit ARMv7 kernel and
-toolchains, with different device trees. There are also 64-bit AArch64
-toolchains and ARMv8 kernels available for the Raspberry Pi 3, though
-with 1 GB or less of RAM there is no particular advantage in running
-64-bit.
+All Raspberry Pi 3 models use the same AArch64 toolchain (in common with
+the Raspberry Pi 4) and ARMv8 kernels, but different device trees.
 
 #### Raspberry Pi 4
 
@@ -460,55 +418,53 @@ connected via PCI Express instead of the USB connected Ethernet used for
 all earlier models. The Raspberry Pi 4 Model B uses the same wireless
 chip set as the 3+.
 
-The Raspberry Pi Model 4 B is much more powerful than any previous
-Raspberry Pi, and is completely usable as a general purpose desktop
-computer. It does require significantly more power and generates
-significantly more heat. It supports dual monitors, which is mostly
-irrelevant for embedded systems. I have some doubt about the long term
-physical robustness of the micro-HDMI connectors.
+There are also a myriad of [Raspberry Pi 4 Compute
+Modules](https://www.raspberrypi.com/products/compute-module-4), with
+varying combinations of wireless Ethernet, RAM and eMMC.
+
+All Raspberry Pi 4 models use the same AArch64 toolchain (in common with
+the Raspberry Pi 3) and ARMv8 kernels, but different device trees.
 
 #### Raspberry Pi USB Gadget Kernels
 
 MuntsOS also provides Raspberry Pi kernels with dedicated [USB
 Gadget](http://www.linux-usb.org/gadget) support enabled. These kernels
-run on Models 1 A, A+, CM1, Zero, Zero Wireless, 3 A+, CM3, Zero 2, 4 B,
-and CM4. You can supply power to and communicate with a compatible
-Raspberry Pi solely through the USB port. This kernel supports USB
-Network, Raw HID, and Serial Port gadgets, selected by bits in the
-**`OPTIONS`** word passed on the kernel command line. The USB Gadget
-Thin Servers have USB Network Gadget selected by default.
+run on Models 1 A, 1 A+, CM1, Zero, Zero Wireless, 3 A+, CM3, Zero 2
+Wireless, 4 B, and CM4. You can supply power to and communicate with a
+compatible Raspberry Pi solely through the USB port. This kernel
+supports USB Network, Raw HID, and Serial Port gadgets, selected by bits
+in the **`OPTIONS`** word passed on the kernel command line. The USB
+Gadget Thin Servers have USB Network Gadget selected by default.
 
 The absolute minimum possible usable Raspberry Pi kit consists of a
-Raspberry Pi Zero, Zero W, or Zero 2, a micro-USB cable, and a micro-SD
-card with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers
-installed.
+Raspberry Pi Zero, Zero W, or Zero 2 W, a micro-USB cable, and a
+micro-SD card with one of the MuntsOS Raspberry Pi USB Gadget Thin
+Servers installed.
 
 ## Cross-Toolchains
 
-I build a custom Ada/C/C++/Fortran/Go/Modula-2 cross-toolchain for each
-MuntsOS platform family. Each cross-toolchain requires a number of
-additional software component libraries, which are packaged and
+I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for
+each MuntsOS platform family. Each GCC cross-toolchain requires a number
+of additional software component libraries, which are packaged and
 distributed separately but installed into the same directory tree as the
-parent cross-toolchain.
+parent cross-toolchain. I also build [Free
+Pascal](https://www.freepascal.org) cross-compilers. Each of these rely
+on the libraries contained in the corresponding GCC cross-toolchain
+package.
 
-I also build [Free Pascal](https://www.freepascal.org) cross-compilers.
-These rely on the libraries in the Ada/C/C++/Fortran/Go/Modula-2
-cross-toolchain package, which must be installed first.
-
-Sometimes cross-toolchains can be shared among different platforms: For
-example, the Raspberry Pi 2 and Raspberry Pi 3 can use the same
-cross-toolchains (the 32-bit ARMv7 cross-toolchains nominally built for
-the Raspberry Pi 2), and the Raspberry Pi 3 and Raspberry Pi 4 can also
-use the same cross-toolchains (the 64-bit AArch64 cross-toolchains
-nominally built for the Raspberry Pi 3).
+The BeagleBone, Raspberry Pi 1, and Raspberry Pi 2 each require a 32-bit
+ARMv6 or ARMv7 cross-toolchain carefully tuned for their respective CPU
+and FPU cores while all 64-bit platforms use the same AArch64
+cross-toolchain.
 
 Cross-toolchain packages built for [Debian](https://www.debian.org)
-Linux are available at:
+Linux (both x86-64 and ARM64) development host computers are available
+at:
 
 <http://repo.munts.com/debian12>
 
-RPM packages containing the exact same binaries and known to work on
-Fedora 37 and RHEL 9.1 and its derivatives are available at:
+x86-64 RPM packages containing the exact same binaries and known to work
+on Fedora 37 and RHEL 9.1 and its derivatives are available at:
 
 <http://repo.munts.com/muntsos/rpms>
 
