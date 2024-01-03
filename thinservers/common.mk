@@ -22,7 +22,6 @@
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-SED		?= sed
 TAR		?= tar
 ZIP		?= zip
 
@@ -33,7 +32,7 @@ else
 ZIPFILE		:= muntsos-$(THINSERVERNAME)-$(BOARDNAME).zip
 endif
 
-common_mk_default: $(ZIPFILE)
+common_mk_default: default
 
 ###############################################################################
 

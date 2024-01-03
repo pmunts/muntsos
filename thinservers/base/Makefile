@@ -25,7 +25,7 @@ MUNTSOS		?= $(shell pwd)/../..
 
 include $(MUNTSOS)/thinservers/common.mk
 
-default: common_mk_default
+default: $(ZIPFILE)
 
 clean: common_mk_clean
 
