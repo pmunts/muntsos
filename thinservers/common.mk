@@ -39,7 +39,7 @@ common_mk_default: default
 # Download prebuilt binaries
 
 common_mk_prebuilt:
-	$(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt BOARDNAME=$(BOARDBASE)
+	$(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt
 	for E in $(EXTENSIONS) ; do $(MAKE) -C $(MUNTSOS)/extensions/$$E download_prebuilt ; done
 
 ###############################################################################
