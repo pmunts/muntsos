@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS SSH Thin Server
 
-# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,29 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-ifeq ($(BOARDNAME), RaspberryPiGadget)
-include $(MUNTSOS)/include/RaspberryPi.mk
-else
 include $(MUNTSOS)/include/$(BOARDNAME).mk
-endif
-
-ifeq ($(BOARDNAME), RaspberryPi)
-BOOTFILES	:= bootfiles.tgz bootfiles4.tgz
-BOARDS		:= RaspberryPi1 RaspberryPi2 RaspberryPi3 RaspberryPi4
-BASES		:= RaspberryPi1 RaspberryPi2 RaspberryPi3
-else ifeq ($(BOARDNAME), RaspberryPiGadget)
-BOOTFILES	:= bootfiles.tgz bootfiles4.tgz
-BOARDS		:= RaspberryPi1Gadget RaspberryPi2Gadget RaspberryPi3Gadget RaspberryPi4Gadget
-BASES		:= RaspberryPi1 RaspberryPi2 RaspberryPi3
-else ifeq ($(findstring RaspberryPi4, $(BOARDNAME)), RaspberryPi4)
-BOOTFILES	:= bootfiles4.tgz
-BOARDS		:= $(BOARDNAME)
-BASES		:= $(BOARDBASE)
-else
-BOOTFILES	:= bootfiles.tgz
-BOARDS		:= $(BOARDNAME)
-BASES		:= $(BOARDBASE)
-endif
 
 SED		?= sed
 TAR		?= tar
@@ -58,18 +36,18 @@ common_mk_default: default
 # Download prebuilt binaries
 
 common_mk_prebuilt:
-	for T in $(BOARDS) ; do $(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$$T ; done
+	$(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$(BOARDBASE)
 
 ###############################################################################
 
 # Populate the boot file system for a MuntsOS Thin Server
 
 common_mk_populate:
-	for S in $(BASES) ; do mkdir -p $(ZIPDIR)/autoexec.d/$$S ; done
+	mkdir -p					$(ZIPDIR)/autoexec.d/$(BOARDBASE)
 	mkdir -p					$(ZIPDIR)/tarballs
-	for S in $(BASES) ; do mkdir -p $(ZIPDIR)/packages/$$S ; done
-	for B in $(BOOTFILES) ; do $(TAR) xzf $(BOOTFILESDIR)/$$B -C $(ZIPDIR) ; done
-	for K in $(BOARDS) ; do $(TAR) xzf $(MUNTSOS)/bootkernel/$$K-Kernel.tgz --skip-old-files -C $(ZIPDIR) ; done
+	mkdir -p					$(ZIPDIR)/packages/$(BOARDBASE)
+	$(TAR) xzf $(BOOTFILESTGZ) -C			$(ZIPDIR)
+	$(TAR) xzf $(MUNTSOS)/bootkernel/$(BOARDNAME)-Kernel.tgz --skip-old-files -C $(ZIPDIR)
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	cp $(BOOTFILESDIR)/cmdline.txt.$(BOARDNAME)	$(ZIPDIR)/cmdline.txt
 endif
@@ -95,8 +73,8 @@ common_mk_clean:
 	rm -rf $(ZIPFILE) $(ZIPDIR) populate.done
 
 common_mk_reallyclean: common_mk_clean
-	for T in $(BOARDS) ; do $(MAKE) -C $(MUNTSOS)/bootkernel clean MUNTSOS=$(MUNTSOS) BOARDNAME=$$T ; done
+	$(MAKE) -C $(MUNTSOS)/bootkernel clean
 
 common_mk_distclean: common_mk_reallyclean
-	for T in $(BOARDS) ; do $(MAKE) -C $(MUNTSOS)/bootkernel reallyclean MUNTSOS=$(MUNTSOS) BOARDNAME=$$T ; done
+	$(MAKE) -C $(MUNTSOS)/bootkernel reallyclean
 	rm -rf prebuilt.done

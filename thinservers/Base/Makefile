@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS SSH Thin Server
 
-# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -34,11 +34,11 @@ default: prebuilt.done $(ZIPFILE)
 download_prebuilt: prebuilt.done
 
 prebuilt.done: common_mk_prebuilt
-	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR1) download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
+	$(MAKE) -C $(EXTPKGDIR1) download_prebuilt
 	touch $@
 
 populate.done: common_mk_populate
-	for B in $(BASES) ; do cp $(EXTPKGPREFIX1)-$$B.deb $(ZIPDIR)/packages/$$B ; done
+	cp $(EXTPKGPREFIX1)-$(BOARDBASE).deb $(ZIPDIR)/packages/$(BOARDBASE)
 	touch $@
 
 clean: common_mk_clean
@@ -46,4 +46,4 @@ clean: common_mk_clean
 reallyclean: clean common_mk_reallyclean
 
 distclean: reallyclean common_mk_distclean
-	for B in $(BASES) ; do $(MAKE) -C $(EXTPKGDIR1) reallyclean MUNTSOS=$(MUNTSOS) BOARDNAME=$$B ; done
+	$(MAKE) -C $(EXTPKGDIR1) reallyclean
