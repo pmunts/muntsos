@@ -35,6 +35,11 @@ KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
 KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
 BOOTFILESDIR	= $(MUNTSOS)/boot/RaspberryPi
+ifeq ($(GCCARCH), aarch64)
+BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles4.tgz
+else
+BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles.tgz
+endif
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
