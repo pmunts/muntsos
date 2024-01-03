@@ -131,10 +131,6 @@ build: $(KERNEL_WORK)/build.done
 
 allconfig:
 	$(MAKE) oldconfig reallyclean BOARDNAME=BeagleBone
-	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi1
-	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi1Gadget
-	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi2
-	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi2Gadget
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi3
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi3Gadget
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi4
