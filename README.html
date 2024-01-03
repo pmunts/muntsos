@@ -15,6 +15,15 @@ The 64-bit Raspberry Pi 3 and 4 kernels have been upgraded to 6.1.69 and will
 track <a href=
 "https://github.com/raspberrypi/linux">https://github.com/raspberrypi/linux</a>
 again.</li>
+<li>3 January 2024 -- Testing has revealed that something is broken in either
+the Raspberry Pi 1 kernel or its toolchain. The latest Raspberry Pi 1 kernel
+boots, but <b><tt>sshd</tt></b> rejects incoming connections for no discernable
+reason. Something similar happened when I moved from GCC 8 to GCC 10. I don't
+have time to deal with a problem like this on an obsolete platform, so I'm
+dropping support for all 32-bit Raspberry Pi models. Kernels, extensions, and
+Thin Servers currently published at <a href=
+"http://repo.munts.com/muntsos">http://repo.munts.com/muntsos</a> will be left
+for awhile.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -58,11 +67,12 @@ time.</p>
 <h2>Extensions</h2>
 <p>The MuntsOS root file system can be <i>extended</i> at boot time using any
 of three mechanisms:</p>
-<p>First, if <b><tt>/boot/tarballs</tt></b> exists, any <b><tt>gzip</tt></b>
-tarball files (<b><tt>.tgz</tt></b>) in it will be extracted on top of the root
-file system. Typically you would use this mechanism for customized
-<b><tt>/etc/passwd</tt></b>, <b><tt>.ssh/authorized_keys</tt></b>, and similiar
-system configuration files.</p>
+<p>First, if <b><tt>/boot/tarballs</tt></b> <tt>exists, any
+<b><tt>gzip</tt></b> tarball files (<b><tt>.tgz</tt></b>) in it will be
+extracted on top of the root file system. Typically you would use this
+mechanism for customized <b><tt>/etc/passwd</tt></b>,
+<b><tt>.ssh/authorized_keys</tt></b>, and similiar system configuration
+files.</tt></p>
 <p>Second, if <b><tt>/boot/packages/${BOARDBASE}</tt></b> exists, any Debian
 package files (<b><tt>.deb</tt></b>) in it will be installed into the root file
 system. Note that packages from the <a href="http://www.debian.org">Debian</a>
@@ -126,28 +136,12 @@ contain more detailed instructions about how to install a MuntsOS Thin Server.
 PocketBeagle -- ARMv7 32-bit</td>
 </tr>
 <tr valign="top">
-<td><b><tt>muntsos*RaspberryPi1.zip</tt></b></td>
-<td>For all Raspberry Pi 1 -- ARMv6 32-bit, USB master</td>
-</tr>
-<tr valign="top">
-<td><b><tt>muntsos*RaspberryPi1Gadget.zip&nbsp;</tt></b></td>
-<td>For Raspberry Pi 1 A, 1 A+, CM1, Zero, Zero W -- ARMv6 32-bit, USB slave</td>
-</tr>
-<tr valign="top">
-<td><b><tt>muntsos*RaspberryPi2.zip</tt></b></td>
-<td>For all Raspberry Pi 2, 3, Zero 2 W -- ARMv7 32-bit, USB master</td>
-</tr>
-<tr valign="top">
-<td><b><tt>muntsos*RaspberryPi2Gadget.zip&nbsp;</tt></b></td>
-<td>For Raspberry Pi 3 A+, CM3, and Zero 2 W -- ARMv7 32-bit, USB slave</td>
-</tr>
-<tr valign="top">
 <td><b><tt>muntsos*RaspberryPi3.zip</tt></b></td>
 <td>For all Raspberry Pi 3, Zero 2 W -- ARMv8 64-bit, USB master</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi3Gadget.zip&nbsp;</tt></b></td>
-<td>For Raspberry Pi 3 A+, CM3, and Zero 2 W-- ARMv8 64-bit, USB slave</td>
+<td>For Raspberry Pi 3 A+, CM3, and Zero 2 W -- ARMv8 64-bit, USB slave</td>
 </tr>
 <tr valign="top">
 <td><b><tt>muntsos*RaspberryPi4.zip</tt></b></td>
@@ -304,35 +298,14 @@ match its progenitors, so BeagleBone capes cannot be used on it.</p>
 <h3>Raspberry Pi</h3>
 <p>The <a href="http://www.raspberrypi.com">Raspberry Pi</a> is a family of low
 cost Linux microcomputers selling for USD $5 to $75 (depending on model). There
-have been four generations of Raspberry Pi microcomputers, each using a
-successively more sophisticated Broadcom ARM core CPU.</p>
+have been five generations of Raspberry Pi microcomputers, each using a
+successively more sophisticated Broadcom ARM core CPU. The first two
+generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry Pi 2) are
+now obsolete and no longer supported by MuntsOS Embedded Linux.</p>
 <p>Some Raspberry Pi models have an on-board Bluetooth radio that uses the
 serial port signals that are brought out to the expansion header. By default,
 MuntsOS port disables the on-board Bluetooth radio, in favor of the serial port
 on the expansion header.</p>
-<h4>Raspberry Pi 1</h4>
-<p>Raspberry Pi 1 models have a BCM2708 ARMv6 single-core CPU running at 700 to
-1000 MHz and come with with 256 MB to 512 MB of RAM. They have 10/100 Ethernet,
-1 to 4 USB ports, HDMI, RCA composite video and a stereo headphone or
-three-pole A/V jack. They also have several miniature connectors for camera and
-LCD display modules as well as a single 26 or 40 pin 2.54 mm pitch GPIO
-expansion connector.</p>
-<p>All Raspberry Pi 1 models use the same 32-bit ARMv6 toolchain and kernel,
-but different device trees.</p>
-<p>With the advent of the <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
-2 W</a>, all Raspberry Pi 1 models are now obsolete. MuntsOS Embedded Linux
-will continue to support them, albeit with the kernel frozen at 5.15.92.</p>
-<h4>Raspberry Pi 2</h4>
-<p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-2-model-b">Rasbperry Pi 2
-Model B</a> has a 900 MHz BCM2709 ARMv7 Cortex-A7 quad-core CPU and comes with
-1 GB of RAM. It is mechanically compatible with the Raspberry Pi 1 Model B+,
-with 10/100 Ethernet, 4 USB ports, 3.5 mm A/V jack, and a 40-pin GPIO expansion
-header.</p>
-<p>The Raspberry Pi 2 uses a unique 32-bit ARMv7 toolchain and kernel.</p>
-<p>The 32-bit Raspberry Pi 2 Model B is now obsolete. MuntsOS Embedded Linux
-will continue to support it, albeit with the kernel frozen at 5.15.92.</p>
 <h4>Raspberry Pi 3</h4>
 <p>The 64-bit <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-2-model-b">Raspberry Pi 2
@@ -355,7 +328,7 @@ and WiFi radios.</p>
 improved power management and networking components.</p>
 <p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
-2</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
+2 W</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
 BCM2710 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
 Bluetooth and WiFi radios.</p>
 <p>All Raspberry Pi 3 models use the same AArch64 toolchain (in common with the
@@ -379,15 +352,14 @@ Raspberry Pi 3) and ARMv8 kernels, but different device trees.</p>
 <h4>Raspberry Pi USB Gadget Kernels</h4>
 <p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
 "http://www.linux-usb.org/gadget">USB Gadget</a> support enabled. These kernels
-run on Models 1 A, 1 A+, CM1, Zero, Zero Wireless, 3 A+, CM3, Zero 2 Wireless,
-4 B, and CM4. You can supply power to and communicate with a compatible
-Raspberry Pi solely through the USB port. This kernel supports USB Network, Raw
-HID, and Serial Port gadgets, selected by bits in the <b><tt>OPTIONS</tt></b>
-word passed on the kernel command line. The USB Gadget Thin Servers have USB
-Network Gadget selected by default.</p>
+run on 3 A+, CM3, Zero 2 W, 4 B, and CM4. You can supply power to and
+communicate with a compatible Raspberry Pi solely through the USB port. This
+kernel supports USB Network, Raw HID, and Serial Port gadgets, selected by bits
+in the <b><tt>OPTIONS</tt></b> word passed on the kernel command line. The USB
+Gadget Thin Servers have USB Network Gadget selected by default.</p>
 <p>The absolute minimum possible usable Raspberry Pi kit consists of a
-Raspberry Pi Zero, Zero W, or Zero 2 W, a micro-USB cable, and a micro-SD card
-with one of the MuntsOS Raspberry Pi USB Gadget Thin Servers installed.</p>
+Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one of the
+MuntsOS Raspberry Pi 3 USB Gadget Thin Servers installed.</p>
 <h2>Cross-Toolchains</h2>
 <p>I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for each
 MuntsOS platform family. Each GCC cross-toolchain requires a number of
@@ -396,9 +368,9 @@ separately but installed into the same directory tree as the parent
 cross-toolchain. I also build <a href="https://www.freepascal.org">Free
 Pascal</a> cross-compilers. Each of these rely on the libraries contained in
 the corresponding GCC cross-toolchain package.</p>
-<p>The BeagleBone, Raspberry Pi 1, and Raspberry Pi 2 each require a 32-bit
-ARMv6 or ARMv7 cross-toolchain carefully tuned for their respective CPU and FPU
-cores while all 64-bit platforms use the same AArch64 cross-toolchain.</p>
+<p>The BeagleBone platform requires a 32-bit an ARMv7 cross-toolchain carefully
+tuned for its CPU and FPU cores while all 64-bit ARMv8 platforms use the same
+AArch64 cross-toolchain.</p>
 <p>Cross-toolchain packages built for <a href=
 "https://www.debian.org">Debian</a> Linux (both x86-64 and ARM64) development
 host computers are available at:</p>

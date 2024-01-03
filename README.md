@@ -16,6 +16,15 @@ like traditional single chip microcontrollers.
     userland improvements.  
     The 64-bit Raspberry Pi 3 and 4 kernels have been upgraded to 6.1.69
     and will track <https://github.com/raspberrypi/linux> again.
+  - 3 January 2024 -- Testing has revealed that something is broken in
+    either the Raspberry Pi 1 kernel or its toolchain. The latest
+    Raspberry Pi 1 kernel boots, but **`sshd`** rejects incoming
+    connections for no discernable reason. Something similar happened
+    when I moved from GCC 8 to GCC 10. I don't have time to deal with a
+    problem like this on an obsolete platform, so I'm dropping support
+    for all 32-bit Raspberry Pi models. Kernels, extensions, and Thin
+    Servers currently published at <http://repo.munts.com/muntsos> will
+    be left for awhile.
 
 ## Quick Setup Instructions for the Impatient
 
@@ -67,7 +76,7 @@ Prebuilt MuntsOS kernel release tarballs are available at:
 The MuntsOS root file system can be *extended* at boot time using any of
 three mechanisms:
 
-First, if **`/boot/tarballs`** exists, any **`gzip`** tarball files
+First, if **`/boot/tarballs`** `exists, any gzip` tarball files
 (**`.tgz`**) in it will be extracted on top of the root file system.
 Typically you would use this mechanism for customized **`/etc/passwd`**,
 **`.ssh/authorized_keys`**, and similiar system configuration files.
@@ -145,12 +154,8 @@ Prebuilt MuntsOS Thin Servers are at available at:
 |                                       |                                                                                                    |
 | ------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | **`muntsos*BeagleBone.zip`**          | For BeagleBone (White), Black, Black Wireless, Green, Green Wireless, PocketBeagle -- ARMv7 32-bit |
-| **`muntsos*RaspberryPi1.zip`**        | For all Raspberry Pi 1 -- ARMv6 32-bit, USB master                                                 |
-| **`muntsos*RaspberryPi1Gadget.zip `** | For Raspberry Pi 1 A, 1 A+, CM1, Zero, Zero W -- ARMv6 32-bit, USB slave                           |
-| **`muntsos*RaspberryPi2.zip`**        | For all Raspberry Pi 2, 3, Zero 2 W -- ARMv7 32-bit, USB master                                    |
-| **`muntsos*RaspberryPi2Gadget.zip `** | For Raspberry Pi 3 A+, CM3, and Zero 2 W -- ARMv7 32-bit, USB slave                                |
 | **`muntsos*RaspberryPi3.zip`**        | For all Raspberry Pi 3, Zero 2 W -- ARMv8 64-bit, USB master                                       |
-| **`muntsos*RaspberryPi3Gadget.zip `** | For Raspberry Pi 3 A+, CM3, and Zero 2 W-- ARMv8 64-bit, USB slave                                 |
+| **`muntsos*RaspberryPi3Gadget.zip `** | For Raspberry Pi 3 A+, CM3, and Zero 2 W -- ARMv8 64-bit, USB slave                                |
 | **`muntsos*RaspberryPi4.zip`**        | For all Raspberry Pi 4 -- ARMv8 64-bit, USB master                                                 |
 | **`muntsos*RaspberryPi4Gadget.zip`**  | For all Raspberry Pi 4 -- ARMv8 64-bit, USB slave                                                  |
 
@@ -330,45 +335,16 @@ match its progenitors, so BeagleBone capes cannot be used on it.
 
 The [Raspberry Pi](http://www.raspberrypi.com) is a family of low cost
 Linux microcomputers selling for USD $5 to $75 (depending on model).
-There have been four generations of Raspberry Pi microcomputers, each
-using a successively more sophisticated Broadcom ARM core CPU.
+There have been five generations of Raspberry Pi microcomputers, each
+using a successively more sophisticated Broadcom ARM core CPU. The first
+two generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry
+Pi 2) are now obsolete and no longer supported by MuntsOS Embedded
+Linux.
 
 Some Raspberry Pi models have an on-board Bluetooth radio that uses the
 serial port signals that are brought out to the expansion header. By
 default, MuntsOS port disables the on-board Bluetooth radio, in favor of
 the serial port on the expansion header.
-
-#### Raspberry Pi 1
-
-Raspberry Pi 1 models have a BCM2708 ARMv6 single-core CPU running at
-700 to 1000 MHz and come with with 256 MB to 512 MB of RAM. They have
-10/100 Ethernet, 1 to 4 USB ports, HDMI, RCA composite video and a
-stereo headphone or three-pole A/V jack. They also have several
-miniature connectors for camera and LCD display modules as well as a
-single 26 or 40 pin 2.54 mm pitch GPIO expansion connector.
-
-All Raspberry Pi 1 models use the same 32-bit ARMv6 toolchain and
-kernel, but different device trees.
-
-With the advent of the [Raspberry Pi Zero 2
-W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w), all
-Raspberry Pi 1 models are now obsolete. MuntsOS Embedded Linux will
-continue to support them, albeit with the kernel frozen at 5.15.92.
-
-#### Raspberry Pi 2
-
-The [Rasbperry Pi 2 Model
-B](https://www.raspberrypi.com/products/raspberry-pi-2-model-b) has a
-900 MHz BCM2709 ARMv7 Cortex-A7 quad-core CPU and comes with 1 GB of
-RAM. It is mechanically compatible with the Raspberry Pi 1 Model B+,
-with 10/100 Ethernet, 4 USB ports, 3.5 mm A/V jack, and a 40-pin GPIO
-expansion header.
-
-The Raspberry Pi 2 uses a unique 32-bit ARMv7 toolchain and kernel.
-
-The 32-bit Raspberry Pi 2 Model B is now obsolete. MuntsOS Embedded
-Linux will continue to support it, albeit with the kernel frozen at
-5.15.92.
 
 #### Raspberry Pi 3
 
@@ -395,8 +371,8 @@ B+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus)
 has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has improved
 power management and networking components.
 
-The [Raspberry Pi Zero
-2](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w) has the
+The [Raspberry Pi Zero 2
+W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w) has the
 same form factor as the Raspberry Pi Zero W, with a 1000 MHz BCM2710
 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
 Bluetooth and WiFi radios.
@@ -429,17 +405,16 @@ the Raspberry Pi 3) and ARMv8 kernels, but different device trees.
 
 MuntsOS also provides Raspberry Pi kernels with dedicated [USB
 Gadget](http://www.linux-usb.org/gadget) support enabled. These kernels
-run on Models 1 A, 1 A+, CM1, Zero, Zero Wireless, 3 A+, CM3, Zero 2
-Wireless, 4 B, and CM4. You can supply power to and communicate with a
-compatible Raspberry Pi solely through the USB port. This kernel
-supports USB Network, Raw HID, and Serial Port gadgets, selected by bits
-in the **`OPTIONS`** word passed on the kernel command line. The USB
-Gadget Thin Servers have USB Network Gadget selected by default.
+run on 3 A+, CM3, Zero 2 W, 4 B, and CM4. You can supply power to and
+communicate with a compatible Raspberry Pi solely through the USB port.
+This kernel supports USB Network, Raw HID, and Serial Port gadgets,
+selected by bits in the **`OPTIONS`** word passed on the kernel command
+line. The USB Gadget Thin Servers have USB Network Gadget selected by
+default.
 
 The absolute minimum possible usable Raspberry Pi kit consists of a
-Raspberry Pi Zero, Zero W, or Zero 2 W, a micro-USB cable, and a
-micro-SD card with one of the MuntsOS Raspberry Pi USB Gadget Thin
-Servers installed.
+Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one
+of the MuntsOS Raspberry Pi 3 USB Gadget Thin Servers installed.
 
 ## Cross-Toolchains
 
@@ -452,10 +427,9 @@ Pascal](https://www.freepascal.org) cross-compilers. Each of these rely
 on the libraries contained in the corresponding GCC cross-toolchain
 package.
 
-The BeagleBone, Raspberry Pi 1, and Raspberry Pi 2 each require a 32-bit
-ARMv6 or ARMv7 cross-toolchain carefully tuned for their respective CPU
-and FPU cores while all 64-bit platforms use the same AArch64
-cross-toolchain.
+The BeagleBone platform requires a 32-bit an ARMv7 cross-toolchain
+carefully tuned for its CPU and FPU cores while all 64-bit ARMv8
+platforms use the same AArch64 cross-toolchain.
 
 Cross-toolchain packages built for [Debian](https://www.debian.org)
 Linux (both x86-64 and ARM64) development host computers are available
