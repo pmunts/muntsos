@@ -23,27 +23,12 @@
 BOARDNAME	?= UNDEFINED
 MUNTSOS		?= $(shell pwd)/../..
 
-ZIPFILE		:= muntsos-$(BOARDNAME).zip
-EXTPKGDIR1	:= $(MUNTSOS)/extensions/dma
-EXTPKGPREFIX1	:= $(EXTPKGDIR1)/dma-muntsos
-
 include $(MUNTSOS)/thinservers/common.mk
 
-default: prebuilt.done $(ZIPFILE)
-
-download_prebuilt: prebuilt.done
-
-prebuilt.done: common_mk_prebuilt
-	$(MAKE) -C $(EXTPKGDIR1) download_prebuilt
-	touch $@
-
-populate.done: common_mk_populate
-	cp $(EXTPKGPREFIX1)-$(BOARDBASE).deb $(ZIPDIR)/packages/$(BOARDBASE)
-	touch $@
+default: common_mk_default
 
 clean: common_mk_clean
 
 reallyclean: clean common_mk_reallyclean
 
 distclean: reallyclean common_mk_distclean
-	$(MAKE) -C $(EXTPKGDIR1) reallyclean

@@ -26,23 +26,28 @@ SED		?= sed
 TAR		?= tar
 ZIP		?= zip
 
-ZIPDIR		= zipdir
-ZIPFILE		?= muntsos-$(THINSERVERNAME)-$(BOARDNAME).zip
+ZIPDIR		:= zipdir
+ifeq ($(THINSERVERNAME),)
+ZIPFILE		:= muntsos-$(BOARDNAME).zip
+else
+ZIPFILE		:= muntsos-$(THINSERVERNAME)-$(BOARDNAME).zip
+endif
 
-common_mk_default: default
+common_mk_default: $(ZIPFILE)
 
 ###############################################################################
 
 # Download prebuilt binaries
 
 common_mk_prebuilt:
-	$(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt MUNTSOS=$(MUNTSOS) BOARDNAME=$(BOARDBASE)
+	$(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt BOARDNAME=$(BOARDBASE)
+	for E in $(EXTENSIONS) ; do $(MAKE) -C $(MUNTSOS)/extensions/$$E download_prebuilt ; done
 
 ###############################################################################
 
 # Populate the boot file system for a MuntsOS Thin Server
 
-common_mk_populate:
+common_mk_populate: common_mk_prebuilt
 	mkdir -p					$(ZIPDIR)/autoexec.d/$(BOARDBASE)
 	mkdir -p					$(ZIPDIR)/tarballs
 	mkdir -p					$(ZIPDIR)/packages/$(BOARDBASE)
@@ -53,6 +58,7 @@ ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 endif
 	cp $(BOOTFILESDIR)/config.txt.$(BOARDNAME)	$(ZIPDIR)/config.txt
 	cp $(MUNTSOS)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d
+	for E in $(EXTENSIONS) ; do cp $(MUNTSOS)/extensions/$$E/$$E-muntsos-$(BOARDBASE).deb $(ZIPDIR)/packages/$(BOARDBASE) ; done
 	find $(ZIPDIR) -type f -exec chmod 644 {} ";"
 	find $(ZIPDIR)/autoexec.d -type f -exec chmod 755 {} ";"
 
@@ -60,7 +66,7 @@ endif
 
 # Create MuntsOS Thin Server installation zip file
 
-$(ZIPFILE): populate.done
+$(ZIPFILE): common_mk_populate
 	chmod -R -w $(ZIPDIR)
 	cd $(ZIPDIR) ; $(ZIP) -r ../$(ZIPFILE) *
 	chmod -R +w $(ZIPDIR)
@@ -70,11 +76,11 @@ $(ZIPFILE): populate.done
 # Clean out working files
 
 common_mk_clean:
-	rm -rf $(ZIPFILE) $(ZIPDIR) populate.done
+	-chmod -R u+w $(ZIPDIR)
+	rm -rf $(ZIPFILE) $(ZIPDIR)
 
 common_mk_reallyclean: common_mk_clean
-	$(MAKE) -C $(MUNTSOS)/bootkernel clean
+	$(MAKE) -C $(MUNTSOS)/bootkernel reallyclean
+	for E in $(EXTENSIONS) ; do $(MAKE) -C $(MUNTSOS)/extensions/$$E reallyclean ; done
 
 common_mk_distclean: common_mk_reallyclean
-	$(MAKE) -C $(MUNTSOS)/bootkernel reallyclean
-	rm -rf prebuilt.done
