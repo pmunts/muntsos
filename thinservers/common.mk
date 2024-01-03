@@ -26,10 +26,10 @@ TAR		?= tar
 ZIP		?= zip
 
 ZIPDIR		:= zipdir
-ifeq ($(THINSERVERNAME),)
+ifeq ($(FLAVOR),)
 ZIPFILE		:= muntsos-$(BOARDNAME).zip
 else
-ZIPFILE		:= muntsos-$(THINSERVERNAME)-$(BOARDNAME).zip
+ZIPFILE		:= muntsos-$(FLAVOR)-$(BOARDNAME).zip
 endif
 
 common_mk_default: default
