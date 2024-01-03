@@ -46,8 +46,8 @@ common_mk_populate:
 	mkdir -p					$(ZIPDIR)/autoexec.d/$(BOARDBASE)
 	mkdir -p					$(ZIPDIR)/tarballs
 	mkdir -p					$(ZIPDIR)/packages/$(BOARDBASE)
-	$(TAR) xzf $(BOOTFILESTGZ) -C			$(ZIPDIR)
-	$(TAR) xzf $(MUNTSOS)/bootkernel/$(BOARDNAME)-Kernel.tgz --skip-old-files -C $(ZIPDIR)
+	$(TAR) xzf $(BOOTFILESTGZ)  -C			$(ZIPDIR)
+	$(TAR) xzf $(BOOTKERNELTGZ) -C			$(ZIPDIR)
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	cp $(BOOTFILESDIR)/cmdline.txt.$(BOARDNAME)	$(ZIPDIR)/cmdline.txt
 endif
