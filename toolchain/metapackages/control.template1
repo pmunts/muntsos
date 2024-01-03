@@ -14,9 +14,7 @@ Conflicts:
 
 Depends:
   muntsos-dev-aarch64,
-  muntsos-dev-beaglebone,
-  muntsos-dev-raspberrypi1,
-  muntsos-dev-raspberrypi2
+  muntsos-dev-beaglebone
 
 Replaces:
   muntsos-dev-ctng
