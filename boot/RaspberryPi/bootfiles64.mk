@@ -44,7 +44,7 @@ $(BOOTFILES4_DSTDIR):
 	rm -rf $@
 	mkdir -p $@
 	for F in $(BOOTFILES4_LIST) ; do cp -p $(BOOTFILES4_SRCDIR)/$$F $@ ; done
-	cd $(BOOTFILES4_DSTDIR) && md5sum -b * >bootfiles32.md5 && touch -r LICENCE.broadcom bootfiles32.md5
+	cd $(BOOTFILES4_DSTDIR) && md5sum -b * >bootfiles.md5 && touch -r LICENCE.broadcom bootfiles.md5
 	chmod 644 $@/*
 	touch $@
 
