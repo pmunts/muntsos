@@ -147,7 +147,7 @@ fi
 
 chmod 444 /etc/platform
 
-# Load kernel modules for built-in, non-USB wireless network interfaces
+# Load kernel modules for built-in wireless network interfaces
 
 grep -q -i "BeagleBone Black Wireless" /proc/device-tree/model
 if [ $? -eq 0 ]; then
@@ -194,6 +194,12 @@ if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
 fi
 
 grep -q -i "Raspberry Pi Compute Module 4" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi 5 Model B" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
   WaitForNetIF wlan0
