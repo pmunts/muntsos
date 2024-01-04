@@ -1,6 +1,6 @@
 # Import latest boot files from Raspberry Pi OS aka Raspbian
 
-# Copyright (C)2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,7 @@ BOOTFILES_LIST		+= start_db.elf
 BOOTFILES_LIST		+= start_x.elf
 
 BOOTFILES_SRCDIR	?= /boot/firmware
-BOOTFILES_DSTDIR	:= $(shell pwd)/bootfiles
+BOOTFILES_DSTDIR	:= $(shell pwd)/bootfiles32
 BOOTFILES_TARBALL	:= $(BOOTFILES_DSTDIR).tgz
 
 default: $(BOOTFILES_TARBALL)
@@ -45,7 +45,7 @@ $(BOOTFILES_DSTDIR):
 	rm -rf $@
 	mkdir -p $@
 	for F in $(BOOTFILES_LIST) ; do cp -p $(BOOTFILES_SRCDIR)/$$F $@ ; done
-	cd $(BOOTFILES_DSTDIR) && md5sum -b * >bootfiles.md5 && touch -r LICENCE.broadcom bootfiles.md5
+	cd $(BOOTFILES_DSTDIR) && md5sum -b * >bootfiles32.md5 && touch -r LICENCE.broadcom bootfiles32.md5
 	chmod 644 $@/*
 	touch $@
 
