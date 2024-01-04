@@ -478,6 +478,14 @@ endif
 
 ###############################################################################
 
+# Do not install USB WiFi adapter firmware for a USB Gadget kernel.
+ifeq ($(findstring Gadget, $(BOARDNAME)),)
+INSTALL_USB_WIFI_FIRMWARE := yes
+# Unless target is a Raspberry Pi 4, which has a separate USB-C slave port.
+else ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
+INSTALL_USB_WIFI_FIRMWARE := yes
+endif
+
 # Create root file system tree
 
 initramfs.d: COPYING
@@ -704,36 +712,33 @@ endif
 
 # Install files to /lib
 
+	install -cm 0755 $(LIBSLIBDIR)/$(LOADER)		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libc.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libcrypt.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libcrypto.so.1.1 	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libdl.so.2		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libgcc_s.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libm.so.6		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libmnl.so.0		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libncurses.so.6		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libnl-3.so.200		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libnl-genl-3.so.200	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libnsl.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libnss_dns.so.2		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libnss_files.so.2 	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libpthread.so.0		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libresolv.so.2		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/librt.so.1		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libstdc++.so.6		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libutil.so.1		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libcrypto.so.1.1 	$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libmnl.so.0		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libncurses.so.6		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libnl-3.so.200		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libnl-genl-3.so.200	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libssl.so.1.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libstdc++.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libtirpc.so.3		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libz.so.1		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/$(LOADER)		$@/lib
-
-ifeq ($(findstring Gadget, $(BOARDNAME)),)
 	install -cm 0755 $(LIBSLIBDIR)/libusb-1.0.so.0		$@/lib
-endif
+	install -cm 0755 $(LIBSLIBDIR)/libutil.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libz.so.1		$@/lib
 
 # Install firmware blobs to /lib/firmware
 
-ifeq ($(findstring Gadget, $(BOARDNAME)),)
+ifneq ($(INSTALL_USB_WIFI_FIRMWARE),)
 	# Firmware for the Raspberry Pi Official USB Wireless Adapter
 	mkdir -p						$@/lib/firmware/brcm
 	install -cm 0644 $(FIRMWARE_SRC)/brcm/brcmfmac43143.bin $@/lib/firmware/brcm
@@ -795,19 +800,15 @@ ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
 	install -cm 0644 $(FIRMWARE_SRC)/cypress/cyfmac43455-sdio.clm_blob			$@/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
 	install -cm 0644 $(FIRMWARE_SRC)/brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.txt	$@/lib/firmware/brcm/brcmfmac43455-sdio.txt
 	sed -i 's/0x48200100/0x44200100/g'							$@/lib/firmware/brcm/brcmfmac43455-sdio.txt
-
 endif
 
-ifeq ($(BOARDNAME), RaspberryPi4Gadget)
-	# Firmware for the Raspberry Pi Official USB Wireless Adapter
-	mkdir -p						$@/lib/firmware/brcm
-	install -cm 0644 $(FIRMWARE_SRC)/brcm/brcmfmac43143.bin $@/lib/firmware/brcm
-	# Firmware for certain Ralink USB WiFi adapters
-	install -cm 0644 $(FIRMWARE_SRC)/rt2870.bin		$@/lib/firmware
-	install -cm 0644 $(FIRMWARE_SRC)/rt73.bin		$@/lib/firmware
-	# Firmware for certain Realtek USB WiFi adapters
-	mkdir -p						$@/lib/firmware/rtlwifi
-	install -cm 0644 $(FIRMWARE_SRC)/rtlwifi/rtl8192cufw_TMSC.bin $@/lib/firmware/rtlwifi
+ifneq ($(findstring RaspberryPi5, $(BOARDNAME)),)
+	# Firmware for the Raspberry Pi 5 Model B build-in WLAN interface
+	mkdir -p										$@/lib/firmware/brcm
+	install -cm 0644 $(FIRMWARE_SRC)/cypress/cyfmac43455-sdio.bin				$@/lib/firmware/brcm/brcmfmac43455-sdio.bin
+	install -cm 0644 $(FIRMWARE_SRC)/cypress/cyfmac43455-sdio.clm_blob			$@/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
+	install -cm 0644 $(FIRMWARE_SRC)/brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.txt	$@/lib/firmware/brcm/brcmfmac43455-sdio.txt
+	sed -i 's/0x48200100/0x44200100/g'							$@/lib/firmware/brcm/brcmfmac43455-sdio.txt
 endif
 
 	install -cm 0644 $(WIRELESS_REGDB_SRC)/regulatory.db	$@/lib/firmware
