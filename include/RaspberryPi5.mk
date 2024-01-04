@@ -31,9 +31,23 @@ BOARDBASE	:= RaspberryPi3
 KERNEL		:= kernel_2712
 KERNEL_DEFCONF	:= bcm2712_defconfig
 KERNEL_DTB	+= broadcom/bcm2712-rpi-5-b
-#KERNEL_OVL	+= i2c3 i2c4 i2c5 i2c6
-#KERNEL_OVL	+= spi3-1cs spi3-2cs spi4-1cs spi4-2cs
-#KERNEL_OVL	+= spi5-1cs spi5-2cs spi6-1cs spi6-2cs
-#KERNEL_OVL	+= uart2 uart3 uart4 uart5
+KERNEL_OVL	+= disable-bt-pi5
+KERNEL_OVL	+= disable-wifi-pi5
+KERNEL_OVL	+= dwc2-pi5
+KERNEL_OVL	+= i2c0-pi5
+KERNEL_OVL	+= i2c1-pi5
+KERNEL_OVL	+= i2c2-pi5
+KERNEL_OVL	+= i2c3-pi5
+KERNEL_OVL	+= spi2-1cs-pi5
+KERNEL_OVL	+= spi2-2cs-pi5
+KERNEL_OVL	+= spi3-1cs-pi5
+KERNEL_OVL	+= spi3-2cs-pi5
+KERNEL_OVL	+= spi5-1cs-pi5
+KERNEL_OVL	+= spi5-2cs-pi5
+KERNEL_OVL	+= uart0-pi5
+KERNEL_OVL	+= uart1-pi5
+KERNEL_OVL	+= uart2-pi5
+KERNEL_OVL	+= uart3-pi5
+KERNEL_OVL	+= uart4-pi5
 
 include $(MUNTSOS)/include/common.mk
