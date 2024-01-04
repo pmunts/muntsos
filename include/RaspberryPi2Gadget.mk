@@ -1,6 +1,6 @@
 # Global make definitions for Raspberry Pi 2 BCM2836 ARM Linux microcomputer
 
-# Copyright (C)2018-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -33,5 +33,9 @@ KERNEL_DEFCONF	:= bcm2709_defconfig
 KERNEL_DTB	+= bcm2710-rpi-3-b-plus
 KERNEL_DTB	+= bcm2710-rpi-cm3
 KERNEL_DTB	+= bcm2710-rpi-zero-2
+KERNEL_OVL	+= disable-bt disable-wifi dwc2
+KERNEL_OVL	+= anyspi i2c-rtc pwm pwm-2chan
+KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
+KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
 include $(MUNTSOS)/include/common.mk

@@ -1,6 +1,6 @@
 # Global make definitions for Raspberry Pi BCM283x ARM Linux microcomputer
 
-# Copyright (C)2013-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,10 +29,6 @@ PLATFORM_NAME	= raspberrypi
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDNAME).img
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
-KERNEL_OVL	= disable-bt disable-wifi dwc2
-KERNEL_OVL	+= anyspi i2c-rtc pwm pwm-2chan
-KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
-KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
 BOOTFILESDIR	= $(MUNTSOS)/boot/RaspberryPi
 ifeq ($(GCCARCH), aarch64)
