@@ -1,4 +1,4 @@
-# Boot Configuration for MuntsOS on Raspberry Pi
+# Boot Configuration for MuntsOS on a Raspberry Pi 4
 
 arm_64bit=1
 kernel=RaspberryPi4.img
@@ -12,8 +12,9 @@ hdmi_force_hotplug=1
 # Minimize GPU memory
 gpu_mem=16
 
-# Enable I2C and SPI subsystems
-dtparam=i2c=on
+# Enable optional hardware subsystems
+dtparam=i2c_arm=on
+#dtparam=i2c_vc=on
 dtparam=spi=on
 
 # Enable USB host mode
@@ -24,9 +25,6 @@ dtoverlay=disable-bt
 
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
-
-# Enable /dev/i2c-0 and friends
-#dtparam=i2c_vc=on
 
 [cm4]
 # Enable the PCF85063A RTC on the I/O board

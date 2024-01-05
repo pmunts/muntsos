@@ -1,4 +1,4 @@
-# Boot Configuration for MuntsOS on Raspberry Pi 5
+# Boot Configuration for MuntsOS on a Raspberry Pi 5
 
 arm_64bit=1
 kernel=RaspberryPi5.img
@@ -14,7 +14,7 @@ gpu_mem=16
 
 # Enable optional hardware subsystems
 dtparam=i2c_arm=on
-dtparam=i2c_vc=on
+#dtparam=i2c_vc=on
 dtparam=spi=on
 dtparam=uart0=on
 
