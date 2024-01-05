@@ -31,10 +31,15 @@ KERNEL_IMG	= $(BOARDNAME).img
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
 BOOTFILESDIR	= $(MUNTSOS)/boot/RaspberryPi
-ifeq ($(GCCARCH), aarch64)
-BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles4.tgz
-else
+ifeq ($(GCCARCH), arm)
+# 32-bit Raspberry Pi 1, 2 and 3
 BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles.tgz
+else ifneq ($(findstring RaspberryPi3, $(BOARDNAME)),)
+# 64-bit Raspberry Pi 3
+BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles.tgz
+else
+# 64-bit Raspberry Pi 4 and 5
+BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles4.tgz
 endif
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
