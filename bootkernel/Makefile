@@ -72,11 +72,6 @@ ifeq ($(PLATFORM_NAME), raspberrypi)
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/README.txt $(DESTDIR)/overlays
 endif
 
-ifneq ($(findstring RaspberryPi5, $(BOARDNAME)),)
-	# Rename Pi5 overlays to traditional names
-	for F in $(DESTDIR)/overlays/*-pi5.dtbo ; do mv $${F} `echo $$F | sed 's/-pi5//g'` ; done
-endif
-
 	cd $(DESTDIR) ; find * -type f -exec md5sum -b {} ";" | sort -k 2 | grep -v kernel.md5 >kernel.md5
 	cd $(DESTDIR) ; tar czf ../$@ * --owner=nobody --group=nobody --mode=ugo-w
 	rm -rf $(DESTDIR)
