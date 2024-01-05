@@ -1,6 +1,6 @@
 # Import latest boot files from Raspberry Pi OS aka Raspbian
 
-# Copyright (C)2021-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2021-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,35 +22,36 @@
 
 # We want the following boot files
 
-BOOTFILES4_LIST		+= LICENCE.broadcom
-BOOTFILES4_LIST		+= fixup4.dat
-BOOTFILES4_LIST		+= fixup4cd.dat
-BOOTFILES4_LIST		+= fixup4db.dat
-BOOTFILES4_LIST		+= fixup4x.dat
-BOOTFILES4_LIST		+= start4.elf
-BOOTFILES4_LIST		+= start4cd.elf
-BOOTFILES4_LIST		+= start4db.elf
-BOOTFILES4_LIST		+= start4x.elf
+BOOTFILES_LIST		+= LICENCE.broadcom
+BOOTFILES_LIST		+= bootcode.bin
+BOOTFILES_LIST		+= fixup.dat
+BOOTFILES_LIST		+= fixup_cd.dat
+BOOTFILES_LIST		+= fixup_db.dat
+BOOTFILES_LIST		+= fixup_x.dat
+BOOTFILES_LIST		+= start.elf
+BOOTFILES_LIST		+= start_cd.elf
+BOOTFILES_LIST		+= start_db.elf
+BOOTFILES_LIST		+= start_x.elf
 
-BOOTFILES4_SRCDIR	?= /boot/firmware
-BOOTFILES4_DSTDIR	:= $(shell pwd)/bootfiles64
-BOOTFILES4_TARBALL	:= $(BOOTFILES4_DSTDIR).tgz
+BOOTFILES_SRCDIR	?= /boot/firmware
+BOOTFILES_DSTDIR	:= $(shell pwd)/bootfiles
+BOOTFILES_TARBALL	:= bootfiles.tgz
 
-default: $(BOOTFILES4_TARBALL)
+default: $(BOOTFILES_TARBALL)
 
 # Copy boot files to staging directory
 
-$(BOOTFILES4_DSTDIR):
+$(BOOTFILES_DSTDIR):
 	rm -rf $@
 	mkdir -p $@
-	for F in $(BOOTFILES4_LIST) ; do cp -p $(BOOTFILES4_SRCDIR)/$$F $@ ; done
-	cd $(BOOTFILES4_DSTDIR) && md5sum -b * >bootfiles.md5 && touch -r LICENCE.broadcom bootfiles.md5
+	for F in $(BOOTFILES_LIST) ; do cp -p $(BOOTFILES_SRCDIR)/$$F $@ ; done
+	cd $(BOOTFILES_DSTDIR) && md5sum -b * >bootfiles.md5 && touch -r LICENCE.broadcom bootfiles.md5
 	chmod 644 $@/*
 	touch $@
 
 # Create boot files tarball
 
-$(BOOTFILES4_TARBALL): $(BOOTFILES4_DSTDIR)
+$(BOOTFILES_TARBALL): $(BOOTFILES_DSTDIR)
 	cd $^ && tar czf $@ * --owner=root --group=root --mode=ugo-w
 	touch $@
 	rm -rf $^
@@ -58,4 +59,4 @@ $(BOOTFILES4_TARBALL): $(BOOTFILES4_DSTDIR)
 # Remove working files
 
 clean:
-	rm -rf $(BOOTFILES4_DSTDIR) $(BOOTFILES4_TARBALL)
+	rm -rf $(BOOTFILES_DSTDIR) $(BOOTFILES_TARBALL)

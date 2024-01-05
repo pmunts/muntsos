@@ -23,19 +23,18 @@
 # We want the following boot files
 
 BOOTFILES_LIST		+= LICENCE.broadcom
-BOOTFILES_LIST		+= bootcode.bin
-BOOTFILES_LIST		+= fixup.dat
-BOOTFILES_LIST		+= fixup_cd.dat
-BOOTFILES_LIST		+= fixup_db.dat
-BOOTFILES_LIST		+= fixup_x.dat
-BOOTFILES_LIST		+= start.elf
-BOOTFILES_LIST		+= start_cd.elf
-BOOTFILES_LIST		+= start_db.elf
-BOOTFILES_LIST		+= start_x.elf
+BOOTFILES_LIST		+= fixup4.dat
+BOOTFILES_LIST		+= fixup4cd.dat
+BOOTFILES_LIST		+= fixup4db.dat
+BOOTFILES_LIST		+= fixup4x.dat
+BOOTFILES_LIST		+= start4.elf
+BOOTFILES_LIST		+= start4cd.elf
+BOOTFILES_LIST		+= start4db.elf
+BOOTFILES_LIST		+= start4x.elf
 
 BOOTFILES_SRCDIR	?= /boot/firmware
-BOOTFILES_DSTDIR	:= $(shell pwd)/bootfiles32
-BOOTFILES_TARBALL	:= $(BOOTFILES_DSTDIR).tgz
+BOOTFILES_DSTDIR	:= $(shell pwd)/bootfiles
+BOOTFILES_TARBALL	:= bootfiles4.tgz
 
 default: $(BOOTFILES_TARBALL)
 
