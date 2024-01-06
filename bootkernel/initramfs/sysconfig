@@ -349,7 +349,10 @@ function AddWireless {
   done
 
   chmod 400 /etc/wpa_supplicant.conf
-  /usr/libexec/hotplug.script net
+
+  for E in /sys/class/net/wlan*/uevent ; do
+    test -f $E && echo add >$E
+  done
 }
 
 ###############################################################################
