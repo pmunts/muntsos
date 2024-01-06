@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 
 # /etc/rc for an embedded Linux system
 
@@ -46,7 +46,7 @@ WaitForFile()
 {
   while [ ! $1 $2 ]
   do
-    #echo "Wait for $2"
+    echo "Wait for $2"
     usleep 100000
   done
 }
@@ -59,7 +59,7 @@ WaitForNetIF()
 
   while [ $? -ne 0 ]
   do
-    #echo "Wait for $1"
+    echo "Wait for $1"
     usleep 100000
 
     grep -q ${1}: /proc/net/dev
@@ -73,6 +73,10 @@ echo "Starting MuntsOS Embedded Linux"
 # Configure path for this script
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+# Fix root file system permissions
+
+chmod 755 /
 
 # Mount all file systems
 
@@ -92,10 +96,6 @@ mdev -s
 
 mdev -d
 
-# Wait a while for USB devices to power up and enumerate
-
-sleep 5
-
 # Create a symbolic link to the boot partition
 
 if [ -n "${BOOTPART}" ]; then
@@ -112,15 +112,6 @@ echo 0 >       @@USERLED@@/brightness
 chown root.led @@USERLED@@/brightness
 chmod 660      @@USERLED@@/brightness
 ln -s          @@USERLED@@/brightness /dev/userled
-
-# Fix root file system permissions
-
-chmod 755 /
-
-# Scan shared libraries
-
-linklibs
-ldconfig
 
 # Set platform identification environment variables
 
@@ -146,6 +137,11 @@ if [ -n "${SHIELDNAME}" ]; then
 fi
 
 chmod 444 /etc/platform
+
+# Scan shared libraries
+
+linklibs
+ldconfig
 
 # Configure localhost interface
 
@@ -177,10 +173,6 @@ fi
 # Allow everything going out
 
 iptables -w -P OUTPUT ACCEPT
-
-# Start system logger
-
-syslogd
 
 # Mount /boot and look for device tree overlays, tarballs and packages
 
@@ -359,6 +351,10 @@ fi
 for E in /sys/class/net/*/uevent ; do
   test -f $E && echo add >$E
 done
+
+# Start system logger
+
+syslogd
 
 # Start crond
 
