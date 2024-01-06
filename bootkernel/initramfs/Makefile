@@ -803,7 +803,7 @@ ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
 endif
 
 ifneq ($(findstring RaspberryPi5, $(BOARDNAME)),)
-	# Firmware for the Raspberry Pi 5 Model B build-in WLAN interface
+	# Firmware for the Raspberry Pi build-in WLAN interface
 	mkdir -p										$@/lib/firmware/brcm
 	install -cm 0644 $(FIRMWARE_SRC)/cypress/cyfmac43455-sdio.bin				$@/lib/firmware/brcm/brcmfmac43455-sdio.bin
 	install -cm 0644 $(FIRMWARE_SRC)/cypress/cyfmac43455-sdio.clm_blob			$@/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
