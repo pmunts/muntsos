@@ -1,4 +1,4 @@
-#!/bin/sh
+!/bin/sh
 
 # /etc/rc for an embedded Linux system
 
@@ -147,77 +147,40 @@ fi
 
 chmod 444 /etc/platform
 
-# Load kernel modules for built-in wireless network interfaces
+# Configure localhost interface
 
-grep -q -i "BeagleBone Black Wireless" /proc/device-tree/model
-if [ $? -eq 0 ]; then
-  modprobe wl18xx
-  modprobe wlcore_sdio
-  WaitForNetIF wlan0
+ifconfig lo 127.0.0.1 netmask 255.255.255.0
+
+# Block everything coming in
+
+iptables -w -P INPUT DROP
+iptables -w -P FORWARD DROP
+
+# Allow unrestricted access to localhost
+
+iptables -w -I INPUT -i lo -j ACCEPT
+
+# Allow established or related
+
+iptables -w -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Allow ping
+
+iptables -w -A INPUT -p icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
+
+# Allow mdns
+
+if [ $((OPTIONS & 0x200)) -ne 0 ]; then
+  iptables -w -A INPUT -p udp -m pkttype --pkt-type multicast -d 224.0.0.251 --dport 5353 -j ACCEPT
 fi
 
-grep -q -i "BeagleBone Green Wireless" /proc/device-tree/model
-if [ $? -eq 0 ]; then
-  modprobe wl18xx
-  modprobe wlcore_sdio
-  WaitForNetIF wlan0
-fi
+# Allow everything going out
 
-grep -q -i "Raspberry Pi Zero W" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
+iptables -w -P OUTPUT ACCEPT
 
-grep -q -i "Raspberry Pi Zero 2" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
+# Start system logger
 
-grep -q -i "Raspberry Pi 3 Model A" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi 3 Model B" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi 4 Model B" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi Compute Module 4" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi 5 Model B" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-# Fix top level PWM subsystem permissions
-
-for P in /sys/class/pwm/pwmchip* ; do
-  if [ -d $P ]; then
-    echo add >$P/uevent
-  fi
-done
-
-# Pump some entropy from /dev/hwrng to /dev/urandom
-
-if [ -c /dev/hwrng -a -c /dev/urandom ]; then
-  entropypump
-fi
+syslogd
 
 # Mount /boot and look for device tree overlays, tarballs and packages
 
@@ -284,22 +247,76 @@ if [ $? -eq 0 ]; then
   umount /boot
 fi
 
-# Load kernel modules specified in /etc/modules
-
-if [ -f /etc/modules ]; then
-  sed -e 's/#.*$//g' -e 's/^\s*//g' -e 's/\s*$//g' -e '/^$/d' -e 's/^/modprobe /' /etc/modules | sh
-fi
-
-# Start system logger
-
-syslogd
-
 # Configure initial hostname
 
 if [ -f /etc/hostname ]; then
   hostname -F /etc/hostname
 else
   hostname `uname -r | awk -F '-' '{ printf("%s-%s\n", $2, $3); }'`
+fi
+
+# Load kernel modules specified in /etc/modules
+
+if [ -f /etc/modules ]; then
+  sed -e 's/#.*$//g' -e 's/^\s*//g' -e 's/\s*$//g' -e '/^$/d' -e 's/^/modprobe /' /etc/modules | sh
+fi
+
+# Load kernel modules for built-in wireless network interfaces
+
+grep -q -i "BeagleBone Black Wireless" /proc/device-tree/model
+if [ $? -eq 0 ]; then
+  modprobe wl18xx
+  modprobe wlcore_sdio
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "BeagleBone Green Wireless" /proc/device-tree/model
+if [ $? -eq 0 ]; then
+  modprobe wl18xx
+  modprobe wlcore_sdio
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi Zero W" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi Zero 2" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi 3 Model A" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi 3 Model B" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi 4 Model B" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi Compute Module 4" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi 5 Model B" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
 fi
 
 # Load USB Gadget Network module
@@ -337,40 +354,11 @@ if [ -c /dev/ttyGS0 -a $((OPTIONS & 0x01)) -ne 0 ]; then
   runsv /usr/libexec/services/ttyGS0 &
 fi
 
-# Configure localhost interface
+# Prod network interfaces
 
-ifconfig lo 127.0.0.1 netmask 255.255.255.0
-
-# Block everything coming in
-
-iptables -w -P INPUT DROP
-iptables -w -P FORWARD DROP
-
-# Allow everything going out
-
-iptables -w -P OUTPUT ACCEPT
-
-# Allow unrestricted access to localhost
-
-iptables -w -I INPUT -i lo -j ACCEPT
-
-# Allow ping
-
-iptables -w -A INPUT -p icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
-
-# Allow mdns
-
-if [ $((OPTIONS & 0x200)) -ne 0 ]; then
-  iptables -w -A INPUT -p udp -m pkttype --pkt-type multicast -d 224.0.0.251 --dport 5353 -j ACCEPT
-fi
-
-# Allow established or related
-
-iptables -w -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-
-# Configure network interfaces via hotplug script
-
-/usr/libexec/hotplug.script net
+for E in /sys/class/net/*/uevent ; do
+  test -f $E && echo add >$E
+done
 
 # Start crond
 
