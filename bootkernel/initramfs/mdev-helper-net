@@ -43,7 +43,7 @@ if [ "${ACTION}" = "add" ]; then
 
   # Run ifplugd
 
-  if [ ! -f /var/run/ifplugd.${INTERFACE}.pid ]; then
+  if [ "${INTERFACE}" != "lo" -a ! -f /var/run/ifplugd.${INTERFACE}.pid ]; then
     ifplugd -i ${INTERFACE} -I -r /usr/libexec/ifplugd.script
     WaitForFile -f /var/run/ifplugd.${INTERFACE}.pid
   fi
@@ -62,17 +62,17 @@ fi
 
 if [ "${ACTION}" = "remove" ]; then
 
-  # If wireless network interface, kill wpa_supplicant
+  # Kill wpa_supplicant
 
-  echo "${INTERFACE}" | grep -q -i wlan
-
-  if [ $? -eq 0 -a -f /var/run/wpa_supplicant.${INTERFACE}.pid ]; then
+  if [ -f /var/run/wpa_supplicant.${INTERFACE}.pid ]; then
     kill `cat /var/run/wpa_supplicant.${INTERFACE}.pid`
     rm -f /var/run/wpa_supplicant.${INTERFACE}.pid
   fi
 
   # Kill ifplugd
 
-  kill `cat /var/run/ifplugd.${INTERFACE}.pid`
-  rm -f /var/run/ifplugd.${INTERFACE}.pid
+  if [ -f /var/run/ifplugd.${INTERFACE}.pid ]; then
+    kill `cat /var/run/ifplugd.${INTERFACE}.pid`
+    rm -f /var/run/ifplugd.${INTERFACE}.pid
+  fi
 fi
