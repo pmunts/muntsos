@@ -46,7 +46,7 @@ WaitForFile()
 {
   while [ ! $1 $2 ]
   do
-    echo "Wait for $2"
+    #echo "Wait for $2"
     usleep 100000
   done
 }
@@ -59,7 +59,7 @@ WaitForNetIF()
 
   while [ $? -ne 0 ]
   do
-    echo "Wait for $1"
+    #echo "Wait for $1"
     usleep 100000
 
     grep -q ${1}: /proc/net/dev
@@ -251,64 +251,6 @@ fi
 
 if [ -f /etc/modules ]; then
   sed -e 's/#.*$//g' -e 's/^\s*//g' -e 's/\s*$//g' -e '/^$/d' -e 's/^/modprobe /' /etc/modules | sh
-fi
-
-# Load kernel modules for built-in wireless network interfaces
-
-grep -q -i "BeagleBone Black Wireless" /proc/device-tree/model
-if [ $? -eq 0 ]; then
-  modprobe wl18xx
-  modprobe wlcore_sdio
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "BeagleBone Green Wireless" /proc/device-tree/model
-if [ $? -eq 0 ]; then
-  modprobe wl18xx
-  modprobe wlcore_sdio
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi Zero W" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi Zero 2" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi 3 Model A" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi 3 Model B" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi 4 Model B" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi Compute Module 4" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
-fi
-
-grep -q -i "Raspberry Pi 5 Model B" /proc/device-tree/model
-if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
-  modprobe brcmfmac
-  WaitForNetIF wlan0
 fi
 
 # Load USB Gadget Network module
