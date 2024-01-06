@@ -831,10 +831,10 @@ endif
 # Install files to /usr/libexec
 
 	install -cm 0555 autoexec.script			$@/usr/libexec
-	install -cm 0555 hotplug.script				$@/usr/libexec
 	install -cm 0555 ifplugd.script				$@/usr/libexec
 	install -cm 0555 install-overlays			$@/usr/libexec
 	install -cm 0555 mdev-helper-hidraw			$@/usr/libexec
+	install -cm 0555 mdev-helper-net			$@/usr/libexec
 	install -cm 0555 mdev-helper-pwm			$@/usr/libexec
 	install -cm 0755 netstart.script			$@/usr/libexec
 	install -cm 0755 netstop.script				$@/usr/libexec
