@@ -9,8 +9,11 @@ disable_splash=1
 # Force HDMI video
 hdmi_force_hotplug=1
 
-# Force HDMI1
+[board-type=0x17]
+# Force HDMI1 on Raspberry Pi 5 (to avoid mechanical interference
+# between the power plug and a HDMI micro adapter)
 framebuffer_priority=7
+[all]
 
 # Minimize GPU memory
 gpu_mem=16
