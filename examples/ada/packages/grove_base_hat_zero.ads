@@ -1,6 +1,6 @@
 -- Raspberry Pi with Grove Base Hat Zero (SKU 103030276) I/O Resources
 
--- Copyright (C)2020-2023, Philip Munts dba Munts Technologies
+-- Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:

@@ -1,6 +1,6 @@
 # Global definitions for Arm GNU cross-toolchains built with Linaro ABE
 
-# Copyright (C)2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2023-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:

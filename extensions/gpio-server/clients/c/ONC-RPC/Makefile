@@ -1,6 +1,6 @@
 # Makefile to build GPIO ONC-RPC client program
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:

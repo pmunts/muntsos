@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Munts Technologies")]
 [assembly: AssemblyProduct("GPIO-ONC-RPC-Lib")]
-[assembly: AssemblyCopyright("Copyright ©2016-2018, Philip Munts, President, Munts AM Corp.")]
+[assembly: AssemblyCopyright("Copyright ©2016-2024, Philip Munts dba Munts Technologies.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

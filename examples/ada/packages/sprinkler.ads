@@ -1,6 +1,6 @@
 -- Parent package for lawn sprinkler (and other irrigation) systems
 
--- Copyright (C)2020, Philip Munts, President, Munts AM Corp.
+-- Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:

@@ -83,7 +83,7 @@
 				<Property Name="TgtF_companyName" Type="Str">Munts Technologies</Property>
 				<Property Name="TgtF_fileDescription" Type="Str">Button_And_LED</Property>
 				<Property Name="TgtF_internalName" Type="Str">Button_And_LED</Property>
-				<Property Name="TgtF_legalCopyright" Type="Str">Copyright ©2016-2018, Philip Munts, President, Munts AM Corp.</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright ©2016-2024, Philip Munts dba Munts Technologies.</Property>
 				<Property Name="TgtF_productName" Type="Str">Button_And_LED</Property>
 				<Property Name="TgtF_targetfileGUID" Type="Str">{54C200A8-4C93-41E7-9172-36EE2082D0A8}</Property>
 				<Property Name="TgtF_targetfileName" Type="Str">Button_And_LED.exe</Property>

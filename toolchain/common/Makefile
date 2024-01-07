@@ -1,6 +1,6 @@
 # Makefile to build the MuntsOS Embedded Linux Common Files package
 
-# Copyright (C)2022-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2022-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
