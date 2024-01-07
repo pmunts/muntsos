@@ -41,13 +41,6 @@ platforms:
 <b><tt>dma-muntsos-armhf-raspberrypi2.deb</tt></b><br>
 <b><tt>dma-muntsos-RaspberryPi3.deb</tt></b> becomes
 <b><tt>dma-muntsos-aarch64.deb</tt></b></p>
-<p>Similarly, the extension directories in the boot file system have been
-renamed:</p>
-<p><b><tt>/boot/BeagleBone/</tt></b> becomes
-<b><tt>/boot/armhf-beaglebone/</tt></b><br>
-<b><tt>/boot/RaspberryPi2/</tt></b> becomes
-<b><tt>/boot/armhf-raspberrypi2/</tt></b><br>
-<b><tt>/boot/RaspberryPi3/</tt></b> becomes <b><tt>/boot/aarch64/</tt></b></p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
@@ -93,20 +86,20 @@ time.</p>
 <p>The MuntsOS root file system can be <i>extended</i> at boot time using any
 of three mechanisms:</p>
 <p>First, if <b><tt>/boot/tarballs</tt></b> <tt>exists, any
-<b><tt>gzip</tt></b> tarball files (<b><tt>.tgz</tt></b>) in it will be
+<b><tt>gzip</tt></b>'ed tarball files (<b><tt>.tgz</tt></b>) in it will be
 extracted on top of the root file system. Typically you would use this
 mechanism for customized <b><tt>/etc/passwd</tt></b>,
 <b><tt>.ssh/authorized_keys</tt></b>, and similiar system configuration
 files.</tt></p>
-<p>Second, if <b><tt>/boot/packages/${BOARDBASE}</tt></b> exists, any Debian
-package files (<b><tt>.deb</tt></b>) in it will be installed into the root file
-system. Note that packages from the <a href="http://www.debian.org">Debian</a>
-project will probably not work with MuntsOS. Packages should be built
-specifically for MuntsOS. (The <b><tt>.deb</tt></b> package file format is
-simply convenient to use, as it is supported by BusyBox.)</p>
-<p>The <a href="http://git.munts.com/muntsos/extensions/GPIO">GPIO Server</a>
-extension package demonstrates how to build a Debian package that adds
-application specific software to MuntsOS.</p>
+<p>Secondly, if <b><tt>/boot/packages</tt></b> exists, any Debian package files
+(<b><tt>.deb</tt></b>) in it will be installed into the root file system. Note
+that packages from the <a href="http://www.debian.org">Debian</a> project will
+probably not work; they must be built specifically for MuntsOS. The startup
+script that installs <b><tt>.deb</tt></b> packages also installs
+<b><tt>.rpm</tt></b> and <b><tt>.nupkg</tt></b> packages.</p>
+<p>The <a href="http://git.munts.com/muntsos/extensions/gpio-server">GPIO
+Server</a> extension package demonstrates how to build a Debian package that
+adds application specific software to MuntsOS.</p>
 <p>Thirdly, the system startup script <b><tt>/etc/rc</tt></b> can be configured
 via a kernel command line option to search for a subdirectory called
 <b><tt>autoexec.d</tt></b> in various places, such as SD card, USB flash drive,
@@ -115,11 +108,11 @@ found, each executable program or script in it will be executed when the system
 boots.</p>
 <p>The idea is to build a MuntsOS kernel (which takes a long time) once and
 install it to the target platform. Then application specific software can be
-built after the fact and installed as one or more tarball files in
-<b><tt>/boot/tarballs</tt></b>, Debian package files in
-<b><tt>/boot/packages/${BOARDBASE}</tt></b>, or extension programs in
+built after the fact and installed as tarball files in
+<b><tt>/boot/tarballs</tt></b>; Debian, RPM, and NuGet package files in
+<b><tt>/boot/packages</tt></b>; or executable programs and scripts in
 <b><tt>/boot/autoexec.d</tt></b>.</p>
-<p>Prebuilt MuntsOS extension packages and programs are available at:</p>
+<p>Prebuilt MuntsOS extension packages are available at:</p>
 <p><a href=
 "http://repo.munts.com/muntsos/extensions">http://repo.munts.com/muntsos/extensions</a></p>
 <h2>Thin Servers</h2>
@@ -154,29 +147,6 @@ contain more detailed instructions about how to install a MuntsOS Thin Server.
 <p>Prebuilt MuntsOS Thin Servers are at available at:</p>
 <p><a href=
 "http://repo.munts.com/muntsos/thinservers">http://repo.munts.com/muntsos/thinservers</a></p>
-<table>
-<tr valign="top">
-<td><b><tt>muntsos*BeagleBone.zip</tt></b></td>
-<td>For BeagleBone (White), Black, Black Wireless, Green, Green Wireless,
-PocketBeagle -- ARMv7 32-bit</td>
-</tr>
-<tr valign="top">
-<td><b><tt>muntsos*RaspberryPi3.zip</tt></b></td>
-<td>For all Raspberry Pi 3, Zero 2 W -- ARMv8 64-bit, USB master</td>
-</tr>
-<tr valign="top">
-<td><b><tt>muntsos*RaspberryPi3Gadget.zip&nbsp;</tt></b></td>
-<td>For Raspberry Pi 3 A+, CM3, and Zero 2 W -- ARMv8 64-bit, USB slave</td>
-</tr>
-<tr valign="top">
-<td><b><tt>muntsos*RaspberryPi4.zip</tt></b></td>
-<td>For all Raspberry Pi 4 -- ARMv8 64-bit, USB master</td>
-</tr>
-<tr valign="top">
-<td><b><tt>muntsos*RaspberryPi4Gadget.zip</tt></b></td>
-<td>For all Raspberry Pi 4 -- ARMv8 64-bit, USB slave</td>
-</tr>
-</table>
 <h2>Boards</h2>
 <h3>BeagleBone</h3>
 <p>The <a href="http://beagleboard.org/bone-original">BeagleBone</a> was one of

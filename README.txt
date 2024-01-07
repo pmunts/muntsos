@@ -43,13 +43,6 @@ News
        dma-muntsos-RaspberryPi2.deb becomes dma-muntsos-armhf-raspberrypi2.deb
        dma-muntsos-RaspberryPi3.deb becomes dma-muntsos-aarch64.deb
 
-       Similarly, the extension directories in the boot file system have
-       been renamed:
-
-       /boot/BeagleBone/ becomes /boot/armhf-beaglebone/
-       /boot/RaspberryPi2/ becomes /boot/armhf-raspberrypi2/
-       /boot/RaspberryPi3/ becomes /boot/aarch64/
-
 Quick Setup Instructions for the Impatient
 
    Instructions for installing the MuntsOS cross-toolchain development
@@ -94,17 +87,16 @@ Extensions
    The MuntsOS root file system can be extended at boot time using any of
    three mechanisms:
 
-   First, if /boot/tarballs exists, any gzip tarball files (.tgz) in it
+   First, if /boot/tarballs exists, any gzip'ed tarball files (.tgz) in it
    will be extracted on top of the root file system. Typically you would
    use this mechanism for customized /etc/passwd, .ssh/authorized_keys,
    and similiar system configuration files.
 
-   Second, if /boot/packages/${BOARDBASE} exists, any Debian package files
-   (.deb) in it will be installed into the root file system. Note that
-   packages from the [15]Debian project will probably not work with
-   MuntsOS. Packages should be built specifically for MuntsOS. (The .deb
-   package file format is simply convenient to use, as it is supported by
-   BusyBox.)
+   Secondly, if /boot/packages exists, any Debian package files (.deb) in
+   it will be installed into the root file system. Note that packages from
+   the [15]Debian project will probably not work; they must be built
+   specifically for MuntsOS. The startup script that installs .deb
+   packages also installs .rpm and .nupkg packages.
 
    The [16]GPIO Server extension package demonstrates how to build a
    Debian package that adds application specific software to MuntsOS.
@@ -118,11 +110,11 @@ Extensions
 
    The idea is to build a MuntsOS kernel (which takes a long time) once
    and install it to the target platform. Then application specific
-   software can be built after the fact and installed as one or more
-   tarball files in /boot/tarballs, Debian package files in
-   /boot/packages/${BOARDBASE}, or extension programs in /boot/autoexec.d.
+   software can be built after the fact and installed as tarball files in
+   /boot/tarballs; Debian, RPM, and NuGet package files in /boot/packages;
+   or executable programs and scripts in /boot/autoexec.d.
 
-   Prebuilt MuntsOS extension packages and programs are available at:
+   Prebuilt MuntsOS extension packages are available at:
 
    [17]http://repo.munts.com/muntsos/extensions
 
@@ -160,22 +152,6 @@ Thin Servers
    Prebuilt MuntsOS Thin Servers are at available at:
 
    [21]http://repo.munts.com/muntsos/thinservers
-
-   muntsos*BeagleBone.zip          For BeagleBone (White), Black, Black Wireless,
-                                   Green, Green Wireless, PocketBeagle -- ARMv7
-                                   32-bit
-
-   muntsos*RaspberryPi3.zip        For all Raspberry Pi 3, Zero 2 W -- ARMv8
-                                   64-bit, USB master
-
-   muntsos*RaspberryPi3Gadget.zip  For Raspberry Pi 3 A+, CM3, and Zero 2 W
-                                   -- ARMv8 64-bit, USB slave
-
-   muntsos*RaspberryPi4.zip        For all Raspberry Pi 4 -- ARMv8 64-bit, USB
-                                   master
-
-   muntsos*RaspberryPi4Gadget.zip  For all Raspberry Pi 4 -- ARMv8 64-bit,
-                                   USB slave
 
 Boards
 
@@ -448,7 +424,7 @@ File Repository
 
      * 2017 [60]Ada Embedded Linux Framework
      * 2019 [61]Modbus RTU Framework for Ada (Prize Winner!)
-   _______________________________________________________________________
+   _________________________________________________________
 
    Questions or comments to Philip Munts [62]phil@munts.net
 
@@ -469,7 +445,7 @@ References
   13. http://elinux.org/Device_Tree_Reference
   14. http://repo.munts.com/muntsos/kernels
   15. http://www.debian.org/
-  16. http://git.munts.com/muntsos/extensions/GPIO
+  16. http://git.munts.com/muntsos/extensions/gpio-server
   17. http://repo.munts.com/muntsos/extensions
   18. https://en.wikipedia.org/wiki/Boot_flag
   19. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
