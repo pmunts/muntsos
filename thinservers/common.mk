@@ -47,17 +47,17 @@ common_mk_prebuilt:
 # Populate the boot file system for a MuntsOS Thin Server
 
 common_mk_populate: common_mk_prebuilt
-	mkdir -p					$(ZIPDIR)/autoexec.d/$(BOARDARCH)
+	mkdir -p					$(ZIPDIR)/autoexec.d
 	mkdir -p					$(ZIPDIR)/tarballs
-	mkdir -p					$(ZIPDIR)/packages/$(BOARDARCH)
+	mkdir -p					$(ZIPDIR)/packages
 	$(TAR) xzf $(BOOTFILESTGZ)  -C			$(ZIPDIR)
 	$(TAR) xzf $(BOOTKERNELTGZ) -C			$(ZIPDIR)
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	cp $(BOOTFILESDIR)/cmdline.txt.$(BOARDNAME)	$(ZIPDIR)/cmdline.txt
 endif
 	cp $(BOOTFILESDIR)/config.txt.$(BOARDNAME)	$(ZIPDIR)/config.txt
-	cp $(MUNTSOS)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d/$(BOARDARCH)
-	for E in $(EXTENSIONS) ; do cp $(MUNTSOS)/extensions/$$E/$$E-muntsos-$(BOARDARCH).deb $(ZIPDIR)/packages/$(BOARDARCH) ; done
+	cp $(MUNTSOS)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d
+	for E in $(EXTENSIONS) ; do cp $(MUNTSOS)/extensions/$$E/$$E-muntsos-$(BOARDARCH).deb $(ZIPDIR)/packages ; done
 	find $(ZIPDIR) -type f -exec chmod 644 {} ";"
 	find $(ZIPDIR)/autoexec.d -type f -exec chmod 755 {} ";"
 

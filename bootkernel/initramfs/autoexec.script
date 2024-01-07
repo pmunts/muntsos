@@ -27,7 +27,7 @@
 Autoexec() {
   mount -o ro "$1" >& /dev/null
   if [ $? -eq 0 ] ; then
-    for s in "$1/autoexec.d"/* "$1/autoexec.d"/${BOARDARCH}/* ; do
+    for s in "$1/autoexec.d"/* "$1/autoexec.d"/* ; do
       if [ -f "$s" -a -x "$s" ]; then
         mkdir -p /usr/local/autoexec
         install -cm 0555 "$s" /usr/local/autoexec
