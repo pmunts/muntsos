@@ -1,6 +1,6 @@
 # Make root file system for an embedded Linux system
 
-# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -676,6 +676,7 @@ endif
 	install -cm 0755 rc					$@/etc
 	sed -i 's/@@BOARDBASE@@/$(BOARDBASE)/g'			$@/etc/rc
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			$@/etc/rc
+	sed -i 's/@@BOARDARCH@@/$(BOARDARCH)/g'			$@/etc/rc
 	sed -i 's#@@KERNELREPO@@#$(KERNEL_REPO)#g'		$@/etc/rc
 	sed -i 's/@@KERNELBRANCH@@/$(KERNEL_BRANCH)/g'		$@/etc/rc
 	sed -i 's/@@KERNELCOMMIT@@/$(shell cat $(KERNEL_COMMIT))/g' $@/etc/rc
@@ -732,7 +733,6 @@ endif
 	install -cm 0755 $(LIBSLIBDIR)/libssl.so.1.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libstdc++.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libtirpc.so.3		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libusb-1.0.so.0		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libutil.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libz.so.1		$@/lib
 

@@ -1,6 +1,6 @@
 # Makefile for building a .Net Core Runtime package for MuntsOS
 
-# Copyright (C)2018-2023, Philip Munts dba Munts Technologies
+# Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,11 +30,10 @@ DOTNET_VERSION	:= 8.0.0
 DOTNET_TARBALL	:= dotnet-runtime-$(DOTNET_VERSION)-$(DOTNETARCH).tar.gz
 DOTNET_DIST	:= $(TEMP)/$(DOTNET_TARBALL)
 
-OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= dotnet
 PKGVERSION	:= $(DOTNET_VERSION)-$(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)
-PKGDIR		:= $(PKGNAME)-$(OSNAME)
+PKGDIR		:= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		:= $(PKGDIR).deb
 
 default: package.deb

@@ -1,6 +1,6 @@
 # Makefile for building a dedicated GPIO server package for MuntsOS
 
-# Copyright (C)2014-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2014-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -27,11 +27,10 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
 BUILDFLAGS	:= BOARDNAME=$(BOARDNAME) MUNTSOS=$(MUNTSOS)
-OSNAME		:= muntsos-$(BOARDBASE)
-PKGNAME		:= GPIO-server
+PKGNAME		:= gpio-server
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)
-PKGDIR		:= $(PKGNAME)-$(OSNAME)
+PKGDIR		:= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		:= $(PKGDIR).deb
 
 default: package.deb

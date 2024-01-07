@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS LPC1114 I/O Processor extension package
 
-# Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,11 +28,10 @@ RASPBERRYPI_LPC1114_SRC	?= $(HOME)/rpi-mcu/expansion/LPC1114/src
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= LPC1114
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)
-PKGDIR		:= $(PKGNAME)-$(OSNAME)
+PKGDIR		:= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		:= $(PKGDIR).deb
 
 default: package.deb

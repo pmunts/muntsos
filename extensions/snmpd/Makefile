@@ -1,6 +1,6 @@
 # Makefile for building the net-snmp package for MuntsOS
 
-# Copyright (C)2016-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -40,11 +40,10 @@ DESTDIR		= $(SRCDIR)/skeleton
 SBINDIR		= $(DESTDIR)/usr/local/sbin
 MIBSDIR		= $(DESTDIR)/usr/local/share/snmp/mibs
 
-OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= snmpd
 PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
-PKGDIR		= $(PKGNAME)-$(OSNAME)
+PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		= $(PKGDIR).deb
 
 default: package.deb

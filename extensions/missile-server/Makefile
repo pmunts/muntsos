@@ -1,6 +1,6 @@
 # Makefile for building the USB Missile Launcher server package for MuntsOS
 
-# Copyright (C)2013-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,11 +30,10 @@ CC		:= $(CROSS_COMPILE)gcc
 CFLAGS		+= -Wall -I$(LIBSINCDIR)/tirpc
 LDFLAGS		+= -lusb-1.0 -ltirpc
 
-OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= missile-server
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)
-PKGDIR		:= $(PKGNAME)-$(OSNAME)
+PKGDIR		:= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		:= $(PKGDIR).deb
 
 default: package.deb

@@ -1,6 +1,6 @@
 # Makefile for building the hostapd package for MuntsOS
 
-# Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -37,11 +37,10 @@ SRCSERVER	= https://w1.fi/releases
 SRCURL		= $(SRCSERVER)/$(SRCTARBALL)
 SRCDIST		= $(TEMP)/$(SRCTARBALL)
 
-OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= $(SRCNAME)
 PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
-PKGDIR		= $(PKGNAME)-$(OSNAME)
+PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		= $(PKGDIR).deb
 
 default: package.deb

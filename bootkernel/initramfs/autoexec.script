@@ -2,7 +2,7 @@
 
 # Automatic execution script for an embedded Linux system
 
-# Copyright (C)2013-2021, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -27,7 +27,7 @@
 Autoexec() {
   mount -o ro "$1" >& /dev/null
   if [ $? -eq 0 ] ; then
-    for s in "$1/autoexec.d"/* "$1/autoexec.d"/$BOARDBASE/* ; do
+    for s in "$1/autoexec.d"/* "$1/autoexec.d"/${BOARDARCH}/* ; do
       if [ -f "$s" -a -x "$s" ]; then
         mkdir -p /usr/local/autoexec
         install -cm 0555 "$s" /usr/local/autoexec

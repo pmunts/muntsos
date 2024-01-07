@@ -1,6 +1,6 @@
 # Global make definitions for ARMv7 platforms
 
-# Copyright (C)2019-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2019-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -23,6 +23,7 @@
 ARCH		= arm
 DEBARCH		= armhf
 DOTNETARCH	= linux-arm
+BOARDARCH	= $(DEBARCH)-$(BOARDBASELC)
 GCCABI		= gnueabihf
 GCCARCH		= arm
 LOADER		= ld-linux-armhf.so.3

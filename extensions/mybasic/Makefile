@@ -1,7 +1,7 @@
 # Makefile for building the MY-BASIC package for MuntsOS
 # including bindings for libsimpleio
 
-# Copyright (C)2018-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,11 +30,10 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 SRCURL		= https://github.com/paladin-t/my_basic.git
 SRCDIR		= my_basic
 
-OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= mybasic
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
-PKGDIR		= $(PKGNAME)-$(OSNAME)
+PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		= $(PKGDIR).deb
 
 SOURCEFILES	+= $(SRCDIR)/core/my_basic.c

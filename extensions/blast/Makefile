@@ -1,6 +1,6 @@
 # Makefile for building blaster and blastee for MuntsOS Embedded Linux
 
-# Copyright (C)2023, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2023-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,11 +29,10 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 CC		:= $(CROSS_COMPILE)gcc
 CFLAGS		+= -Wall -I.
 
-OSNAME		:= muntsos-$(BOARDBASE)
 PKGNAME		:= blast
 PKGVERSION	:= $(shell date +%Y.%j)
 PKGARCH		:= $(DEBARCH)
-PKGDIR		:= $(PKGNAME)-$(OSNAME)
+PKGDIR		:= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		:= $(PKGDIR).deb
 
 default: package.deb

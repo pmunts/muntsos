@@ -2,7 +2,7 @@
 
 # MuntsOS System Configurator
 
-# Copyright (C)2017-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -419,7 +419,7 @@ function Extensions {
 
   EXTENSIONSDIR=${EXTENSIONSDIR:-http://repo.munts.com/muntsos/${TOOLCHAINREVISION}/extensions}
 
-  wget -q -O /tmp/extensions.manifest ${EXTENSIONSDIR}/.extensions.manifest2.$BOARDBASE
+  wget -q -O /tmp/extensions.manifest ${EXTENSIONSDIR}/.extensions.manifest2.${BOARDARCH}
   if [ $? -ne 0 ]; then
     echo "ERROR: Cannot download extensions manifest."
     return;
@@ -437,7 +437,7 @@ function Extensions {
     if [ $? -eq 0 ]; then
       EFile=/boot/packages/${EName}
     else
-      EFile=/boot/packages/$BOARDBASE/${EName}
+      EFile=/boot/packages/${BOARDARCH}/${EName}
     fi
 
     # Upgrade this extension package

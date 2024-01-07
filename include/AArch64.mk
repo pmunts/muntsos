@@ -1,6 +1,6 @@
 # Global make definitions for ARM AArch64 platforms
 
-# Copyright (C)2019-2023, Philip Munts dba Munts Technologies.
+# Copyright (C)2019-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,5 +25,6 @@ DEBARCH		= arm64
 DOTNETARCH	= linux-arm64
 GCCABI		= gnu
 GCCARCH		= aarch64
+BOARDARCH	= $(GCCARCH)
 LOADER		= ld-linux-aarch64.so.1
 WORDSIZE	= 64

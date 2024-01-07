@@ -1,6 +1,6 @@
 # Makefile for building the v4l2rtspserver extension package for MuntsOS
 
-# Copyright (C)2021-2022, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2021-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,11 +30,10 @@ SRCURL		= https://github.com/mpromonet/v4l2rtspserver.git
 SRCDIR		= v4l2rtspserver.src
 SRCDIST		= /tmp/v4l2rtspserver.tgz
 
-OSNAME		= muntsos-$(BOARDBASE)
 PKGNAME		= v4l2rtspserver
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
-PKGDIR		= $(PKGNAME)-$(OSNAME)
+PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		= $(PKGDIR).deb
 
 CMAKEFLAGS	+= -DCMAKE_SYSTEM_NAME=Linux
