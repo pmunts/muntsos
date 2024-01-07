@@ -5,7 +5,7 @@
 # You need to tailor this script to specific your WLAN setup, by changing
 # YOURSSID and YOURPASSWD to what is appropriate for your own network.
 
-# Copyright (C)2013-2020, Philip Munts, President, Munts AM Corp.
+# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -78,4 +78,6 @@ fi
 
 # Dispatch a hotplug event to finish bringing up the wireless network
 
-/usr/libexec/hotplug.script net
+  for E in /sys/class/net/wlan*/uevent ; do
+    test -f $E && echo add >$E
+  done
