@@ -16,6 +16,7 @@ like traditional single chip microcontrollers.
     userland improvements.  
     The 64-bit Raspberry Pi 3 and 4 kernels have been upgraded to 6.1.69
     and will track <https://github.com/raspberrypi/linux> again.
+
   - 3 January 2024 -- Testing has revealed that something is broken in
     either the Raspberry Pi 1 kernel or its toolchain. The latest
     Raspberry Pi 1 kernel boots, but **`sshd`** rejects incoming
@@ -25,6 +26,34 @@ like traditional single chip microcontrollers.
     for all 32-bit Raspberry Pi models. Kernels, extensions, and Thin
     Servers currently published at <http://repo.munts.com/muntsos> will
     be left for awhile.
+
+  - 6 January 2024 -- Added a libusb extension package. It just installs
+    **`/usr/local/lib/libusb-1.0.so.0`**, which is no longer included in
+    the kernel RAM file system.
+
+  - 6 January 2024 -- In the course of porting MuntsOS to the 64-bit
+    [Raspberry
+    Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5) and the
+    [Orange Pi Zero 2
+    W](http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W),
+    the previous naming convention for MuntsOS AArch64 (arm64) extension
+    packages with "RaspberryPi3" has proven shortsighted. Therefore the
+    extension package naming scheme has updated to be more meaningful
+    for all platforms:
+    
+    **`dma-muntsos-BeagleBone.deb`** becomes
+    **`dma-muntsos-armhf-beaglebone.deb`**  
+    **`dma-muntsos-RaspberryPi2.deb`** becomes
+    **`dma-muntsos-armhf-raspberrypi2.deb`**  
+    **`dma-muntsos-RaspberryPi3.deb`** becomes
+    **`dma-muntsos-aarch64.deb`**
+    
+    Similarly, the extension directories in the boot file system have
+    been renamed:
+    
+    **`/boot/BeagleBone/`** becomes **`/boot/armhf-beaglebone/`**  
+    **`/boot/RaspberryPi2/`** becomes **`/boot/armhf-raspberrypi2/`**  
+    **`/boot/RaspberryPi3/`** becomes **`/boot/aarch64/`**
 
 ## Quick Setup Instructions for the Impatient
 
@@ -469,6 +498,3 @@ Prebuilt binaries for MuntsOS are available at:
 -----
 
 Questions or comments to Philip Munts <phil@munts.net>
-
-I am available for custom system development (hardware and software) of
-products based on embedded Linux microcomputers or other processors.

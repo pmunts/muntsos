@@ -24,6 +24,31 @@ dropping support for all 32-bit Raspberry Pi models. Kernels, extensions, and
 Thin Servers currently published at <a href=
 "http://repo.munts.com/muntsos">http://repo.munts.com/muntsos</a> will be left
 for awhile.</li>
+<li>6 January 2024 -- Added a libusb extension package. It just installs
+<b><tt>/usr/local/lib/libusb-1.0.so.0</tt></b>, which is no longer included in
+the kernel RAM file system.</li>
+<li>6 January 2024 -- In the course of porting MuntsOS to the 64-bit <a href=
+"https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry Pi 5</a> and
+the <a href=
+"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
+Zero 2 W</a>, the previous naming convention for MuntsOS AArch64 (arm64)
+extension packages with "RaspberryPi3" has proven shortsighted. Therefore the
+extension package naming scheme has updated to be more meaningful for all
+platforms:
+<p><b><tt>dma-muntsos-BeagleBone.deb</tt></b> becomes
+<b><tt>dma-muntsos-armhf-beaglebone.deb</tt></b><br>
+<b><tt>dma-muntsos-RaspberryPi2.deb</tt></b> becomes
+<b><tt>dma-muntsos-armhf-raspberrypi2.deb</tt></b><br>
+<b><tt>dma-muntsos-RaspberryPi3.deb</tt></b> becomes
+<b><tt>dma-muntsos-aarch64.deb</tt></b></p>
+<p>Similarly, the extension directories in the boot file system have been
+renamed:</p>
+<p><b><tt>/boot/BeagleBone/</tt></b> becomes
+<b><tt>/boot/armhf-beaglebone/</tt></b><br>
+<b><tt>/boot/RaspberryPi2/</tt></b> becomes
+<b><tt>/boot/armhf-raspberrypi2/</tt></b><br>
+<b><tt>/boot/RaspberryPi3/</tt></b> becomes <b><tt>/boot/aarch64/</tt></b></p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -403,5 +428,3 @@ RTU Framework for Ada</a> (Prize Winner!)</li>
 <hr>
 Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
-<p>I am available for custom system development (hardware and software) of
-products based on embedded Linux microcomputers or other processors.</p>
