@@ -13,8 +13,7 @@ Conflicts:
   muntsos-dev-ctng
 
 Depends:
-  muntsos-dev-aarch64,
-  muntsos-dev-beaglebone
+  muntsos-dev-aarch64
 
 Replaces:
   muntsos-dev-ctng

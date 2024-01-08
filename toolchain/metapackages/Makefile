@@ -32,12 +32,12 @@ else ifeq ($(TOOLCHAIN_BUILDER), arm-gnu)
 FLAVOR		:= abe
 endif
 
-BOARDNAMES	:= BeagleBone RaspberryPi3
+BOARDNAMES	:= RaspberryPi3
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
-PKGVERSION1	:= 9.1
-PKGVERSION2	:= 9.0
-PKGVERSION3	:= 9.0
+PKGVERSION1	:= 9.2
+PKGVERSION2	:= 9.2
+PKGVERSION3	:= 9.2
 
 default:
 	$(MAKE) allplatforms
