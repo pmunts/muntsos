@@ -12,8 +12,8 @@ like traditional single chip microcontrollers.
   - 1 January 2024 -- I have decided to suspend active development for
     32-bit platforms. The 32-bit BeagleBone kernel is frozen at 5.4.106.
     The 32-bit Raspberry Pi 1 and 2 kernels are frozen at 5.15.92. The
-    frozen 32-bit kernels and thin servers will still be rebuilt
-    regularly to incorporate userland improvements. The
+    32-bit extensions, kernels and thin servers will still be rebuilt
+    from time to time to incorporate userland improvements. The
     **`muntsos-dev`** package has been updated to only pull in 64-bit
     AArch toolchains.
 
@@ -49,7 +49,8 @@ like traditional single chip microcontrollers.
     and fixes. Among other things, the MuntsOS startup scripts
     (**`/etc/rc`**) and friends have been extensively reworked to
     prevent race conditions. These changes also improve the system boot
-    time.
+    time. Support for the Raspberry 5 and the Orange Pi Zero 2 W is
+    under development.
 
 ## Quick Setup Instructions for the Impatient
 
@@ -160,7 +161,7 @@ the target board. After booting MuntsOS, log in from the console or via
 SSH (user "**`root`**", password "**`default`**") and run
 **`sysconfig`** to perform more system configuration.
 
-*Note: BeagleBone boards require the [boot
+*Note: Some platforms require the [boot
 flag](https://en.wikipedia.org/wiki/Boot_flag) to be set on the FAT32
 boot partition on the SD card or on-board eMMC. The ROM boot loader in
 the CPU will ignore any partitions that are not marked as bootable.*
@@ -178,185 +179,14 @@ Prebuilt MuntsOS Thin Servers are at available at:
 
 ## Boards
 
-### BeagleBone
-
-The [BeagleBone](http://beagleboard.org/bone-original) was one of the
-first low cost Linux microcomputers. It originally sold for USD $89 at
-its launch in October 2011.
-
-The BeagleBone has a Texas Instruments [Sitara
-AM3359](http://www.ti.com/product/AM3359) processor running at 720 MHz
-and 256 MB of RAM. It has two USB port sockets: One type A host port and
-one type mini-B device port. Unlike any of its successors, the original
-BeagleBone has its USB device port connected to a USB hub instead of
-directly to the AM3359. Three distinct USB devices are visible to the
-host on the device port socket: The AM3359 device port, a USB JTAG
-device, and a USB serial port device connected to the AM3359 console
-serial port. The BeagleBone also has two
-[PRU](http://beagleboard.org/pru) (Programmable Realtime Unit) I/O
-processors on board that are capable of very fast I/O operations.
-
-MuntsOS includes device tree overlays than can be enabled by
-**`sysconfig`** that allow configuring any of the expansion header GPIO
-pins with **`config-pin`**. The system startup script **`/etc/rc`** will
-initialize GPIO pin modes according to **`/etc/pinmux.conf`**. By
-default, the following devices are are enabled on the two 46-pin
-[expansion
-headers](http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf):
-
-  - I<sup>2</sup>C bus controller device **`/dev/i2c-2`**
-  - Serial port device **`/dev/ttyS1`**
-  - Serial port device **`/dev/ttyS2`**
-  - Serial port device **`/dev/ttyS4`**
-  - Serial port device **`/dev/ttyS5`**
-  - SPI slave device **`/dev/spidev2.0`**
-  - SPI slave device **`/dev/spidev2.1`**
-
-Newly manufactured BeagleBone boards assembled with a 1 GHz AM3358
-processor are apparently still available from [Special
-Computing](https://specialcomp.com/beagleboard/bone.htm).
-
-### BeagleBone Black
-
-The [BeagleBone Black](http://beagleboard.org/black) is a cost reduced
-version of the BeagleBone. It currently sells for about USD $55. The
-BeagleBone Black originally sold for USD $45 at its launch in April
-2013, which would have been an impressive feat except that the Raspberry
-Pi had already arrived on the market a few months earlier at USD $35.
-Although the BeagleBone Black was more capable than the first couple of
-Raspberry Pi generations, it has been overshadowed by the Raspberry Pi
-Model 2 and 3, which sport quad-core processors. The great strength of
-the BeagleBone Black and its kin compared to the Raspberry Pi family is
-the sheer number of GPIO pins and peripheral ports available on its two
-46-pin [expansion
-headers](http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf). Even
-after eMMC, I<sup>2</sup>C, SPI, and UART pins have been allocated,
-there are 42 GPIO pins available.
-
-The BeagleBone Black has a Texas Instruments [Sitara
-AM3358](http://www.ti.com/product/AM3358) processor running at 1 GHz,
-512 MB of RAM and 4 GB eMMC flash on board. It uses the same kernel as
-the BeagleBone, with a different device tree.
-
-Unlike the original BeagleBone (above) and the BeagleBone Green (below),
-the BeagleBone Black has an HDMI video output (though with a pesky micro
-HDMI connecteor). The HDMI interface consumes a large number of GPIO
-pins when it is enabled. This MuntsOS port does not enable the HDMI
-interface.
-
-### BeagleBone Black Wireless
-
-The [BeagleBone Black Wireless](https://beagleboard.org/black-wireless)
-is a variant of the BeagleBone Black that has replaced the wired
-Ethernet interface with a built-in Wifi radio. It also has replaced the
-mini-B slave USB receptacle with a more modern micro-B receptacle. It is
-otherwise highly compatible with the BeagleBone Black. It sells for
-about USD $70, considerably more than any of the other boards supported
-by MuntsOS, and also considerably more than a BeagleBone Green plus a
-USB WiFi adapter.
-
-The BeagleBone Black Wireless uses the same kernel as the BeagleBone,
-with a different device tree.
-
-MuntsOS does not currently support the on-board Bluetooth radio.
-
-### BeagleBone Green
-
-The [BeagleBone Green](https://beagleboard.org/green) is a cost reduced
-version of the BeagleBone Black, from Chinese manufacturer [Seeed
-Studio](https://www.seeedstudio.com), that sells for about USD $44.
-Changes from the BeagleBone Black design are:
-
-  - Removed coaxial power jack . (+5V can be supplied via the slave USB
-    port or **P9** expansion header instead.)
-  - Removed HDMI receptacle and support circuitry.
-  - Changed the slave USB receptacle from mini-B to micro-B.
-  - Added two [Grove System](http://wiki.seeed.cc/Grove_System)
-    connectors, one carrying 3.3V
-    [I<sup>2</sup>C](https://en.wikipedia.org/wiki/I2C) signals and one
-    carrying 3.3V logic level [serial
-    port](https://en.wikipedia.org/wiki/Serial_port) signals.
-
-The BeagleBone Green uses the same kernel as the BeagleBone, with a
-different device tree.
-
-The BeagleBone Green is cost competitive with the Raspberry Pi, costing
-only a little more but including on board eMMC and a USB cable. It has
-only a single core processor, compared to the quad-core Raspberry Pi 3,
-but provides many more GPIO pins on its two 46-pin [expansion
-headers](http://git.munts.com/muntsos/doc/BeagleBonePinout.pdf). It also
-has separate dedicated host and slave USB ports as well as the two Grove
-sockets.
-
-The BeagleBone Green plus a USB WiFi adapter is about USD $20 cheaper
-than a BeagleBone Black Wireless, while retaining the possibility for
-wired Ethernet.
-
-### BeagleBone Green Wireless
-
-The [BeagleBone Green Wireless](https://beagleboard.org/green-wireless)
-is a variant of the BeagleBone Green that has replaced the wired
-Ethernet interface with a built-in Wifi radio. It is otherwise highly
-compatible with the BeagleBone Green. It sells for about USD $53.
-
-The BeagleBone Green Wireless uses the same kernel as the BeagleBone,
-with a different device tree.
-
-MuntsOS does not currently support the on-board Bluetooth radio.
-
-The BeagleBone Green Wireless is a mixed blessing: It has 4 USB ports
-and on-board WiFi, but commandeers quite a few of the expansion header
-GPIO pins for the on-board radios. Among other things, this seems to
-prohibit using **`SPI1`**. Also, the physical layout prevents using the
-[BeagleBone Click Shield](https://www.mikroe.com/beaglebone), which has
-some advantages over the newer [mikroBus
-Cape](https://www.mikroe.com/beaglebone-mikrobus-cape).
-
-### PocketBeagle
-
-The [PocketBeagle](https://beagleboard.org/pocket) is a cost and size
-reduced version of the BeagleBone Black. It currently sells for about
-USD $25 and is intended for the same market niche as the Rasperry Pi
-Zero. Although considerably more expensive than either version of the
-Raspberry Pi Zero, the PocketBeagle has many more I/O devices directly
-accessible from its expansion headers.
-
-The PocketBeagle uses the same kernel as the BeagleBone, with a
-different device tree. The PocketBeagle device tree enables the
-following devices on its two 36-pin [expansion
-headers](http://git.munts.com/muntsos/doc/PocketBeaglePinout.pdf):
-
-  - USB host port
-  - I<sup>2</sup>C bus controller device **`/dev/i2c-1`**
-  - I<sup>2</sup>C bus controller device **`/dev/i2c-2`**
-  - PWM output **`0:0`**
-  - PWM output **`2:0`**
-  - Serial port device **`/dev/ttyS0`**
-  - Serial port device **`/dev/ttyS4`**
-  - SPI slave device **`/dev/spidev1.0`**
-  - SPI slave device **`/dev/spidev2.1`**
-
-The expansion headers are cleverly arranged such that the two inner rows
-match the [MikroElektronika mikroBUS](https://www.mikroe.com/mikrobus)
-specification. If female sockets are installed on the top of the
-PocketBeagle, two [Click Boards](https://shop.mikroe.com/click) can be
-plugged directly into the expansion headers.
-
-Like the Raspberry Pi Zero, the PocketBeagle comes without on-board
-eMMC, USB cable, micro-SD card, or expansion headers.
-
-Unlike the Raspberry Pi Zero, the PocketBeagle expansion headers do not
-match its progenitors, so BeagleBone capes cannot be used on it.
-
 ### Raspberry Pi
 
 The [Raspberry Pi](http://www.raspberrypi.com) is a family of low cost
-Linux microcomputers selling for USD $5 to $75 (depending on model).
+Linux microcomputers selling for USD $15 to $80, depending on model.
 There have been five generations of Raspberry Pi microcomputers, each
 using a successively more sophisticated Broadcom ARM core CPU. The first
 two generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry
-Pi 2) are now obsolete and no longer supported by MuntsOS Embedded
-Linux.
+Pi 2) are now obsolete.
 
 Some Raspberry Pi models have an on-board Bluetooth radio that uses the
 serial port signals that are brought out to the expansion header. By
@@ -444,13 +274,8 @@ Pascal](https://www.freepascal.org) cross-compilers. Each of these rely
 on the libraries contained in the corresponding GCC cross-toolchain
 package.
 
-The BeagleBone platform requires a 32-bit an ARMv7 cross-toolchain
-carefully tuned for its CPU and FPU cores while all 64-bit ARMv8
-platforms use the same AArch64 cross-toolchain.
-
 Cross-toolchain packages built for [Debian](https://www.debian.org)
-Linux (both x86-64 and ARM64) development host computers are available
-at:
+Linux (x86-64 *and* ARM64) development host computers are available at:
 
 <http://repo.munts.com/debian12>
 
