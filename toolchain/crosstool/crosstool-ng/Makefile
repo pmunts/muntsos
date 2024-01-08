@@ -25,6 +25,21 @@ CTNG_BRANCH	:= -b crosstool-ng-$(CTNG_VERSION)
 CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
 CTNG_SRC	:= crosstool-ng.src
 
+DEPENDENCIES	+= autoconf
+DEPENDENCIES	+= automake
+DEPENDENCIES	+= bison
+DEPENDENCIES	+= build-essential
+DEPENDENCIES	+= curl
+DEPENDENCIES	+= flex
+DEPENDENCIES	+= gawk
+DEPENDENCIES	+= git
+DEPENDENCIES	+= help2man
+DEPENDENCIES	+= libncurses5-dev
+DEPENDENCIES	+= libtool-bin
+DEPENDENCIES	+= texinfo
+DEPENDENCIES	+= zip
+DEPENDENCIES	+= zlib1g-dev
+
 OSNAME		?= unknown
 PKGNAME		:= crosstool-ng
 PKGVERSION	:= $(CTNG_VERSION)
@@ -34,6 +49,11 @@ PKGFILE		:= $(PKGDIR).deb
 
 default: $(PKGFILE)
 
+# Install dependencies
+
+apt.done:
+	sudo apt -y install $(DEPENDENCIES)
+	touch $@
 # Clone source distribution
 
 src.done:
@@ -42,7 +62,7 @@ src.done:
 
 # Build crosstool-ng
 
-build.done: src.done
+build.done: apt.done src.done
 	cd $(CTNG_SRC) && ./bootstrap
 	cd $(CTNG_SRC) && ./configure
 	$(MAKE) -C $(CTNG_SRC) MAKELEVEL=0
