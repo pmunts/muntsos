@@ -9,23 +9,17 @@ like traditional single chip microcontrollers.
 
 ## News
 
-  - 1 January 2024 -- I have decided to freeze all development for
-    32-bit kernels. The 32-bit BeagleBone kernel is frozen at 5.4.106.
+  - 1 January 2024 -- I have decided to suspend active development for
+    32-bit platforms. The 32-bit BeagleBone kernel is frozen at 5.4.106.
     The 32-bit Raspberry Pi 1 and 2 kernels are frozen at 5.15.92. The
-    frozen 32-bit kernels will still be rebuilt regularly to incorporate
-    userland improvements.  
-    The 64-bit Raspberry Pi 3 and 4 kernels have been upgraded to 6.1.69
-    and will track <https://github.com/raspberrypi/linux> again.
+    frozen 32-bit kernels and thin servers will still be rebuilt
+    regularly to incorporate userland improvements. The
+    **`muntsos-dev`** package has been updated to only pull in 64-bit
+    AArch toolchains.
 
-  - 3 January 2024 -- Testing has revealed that something is broken in
-    either the Raspberry Pi 1 kernel or its toolchain. The latest
-    Raspberry Pi 1 kernel boots, but **`sshd`** rejects incoming
-    connections for no discernable reason. Something similar happened
-    when I moved from GCC 8 to GCC 10. I don't have time to deal with a
-    problem like this on an obsolete platform, so I'm dropping support
-    for all 32-bit Raspberry Pi models. Kernels, extensions, and Thin
-    Servers currently published at <http://repo.munts.com/muntsos> will
-    be left for awhile.
+  - 1 January 2024 -- The 64-bit Raspberry Pi 3 and 4 kernels have been
+    upgraded to 6.1.69 and will track
+    <https://github.com/raspberrypi/linux> again.
 
   - 6 January 2024 -- Added a libusb extension package. It just installs
     **`/usr/local/lib/libusb-1.0.so.0`**, which is no longer included in
@@ -43,10 +37,19 @@ like traditional single chip microcontrollers.
     
     **`dma-muntsos-BeagleBone.deb`** becomes
     **`dma-muntsos-armhf-beaglebone.deb`**  
+    **`dma-muntsos-RaspberryPi1.deb`** becomes
+    **`dma-muntsos-armhf-raspberrypi1.deb`**  
     **`dma-muntsos-RaspberryPi2.deb`** becomes
     **`dma-muntsos-armhf-raspberrypi2.deb`**  
     **`dma-muntsos-RaspberryPi3.deb`** becomes
     **`dma-muntsos-aarch64.deb`**
+
+  - 7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
+    which is ongoing, I have caught up with my backlog of improvements
+    and fixes. Among other things, the MuntsOS startup scripts
+    (**`/etc/rc`**) and friends have been extensively reworked to
+    prevent race conditions. These changes also improve the system boot
+    time.
 
 ## Quick Setup Instructions for the Impatient
 
