@@ -32,7 +32,7 @@ News
        extension package naming scheme has updated to be more meaningful
        for all platforms:
 
-       dma-muntsos-BeagleBone.deb becomes dma-muntsos-armhf-beaglebone.deb
+       dma-muntsos-BeagleBone.deb   becomes dma-muntsos-armhf-beaglebone.deb
        dma-muntsos-RaspberryPi1.deb becomes dma-muntsos-armhf-raspberrypi1.deb
        dma-muntsos-RaspberryPi2.deb becomes dma-muntsos-armhf-raspberrypi2.deb
        dma-muntsos-RaspberryPi3.deb becomes dma-muntsos-aarch64.deb
@@ -267,7 +267,7 @@ File Repository
 
      * 2017 [37]Ada Embedded Linux Framework
      * 2019 [38]Modbus RTU Framework for Ada (Prize Winner!)
-  __________________________________________________________
+   _________________________________________________________
 
    Questions or comments to Philip Munts [39]phil@munts.net
 

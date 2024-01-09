@@ -89,12 +89,11 @@ time.</p>
 <h2>Extensions</h2>
 <p>The MuntsOS root file system can be <i>extended</i> at boot time using any
 of three mechanisms:</p>
-<p>First, if <b><tt>/boot/tarballs</tt></b> <tt>exists, any
-<b><tt>gzip</tt></b>'ed tarball files (<b><tt>.tgz</tt></b>) in it will be
-extracted on top of the root file system. Typically you would use this
-mechanism for customized <b><tt>/etc/passwd</tt></b>,
-<b><tt>.ssh/authorized_keys</tt></b>, and similiar system configuration
-files.</tt></p>
+<p>First, if <b><tt>/boot/tarballs</tt></b> exists, any <b><tt>gzip</tt></b>'ed
+tarball files (<b><tt>.tgz</tt></b>) in it will be extracted on top of the root
+file system. Typically you would use this mechanism for customized
+<b><tt>/etc/passwd</tt></b>, <b><tt>.ssh/authorized_keys</tt></b>, and similiar
+system configuration files.</p>
 <p>Secondly, if <b><tt>/boot/packages</tt></b> exists, any Debian package files
 (<b><tt>.deb</tt></b>) in it will be installed into the root file system. Note
 that packages from the <a href="http://www.debian.org">Debian</a> project will

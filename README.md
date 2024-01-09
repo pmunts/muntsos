@@ -102,7 +102,7 @@ Prebuilt MuntsOS kernel release tarballs are available at:
 The MuntsOS root file system can be *extended* at boot time using any of
 three mechanisms:
 
-First, if **`/boot/tarballs`** `exists, any gzip`'ed tarball files
+First, if **`/boot/tarballs`** exists, any **`gzip`**'ed tarball files
 (**`.tgz`**) in it will be extracted on top of the root file system.
 Typically you would use this mechanism for customized **`/etc/passwd`**,
 **`.ssh/authorized_keys`**, and similiar system configuration files.
