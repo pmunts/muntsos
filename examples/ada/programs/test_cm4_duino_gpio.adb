@@ -36,7 +36,7 @@ BEGIN
   Put_Line("CM4-Duino GPIO Toggle Test");
   New_Line;
 
-  Put("Enter Arduino GPIO pin: ");
+  Put("Enter Arduino digital pin designator: ");
   Arduino.Pins_IO.Get(desg);
   New_Line;
 
