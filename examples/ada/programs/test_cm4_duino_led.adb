@@ -37,6 +37,9 @@ BEGIN
 
   LED := Arduino.CM4_Duino.Create(Arduino.CM4_Duino.LED);
 
+  Put_Line("Press CONTROL-C to exit.");
+  New_Line;
+
   LOOP
     LED.Put(NOT LED.Get);
     DELAY 0.5;
