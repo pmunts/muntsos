@@ -35,7 +35,11 @@ BEGIN
   Put_Line("CM4-Duino LED Test");
   New_Line;
 
+  -- Create GPIO output object
+
   LED := Arduino.CM4_Duino.Create(Arduino.CM4_Duino.LED);
+
+  -- Flash the LED
 
   Put_Line("Press CONTROL-C to exit.");
   New_Line;

@@ -40,10 +40,14 @@ BEGIN
   Arduino.Pins_IO.Get(desg);
   New_Line;
 
-  Put_Line("Press CONTROL-C to exit.");
-  New_Line;
+  -- Create GPIO output object
 
   outp := Arduino.CM4_Duino.Create(desg, GPIO.Output);
+
+  -- Toggle the GPIO output
+
+  Put_Line("Press CONTROL-C to exit.");
+  New_Line;
 
   LOOP
     outp.Put(NOT outp.Get);
