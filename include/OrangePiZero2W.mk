@@ -29,6 +29,7 @@ include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 BOARDBASE	:= OrangePiZero2W
 
+KERNEL_DEFCONF	= linux_sunxi64_defconfig
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDBASE).img
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
