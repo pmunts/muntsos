@@ -40,14 +40,14 @@ BEGIN
   Arduino.CM4_Duino.PWMOutputs_IO.Get(desg);
   New_Line;
 
-  Put_Line("Press CONTROL-C to exit.");
-  New_Line;
-
   -- Create PWM output object
 
   outp := Arduino.CM4_Duino.Create(desg, 1000);
 
   -- Sweep the pulse width back and forth
+
+  Put_Line("Press CONTROL-C to exit.");
+  New_Line;
 
   LOOP
     FOR d IN 0 .. 100 LOOP
