@@ -20,6 +20,8 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+WITH Ada.Text_IO;
+
 PACKAGE Arduino IS
 
   TYPE Pins IS (D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13,
@@ -28,5 +30,7 @@ PACKAGE Arduino IS
   SUBTYPE DigitalPins IS Pins RANGE D0 .. D13;
 
   SUBTYPE AnalogPins  IS Pins RANGE A0 .. A5;
+
+  PACKAGE Pins_IO IS NEW Ada.Text_IO.Enumeration_IO(Pins);
 
 END Arduino;

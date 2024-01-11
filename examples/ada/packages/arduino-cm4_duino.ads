@@ -20,6 +20,8 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+WITH Ada.Text_IO;
+
 WITH Device;
 WITH GPIO.libsimpleio;
 WITH I2C.libsimpleio;
@@ -36,6 +38,14 @@ PACKAGE Arduino.CM4_Duino IS
   TYPE I2CBuses   IS (I2C1);
   TYPE PWMOutputs IS (PWM0, PWM1);
   TYPE SPIDevices IS (SPI0);
+
+  -- Instantiate enumeration I/O packages
+
+  PACKAGE Buttons_IO    IS NEW Ada.Text_IO.Enumeration_IO(Buttons);
+  PACKAGE Indicators_IO IS NEW Ada.Text_IO.Enumeration_IO(Indicators);
+  PACKAGE I2CBuses_IO   IS NEW Ada.Text_IO.Enumeration_IO(I2CBuses);
+  PACKAGE PWMOutputs_IO IS NEW Ada.Text_IO.Enumeration_IO(PWMOutputs);
+  PACKAGE SPIDevices_IO IS NEW Ada.Text_IO.Enumeration_IO(SPIDevices);
 
   -- GPIO pin object constructors
 
