@@ -83,7 +83,7 @@ menuconfig: $(KERNEL_WORK)/src.done
 $(KERNEL_WORK)/dtbs.done: $(KERNEL_WORK)/config.done
 	$(MAKE) $(MAKE_ARGS) dtbs
 	$(MAKE) $(MAKE_ARGS) dtbs_install INSTALL_DTBS_PATH=$(KERNEL_WORK)/dtbs
-	cd $(KERNEL_WORK)/dtbs && mv overlays ..
+	-cd $(KERNEL_WORK)/dtbs && mv overlays ..
 	touch $@
 
 dtbs: $(KERNEL_WORK)/dtbs.done
