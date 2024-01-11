@@ -142,11 +142,7 @@ PACKAGE BODY Arduino.CM4_Duino IS
     polarity  : PWM.libsimpleio.Polarities := PWM.libsimpleio.ActiveHigh) RETURN PWM.Output IS
 
   BEGIN
-    IF desg = PWM0 AND NOT Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
-      RAISE PWM.PWM_Error WITH desg'Image & " is not available.";
-    END IF;
-
-    IF desg = PWM1 AND NOT Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm1") THEN
+    IF NOT Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
       RAISE PWM.PWM_Error WITH desg'Image & " is not available.";
     END IF;
 
