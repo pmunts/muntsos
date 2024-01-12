@@ -41,7 +41,7 @@ PACKAGE Grove_Base_Hat_Zero IS
      Grove_Base_Hat_ADC.Create(Bus, 16#04#, 2),         -- Socket A2 pin 1
      Grove_Base_Hat_ADC.Create(Bus, 16#04#, 3),         -- Socket A2 pin 2
      Grove_Base_Hat_ADC.Create(Bus, 16#04#, 4),         -- Socket A4 pin 1
-     Grove_Base_Hat_ADC.Create(Bus, 16#04#, 5));        -- Socket A0 pin 2
+     Grove_Base_Hat_ADC.Create(Bus, 16#04#, 5));        -- Socket A4 pin 2
 
   Voltage_Inputs : CONSTANT ARRAY (0 .. 5) OF Voltage.Input :=
     (Grove_Base_Hat_ADC.Create(Bus, 16#04#, 0),         -- Socket A0 pin 1
@@ -49,7 +49,7 @@ PACKAGE Grove_Base_Hat_Zero IS
      Grove_Base_Hat_ADC.Create(Bus, 16#04#, 2),         -- Socket A2 pin 1
      Grove_Base_Hat_ADC.Create(Bus, 16#04#, 3),         -- Socket A2 pin 2
      Grove_Base_Hat_ADC.Create(Bus, 16#04#, 4),         -- Socket A4 pin 1
-     Grove_Base_Hat_ADC.Create(Bus, 16#04#, 5));        -- Socket A0 pin 2
+     Grove_Base_Hat_ADC.Create(Bus, 16#04#, 5));        -- Socket A4 pin 2
 
   -- GPIO Pins
 
