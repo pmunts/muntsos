@@ -31,40 +31,30 @@ WITH RaspberryPi;
 
 PACKAGE Arduino.CM4_Duino IS
 
-  -- Define enumeration values for each of the available resources
+  -- Define subranges for I/O resources the CM4-Duino board provides
 
-  TYPE Buttons    IS (USER1, USER2);
-  TYPE Indicators IS (LED);
-  TYPE I2CBuses   IS (I2C1);
-  TYPE PWMOutputs IS (PWM0, PWM1);
-  TYPE SPIDevices IS (SPI0);
+  SUBTYPE GPIOs      IS Arduino.Resources RANGE D0 .. D13;
+  SUBTYPE Buttons    IS Arduino.Resources RANGE BTN1 .. BTN2;
+  SUBTYPE LEDs       IS Arduino.Resources RANGE LED1 .. LED1;
+  SUBTYPE I2CBuses   IS Arduino.Resources RANGE I2C1 .. I2C1;
+  SUBTYPE PWMOutputs IS Arduino.Resources RANGE PWM0 .. PWM1;
+  SUBTYPE SPIDevices IS Arduino.Resources RANGE SPI0 .. SPI0;
 
-  -- Instantiate enumeration I/O packages
+  -- Define some constants that match the CM4-Duino board silkscreen
 
-  PACKAGE Buttons_IO    IS NEW Ada.Text_IO.Enumeration_IO(Buttons);
-  PACKAGE Indicators_IO IS NEW Ada.Text_IO.Enumeration_IO(Indicators);
-  PACKAGE I2CBuses_IO   IS NEW Ada.Text_IO.Enumeration_IO(I2CBuses);
-  PACKAGE PWMOutputs_IO IS NEW Ada.Text_IO.Enumeration_IO(PWMOutputs);
-  PACKAGE SPIDevices_IO IS NEW Ada.Text_IO.Enumeration_IO(SPIDevices);
+  LED   : CONSTANT Resources := LED1;
+  USER1 : CONSTANT Resources := BTN1;
+  USER2 : CONSTANT Resources := BTN2;
 
   -- GPIO pin object constructors
 
   FUNCTION Create
-   (desg      : Arduino.DigitalPins;
+   (desg      : Arduino.DigitalIOs;
     dir       : GPIO.Direction;
     state     : Boolean := False;
     driver    : GPIO.libsimpleio.Driver   := GPIO.libsimpleio.PushPull;
     edge      : GPIO.libsimpleio.Edge     := GPIO.libsimpleio.None;
     polarity  : GPIO.libsimpleio.Polarity := GPIO.libsimpleio.ActiveHigh) RETURN GPIO.Pin;
-
-  FUNCTION Create
-   (desg      : Buttons;
-    edge      : GPIO.libsimpleio.Edge     := GPIO.libsimpleio.None;
-    polarity  : GPIO.libsimpleio.Polarity := GPIO.libsimpleio.ActiveHigh) RETURN GPIO.Pin;
-
-  FUNCTION Create
-   (desg      : Indicators;
-    state     : Boolean := False) RETURN GPIO.Pin;
 
   -- I2C bus object constructor
 

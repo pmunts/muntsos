@@ -28,7 +28,7 @@ WITH PWM;
 
 PROCEDURE test_cm4_duino_pwm IS
 
-  desg : Arduino.CM4_Duino.PWMOutputs;
+  desg : Arduino.PWMOutputs;
   outp : PWM.Output;
 
 BEGIN
@@ -37,7 +37,7 @@ BEGIN
   New_Line;
 
   Put("Enter PWM output designator: ");
-  Arduino.CM4_Duino.PWMOutputs_IO.Get(desg);
+  Arduino.Resources_IO.Get(desg);
   New_Line;
 
   -- Create PWM output object

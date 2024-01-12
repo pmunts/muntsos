@@ -34,45 +34,36 @@ USE TYPE GPIO.Direction;
 
 PACKAGE BODY Arduino.CM4_Duino IS
 
-  -- Define resource mapping tables
+  -- Map Arduino resource designators to Raspberry Pi device designators
 
-  MGPIOs      : CONSTANT ARRAY (Arduino.DigitalPins) OF Device.Designator :=
-   (D0    => RaspberryPi.GPIO15,  -- aka RXD
-    D1    => RaspberryPi.GPIO14,  -- aka TXD
-    D2    => RaspberryPi.GPIO16,
-    D3    => RaspberryPi.GPIO17,
-    D4    => RaspberryPi.GPIO20,
-    D5    => RaspberryPi.GPIO19,  -- aka PWM1
-    D6    => RaspberryPi.GPIO18,  -- aka PWM0
-    D7    => RaspberryPi.GPIO21,
-    D8    => RaspberryPi.GPIO22,
-    D9    => RaspberryPi.GPIO23,
-    D10   => RaspberryPi.GPIO8,   -- aka SPI CE0
-    D11   => RaspberryPi.GPIO10,  -- aka SPI MOSI
-    D12   => RaspberryPi.GPIO9,   -- aka SPI MISO
-    D13   => RaspberryPi.GPIO11); -- aka SPI SCLK
-
-  MButtons    : CONSTANT ARRAY (Buttons)    OF Device.Designator :=
-   (USER1 => RaspberryPi.GPIO4,
-    USER2 => RaspberryPi.GPIO5);
-
-  MIndicators : CONSTANT ARRAY (Indicators) OF Device.Designator :=
-   (LED   => RaspberryPi.GPIO6);
-
-  MI2CBuses   : CONSTANT ARRAY (I2CBuses)   OF Device.Designator :=
-   (I2C1  => RaspberryPi.I2C1);
-
-  MPWMOutputs : CONSTANT ARRAY (PWMOutputs) OF Device.Designator :=
-   (PWM0  => RaspberryPi.PWM0,
-    PWM1  => RaspberryPi.PWM1);
-
-  MSPIDevices : CONSTANT ARRAY (SPIDevices) OF Device.Designator :=
-   (SPI0  => RaspberryPi.SPI0_0);
+  RPiDesignators : CONSTANT ARRAY (Arduino.Resources) OF Device.Designator :=
+   (D0     => RaspberryPi.GPIO15,  -- aka RXD
+    D1     => RaspberryPi.GPIO14,  -- aka TXD
+    D2     => RaspberryPi.GPIO16,
+    D3     => RaspberryPi.GPIO17,
+    D4     => RaspberryPi.GPIO20,
+    D5     => RaspberryPi.GPIO19,  -- aka PWM1
+    D6     => RaspberryPi.GPIO18,  -- aka PWM0
+    D7     => RaspberryPi.GPIO21,
+    D8     => RaspberryPi.GPIO22,
+    D9     => RaspberryPi.GPIO23,
+    D10    => RaspberryPi.GPIO8,   -- aka SPI CE0
+    D11    => RaspberryPi.GPIO10,  -- aka SPI MOSI
+    D12    => RaspberryPi.GPIO9,   -- aka SPI MISO
+    D13    => RaspberryPi.GPIO11,  -- aka SPI SCLK
+    BTN1   => RaspberryPi.GPIO4,   -- aka USER1
+    BTN2   => RaspberryPi.GPIO5,   -- aka USER2
+    LED1   => RaspberryPi.GPIO6,   -- aka LED
+    I2C1   => RaspberryPi.I2C1,
+    PWM0   => RaspberryPi.PWM0,    -- aka GPIO18
+    PWM1   => RaspberryPi.PWM1,    -- aka GPIO19
+    SPI0   => RaspberryPi.SPI0_0,  -- aka GPIO8-11
+    OTHERS => Device.Unavailable);
 
   -- GPIO pin object constructors
 
   FUNCTION Create
-   (desg     : Arduino.DigitalPins;
+   (desg     : Arduino.DigitalIOs;
     dir      : Standard.GPIO.Direction;
     state    : Boolean := False;
     driver   : GPIO.libsimpleio.Driver   := GPIO.libsimpleio.PushPull;
@@ -80,9 +71,25 @@ PACKAGE BODY Arduino.CM4_Duino IS
     polarity : GPIO.libsimpleio.Polarity := GPIO.libsimpleio.ActiveHigh) RETURN GPIO.Pin IS
 
   BEGIN
-    -- Check for pin conflicts
+    IF RPiDesignators(desg) = Device.Unavailable THEN
+      RAISE GPIO.GPIO_Error WITH desg'Image & " is not available.";
+    END IF;
 
-    IF desg < D2 AND Ada.Directories.Exists("/dev/ttyAMA0") THEN
+    -- Buttons must be inputs
+
+    IF desg IN Buttons AND dir = GPIO.Output THEN
+      RAISE GPIO.GPIO_Error WITH desg'Image & " cannot be configured as an output.";
+    END IF;
+
+    -- LEDs must be outputs
+
+    IF desg IN LEDs AND dir = GPIO.Input THEN
+      RAISE GPIO.GPIO_Error WITH desg'Image & " cannot be configured as an input.";
+    END IF;
+
+    -- Check for GPIO pin configuration conflicts
+
+    IF desg >= D0 AND desg <= D1 AND Ada.Directories.Exists("/dev/ttyAMA0") THEN
       RAISE GPIO.GPIO_Error WITH desg'Image & " is already configured for UART0.";
     END IF;
 
@@ -94,43 +101,29 @@ PACKAGE BODY Arduino.CM4_Duino IS
       RAISE GPIO.GPIO_Error WITH desg'Image & " is already configured for PWM0.";
     END IF;
 
-    IF desg > D9 AND Ada.Directories.Exists("/dev/spidev0.0") THEN
+    IF desg >= D10 AND desg <= D13 AND Ada.Directories.Exists("/dev/spidev0.0") THEN
       RAISE GPIO.GPIO_Error WITH desg'Image & " is already configured for SPI0.";
     END IF;
 
-    RETURN GPIO.libsimpleio.Create(MGPIOs(desg), dir, state, driver, edge, polarity);
-  END Create;
-
-  FUNCTION Create
-   (desg      : Buttons;
-    edge      : GPIO.libsimpleio.Edge     := GPIO.libsimpleio.None;
-    polarity  : GPIO.libsimpleio.Polarity := GPIO.libsimpleio.ActiveHigh) RETURN GPIO.Pin IS
-
-  BEGIN
-    RETURN GPIO.libsimpleio.Create(MButtons(desg), GPIO.Input, False,
-      GPIO.libsimpleio.PushPull, edge, polarity);
-  END Create;
-
-  FUNCTION Create
-   (desg      : Indicators;
-    state     : Boolean := False) RETURN GPIO.Pin IS
-
-  BEGIN
-    RETURN GPIO.libsimpleio.Create(MIndicators(desg), GPIO.Output, state,
-      GPIO.libsimpleio.OpenDrain);
+    RETURN GPIO.libsimpleio.Create(RPiDesignators(desg), dir, state, driver,
+      edge, polarity);
   END Create;
 
   -- I2C bus object constructor
 
   FUNCTION Create
-   (desg      : I2CBuses) RETURN I2C.Bus IS
+   (desg : I2CBuses) RETURN I2C.Bus IS
 
   BEGIN
+    IF RPIDesignators(desg) = Device.Unavailable THEN
+      RAISE I2C.I2C_Error WITH desg'Image & " is not available.";
+    END IF;
+
     IF NOT Ada.Directories.Exists("/dev/i2c-1") THEN
       RAISE I2C.I2C_Error WITH desg'Image & " is not available.";
     END IF;
 
-    RETURN I2C.libsimpleio.Create(MI2CBuses(desg));
+    RETURN I2C.libsimpleio.Create(RPIDesignators(desg));
   END Create;
 
   -- PWM output object constructor
@@ -142,11 +135,15 @@ PACKAGE BODY Arduino.CM4_Duino IS
     polarity  : PWM.libsimpleio.Polarities := PWM.libsimpleio.ActiveHigh) RETURN PWM.Output IS
 
   BEGIN
+    IF RPIDesignators(desg) = Device.Unavailable THEN
+      RAISE PWM.PWM_Error WITH desg'Image & " is not available.";
+    END IF;
+
     IF NOT Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
       RAISE PWM.PWM_Error WITH desg'Image & " is not available.";
     END IF;
 
-    RETURN PWM.libsimpleio.Create(MPWMOutputs(desg), frequency, dutycycle, polarity);
+    RETURN PWM.libsimpleio.Create(RPIDesignators(desg), frequency, dutycycle, polarity);
   END Create;
 
   -- SPI slave device constructor
@@ -158,11 +155,15 @@ PACKAGE BODY Arduino.CM4_Duino IS
     speed     : Natural) RETURN SPI.Device IS
 
   BEGIN
+    IF RPIDesignators(desg) = Device.Unavailable THEN
+      RAISE SPI.SPI_Error WITH desg'Image & " is not available.";
+    END IF;
+
     IF NOT Ada.Directories.Exists("/dev/spidev0.0") THEN
       RAISE SPI.SPI_Error WITH desg'Image & " is not available.";
     END IF;
 
-    RETURN SPI.libsimpleio.Create(MSPIDevices(desg), mode, wordsize, speed);
+    RETURN SPI.libsimpleio.Create(RPIDesignators(desg), mode, wordsize, speed);
   END Create;
 
 END Arduino.CM4_Duino;

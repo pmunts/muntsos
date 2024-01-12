@@ -41,7 +41,7 @@ BEGIN
   Put_Line("CM4-Duino Constructor Test");
   New_Line;
 
-  FOR x IN Arduino.DigitalPins LOOP
+  FOR x IN Arduino.CM4_Duino.GPIOs LOOP
     BEGIN
       P := Arduino.CM4_Duino.Create(x, GPIO.Output);
       Put(x'Image); Put_Line(" Succeeded");
@@ -55,7 +55,7 @@ BEGIN
 
   FOR x IN Arduino.CM4_Duino.Buttons LOOP
     BEGIN
-      P := Arduino.CM4_Duino.Create(x);
+      P := Arduino.CM4_Duino.Create(x, GPIO.Input);
       Put(x'Image); Put_Line(" Succeeded");
     EXCEPTION
       WHEN e : OTHERS =>
@@ -65,9 +65,9 @@ BEGIN
     END;
   END LOOP;
 
-  FOR x IN Arduino.CM4_Duino.Indicators LOOP
+  FOR x IN Arduino.CM4_Duino.LEDs LOOP
     BEGIN
-      P := Arduino.CM4_Duino.Create(x);
+      P := Arduino.CM4_Duino.Create(x, GPIO.Output);
       Put(x'Image); Put_Line(" Succeeded");
     EXCEPTION
       WHEN e : OTHERS =>

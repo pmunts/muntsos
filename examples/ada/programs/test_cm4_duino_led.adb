@@ -37,7 +37,7 @@ BEGIN
 
   -- Create GPIO output object
 
-  LED := Arduino.CM4_Duino.Create(Arduino.CM4_Duino.LED);
+  LED := Arduino.CM4_Duino.Create(Arduino.CM4_Duino.LED, GPIO.Output);
 
   -- Flash the LED
 
