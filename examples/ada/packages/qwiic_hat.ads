@@ -27,14 +27,14 @@ PACKAGE Qwiic_HAT IS
 
   -- GPIO pins on Qwiic HAT expansion header
 
-  D6  : Device.Designator RENAMES RaspberryPi.GPIO6;
-  D7  : Device.Designator RENAMES RaspberryPi.GPIO7;
-  D12 : Device.Designator RENAMES RaspberryPi.GPIO12;
-  D16 : Device.Designator RENAMES RaspberryPi.GPIO16;
-  D20 : Device.Designator RENAMES RaspberryPi.GPIO20;
-  D21 : Device.Designator RENAMES RaspberryPi.GPIO21;
+  D6   : Device.Designator RENAMES RaspberryPi.GPIO6;
+  D7   : Device.Designator RENAMES RaspberryPi.GPIO7;
+  D12  : Device.Designator RENAMES RaspberryPi.GPIO12;
+  D16  : Device.Designator RENAMES RaspberryPi.GPIO16;
+  D20  : Device.Designator RENAMES RaspberryPi.GPIO20;
+  D21  : Device.Designator RENAMES RaspberryPi.GPIO21;
 
-  I2C : Device.Designator RENAMES RaspberryPi.I2C1;
-  SPI : Device.Designator RENAMES RaspberryPi.SPI0_1;
+  I2C1 : Device.Designator RENAMES RaspberryPi.I2C1;
+  SPI1 : Device.Designator RENAMES RaspberryPi.SPI0_1;
 
 END Qwiic_HAT;

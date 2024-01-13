@@ -102,7 +102,7 @@ BEGIN
 
   -- Register I2C buses
 
-  i2c.Register(0, MUNTS_0018.J9I2C);
+  i2c.Register(1, MUNTS_0018.J9I2C);
 
   -- Register PWM outputs
 

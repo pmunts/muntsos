@@ -193,7 +193,7 @@ BEGIN
     gpio.Register(115, BeagleBone.GPIO115);    -- P9.27
     gpio.Register(117, BeagleBone.GPIO117);    -- P9.25
 
-    i2c.Register(0, BeagleBone.I2C2);
+    i2c.Register(2, BeagleBone.I2C2);
 
     pwm.Register(0, BeagleBone.EHRPWM1A);
     pwm.Register(1, BeagleBone.EHRPWM1B);
@@ -374,7 +374,7 @@ BEGIN
     gpio.Register(26, RaspberryPi.GPIO26);
 
     IF I2C1_configured THEN
-      i2c.Register(0, RaspberryPi.I2C1);
+      i2c.Register(1, RaspberryPi.I2C1);
     END IF;
 
     -- Hardware PWM outputs are only available if one of the proper

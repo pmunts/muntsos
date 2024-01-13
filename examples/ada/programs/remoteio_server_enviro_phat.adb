@@ -83,5 +83,5 @@ BEGIN
   gpio.Register(RemoteIO.Enviro_pHAT.LEDS, Pimoroni_Enviro_pHAT.LEDs,
     RemoteIO.GPIO.OutputOnly);
 
-  i2c.Register(RemoteIO.Enviro_pHAT.I2C0, Pimoroni_Enviro_pHAT.Bus);
+  i2c.Register(RemoteIO.Enviro_pHAT.I2C1, Pimoroni_Enviro_pHAT.Bus);
 END remoteio_server_Enviro_pHAT;

@@ -75,8 +75,8 @@ BEGIN
   gpio.Register(RemoteIO.Qwiic_HAT.GPIO20, Qwiic_HAT.D20);
   gpio.Register(RemoteIO.Qwiic_HAT.GPIO21, Qwiic_HAT.D21);
 
-  i2c.Register(RemoteIO.Qwiic_HAT.I2C0, Qwiic_HAT.I2C);
+  i2c.Register(RemoteIO.Qwiic_HAT.I2C1, Qwiic_HAT.I2C1);
 
-  spi.Register(RemoteIO.Qwiic_HAT.SPI0, Qwiic_HAT.SPI);
+  spi.Register(RemoteIO.Qwiic_HAT.SPI1, Qwiic_HAT.SPI1);
 
 END remoteio_server_qwiic_hat;

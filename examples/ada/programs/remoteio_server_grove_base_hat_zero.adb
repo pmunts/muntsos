@@ -27,6 +27,7 @@ WITH GPIO.UserLED;
 WITH RemoteIO.ADC;
 WITH RemoteIO.Executive;
 WITH RemoteIO.GPIO;
+WITH RemoteIO.Grove_Base_Hat_Zero;
 WITH RemoteIO.I2C;
 WITH RemoteIO.PWM;
 WITH RemoteIO.Server.Dev;
@@ -86,10 +87,10 @@ BEGIN
 
   -- GPIO pins
 
-  gpio.Register(5,  Grove_Base_Hat_Zero.D5);
-  gpio.Register(6,  Grove_Base_Hat_Zero.D6);
-  gpio.Register(16, Grove_Base_Hat_Zero.D16);
-  gpio.Register(17, Grove_Base_Hat_Zero.D17);
+  gpio.Register(Grove_Base_Hat_Zero.D5,  Grove_Base_Hat_Zero.D5);
+  gpio.Register(Grove_Base_Hat_Zero.D6,  Grove_Base_Hat_Zero.D6);
+  gpio.Register(Grove_Base_Hat_Zero.D16, Grove_Base_Hat_Zero.D16);
+  gpio.Register(Grove_Base_Hat_Zero.D17, Grove_Base_Hat_Zero.D17);
 
   -- Extra GPIO pins on the SWD header -- These conflict with SPI0!
   -- You must disable SPI0 in /boot/config.txt:
@@ -98,14 +99,14 @@ BEGIN
 
   IF NOT Ada.Directories.Exists("/dev/spidev0.0") AND
      NOT Ada.Directories.Exists("/dev/spidev0.1") THEN
-    gpio.Register(9,  Grove_Base_Hat_Zero.D9);
-    gpio.Register(10, Grove_Base_Hat_Zero.D10);
-    gpio.Register(11, Grove_Base_Hat_Zero.D11);
+    gpio.Register(Grove_Base_Hat_Zero.D9,  Grove_Base_Hat_Zero.D9);
+    gpio.Register(Grove_Base_Hat_Zero.D10, Grove_Base_Hat_Zero.D10);
+    gpio.Register(Grove_Base_Hat_Zero.D11, Grove_Base_Hat_Zero.D11);
   END IF;
 
   -- I2C buses
 
-  i2c.Register(0, Grove_Base_Hat_Zero.Bus);
+  i2c.Register(Grove_Base_Hat_Zero.I2C1, Grove_Base_Hat_Zero.Bus);
 
   -- PWM Outputs -- These conflict with D12 and D13!
 
@@ -128,16 +129,16 @@ BEGIN
     -- Register BCM2835 PWM outputs
 
     IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
-      pwm.Register(12, Grove_Base_Hat_Zero.PWM12);
+      pwm.Register(Grove_Base_Hat_Zero.PWM12, Grove_Base_Hat_Zero.PWM12);
     END IF;
 
     IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm1") THEN
-      pwm.Register(13, Grove_Base_Hat_Zero.PWM13);
+      pwm.Register(Grove_Base_Hat_Zero.PWM13, Grove_Base_Hat_Zero.PWM13);
     END IF;
   ELSE
     -- Register D12 and D13 as GPIO pins instead
-    gpio.Register(12, Grove_Base_Hat_Zero.D12);
-    gpio.Register(13, Grove_Base_Hat_Zero.D13);
+    gpio.Register(Grove_Base_Hat_Zero.D12, Grove_Base_Hat_Zero.D12);
+    gpio.Register(Grove_Base_Hat_Zero.D13, Grove_Base_Hat_Zero.D13);
   END IF;
 
 END remoteio_server_grove_base_hat_zero;
