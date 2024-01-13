@@ -30,9 +30,9 @@ default: build upload clean
 build:
 	$(MAKE) -C muntsos-common
 	$(MAKE) -C muntsos-toolchains RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
-	$(MAKE) -C muntsos-toolchains RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
-	$(MAKE) -C muntsos-toolchains RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
-	$(MAKE) -C muntsos-toolchains RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
+	#$(MAKE) -C muntsos-toolchains RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
+	#$(MAKE) -C muntsos-toolchains RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	#$(MAKE) -C muntsos-toolchains RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
 
 # Upload RPM packages to repository
 
@@ -44,6 +44,6 @@ upload:
 clean:
 	$(MAKE) -C muntsos-common clean
 	$(MAKE) -C muntsos-toolchains clean RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
-	$(MAKE) -C muntsos-toolchains clean RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
-	$(MAKE) -C muntsos-toolchains clean RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
-	$(MAKE) -C muntsos-toolchains clean RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
+	#$(MAKE) -C muntsos-toolchains clean RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
+	#$(MAKE) -C muntsos-toolchains clean RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	#$(MAKE) -C muntsos-toolchains clean RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
