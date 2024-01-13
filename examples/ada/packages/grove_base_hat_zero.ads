@@ -80,7 +80,7 @@ PACKAGE Grove_Base_Hat_Zero IS
   -- OR
   -- dtoverlay=pwm-2chan,pin=12,func=4,pin2=13,func2=4
 
-  PWM12 : Device.Designator RENAMES RaspberryPi.PWM0; -- Socket PWM pin 1
-  PWM13 : Device.Designator RENAMES RaspberryPi.PWM1; -- Socket PWM pin 2
+  PMW0 : Device.Designator RENAMES RaspberryPi.PWM0; -- Socket PWM pin 1
+  PWM1 : Device.Designator RENAMES RaspberryPi.PWM1; -- Socket PWM pin 2
 
 END Grove_Base_Hat_zero;
