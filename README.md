@@ -61,6 +61,12 @@ like traditional single chip microcontrollers.
     Some platform modules and test programs have been moved from
     **libsimpleio** to **`muntsos/examples/modula2/`.**
 
+  - 13 January 2024 -- Upgraded libcurl to 8.5.0. Upgraded libnl to
+    3.9.0. Took advantage of the opportunity to fix the cross-tool
+    package dependency chains. Now if you remove the gcc package, all
+    the corresponding free pascal compiler and library packages will be
+    removed as well.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
