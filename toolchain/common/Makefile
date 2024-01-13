@@ -24,11 +24,10 @@ LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 MUNTSOS		?= ../..
 
 BUILDNUM	?= 1
-OSNAME		?= unknown
 PKGNAME		:= muntsos-common
 PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= all
-PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(OSNAME)-$(PKGARCH)
+PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
 
 include $(LIBSIMPLEIO)/ada/include/ada.mk
