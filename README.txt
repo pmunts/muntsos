@@ -45,6 +45,16 @@ News
        Support for the Raspberry 5 and the Orange Pi Zero 2 W is under
        development.
 
+     * 13 January 2024 -- You can now write programs for MuntsOS in
+       Modula-2, for which support was merged into GCC 13. During the late
+       1980's and early 1990's, there was a lot of interest in Modula-2 as
+       a system programming language, a more robust alternative to C. As a
+       student and beginning software engineer, I spent real money on at
+       least three different Modula-2 compilers for DOS.
+
+       Some platform modules and test programs have been moved from
+       libsimpleio to muntsos/examples/modula2/.
+
 Quick Setup Instructions for the Impatient
 
    Instructions for installing the MuntsOS cross-toolchain development
