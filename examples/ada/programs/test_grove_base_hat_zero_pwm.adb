@@ -32,8 +32,8 @@ WITH PWM.libsimpleio;
 
 PROCEDURE test_grove_base_hat_zero_pwm IS
 
-  PWM12 : PWM.Output;
-  PWM13 : PWM.Output;
+  PWM0 : PWM.Output;
+  PWM1 : PWM.Output;
 
 BEGIN
   New_Line;
@@ -42,21 +42,21 @@ BEGIN
 
   -- Create PWM output objects
 
-  PWM12 := PWM.libsimpleio.Create(Grove_Base_Hat_Zero.PWM12, 1000);
-  PWM13 := PWM.libsimpleio.Create(Grove_Base_Hat_Zero.PWM13, 1000);
+  PWM0 := PWM.libsimpleio.Create(Grove_Base_Hat_Zero.PWM0, 1000);
+  PWM1 := PWM.libsimpleio.Create(Grove_Base_Hat_Zero.PWM1, 1000);
 
   -- Sweep the pulse width back and forth
 
   LOOP
     FOR d IN 0 .. 100 LOOP
-      PWM12.Put(PWM.DutyCycle(d));
-      PWM13.Put(PWM.DutyCycle(d));
+      PWM0.Put(PWM.DutyCycle(d));
+      PWM1.Put(PWM.DutyCycle(d));
       DELAY 0.05;
     END LOOP;
 
     FOR d IN REVERSE 0 .. 100 LOOP
-      PWM12.Put(PWM.DutyCycle(d));
-      PWM13.Put(PWM.DutyCycle(d));
+      PWM0.Put(PWM.DutyCycle(d));
+      PWM0.Put(PWM.DutyCycle(d));
       DELAY 0.05;
     END LOOP;
   END LOOP;
