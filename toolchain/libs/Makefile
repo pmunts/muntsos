@@ -72,7 +72,7 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(TEMP)/$(ZLIB_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.4.0
+CURL_VER	= 8.5.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -105,10 +105,10 @@ LIBMNL_SRC	= libmnl.src
 LIBMNL_URL	= git://git.netfilter.org/libmnl
 
 LIBNL_NAME	= libnl
-LIBNL_VER	= 3.8.0
+LIBNL_VER	= 3.9.0
 LIBNL_SRC	= $(LIBNL_NAME)-$(LIBNL_VER)
 LIBNL_TARBALL	= $(LIBNL_SRC).tar.gz
-LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_8_0
+LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_9_0
 LIBNL_URL	= $(LIBNL_SERVER)/$(LIBNL_TARBALL)
 LIBNL_DIST	= $(TEMP)/$(LIBNL_TARBALL)
 
@@ -700,6 +700,7 @@ $(PKGDIR): $(INSTALLDIR)/COPYING
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@TOOLCHAIN@@/$(TOOLCHAIN_NAME)/g	$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)$(FINALDIR)
 	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(FINALDIR)
 	rm -rf						$(PKGDIR)$(FINALDIR)/lib/cmake
