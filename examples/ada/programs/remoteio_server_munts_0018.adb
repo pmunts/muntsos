@@ -30,6 +30,7 @@ WITH RemoteIO.ADC;
 WITH RemoteIO.Executive;
 WITH RemoteIO.GPIO;
 WITH RemoteIO.I2C;
+WITH RemoteIO.MUNTS_0018;
 WITH RemoteIO.PWM;
 WITH RemoteIO.Server.Dev;
 WITH RemoteIO.Server.Foundation;
@@ -78,31 +79,30 @@ BEGIN
   -- Register user LED on GPIO channel 0, if possible
 
   IF Standard.GPIO.UserLED.Available THEN
-    gpio.Register(0, Standard.GPIO.UserLED.Create, RemoteIO.GPIO.OutputOnly);
+    gpio.Register(RemoteIO.MUNTS_0018.LED, Standard.GPIO.UserLED.Create, RemoteIO.GPIO.OutputOnly);
   END IF;
 
   -- Register analog inputs
 
-  adc.register(0, MUNTS_0018.J11A0, MCP3204.Resolution);
-  adc.register(1, MUNTS_0018.J11A1, MCP3204.Resolution);
-  adc.register(2, MUNTS_0018.J10A0, MCP3204.Resolution);
-  adc.register(3, MUNTS_0018.J10A1, MCP3204.Resolution);
+  adc.register(RemoteIO.MUNTS_0018.J10A0, MUNTS_0018.J10A0, MCP3204.Resolution);
+  adc.register(RemoteIO.MUNTS_0018.J10A1, MUNTS_0018.J10A1, MCP3204.Resolution);
+  adc.register(RemoteIO.MUNTS_0018.J11A0, MUNTS_0018.J11A0, MCP3204.Resolution);
+  adc.register(RemoteIO.MUNTS_0018.J11A1, MUNTS_0018.J11A1, MCP3204.Resolution);
 
   -- Register GPIO pins
 
-  gpio.Register(23, MUNTS_0018.J4D0);
-  gpio.Register(24, MUNTS_0018.J4D1);
-  gpio.Register(5,  MUNTS_0018.J5D0);
-  gpio.Register(4,  MUNTS_0018.J5D1);
-  gpio.Register(13, MUNTS_0018.J6D1);
-  gpio.Register(18, MUNTS_0018.J7D1);
-
-  gpio.Register(6,  MUNTS_0018.SW1, RemoteIO.GPIO.InputOnly); -- Button
-  gpio.Register(26, MUNTS_0018.D1, RemoteIO.GPIO.OutputOnly); -- LED
+  gpio.Register(RemoteIO.MUNTS_0018.D1  , MUNTS_0018.D1, RemoteIO.GPIO.OutputOnly); -- LED
+  gpio.Register(RemoteIO.MUNTS_0018.J4D0, MUNTS_0018.J4D0);
+  gpio.Register(RemoteIO.MUNTS_0018.J4D1, MUNTS_0018.J4D1);
+  gpio.Register(RemoteIO.MUNTS_0018.J5D0, MUNTS_0018.J5D0);
+  gpio.Register(RemoteIO.MUNTS_0018.J5D1, MUNTS_0018.J5D1);
+  gpio.Register(RemoteIO.MUNTS_0018.J6D0, MUNTS_0018.J6D0);
+  gpio.Register(RemoteIO.MUNTS_0018.J6D1, MUNTS_0018.J6D1);
+  gpio.Register(RemoteIO.MUNTS_0018.SW1,  MUNTS_0018.SW1, RemoteIO.GPIO.InputOnly); -- Button
 
   -- Register I2C buses
 
-  i2c.Register(1, MUNTS_0018.J9I2C);
+  i2c.Register(RemoteIO.MUNTS_0018.J9I2C, MUNTS_0018.J9I2C);
 
   -- Register PWM outputs
 
@@ -112,11 +112,11 @@ BEGIN
     system("echo 1 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
     DELAY 1.0;
 
-    pwm.Register(0, MUNTS_0018.J6PWM);
-    pwm.Register(1, MUNTS_0018.J7PWM);
+    pwm.Register(RemoteIO.MUNTS_0018.J6PWM, MUNTS_0018.J6PWM);
+    pwm.Register(RemoteIO.MUNTS_0018.J7PWM, MUNTS_0018.J7PWM);
   ELSE
-    gpio.Register(12, MUNTS_0018.J6D0);
-    gpio.Register(19, MUNTS_0018.J7D0);
+    gpio.Register(RemoteIO.MUNTS_0018.J6D0, MUNTS_0018.J6D0);
+    gpio.Register(RemoteIO.MUNTS_0018.J7D0, MUNTS_0018.J7D0);
   END IF;
 
 END remoteio_server_munts_0018;
