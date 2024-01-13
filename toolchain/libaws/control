@@ -5,5 +5,4 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
 Description: GCC cross-toolchain Ada Web Server library for @@BOARDNAME@@
-Conflicts: @@NAME@@-crosstool
-Replaces: @@NAME@@-crosstool
+Depends: @@TOOLCHAIN_NAME@@-libs

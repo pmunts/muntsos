@@ -68,6 +68,7 @@ $(PKGDIR): libaws.a
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@TOOLCHAIN_NAME@@/$(TOOLCHAIN_NAME)	$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)$(LIBDIR)
 	install -cm 0644 src/COPYING			$(PKGDIR)$(LIBDIR)/aws.COPYING
 	install -cm 0644 aws.gpr			$(PKGDIR)$(LIBDIR)

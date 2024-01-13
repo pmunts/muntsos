@@ -102,6 +102,7 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib munts.com.a
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g	$(PKGDIR)/DEBIAN/control
 	sed -i s/@@TARGET@@/$(TARGET)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@TOOLCHAIN_NAME@@/$(TOOLCHAIN_NAME) $(PKGDIR)/DEBIAN/control
 	mkdir -p				$(PKGDIR)$(INCDIR)
 	ln -s /usr/local/include/libsimpleio	$(PKGDIR)$(INCDIR)/libsimpleio
 	mkdir -p				$(PKGDIR)$(LIBDIR)
