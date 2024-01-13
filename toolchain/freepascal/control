@@ -5,5 +5,4 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
 Description: Free Pascal cross-toolchain for @@BOARDNAME@@
-Conflicts: @@NAME@@-crosstool
-Replaces: @@NAME@@-crosstool
+Depends: gcc-@@TOOLCHAIN@@

@@ -125,6 +125,7 @@ package.deb: install.done
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@TOOLCHAIN@@/$(TOOLCHAIN_NAME)/g	$(PKGDIR)/DEBIAN/control
 	chmod -R ugo-w					$(PKGDIR)/usr/local/*
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R ugo+w					$(PKGDIR)
