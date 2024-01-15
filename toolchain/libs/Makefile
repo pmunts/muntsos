@@ -168,6 +168,9 @@ MODBUS_SERVER	= https://github.com/stephane/libmodbus/releases/download/v$(MODBU
 MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(TEMP)/$(MODBUS_TARBALL)
 
+DCERPC_URL	= https://github.com/dcerpc/dcerpc.git
+DCERPC_SRC	= dcerpc.src
+
 DESTDIR		= $(shell pwd)
 
 SUBORDINATES	= ncurses libusb hidapi openssl zlib curl tirpc xmlrpc libpcap libmnl libnl libsodium libmysqlclient gdbm mqtt rabbitmq zeromq modbus
@@ -614,6 +617,26 @@ $(INSTALLDIR)/lib/libmodbus.a: $(MODBUS_SRC)
 	$(MAKE) -C $(MODBUS_SRC) install DESTDIR=$(DESTDIR)
 
 modbus: $(INSTALLDIR)/lib/libmodbus.a
+
+###############################################################################
+
+# Download the DCE/RPC source distribution
+
+#$(DCERPC_SRC):
+#	git clone $(DCERPC_URL) $(DCERPC_SRC)
+#	touch $@
+
+# Build DCE/RPC
+
+#$(INSTALLDIR)/lib/libdcerpc.la: $(DCERPC_SRC)
+#	cd $(DCERPC_SRC)/dcerpc && autoreconf -fi
+#	cd $(DCERPC_SRC)/dcerpc && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --localstatedir=/var CC=$(CROSS_COMPILE)gcc
+#	cd $(DCERPC_SRC)/dcerpc && $(MAKE) IDL=/usr/local/bin/idl
+#	cd $(DCERPC_SRC)/dcerpc && $(MAKE) install DESTDIR=$(DESTDIR)
+#	rm -rf var
+#	touch $@
+
+#dcerpc: $(INSTALLDIR)/lib/libdcerpc.la
 
 ###############################################################################
 
