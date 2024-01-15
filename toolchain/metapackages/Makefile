@@ -20,7 +20,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-OSNAME		?= unknown
 MUNTSOS		?= ../..
 BOARDNAME	?= BeagleBone
 
@@ -35,9 +34,9 @@ endif
 BOARDNAMES	:= RaspberryPi3
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
-PKGVERSION1	:= 9.2
-PKGVERSION2	:= 9.2
-PKGVERSION3	:= 9.2
+PKGVERSION1	:= 9.3
+PKGVERSION2	:= 9.3
+PKGVERSION3	:= 9.3
 
 default:
 	$(MAKE) allplatforms
@@ -51,7 +50,7 @@ allplatforms:
 	sed -i 's/@@VERSION@@/$(PKGVERSION1)/g' control.everything
 	equivs-build control.everything
 	rm control.everything
-	mv muntsos-dev_$(PKGVERSION1)_all.deb muntsos-dev-$(PKGVERSION1)-$(OSNAME)-all.deb
+	mv muntsos-dev_$(PKGVERSION1)_all.deb muntsos-dev-$(PKGVERSION1)-all.deb
 
 # Build a metapackage for a single platform
 
@@ -65,7 +64,7 @@ ifneq ($(BOARDNAME), RaspberryPi3)
 	sed -i 's/@@VERSION@@/$(PKGVERSION2)/g'			control.$(BOARDNAME)
 	equivs-build						control.$(BOARDNAME)
 	rm							control.$(BOARDNAME)
-	mv muntsos-dev-$(BOARDNAMELC)_$(PKGVERSION2)_all.deb muntsos-dev-$(BOARDNAMELC)-$(PKGVERSION2)-$(OSNAME)-all.deb
+	mv muntsos-dev-$(BOARDNAMELC)_$(PKGVERSION2)_all.deb muntsos-dev-$(BOARDNAMELC)-$(PKGVERSION2)-all.deb
 else
 	cp control.template3					control.aarch64
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g'	control.aarch64
@@ -73,7 +72,7 @@ else
 	sed -i 's/@@VERSION@@/$(PKGVERSION3)/g'			control.aarch64
 	equivs-build						control.aarch64
 	rm							control.aarch64
-	mv muntsos-dev-aarch64_$(PKGVERSION3)_all.deb muntsos-dev-aarch64-$(PKGVERSION3)-$(OSNAME)-all.deb
+	mv muntsos-dev-aarch64_$(PKGVERSION3)_all.deb muntsos-dev-aarch64-$(PKGVERSION3)-all.deb
 endif
 
 # Remove working files
