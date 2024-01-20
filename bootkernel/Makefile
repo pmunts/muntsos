@@ -70,6 +70,12 @@ ifeq ($(PLATFORM_NAME), raspberrypi)
 	mkdir -p $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/*.dtbo     $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/README.txt $(DESTDIR)/overlays
+ifeq ($(findstring RaspberryPi4, $(BOARDNAME)),)
+	rm -f $(DESTDIR)/overlays/*-rp4.dtbo
+endif
+ifeq ($(findstring RaspberryPi5, $(BOARDNAME)),)
+	rm -f $(DESTDIR)/overlays/*-rp5.dtbo
+endif
 endif
 
 	cd $(DESTDIR) ; find * -type f -exec md5sum -b {} ";" | sort -k 2 | grep -v kernel.md5 >kernel.md5
