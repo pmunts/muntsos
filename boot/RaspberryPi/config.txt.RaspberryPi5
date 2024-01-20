@@ -18,9 +18,6 @@ dtparam=i2c_arm=on
 dtparam=spi=on
 dtparam=uart0=on
 
-# Enable USB host mode
-dtoverlay=dwc2,dr_mode=host
-
 # Disable onboard Bluetooth
 dtoverlay=disable-bt
 
