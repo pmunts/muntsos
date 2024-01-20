@@ -38,7 +38,7 @@ BUSYBOX_URL		= $(BUSYBOX_SERVER)/$(BUSYBOX_TARBALL)
 BUSYBOX_DIST		= $(TEMP)/$(BUSYBOX_TARBALL)
 
 OPENSSH_NAME		= openssh
-OPENSSH_VER		= 9.4p1
+OPENSSH_VER		= 9.6p1
 OPENSSH_SRC		= $(OPENSSH_NAME)-$(OPENSSH_VER)
 OPENSSH_TARBALL		= $(OPENSSH_SRC).tar.gz
 OPENSSH_SERVER		= http://ftp3.usa.openbsd.org/pub/OpenBSD/OpenSSH/portable
@@ -62,7 +62,7 @@ IPTABLES_URL		= $(IPTABLES_SERVER)/$(IPTABLES_TARBALL)
 IPTABLES_DIST		= $(TEMP)/$(IPTABLES_TARBALL)
 
 ETHTOOL_NAME		= ethtool
-ETHTOOL_VER		= 6.3
+ETHTOOL_VER		= 6.6
 ETHTOOL_SRC		= $(ETHTOOL_NAME)-$(ETHTOOL_VER)
 ETHTOOL_TARBALL		= $(ETHTOOL_NAME)-$(ETHTOOL_VER).tar.gz
 ETHTOOL_SERVER		= http://www.kernel.org/pub/software/network/ethtool
@@ -88,7 +88,7 @@ WIRELESS_REGDB_URL	= git://git.kernel.org/pub/scm/linux/kernel/git/sforshee/wire
 WIRELESS_REGDB_DIST	= $(TEMP)/$(WIRELESS_REGDB_NAME).tgz
 
 MAILUTILS_NAME		= mailutils
-MAILUTILS_VER		= 3.16
+MAILUTILS_VER		= 3.17
 MAILUTILS_SRC		= $(MAILUTILS_NAME)-$(MAILUTILS_VER)
 MAILUTILS_TARBALL	= $(MAILUTILS_NAME)-$(MAILUTILS_VER).tar.gz
 MAILUTILS_SERVER	= https://ftp.gnu.org/gnu/mailutils
@@ -340,7 +340,7 @@ nano: $(NANO_SRC)/src/nano
 # Download Linux firmware
 
 $(FIRMWARE_DIST):
-	git clone $(FIRMWARE_URL) $(TEMP)/$(FIRMWARE_NAME)
+	git clone --depth 1 $(FIRMWARE_URL) $(TEMP)/$(FIRMWARE_NAME)
 	cd $(TEMP) ; tar czf $(FIRMWARE_DIST) $(FIRMWARE_NAME)
 	rm -rf $(TEMP)/$(FIRMWARE_NAME)
 
@@ -357,7 +357,7 @@ firmware: $(FIRMWARE_SRC)
 # Download wireless-regdb
 
 $(WIRELESS_REGDB_DIST):
-	git clone $(WIRELESS_REGDB_URL) $(TEMP)/$(WIRELESS_REGDB_NAME)
+	git clone --depth 1 $(WIRELESS_REGDB_URL) $(TEMP)/$(WIRELESS_REGDB_NAME)
 	cd $(TEMP) ; tar czf $(WIRELESS_REGDB_DIST) $(WIRELESS_REGDB_NAME)
 	rm -rf $(TEMP)/$(WIRELESS_REGDB_NAME)
 
