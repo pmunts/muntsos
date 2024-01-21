@@ -70,7 +70,10 @@ ifeq ($(PLATFORM_NAME), raspberrypi)
 	mkdir -p $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/*.dtbo     $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/README.txt $(DESTDIR)/overlays
-ifeq ($(findstring RaspberryPi4, $(BOARDNAME)),)
+ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
+	# Overlays named 'xxx-pi4.dtbo' need to be rename to 'xxx-dtbo'
+	ls $(DESTDIR)/overlays/* | awk '/-pi4/ { printf("mv %s %s.dtbo\n", $$1, substr($$1, 1, length($$1)-9)); }' | sh
+else
 	rm -f $(DESTDIR)/overlays/*-rp4.dtbo
 endif
 ifeq ($(findstring RaspberryPi5, $(BOARDNAME)),)
