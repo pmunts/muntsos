@@ -20,6 +20,17 @@
  					   clks->id, RPI_FIRMWARE_NUM_CLK_ID - 1);
  			return -EINVAL;
  		}
+--- drivers/pci/controller/pcie-brcmstb.c.orig	2024-01-20 18:23:41.109799141 -0800
++++ drivers/pci/controller/pcie-brcmstb.c	2024-01-20 18:24:44.822663425 -0800
+@@ -1428,7 +1428,7 @@
+ 		msleep(5);
+ 
+ 	if (!brcm_pcie_link_up(pcie)) {
+-		dev_err(dev, "link down\n");
++		dev_warn(dev, "link down\n");
+ 		return -ENODEV;
+ 	}
+ 
 --- fs/super.c.orig	2023-12-21 06:06:09.000000000 -0800
 +++ fs/super.c	2023-12-23 09:43:27.536046553 -0800
 @@ -1302,7 +1302,7 @@
