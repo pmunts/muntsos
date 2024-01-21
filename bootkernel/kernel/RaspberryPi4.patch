@@ -9,6 +9,23 @@
  
  endif # CONFIG_MODULES
  
+--- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2024-01-20 20:41:23.975798406 -0800
++++ arch/arm/boot/dts/overlays/overlay_map.dts	2024-01-20 20:45:03.158771680 -0800
+@@ -38,6 +38,14 @@
+ 		bcm2711;
+ 	};
+ 
++	disable-ethernet {
++		bcm2711 = "disable-ethernet-pi4";
++	};
++
++	disable-ethernet-pi4 {
++		bcm2711;
++	};
++
+ 	disable-wifi {
+ 		bcm2835;
+ 		bcm2711;
 --- drivers/clk/bcm/clk-raspberrypi.c.orig	2023-12-23 09:43:27.536046553 -0800
 +++ drivers/clk/bcm/clk-raspberrypi.c	2023-12-23 09:44:47.945092107 -0800
 @@ -373,7 +373,7 @@
