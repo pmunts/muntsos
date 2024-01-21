@@ -56,7 +56,7 @@ endif
 
 ifneq ($(KERNEL_OVL),)
 	mkdir -p $(DESTDIR)/overlays
-	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/overlays/$$f.dtbo $(DESTDIR)/overlays ; done
+	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/overlays/$$f.dtb* $(DESTDIR)/overlays ; done
 endif
 
 ifeq ($(PLATFORM_NAME), beaglebone)
@@ -70,10 +70,7 @@ ifeq ($(PLATFORM_NAME), raspberrypi)
 	mkdir -p $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/*.dtbo     $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/README.txt $(DESTDIR)/overlays
-ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
-	# Overlays named 'xxx-pi4.dtbo' need to be rename to 'xxx-dtbo'
-	ls $(DESTDIR)/overlays/* | awk '/-pi4/ { printf("mv %s %s.dtbo\n", $$1, substr($$1, 1, length($$1)-9)); }' | sh
-else
+ifeq ($(findstring RaspberryPi4, $(BOARDNAME)),)
 	rm -f $(DESTDIR)/overlays/*-rp4.dtbo
 endif
 ifeq ($(findstring RaspberryPi5, $(BOARDNAME)),)
