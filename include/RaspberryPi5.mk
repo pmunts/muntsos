@@ -31,6 +31,7 @@ BOARDBASE	:= RaspberryPi3
 KERNEL		:= kernel_2712
 KERNEL_DEFCONF	:= bcm2712_defconfig
 KERNEL_DTB	+= broadcom/bcm2712-rpi-5-b
+KERNEL_OVL	+= overlay_map
 KERNEL_OVL	+= disable-bt-pi5
 KERNEL_OVL	+= disable-wifi-pi5
 KERNEL_OVL	+= dwc2-pi5

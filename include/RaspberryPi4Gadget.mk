@@ -33,6 +33,7 @@ KERNEL_DEFCONF	:= bcm2711_defconfig
 KERNEL_DTB	+= broadcom/bcm2711-rpi-4-b
 KERNEL_DTB	+= broadcom/bcm2711-rpi-cm4
 KERNEL_DTB	+= broadcom/bcm2711-rpi-cm4s
+KERNEL_OVL	+= overlay_map
 KERNEL_OVL	+= disable-bt disable-wifi dwc2
 KERNEL_OVL	+= anyspi i2c-rtc pwm pwm-2chan
 KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
