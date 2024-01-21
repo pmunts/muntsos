@@ -20,36 +20,28 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-PLATFORM_NAME	= orangepizero2w
-
-TOOLCHAIN_BUILDER ?= crosstool
+BOARDBASE	:= OrangePiZero2W
+BOARDBASELC	:= $(shell echo $(BOARDBASE) | tr A-Z a-z)
+BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
 include $(MUNTSOS)/include/AArch64.mk
-include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
-BOARDBASE	:= OrangePiZero2W
+BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
+BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
+BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 KERNEL_DEFCONF	= linux_sunxi64_defconfig
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDBASE).img
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
-LOADER		= ld-linux-aarch64.so.1
-
-BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
-BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
-BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
-
 # Definitions for the Orange Pi Zero 2W kernel repository
 
 KERNEL_REPO     = https://github.com/orangepi-xunlong/linux-orangepi.git
 KERNEL_BRANCH	= 6.1
 KERNEL_TREEISH	= orange-pi-$(KERNEL_BRANCH)-sun50iw9
-KERNEL_NAME	= linux-$(PLATFORM_NAME)-$(KERNEL_BRANCH)
-KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
-KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tgz
-KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME).commit
+KERNEL_NAME	= linux-orangepizero2w-$(KERNEL_BRANCH)
 
 CFLAGS		+= -DORANGEPIZERO2W
 
-include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/kernel.mk

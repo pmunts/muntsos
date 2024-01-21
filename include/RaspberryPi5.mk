@@ -20,13 +20,12 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-TOOLCHAIN_BUILDER ?= crosstool
+BOARDBASE	:= RaspberryPi3
 
 include $(MUNTSOS)/include/AArch64.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
-include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
-BOARDBASE	:= RaspberryPi3
+# Kernel definitions specific to this board
 
 KERNEL		:= kernel_2712
 KERNEL_DEFCONF	:= bcm2712_defconfig
@@ -51,4 +50,4 @@ KERNEL_OVL	+= uart2-pi5
 KERNEL_OVL	+= uart3-pi5
 KERNEL_OVL	+= uart4-pi5
 
-include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/kernel.mk

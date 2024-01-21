@@ -28,3 +28,6 @@ GCCARCH		= aarch64
 BOARDARCH	= $(GCCARCH)
 LOADER		= ld-linux-aarch64.so.1
 WORDSIZE	= 64
+
+TOOLCHAIN_BUILDER ?= crosstool
+include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk

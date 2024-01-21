@@ -20,7 +20,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-BOARDBASELC	= $(shell echo $(BOARDBASE) | tr A-Z a-z)
 CONFIGURE_NAME	= $(GCCARCH)-muntsos-linux-$(GCCABI)
 ifeq ($(GCCARCH), aarch64)
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng
@@ -52,7 +51,12 @@ FPC_FLAGS	+= -dMUNTSOS
 # GNAT Ada
 
 GNATPREFIX	= $(CROSS_COMPILE)
+
+ifeq ($(GCCARCH), aarch64)
+GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/AArch64.cgpr
+else
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
+endif
 
 # Alire
 

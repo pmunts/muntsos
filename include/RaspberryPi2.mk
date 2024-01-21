@@ -20,13 +20,12 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-TOOLCHAIN_BUILDER ?= crosstool
+BOARDBASE	:= RaspberryPi2
 
 include $(MUNTSOS)/include/ARMv7.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
-include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
-BOARDBASE	:= RaspberryPi2
+# Kernel definitions specific to this board
 
 KERNEL		:= kernel7
 KERNEL_DEFCONF	:= bcm2709_defconfig
@@ -41,4 +40,4 @@ KERNEL_OVL	+= anyspi i2c-rtc pwm pwm-2chan
 KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
 KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
-include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/kernel.mk

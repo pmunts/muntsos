@@ -24,7 +24,8 @@
 # base upon which software for the newer boards is built.  Their makefiles
 # will include this one and override macros as necessary.
 
-PLATFORM_NAME	= raspberrypi
+BOARDBASELC	:= $(shell echo $(BOARDBASE) | tr A-Z a-z)
+BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDNAME).img
@@ -53,9 +54,6 @@ else
 KERNEL_BRANCH	?= 5.15
 endif
 KERNEL_TREEISH	= rpi-$(KERNEL_BRANCH).y
-KERNEL_NAME	= linux-$(PLATFORM_NAME)-$(KERNEL_BRANCH)
-KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
-KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tgz
-KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME).commit
+KERNEL_NAME	= linux-raspberrypi-$(KERNEL_BRANCH)
 
 CFLAGS		+= -DRASPBERRYPI

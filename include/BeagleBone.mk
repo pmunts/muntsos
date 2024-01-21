@@ -20,14 +20,16 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-PLATFORM_NAME	= beaglebone
-
-TOOLCHAIN_BUILDER ?= crosstool
+BOARDBASE	:= BeagleBone
+BOARDBASELC	:= $(shell echo $(BOARDBASE) | tr A-Z a-z)
+BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
 include $(MUNTSOS)/include/ARMv7.mk
-include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
-BOARDBASE	:= BeagleBone
+BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
+BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles.tgz
+BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
+BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 KERNEL_DEFCONF	= omap2plus_defconfig
 KERNEL_IMGSRC	= zImage
@@ -41,21 +43,13 @@ KERNEL_DTB	+= am335x-pocketbeagle
 KERNEL_DTB	+= am335x-sancloud-bbe
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
-BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
-BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles.tgz
-BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
-BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
-
 # Definitions for the Beagleboard kernel repository
 
 KERNEL_REPO     = https://github.com/beagleboard/linux.git
 KERNEL_BRANCH	?= 5.4
 KERNEL_TREEISH	= $(KERNEL_BRANCH)
-KERNEL_NAME	= linux-$(PLATFORM_NAME)-$(KERNEL_BRANCH)
-KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
-KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tgz
-KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME).commit
+KERNEL_NAME	= linux-beaglebone-$(KERNEL_BRANCH)
 
 CFLAGS		+= -DBEAGLEBONE
 
-include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/kernel.mk

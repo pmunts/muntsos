@@ -20,12 +20,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-.PHONY: common_mk_default
+.PHONY: kernel.mk_default
 
 TEMP		?= /tmp
 
 DOWNLOADPREFIX	?= http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)
 
+KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
+KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tgz
+KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME).commit
 KERNEL_WORK	= $(MUNTSOS)/bootkernel/kernel/work
 KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)
 KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
@@ -34,7 +37,7 @@ KERNEL_CONFIG	= $(BOARDNAME).config
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
-common_mk_default: default
+kernel.mk_default: default
 
 # Build a kernel source archive
 

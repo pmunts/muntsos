@@ -20,11 +20,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-TOOLCHAIN_BUILDER ?= crosstool
 
 include $(MUNTSOS)/include/ARMv6.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
-include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
 
 BOARDBASE	:= RaspberryPi1
 
@@ -44,4 +42,4 @@ KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 CONFIGURE_NAME	= $(GCCARCH)-linux-$(GCCABI)
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-muntsos-$(BOARDBASELC)
 
-include $(MUNTSOS)/include/common.mk
+include $(MUNTSOS)/include/kernel.mk

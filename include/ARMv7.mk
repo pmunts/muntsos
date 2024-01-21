@@ -28,3 +28,6 @@ GCCABI		= gnueabihf
 GCCARCH		= arm
 LOADER		= ld-linux-armhf.so.3
 WORDSIZE	= 32
+
+TOOLCHAIN_BUILDER ?= crosstool
+include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
