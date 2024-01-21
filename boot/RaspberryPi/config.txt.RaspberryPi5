@@ -21,6 +21,9 @@ dtparam=uart0=on
 # Disable onboard Bluetooth
 dtoverlay=disable-bt
 
+# Disable onboard Ethernet
+#dtoverlay=disable-ethernet
+
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
 

@@ -1,0 +1,15 @@
+// Disable the BCM2712 Gigabit Ethernet interface
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2712";
+
+	fragment@0 {
+		target = <&rp1_eth>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
