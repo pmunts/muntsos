@@ -35,6 +35,9 @@ GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' $(BOARDNAME).con
 GCCMAJOR	:= $(shell echo $(GCCVER) | head -c 2)
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
+TOOLCHAIN_VERN	= $(GCCVER)
+TOOLCHAIN_VERS	= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | head -n 1)
+
 BUILDNUM	?= 1
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
 PKGVER		:= $(GCCVER)-$(shell date +%Y.%j).$(BUILDNUM)
@@ -59,22 +62,22 @@ prepare:
 # Configure the cross-toolchain
 
 config.done:
-	cp $(BOARDBASE).config .config
+	cp $(BOARDNAME).config .config
 	$(CTNG) oldconfig
-	cp .config $(BOARDBASE).config
+	cp .config $(BOARDNAME).config
 	touch $@
 
 menuconfig:
-	cp $(BOARDBASE).config .config
+	cp $(BOARDNAME).config .config
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
-	cp .config $(BOARDBASE).config
+	cp .config $(BOARDNAME).config
 	touch config.done
 
 upgradeconfig:
-	cp $(BOARDBASE).config .config
+	cp $(BOARDNAME).config .config
 	$(CTNG) upgradeconfig
-	cp .config $(BOARDBASE).config
+	cp .config $(BOARDNAME).config
 	touch config.done
 
 ################################################################################
@@ -129,7 +132,7 @@ package.deb: build.done
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
-	sed -i s/@@BOARDNAME@@/$(BOARDBASELC)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
 	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
@@ -152,32 +155,6 @@ ifeq ($(BOARDNAME), BeagleBone)
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
 	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
-endif
-ifeq ($(BOARDNAME), RaspberryPi3)
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
-	sed -i 's/@@TARGET_NAME@@/OrangePiZero2W/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's/@@TARGET_NAME@@/RaspberryPi4/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
-	sed -i 's/@@TARGET_NAME@@/RaspberryPi5/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi5.cgpr
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPiZero2W.cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPiZero2W.cgpr
-	sed -i 's/@@TARGET_NAME@@/RaspberryPiZero2W/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPiZero2W.cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPiZero2W.cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPiZero2W.cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPiZero2W.cgpr
 endif
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb -Zxz --build			$(PKGDIR)
