@@ -32,10 +32,9 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 CTNG		?= ct-ng
 
 GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' $(BOARDNAME).config)
-GCCMAJOR	:= $(shell echo $(GCCVER) | head -c 2)
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
-TOOLCHAIN_VERN	= $(GCCVER)
+TOOLCHAIN_VERN	= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/crosstool/ { print $$4 }')
 TOOLCHAIN_VERS	= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | head -n 1)
 
 BUILDNUM	?= 1
@@ -53,8 +52,6 @@ default: package.deb
 # Prepare the system for building a Crosstool-NG toolchain
 
 prepare:
-	@echo "GCCVER   => $(GCCVER)"
-	@echo "GCCMAJOR => $(GCCMAJOR)"
 	sudo apt -y install autoconf bison build-essential curl flex gcc-13 g++-13 gm2-13  gnat-13 m4 zlib1g-dev
 
 ################################################################################
