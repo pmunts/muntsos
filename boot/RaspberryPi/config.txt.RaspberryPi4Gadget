@@ -29,6 +29,9 @@ dtoverlay=dwc2,dr_mode=peripheral
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
 
+# Disable onboard Ethernet
+#dtoverlay=disable-ethernet
+
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
 

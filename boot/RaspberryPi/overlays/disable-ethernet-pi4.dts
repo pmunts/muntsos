@@ -1,0 +1,29 @@
+// Disable the Raspberry Pi 4 Gigabit Ethernet interface
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2711";
+
+	fragment@0 {
+		target = <&phy1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@1 {
+		target = <&genet>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@2 {
+		target = <&genet_mdio>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
