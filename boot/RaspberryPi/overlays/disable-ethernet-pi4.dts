@@ -1,4 +1,4 @@
-// Disable the Raspberry Pi 4 Gigabit Ethernet interface
+// Disable the BCM2711 Gigabit Ethernet interface
 
 /dts-v1/;
 /plugin/;
