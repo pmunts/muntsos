@@ -59,13 +59,13 @@ ifneq ($(KERNEL_OVL),)
 	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/overlays/$$f.dtb* $(DESTDIR)/overlays ; done
 endif
 
-ifeq ($(PLATFORM_NAME), beaglebone)
+ifeq ($(BOARDBASE), BeagleBone)
 	$(MAKE) -C $(MUNTSOS)/boot/BeagleBone/overlays DTC=$(KERNEL_DTC)
 	mkdir -p $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/BeagleBone/overlays/*.dtbo $(DESTDIR)/overlays
 endif
 
-ifeq ($(PLATFORM_NAME), raspberrypi)
+ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	$(MAKE) -C $(MUNTSOS)/boot/RaspberryPi/overlays DTC=$(KERNEL_DTC)
 	mkdir -p $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/*.dtbo     $(DESTDIR)/overlays
