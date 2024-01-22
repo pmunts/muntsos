@@ -20,6 +20,13 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+ifeq ($(BOARDNAME), AArch64)
+# Need to define the following if board name is AArch64
+BOARDBASE	:= AArch64
+BOARDBASELC	:= $(shell echo $(BOARDBASE) | tr A-Z a-z)
+BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
+endif
+
 ARCH		= arm64
 DEBARCH		= arm64
 DOTNETARCH	= linux-arm64
