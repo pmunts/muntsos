@@ -14,6 +14,3 @@ I/O Library.
 ------------------------------------------------------------------------
 
 Questions or comments to Philip Munts <phil@munts.net>
-
-I am available for custom system development (hardware and software) of
-products based on embedded Linux microcomputers or other processors.

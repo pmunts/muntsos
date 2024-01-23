@@ -36,9 +36,6 @@ Installation
 
    Questions or comments to Philip Munts [15]phil@munts.net
 
-   I am available for custom system development (hardware and software) of
-   products based on embedded Linux microcomputers or other processors.
-
 References
 
    1. http://www.gnu.org/software/ncurses

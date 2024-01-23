@@ -11,9 +11,6 @@
 
    Questions or comments to Philip Munts [3]phil@munts.net
 
-   I am available for custom system development (hardware and software) of
-   products based on embedded Linux microcomputers or other processors.
-
 References
 
    1. http://git.munts.com/muntsos
