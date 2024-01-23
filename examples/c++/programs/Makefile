@@ -39,3 +39,6 @@ default:
 
 clean: cxx_mk_clean
 	for F in *.cpp ; do rm -f `basename $$F .cpp` ; done
+
+reallyclean: clean
+	rm -f subordinates.a
