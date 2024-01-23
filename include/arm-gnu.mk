@@ -39,6 +39,10 @@ LIBSSHAREDIR	= $(GCCSYSROOT)/usr/share
 
 GCCVER		= $(shell $(CROSS_COMPILE)gcc --version | awk '/muntsos/ { print $$3 }')
 
+# Linux Simple I/O Library
+
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+
 # C/C++
 
 CFLAGS		+= -DMUNTSOS

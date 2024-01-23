@@ -35,8 +35,6 @@ KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
 KERNEL_PATCH	= $(BOARDNAME).patch
 KERNEL_CONFIG	= $(BOARDNAME).config
 
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-
 kernel.mk_default: default
 
 # Build a kernel source archive
