@@ -67,6 +67,9 @@ like traditional single chip microcontrollers.
     the corresponding free pascal compiler and library packages will be
     removed as well.
 
+  - 22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done.
+    Much testing and verification needs to be performed.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
@@ -239,8 +242,8 @@ same form factor as the Raspberry Pi Zero W, with a 1000 MHz BCM2710
 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
 Bluetooth and WiFi radios.
 
-All Raspberry Pi 3 models use the same AArch64 toolchain (in common with
-the Raspberry Pi 4) and ARMv8 kernels, but different device trees.
+All Raspberry Pi 3 models use the same AArch64 toolchain and ARMv8
+kernels, but different device trees.
 
 #### Raspberry Pi 4
 
@@ -260,8 +263,21 @@ There are also a myriad of [Raspberry Pi 4 Compute
 Modules](https://www.raspberrypi.com/products/compute-module-4), with
 varying combinations of wireless Ethernet, RAM and eMMC.
 
-All Raspberry Pi 4 models use the same AArch64 toolchain (in common with
-the Raspberry Pi 3) and ARMv8 kernels, but different device trees.
+All Raspberry Pi 4 models use the same AArch64 toolchain and ARMv8
+kernels, but different device trees.
+
+#### Raspberry Pi 5
+
+The [Raspberry Pi
+5](https://www.raspberrypi.com/products/raspberry-pi-5) yields another
+2-3x increase in performance over the Raspberry Pi 4, at the expense of
+greater power consumption. It has a 2400 MHz BCM2712 ARMv8 Cortex-A76
+quad-core CPU and is available with 4 or 8 GB of RAM. The Ethernet
+socket and USB ports have swapped sides, so it has a form factor that is
+sort of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet
+and USB ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and
+USB-C power socket). It uses the same AArch64 toolchain as all of the
+other 64-bit Raspberry Pi models, but a separate kernel and device tree.
 
 #### Raspberry Pi USB Gadget Kernels
 

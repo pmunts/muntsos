@@ -32,7 +32,7 @@ News
        extension package naming scheme has updated to be more meaningful
        for all platforms:
 
-       dma-muntsos-BeagleBone.deb   becomes dma-muntsos-armhf-beaglebone.deb
+       dma-muntsos-BeagleBone.deb becomes dma-muntsos-armhf-beaglebone.deb
        dma-muntsos-RaspberryPi1.deb becomes dma-muntsos-armhf-raspberrypi1.deb
        dma-muntsos-RaspberryPi2.deb becomes dma-muntsos-armhf-raspberrypi2.deb
        dma-muntsos-RaspberryPi3.deb becomes dma-muntsos-aarch64.deb
@@ -59,6 +59,9 @@ News
        package dependency chains. Now if you remove the gcc package, all
        the corresponding free pascal compiler and library packages will be
        removed as well.
+
+     * 22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done.
+       Much testing and verification needs to be performed.
 
 Quick Setup Instructions for the Impatient
 
@@ -209,8 +212,8 @@ Boards
    Pi Zero W, with a 1000 MHz BCM2710 ARMv8 Cortex-A53 quad core CPU and
    512 MB of RAM along with on-board Bluetooth and WiFi radios.
 
-   All Raspberry Pi 3 models use the same AArch64 toolchain (in common
-   with the Raspberry Pi 4) and ARMv8 kernels, but different device trees.
+   All Raspberry Pi 3 models use the same AArch64 toolchain and ARMv8
+   kernels, but different device trees.
 
     Raspberry Pi 4
 
@@ -227,12 +230,24 @@ Boards
    There are also a myriad of [28]Raspberry Pi 4 Compute Modules, with
    varying combinations of wireless Ethernet, RAM and eMMC.
 
-   All Raspberry Pi 4 models use the same AArch64 toolchain (in common
-   with the Raspberry Pi 3) and ARMv8 kernels, but different device trees.
+   All Raspberry Pi 4 models use the same AArch64 toolchain and ARMv8
+   kernels, but different device trees.
+
+    Raspberry Pi 5
+
+   The [29]Raspberry Pi 5 yields another 2-3x increase in performance over
+   the Raspberry Pi 4, at the expense of greater power consumption. It has
+   a 2400 MHz BCM2712 ARMv8 Cortex-A76 quad-core CPU and is available with
+   4 or 8 GB of RAM. The Ethernet socket and USB ports have swapped sides,
+   so it has a form factor that is sort of a cross between the Raspberry
+   Pi 1 B+ (same grouping of Ethernet and USB ports) and the Raspberry Pi
+   4 (same dual micro-HDMI sockets and USB-C power socket). It uses the
+   same AArch64 toolchain as all of the other 64-bit Raspberry Pi models,
+   but a separate kernel and device tree.
 
     Raspberry Pi USB Gadget Kernels
 
-   MuntsOS also provides Raspberry Pi kernels with dedicated [29]USB
+   MuntsOS also provides Raspberry Pi kernels with dedicated [30]USB
    Gadget support enabled. These kernels run on 3 A+, CM3, Zero 2 W, 4 B,
    and CM4. You can supply power to and communicate with a compatible
    Raspberry Pi solely through the USB port. This kernel supports USB
@@ -250,23 +265,23 @@ Cross-Toolchains
    each MuntsOS platform family. Each GCC cross-toolchain requires a
    number of additional software component libraries, which are packaged
    and distributed separately but installed into the same directory tree
-   as the parent cross-toolchain. I also build [30]Free Pascal
+   as the parent cross-toolchain. I also build [31]Free Pascal
    cross-compilers. Each of these rely on the libraries contained in the
    corresponding GCC cross-toolchain package.
 
-   Cross-toolchain packages built for [31]Debian Linux (x86-64 and ARM64)
+   Cross-toolchain packages built for [32]Debian Linux (x86-64 and ARM64)
    development host computers are available at:
-   [32]http://repo.munts.com/debian12
+   [33]http://repo.munts.com/debian12
 
    x86-64 RPM packages containing the exact same binaries and known to
    work on Fedora 37 and RHEL 9.1 and its derivatives are available at:
-   [33]http://repo.munts.com/muntsos/rpms
+   [34]http://repo.munts.com/muntsos/rpms
 
 Git Repository
 
    The source code for MuntsOS is available at:
 
-   [34]https://github.com/pmunts/muntsos
+   [35]https://github.com/pmunts/muntsos
 
    Use the following command to clone it:
 
@@ -276,15 +291,15 @@ File Repository
 
    Prebuilt binaries for MuntsOS are available at:
 
-   [35]http://repo.munts.com/muntsos
+   [36]http://repo.munts.com/muntsos
 
-[36]Make With Ada Projects
+[37]Make With Ada Projects
 
-     * 2017 [37]Ada Embedded Linux Framework
-     * 2019 [38]Modbus RTU Framework for Ada (Prize Winner!)
+     * 2017 [38]Ada Embedded Linux Framework
+     * 2019 [39]Modbus RTU Framework for Ada (Prize Winner!)
    _________________________________________________________
 
-   Questions or comments to Philip Munts [39]phil@munts.net
+   Questions or comments to Philip Munts [40]phil@munts.net
 
 References
 
@@ -316,14 +331,15 @@ References
   26. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
   27. https://www.raspberrypi.com/products/raspberry-pi-4-model-b
   28. https://www.raspberrypi.com/products/compute-module-4
-  29. http://www.linux-usb.org/gadget
-  30. https://www.freepascal.org/
-  31. https://www.debian.org/
-  32. http://repo.munts.com/debian12
-  33. http://repo.munts.com/muntsos/rpms
-  34. https://github.com/pmunts/muntsos
-  35. http://repo.munts.com/muntsos
-  36. https://www.makewithada.org/
-  37. https://www.makewithada.org/entry/ada_linux_sensor_framework
-  38. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
-  39. mailto:phil@munts.net
+  29. https://www.raspberrypi.com/products/raspberry-pi-5
+  30. http://www.linux-usb.org/gadget
+  31. https://www.freepascal.org/
+  32. https://www.debian.org/
+  33. http://repo.munts.com/debian12
+  34. http://repo.munts.com/muntsos/rpms
+  35. https://github.com/pmunts/muntsos
+  36. http://repo.munts.com/muntsos
+  37. https://www.makewithada.org/
+  38. https://www.makewithada.org/entry/ada_linux_sensor_framework
+  39. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
+  40. mailto:phil@munts.net

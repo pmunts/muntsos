@@ -59,6 +59,9 @@ to <b><tt>muntsos/examples/modula2/</tt>.</b></li>
 advantage of the opportunity to fix the cross-tool package dependency chains.
 Now if you remove the gcc package, all the corresponding free pascal compiler
 and library packages will be removed as well.</li>
+<br>
+<li>22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done. Much
+testing and verification needs to be performed.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -200,8 +203,8 @@ improved power management and networking components.</p>
 2 W</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
 BCM2710 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
 Bluetooth and WiFi radios.</p>
-<p>All Raspberry Pi 3 models use the same AArch64 toolchain (in common with the
-Raspberry Pi 4) and ARMv8 kernels, but different device trees.</p>
+<p>All Raspberry Pi 3 models use the same AArch64 toolchain and ARMv8 kernels,
+but different device trees.</p>
 <h4>Raspberry Pi 4</h4>
 <p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-4-model-b">Raspberry Pi 4
@@ -216,8 +219,18 @@ Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-4">Raspberry Pi 4 Compute
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
-<p>All Raspberry Pi 4 models use the same AArch64 toolchain (in common with the
-Raspberry Pi 3) and ARMv8 kernels, but different device trees.</p>
+<p>All Raspberry Pi 4 models use the same AArch64 toolchain and ARMv8 kernels,
+but different device trees.</p>
+<h4>Raspberry Pi 5</h4>
+<p>The <a href="https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry
+Pi 5</a> yields another 2-3x increase in performance over the Raspberry Pi 4,
+at the expense of greater power consumption. It has a 2400 MHz BCM2712 ARMv8
+Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The Ethernet
+socket and USB ports have swapped sides, so it has a form factor that is sort
+of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and USB
+ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power
+socket). It uses the same AArch64 toolchain as all of the other 64-bit
+Raspberry Pi models, but a separate kernel and device tree.</p>
 <h4>Raspberry Pi USB Gadget Kernels</h4>
 <p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
 "http://www.linux-usb.org/gadget">USB Gadget</a> support enabled. These kernels
