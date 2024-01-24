@@ -30,6 +30,7 @@ MUNTSOS		?= $(shell pwd)/../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
+BINDIR		:= $(GCCSYSROOT)/usr/libexec
 INCDIR		:= $(GCCSYSROOT)/usr/include
 LIBDIR		:= $(GCCSYSROOT)/usr/lib
 GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
@@ -37,6 +38,7 @@ GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
 AR		:= $(CROSS_COMPILE)ar
 CC		:= $(CROSS_COMPILE)gcc
 RANLIB		:= $(CROSS_COMPILE)ranlib
+STRIP		:= $(CROSS_COMPILE)strip
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libsimpleio
@@ -93,9 +95,17 @@ munts.com.a:
 
 ###############################################################################
 
+# Compile link-gpiochip
+
+link-gpiochip: libsimpleio.a
+	$(CC) -Wall -o$@ $(LIBSIMPLEIO)/hotplug/linux/link-gpiochip.c libsimpleio.a
+	$(STRIP) $@
+
+###############################################################################
+
 # Create Debian package file
 
-$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib munts.com.a
+$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip munts.com.a
 	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
@@ -103,6 +113,8 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib munts.com.a
 	sed -i s/@@VERSION@@/$(PKGVER)/g	$(PKGDIR)/DEBIAN/control
 	sed -i s/@@TARGET@@/$(TARGET)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@TOOLCHAIN@@/$(TOOLCHAIN_NAME)/g $(PKGDIR)/DEBIAN/control
+	mkdir -p				$(PKGDIR)$(BINDIR)
+	install -cm 0755 link-gpiochip		$(PKGDIR)$(BINDIR)
 	mkdir -p				$(PKGDIR)$(INCDIR)
 	ln -s /usr/local/include/libsimpleio	$(PKGDIR)$(INCDIR)/libsimpleio
 	mkdir -p				$(PKGDIR)$(LIBDIR)
@@ -128,6 +140,6 @@ clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so munts.com* obj
+	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so link-gpiochip munts.com* obj
 
 distclean: reallyclean
