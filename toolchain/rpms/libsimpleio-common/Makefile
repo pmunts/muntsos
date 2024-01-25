@@ -1,4 +1,4 @@
-# Makefile to build the MuntsOS Embedded Linux Common Files package
+# Makefile to build RPM package libsimpleio-common
 
 # Copyright (C)2023-2024, Philip Munts dba Munts Technologies.
 #
@@ -20,38 +20,35 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LIBSIMPLEIO	:= /usr/local/share/libsimpleio
-MUNTSOS		:= /usr/local/share/muntsos
+LIBSIMPLEIO	?= ..
+BUILDNUM	?= 1
+RPMDIR		:= libsimpleio-common
+RPMVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+RPMFILE		:= $(RPMDIR)-$(RPMVER)-$(BUILDNUM).noarch.rpm
+
+INCDIR		:= /usr/local/include/libsimpleio
+SRCDIR		:= /usr/local/share/libsimpleio
 
 default: package.rpm
 
 # Create RPM package file
 
-BUILDNUM	?= 1
-RPMNAME		:= muntsos-common
-RPMVER		:= $(shell date +%Y.%j)
-RPMDIR		:= $(RPMNAME)
-RPMFILE		:= $(RPMNAME)-$(RPMVER)-$(BUILDNUM).noarch.rpm
-
-DSTDIR		:= $(RPMDIR)/usr/local/share/muntsos
-
 package.rpm:
 	cp specfile.template			specfile
-	sed -i 's/@@BUILDNUM@@/$(BUILDNUM)/g'	specfile
 	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
-	mkdir -p				$(DSTDIR)
-	cp -R -P -p $(MUNTSOS)/doc		$(DSTDIR)
-	cp -R -P -p $(MUNTSOS)/examples		$(DSTDIR)
-	cp -R -P -p $(MUNTSOS)/include		$(DSTDIR)
-	rm -rf					$(DSTDIR)/doc/.blinky
-	rm -rf					$(DSTDIR)/doc/.rawhid
-	rm -rf					$(DSTDIR)/examples/README.*
-	rm -rf					$(DSTDIR)/examples/firmware
-	rm -rf					$(DSTDIR)/examples/ada/freemodbus
-	chmod -R u+w				$(DSTDIR)
-	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(DSTDIR)/examples/*/*/Makefile
-	cd $(RPMDIR) && find usr/local/share -type d -exec echo "%dir /{}" ";" >>../specfile
-	cd $(RPMDIR) && find usr/local/share -type f -exec echo "/{}" ";"      >>../specfile
+	mkdir -p				$(RPMDIR)/usr/local/include
+	cp -R -P -p $(INCDIR)			$(RPMDIR)/usr/local/include
+	mkdir -p				$(RPMDIR)/usr/local/share
+	cp -R -P -p $(SRCDIR)			$(RPMDIR)/usr/local/share
+	chmod -R u+w				$(RPMDIR)
+	rm -rf					$(RPMDIR)/usr/local/share/libsimpleio/ada/lib
+	rm -rf					$(RPMDIR)/usr/local/share/libsimpleio/ada/projects
+	rm -rf					$(RPMDIR)/usr/local/share/libsimpleio/go/lib
+	rm -rf					$(RPMDIR)/usr/local/share/libsimpleio/nuget
+	cd $(RPMDIR) && find usr/local/include/libsimpleio -type d -exec echo "%dir /{}" ";" >>../specfile
+	cd $(RPMDIR) && find usr/local/include/libsimpleio -type f -exec echo "/{}" ";"      >>../specfile
+	cd $(RPMDIR) && find usr/local/share/libsimpleio -type d -exec echo "%dir /{}" ";"   >>../specfile
+	cd $(RPMDIR) && find usr/local/share/libsimpleio -type f -exec echo "/{}" ";"        >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
 	cp rpmbuild/RPMS/*/*.rpm .
 	rm -rf rpmbuild specfile
