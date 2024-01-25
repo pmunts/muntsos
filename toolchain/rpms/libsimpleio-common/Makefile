@@ -26,7 +26,6 @@ RPMDIR		:= libsimpleio-common
 RPMVER		:= $(shell date +%Y.%j)
 RPMFILE		:= $(RPMDIR)-$(RPMVER)-$(BUILDNUM).noarch.rpm
 
-INCDIR		:= /usr/local/include/libsimpleio
 SRCDIR		:= /usr/local/share/libsimpleio
 
 # Create RPM package file
@@ -35,8 +34,6 @@ package.rpm:
 	cp specfile.template			specfile
 	sed -i 's/@@BUILDNUM@@/$(BUILDNUM)/g'	specfile
 	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
-	mkdir -p				$(RPMDIR)/usr/local/include
-	cp -R -P -p $(INCDIR)			$(RPMDIR)/usr/local/include
 	mkdir -p				$(RPMDIR)/usr/local/share
 	cp -R -P -p $(SRCDIR)			$(RPMDIR)/usr/local/share
 	chmod -R u+w				$(RPMDIR)
