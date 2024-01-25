@@ -23,7 +23,7 @@
 Summary:	MuntsOS Embedded Linux cross-toolchain for @@TARGET@@
 Name:		muntsos-dev-@@SUFFIX@@
 Version:	@@VERSION@@
-Release:	1
+Release:	@@BUILDNUM@@
 BuildArch:	x86_64
 Group:		Programming
 License:	Mixed

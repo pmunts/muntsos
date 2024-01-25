@@ -20,15 +20,12 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LIBSIMPLEIO	:= /usr/local/share/libsimpleio
-MUNTSOS		:= /usr/local/share/muntsos
-
 BUILDNUM	?= 1
 RPMTARGET	?= unknown
 RPMSUFFIX	?= unknown
 RPMTUPLE	?= unknown
 RPMNAME		:= muntsos-dev-$(RPMSUFFIX)
-RPMVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+RPMVER		:= $(shell date +%Y.%j)
 RPMDIR		:= $(RPMNAME)
 RPMFILE		:= $(RPMNAME)-$(RPMVER)-$(BUILDNUM).x86_64.rpm
 
@@ -40,6 +37,7 @@ default: package.rpm
 
 package.rpm:
 	cp specfile.template			specfile
+	sed -i 's/@@BUILDNUM@@/$(BUILDNUM)/g'	specfile
 	sed -i 's/@@TARGET@@/$(RPMTARGET)/g'	specfile
 	sed -i 's/@@SUFFIX@@/$(RPMSUFFIX)/g'	specfile
 	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
