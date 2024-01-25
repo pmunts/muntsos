@@ -20,11 +20,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+BOARDBASE	:= RaspberryPi1
 
 include $(MUNTSOS)/include/ARMv6.mk
 include $(MUNTSOS)/include/RaspberryPi.mk
-
-BOARDBASE	:= RaspberryPi1
 
 KERNEL		:= kernel
 KERNEL_DEFCONF	:= bcmrpi_defconfig
