@@ -33,7 +33,7 @@ INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
 BINDIR		:= $(GCCSYSROOT)/usr/libexec
 INCDIR		:= $(GCCSYSROOT)/usr/include
 LIBDIR		:= $(GCCSYSROOT)/usr/lib
-GPRDIR		:= $(PKGDIR)$(GCCSYSROOT)/../../share/gpr
+GPRDIR		:= $(GCCSYSROOT)/../../share/gpr
 
 AR		:= $(CROSS_COMPILE)ar
 CC		:= $(CROSS_COMPILE)gcc
@@ -88,13 +88,6 @@ libsimpleio.lib:
 
 ###############################################################################
 
-# Build the precompiled Go import library for MuntsOS
-
-munts.com.a:
-	$(MAKE) -C $(LIBSIMPLEIO)/go/lib BOARDNAME=$(BOARDNAME) LIBSIMPLEIO=$(LIBSIMPLEIO) GO_LIB=$(shell pwd)
-
-###############################################################################
-
 # Compile link-gpiochip
 
 link-gpiochip: libsimpleio.a
@@ -105,7 +98,7 @@ link-gpiochip: libsimpleio.a
 
 # Create Debian package file
 
-$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip munts.com.a
+$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip
 	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
@@ -124,8 +117,6 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip munts.com.
 	sed -i 's@LIBDIR@$(LIBDIR)@g'		$(PKGDIR)$(LIBDIR)/libsimpleio.gpr
 	install -cm 0755 libsimpleio.so		$(PKGDIR)$(LIBDIR)
 	cp -R -P -p libsimpleio.lib		$(PKGDIR)$(LIBDIR)
-	mkdir -p				$(PKGDIR)$(LIBDIR)/go
-	cp -R -P -p munts.com*			$(PKGDIR)$(LIBDIR)/go
 	mkdir -p				$(PKGDIR)$(GPRDIR)
 	ln -s $(LIBDIR)/libsimpleio.gpr		$(PKGDIR)$(GPRDIR)/libsimpleio.gpr
 	touch $@
@@ -138,8 +129,8 @@ package.deb: $(PKGFILE)
 
 clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
+	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so link-gpiochip obj
 
 reallyclean: clean
-	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so link-gpiochip munts.com* obj
 
 distclean: reallyclean
