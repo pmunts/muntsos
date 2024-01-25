@@ -26,7 +26,7 @@
 MACHINE=`uname -m`
 
 echo ""
-echo "Upgrade any outdated system packages..."
+echo "Upgrade system packages..."
 echo ""
 
 sudo dnf check-update
@@ -46,11 +46,24 @@ if [ -d /usr/libexec/gprbuild ]; then
 fi
 
 echo ""
-echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
+echo "Download MuntsOS Embedded Linux cross-toolchain packages..."
 echo ""
 
 wget -q -r -np http://repo.munts.com/muntsos/rpms/
-sudo rpm -U repo.munts.com/muntsos/rpms/*.rpm
+
+echo ""
+echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
+echo ""
+
+for P in repo.munts.com/muntsos/rpms/*.rpm ; do
+  echo `basename $P`
+  sudo rpm -U $P
+done
+
 rm -rf repo.munts.com
+
+echo ""
+echo "Configure Alire..."
+echo ""
 
 alr toolchain --disable-assistant
