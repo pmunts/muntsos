@@ -69,7 +69,7 @@ News
      * 22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done.
        Much testing and verification needs to be performed.
 
-     * 24 January 2024 -- Reworked the RPM setup scripts [5]setup-debian
+     * 24 January 2024 -- Reworked the RPM setup scripts [5]setup-fedora
        and [6]setup-rhel to improve the user experience and to
        interoperate with [7]Alire better. Verified on Fedora 39 and RHEL
        lookalikes.
@@ -325,7 +325,7 @@ References
    2. https://www.raspberrypi.com/products/raspberry-pi-5
    3. http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W
    4. https://www.waveshare.com/wiki/CM4-Duino
-   5. http://git.munts.com/muntsos/scripts/setup-debian
+   5. http://git.munts.com/muntsos/scripts/setup-fedora
    6. http://git.munts.com/muntsos/scripts/setup-rhel
    7. https://alire.ada.dev/
    8. http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf

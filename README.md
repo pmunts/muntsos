@@ -79,7 +79,7 @@ like traditional single chip microcontrollers.
     Much testing and verification needs to be performed.
 
   - 24 January 2024 -- Reworked the RPM setup scripts
-    [setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)
+    [setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)
     and [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel) to
     improve the user experience and to interoperate with
     [Alire](https://alire.ada.dev) better. Verified on Fedora 39 and
