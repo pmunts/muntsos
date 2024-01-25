@@ -20,21 +20,20 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LIBSIMPLEIO	?= ..
+LIBSIMPLEIO	:= /usr/local/share/libsimpleio
 BUILDNUM	?= 1
 RPMDIR		:= libsimpleio-common
-RPMVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+RPMVER		:= $(shell date +%Y.%j)
 RPMFILE		:= $(RPMDIR)-$(RPMVER)-$(BUILDNUM).noarch.rpm
 
 INCDIR		:= /usr/local/include/libsimpleio
 SRCDIR		:= /usr/local/share/libsimpleio
 
-default: package.rpm
-
 # Create RPM package file
 
 package.rpm:
 	cp specfile.template			specfile
+	sed -i 's/@@BUILDNUM@@/$(BUILDNUM)/g'	specfile
 	sed -i 's/@@VERSION@@/$(RPMVER)/g'	specfile
 	mkdir -p				$(RPMDIR)/usr/local/include
 	cp -R -P -p $(INCDIR)			$(RPMDIR)/usr/local/include

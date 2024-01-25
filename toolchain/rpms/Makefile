@@ -20,6 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+BUILDNUM	?= 1
 FLAVOR		?= ctng
 SERVERDIR	?= $(HOME)
 
@@ -28,12 +29,12 @@ default: build upload clean
 # Build RPM packages
 
 build:
-	$(MAKE) -C libsimpleio-common
-	$(MAKE) -C muntsos-common
-	$(MAKE) -C muntsos-dev RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
-	#$(MAKE) -C muntsos-dev RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
-	#$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
-	#$(MAKE) -C muntsos-dev RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
+	$(MAKE) -C libsimpleio-common BUILDNUM=$(BUILDNUM)
+	$(MAKE) -C muntsos-common BUILDNUM=$(BUILDNUM)
+	#$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
+	#$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
+	#$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	#$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
 
 # Upload RPM packages to repository
 
@@ -43,9 +44,9 @@ upload:
 # Remove artifacts
 
 clean:
-	$(MAKE) -C libsimpleio-common clean
-	$(MAKE) -C muntsos-common clean
-	$(MAKE) -C muntsos-dev clean RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
-	#$(MAKE) -C muntsos-dev clean RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
-	#$(MAKE) -C muntsos-dev clean RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
-	#$(MAKE) -C muntsos-dev clean RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
+	$(MAKE) -C libsimpleio-common clean BUILDNUM=$(BUILDNUM)
+	$(MAKE) -C muntsos-common clean BUILDNUM=$(BUILDNUM)
+	#$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
+	#$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
+	#$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	#$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2

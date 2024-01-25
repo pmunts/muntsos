@@ -20,20 +20,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LIBSIMPLEIO	:= /usr/local/share/libsimpleio
 MUNTSOS		:= /usr/local/share/muntsos
-
-default: package.rpm
-
-# Create RPM package file
-
 BUILDNUM	?= 1
-RPMNAME		:= muntsos-common
+RPMDIR		:= muntsos-common
 RPMVER		:= $(shell date +%Y.%j)
-RPMDIR		:= $(RPMNAME)
-RPMFILE		:= $(RPMNAME)-$(RPMVER)-$(BUILDNUM).noarch.rpm
+RPMFILE		:= $(RPMDIR)-$(RPMVER)-$(BUILDNUM).noarch.rpm
 
 DSTDIR		:= $(RPMDIR)/usr/local/share/muntsos
+
+# Create RPM package file
 
 package.rpm:
 	cp specfile.template			specfile
