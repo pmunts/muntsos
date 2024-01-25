@@ -67,8 +67,28 @@ like traditional single chip microcontrollers.
     the corresponding free pascal compiler and library packages will be
     removed as well.
 
+  - 20 January 2024 -- Added two new device tree overlays:
+    **`disable-ethernet-pi4`** and **`disable-ethernet-pi5`**. These
+    disable the on-board Ethernet interface, exactly like
+    **`disable-wifi`** disables the on-board WiFi interface. These are
+    useful for boards like the
+    [CM4-Duino](https://www.waveshare.com/wiki/CM4-Duino), which doesn't
+    have an Ethernet connector.
+
   - 22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done.
     Much testing and verification needs to be performed.
+
+  - 24 January 2024 -- Reworked the RPM setup scripts
+    [setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)
+    and [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel) to
+    improve the user experience and to interoperate with
+    [Alire](https://alire.ada.dev) better. Verified on Fedora 39 and
+    RHEL lookalikes.
+
+  - 25 January 2025 -- Validation of the Raspberry Pi 5 port continues,
+    with few issues found. I did have to implement a fix for a breaking
+    GPIO API change, though, described in [Application Note
+    \#11](http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf).
 
 ## Quick Setup Instructions for the Impatient
 
@@ -81,7 +101,8 @@ download and run one of the following quick setup scripts:
 
 [setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
 [setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
-[setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel)
+[setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel) (including
+lookalikes)
 
 Instructions for installing MuntsOS to a **target computer** are found
 in [Application Note
@@ -278,6 +299,11 @@ sort of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet
 and USB ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and
 USB-C power socket). It uses the same AArch64 toolchain as all of the
 other 64-bit Raspberry Pi models, but a separate kernel and device tree.
+
+The Raspberry Pi 5 introduced a breaking GPIO API change. See
+[Application Note
+\#11](http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf) for
+more information.
 
 #### Raspberry Pi USB Gadget Kernels
 

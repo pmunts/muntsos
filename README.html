@@ -60,8 +60,29 @@ advantage of the opportunity to fix the cross-tool package dependency chains.
 Now if you remove the gcc package, all the corresponding free pascal compiler
 and library packages will be removed as well.</li>
 <br>
+<li>20 January 2024 -- Added two new device tree overlays:
+<b><tt>disable-ethernet-pi4</tt></b> and <b><tt>disable-ethernet-pi5</tt></b>.
+These disable the on-board Ethernet interface, exactly like
+<b><tt>disable-wifi</tt></b> disables the on-board WiFi interface. These are
+useful for boards like the <a href=
+"https://www.waveshare.com/wiki/CM4-Duino">CM4-Duino</a>, which doesn't have an
+Ethernet connector.</li>
+<br>
 <li>22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done. Much
 testing and verification needs to be performed.</li>
+<br>
+<li>24 January 2024 -- Reworked the RPM setup scripts <a href=
+"http://git.munts.com/muntsos/scripts/setup-debian">setup-debian</a> and
+<a href="http://git.munts.com/muntsos/scripts/setup-rhel">setup-rhel</a> to
+improve the user experience and to interoperate with <a href=
+"https://alire.ada.dev">Alire</a> better. Verified on Fedora 39 and RHEL
+lookalikes.</li>
+<br>
+<li>25 January 2025 -- Validation of the Raspberry Pi 5 port continues, with
+few issues found. I did have to implement a fix for a breaking GPIO API change,
+though, described in <a href=
+"http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
+#11</a>.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -74,7 +95,8 @@ environment onto a <b>host computer</b> are found in <a href=
 "http://git.munts.com/muntsos/scripts/setup-debian">setup-debian</a><br>
 <a href=
 "http://git.munts.com/muntsos/scripts/setup-fedora">setup-fedora</a><br>
-<a href="http://git.munts.com/muntsos/scripts/setup-rhel">setup-rhel</a></p>
+<a href="http://git.munts.com/muntsos/scripts/setup-rhel">setup-rhel</a>
+(including lookalikes)</p>
 <p>Instructions for installing MuntsOS to a <b>target computer</b> are found in
 <a href=
 "http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf">Application
@@ -231,6 +253,9 @@ of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and USB
 ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power
 socket). It uses the same AArch64 toolchain as all of the other 64-bit
 Raspberry Pi models, but a separate kernel and device tree.</p>
+<p>The Raspberry Pi 5 introduced a breaking GPIO API change. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
+#11</a> for more information.</p>
 <h4>Raspberry Pi USB Gadget Kernels</h4>
 <p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
 "http://www.linux-usb.org/gadget">USB Gadget</a> support enabled. These kernels
