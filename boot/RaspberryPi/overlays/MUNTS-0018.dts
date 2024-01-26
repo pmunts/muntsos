@@ -7,23 +7,11 @@
 / {
 	compatible = "brcm,bcm2835";
 
-	// Enable PWM0 on GPIO12 and PWM1 on GPI19
+	// Enable pwmchip0
 
 	fragment@0 {
-		target = <&gpio>;
-		__overlay__ {
-			pwm_pins: pwm_pins {
-				brcm,pins = <12 19>;
-				brcm,function = <4 2>; /* ALT0 ALT5 */
-			};
-		};
-	};
-
-	fragment@1 {
 		target = <&pwm>;
 		frag1: __overlay__ {
-			pinctrl-names = "default";
-			pinctrl-0 = <&pwm_pins>;
 			assigned-clock-rates = <100000000>;
 			status = "okay";
 		};
@@ -31,7 +19,7 @@
 
 	// Enable MCP3204 on GPIO7
 
-	fragment@2 {
+	fragment@1 {
 		target = <&spi0>;
 		__overlay__ {
 			#address-cells = <1>;
