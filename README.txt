@@ -78,26 +78,31 @@ News
        with few issues found. I did have to implement a fix for a breaking
        GPIO API change, though, described in [8]Application Note #11.
 
+     * 26 January 2026 -- I have now implemented BeagleBone Style GPIO pin
+       configuration managment for 64-bit Raspberry Pi boards, using the
+       pinctrl command imported from Raspberry Pi OS. See [9]Application
+       Note #12 for more information.
+
 Quick Setup Instructions for the Impatient
 
    Instructions for installing the MuntsOS cross-toolchain development
-   environment onto a host computer are found in [9]Application Note #1
-   and [10]Application Note #2. Or just download and run one of the
+   environment onto a host computer are found in [10]Application Note #1
+   and [11]Application Note #2. Or just download and run one of the
    following quick setup scripts:
 
-   [11]setup-debian
-   [12]setup-fedora
-   [13]setup-rhel (including lookalikes)
+   [12]setup-debian
+   [13]setup-fedora
+   [14]setup-rhel (including lookalikes)
 
    Instructions for installing MuntsOS to a target computer are found in
-   [14]Application Note #3 and [15]Application Note #15.
+   [15]Application Note #3 and [16]Application Note #15.
 
 Documentation
 
    The documentation for MuntsOS (mostly application notes) is available
    online at:
 
-   [16]http://git.munts.com/muntsos/doc
+   [17]http://git.munts.com/muntsos/doc
 
 Embedded Linux Distribution in a Kernel
 
@@ -108,14 +113,14 @@ Embedded Linux Distribution in a Kernel
 
    Each kernel release tarball contains a kernel image file (.img), which
    may be common to several different microcomputer boards, and one or
-   more [17]device tree files (.dtb) that are specific to particular
+   more [18]device tree files (.dtb) that are specific to particular
    microcomputer boards. Some kernel release tarballs also contain one or
    more device tree overlay files (.dtbo) that can make small changes to
    the device tree at boot time.
 
    Prebuilt MuntsOS kernel release tarballs are available at:
 
-   [18]http://repo.munts.com/muntsos/kernels
+   [19]http://repo.munts.com/muntsos/kernels
 
 Extensions
 
@@ -129,11 +134,11 @@ Extensions
 
    Secondly, if /boot/packages exists, any Debian package files (.deb) in
    it will be installed into the root file system. Note that packages from
-   the [19]Debian project will probably not work; they must be built
+   the [20]Debian project will probably not work; they must be built
    specifically for MuntsOS. The startup script that installs .deb
    packages also installs .rpm and .nupkg packages.
 
-   The [20]GPIO Server extension package demonstrates how to build a
+   The [21]GPIO Server extension package demonstrates how to build a
    Debian package that adds application specific software to MuntsOS.
 
    Thirdly, the system startup script /etc/rc can be configured via a
@@ -151,7 +156,7 @@ Extensions
 
    Prebuilt MuntsOS extension packages are available at:
 
-   [21]http://repo.munts.com/muntsos/extensions
+   [22]http://repo.munts.com/muntsos/extensions
 
 Thin Servers
 
@@ -177,21 +182,21 @@ Thin Servers
    MuntsOS, log in from the console or via SSH (user "root", password
    "default") and run sysconfig to perform more system configuration.
 
-   Note: Some platforms require the [22]boot flag to be set on the FAT32
+   Note: Some platforms require the [23]boot flag to be set on the FAT32
    boot partition on the SD card or on-board eMMC. The ROM boot loader in
    the CPU will ignore any partitions that are not marked as bootable.
-   MuntsOS Application Notes [23]3 and [24]15 contain more detailed
+   MuntsOS Application Notes [24]3 and [25]15 contain more detailed
    instructions about how to install a MuntsOS Thin Server.
 
    Prebuilt MuntsOS Thin Servers are at available at:
 
-   [25]http://repo.munts.com/muntsos/thinservers
+   [26]http://repo.munts.com/muntsos/thinservers
 
 Boards
 
   Raspberry Pi
 
-   The [26]Raspberry Pi is a family of low cost Linux microcomputers
+   The [27]Raspberry Pi is a family of low cost Linux microcomputers
    selling for USD $15 to $80, depending on model. There have been five
    generations of Raspberry Pi microcomputers, each using a successively
    more sophisticated Broadcom ARM core CPU. The first two generations
@@ -205,25 +210,25 @@ Boards
 
     Raspberry Pi 3
 
-   The 64-bit [27]Raspberry Pi 2 Model B Revision 1.2 with the 900 MHz
+   The 64-bit [28]Raspberry Pi 2 Model B Revision 1.2 with the 900 MHz
    BCM2710 ARMv8 Cortex-A53 quad-core CPU can be treated as a power
    conserving Raspberry Pi 3 Model B− and is useful for industrial
    applications where wired Ethernet is preferred.
 
-   The [28]Rasbperry Pi 3 Model B has a 1200 MHz BCM2710 ARMv8 Cortex-A53
+   The [29]Rasbperry Pi 3 Model B has a 1200 MHz BCM2710 ARMv8 Cortex-A53
    quad-core CPU and has 1 GB of RAM along with on-board Bluetooth and
    WiFi radios.
 
-   The [29]Raspberry Pi 3 Model A+ has the same form factor as the
+   The [30]Raspberry Pi 3 Model A+ has the same form factor as the
    Raspberry Pi 1 Model A+, with only one USB host port and no wired
    Ethernet. It has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and
    has 512 MB of RAM along with on-board Bluetooth and WiFi radios.
 
-   The [30]Raspberry Pi 3 Model B+ has a 1400 MHz BCM2710 ARMv8 Cortex-A53
+   The [31]Raspberry Pi 3 Model B+ has a 1400 MHz BCM2710 ARMv8 Cortex-A53
    quad-core CPU and has improved power management and networking
    components.
 
-   The [31]Raspberry Pi Zero 2 W has the same form factor as the Raspberry
+   The [32]Raspberry Pi Zero 2 W has the same form factor as the Raspberry
    Pi Zero W, with a 1000 MHz BCM2710 ARMv8 Cortex-A53 quad core CPU and
    512 MB of RAM along with on-board Bluetooth and WiFi radios.
 
@@ -232,7 +237,7 @@ Boards
 
     Raspberry Pi 4
 
-   The [32]Raspberry Pi 4 Model B has a 1500 MHz BCM2711 ARMv8 Cortex-A72
+   The [33]Raspberry Pi 4 Model B has a 1500 MHz BCM2711 ARMv8 Cortex-A72
    quad-core CPU and is available with 1 to 8 GB of RAM. It diverged
    significantly from the Raspberry Pi 1 B+ form factor, with the USB and
    Ethernet ports reversed, two micro-HDMI connectors instead of a single
@@ -242,7 +247,7 @@ Boards
    instead of the USB connected Ethernet used for all earlier models. The
    Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.
 
-   There are also a myriad of [33]Raspberry Pi 4 Compute Modules, with
+   There are also a myriad of [34]Raspberry Pi 4 Compute Modules, with
    varying combinations of wireless Ethernet, RAM and eMMC.
 
    All Raspberry Pi 4 models use the same AArch64 toolchain and ARMv8
@@ -250,7 +255,7 @@ Boards
 
     Raspberry Pi 5
 
-   The [34]Raspberry Pi 5 yields another 2-3x increase in performance over
+   The [35]Raspberry Pi 5 yields another 2-3x increase in performance over
    the Raspberry Pi 4, at the expense of greater power consumption. It has
    a 2400 MHz BCM2712 ARMv8 Cortex-A76 quad-core CPU and is available with
    4 or 8 GB of RAM. The Ethernet socket and USB ports have swapped sides,
@@ -261,11 +266,11 @@ Boards
    but a separate kernel and device tree.
 
    The Raspberry Pi 5 introduced a breaking GPIO API change. See
-   [35]Application Note #11 for more information.
+   [36]Application Note #11 for more information.
 
     Raspberry Pi USB Gadget Kernels
 
-   MuntsOS also provides Raspberry Pi kernels with dedicated [36]USB
+   MuntsOS also provides Raspberry Pi kernels with dedicated [37]USB
    Gadget support enabled. These kernels run on 3 A+, CM3, Zero 2 W, 4 B,
    and CM4. You can supply power to and communicate with a compatible
    Raspberry Pi solely through the USB port. This kernel supports USB
@@ -283,23 +288,23 @@ Cross-Toolchains
    each MuntsOS platform family. Each GCC cross-toolchain requires a
    number of additional software component libraries, which are packaged
    and distributed separately but installed into the same directory tree
-   as the parent cross-toolchain. I also build [37]Free Pascal
+   as the parent cross-toolchain. I also build [38]Free Pascal
    cross-compilers. Each of these rely on the libraries contained in the
    corresponding GCC cross-toolchain package.
 
-   Cross-toolchain packages built for [38]Debian Linux (x86-64 and ARM64)
+   Cross-toolchain packages built for [39]Debian Linux (x86-64 and ARM64)
    development host computers are available at:
-   [39]http://repo.munts.com/debian12
+   [40]http://repo.munts.com/debian12
 
    x86-64 RPM packages containing the exact same binaries and known to
    work on Fedora 37 and RHEL 9.1 and its derivatives are available at:
-   [40]http://repo.munts.com/muntsos/rpms
+   [41]http://repo.munts.com/muntsos/rpms
 
 Git Repository
 
    The source code for MuntsOS is available at:
 
-   [41]https://github.com/pmunts/muntsos
+   [42]https://github.com/pmunts/muntsos
 
    Use the following command to clone it:
 
@@ -309,15 +314,15 @@ File Repository
 
    Prebuilt binaries for MuntsOS are available at:
 
-   [42]http://repo.munts.com/muntsos
+   [43]http://repo.munts.com/muntsos
 
-[43]Make With Ada Projects
+[44]Make With Ada Projects
 
-     * 2017 [44]Ada Embedded Linux Framework
-     * 2019 [45]Modbus RTU Framework for Ada (Prize Winner!)
-   _________________________________________________________
+     * 2017 [45]Ada Embedded Linux Framework
+     * 2019 [46]Modbus RTU Framework for Ada (Prize Winner!)
+_______________________________________________________________________________
 
-   Questions or comments to Philip Munts [46]phil@munts.net
+   Questions or comments to Philip Munts [47]phil@munts.net
 
 References
 
@@ -329,41 +334,42 @@ References
    6. http://git.munts.com/muntsos/scripts/setup-rhel
    7. https://alire.ada.dev/
    8. http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf
-   9. http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf
-  10. http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf
-  11. http://git.munts.com/muntsos/scripts/setup-debian
-  12. http://git.munts.com/muntsos/scripts/setup-fedora
-  13. http://git.munts.com/muntsos/scripts/setup-rhel
-  14. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
-  15. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
-  16. http://git.munts.com/muntsos/doc
-  17. http://elinux.org/Device_Tree_Reference
-  18. http://repo.munts.com/muntsos/kernels
-  19. http://www.debian.org/
-  20. http://git.munts.com/muntsos/extensions/gpio-server
-  21. http://repo.munts.com/muntsos/extensions
-  22. https://en.wikipedia.org/wiki/Boot_flag
-  23. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
-  24. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
-  25. http://repo.munts.com/muntsos/thinservers
-  26. http://www.raspberrypi.com/
-  27. https://www.raspberrypi.com/products/raspberry-pi-2-model-b
-  28. https://www.raspberrypi.com/products/raspberry-pi-3-model-b
-  29. https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus
-  30. https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus
-  31. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
-  32. https://www.raspberrypi.com/products/raspberry-pi-4-model-b
-  33. https://www.raspberrypi.com/products/compute-module-4
-  34. https://www.raspberrypi.com/products/raspberry-pi-5
-  35. http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf
-  36. http://www.linux-usb.org/gadget
-  37. https://www.freepascal.org/
-  38. https://www.debian.org/
-  39. http://repo.munts.com/debian12
-  40. http://repo.munts.com/muntsos/rpms
-  41. https://github.com/pmunts/muntsos
-  42. http://repo.munts.com/muntsos
-  43. https://www.makewithada.org/
-  44. https://www.makewithada.org/entry/ada_linux_sensor_framework
-  45. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
-  46. mailto:phil@munts.net
+   9. http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf
+  10. http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf
+  11. http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf
+  12. http://git.munts.com/muntsos/scripts/setup-debian
+  13. http://git.munts.com/muntsos/scripts/setup-fedora
+  14. http://git.munts.com/muntsos/scripts/setup-rhel
+  15. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
+  16. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
+  17. http://git.munts.com/muntsos/doc
+  18. http://elinux.org/Device_Tree_Reference
+  19. http://repo.munts.com/muntsos/kernels
+  20. http://www.debian.org/
+  21. http://git.munts.com/muntsos/extensions/gpio-server
+  22. http://repo.munts.com/muntsos/extensions
+  23. https://en.wikipedia.org/wiki/Boot_flag
+  24. http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf
+  25. http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf
+  26. http://repo.munts.com/muntsos/thinservers
+  27. http://www.raspberrypi.com/
+  28. https://www.raspberrypi.com/products/raspberry-pi-2-model-b
+  29. https://www.raspberrypi.com/products/raspberry-pi-3-model-b
+  30. https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus
+  31. https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus
+  32. https://www.raspberrypi.com/products/raspberry-pi-zero-2-w
+  33. https://www.raspberrypi.com/products/raspberry-pi-4-model-b
+  34. https://www.raspberrypi.com/products/compute-module-4
+  35. https://www.raspberrypi.com/products/raspberry-pi-5
+  36. http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf
+  37. http://www.linux-usb.org/gadget
+  38. https://www.freepascal.org/
+  39. https://www.debian.org/
+  40. http://repo.munts.com/debian12
+  41. http://repo.munts.com/muntsos/rpms
+  42. https://github.com/pmunts/muntsos
+  43. http://repo.munts.com/muntsos
+  44. https://www.makewithada.org/
+  45. https://www.makewithada.org/entry/ada_linux_sensor_framework
+  46. https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6
+  47. mailto:phil@munts.net

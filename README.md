@@ -90,6 +90,13 @@ like traditional single chip microcontrollers.
     GPIO API change, though, described in [Application Note
     \#11](http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf).
 
+  - 26 January 2026 -- I have now implemented *BeagleBone Style* GPIO
+    pin configuration managment for 64-bit Raspberry Pi boards, using
+    the **`pinctrl`** command imported from Raspberry Pi OS. See
+    [Application Note
+    \#12](http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf) for
+    more information.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
