@@ -540,6 +540,14 @@ ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	install -cm 0755 config-pin				$@/sbin
 endif
 
+# Install pinctrl
+
+ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
+ifeq ($(GCCARCH), aarch64)
+	install -cm 0755 pinctrl				$@/sbin
+endif
+endif
+
 # Install ethtool
 
 	install -cm 0755 $(ETHTOOL_SRC)/ethtool			$@/usr/sbin
@@ -852,6 +860,12 @@ endif
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	install -cm 0444 pinmux.*Beagle*			$@/usr/share/sysconfig
 	install -cm 0444 overlays.*Beagle*			$@/usr/share/sysconfig
+endif
+
+ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
+ifeq ($(GCCARCH), aarch64)
+	install -cm 0444 pinmux.$(BOARDNAME)			$@/usr/share/sysconfig
+endif
 endif
 
 # Install files to /var

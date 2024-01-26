@@ -204,6 +204,10 @@ if [ $? -eq 0 ]; then
     config-pin -c /etc/pinmux.conf
   fi
 
+  if [ -x /sbin/pinctrl -a -f /etc/pinmux.conf ]; then
+    awk '{ sub("[ \t]*[#].*$",""); gsub("[ \t]+", " "); if ($0 != "") printf("pinctrl set %s\n", $0); }' /etc/pinmux.conf | sh
+  fi
+
 # Install packages, if any
 
   for p in /boot/packages/*.deb ; do
