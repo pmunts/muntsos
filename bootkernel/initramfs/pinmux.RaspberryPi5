@@ -1,4 +1,4 @@
-# Raspberry Pi GPIO Pin Configuration
+# Raspberry Pi 5 GPIO Pin Configuration
 
 # Copyright (C)2024, Philip Munts dba Munts Technologies.
 #
@@ -22,13 +22,6 @@
 
 # Syntax: Blank lines and comments are filtered and the remainder appended
 # to "pinctrl get " and executed as shell commands
-
-# Raspberry Pi 4 PWM outputs
-
-#12	a0	# PWM0
-#13	a0	# PWM1
-#18	a5	# PWM0
-#19	a5	# PWM1
 
 # Raspberry Pi 5 PWM outputs
 
