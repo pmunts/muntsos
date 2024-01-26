@@ -23,7 +23,7 @@
 # Syntax: Blank lines and comments are filtered and the remainder appended
 # to "pinctrl get " and executed as shell commands
 
-# Raspberry Pi 5 PWM outputs
+# Raspberry Pi 5 PWM outputs.  Add "dtoverlay=pwmchip0" to /boot/config.txt.
 
 #12	a0	# PWM0[0] aka PWM0
 #13	a0	# PWM0[1] aka PWM1
