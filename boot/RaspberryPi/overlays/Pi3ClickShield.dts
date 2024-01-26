@@ -5,7 +5,7 @@
 /plugin/;
 
 / {
-	compatible = "brcm,bcm2835", "brcm,bcm2708", "brcm,bcm2709";
+	compatible = "brcm,bcm2835";
 
 	fragment@0 {
 		target = <&gpio>;
@@ -23,8 +23,16 @@
 	};
 
 	fragment@1 {
-		target = <&spi1>;
+		target = <&pwm>;
 		frag1: __overlay__ {
+			assigned-clock-rates = <100000000>;
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target = <&spi1>;
+		frag2: __overlay__ {
 			#address-cells = <1>;
 			#size-cells = <0>;
 			pinctrl-names = "default";
@@ -43,21 +51,21 @@
 		};
 	};
 
-	fragment@2 {
+	fragment@3 {
 		target = <&aux>;
 		__overlay__ {
 			status = "okay";
 		};
 	};
 
-	fragment@3 {
+	fragment@4 {
 		target-path = "spi1/spidev@0";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@4 {
+	fragment@5 {
 		target = <&spi1>;
 		__overlay__ {
 			status = "okay";
