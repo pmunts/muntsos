@@ -441,6 +441,14 @@ COPYING: $(COMPONENT_TARGETS)
 	@echo ""						>>$@
 	@cat $(OPENSSH_SRC)/LICENCE				>>$@
 	@echo ""						>>$@
+ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
+ifeq ($(GCCARCH), aarch64)
+	@echo "**** pinctrl"					>>$@
+	@echo ""						>>$@
+	@cat pinctrl.LICENSE					>>$@
+	@echo ""						>>$@
+endif
+endif
 	@echo "**** regulatory.db:"				>>$@
 	@echo ""						>>$@
 	@cat $(WIRELESS_REGDB_SRC)/LICENSE			>>$@
