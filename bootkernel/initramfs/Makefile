@@ -329,7 +329,7 @@ $(NANO_SRC): $(NANO_DIST)
 # Build nano
 
 $(NANO_SRC)/src/nano: $(NANO_SRC)
-	cd $(NANO_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --sysconfdir=/etc/ --disable-nls --disable-utf8 CC=$(CROSS_COMPILE)gcc NCURSES_LIBS=-lncurses
+	cd $(NANO_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --sysconfdir=/etc/ --disable-nls --disable-utf8 CC=$(CROSS_COMPILE)gcc NCURSES_LIBS=-lncursesw
 	$(MAKE) -C $(NANO_SRC)/lib
 	$(MAKE) -C $(NANO_SRC)/src
 
@@ -737,7 +737,7 @@ endif
 	install -cm 0755 $(LIBSLIBDIR)/libgcc_s.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libm.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libmnl.so.0		$@/lib
-	install -cm 0755 $(LIBSLIBDIR)/libncurses.so.6		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libncursesw.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libnl-3.so.200		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libnl-genl-3.so.200	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libnsl.so.1		$@/lib
