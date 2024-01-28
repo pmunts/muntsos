@@ -768,8 +768,10 @@ $(INSTALLDIR)/lib/libffi.a: $(LIBFFI_SRC)
 	cd $(LIBFFI_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --enable-static --enable-shared CC=$(CROSS_COMPILE)gcc
 	$(MAKE) -C $(LIBFFI_SRC)
 	$(MAKE) -C $(LIBFFI_SRC) install DESTDIR=$(DESTDIR)
+ifeq ($(ARCH), arm64)
 	mv $(INSTALLDIR)/lib64/* $(INSTALLDIR)/lib
 	rmdir $(INSTALLDIR)/lib64
+endif
 
 libffi: $(INSTALLDIR)/lib/libffi.a
 
