@@ -59,7 +59,7 @@ CROSSCONFIG	+= --disable-ipv6
 CROSSCONFIG	+= --disable-test-modules
 CROSSCONFIG	+= --enable-optimizations
 CROSSCONFIG	+= --with-build-python=$(NATIVEPYTHON)
-CROSSCONFIG	+= --without-ensurepip
+CROSSCONFIG	+= --with-ensurepip
 CROSSCONFIG	+= AR=$(CROSS_COMPILE)ar
 CROSSCONFIG	+= CC=$(CROSS_COMPILE)gcc
 CROSSCONFIG	+= CXX=$(CROSS_COMPILE)g++
@@ -86,13 +86,13 @@ $(NATIVEPYTHON) : $(SRCDIST)
 native : $(NATIVEPYTHON)
 
 $(CROSSPYTHON) : $(NATIVEPYTHON)
-	#mkdir -p $(CROSSDIR)
-	#cd $(CROSSDIR) && tar xzf $(SRCDIST)
-	#cd $(CROSSDIR) && cd $(SRCDIR) && patch -b -p0 <../../modules.patch
-	#cd $(CROSSDIR) && $(SRCDIR)/configure $(CROSSCONFIG)
-	#cd $(CROSSDIR) && $(MAKE)
+	mkdir -p $(CROSSDIR)
+	cd $(CROSSDIR) && tar xzf $(SRCDIST)
+	cd $(CROSSDIR) && cd $(SRCDIR) && patch -b -p0 <../../modules.patch
+	cd $(CROSSDIR) && $(SRCDIR)/configure $(CROSSCONFIG)
+	cd $(CROSSDIR) && $(MAKE)
 	cd $(CROSSDIR) && $(MAKE) install DESTDIR=$(CROSSDIR)
-	# Remove stuff that doesn't belong in the runtime package
+	# Remove stuff that doesn't belong in a runtime package
 	rm $(CROSSDIR)/usr/local/bin/2to3*
 	rm $(CROSSDIR)/usr/local/bin/idle3*
 	rm $(CROSSDIR)/usr/local/bin/pydoc3*
@@ -102,7 +102,6 @@ $(CROSSPYTHON) : $(NATIVEPYTHON)
 	rm -rf $(CROSSDIR)/usr/local/lib/*.a
 	rm -rf $(CROSSDIR)/usr/local/lib/pkgconfig
 	rm -rf $(CROSSDIR)/usr/local/lib/python$(MAJORVER)/config-*
-	rm -rf $(CROSSDIR)/usr/local/lib/python$(MAJORVER)/ensurepip
 	rm -rf $(CROSSDIR)/usr/local/lib/python$(MAJORVER)/idlelib
 	rm -rf $(CROSSDIR)/usr/local/lib/python$(MAJORVER)/lib2to3
 	rm -rf $(CROSSDIR)/usr/local/lib/python$(MAJORVER)/sqlite3
@@ -127,13 +126,9 @@ $(PKGDIR) : $(CROSSPYTHON)
 	sed -i s/@@ARCH@@/$(PKGARCH)/g				$(PKGDIR)/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g				$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$(PKGDIR)/DEBIAN/control
+	install -cm 0755 postinst				$(PKGDIR)/DEBIAN
+	sed -i s/@@MAJORVER@@/$(MAJORVER)/g			$(PKGDIR)/DEBIAN/postinst
 	cp -R -P -p $(CROSSDIR)/usr				$(PKGDIR)
-	mkdir -p						$(PKGDIR)/bin
-	ln -s /usr/local/bin/python3				$(PKGDIR)/bin/python
-	ln -s /usr/local/bin/python3				$(PKGDIR)/bin/python3
-	mkdir -p						$(PKGDIR)/usr/bin
-	ln -s /usr/local/bin/python3				$(PKGDIR)/usr/bin/python
-	ln -s /usr/local/bin/python3				$(PKGDIR)/usr/bin/python3
 	touch $@
 
 cross: $(CROSSDIR)
