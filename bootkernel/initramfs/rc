@@ -88,6 +88,8 @@ WaitForFile -d /sys
 WaitForFile -d /sys/kernel/config
 WaitForFile -d /sys/kernel/debug
 
+touch /tmp/booting.flag
+
 # Create initial devices
 
 mdev -s
@@ -197,6 +199,10 @@ if [ $? -eq 0 ]; then
       tar xzf $t --directory=/
     fi
   done
+
+# Configure initial hostname if /etc/hostname came from a tarball
+
+  test -f /etc/hostname && hostname -F /etc/hostname
 
 # Configure GPIO pin modes
 
@@ -443,3 +449,5 @@ kill -HUP 1
 # Turn on the user LED to indicate startup is finished.
 
 echo 1 >/dev/userled
+
+rm /tmp/booting.flag
