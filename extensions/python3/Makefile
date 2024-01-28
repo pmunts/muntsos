@@ -155,7 +155,7 @@ clean:
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -f $(PKGFILE) ; fi
 
 reallyclean: clean
-	rm -rf $(NATIVEDIR) $(CROSSDIR) $(PKGFILE) $(PKGFILE).downloaded
+	rm -rf $(CROSSDIR) $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
-	rm -rf $(SRCDIST)
+	rm -rf $(NATIVEDIR) $(SRCDIST)
