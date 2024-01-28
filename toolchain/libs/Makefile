@@ -38,6 +38,14 @@ NCURSES_SERVER	= http://ftp.gnu.org/pub/gnu/ncurses
 NCURSES_URL	= $(NCURSES_SERVER)/$(NCURSES_TARBALL)
 NCURSES_DIST	= $(TEMP)/$(NCURSES_TARBALL)
 
+READLINE_NAME	= readline
+READLINE_VER	= 8.2
+READLINE_SRC	= $(READLINE_NAME)-$(READLINE_VER)
+READLINE_TARBALL = $(READLINE_NAME)-$(READLINE_VER).tar.gz
+READLINE_SERVER	= http://ftp.gnu.org/pub/gnu/readline
+READLINE_URL	= $(READLINE_SERVER)/$(READLINE_TARBALL)
+READLINE_DIST	= $(TEMP)/$(READLINE_TARBALL)
+
 LIBUSB_NAME	= libusb
 LIBUSB_VER	= 1.0.26
 LIBUSB_SRC	= $(LIBUSB_NAME)-$(LIBUSB_VER)
@@ -64,7 +72,7 @@ OPENSSL_DIST	= $(TEMP)/$(OPENSSL_TARBALL)
 OPENSSL_OS	= linux-generic32
 
 ZLIB_NAME	= zlib
-ZLIB_VER	= 1.3
+ZLIB_VER	= 1.3.1
 ZLIB_SRC	= $(ZLIB_NAME)-$(ZLIB_VER)
 ZLIB_TARBALL	= $(ZLIB_NAME)-$(ZLIB_VER).tar.gz
 ZLIB_SERVER	= http://zlib.net
@@ -168,14 +176,112 @@ MODBUS_SERVER	= https://github.com/stephane/libmodbus/releases/download/v$(MODBU
 MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(TEMP)/$(MODBUS_TARBALL)
 
+LIBFFI_NAME	= libffi
+LIBFFI_VER	= 3.4.4
+LIBFFI_SRC	= $(LIBFFI_NAME)-$(LIBFFI_VER)
+LIBFFI_TARBALL	= $(LIBFFI_NAME)-$(LIBFFI_VER).tar.gz
+LIBFFI_SERVER	= https://github.com/libffi/libffi/releases/download/v$(LIBFFI_VER)
+LIBFFI_URL	= $(LIBFFI_SERVER)/$(LIBFFI_TARBALL)
+LIBFFI_DIST	= $(TEMP)/$(LIBFFI_TARBALL)
+
+UTILLINUX_NAME	= util-linux
+UTILLINUX_VER	= 2.39.3
+UTILLINUX_SRC	= $(UTILLINUX_NAME)-$(UTILLINUX_VER)
+UTILLINUX_TARBALL = $(UTILLINUX_SRC).tar.gz
+UTILLINUX_SERVER = https://kernel.org/pub/linux/utils/util-linux/v2.39
+UTILLINUX_URL	= $(UTILLINUX_SERVER)/$(UTILLINUX_TARBALL)
+UTILLINUX_DIST	= $(TEMP)/$(UTILLINUX_TARBALL)
+
+BZIP2_VER	= 1.0.8
+BZIP2_SRC	= bzip2-$(BZIP2_VER)
+BZIP2_SERVER	= https://sourceware.org/pub/bzip2
+BZIP2_TARBALL	= bzip2-latest.tar.gz
+BZIP2_URL	= $(BZIP2_SERVER)/$(BZIP2_TARBALL)
+BZIP2_DIST	= $(TEMP)/$(BZIP2_TARBALL)
+
+XZ_VER		= 5.4.6
+XZ_SRC		= xz-$(XZ_VER)
+XZ_SERVER	= https://github.com/tukaani-project/xz/releases/download/v$(XZ_VER)
+XZ_TARBALL	= xz-$(XZ_VER).tar.gz
+XZ_URL		= $(XZ_SERVER)/$(XZ_TARBALL)
+XZ_DIST		= $(TEMP)/$(XZ_TARBALL)
+
 DCERPC_URL	= https://github.com/dcerpc/dcerpc.git
 DCERPC_SRC	= dcerpc.src
 
 DESTDIR		= $(shell pwd)
 
-SUBORDINATES	= ncurses libusb hidapi openssl zlib curl tirpc xmlrpc libpcap libmnl libnl libsodium libmysqlclient gdbm mqtt rabbitmq zeromq modbus
-SRCDIRS		= $(NCURSES_SRC) $(LIBUSB_SRC) $(HIDAPI_SRC) $(OPENSSL_SRC) $(ZLIB_SRC) $(CURL_SRC) $(TIRPC_SRC) $(XMLRPC_C_SRC) $(LIBPCAP_SRC) $(LIBMNL_SRC) $(LIBNL_SRC) $(LIBSODIUM_SRC) $(LIBMYSQLCLIENT_SRC) $(GDBM_SRC) $(MQTT_SRC) $(RABBITMQ_SRC) $(ZEROMQ_SRC) $(MODBUS_SRC)
-DISTFILES	= $(NCURSES_DIST) $(LIBUSB_DIST) $(HIDAPI_DIST) $(OPENSSL_DIST) $(ZLIB_DIST) $(CURL_DIST) $(TIRPC_DIST) $(XMLRPC_C_DIST) $(LIBPCAP_DIST) $(LIBNL_DIST) $(LIBSODIUM_DIST) $(LIBMYSQLCLIENT_DIST) $(GDBM_DIST) $(MQTT_DIST) $(RABBITMQ_DIST) $(ZEROMQ_DIST) $(MODBUS_DIST)
+SUBORDINATES	= ncurses
+SUBORDINATES	+= readline
+SUBORDINATES	+= libusb
+SUBORDINATES	+= hidapi
+SUBORDINATES	+= openssl
+SUBORDINATES	+= zlib
+SUBORDINATES	+= curl
+SUBORDINATES	+= tirpc
+SUBORDINATES	+= xmlrpc
+SUBORDINATES	+= libpcap
+SUBORDINATES	+= libmnl
+SUBORDINATES	+= libnl
+SUBORDINATES	+= libsodium
+SUBORDINATES	+= libmysqlclient
+SUBORDINATES	+= gdbm
+SUBORDINATES	+= mqtt
+SUBORDINATES	+= rabbitmq
+SUBORDINATES	+= zeromq
+SUBORDINATES	+= modbus
+SUBORDINATES	+= libffi
+SUBORDINATES	+= libuuid
+SUBORDINATES	+= libbz2
+SUBORDINATES	+= liblzma
+#SUBORDINATES	+= dcerpc
+
+SRCDIRS		= $(NCURSES_SRC)
+SRCDIRS		+= $(READLINE_SRC)
+SRCDIRS		+= $(LIBUSB_SRC)
+SRCDIRS		+= $(HIDAPI_SRC)
+SRCDIRS		+= $(OPENSSL_SRC)
+SRCDIRS		+= $(ZLIB_SRC)
+SRCDIRS		+= $(CURL_SRC)
+SRCDIRS		+= $(TIRPC_SRC)
+SRCDIRS		+= $(XMLRPC_C_SRC)
+SRCDIRS		+= $(LIBPCAP_SRC)
+SRCDIRS		+= $(LIBMNL_SRC)
+SRCDIRS		+= $(LIBNL_SRC)
+SRCDIRS		+= $(LIBSODIUM_SRC)
+SRCDIRS		+= $(LIBMYSQLCLIENT_SRC)
+SRCDIRS		+= $(GDBM_SRC) $(MQTT_SRC)
+SRCDIRS		+= $(RABBITMQ_SRC)
+SRCDIRS		+= $(ZEROMQ_SRC)
+SRCDIRS		+= $(MODBUS_SRC)
+SRCDIRS		+= $(LIBFFI_SRC)
+SRCDIRS		+= $(UTILLINUX_SRC)
+SRCDIRS		+= $(BZIP2_SRC)
+SRCDIRS		+= $(XZ_SRC)
+#SRCDIRS	+= $(DCERPC_SRC)
+
+DISTFILES	= $(NCURSES_DIST)
+DISTFILES	+= $(READLINE_DIST)
+DISTFILES	+= $(LIBUSB_DIST)
+DISTFILES	+= $(HIDAPI_DIST)
+DISTFILES	+= $(OPENSSL_DIST)
+DISTFILES	+= $(ZLIB_DIST)
+DISTFILES	+= $(CURL_DIST)
+DISTFILES	+= $(TIRPC_DIST)
+DISTFILES	+= $(XMLRPC_C_DIST)
+DISTFILES	+= $(LIBPCAP_DIST)
+DISTFILES	+= $(LIBNL_DIST)
+DISTFILES	+= $(LIBSODIUM_DIST)
+DISTFILES	+= $(LIBMYSQLCLIENT_DIST)
+DISTFILES	+= $(GDBM_DIST)
+DISTFILES	+= $(MQTT_DIST)
+DISTFILES	+= $(RABBITMQ_DIST)
+DISTFILES	+= $(ZEROMQ_DIST)
+DISTFILES	+= $(MODBUS_DIST)
+DISTFILES	+= $(LIBFFI_DIST)
+DISTFILES	+= $(UTILLINUX_DIST)
+DISTFILES	+= $(BZIP2_DIST)
+DISTFILES	+= $(XZ_DIST)
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libs
@@ -210,16 +316,41 @@ $(NCURSES_SRC): $(NCURSES_DIST)
 # Build ncurses
 
 $(INSTALLDIR)/lib/libncurses.a: $(NCURSES_SRC)
-	cd $(NCURSES_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-shared --without-ada --disable-pc-files CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	cd $(NCURSES_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --disable-pc-files --enable-widec --with-shared --without-ada CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
 	$(MAKE) -C $(NCURSES_SRC)
 	$(MAKE) -C $(NCURSES_SRC) install DESTDIR=$(DESTDIR) INSTALL_PROG=install
 	# Relocate include files--Can't seem to configure ncurses6 to do this
-	sed -i 's@ncurses/@@g' $(INSTALLDIR)/include/ncurses/*
-	mv $(INSTALLDIR)/include/ncurses/* $(INSTALLDIR)/include
-	rmdir $(INSTALLDIR)/include/ncurses
+	sed -i 's@ncursesw/@@g' $(INSTALLDIR)/include/ncursesw/*
+	mv $(INSTALLDIR)/include/ncursesw/* $(INSTALLDIR)/include
+	ln -s libncursesw.so.6.4 $(INSTALLDIR)/lib/libtinfo.so
+	ln -s libncursesw.so.6.4 $(INSTALLDIR)/lib/libtinfo.so.6
+	ln -s libncursesw.so.6.4 $(INSTALLDIR)/lib/libtinfo.so.6.4
+	rmdir $(INSTALLDIR)/include/ncursesw
 	touch $@
 
 ncurses: $(INSTALLDIR)/lib/libncurses.a
+
+###############################################################################
+
+# Download readline source distribution
+
+$(READLINE_DIST):
+	wget -nv -P $(TEMP) $(READLINE_URL)
+
+# Unpack ncurses source
+
+$(READLINE_SRC): $(READLINE_DIST)
+	tar xzf $(READLINE_DIST)
+
+# Build ncurses
+
+$(INSTALLDIR)/lib/libreadline.a: $(READLINE_SRC)
+	cd $(READLINE_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-shared --without-ada --disable-pc-files CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	$(MAKE) -C $(READLINE_SRC)
+	$(MAKE) -C $(READLINE_SRC) install DESTDIR=$(DESTDIR) INSTALL_PROG=install
+	touch $@
+
+readline: $(INSTALLDIR)/lib/libreadline.a
 
 ###############################################################################
 
@@ -492,8 +623,9 @@ $(INSTALLDIR)/lib/libmysqlclient.a: $(LIBMYSQLCLIENT_SRC)
 	echo "set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	echo "set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	echo "set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)"			>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
+	echo "set(WITH_EXTERNAL_ZLIB on)"					>>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
 	mkdir -p $(LIBMYSQLCLIENT_SRC)/cross
-	cd $(LIBMYSQLCLIENT_SRC)/cross && cmake .. -DCMAKE_TOOLCHAIN_FILE=../toolchain.cmake -DCMAKE_INSTALL_PREFIX=/$(INSTALLDIR)
+	cd $(LIBMYSQLCLIENT_SRC)/cross && cmake .. -DCMAKE_TOOLCHAIN_FILE=../toolchain.cmake -DCMAKE_INSTALL_PREFIX=/$(INSTALLDIR) -DCMAKE_C_FLAGS=-I$(INSTALLDIR)/include
 	$(MAKE) -C $(LIBMYSQLCLIENT_SRC)/cross
 	$(MAKE) -C $(LIBMYSQLCLIENT_SRC)/cross install DESTDIR=$(DESTDIR)
 	ln -s mariadb $(INSTALLDIR)/include/mysql
@@ -620,23 +752,150 @@ modbus: $(INSTALLDIR)/lib/libmodbus.a
 
 ###############################################################################
 
+# Download the libffi source distribution
+
+$(LIBFFI_DIST):
+	wget -nv -P $(TEMP) $(LIBFFI_URL)
+
+# Unpack libffi source
+
+$(LIBFFI_SRC): $(LIBFFI_DIST)
+	tar xzf $(LIBFFI_DIST)
+
+# Build libffi
+
+$(INSTALLDIR)/lib/libffi.a: $(LIBFFI_SRC)
+	cd $(LIBFFI_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --enable-static --enable-shared CC=$(CROSS_COMPILE)gcc
+	$(MAKE) -C $(LIBFFI_SRC)
+	$(MAKE) -C $(LIBFFI_SRC) install DESTDIR=$(DESTDIR)
+	mv $(INSTALLDIR)/lib64/* $(INSTALLDIR)/lib
+	rmdir $(INSTALLDIR)/lib64
+
+libffi: $(INSTALLDIR)/lib/libffi.a
+
+###############################################################################
+
+# Download the util-linux source distribution
+
+$(UTILLINUX_DIST):
+	wget -nv -P $(TEMP) $(UTILLINUX_URL)
+
+# Unpack util-linux source
+
+$(UTILLINUX_SRC): $(UTILLINUX_DIST)
+	tar xzf $(UTILLINUX_DIST)
+
+# Build libuuid
+
+UTILLINUX_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS) 
+UTILLINUX_CONFIG_FLAGS += --prefix=/$(INSTALLDIR)
+UTILLINUX_CONFIG_FLAGS += --disable-all-programs
+UTILLINUX_CONFIG_FLAGS += --enable-libuuid --enable-uuidgen
+UTILLINUX_CONFIG_FLAGS += --enable-static --enable-shared
+UTILLINUX_CONFIG_FLAGS += CC=$(CROSS_COMPILE)gcc
+
+$(INSTALLDIR)/lib/libuuid.a: $(UTILLINUX_SRC)
+	cd $(UTILLINUX_SRC) ; ./configure $(UTILLINUX_CONFIG_FLAGS)
+	$(MAKE) -C $(UTILLINUX_SRC)
+	$(MAKE) -C $(UTILLINUX_SRC) install DESTDIR=$(DESTDIR)
+
+libuuid: $(INSTALLDIR)/lib/libuuid.a
+
+###############################################################################
+
+# Download the bzip2 source distribution
+
+$(BZIP2_DIST):
+	wget -nv -P $(TEMP) $(BZIP2_URL)
+
+# Unpack bzip2 source
+
+$(BZIP2_SRC): $(BZIP2_DIST)
+	tar xzf $(BZIP2_DIST)
+
+# Build bzip2
+
+BZIP2_MAKEFLAGS += AR=$(CROSS_COMPILE)ar
+BZIP2_MAKEFLAGS += CC=$(CROSS_COMPILE)gcc
+BZIP2_MAKEFLAGS += RANLIB=$(CROSS_COMPILE)ranlib
+BZIP2_MAKEFLAGS += PREFIX=.
+
+$(INSTALLDIR)/lib/libbz2.a: $(BZIP2_SRC)
+	$(MAKE) -C $(BZIP2_SRC) libbz2.a $(BZIP2_MAKEFLAGS)
+	install -cm 0644 $(BZIP2_SRC)/bzlib.h $(INSTALLDIR)/include
+	install -cm 0644 $(BZIP2_SRC)/libbz2.a $(INSTALLDIR)/lib
+	$(MAKE) -C $(BZIP2_SRC) clean $(BZIP2_MAKEFLAGS)
+	$(MAKE) -C $(BZIP2_SRC) -f Makefile-libbz2_so $(BZIP2_MAKEFLAGS)
+	ln -s libbz2.so.1.0 $(BZIP2_SRC)/libbz2.so
+	cp -d $(BZIP2_SRC)/libbz2.so* $(INSTALLDIR)/lib
+	touch $@
+
+libbz2: $(INSTALLDIR)/lib/libbz2.a
+
+###############################################################################
+
+# Download the util-linux source distribution
+
+$(XZ_DIST):
+	wget -nv -P $(TEMP) $(XZ_URL)
+
+# Unpack util-linux source
+
+$(XZ_SRC): $(XZ_DIST)
+	tar xzf $(XZ_DIST)
+
+# Build libuuid
+
+XZ_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS) 
+XZ_CONFIG_FLAGS += --prefix=/$(INSTALLDIR)
+XZ_CONFIG_FLAGS	+= --disable-lzma-links
+XZ_CONFIG_FLAGS	+= --disable-lzmadec
+XZ_CONFIG_FLAGS	+= --disable-lzmainfo
+XZ_CONFIG_FLAGS	+= --disable-nls
+XZ_CONFIG_FLAGS	+= --disable-scripts
+XZ_CONFIG_FLAGS	+= --disable-xz
+XZ_CONFIG_FLAGS	+= --disable-xzdec
+XZ_CONFIG_FLAGS += --enable-static --enable-shared
+XZ_CONFIG_FLAGS += CC=$(CROSS_COMPILE)gcc
+
+$(INSTALLDIR)/lib/liblzma.a: $(XZ_SRC)
+	cd $(XZ_SRC) ; ./configure $(XZ_CONFIG_FLAGS)
+	$(MAKE) -C $(XZ_SRC)
+	$(MAKE) -C $(XZ_SRC) install DESTDIR=$(DESTDIR)
+	touch $@
+
+liblzma: $(INSTALLDIR)/lib/liblzma.a
+
+###############################################################################
+
 # Download the DCE/RPC source distribution
 
-#$(DCERPC_SRC):
-#	git clone $(DCERPC_URL) $(DCERPC_SRC)
-#	touch $@
+$(DCERPC_SRC):
+	git clone $(DCERPC_URL) $(DCERPC_SRC)
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/hppa2.0
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/ia64
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/alpha
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/powerpc
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/x86_64
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/s390
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/s390x
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/powerpc64
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/sparc
+#	rm -rf $(DCERPC_SRC)/dcerpc/include/dce/i386
+	ln -s generic $(DCERPC_SRC)/dcerpc/include/dce/$(GCCARCH)
+	touch $@
 
 # Build DCE/RPC
 
-#$(INSTALLDIR)/lib/libdcerpc.la: $(DCERPC_SRC)
-#	cd $(DCERPC_SRC)/dcerpc && autoreconf -fi
-#	cd $(DCERPC_SRC)/dcerpc && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --localstatedir=/var CC=$(CROSS_COMPILE)gcc
-#	cd $(DCERPC_SRC)/dcerpc && $(MAKE) IDL=/usr/local/bin/idl
-#	cd $(DCERPC_SRC)/dcerpc && $(MAKE) install DESTDIR=$(DESTDIR)
-#	rm -rf var
-#	touch $@
+$(INSTALLDIR)/lib/libdcerpc.la: $(DCERPC_SRC)
+	cd $(DCERPC_SRC)/dcerpc && autoreconf -fi
+	cd $(DCERPC_SRC)/dcerpc && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --localstatedir=/var CC=$(CROSS_COMPILE)gcc
+	cd $(DCERPC_SRC)/dcerpc && $(MAKE) IDL=/usr/local/bin/dcerpc_idl
+	cd $(DCERPC_SRC)/dcerpc && $(MAKE) install DESTDIR=$(DESTDIR)
+	rm -rf var
+	touch $@
 
-#dcerpc: $(INSTALLDIR)/lib/libdcerpc.la
+dcerpc: $(INSTALLDIR)/lib/libdcerpc.la
 
 ###############################################################################
 
@@ -646,6 +905,10 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo "**** ncurses:"				>$@
 	@echo ""					>>$@
 	@cat $(NCURSES_SRC)/COPYING			>>$@
+	@echo ""					>>$@
+	@echo "**** readline:"				>>$@
+	@echo ""					>>$@
+	@cat $(READLINE_SRC)/COPYING			>>$@
 	@echo ""					>>$@
 	@echo "**** libusb:"				>>$@
 	@echo ""					>>$@
@@ -708,6 +971,20 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@cat $(MODBUS_SRC)/COPYING.LESSER		>>$@
 	@sed -i 's/\f//'				$@
 	@uniq $@ >$@.new && mv $@.new			$@
+	@echo ""					>>$@
+	@echo "**** libffi:"				>>$@
+	@echo ""					>>$@
+	@cat $(LIBFFI_SRC)/LICENSE			>>$@
+	@echo ""					>>$@
+	@echo "**** libbz2:"				>>$@
+	@cat $(BZIP2_SRC)/LICENSE			>>$@
+	@echo ""					>>$@
+	@echo "**** liblzma:"				>>$@
+	@cat $(XZ_SRC)/COPYING				>>$@
+	#@echo ""					>>$@
+	#@echo "**** dcerpc:"				>>$@
+	#@echo ""					>>$@
+	#@cat $(DCERPC_SRC)/dcerpc/COPYING		>>$@
 	@dos2unix					$@
 
 copying: $(INSTALLDIR)/COPYING
@@ -737,10 +1014,10 @@ package.deb: $(PKGFILE)
 # Remove working files
 
 clean:
-	rm -rf $(INSTALLDIR) $(PKGDIR) $(PKGFILE)
+	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	rm -rf *.o $(SRCDIRS)
+	rm -rf *.o $(INSTALLDIR) $(SRCDIRS)
 
 distclean: reallyclean
 	-rm $(DISTFILES)
