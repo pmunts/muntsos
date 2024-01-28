@@ -4,4 +4,4 @@ Priority: extra
 Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
-Description: Python3 package for MuntsOS
+Description: Python 3 Runtime package for MuntsOS
