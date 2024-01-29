@@ -121,14 +121,16 @@ cross : $(CROSSPYTHON)
 # Build the Debian package file
 
 $(PKGDIR) : $(CROSSPYTHON)
-	mkdir -p						$(PKGDIR)/DEBIAN
-	install -cm 0644 control				$(PKGDIR)/DEBIAN
-	sed -i s/@@ARCH@@/$(PKGARCH)/g				$(PKGDIR)/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g				$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$(PKGDIR)/DEBIAN/control
-	install -cm 0755 postinst				$(PKGDIR)/DEBIAN
-	sed -i s/@@MAJORVER@@/$(MAJORVER)/g			$(PKGDIR)/DEBIAN/postinst
-	cp -R -P -p $(CROSSDIR)/usr				$(PKGDIR)
+	mkdir -p					$(PKGDIR)/DEBIAN
+	install -cm 0644 control			$(PKGDIR)/DEBIAN
+	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
+	install -cm 0755 postinst			$(PKGDIR)/DEBIAN
+	sed -i s/@@MAJORVER@@/$(MAJORVER)/g		$(PKGDIR)/DEBIAN/postinst
+	cp -R -P -p $(CROSSDIR)/usr			$(PKGDIR)
+	install -cm 0755 $(LIBSLIBDIR)/libffi.so.8	$(PKGDIR)/usr/local/lib
+	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/lib/*.so*
 	touch $@
 
 cross: $(CROSSDIR)
