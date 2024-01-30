@@ -789,7 +789,7 @@ $(UTILLINUX_SRC): $(UTILLINUX_DIST)
 
 # Build libuuid
 
-UTILLINUX_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS) 
+UTILLINUX_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS)
 UTILLINUX_CONFIG_FLAGS += --prefix=/$(INSTALLDIR)
 UTILLINUX_CONFIG_FLAGS += --disable-all-programs
 UTILLINUX_CONFIG_FLAGS += --enable-libuuid --enable-uuidgen
@@ -848,7 +848,7 @@ $(XZ_SRC): $(XZ_DIST)
 
 # Build libuuid
 
-XZ_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS) 
+XZ_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS)
 XZ_CONFIG_FLAGS += --prefix=/$(INSTALLDIR)
 XZ_CONFIG_FLAGS	+= --disable-lzma-links
 XZ_CONFIG_FLAGS	+= --disable-lzmadec
