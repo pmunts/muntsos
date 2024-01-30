@@ -88,7 +88,7 @@ native : $(NATIVEPYTHON)
 $(CROSSPYTHON) : $(NATIVEPYTHON)
 	mkdir -p $(CROSSDIR)
 	cd $(CROSSDIR) && tar xzf $(SRCDIST)
-	cd $(CROSSDIR) && cd $(SRCDIR) && patch -b -p0 <../../modules.patch
+	cd $(CROSSDIR) && cd $(SRCDIR) && patch -b -p0 <../../python3.patch
 	cd $(CROSSDIR) && $(SRCDIR)/configure $(CROSSCONFIG)
 	cd $(CROSSDIR) && $(MAKE)
 	cd $(CROSSDIR) && $(MAKE) install DESTDIR=$(CROSSDIR)

@@ -1,3 +1,14 @@
+--- Python/initconfig.c.orig	2024-01-29 20:56:12.277068301 -0800
++++ Python/initconfig.c	2024-01-29 20:56:19.885175370 -0800
+@@ -815,7 +815,7 @@
+     config->interactive = 0;
+     config->optimization_level = 0;
+     config->parser_debug= 0;
+-    config->write_bytecode = 1;
++    config->write_bytecode = 0;
+     config->verbose = 0;
+     config->quiet = 0;
+     config->user_site_directory = 1;
 --- Modules/Setup.stdlib.in.orig	2024-01-27 14:11:19.492430123 -0800
 +++ Modules/Setup.stdlib.in	2024-01-27 14:11:31.744598977 -0800
 @@ -113,7 +113,7 @@
