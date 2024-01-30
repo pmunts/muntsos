@@ -23,6 +23,7 @@
 .PHONY: default native cross package.deb upload download_prebuilt clean reallyclean distclean
 
 BOARDNAME	?= UNDEFINED
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 MUNTSOS		?= /usr/local/share/muntsos
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
@@ -129,6 +130,7 @@ $(PKGDIR) : $(CROSSPYTHON)
 	install -cm 0755 postinst			$(PKGDIR)/DEBIAN
 	sed -i s/@@MAJORVER@@/$(MAJORVER)/g		$(PKGDIR)/DEBIAN/postinst
 	cp -R -P -p $(CROSSDIR)/usr			$(PKGDIR)
+	cp -R -P -p $(LIBSIMPLEIO)/python/packages/libsimpleio $(PKGDIR)/usr/local/lib/python$(MAJORVER)/site-packages
 	find $(PKGDIR) -name __pycache__ -exec rm -rf {} ";" >/dev/null 2>&1 ; true
 	install -cm 0755 $(LIBSLIBDIR)/libffi.so.8	$(PKGDIR)/usr/local/lib
 	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/lib/*.so*
