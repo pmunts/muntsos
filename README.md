@@ -85,17 +85,24 @@ like traditional single chip microcontrollers.
     [Alire](https://alire.ada.dev) better. Verified on Fedora 39 and
     RHEL lookalikes.
 
-  - 25 January 2025 -- Validation of the Raspberry Pi 5 port continues,
+  - 25 January 2024 -- Validation of the Raspberry Pi 5 port continues,
     with few issues found. I did have to implement a fix for a breaking
     GPIO API change, though, described in [Application Note
     \#11](http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf).
 
-  - 26 January 2026 -- I have now implemented *BeagleBone Style* GPIO
+  - 26 January 2024 -- I have now implemented *BeagleBone Style* GPIO
     pin configuration managment for 64-bit Raspberry Pi boards, using
     the **`pinctrl`** command imported from Raspberry Pi OS. See
     [Application Note
     \#12](http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf) for
     more information.
+
+  - 30 January 2024 -- Added a [Python3](https://www.python.org) runtime
+    extension package. Python is not my favorite programming language,
+    but it can be useful, and other people seem to like it. The
+    **`python3`** program source has been patched to disable byte code
+    caching. Byte code caching doesn't make much sense in an embedded
+    system and it increases the storage footprint significantly.
 
 ## Quick Setup Instructions for the Impatient
 

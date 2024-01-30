@@ -78,17 +78,24 @@ improve the user experience and to interoperate with <a href=
 "https://alire.ada.dev">Alire</a> better. Verified on Fedora 39 and RHEL
 lookalikes.</li>
 <br>
-<li>25 January 2025 -- Validation of the Raspberry Pi 5 port continues, with
+<li>25 January 2024 -- Validation of the Raspberry Pi 5 port continues, with
 few issues found. I did have to implement a fix for a breaking GPIO API change,
 though, described in <a href=
 "http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
 #11</a>.</li>
 <br>
-<li>26 January 2026 -- I have now implemented <i>BeagleBone Style</i> GPIO pin
+<li>26 January 2024 -- I have now implemented <i>BeagleBone Style</i> GPIO pin
 configuration managment for 64-bit Raspberry Pi boards, using the
 <b><tt>pinctrl</tt></b> command imported from Raspberry Pi OS. See <a href=
 "http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf">Application Note
 #12</a> for more information.</li>
+<br>
+<li>30 January 2024 -- Added a <a href="https://www.python.org">Python3</a>
+runtime extension package. Python is not my favorite programming language, but
+it can be useful, and other people seem to like it. The <b><tt>python3</tt></b>
+program source has been patched to disable byte code caching. Byte code caching
+doesn't make much sense in an embedded system and it increases the storage
+footprint significantly.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
