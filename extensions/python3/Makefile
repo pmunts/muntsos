@@ -52,7 +52,7 @@ NATIVEDIR	:= $(shell pwd)/native.d
 NATIVEPYTHON	:= $(NATIVEDIR)/usr/local/bin/python3
 NATIVECONFIG	+= --disable-ipv6
 
-CROSSDIR	:= $(shell pwd)/cross.d
+CROSSDIR	:= $(shell pwd)/cross-$(BOARDARCH).d
 CROSSPYTHON	:= $(CROSSDIR)/usr/local/bin/python3
 CROSSCONFIG	+= $(BUILDOS)
 CROSSCONFIG	+= $(TARGETOS)
@@ -160,7 +160,7 @@ clean:
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -f $(PKGFILE) ; fi
 
 reallyclean: clean
-	rm -rf $(CROSSDIR) $(PKGFILE) $(PKGFILE).downloaded
+	rm -rf $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
-	rm -rf $(NATIVEDIR) $(SRCDIST)
+	rm -rf $(NATIVEDIR) $(CROSSDIR) $(SRCDIST)
