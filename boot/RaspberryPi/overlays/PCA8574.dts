@@ -1,0 +1,29 @@
+// Definitions for an NXP PCF857X GPIO Extender
+
+/dts-v1/;
+/plugin/;
+
+/{
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <&i2c_arm>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			pca8574: pca8574@20 {
+				compatible = "nxp,pca8574";
+				gpio-controller;
+				#gpio-cells = <2>;
+				reg = <0x20>;
+				status = "okay";
+			};
+		};
+	};
+
+	__overrides__ {
+		addr = <&pca8574>,"reg:0";
+	};
+};
