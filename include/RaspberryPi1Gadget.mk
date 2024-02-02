@@ -33,7 +33,7 @@ KERNEL_DTB	+= bcm2708-rpi-cm
 KERNEL_DTB	+= bcm2708-rpi-zero
 KERNEL_DTB	+= bcm2708-rpi-zero-w
 KERNEL_OVL	+= disable-bt disable-wifi dwc2
-KERNEL_OVL	+= anyspi i2c-rtc pwm pwm-2chan
+KERNEL_OVL	+= anyspi i2c-rtc pca953x pwm pwm-2chan
 KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
 KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
