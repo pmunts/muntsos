@@ -41,7 +41,6 @@ KERNEL_OVL	+= i2c1-pi5
 KERNEL_OVL	+= i2c2-pi5
 KERNEL_OVL	+= i2c3-pi5
 KERNEL_OVL	+= pca953x
-KERNEL_OVL	+= pcf857x
 KERNEL_OVL	+= spi2-1cs-pi5
 KERNEL_OVL	+= spi2-2cs-pi5
 KERNEL_OVL	+= spi3-1cs-pi5
