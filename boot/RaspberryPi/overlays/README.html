@@ -1,70 +1,60 @@
-<h1>MuntsOS Embedded Linux Extra Raspberry Pi Device Tree Overlays</h1>
-<p>Here are some collected device tree overlays for the Raspberry Pi,
-customized for MuntsOS.</p>
-<h2>Configuration Examples</h2>
-Following are the entries that must be added to <tt>/boot/config.txt</tt> for
-the device tree overlays that support some <a href=
-"https://www.raspberrypi.org/blog/introducing-raspberry-pi-hats">HATS</a> and
-<a href="https://shop.mikroe.com/click">Click Boards</a>.
-<h3><a href="https://www.adafruit.com/product/2348">Adafruit Motor
-HAT</a>:</h3>
+<h1>MuntsOS Embedded Linux Extra Device Tree Overlays</h1>
+<p>Here are some collected device tree overlays for Raspberry Pi boards that
+have been written from scratch or customized from the kernel source
+distribution for MuntsOS.</p>
+<p>For I<sup>2</sup> devices, the easiest way to determine the correct slave
+address is to run <b><tt>i2cdetect -y 1</tt></b> before and after attaching the
+device and see what changes. Then you can add the proper
+<b><tt>dtoverlay</tt></b> command to <b><tt>/boot/config.txt</tt></b></p>
+<h3>AD5593R Analog/Digital I/O Expander</h3>
 <pre>
-dtoverlay=PCA9685,addr=0x60
+dtoverlay=AD5593R
+dtparam=mode0=1
+dtparam=mode1=1
+dtparam=mode2=1
+dtparam=mode3=1
+dtparam=mode4=1
+dtparam=mode5=1
+dtparam=mode6=1
+dtparam=mode7=1
+dtparam=offstate0=0
+dtparam=offstate1=0
+dtparam=offstate2=0
+dtparam=offstate3=0
+dtparam=offstate4=0
+dtparam=offstate5=0
+dtparam=offstate6=0
+dtparam=offstate7=0
 </pre>
-<h3><a href="https://www.adafruit.com/product/2327">Adafruit Servo
-HAT</a>:</h3>
+<table>
+<tr>
+<td><b>Mode Values</b></td>
+<td style="padding-left: 30px"><b>Off State Values</b></td>
+</tr>
+<tr>
+<td>0 Unused<br></td>
+<td style="padding-left: 30px">0 Pulldown resistor</td>
+</tr>
+<tr>
+<td>1 ADC<br></td>
+<td style="padding-left: 30px">1 Output low (sinking)</td>
+</tr>
+<tr>
+<td>2 DAC<br></td>
+<td style="padding-left: 30px">2 Output high (sourcing)</td>
+</tr>
+<tr>
+<td>3 ADC and DAC<br></td>
+<td style="padding-left: 30px">3 Tri-State (high impedance)</td>
+</tr>
+<tr>
+<td>8 GPIO</td>
+</tr>
+</table>
+<h3>ADS1015 Analog to Digital Converter</h3>
 <pre>
-dtoverlay=PCA9685,addr=0x40
-</pre>
-<h3><a href="https://www.mikroe.com/pi-3-click-shield">Mikroelektronika Pi 3
-Click Shield MCP3204 A/D Converter</a>:</h3>
-<pre>
-dtoverlay=Pi3ClickShield
-</pre>
-<h3><a href="https://www.mikroe.com/expand-2-click">Mikroelektronika Expand 2
-Click</a>:</h3>
-<h4><i>Plugged into <a href="https://www.mikroe.com/pi-2-click-shield">Pi 2
-Click Shield</a> Socket 1:</i></h4>
-<pre>
-dtoverlay=MCP23017,addr=0x20,gpiopin=6
-</pre>
-<h3><a href="https://www.mikroe.com/expand-2-click">Mikroelektronika Expand 2
-Click</a>:</h3>
-<h4><i>Plugged into <a href="https://www.mikroe.com/pi-2-click-shield">Pi 2
-Click Shield</a> Socket 2:</i></h4>
-<pre>
-dtoverlay=MCP23017,addr=0x20,gpiopin=26
-</pre>
-<h3><a href="https://shop.mikroe.com/click/interface/pwm">Mikroelektronika PWM
-Click</a>:</h3>
-<pre>
-dtoverlay=PCA9685,addr=0x40
-</pre>
-<h3><a href="https://www.waveshare.com/arpi600.htm">ARPI600 Arduino Shield
-Adapter</a>:</h3>
-<pre>
-dtoverlay=PCF8563,addr=0x51
-</pre>
-<h3><a href="https://shop.pimoroni.com/products/automation-phat">Pimoroni
-Automation pHAT</a> Analog to Digital Converter</h3>
-<h4><i>Single ended inputs with 8V full scale range:</i></h4>
-<pre>
-dtoverlay=ADS1015,addr=0x48
-dtparam=cha_enable
-dtparam=chb_enable
-dtparam=chc_enable
-dtparam=cha_cfg=4
-dtparam=chb_cfg=5
-dtparam=chc_cfg=6
-dtparam=cha_gain=3
-dtparam=chb_gain=3
-dtparam=chc_gain=3
-</pre>
-<h3><a href="https://shop.pimoroni.com/products/enviro-phat">Pimoroni Enviro
-pHAT</a> Analog to Digital Converter</h3>
-<h4><i>Single ended inputs with 6.144V full scale range:</i></h4>
-<pre>
-dtoverlay=ADS1015,addr=0x49
+dtoverlay=ADS1015
+dtparam=addr=0xNN
 dtparam=cha_enable
 dtparam=chb_enable
 dtparam=chc_enable
@@ -78,12 +68,29 @@ dtparam=chb_gain=0
 dtparam=chc_gain=0
 dtparam=chd_gain=0
 </pre>
-<h3><a href=
-"https://wiki.52pi.com/index.php/Pi_Zero_Enc28j60_Network_Adapter_Module_SKU:_EP-0088">
-GeeekPi ENC28J60 Hat</a></h3>
+The I<sup>2</sup>C slave address may be 0x48 or 0x49.
+<h3>MCP23017 GPIO Expander</h3>
 <pre>
-dtoverlay=ENC28J60
+dtoverlay=MCP23017
+dtparam=addr=0xNN
+dtparam=gpiopin=N
 </pre>
+The I<sup>2</sup>C slave address may be 0x20 to 0x27.
+<h3>PCA8574 GPIO Expander</h3>
+<pre>
+dtoverlay=PCA8574
+dtparam=addr=0xNN
+</pre>
+The I<sup>2</sup>C slave address may be 0x20 to 0x27 (PCA8574, PCF8574) or 0x38
+to 0x3F (PCA8574A, PCF8574A).
+<h3>PCA9685 PWM Expander</h3>
+<pre>
+dtoverlay=PCA9685
+dtparam=addr=0xNN
+</pre>
+Possible I<sup>2</sup>C slave addresses range from 0x40 to 0x7F, though some of
+these will conflict with other devices and reserved addresses. 0x40 and 0x70
+are common. This overlay does not support GPIO mode.
 <h2>Copyright:</h2>
 <p>Original works herein are copyrighted as follows:</p>
 <pre>

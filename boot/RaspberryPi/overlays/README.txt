@@ -1,126 +1,120 @@
-         MuntsOS Embedded Linux Extra Raspberry Pi Device Tree Overlays
+MuntsOS Embedded Linux Extra Device Tree Overlays
 
-   Here are some collected device tree overlays for the Raspberry Pi,
-   customized for MuntsOS.
+Here are some collected device tree overlays for Raspberry Pi boards
+that have been written from scratch or customized from the kernel source
+distribution for MuntsOS.
 
-Configuration Examples
+For I² devices, the easiest way to determine the correct slave address
+is to run i2cdetect -y 1 before and after attaching the device and see
+what changes. Then you can add the proper dtoverlay command to
+/boot/config.txt
 
-   Following are the entries that must be added to /boot/config.txt for
-   the device tree overlays that support some [1]HATS and [2]Click Boards.
+AD5593R Analog/Digital I/O Expander
 
-  [3]Adafruit Motor HAT:
+    dtoverlay=AD5593R
+    dtparam=mode0=1
+    dtparam=mode1=1
+    dtparam=mode2=1
+    dtparam=mode3=1
+    dtparam=mode4=1
+    dtparam=mode5=1
+    dtparam=mode6=1
+    dtparam=mode7=1
+    dtparam=offstate0=0
+    dtparam=offstate1=0
+    dtparam=offstate2=0
+    dtparam=offstate3=0
+    dtparam=offstate4=0
+    dtparam=offstate5=0
+    dtparam=offstate6=0
+    dtparam=offstate7=0
 
-dtoverlay=PCA9685,addr=0x60
+  ----------------------------------- -----------------------------------
+  Mode Values                         Off State Values
 
-  [4]Adafruit Servo HAT:
+  0 Unused                            0 Pulldown resistor
 
-dtoverlay=PCA9685,addr=0x40
+  1 ADC                               1 Output low (sinking)
 
-  [5]Mikroelektronika Pi 3 Click Shield MCP3204 A/D Converter:
+  2 DAC                               2 Output high (sourcing)
 
-dtoverlay=Pi3ClickShield
+  3 ADC and DAC                       3 Tri-State (high impedance)
 
-  [6]Mikroelektronika Expand 2 Click:
+  8 GPIO                              
+  ----------------------------------- -----------------------------------
 
-    Plugged into [7]Pi 2 Click Shield Socket 1:
+ADS1015 Analog to Digital Converter
 
-dtoverlay=MCP23017,addr=0x20,gpiopin=6
+    dtoverlay=ADS1015
+    dtparam=addr=0xNN
+    dtparam=cha_enable
+    dtparam=chb_enable
+    dtparam=chc_enable
+    dtparam=chd_enable
+    dtparam=cha_cfg=4
+    dtparam=chb_cfg=5
+    dtparam=chc_cfg=6
+    dtparam=chd_cfg=7
+    dtparam=cha_gain=0
+    dtparam=chb_gain=0
+    dtparam=chc_gain=0
+    dtparam=chd_gain=0
 
-  [8]Mikroelektronika Expand 2 Click:
+The I²C slave address may be 0x48 or 0x49.
 
-    Plugged into [9]Pi 2 Click Shield Socket 2:
+MCP23017 GPIO Expander
 
-dtoverlay=MCP23017,addr=0x20,gpiopin=26
+    dtoverlay=MCP23017
+    dtparam=addr=0xNN
+    dtparam=gpiopin=N
 
-  [10]Mikroelektronika PWM Click:
+The I²C slave address may be 0x20 to 0x27.
 
-dtoverlay=PCA9685,addr=0x40
+PCA8574 GPIO Expander
 
-  [11]ARPI600 Arduino Shield Adapter:
+    dtoverlay=PCA8574
+    dtparam=addr=0xNN
 
-dtoverlay=PCF8563,addr=0x51
+The I²C slave address may be 0x20 to 0x27 (PCA8574, PCF8574) or 0x38 to
+0x3F (PCA8574A, PCF8574A).
 
-  [12]Pimoroni Automation pHAT Analog to Digital Converter
+PCA9685 PWM Expander
 
-    Single ended inputs with 8V full scale range:
+    dtoverlay=PCA9685
+    dtparam=addr=0xNN
 
-dtoverlay=ADS1015,addr=0x48
-dtparam=cha_enable
-dtparam=chb_enable
-dtparam=chc_enable
-dtparam=cha_cfg=4
-dtparam=chb_cfg=5
-dtparam=chc_cfg=6
-dtparam=cha_gain=3
-dtparam=chb_gain=3
-dtparam=chc_gain=3
-
-  [13]Pimoroni Enviro pHAT Analog to Digital Converter
-
-    Single ended inputs with 6.144V full scale range:
-
-dtoverlay=ADS1015,addr=0x49
-dtparam=cha_enable
-dtparam=chb_enable
-dtparam=chc_enable
-dtparam=chd_enable
-dtparam=cha_cfg=4
-dtparam=chb_cfg=5
-dtparam=chc_cfg=6
-dtparam=chd_cfg=7
-dtparam=cha_gain=0
-dtparam=chb_gain=0
-dtparam=chc_gain=0
-dtparam=chd_gain=0
-
-  [14]GeeekPi ENC28J60 Hat
-
-dtoverlay=ENC28J60
+Possible I²C slave addresses range from 0x40 to 0x7F, though some of
+these will conflict with other devices and reserved addresses. 0x40 and
+0x70 are common. This overlay does not support GPIO mode.
 
 Copyright:
 
-   Original works herein are copyrighted as follows:
+Original works herein are copyrighted as follows:
 
-Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+    Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
 
-* Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
 
-   Redistributed works herein are copyrighted and/or licensed by their
-   respective authors.
-   _______________________________________________________________________
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+    POSSIBILITY OF SUCH DAMAGE.
 
-   Questions or comments to Philip Munts [15]phil@munts.net
+Redistributed works herein are copyrighted and/or licensed by their
+respective authors.
 
-References
+------------------------------------------------------------------------
 
-   1. https://www.raspberrypi.org/blog/introducing-raspberry-pi-hats
-   2. https://shop.mikroe.com/click
-   3. https://www.adafruit.com/product/2348
-   4. https://www.adafruit.com/product/2327
-   5. https://www.mikroe.com/pi-3-click-shield
-   6. https://www.mikroe.com/expand-2-click
-   7. https://www.mikroe.com/pi-2-click-shield
-   8. https://www.mikroe.com/expand-2-click
-   9. https://www.mikroe.com/pi-2-click-shield
-  10. https://shop.mikroe.com/click/interface/pwm
-  11. https://www.waveshare.com/arpi600.htm
-  12. https://shop.pimoroni.com/products/automation-phat
-  13. https://shop.pimoroni.com/products/enviro-phat
-  14. https://wiki.52pi.com/index.php/Pi_Zero_Enc28j60_Network_Adapter_Module_SKU:_EP-0088
-  15. mailto:phil@munts.net
+Questions or comments to Philip Munts phil@munts.net
