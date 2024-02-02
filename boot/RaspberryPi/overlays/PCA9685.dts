@@ -1,4 +1,4 @@
-// Definitions for an NXP PCA9685A I2C PWM controller at I2C bus 1 address 0x40
+// Definitions for an NXP PCA9685A PWM controller
 
 /dts-v1/;
 /plugin/;
@@ -13,7 +13,7 @@
 			#size-cells = <0>;
 			status = "okay";
 
-			pca: pca@40 {
+			pca9685: pca9685@40 {
 				compatible = "nxp,pca9685";
 				#pwm-cells = <2>;
 				reg = <0x40>;
@@ -23,6 +23,6 @@
 	};
 
 	__overrides__ {
-		addr = <&pca>,"reg:0";
+		addr = <&pca9685>,"reg:0";
 	};
 };
