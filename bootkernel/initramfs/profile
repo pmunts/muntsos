@@ -49,11 +49,11 @@ if [ -f /var/run/environment ]; then
   done
 fi
 
-# Source files from /etc/profile.d last so that everything, including
+# Source files from /usr/local/etc/profile.d last so that everything, including
 # environment variables defined by packages, can be overidden.
 
-if [ -d /etc/profile.d ] ; then
-  for f in /etc/profile.d/* ; do
+if [ -d /usr/local/etc/profile.d ] ; then
+  for f in /usr/local/etc/profile.d/* ; do
     if [ -r $f ]; then
       . $f
     fi

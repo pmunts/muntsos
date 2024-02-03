@@ -106,12 +106,6 @@ EOD
     sed -i '/\/etc\/pinmux.conf/d' /etc/changes.manifest
   fi
 
-  if [ -d /etc/profile.d ]; then
-    echo /etc/profile.d >>/etc/changes.manifest
-  else
-    sed -i '/\/etc\/profile.d/d' /etc/changes.manifest
-  fi
-
   if [ -f /etc/rc.local ]; then
     echo /etc/rc.local >>/etc/changes.manifest
     chmod 555 /etc/rc.local
@@ -126,10 +120,21 @@ EOD
     sed -i '/\/etc\/wpa_supplicant.conf/d' /etc/changes.manifest
   fi
 
-  # Don't save /etc/profile anymore.
-  # Put your changes in /etc/profile.d/ instead!
+  # Migrate from /etc/profile.d to /usr/local/etc/profile.d
 
-  sed -i '/\/etc\/profile$/d' /etc/changes.manifest
+  if [ -d /etc/profile.d -a -d /usr/local/etc/profile.d ]; then
+    mv /etc/profile.d/* /usr/local/etc/profile.d
+    rmdir /etc/profile.d
+  fi
+
+  if [ -d /etc/profile.d -a ! -d /usr/local/etc/profile.d ]; then
+    mv /etc/profile.d /usr/local/etc
+  fi
+
+  # Don't save /etc/profile or /etc/profile.d anymore.
+  # Put your changes in /usr/local/etc/profile.d/ instead!
+
+  sed -i '/\/etc\/profile/d' /etc/changes.manifest
 
   # Don't save individual files in /etc/ssh/ anymore.
 
