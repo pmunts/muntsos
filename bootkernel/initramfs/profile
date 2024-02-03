@@ -25,6 +25,8 @@ export PS1='`hostname -s`# '
 export EDITOR=nano
 export TERMINFO=/usr/share/terminfo
 
+stty crterase erase ^?
+
 # Import environment variables defined in /etc/platform
 
 for e in `cat /etc/platform` ; do
@@ -46,8 +48,6 @@ if [ -f /var/run/environment ]; then
     export $e
   done
 fi
-
-stty erase ^H
 
 # Source files from /etc/profile.d last so that everything, including
 # environment variables defined by packages, can be overidden.
