@@ -62,6 +62,21 @@ ADS1015 Analog to Digital Converter
 
 The I²C slave address may be 0x48 or 0x49.
 
+ENC28J60 Ethernet Adapter
+
+    dtoverlay=ENC28J60
+    dtparam=cs=N
+    dtparam=irq=N
+
+The value for the SPI slave select parameter cs is 0 for spidev0.0 or 1
+for spidev0.1. Default is 0.
+The value for GPIO interrupt signal parameter irq must be a GPIO number.
+Default is 25.
+
+The default values are correct for the GeeekPi EN28J60 HAT so both
+dtparam lines may be omitted. Other ENC28J60 boards such as the
+Mikroelektronika ETH Click will likely require cs or irq or both.
+
 MCP23017 GPIO Expander
 
     dtoverlay=MCP23017
@@ -87,33 +102,16 @@ Possible I²C slave addresses range from 0x40 to 0x7F, though some of
 these will conflict with other devices and reserved addresses. 0x40 and
 0x70 are common. This overlay does not support GPIO mode.
 
-Copyright:
+W5500 Ethernet Adapter
 
-Original works herein are copyrighted as follows:
+    dtoverlay=W5500
+    dtparam=cs=N
+    dtparam=irq=N
 
-
-    Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
-
-    Redistribution and use in source and binary forms, with or without
-    modification, are permitted provided that the following conditions are met:
-
-    * Redistributions of source code must retain the above copyright notice,
-      this list of conditions and the following disclaimer.
-
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-    ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-    LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-    CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-    SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-    INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-    ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-    POSSIBILITY OF SUCH DAMAGE.
-
-Redistributed works herein are copyrighted and/or licensed by their
-respective authors.
+The value for the SPI slave select parameter cs is 0 for spidev0.0 or 1
+for spidev0.1. Default is 0.
+The value for GPIO interrupt signal parameter irq must be a GPIO number.
+Default is 25.
 
 ------------------------------------------------------------------------
 

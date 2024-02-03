@@ -69,6 +69,22 @@ dtparam=chc_gain=0
 dtparam=chd_gain=0
 </pre>
 The I<sup>2</sup>C slave address may be 0x48 or 0x49.
+<h3>ENC28J60 Ethernet Adapter</h3>
+<pre>
+dtoverlay=ENC28J60
+dtparam=cs=N
+dtparam=irq=N
+</pre>
+<p>The value for the SPI slave select parameter <b><tt>cs</tt></b> is 0 for
+<b><tt>spidev0.0</tt></b> or 1 for <b><tt>spidev0.1</tt></b>. Default is 0.<br>
+The value for GPIO interrupt signal parameter <b><tt>irq</tt></b> must be a
+GPIO number. Default is 25.</p>
+<p>The default values are correct for the <a href=
+"https://www.seeedstudio.com/ENC28J60-OVERLAYS-HAT-for-Raspberry-pi-p-3045.html">
+GeeekPi EN28J60 HAT</a> so both <b><tt>dtparam</tt></b> lines may be omitted.
+Other ENC28J60 boards such as the <a href=
+"https://www.mikroe.com/eth-click">Mikroelektronika ETH Click</a> will likely
+require <b><tt>cs</tt></b> or <b><tt>irq</tt></b> or both.</p>
 <h3>MCP23017 GPIO Expander</h3>
 <pre>
 dtoverlay=MCP23017
@@ -91,32 +107,16 @@ dtparam=addr=0xNN
 Possible I<sup>2</sup>C slave addresses range from 0x40 to 0x7F, though some of
 these will conflict with other devices and reserved addresses. 0x40 and 0x70
 are common. This overlay does not support GPIO mode.
-<h2>Copyright:</h2>
-<p>Original works herein are copyrighted as follows:</p>
+<h3>W5500 Ethernet Adapter</h3>
 <pre>
-
-Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
+dtoverlay=W5500
+dtparam=cs=N
+dtparam=irq=N
 </pre>
-<p>Redistributed works herein are copyrighted and/or licensed by their
-respective authors.</p>
+<p>The value for the SPI slave select parameter <b><tt>cs</tt></b> is 0 for
+<b><tt>spidev0.0</tt></b> or 1 for <b><tt>spidev0.1</tt></b>. Default is 0.<br>
+The value for GPIO interrupt signal parameter <b><tt>irq</tt></b> must be a
+GPIO number. Default is 25.</p>
 <hr>
 Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
