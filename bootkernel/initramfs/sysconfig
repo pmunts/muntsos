@@ -129,7 +129,7 @@ EOD
   # Don't save /etc/profile anymore.
   # Put your changes in /etc/profile.d/ instead!
 
-  sed -i '/\/etc\/profile/d' /etc/changes.manifest
+  sed -i '/\/etc\/profile$/d' /etc/changes.manifest
 
   # Don't save individual files in /etc/ssh/ anymore.
 
