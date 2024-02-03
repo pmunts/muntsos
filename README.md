@@ -104,6 +104,10 @@ like traditional single chip microcontrollers.
     caching. Byte code caching doesn't make much sense in an embedded
     system and it increases the storage footprint significantly.
 
+  - 3 February 2024 -- Upgraded ethtool to 6.7. Fixed an annoying
+    backspace problem by adding **`crterase`** to the **`stty`** command
+    in **`/etc/profile`**.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
