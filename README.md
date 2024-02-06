@@ -102,7 +102,9 @@ like traditional single chip microcontrollers.
     but it can be useful, and other people seem to like it. The
     **`python3`** program source has been patched to disable byte code
     caching. Byte code caching doesn't make much sense in an embedded
-    system and it increases the storage footprint significantly.
+    system and it increases the storage footprint significantly. The
+    Python3 extension includes **`libffi.so`** and Linux Simple I/O
+    Library bindings for Python3.
 
   - 3 February 2024 -- Upgraded ethtool to 6.7. Fixed an annoying
     backspace problem by adding **`crterase`** to the **`stty`** command
