@@ -130,7 +130,7 @@ $(PKGDIR) : $(CROSSPYTHON)
 	install -cm 0755 postinst			$(PKGDIR)/DEBIAN
 	sed -i s/@@MAJORVER@@/$(MAJORVER)/g		$(PKGDIR)/DEBIAN/postinst
 	cp -R -P -p $(CROSSDIR)/usr			$(PKGDIR)
-	cp -R -P -p $(LIBSIMPLEIO)/python/packages/munts $(PKGDIR)/usr/local/lib/python$(MAJORVER)/site-packages
+	cp -R -P -p $(LIBSIMPLEIO)/python/packages/munts $(PKGDIR)/usr/local/lib/python$(MAJORVER)
 	find $(PKGDIR) -name __pycache__ -exec rm -rf {} ";" >/dev/null 2>&1 ; true
 	install -cm 0755 $(LIBSLIBDIR)/libffi.so.8	$(PKGDIR)/usr/local/lib
 	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/lib/*.so*
