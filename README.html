@@ -275,6 +275,11 @@ Raspberry Pi models, but a separate kernel and device tree.</p>
 <p>The Raspberry Pi 5 introduced a breaking GPIO API change. See <a href=
 "http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
 #11</a> for more information.</p>
+<p>The Raspberry Pi 5 also introduced a breaking PWM API change. It has four
+hardware PWM outputs, but the pin mapping has changed as well. Notably, channel
+2 is mapped to GPIO18 instead of channel 0 on previous Raspberry Pi boards. See
+<a href="https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
+Peripherals</a> page 15 for more information.</p>
 <h4>Raspberry Pi USB Gadget Kernels</h4>
 <p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
 "http://www.linux-usb.org/gadget">USB Gadget</a> support enabled. These kernels
