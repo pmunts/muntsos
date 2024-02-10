@@ -10,5 +10,5 @@ PROGRAMS	+= blinky
 
 default: $(PROGRAMS)
 
-clean: gm2_mk_clean
+clean: gm2_mk_reallyclean
 	rm -f $(PROGRAMS)
