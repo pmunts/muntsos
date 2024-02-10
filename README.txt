@@ -49,9 +49,9 @@ News
     1980's and early 1990's, there was a lot of interest in Modula-2 as
     a system programming language, a more robust alternative to C. As a
     student and beginning software engineer, I spent real money on at
-    least three different Modula-2 compilers for DOS.
-    Some platform modules and test programs have been moved from
-    libsimpleio to muntsos/examples/modula2/.
+    least three different Modula-2 compilers for MS-DOS. Some platform
+    modules and test programs have been moved from libsimpleio to
+    muntsos/examples/modula2/.
 
 -   13 January 2024 -- Upgraded libcurl to 8.5.0. Upgraded libnl to
     3.9.0. Took advantage of the opportunity to fix the cross-tool
@@ -92,6 +92,10 @@ News
 -   3 February 2024 -- Upgraded ethtool to 6.7. Fixed an annoying
     backspace problem by adding crterase to the stty command in
     /etc/profile.
+
+-   10 February 2024 -- Upgraded the Linux kernel to 6.1.77. The
+    libsimpleio bindings for GNU Modula-2 are now complete. Added
+    Application Note #14, Modula-2 LED Flash Example.
 
 Quick Setup Instructions for the Impatient
 
