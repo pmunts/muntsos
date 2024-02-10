@@ -1,0 +1,14 @@
+.PHONY: default clean
+
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+MUNTSOS		?= /usr/local/share/muntsos
+
+include $(LIBSIMPLEIO)/gm2/include/gm2.mk
+include $(LIBSIMPLEIO)/gm2/include/libsimpleio.mk
+
+PROGRAMS	+= blinky
+
+default: $(PROGRAMS)
+
+clean: gm2_mk_clean
+	rm -f $(PROGRAMS)
