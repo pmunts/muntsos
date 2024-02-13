@@ -40,7 +40,7 @@ AD5593R Analog/Digital I/O Expander
 
   3 ADC and DAC                       3 Tri-State (high impedance)
 
-  8 GPIO                              
+  8 GPIO
   ----------------------------------- -----------------------------------
 
 ADS1015 Analog to Digital Converter
