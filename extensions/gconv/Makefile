@@ -42,8 +42,11 @@ $(PKGDIR):
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
+	install -cm 0755 postinst			$(PKGDIR)/DEBIAN
 	mkdir -p					$(PKGDIR)/usr/lib
 	cp -R -P -p $(LIBSLIBDIR)/gconv			$(PKGDIR)/usr/lib
+	mkdir -p					$(PKGDIR)/usr/lib/locale
+	tar xzf en_US.utf8.tgz -C			$(PKGDIR)/usr/lib/locale
 	touch $@
 
 package.deb: $(PKGFILE)
