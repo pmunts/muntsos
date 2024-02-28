@@ -106,6 +106,15 @@ if [ -n "${BOOTPART}" ]; then
   unset BOOTPART
 fi
 
+# Set CPU frequency governor
+
+if [ -f /etc/scaling_governor ]; then
+  GUV=/sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+  WaitForFile ${GUV}
+  cat /etc/scaling_governor >${GUV}
+  unset GUV
+fi
+
 # Initialize user LED
 
 WaitForFile -d @@USERLED@@
