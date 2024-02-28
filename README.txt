@@ -97,6 +97,17 @@ News
     libsimpleio bindings for GNU Modula-2 are now complete. Added
     Application Note #14, Modula-2 LED Flash Example.
 
+-   28 February 2024 -- Enabled CPU frequency scaling on 64-bit
+    Raspberry Pi boards. The default CPU frequency policy is performance
+    for Raspberry Pi 3 and 4 and conservative for Raspberry Pi 5. The
+    policy can be changed at boot time by writing the desired policy
+    name to /etc/scaling_governor and running sysconfig --save. Note
+    that the Raspberry Pi 3 and 4 I²C and SPI clock frequencies scale
+    with the CPU frequency, and will only be correct at the maximum CPU
+    frequency, which can be guaranteed by the performance policy. The
+    Raspberry Pi 5 I²C and SPI clock frequencies are independent of the
+    CPU frequency.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development

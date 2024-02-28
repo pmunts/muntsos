@@ -109,6 +109,17 @@ in <b><tt>/etc/profile</tt></b>.</li>
 Modula-2 are now complete. Added <a href=
 "http://git.munts.com/muntsos/doc/AppNote14-Flash-LED-Modula2.pdf">Application
 Note #14</a>, <i>Modula-2 LED Flash Example</i>.</li>
+<br>
+<li>28 February 2024 -- Enabled CPU frequency scaling on 64-bit Raspberry Pi
+boards. The default CPU frequency policy is <b><tt>performance</tt></b> for
+Raspberry Pi 3 and 4 and <b><tt>conservative</tt></b> for Raspberry Pi 5. The
+policy can be changed at boot time by writing the desired policy name to
+<b><tt>/etc/scaling_governor</tt></b> and running <b><tt>sysconfig
+--save</tt></b>. Note that the Raspberry Pi 3 and 4 I<sup>2</sup>C and SPI
+clock frequencies scale with the CPU frequency, and will only be correct at the
+maximum CPU frequency, which can be guaranteed by the
+<b><tt>performance</tt></b> policy. The Raspberry Pi 5 I<sup>2</sup>C and SPI
+clock frequencies are independent of the CPU frequency.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
