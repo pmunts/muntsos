@@ -37,14 +37,6 @@ compile.done:
 	for F in *.dts ; do $(MAKE) `basename $$F .dts`.dtbo ; done
 	touch $@
 
-# Release compiled overlays
-
-release: compile.done
-	mkdir -p $(DESTDIR)
-	for F in *.dtbo ; do cp $$F $(DESTDIR)/$(PREFIX)-$$F ; done
-	md5sum -b $(DESTDIR)/* >overlays.md5
-	tar czf ../overlays.tgz overlays.md5 $(DESTDIR)/* --owner=nobody --group=nobody --mode=ugo-w
-
 # Remove working files
 
 clean:
