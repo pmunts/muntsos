@@ -1,4 +1,4 @@
-# Global make definitions for the Orange Pi Zero 2W ARM Linux microcomputer
+# Global make definitions for the Orange Pi Zero 2 W ARM Linux microcomputer
 
 # Copyright (C)2023-2024, Philip Munts dba Munts Technologies.
 #
@@ -35,7 +35,7 @@ KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDBASE).img
 KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
 
-# Definitions for the Orange Pi Zero 2W kernel repository
+# Definitions for the Orange Pi Zero 2 W kernel repository
 
 KERNEL_REPO     = https://github.com/orangepi-xunlong/linux-orangepi.git
 KERNEL_BRANCH	= 6.1

@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-.PHONY: kernel.mk_default
+.PHONY: kernel_mk_default
 
 TEMP		?= /tmp
 
@@ -35,7 +35,7 @@ KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
 KERNEL_PATCH	= $(BOARDNAME).patch
 KERNEL_CONFIG	= $(BOARDNAME).config
 
-kernel.mk_default: default
+kernel_mk_default: default
 
 # Build a kernel source archive
 

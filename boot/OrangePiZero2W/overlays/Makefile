@@ -1,4 +1,4 @@
-# Makefile for building Orange Pi Zero 2W device tree overlays
+# Makefile for building Orange Pi Zero 2 W device tree overlays
 
 # Copyright (C)2023-2024, Philip Munts dba Munts Technologies.
 #

@@ -1,5 +1,5 @@
 // Device tree overlay for the MUNTS-0018 Raspberry Pi Tutorial I/O Board
-// attached to an Orange Pi Zero 2W.
+// attached to an Orange Pi Zero 2 W.
 
 /dts-v1/;
 /plugin/;
