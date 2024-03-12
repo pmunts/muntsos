@@ -41,7 +41,7 @@ see what changes. Then you can add the proper **`dtoverlay`** command to
 
   3 ADC and DAC\                      3 Tri-State (high impedance)
 
-  8 GPIO                              
+  8 GPIO                             
   ----------------------------------- -----------------------------------
 
 ### ADS1015 Analog to Digital Converter
