@@ -1,0 +1,20 @@
+// This overlay enables pwmchip0 WITHOUT configuring any GPIO pins, for
+// "BeagleBone style" pin management.  You have to configure PWM outputs
+// as a separation operation with the pinctrl command.
+
+// See also: http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2712";
+
+	fragment@1 {
+		target = <&pwm>;
+		frag1: __overlay__ {
+			assigned-clock-rates = <30720000>;
+			status = "okay";
+		};
+	};
+};

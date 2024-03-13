@@ -71,10 +71,13 @@ ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/*.dtbo     $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/RaspberryPi/overlays/README.txt $(DESTDIR)/overlays
 ifeq ($(findstring RaspberryPi4, $(BOARDNAME)),)
-	rm -f $(DESTDIR)/overlays/*-rp4.dtbo
+	rm -f $(DESTDIR)/overlays/*-pi4.dtbo
 endif
 ifeq ($(findstring RaspberryPi5, $(BOARDNAME)),)
-	rm -f $(DESTDIR)/overlays/*-rp5.dtbo
+	rm -f $(DESTDIR)/overlays/*-pi5.dtbo
+else
+	rm -f $(DESTDIR)/overlays/Pi3ClickShield.dtbo
+	rm -f $(DESTDIR)/overlays/pwmchip0.dtbo
 endif
 endif
 

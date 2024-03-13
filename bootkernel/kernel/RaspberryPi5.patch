@@ -9,8 +9,8 @@
  
  endif # CONFIG_MODULES
  
---- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2024-01-20 20:41:23.975798406 -0800
-+++ arch/arm/boot/dts/overlays/overlay_map.dts	2024-01-20 20:45:03.158771680 -0800
+--- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2024-03-12 12:32:57.000000000 -0700
++++ arch/arm/boot/dts/overlays/overlay_map.dts	2024-03-12 19:31:25.012292120 -0700
 @@ -38,6 +38,14 @@
  		bcm2711;
  	};
@@ -26,6 +26,36 @@
  	disable-wifi {
  		bcm2835;
  		bcm2711;
+@@ -196,6 +204,14 @@
+ 		bcm2712;
+ 	};
+ 
++	Pi3ClickShield {
++		bcm2712 = "Pi3ClickShield-pi5";
++	};
++
++	Pi3ClickShield-pi5 {
++		bcm2712;
++	};
++
+ 	pi3-act-led {
+ 		renamed = "act-led";
+ 	};
+@@ -226,6 +242,14 @@
+ 		bcm2711;
+ 	};
+ 
++	pwmchip0 {
++		bcm2712 = "pwmchip0-pi5";
++	};
++
++	pwmchip0-pi5 {
++		bcm2712;
++	};
++
+ 	ramoops {
+ 		bcm2835;
+ 		bcm2711 = "ramoops-pi4";
 --- drivers/clk/bcm/clk-raspberrypi.c.orig	2023-12-23 09:43:27.536046553 -0800
 +++ drivers/clk/bcm/clk-raspberrypi.c	2023-12-23 09:44:47.945092107 -0800
 @@ -373,7 +373,7 @@
