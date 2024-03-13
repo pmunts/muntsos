@@ -578,8 +578,8 @@ endif
 
 # Install ldd
 
-	install -cm 0755 ldd					$@/usr/bin
-	sed -i 's#@@GCCLDLINUX@@#$(shell basename $(GCCLDLINUX))#g' $@/usr/bin/ldd
+	install -cm 0755 $(LIBSBINDIR)/ldd			$@/usr/bin
+	sed -i 's#/bin/bash#/bin/sh#g'				$@/usr/bin/ldd
 
 # Install linklibs
 
