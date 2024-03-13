@@ -376,12 +376,12 @@ libusb: $(INSTALLDIR)/lib/libusb-1.0.a
 
 ###############################################################################
 
-# Download libusb source distribution
+# Download hidapi source distribution
 
 $(HIDAPI_DIST):
 	wget -nv -P $(TEMP) $(HIDAPI_URL)
 
-# Unpack libusb source
+# Unpack hidapi source
 
 $(HIDAPI_SRC): $(HIDAPI_DIST)
 	tar xzf $(HIDAPI_DIST)
