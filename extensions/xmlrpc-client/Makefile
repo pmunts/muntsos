@@ -50,6 +50,7 @@ $(PKGDIR):
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_util.so.4	$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmlparse.so.3	$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmltok.so.3	$@/usr/local/lib
+	$(CROSS_COMPILE)strip					$@/usr/local/lib/*.so.*
 	touch $@
 
 package.deb: $(PKGFILE)

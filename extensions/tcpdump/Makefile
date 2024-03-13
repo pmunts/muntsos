@@ -77,7 +77,7 @@ $(PKGDIR): build.done
 	install -cm 0755 $(SRCDIR)/tcpdump			$(PKGDIR)/usr/local/bin
 	install -cm 0755 $(LIBSLIBDIR)/libpcap.so.1		$(PKGDIR)/usr/local/lib
 	$(CROSS_COMPILE)strip					$(PKGDIR)/usr/local/bin/*
-	$(CROSS_COMPILE)strip					$(PKGDIR)/usr/local/lib/*
+	$(CROSS_COMPILE)strip					$(PKGDIR)/usr/local/lib/*.so.*
 	find $(PKGDIR) -type f -name '*.py' -exec chmod 0644 {} ";"
 	touch $@
 

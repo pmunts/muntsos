@@ -133,7 +133,7 @@ $(PKGDIR) : $(CROSSPYTHON)
 	cp -R -P -p $(LIBSIMPLEIO)/python/packages/munts $(PKGDIR)/usr/local/lib/python$(MAJORVER)
 	find $(PKGDIR) -name __pycache__ -exec rm -rf {} ";" >/dev/null 2>&1 ; true
 	install -cm 0755 $(LIBSLIBDIR)/libffi.so.8	$(PKGDIR)/usr/local/lib
-	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/lib/*.so*
+	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/lib/*.so.*
 	touch $@
 
 cross: $(CROSSDIR)

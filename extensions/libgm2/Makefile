@@ -37,14 +37,15 @@ default: package.deb
 # Build the Debian package file
 
 $(PKGDIR):
-	mkdir -p					$(PKGDIR)/DEBIAN
-	install -cm 0644 control			$(PKGDIR)/DEBIAN
+	mkdir -p					$@/DEBIAN
+	install -cm 0644 control			$@/DEBIAN
 	install -cm 0755 postinst			$@/DEBIAN
-	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)/usr/local/lib
-	install -cm 0755 $(LIBSLIBDIR)/libm2*.so.18	$(PKGDIR)/usr/local/lib
+	sed -i s/@@ARCH@@/$(PKGARCH)/g			$@/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g			$@/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$@/DEBIAN/control
+	mkdir -p					$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libm2*.so.18	$@/usr/local/lib
+	$(CROSS_COMPILE)strip				$@/usr/local/lib/*.so.*
 	touch $@
 
 package.deb: $(PKGFILE)

@@ -37,18 +37,19 @@ default: package.deb
 # Build the Debian package file
 
 $(PKGDIR):
-	mkdir -p					$(PKGDIR)/DEBIAN
-	install -cm 0644 control			$(PKGDIR)/DEBIAN
-	install -cm 0755 postinst			$@/DEBIAN
-	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)/usr/local/lib
+	mkdir -p						$@/DEBIAN
+	install -cm 0644 control				$@/DEBIAN
+	install -cm 0755 postinst				$@/DEBIAN
+	sed -i s/@@ARCH@@/$(PKGARCH)/g				$@/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g				$@/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$@/DEBIAN/control
+	mkdir -p						$@/usr/local/lib
 ifneq ($(findstring RaspberryPi1, $(BOARDNAME)),)
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.13	$(PKGDIR)/usr/local/lib
+	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.13	$@/usr/local/lib
 else
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.22	$(PKGDIR)/usr/local/lib
+	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.22	$@/usr/local/lib
 endif
+	$(CROSS_COMPILE)strip					$@/usr/local/lib/*.so.*
 	touch $@
 
 package.deb: $(PKGFILE)

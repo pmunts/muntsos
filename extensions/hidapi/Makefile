@@ -47,6 +47,7 @@ $(PKGDIR):
 	install -cm 0755 $(GCCSYSROOT)/usr/lib/libatomic.so.1	$@/usr/local/lib
 	install -cm 0755 $(GCCSYSROOT)/usr/lib/libhidapi.so.0	$@/usr/local/lib
 	install -cm 0755 $(GCCSYSROOT)/usr/lib/libusb-1.0.so.0	$@/usr/local/lib
+	$(CROSS_COMPILE)strip					$@/usr/local/lib/*.so.*
 	touch $@
 
 package.deb: $(PKGFILE)
