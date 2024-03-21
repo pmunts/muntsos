@@ -30,6 +30,14 @@ FINALDIR	:= $(GCCSYSROOT)/usr
 BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
+ICU_NAME	= icu
+ICU_VER		= 74.2
+ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
+ICU_TARBALL	= icu4c-74_2-src.tgz
+ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-74-2
+ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
+ICU_DIST	= $(TEMP)/$(ICU_TARBALL)
+
 NCURSES_NAME	= ncurses
 NCURSES_VER	= 6.4
 NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
@@ -211,7 +219,8 @@ DCERPC_SRC	= dcerpc.src
 
 DESTDIR		= $(shell pwd)
 
-SUBORDINATES	= ncurses
+SUBORDINATES	= icu
+SUBORDINATES	+= ncurses
 SUBORDINATES	+= readline
 SUBORDINATES	+= libusb
 SUBORDINATES	+= hidapi
@@ -236,7 +245,8 @@ SUBORDINATES	+= libbz2
 SUBORDINATES	+= liblzma
 #SUBORDINATES	+= dcerpc
 
-SRCDIRS		= $(NCURSES_SRC)
+SRCDIRS		= $(ICU_SRC)
+SRCDIRS		+= $(NCURSES_SRC)
 SRCDIRS		+= $(READLINE_SRC)
 SRCDIRS		+= $(LIBUSB_SRC)
 SRCDIRS		+= $(HIDAPI_SRC)
@@ -260,7 +270,8 @@ SRCDIRS		+= $(BZIP2_SRC)
 SRCDIRS		+= $(XZ_SRC)
 #SRCDIRS	+= $(DCERPC_SRC)
 
-DISTFILES	= $(NCURSES_DIST)
+DISTFILES	= $(ICU_DIST)
+DISTFILES	+= $(NCURSES_DIST)
 DISTFILES	+= $(READLINE_DIST)
 DISTFILES	+= $(LIBUSB_DIST)
 DISTFILES	+= $(HIDAPI_DIST)
@@ -300,6 +311,36 @@ default: package.deb
 # Fetch source distributions
 
 download: $(DISTFILES)
+
+###############################################################################
+
+# Download icu source distribution
+
+$(ICU_DIST):
+	wget -nv -P $(TEMP) $(ICU_URL)
+
+# Unpack icu source
+
+$(ICU_SRC): $(ICU_DIST)
+	tar xzf $(ICU_DIST)
+	mv icu $(ICU_SRC)
+	touch $@
+
+# Build cross icu
+
+$(INSTALLDIR)/lib/libicudata.so: $(ICU_SRC)
+	# First, build native icu
+	cd $(ICU_SRC) && cp -R -P -p source native.d
+	cd $(ICU_SRC)/native.d && ./configure
+	$(MAKE) -C $(ICU_SRC)/native.d
+	# Then, build cross icu
+	cd $(ICU_SRC) && cp -R -P -p source cross.d
+	cd $(ICU_SRC)/cross.d && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-cross-build=$(shell pwd)/$(ICU_SRC)/native.d CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	$(MAKE) -C $(ICU_SRC)/cross.d
+	$(MAKE) -C $(ICU_SRC)/cross.d install DESTDIR=$(DESTDIR)
+	touch $@
+
+icu: $(INSTALLDIR)/lib/libicudata.so
 
 ###############################################################################
 
@@ -1022,4 +1063,4 @@ reallyclean: clean
 	rm -rf *.o $(INSTALLDIR) $(SRCDIRS)
 
 distclean: reallyclean
-	-rm $(DISTFILES)
+	rm -f $(DISTFILES)
