@@ -83,7 +83,6 @@ menuconfig: $(KERNEL_WORK)/src.done
 $(KERNEL_WORK)/dtbs.done: $(KERNEL_WORK)/config.done
 	$(MAKE) $(MAKE_ARGS) dtbs
 	$(MAKE) $(MAKE_ARGS) dtbs_install INSTALL_DTBS_PATH=$(KERNEL_WORK)/dtbs
-	-cd $(KERNEL_WORK)/dtbs && mv overlays ..
 	touch $@
 
 dtbs: $(KERNEL_WORK)/dtbs.done
@@ -97,8 +96,8 @@ $(KERNEL_WORK)/modules.done: $(KERNEL_WORK)/config.done
 	$(MAKE) $(MAKE_JOBS) $(MAKE_ARGS) modules KBUILD_BUILTIN=1
 	rm ../initramfs/initramfs.cpio.gz
 	$(MAKE) $(MAKE_ARGS) modules_install INSTALL_MOD_PATH=$(KERNEL_WORK)/modules
-	rm $(KERNEL_WORK)/modules/lib/modules/*/build
-	rm $(KERNEL_WORK)/modules/lib/modules/*/source
+	rm -rf $(KERNEL_WORK)/modules/lib/modules/*/build
+	rm -rf $(KERNEL_WORK)/modules/lib/modules/*/source
 	rm -rf modules/lib/modules/*/kernel/drivers/net/wireless/realtek/rtl8192cu
 	touch $@
 

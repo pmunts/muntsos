@@ -56,14 +56,14 @@
  					   clks->id, RPI_FIRMWARE_NUM_CLK_ID - 1);
  			return -EINVAL;
  		}
---- fs/super.c.orig	2023-12-21 06:06:09.000000000 -0800
-+++ fs/super.c	2023-12-23 09:43:27.536046553 -0800
-@@ -1302,7 +1302,7 @@
- 
- 	bdev = blkdev_get_by_path(fc->source, mode, fc->fs_type);
+--- fs/super.c.orig	2024-03-25 18:27:40.102555159 -0700
++++ fs/super.c	2024-03-25 18:28:47.023435635 -0700
+@@ -1484,7 +1484,7 @@
+ 	bdev = blkdev_get_by_dev(sb->s_dev, mode, sb, &fs_holder_ops);
  	if (IS_ERR(bdev)) {
--		errorf(fc, "%s: Can't open blockdev", fc->source);
-+		warnf(fc, "%s: Can't open blockdev", fc->source);
+ 		if (fc)
+-			errorf(fc, "%s: Can't open blockdev", fc->source);
++			warnf(fc, "%s: Can't open blockdev", fc->source);
  		return PTR_ERR(bdev);
  	}
  
