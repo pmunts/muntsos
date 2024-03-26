@@ -56,7 +56,7 @@ endif
 
 ifneq ($(KERNEL_OVL),)
 	mkdir -p $(DESTDIR)/overlays
-	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/overlays/$$f.dtb* $(DESTDIR)/overlays ; done
+	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/dtbs/overlays/$$f.dtb* $(DESTDIR)/overlays ; done
 endif
 
 ifeq ($(BOARDBASE), BeagleBone)
@@ -99,7 +99,6 @@ rebuild:
 	rm -f $(KERNEL_WORK)/$(KERNEL_IMG)
 	rm -rf $(KERNEL_WORK)/dtbs
 	rm -rf $(KERNEL_WORK)/modules
-	rm -rf $(KERNEL_WORK)/overlays
 	rm -f $(TARBALL)
 	$(MAKE) $(TARBALL)
 
