@@ -1,13 +1,3 @@
---- Makefile.orig	2021-03-31 08:53:47.000000000 -0700
-+++ Makefile	2021-04-06 10:52:19.479029238 -0700
-@@ -1359,7 +1359,6 @@
- 	fi
- 	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
- 	@sed 's:^:kernel/:' modules.builtin > $(MODLIB)/modules.builtin
--	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
- 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
- 
- # This depmod is only for convenience to give the initial
 --- arch/arm/boot/dts/am335x-bone.dts.orig	2021-04-06 11:03:57.556034015 -0700
 +++ arch/arm/boot/dts/am335x-bone.dts	2021-04-06 11:06:31.358017995 -0700
 @@ -6,6 +6,7 @@

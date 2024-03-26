@@ -90,10 +90,12 @@ dtbs: $(KERNEL_WORK)/dtbs.done
 
 ###############################################################################
 
-# Build modules
+# Build kernel modules including builtins
 
 $(KERNEL_WORK)/modules.done: $(KERNEL_WORK)/config.done
-	$(MAKE) $(MAKEJOBS) $(MAKE_ARGS) modules
+	touch ../initramfs/initramfs.cpio.gz
+	$(MAKE) $(MAKE_JOBS) $(MAKE_ARGS) modules KBUILD_BUILTIN=1
+	rm ../initramfs/initramfs.cpio.gz
 	$(MAKE) $(MAKE_ARGS) modules_install INSTALL_MOD_PATH=$(KERNEL_WORK)/modules
 	rm $(KERNEL_WORK)/modules/lib/modules/*/build
 	rm $(KERNEL_WORK)/modules/lib/modules/*/source
