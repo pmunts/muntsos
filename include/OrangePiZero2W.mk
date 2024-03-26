@@ -33,7 +33,7 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 KERNEL_DEFCONF	= linux_sunxi64_defconfig
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDBASE).img
-KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
+KERNEL_TARGETS	= $(KERNEL_IMGSRC)
 
 # Definitions for the Orange Pi Zero 2 W kernel repository
 

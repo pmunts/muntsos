@@ -29,7 +29,7 @@ BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDNAME).img
-KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
+KERNEL_TARGETS	= $(KERNEL_IMGSRC)
 
 BOOTFILESDIR	= $(MUNTSOS)/boot/RaspberryPi
 ifeq ($(GCCARCH), arm)

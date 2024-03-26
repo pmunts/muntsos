@@ -41,7 +41,7 @@ KERNEL_DTB	+= am335x-bonegreen
 KERNEL_DTB	+= am335x-bonegreen-wireless
 KERNEL_DTB	+= am335x-pocketbeagle
 KERNEL_DTB	+= am335x-sancloud-bbe
-KERNEL_TARGETS	= $(KERNEL_IMGSRC) dtbs
+KERNEL_TARGETS	= $(KERNEL_IMGSRC)
 
 # Definitions for the Beagleboard kernel repository
 
