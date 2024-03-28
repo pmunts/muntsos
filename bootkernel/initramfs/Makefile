@@ -722,6 +722,15 @@ ifeq ($(KERNEL_BRANCH), 6.1)
 	sed -i '/# Initialize user LED/i fi'			$@/etc/rc
 	sed -i '/# Initialize user LED/i\\'			$@/etc/rc
 endif
+ifeq ($(KERNEL_BRANCH), 6.6)
+	sed -i 's#@@USERLED@@#/sys/class/leds/ACT#g'		$@/etc/rc
+	sed -i '/# Initialize user LED/i # Initialize power LED (if necessary)' $@/etc/rc
+	sed -i '/# Initialize user LED/i\\'			$@/etc/rc
+	sed -i '/# Initialize user LED/i if [ -f /sys/class/leds/PWR/trigger ]; then' $@/etc/rc
+	sed -i '/# Initialize user LED/i\\  echo default-on >/sys/class/leds/PWR/trigger' $@/etc/rc
+	sed -i '/# Initialize user LED/i fi'			$@/etc/rc
+	sed -i '/# Initialize user LED/i\\'			$@/etc/rc
+endif
 endif
 	install -cm 0444 rpc					$@/etc
 	install -cm 0444 services				$@/etc
