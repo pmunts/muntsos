@@ -14,7 +14,7 @@ gpu_mem=16
 
 # Configure LEDs
 dtparam=act_led_trigger=none
-dtparam=act_led_activelow=off
+dtparam=act_led_activelow=on
 dtparam=pwr_led_trigger=default-on
 dtparam=pwr_led_activelow=on
 
