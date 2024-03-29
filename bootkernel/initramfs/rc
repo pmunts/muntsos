@@ -110,15 +110,16 @@ fi
 
 if [ -f /etc/scaling_governor ]; then
   GUV=/sys/devices/system/cpu/cpufreq/policy0/scaling_governor
-  WaitForFile ${GUV}
+  WaitForFile -f ${GUV}
   cat /etc/scaling_governor >${GUV}
   unset GUV
 fi
 
 # Initialize user LED
 
-WaitForFile -d @@USERLED@@
+WaitForFile -f @@USERLED@@/trigger
 echo none >    @@USERLED@@/trigger
+WaitForFile -f @@USERLED@@/brightness
 echo 0 >       @@USERLED@@/brightness
 chown root.led @@USERLED@@/brightness
 chmod 660      @@USERLED@@/brightness
