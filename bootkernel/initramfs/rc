@@ -22,9 +22,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Run time options are passed via OPTIONS=0xXX on the kernel command line.
+# Boot time options are passed via OPTIONS=0x0XXXX on the kernel command line.
 
-# Options bit definitions:
+# Boot time options bit definitions:
 
 # Bit  0 -- Enable USB serial gadget with getty
 # Bit  1 -- Enable USB network gadget with DHCP server
@@ -39,6 +39,7 @@
 # Bit 10 -- Run inetd
 # Bit 11 -- Enable USB network gadget with DHCP client
 # Bit 12 -- Enable USB raw HID gadget
+# Bit 13 -- Enable /etc/rc debugging
 
 # Define a function to wait for a file or device node to be created
 
@@ -46,7 +47,7 @@ WaitForFile()
 {
   while [ ! $1 $2 ]
   do
-    #echo "Wait for $2"
+    test $((OPTIONS & 0x2000)) -ne 0 && echo "DEBUG: Wait for $2"
     usleep 100000
   done
 }
@@ -59,7 +60,7 @@ WaitForNetIF()
 
   while [ $? -ne 0 ]
   do
-    #echo "Wait for $1"
+    test $((OPTIONS & 0x2000)) -ne 0 && echo "DEBUG: Wait for $1"
     usleep 100000
 
     grep -q ${1}: /proc/net/dev
