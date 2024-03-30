@@ -32,7 +32,7 @@ News
     package naming scheme has updated to be more meaningful for all
     platforms:
 
-    dma-muntsos-BeagleBone.deb becomes   dma-muntsos-armhf-beaglebone.deb
+    dma-muntsos-BeagleBone.deb   becomes dma-muntsos-armhf-beaglebone.deb
     dma-muntsos-RaspberryPi1.deb becomes dma-muntsos-armhf-raspberrypi1.deb
     dma-muntsos-RaspberryPi2.deb becomes dma-muntsos-armhf-raspberrypi2.deb
     dma-muntsos-RaspberryPi3.deb becomes dma-muntsos-aarch64.deb
@@ -107,6 +107,12 @@ News
     frequency, which can be guaranteed by the performance policy. The
     Raspberry Pi 5 I²C and SPI clock frequencies are independent of the
     CPU frequency.
+
+-   28 March 2024 -- Reworked Raspberry Pi LED configuration. LEDs are
+    now configured in config.txt instead of in /etc/rc.
+
+-   30 March 2024 -- Upgraded the Raspberry Pi 5 Linux kernel to 6.6.23.
+    Other boards to follow soon.
 
 Quick Setup Instructions for the Impatient
 

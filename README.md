@@ -129,6 +129,12 @@ like traditional single chip microcontrollers.
     Raspberry Pi 5 I<sup>2</sup>C and SPI clock frequencies are
     independent of the CPU frequency.
 
+  - 28 March 2024 -- Reworked Raspberry Pi LED configuration. LEDs are
+    now configured in **`config.txt`** instead of in **`/etc/rc`**.
+
+  - 30 March 2024 -- Upgraded the Raspberry Pi 5 Linux kernel to 6.6.23.
+    Other boards to follow soon.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
