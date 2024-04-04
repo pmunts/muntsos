@@ -49,7 +49,7 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 KERNEL_REPO	= https://github.com/raspberrypi/linux.git
 ifeq ($(GCCARCH), aarch64)
-KERNEL_BRANCH	?= 6.1
+KERNEL_BRANCH	?= 6.6
 else
 KERNEL_BRANCH	?= 5.15
 endif
