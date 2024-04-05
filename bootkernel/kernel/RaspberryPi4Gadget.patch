@@ -26,9 +26,9 @@
  					   clks->id, RPI_FIRMWARE_NUM_CLK_ID - 1);
  			return -EINVAL;
  		}
---- drivers/pci/controller/pcie-brcmstb.c.orig	2024-01-20 18:23:41.109799141 -0800
-+++ drivers/pci/controller/pcie-brcmstb.c	2024-01-20 18:24:44.822663425 -0800
-@@ -1428,7 +1428,7 @@
+--- drivers/pci/controller/pcie-brcmstb.c.orig	2024-03-27 12:03:08.000000000 -0700
++++ drivers/pci/controller/pcie-brcmstb.c	2024-04-03 21:02:44.352782210 -0700
+@@ -1431,7 +1431,7 @@
  		msleep(5);
  
  	if (!brcm_pcie_link_up(pcie)) {
@@ -37,20 +37,28 @@
  		return -ENODEV;
  	}
  
---- fs/super.c.orig	2023-12-21 06:06:09.000000000 -0800
-+++ fs/super.c	2023-12-23 09:43:27.536046553 -0800
-@@ -1302,7 +1302,7 @@
- 
- 	bdev = blkdev_get_by_path(fc->source, mode, fc->fs_type);
++++ fs/super.c	2024-03-29 12:15:23.175870402 -0700
+@@ -1484,7 +1484,7 @@
+ 	bdev = blkdev_get_by_dev(sb->s_dev, mode, sb, &fs_holder_ops);
  	if (IS_ERR(bdev)) {
--		errorf(fc, "%s: Can't open blockdev", fc->source);
-+		warnf(fc, "%s: Can't open blockdev", fc->source);
+ 		if (fc)
+-			errorf(fc, "%s: Can't open blockdev", fc->source);
++			warnf(fc, "%s: Can't open blockdev", fc->source);
  		return PTR_ERR(bdev);
  	}
  
---- drivers/usb/gadget/legacy/hid.c.orig	2023-12-21 06:06:09.000000000 -0800
-+++ drivers/usb/gadget/legacy/hid.c	2023-12-30 22:46:36.890003319 -0800
-@@ -272,6 +272,48 @@
+@@ -1547,7 +1547,7 @@
+ 
+ 	error = lookup_bdev(fc->source, &dev);
+ 	if (error) {
+-		errorf(fc, "%s: Can't lookup blockdev", fc->source);
++		warnf(fc, "%s: Can't lookup blockdev", fc->source);
+ 		return error;
+ 	}
+ 
+--- drivers/usb/gadget/legacy/hid.c.orig	2024-03-27 12:03:08.000000000 -0700
++++ drivers/usb/gadget/legacy/hid.c	2024-04-03 19:45:00.635428213 -0700
+@@ -267,6 +267,48 @@
  	},
  };
  
@@ -99,7 +107,7 @@
  
  MODULE_DESCRIPTION(DRIVER_DESC);
  MODULE_AUTHOR("Fabien Chouteau, Peter Korsgaard");
-@@ -281,6 +323,8 @@
+@@ -276,6 +318,8 @@
  {
  	int status;
  
