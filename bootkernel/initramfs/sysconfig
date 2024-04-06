@@ -199,15 +199,12 @@ function NetConfig {
 ###############################################################################
 
 function ServerSSHKeys {
-  GetYesNo "Regenerate SSH server keys"
+  GetYesNo "Regenerate SSH server key"
   if [ $? -ne 0 ]; then return; fi
 
   rm -f /etc/ssh/*key
 
-  ssh-keygen -C "`hostname`" -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
-  ssh-keygen -C "`hostname`" -N "" -t ecdsa -b 521 -f /etc/ssh/ssh_host_ecdsa_key
-  ssh-keygen -C "`hostname`" -N "" -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
-  ssh-keygen -C "`hostname`" -N "" -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key
+  ssh-keygen -q -C "`hostname`" -N "" -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key
 
   chmod -R ugo-w /etc/ssh
 }
@@ -233,7 +230,7 @@ function RootSSHKeys {
     if [ $? -ne 0 ]; then return; fi
   fi
 
-  ssh-keygen -C "`hostname -s` system administrator" -N "" -t rsa -b 2048 -f /root/.ssh/id_rsa
+  ssh-keygen -q -C "`hostname -s` system administrator" -N "" -t rsa -b 4096 -f /root/.ssh/id_rsa
 
   chmod ugo-w /root/.ssh/id_rsa*
 }
