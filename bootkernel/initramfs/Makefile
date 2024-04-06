@@ -654,10 +654,6 @@ endif
 	echo "revision=$(REVISION)"				>>$@/etc/publisher
 	echo "compiler=`$(CROSS_COMPILE)gcc --version | head -n 1`" >>$@/etc/publisher
 	echo "timestamp=`date`"					>>$@/etc/publisher
-	install -cm 0400 ssh_host_dsa_key			$@/etc/ssh
-	install -cm 0400 ssh_host_ecdsa_key			$@/etc/ssh
-	install -cm 0400 ssh_host_ed25519_key			$@/etc/ssh
-	install -cm 0400 ssh_host_rsa_key			$@/etc/ssh
 	install -cm 0444 environment				$@/etc
 	install -cm 0444 fstab					$@/etc
 	install -cm 0444 group					$@/etc
