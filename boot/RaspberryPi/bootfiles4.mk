@@ -51,7 +51,7 @@ $(BOOTFILES_DSTDIR):
 # Create boot files tarball
 
 $(BOOTFILES_TARBALL): $(BOOTFILES_DSTDIR)
-	cd $^ && tar czf $@ * --owner=root --group=root --mode=ugo-w
+	cd $^ && tar czf ../$@ * --owner=root --group=root --mode=ugo-w
 	touch $@
 	rm -rf $^
 
