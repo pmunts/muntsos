@@ -38,7 +38,7 @@ BUSYBOX_URL		= $(BUSYBOX_SERVER)/$(BUSYBOX_TARBALL)
 BUSYBOX_DIST		= $(TEMP)/$(BUSYBOX_TARBALL)
 
 OPENSSH_NAME		= openssh
-OPENSSH_VER		= 9.6p1
+OPENSSH_VER		= 9.7p1
 OPENSSH_SRC		= $(OPENSSH_NAME)-$(OPENSSH_VER)
 OPENSSH_TARBALL		= $(OPENSSH_SRC).tar.gz
 OPENSSH_SERVER		= http://ftp3.usa.openbsd.org/pub/OpenBSD/OpenSSH/portable
@@ -168,7 +168,7 @@ $(OPENSSH_SRC): $(OPENSSH_DIST)
 # Build OpenSSH
 
 $(OPENSSH_SRC)/skeleton: $(OPENSSH_SRC)
-	cd $(OPENSSH_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/usr --sysconfdir=/etc/ssh --with-privsep-user=nobody --with-privsep-path=/var/empty --disable-strip CC=$(CROSS_COMPILE)gcc CFLAGS=-I$(LIBSINCDIR) LDFLAGS=-L$(LIBSLIBDIR)
+	cd $(OPENSSH_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/usr --sysconfdir=/etc/ssh --with-privsep-user=nobody --with-privsep-path=/var/empty --disable-dsa-keys --disable-strip CC=$(CROSS_COMPILE)gcc CFLAGS=-I$(LIBSINCDIR) LDFLAGS=-L$(LIBSLIBDIR)
 	$(MAKE) $(MAKEJOBS) -C $(OPENSSH_SRC)
 	$(MAKE) -C $(OPENSSH_SRC) install DESTDIR=skeleton
 	rm -rf $(OPENSSH_SRC)/skeleton/usr/share
