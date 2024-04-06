@@ -111,8 +111,8 @@ News
 -   28 March 2024 -- Reworked Raspberry Pi LED configuration. LEDs are
     now configured in config.txt instead of in /etc/rc.
 
--   30 March 2024 -- Upgraded the Raspberry Pi 5 Linux kernel to 6.6.23.
-    Other boards to follow soon.
+-   5 April 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.23, the
+    latest longterm Linux kernel.
 
 Quick Setup Instructions for the Impatient
 
