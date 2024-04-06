@@ -114,6 +114,11 @@ News
 -   5 April 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.23, the
     latest longterm Linux kernel.
 
+-   6 April 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.25.
+    Upgraded OpenSSH to 9.7p1. Stopped using prebuilt OpenSSH server
+    keys. Generate only 4096 bit RSA OpenSSH server keys in /etc/rc (if
+    necessary) and sysconfig.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
