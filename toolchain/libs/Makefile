@@ -30,14 +30,6 @@ FINALDIR	:= $(GCCSYSROOT)/usr
 BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
-ICU_NAME	= icu
-ICU_VER		= 74.2
-ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
-ICU_TARBALL	= icu4c-74_2-src.tgz
-ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-74-2
-ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
-ICU_DIST	= $(TEMP)/$(ICU_TARBALL)
-
 NCURSES_NAME	= ncurses
 NCURSES_VER	= 6.4
 NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
@@ -55,7 +47,7 @@ READLINE_URL	= $(READLINE_SERVER)/$(READLINE_TARBALL)
 READLINE_DIST	= $(TEMP)/$(READLINE_TARBALL)
 
 LIBUSB_NAME	= libusb
-LIBUSB_VER	= 1.0.26
+LIBUSB_VER	= 1.0.27
 LIBUSB_SRC	= $(LIBUSB_NAME)-$(LIBUSB_VER)
 LIBUSB_TARBALL	= $(LIBUSB_NAME)-$(LIBUSB_VER).tar.bz2
 LIBUSB_SERVER	= https://github.com/libusb/libusb/releases/download/v$(LIBUSB_VER)
@@ -71,7 +63,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(TEMP)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 1.1.1w
+OPENSSL_VER	= 3.3.0
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -88,7 +80,7 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(TEMP)/$(ZLIB_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.5.0
+CURL_VER	= 8.7.1
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -161,7 +153,7 @@ MQTT_URL	= $(MQTT_SERVER)/$(MQTT_TARBALL)
 MQTT_DIST	= $(TEMP)/$(MQTT_SRC).tar.gz
 
 RABBITMQ_NAME	= rabbitmq-c
-RABBITMQ_VER	= 0.13.0
+RABBITMQ_VER	= 0.14.0
 RABBITMQ_SRC	= $(RABBITMQ_NAME)-$(RABBITMQ_VER)
 RABBITMQ_TARBALL = $(RABBITMQ_NAME)-$(RABBITMQ_VER).tar.gz
 RABBITMQ_SERVER	= http://github.com/alanxz/rabbitmq-c/archive/v$(RABBITMQ_VER)
@@ -185,7 +177,7 @@ MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(TEMP)/$(MODBUS_TARBALL)
 
 LIBFFI_NAME	= libffi
-LIBFFI_VER	= 3.4.4
+LIBFFI_VER	= 3.4.6
 LIBFFI_SRC	= $(LIBFFI_NAME)-$(LIBFFI_VER)
 LIBFFI_TARBALL	= $(LIBFFI_NAME)-$(LIBFFI_VER).tar.gz
 LIBFFI_SERVER	= https://github.com/libffi/libffi/releases/download/v$(LIBFFI_VER)
@@ -193,7 +185,7 @@ LIBFFI_URL	= $(LIBFFI_SERVER)/$(LIBFFI_TARBALL)
 LIBFFI_DIST	= $(TEMP)/$(LIBFFI_TARBALL)
 
 UTILLINUX_NAME	= util-linux
-UTILLINUX_VER	= 2.39.3
+UTILLINUX_VER	= 2.40
 UTILLINUX_SRC	= $(UTILLINUX_NAME)-$(UTILLINUX_VER)
 UTILLINUX_TARBALL = $(UTILLINUX_SRC).tar.gz
 UTILLINUX_SERVER = https://kernel.org/pub/linux/utils/util-linux/v2.39
@@ -214,12 +206,19 @@ XZ_TARBALL	= xz-$(XZ_VER).tar.gz
 XZ_URL		= $(XZ_SERVER)/$(XZ_TARBALL)
 XZ_DIST		= $(TEMP)/$(XZ_TARBALL)
 
+ICU_NAME	= icu
+ICU_VER		= 74.2
+ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
+ICU_TARBALL	= icu4c-74_2-src.tgz
+ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-74-2
+ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
+ICU_DIST	= $(TEMP)/$(ICU_TARBALL)
+
 DCERPC_URL	= https://github.com/dcerpc/dcerpc.git
 DCERPC_SRC	= dcerpc.src
 
 DESTDIR		= $(shell pwd)
 
-SUBORDINATES	= icu
 SUBORDINATES	+= ncurses
 SUBORDINATES	+= readline
 SUBORDINATES	+= libusb
@@ -243,9 +242,9 @@ SUBORDINATES	+= libffi
 SUBORDINATES	+= libuuid
 SUBORDINATES	+= libbz2
 SUBORDINATES	+= liblzma
+SUBORDINATES	+= icu
 #SUBORDINATES	+= dcerpc
 
-SRCDIRS		= $(ICU_SRC)
 SRCDIRS		+= $(NCURSES_SRC)
 SRCDIRS		+= $(READLINE_SRC)
 SRCDIRS		+= $(LIBUSB_SRC)
@@ -268,9 +267,9 @@ SRCDIRS		+= $(LIBFFI_SRC)
 SRCDIRS		+= $(UTILLINUX_SRC)
 SRCDIRS		+= $(BZIP2_SRC)
 SRCDIRS		+= $(XZ_SRC)
+SRCDIRS		+= $(ICU_SRC)
 #SRCDIRS	+= $(DCERPC_SRC)
 
-DISTFILES	= $(ICU_DIST)
 DISTFILES	+= $(NCURSES_DIST)
 DISTFILES	+= $(READLINE_DIST)
 DISTFILES	+= $(LIBUSB_DIST)
@@ -293,6 +292,7 @@ DISTFILES	+= $(LIBFFI_DIST)
 DISTFILES	+= $(UTILLINUX_DIST)
 DISTFILES	+= $(BZIP2_DIST)
 DISTFILES	+= $(XZ_DIST)
+DISTFILES	+= $(ICU_DIST)
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libs
@@ -311,36 +311,6 @@ default: package.deb
 # Fetch source distributions
 
 download: $(DISTFILES)
-
-###############################################################################
-
-# Download icu source distribution
-
-$(ICU_DIST):
-	wget -nv -P $(TEMP) $(ICU_URL)
-
-# Unpack icu source
-
-$(ICU_SRC): $(ICU_DIST)
-	tar xzf $(ICU_DIST)
-	mv icu $(ICU_SRC)
-	touch $@
-
-# Build cross icu
-
-$(INSTALLDIR)/lib/libicudata.so: $(ICU_SRC)
-	# First, build native icu
-	cd $(ICU_SRC) && cp -R -P -p source native.d
-	cd $(ICU_SRC)/native.d && ./configure
-	$(MAKE) -C $(ICU_SRC)/native.d
-	# Then, build cross icu
-	cd $(ICU_SRC) && cp -R -P -p source cross.d
-	cd $(ICU_SRC)/cross.d && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-cross-build=$(shell pwd)/$(ICU_SRC)/native.d CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
-	$(MAKE) -C $(ICU_SRC)/cross.d
-	$(MAKE) -C $(ICU_SRC)/cross.d install DESTDIR=$(DESTDIR)
-	touch $@
-
-icu: $(INSTALLDIR)/lib/libicudata.so
 
 ###############################################################################
 
@@ -455,13 +425,13 @@ $(OPENSSL_SRC): $(OPENSSL_DIST)
 
 # Build OpenSSL
 
-$(INSTALLDIR)/lib/libcrypto.a: $(OPENSSL_SRC)
-	cd $(OPENSSL_SRC) ; ./Configure no-hw shared --prefix=/$(INSTALLDIR) --openssldir=/$(INSTALLDIR)/openssl $(OPENSSL_OS)
+$(INSTALLDIR)/lib/libssl.a: $(OPENSSL_SRC)
+	cd $(OPENSSL_SRC) ; ./Configure shared --prefix=/$(INSTALLDIR) --openssldir=/$(INSTALLDIR)/openssl $(OPENSSL_OS)
 	$(MAKE) -C $(OPENSSL_SRC) CC=$(CROSS_COMPILE)gcc
 	$(MAKE) -C $(OPENSSL_SRC) CC=$(CROSS_COMPILE)gcc install_sw DESTDIR=$(DESTDIR)
 	touch $@
 
-openssl: $(INSTALLDIR)/lib/libcrypto.a
+openssl: $(INSTALLDIR)/lib/libssl.a
 
 ###############################################################################
 
@@ -911,6 +881,36 @@ liblzma: $(INSTALLDIR)/lib/liblzma.a
 
 ###############################################################################
 
+# Download icu source distribution
+
+$(ICU_DIST):
+	wget -nv -P $(TEMP) $(ICU_URL)
+
+# Unpack icu source
+
+$(ICU_SRC): $(ICU_DIST)
+	tar xzf $(ICU_DIST)
+	mv icu $(ICU_SRC)
+	touch $@
+
+# Build cross icu
+
+$(INSTALLDIR)/lib/libicudata.so: $(ICU_SRC)
+	# First, build native icu
+	cd $(ICU_SRC) && cp -R -P -p source native.d
+	cd $(ICU_SRC)/native.d && ./configure
+	$(MAKE) -C $(ICU_SRC)/native.d
+	# Then, build cross icu
+	cd $(ICU_SRC) && cp -R -P -p source cross.d
+	cd $(ICU_SRC)/cross.d && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-cross-build=$(shell pwd)/$(ICU_SRC)/native.d CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	$(MAKE) -C $(ICU_SRC)/cross.d
+	$(MAKE) -C $(ICU_SRC)/cross.d install DESTDIR=$(DESTDIR)
+	touch $@
+
+icu: $(INSTALLDIR)/lib/libicudata.so
+
+###############################################################################
+
 # Download the DCE/RPC source distribution
 
 $(DCERPC_SRC):
@@ -962,7 +962,7 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@cat $(HIDAPI_SRC)/LICENSE-orig.txt		>>$@
 	@echo ""					>>$@
 	@echo "**** openssl:"				>>$@
-	@cat $(OPENSSL_SRC)/LICENSE			>>$@
+	@cat $(OPENSSL_SRC)/LICENSE.txt			>>$@
 	@echo "**** zlib:"				>>$@
 	@echo ""					>>$@
 	@tail -n 31 $(ZLIB_SRC)/README			>>$@
@@ -1020,10 +1020,12 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@cat $(LIBFFI_SRC)/LICENSE			>>$@
 	@echo ""					>>$@
 	@echo "**** libbz2:"				>>$@
-	@cat $(BZIP2_SRC)/LICENSE			>>$@
-	@echo ""					>>$@
+	@tail -n +3 $(BZIP2_SRC)/LICENSE | head -n -1	>>$@
 	@echo "**** liblzma:"				>>$@
 	@cat $(XZ_SRC)/COPYING				>>$@
+	@echo "**** libicu:"				>>$@
+	@echo ""					>>$@
+	@cat $(ICU_SRC)/LICENSE				>>$@
 	#@echo ""					>>$@
 	#@echo "**** dcerpc:"				>>$@
 	#@echo ""					>>$@
