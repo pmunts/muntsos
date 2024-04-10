@@ -802,7 +802,7 @@ $(UTILLINUX_SRC): $(UTILLINUX_DIST)
 
 UTILLINUX_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS)
 UTILLINUX_CONFIG_FLAGS += --prefix=/$(INSTALLDIR)
-UTILLINUX_CONFIG_FLAGS += --disable-all-programs
+UTILLINUX_CONFIG_FLAGS += --disable-all-programs --disable-bash-completion
 UTILLINUX_CONFIG_FLAGS += --enable-libuuid --enable-uuidgen
 UTILLINUX_CONFIG_FLAGS += --enable-static --enable-shared
 UTILLINUX_CONFIG_FLAGS += CC=$(CROSS_COMPILE)gcc
