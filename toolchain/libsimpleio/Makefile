@@ -91,7 +91,7 @@ libsimpleio.lib:
 # Compile link-gpiochip
 
 link-gpiochip: libsimpleio.a
-	$(CC) -Wall -o$@ $(LIBSIMPLEIO)/hotplug/linux/link-gpiochip.c libsimpleio.a
+	$(CC) -Wall -I. -o$@ $(LIBSIMPLEIO)/hotplug/linux/link-gpiochip.c libsimpleio.a
 	$(STRIP) $@
 
 ###############################################################################
