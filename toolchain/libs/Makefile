@@ -214,6 +214,13 @@ ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-74-2
 ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
 ICU_DIST	= $(TEMP)/$(ICU_TARBALL)
 
+LIBCAP_NAME	= libcap-ng
+LIBCAP_VER	= 0.8.5
+LIBCAP_SRC	= $(LIBCAP_NAME)-$(LIBCAP_VER)
+LIBCAP_TARBALL	= $(LIBCAP_SRC).tar.gz
+LIBCAP_URL	= https://github.com/stevegrubb/libcap-ng/archive/refs/tags/v$(LIBCAP_VER).tar.gz
+LIBCAP_DIST	= $(TEMP)/$(LIBCAP_TARBALL)
+
 DCERPC_URL	= https://github.com/dcerpc/dcerpc.git
 DCERPC_SRC	= dcerpc.src
 
@@ -243,6 +250,7 @@ SUBORDINATES	+= libuuid
 SUBORDINATES	+= libbz2
 SUBORDINATES	+= liblzma
 SUBORDINATES	+= icu
+SUBORDINATES	+= libcap
 #SUBORDINATES	+= dcerpc
 
 SRCDIRS		+= $(NCURSES_SRC)
@@ -268,6 +276,7 @@ SRCDIRS		+= $(UTILLINUX_SRC)
 SRCDIRS		+= $(BZIP2_SRC)
 SRCDIRS		+= $(XZ_SRC)
 SRCDIRS		+= $(ICU_SRC)
+SRCDIRS		+= $(LIBCAP_SRC)
 #SRCDIRS	+= $(DCERPC_SRC)
 
 DISTFILES	+= $(NCURSES_DIST)
@@ -293,6 +302,7 @@ DISTFILES	+= $(UTILLINUX_DIST)
 DISTFILES	+= $(BZIP2_DIST)
 DISTFILES	+= $(XZ_DIST)
 DISTFILES	+= $(ICU_DIST)
+DISTFILES	+= $(LIBCAP_DIST)
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libs
@@ -911,6 +921,30 @@ icu: $(INSTALLDIR)/lib/libicudata.so
 
 ###############################################################################
 
+# Download libcap-ng source distribution
+
+$(LIBCAP_DIST):
+	wget -nv -O $(LIBCAP_DIST) $(LIBCAP_URL)
+
+# Unpack libcap-ng source
+
+$(LIBCAP_SRC): $(LIBCAP_DIST)
+	tar xzf $(LIBCAP_DIST)
+	touch $@
+
+# Build libcap-ng
+
+$(INSTALLDIR)/lib/libcap-ng.a: $(LIBCAP_SRC)
+	cd $(LIBCAP_SRC) && ./autogen.sh
+	cd $(LIBCAP_SRC) && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --enable-static --enable-shared --without-python3 CC=$(CROSS_COMPILE)gcc
+	$(MAKE) -C $(LIBCAP_SRC)
+	$(MAKE) -C $(LIBCAP_SRC) install DESTDIR=$(DESTDIR)
+	touch $@
+
+libcap: $(INSTALLDIR)/lib/libcap-ng.a
+
+###############################################################################
+
 # Download the DCE/RPC source distribution
 
 $(DCERPC_SRC):
@@ -1026,10 +1060,17 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo "**** libicu:"				>>$@
 	@echo ""					>>$@
 	@cat $(ICU_SRC)/LICENSE				>>$@
+	@echo ""					>>$@
+	@echo "**** libcap-ng:"				>>$@
+	@echo ""					>>$@
+	@cat $(LIBCAP_SRC)/COPYING			>>$@
+	@cat $(LIBCAP_SRC)/COPYING.LIB			>>$@
 	#@echo ""					>>$@
 	#@echo "**** dcerpc:"				>>$@
 	#@echo ""					>>$@
 	#@cat $(DCERPC_SRC)/dcerpc/COPYING		>>$@
+	sed -i 's/\^L//g'				$@
+	sed -i 's/\f//g'				$@
 	@dos2unix					$@
 
 copying: $(INSTALLDIR)/COPYING
@@ -1048,8 +1089,17 @@ $(PKGDIR): $(INSTALLDIR)/COPYING
 	sed -i s/@@TOOLCHAIN@@/$(TOOLCHAIN_NAME)/g	$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)$(FINALDIR)
 	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(FINALDIR)
+	rm -rf						$(PKGDIR)$(FINALDIR)/lib/*.la
 	rm -rf						$(PKGDIR)$(FINALDIR)/lib/cmake
-	rm -rf						$(PKGDIR)$(FINALDIR)/lib/pkgconfig
+	rm -rf						$(PKGDIR)$(FINALDIR)/share/aclocal
+	# Fixup pkgconfig .pc files
+	sed -i 's/ = /=/g'				$(PKGDIR)$(FINALDIR)/lib/pkgconfig/*.pc
+	sed -i 's#^prefix=.*$$#prefix=$(LIBSDIR)#g'	$(PKGDIR)$(FINALDIR)/lib/pkgconfig/*.pc
+	sed -i 's#^exec_prefix=.*$$#exec_prefix=$${prefix}#g' $(PKGDIR)$(FINALDIR)/lib/pkgconfig/*.pc
+	sed -i 's#^libdir=$${exec_prefix}#libdir=$${prefix}#g' $(PKGDIR)$(FINALDIR)/lib/pkgconfig/*.pc
+	sed -i 's#/gcc-$(TOOLCHAIN_NAME)/lib#$${prefix}/lib#g' $(PKGDIR)$(FINALDIR)/lib/pkgconfig/*.pc
+	sed -i 's#/gcc-$(TOOLCHAIN_NAME)/include#$${prefix}/include#g' $(PKGDIR)$(FINALDIR)/lib/pkgconfig/*.pc
+	sed -i 's#$${exec_prefix}/#$${prefix}/#g'	$(PKGDIR)$(FINALDIR)/lib/pkgconfig/*.pc
 	touch $@
 
 package.deb: $(PKGFILE)
