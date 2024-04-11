@@ -119,6 +119,12 @@ News
     keys. Generate only 4096 bit RSA OpenSSH server keys in /etc/rc (if
     necessary) and sysconfig.
 
+-   11 April 2024 -- Upgraded some library components: libusb to 1.0.27,
+    openssl to 3.3.0, curl to 8.7.1, rabbitmq-c to 0.14.0, libffi to
+    3.4.6, and util-linux to 2.40. Added some library components: libicu
+    and libcap-ng. Upgraded emailrelay to 2.5.2. Upgraded openvpn to
+    2.6.10.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development

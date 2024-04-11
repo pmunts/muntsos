@@ -35,7 +35,7 @@ like traditional single chip microcontrollers.
     extension package naming scheme has updated to be more meaningful
     for all platforms:
 
-    **`dma-muntsos-BeagleBone.deb`** becomes
+    **`dma-muntsos-BeagleBone.deb`**   becomes
     **`dma-muntsos-armhf-beaglebone.deb`**
     **`dma-muntsos-RaspberryPi1.deb`** becomes
     **`dma-muntsos-armhf-raspberrypi1.deb`**
@@ -139,6 +139,12 @@ like traditional single chip microcontrollers.
     Upgraded OpenSSH to 9.7p1. Stopped using prebuilt OpenSSH server
     keys. Generate only 4096 bit RSA OpenSSH server keys in
     **`/etc/rc`** (if necessary) and **`sysconfig`**.
+
+  - 11 April 2024 -- Upgraded some library components: libusb to 1.0.27,
+    openssl to 3.3.0, curl to 8.7.1, rabbitmq-c to 0.14.0, libffi to
+    3.4.6, and util-linux to 2.40. Added some library components: libicu
+    and libcap-ng. Upgraded emailrelay to 2.5.2. Upgraded openvpn to
+    2.6.10.
 
 ## Quick Setup Instructions for the Impatient
 
