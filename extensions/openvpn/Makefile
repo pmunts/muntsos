@@ -30,10 +30,10 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 SRCNAME		= openvpn
-SRCVER		= 2.4.9
+SRCVER		= 2.6.10
 SRCDIR		= $(SRCNAME)-$(SRCVER)
 SRCTARBALL	= $(SRCDIR).tar.gz
-SRCSERVER	= https://swupdate.openvpn.org/community/releases
+SRCSERVER	= https://github.com/OpenVPN/openvpn/releases/download/v$(SRCVER)
 SRCURL		= $(SRCSERVER)/$(SRCTARBALL)
 SRCDIST		= $(TEMP)/$(SRCTARBALL)
 
@@ -42,6 +42,14 @@ PKGVERSION	= $(SRCVER)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
 PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		= $(PKGDIR).deb
+
+CONFIGFLAGS	= $(BUILDOS) $(TARGETOS)
+CONFIGFLAGS	+= --disable-lzo
+CONFIGFLAGS	+= --disable-lz4
+CONFIGFLAGS	+= --disable-plugin-auth-pam
+CONFIGFLAGS	+= --disable-pam-dlopen
+CONFIGFLAGS	+= CC=$(CROSS_COMPILE)gcc
+CONFIGFLAGS	+= PKG_CONFIG_LIBDIR=$(LIBSPKGCONFIG)
 
 default: package.deb
 
@@ -59,7 +67,7 @@ src.done: $(SRCDIST)
 # Compile sources
 
 build.done: src.done
-	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc CFLAGS=-I$(LIBSINCDIR) --disable-lzo --disable-lz4 --disable-plugin-auth-pam --disable-pam-dlopen
+	cd $(SRCDIR) ; ./configure $(CONFIGFLAGS)
 	$(MAKE) -C $(SRCDIR)
 	touch $@
 
@@ -73,12 +81,14 @@ $(PKGDIR): build.done
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
 	install -cm 0755 postinst			$(PKGDIR)/DEBIAN
 	$(MAKE) -C $(SRCDIR) install DESTDIR=$(shell pwd)/$(PKGDIR)
+	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/sbin/*
+	mkdir -p					$(PKGDIR)/usr/local/etc
 	rm -rf						$(PKGDIR)/usr/local/include
-	rm -rf						$(PKGDIR)/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libcap-ng.so.0	$(PKGDIR)/usr/local/lib
+	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/lib/*.so*
 	rm -rf						$(PKGDIR)/usr/local/share
 	mkdir -p					$(PKGDIR)/etc/rc.d
 	install -cm 0755 startup			$(PKGDIR)/etc/rc.d/S60-openvpn
-	mkdir -p					$(PKGDIR)/usr/local/etc
 	touch $@
 
 package.deb: $(PKGFILE)

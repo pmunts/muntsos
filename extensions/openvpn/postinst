@@ -22,6 +22,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# Scan libraries
+
+linklibs
+ldconfig
+
 if [ ! -f /usr/local/etc/openvpn.conf ]; then
 cat <<EOD >/usr/local/etc/openvpn.conf
 user nobody
