@@ -30,10 +30,10 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 SRCNAME		= emailrelay
-SRCVER		= 2.1
+SRCVER		= 2.5.2
 SRCDIR		= $(SRCNAME)-$(SRCVER)
-SRCTARBALL	= $(SRCDIR)a-src.tar.gz
-SRCSERVER	= https://sourceforge.net/projects/emailrelay/files/emailrelay/2.1
+SRCTARBALL	= $(SRCDIR)-src.tar.gz
+SRCSERVER	= https://sourceforge.net/projects/emailrelay/files/emailrelay/$(SRCVER)
 SRCURL		= $(SRCSERVER)/$(SRCTARBALL)
 SRCDIST		= $(TEMP)/$(SRCTARBALL)
 
