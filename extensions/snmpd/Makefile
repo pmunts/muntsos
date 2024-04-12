@@ -30,7 +30,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 SRCNAME		= net-snmp
-SRCVER		= 5.9.1
+SRCVER		= 5.9.4
 SRCDIR		= $(SRCNAME)-$(SRCVER)
 SRCTARBALL	= $(SRCDIR).tar.gz
 SRCSERVER	= https://sourceforge.net/projects/net-snmp/files/net-snmp/$(SRCVER)
