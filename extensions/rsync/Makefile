@@ -30,7 +30,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 SRCNAME		= rsync
-SRCVER		= 3.2.2
+SRCVER		= 3.3.0
 SRCDIR		= $(SRCNAME)-$(SRCVER)
 SRCTARBALL	= $(SRCDIR).tar.gz
 SRCSERVER	= https://download.samba.org/pub/rsync/src
