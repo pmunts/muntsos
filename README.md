@@ -35,14 +35,10 @@ like traditional single chip microcontrollers.
     extension package naming scheme has updated to be more meaningful
     for all platforms:
 
-    **`dma-muntsos-BeagleBone.deb`**   becomes
-    **`dma-muntsos-armhf-beaglebone.deb`**
-    **`dma-muntsos-RaspberryPi1.deb`** becomes
-    **`dma-muntsos-armhf-raspberrypi1.deb`**
-    **`dma-muntsos-RaspberryPi2.deb`** becomes
-    **`dma-muntsos-armhf-raspberrypi2.deb`**
-    **`dma-muntsos-RaspberryPi3.deb`** becomes
-    **`dma-muntsos-aarch64.deb`**
+    **`dma-muntsos-BeagleBone.deb`**   becomes **`dma-muntsos-armhf-beaglebone.deb`**
+    **`dma-muntsos-RaspberryPi1.deb`** becomes **`dma-muntsos-armhf-raspberrypi1.deb`**
+    **`dma-muntsos-RaspberryPi2.deb`** becomes **`dma-muntsos-armhf-raspberrypi2.deb`**
+    **`dma-muntsos-RaspberryPi3.deb`** becomes **`dma-muntsos-aarch64.deb`**
 
   - 7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
     which is ongoing, I have caught up with my backlog of improvements
@@ -142,9 +138,13 @@ like traditional single chip microcontrollers.
 
   - 11 April 2024 -- Upgraded some library components: libusb to 1.0.27,
     openssl to 3.3.0, curl to 8.7.1, rabbitmq-c to 0.14.0, libffi to
-    3.4.6, and util-linux to 2.40. Added some library components: libicu
-    and libcap-ng. Upgraded emailrelay to 2.5.2. Upgraded openvpn to
-    2.6.10.
+    3.4.6, and util-linux to 2.40. Added some new library components:
+    libicu and libcap-ng.
+
+  - 12 April 2024 -- Upgraded some extension package components:
+    emailrelay to 2.5.2, openvpn to 2.6.10, .Net Runtime to 8.0.4,
+    python3 to 3.12.3, rsync to 3.3.0, net-snmp to 5.9.4, and tcpdump to
+    4.99.4
 
 ## Quick Setup Instructions for the Impatient
 
