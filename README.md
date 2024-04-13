@@ -1,4 +1,5 @@
-# MuntsOS Embedded Linux
+MuntsOS Embedded Linux
+======================
 
 This framework supports Linux on several single board microcomputers.
 The goal of the MuntsOS project is to deliver a turnkey, RAM resident
@@ -7,9 +8,10 @@ With MuntsOS installed, such microcomputers can treated as components,
 as *Linux microcontrollers*, and integrated into other projects just
 like traditional single chip microcontrollers.
 
-## News
+News
+----
 
-  - 1 January 2024 -- I have decided to suspend active development for
+-   1 January 2024 -- I have decided to suspend active development for
     32-bit platforms. The 32-bit BeagleBone kernel is frozen at 5.4.106.
     The 32-bit Raspberry Pi 1 and 2 kernels are frozen at 5.15.92. The
     32-bit extensions, kernels and thin servers will still be rebuilt
@@ -17,17 +19,17 @@ like traditional single chip microcontrollers.
     **`muntsos-dev`** package has been updated to only pull in 64-bit
     AArch toolchains.
 
-  - 1 January 2024 -- The 64-bit Raspberry Pi 3 and 4 kernels have been
+-   1 January 2024 -- The 64-bit Raspberry Pi 3 and 4 kernels have been
     upgraded to 6.1.69 and will track
     <https://github.com/raspberrypi/linux> again.
 
-  - 6 January 2024 -- Added a libusb extension package. It just installs
+-   6 January 2024 -- Added a libusb extension package. It just installs
     **`/usr/local/lib/libusb-1.0.so.0`**, which is no longer included in
     the kernel RAM file system.
 
-  - 6 January 2024 -- In the course of porting MuntsOS to the 64-bit
-    [Raspberry
-    Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5) and the
+-   6 January 2024 -- In the course of porting MuntsOS to the 64-bit
+    [Raspberry Pi
+    5](https://www.raspberrypi.com/products/raspberry-pi-5) and the
     [Orange Pi Zero 2
     W](http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W),
     the previous naming convention for MuntsOS AArch64 (arm64) extension
@@ -35,12 +37,16 @@ like traditional single chip microcontrollers.
     extension package naming scheme has updated to be more meaningful
     for all platforms:
 
-    **`dma-muntsos-BeagleBone.deb`**   becomes **`dma-muntsos-armhf-beaglebone.deb`**
-    **`dma-muntsos-RaspberryPi1.deb`** becomes **`dma-muntsos-armhf-raspberrypi1.deb`**
-    **`dma-muntsos-RaspberryPi2.deb`** becomes **`dma-muntsos-armhf-raspberrypi2.deb`**
-    **`dma-muntsos-RaspberryPi3.deb`** becomes **`dma-muntsos-aarch64.deb`**
+    **`dma-muntsos-BeagleBone.deb  `** becomes
+    **`dma-muntsos-armhf-beaglebone.deb`**  
+    **`dma-muntsos-RaspberryPi1.deb`** becomes
+    **`dma-muntsos-armhf-raspberrypi1.deb`**  
+    **`dma-muntsos-RaspberryPi2.deb`** becomes
+    **`dma-muntsos-armhf-raspberrypi2.deb`**  
+    **`dma-muntsos-RaspberryPi3.deb`** becomes
+    **`dma-muntsos-aarch64.deb`**
 
-  - 7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
+-   7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
     which is ongoing, I have caught up with my backlog of improvements
     and fixes. Among other things, the MuntsOS startup scripts
     (**`/etc/rc`**) and friends have been extensively reworked to
@@ -48,7 +54,7 @@ like traditional single chip microcontrollers.
     time. Support for the Raspberry 5 and the Orange Pi Zero 2 W is
     under development.
 
-  - 13 January 2024 -- You can now write programs for MuntsOS in
+-   13 January 2024 -- You can now write programs for MuntsOS in
     Modula-2, for which support was merged into GCC 13. During the late
     1980's and early 1990's, there was a lot of interest in Modula-2 as
     a system programming language, a more robust alternative to C. As a
@@ -58,13 +64,13 @@ like traditional single chip microcontrollers.
     **[libsimpleio](https://github.com/pmunts/libsimpleio)** to
     **`muntsos/examples/modula2/`.**
 
-  - 13 January 2024 -- Upgraded libcurl to 8.5.0. Upgraded libnl to
+-   13 January 2024 -- Upgraded libcurl to 8.5.0. Upgraded libnl to
     3.9.0. Took advantage of the opportunity to fix the cross-tool
     package dependency chains. Now if you remove the gcc package, all
     the corresponding free pascal compiler and library packages will be
     removed as well.
 
-  - 20 January 2024 -- Added two new device tree overlays:
+-   20 January 2024 -- Added two new device tree overlays:
     **`disable-ethernet-pi4`** and **`disable-ethernet-pi5`**. These
     disable the on-board Ethernet interface, exactly like
     **`disable-wifi`** disables the on-board WiFi interface. These are
@@ -72,29 +78,29 @@ like traditional single chip microcontrollers.
     [CM4-Duino](https://www.waveshare.com/wiki/CM4-Duino), which doesn't
     have an Ethernet connector.
 
-  - 22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done.
+-   22 January 2024 -- First cut at the Raspberry Pi 5 kernel is done.
     Much testing and verification needs to be performed.
 
-  - 24 January 2024 -- Reworked the RPM setup scripts
+-   24 January 2024 -- Reworked the RPM setup scripts
     [setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)
     and [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel) to
     improve the user experience and to interoperate with
     [Alire](https://alire.ada.dev) better. Verified on Fedora 39 and
     RHEL lookalikes.
 
-  - 25 January 2024 -- Validation of the Raspberry Pi 5 port continues,
+-   25 January 2024 -- Validation of the Raspberry Pi 5 port continues,
     with few issues found. I did have to implement a fix for a breaking
     GPIO API change, though, described in [Application Note
     \#11](http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf).
 
-  - 26 January 2024 -- I have now implemented *BeagleBone Style* GPIO
+-   26 January 2024 -- I have now implemented *BeagleBone Style* GPIO
     pin configuration managment for 64-bit Raspberry Pi boards, using
     the **`pinctrl`** command imported from Raspberry Pi OS. See
     [Application Note
     \#12](http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf) for
     more information.
 
-  - 30 January 2024 -- Added a [Python3](https://www.python.org) runtime
+-   30 January 2024 -- Added a [Python3](https://www.python.org) runtime
     extension package. Python is not my favorite programming language,
     but it can be useful, and other people seem to like it. The
     **`python3`** program source has been patched to disable byte code
@@ -103,17 +109,17 @@ like traditional single chip microcontrollers.
     Python3 extension includes **`libffi.so`** and Linux Simple I/O
     Library bindings for Python3.
 
-  - 3 February 2024 -- Upgraded ethtool to 6.7. Fixed an annoying
+-   3 February 2024 -- Upgraded ethtool to 6.7. Fixed an annoying
     backspace problem by adding **`crterase`** to the **`stty`** command
     in **`/etc/profile`**.
 
-  - 10 February 2024 -- Upgraded the Linux kernel to 6.1.77. The
+-   10 February 2024 -- Upgraded the Linux kernel to 6.1.77. The
     **[libsimpleio](https://github.com/pmunts/libsimpleio)** bindings
     for GNU Modula-2 are now complete. Added [Application Note
     \#14](http://git.munts.com/muntsos/doc/AppNote14-Flash-LED-Modula2.pdf),
     *Modula-2 LED Flash Example*.
 
-  - 28 February 2024 -- Enabled CPU frequency scaling on 64-bit
+-   28 February 2024 -- Enabled CPU frequency scaling on 64-bit
     Raspberry Pi boards. The default CPU frequency policy is
     **`performance`** for Raspberry Pi 3 and 4 and **`conservative`**
     for Raspberry Pi 5. The policy can be changed at boot time by
@@ -125,28 +131,29 @@ like traditional single chip microcontrollers.
     Raspberry Pi 5 I<sup>2</sup>C and SPI clock frequencies are
     independent of the CPU frequency.
 
-  - 28 March 2024 -- Reworked Raspberry Pi LED configuration. LEDs are
+-   28 March 2024 -- Reworked Raspberry Pi LED configuration. LEDs are
     now configured in **`config.txt`** instead of in **`/etc/rc`**.
 
-  - 5 April 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.23, the
+-   5 April 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.23, the
     latest longterm Linux kernel.
 
-  - 6 April 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.25.
+-   6 April 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.25.
     Upgraded OpenSSH to 9.7p1. Stopped using prebuilt OpenSSH server
     keys. Generate only 4096 bit RSA OpenSSH server keys in
     **`/etc/rc`** (if necessary) and **`sysconfig`**.
 
-  - 11 April 2024 -- Upgraded some library components: libusb to 1.0.27,
+-   11 April 2024 -- Upgraded some library components: libusb to 1.0.27,
     openssl to 3.3.0, curl to 8.7.1, rabbitmq-c to 0.14.0, libffi to
     3.4.6, and util-linux to 2.40. Added some new library components:
     libicu and libcap-ng.
 
-  - 12 April 2024 -- Upgraded some extension package components:
+-   12 April 2024 -- Upgraded some extension package components:
     emailrelay to 2.5.2, openvpn to 2.6.10, .Net Runtime to 8.0.4,
     python3 to 3.12.3, rsync to 3.3.0, net-snmp to 5.9.4, and tcpdump to
     4.99.4
 
-## Quick Setup Instructions for the Impatient
+Quick Setup Instructions for the Impatient
+------------------------------------------
 
 Instructions for installing the MuntsOS cross-toolchain development
 environment onto a **host computer** are found in [Application Note
@@ -155,8 +162,8 @@ environment onto a **host computer** are found in [Application Note
 \#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
 download and run one of the following quick setup scripts:
 
-[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)
-[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)
+[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
+[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
 [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel) (including
 lookalikes)
 
@@ -166,14 +173,16 @@ in [Application Note
 and [Application Note
 \#15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
 
-## Documentation
+Documentation
+-------------
 
 The documentation for MuntsOS (mostly application notes) is available
 online at:
 
 <http://git.munts.com/muntsos/doc>
 
-## Embedded Linux Distribution in a Kernel
+Embedded Linux Distribution in a Kernel
+---------------------------------------
 
 MuntsOS is a stripped down Linux distribution that includes a small
 compressed root file system within the kernel image binary itself. At
@@ -192,7 +201,8 @@ Prebuilt MuntsOS kernel release tarballs are available at:
 
 <http://repo.munts.com/muntsos/kernels>
 
-## Extensions
+Extensions
+----------
 
 The MuntsOS root file system can be *extended* at boot time using any of
 three mechanisms:
@@ -231,7 +241,8 @@ Prebuilt MuntsOS extension packages are available at:
 
 <http://repo.munts.com/muntsos/extensions>
 
-## Thin Servers
+Thin Servers
+------------
 
 ### Boot Files + Kernel Files + Extensions = Thin Server
 
@@ -272,7 +283,8 @@ Prebuilt MuntsOS Thin Servers are at available at:
 
 <http://repo.munts.com/muntsos/thinservers>
 
-## Boards
+Boards
+------
 
 ### Raspberry Pi
 
@@ -383,7 +395,8 @@ The absolute minimum possible usable Raspberry Pi kit consists of a
 Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one
 of the MuntsOS Raspberry Pi 3 USB Gadget Thin Servers installed.
 
-## Cross-Toolchains
+Cross-Toolchains
+----------------
 
 I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for
 each MuntsOS platform family. Each GCC cross-toolchain requires a number
@@ -404,7 +417,8 @@ on Fedora 37 and RHEL 9.1 and its derivatives are available at:
 
 <http://repo.munts.com/muntsos/rpms>
 
-## Git Repository
+Git Repository
+--------------
 
 The source code for MuntsOS is available at:
 
@@ -414,20 +428,22 @@ Use the following command to clone it:
 
     git clone https://github.com/pmunts/muntsos.git
 
-## File Repository
+File Repository
+---------------
 
 Prebuilt binaries for MuntsOS are available at:
 
 <http://repo.munts.com/muntsos>
 
-## [Make With Ada](https://www.makewithada.org/) Projects
+[Make With Ada](https://www.makewithada.org/) Projects
+------------------------------------------------------
 
-  - 2017 [Ada Embedded Linux
+-   2017 [Ada Embedded Linux
     Framework](https://www.makewithada.org/entry/ada_linux_sensor_framework)
-  - 2019 [Modbus RTU Framework for
+-   2019 [Modbus RTU Framework for
     Ada](https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6)
-    (Prize Winner\!)
+    (Prize Winner!)
 
------
+------------------------------------------------------------------------
 
 Questions or comments to Philip Munts <phil@munts.net>
