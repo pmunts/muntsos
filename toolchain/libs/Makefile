@@ -997,6 +997,7 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo ""					>>$@
 	@echo "**** openssl:"				>>$@
 	@cat $(OPENSSL_SRC)/LICENSE.txt			>>$@
+	@echo ""					>>$@
 	@echo "**** zlib:"				>>$@
 	@echo ""					>>$@
 	@tail -n 31 $(ZLIB_SRC)/README			>>$@
@@ -1064,7 +1065,7 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo "**** libcap-ng:"				>>$@
 	@echo ""					>>$@
 	@cat $(LIBCAP_SRC)/COPYING			>>$@
-	@cat $(LIBCAP_SRC)/COPYING.LIB			>>$@
+	@head -n -2 $(LIBCAP_SRC)/COPYING.LIB		>>$@
 	#@echo ""					>>$@
 	#@echo "**** dcerpc:"				>>$@
 	#@echo ""					>>$@
