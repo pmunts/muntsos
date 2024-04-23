@@ -37,7 +37,7 @@ echo "Install some system packages..."
 echo ""
 
 sudo dnf -y -q group install "Development Tools"
-sudo dnf -y -q install wget
+sudo dnf -y -q install hidapi-devel libusb1-devel wget
 
 echo ""
 echo "Download MuntsOS Embedded Linux cross-toolchain packages..."

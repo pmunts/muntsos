@@ -29,7 +29,7 @@ MACHINE=`uname -m`
 
 sudo apt update
 sudo apt -y upgrade
-sudo apt -y install alire build-essential git gprbuild wget
+sudo apt -y install alire build-essential libhidapi-dev libusb-1.0-0-dev git gprbuild wget
 
 if [ -d /usr/libexec/gprbuild ]; then
   sudo ln -s -f ../libexec/gprbuild /usr/lib/gprbuild
