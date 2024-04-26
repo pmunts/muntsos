@@ -37,14 +37,10 @@ News
     extension package naming scheme has updated to be more meaningful
     for all platforms:
 
-    **`dma-muntsos-BeagleBone.deb  `** becomes
-    **`dma-muntsos-armhf-beaglebone.deb`**  
-    **`dma-muntsos-RaspberryPi1.deb`** becomes
-    **`dma-muntsos-armhf-raspberrypi1.deb`**  
-    **`dma-muntsos-RaspberryPi2.deb`** becomes
-    **`dma-muntsos-armhf-raspberrypi2.deb`**  
-    **`dma-muntsos-RaspberryPi3.deb`** becomes
-    **`dma-muntsos-aarch64.deb`**
+    **`dma-muntsos-BeagleBone.deb  `** becomes **`dma-muntsos-armhf-beaglebone.deb`**
+    **`dma-muntsos-RaspberryPi1.deb`** becomes **`dma-muntsos-armhf-raspberrypi1.deb`**
+    **`dma-muntsos-RaspberryPi2.deb`** becomes **`dma-muntsos-armhf-raspberrypi2.deb`**
+    **`dma-muntsos-RaspberryPi3.deb`** becomes **`dma-muntsos-aarch64.deb`**
 
 -   7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
     which is ongoing, I have caught up with my backlog of improvements
@@ -162,8 +158,8 @@ environment onto a **host computer** are found in [Application Note
 \#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
 download and run one of the following quick setup scripts:
 
-[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
-[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
+[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)
+[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)
 [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel) (including
 lookalikes)
 
@@ -408,14 +404,16 @@ on the libraries contained in the corresponding GCC cross-toolchain
 package.
 
 Cross-toolchain packages built for [Debian](https://www.debian.org)
-Linux (x86-64 *and* ARM64) development host computers are available at:
+Linux (x86-64 *and* ARM64) development host computers are available at
+either:
 
-<http://repo.munts.com/debian12>
+<http://repo.munts.com/debian12> (Debian package repository) or
+<http://repo.munts.com/muntsos/toolchain-debs> (just the package files).
 
 x86-64 RPM packages containing the exact same binaries and known to work
-on Fedora 37 and RHEL 9.1 and its derivatives are available at:
+on Fedora 40 and RHEL 9.1 and its derivatives are available at:
 
-<http://repo.munts.com/muntsos/rpms>
+<http://repo.munts.com/muntsos/toolchain-rpms>
 
 Git Repository
 --------------

@@ -344,14 +344,15 @@ of these rely on the libraries contained in the corresponding GCC
 cross-toolchain package.
 
 Cross-toolchain packages built for Debian Linux (x86-64 and ARM64)
-development host computers are available at:
+development host computers are available at either:
 
-http://repo.munts.com/debian12
+http://repo.munts.com/debian12 (Debian package repository) or
+http://repo.munts.com/muntsos/toolchain-debs (just the package files).
 
 x86-64 RPM packages containing the exact same binaries and known to work
-on Fedora 37 and RHEL 9.1 and its derivatives are available at:
+on Fedora 40 and RHEL 9.1 and its derivatives are available at:
 
-http://repo.munts.com/muntsos/rpms
+http://repo.munts.com/muntsos/toolchain-rpms
 
 Git Repository
 
