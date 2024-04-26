@@ -43,13 +43,13 @@ echo ""
 echo "Download MuntsOS Embedded Linux cross-toolchain packages..."
 echo ""
 
-wget -q -r -np http://repo.munts.com/muntsos/rpms/
+wget -q -r -np http://repo.munts.com/muntsos/toolchain-rpms/
 
 echo ""
 echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
 echo ""
 
-for P in repo.munts.com/muntsos/rpms/*.rpm ; do
+for P in repo.munts.com/muntsos/toolchain-rpms/*.rpm ; do
   echo `basename $P`
   sudo rpm -U $P
 done
