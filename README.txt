@@ -156,7 +156,7 @@ setup scripts:
 
 setup-debian
 setup-fedora
-setup-rhel (including lookalikes)
+setup-rhel
 
 Instructions for installing MuntsOS to a target computer are found in
 Application Note #3 and Application Note #15.

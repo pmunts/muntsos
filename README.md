@@ -37,9 +37,9 @@ News
     extension package naming scheme has updated to be more meaningful
     for all platforms:
 
-    **`dma-muntsos-BeagleBone.deb`**   becomes **`dma-muntsos-armhf-beaglebone.deb`**
-    **`dma-muntsos-RaspberryPi1.deb`** becomes **`dma-muntsos-armhf-raspberrypi1.deb`**
-    **`dma-muntsos-RaspberryPi2.deb`** becomes **`dma-muntsos-armhf-raspberrypi2.deb`**
+    **`dma-muntsos-BeagleBone.deb`**   becomes **`dma-muntsos-armhf-beaglebone.deb`**  
+    **`dma-muntsos-RaspberryPi1.deb`** becomes **`dma-muntsos-armhf-raspberrypi1.deb`**  
+    **`dma-muntsos-RaspberryPi2.deb`** becomes **`dma-muntsos-armhf-raspberrypi2.deb`**  
     **`dma-muntsos-RaspberryPi3.deb`** becomes **`dma-muntsos-aarch64.deb`**
 
 -   7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
@@ -177,10 +177,9 @@ environment onto a **host computer** are found in [Application Note
 \#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
 download and run one of the following quick setup scripts:
 
-[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)
-[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)
-[setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel) (including
-lookalikes)
+[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
+[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
+[setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel)
 
 Instructions for installing MuntsOS to a **target computer** are found
 in [Application Note
