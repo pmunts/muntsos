@@ -146,6 +146,17 @@ libcap-ng.</li>
 <b><tt>enscript</tt></b> extension package. Added <a href=
 "http://git.munts.com/muntsos/doc/AppNote17-Printing.pdf">Application Note
 #17</a> about printing from MuntsOS.</li>
+<br>
+<li>8 May 2024 -- Added <b><tt>gnuplot</tt></b> extension package. Only a few
+output formats (parameters to the <b><tt>set terminal</tt></b> plot command)
+are enabled, and even fewer are useful. In particular:
+<p><b><tt>set terminal postscript color</tt></b> is useful for printing, using
+a shell command like:</p>
+<p><b><tt>gnuplot test.plt | lpr</tt></b></p>
+<p><b><tt>set terminal svg</tt></b> is useful for creating an image file
+suitable for post processing, using a shell command like:</p>
+<p><b><tt>gnuplot test.plt &gt; test.svg</tt></b></p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development

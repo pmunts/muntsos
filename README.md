@@ -153,6 +153,20 @@ News
     \#17](http://git.munts.com/muntsos/doc/AppNote17-Printing.pdf) about
     printing from MuntsOS.
 
+-   8 May 2024 -- Added **`gnuplot`** extension package. Only a few
+    output formats (parameters to the **`set terminal`** plot command)
+    are enabled, and even fewer are useful. In particular:
+
+    **`set terminal postscript color`** is useful for printing, using a
+    shell command like:
+
+    **`gnuplot test.plt | lpr`**
+
+    **`set terminal svg`** is useful for creating an image file suitable
+    for post processing, using a shell command like:
+
+    **`gnuplot test.plt > test.svg`**
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
