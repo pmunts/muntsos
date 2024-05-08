@@ -129,6 +129,10 @@ News
     python3 to 3.12.3, rsync to 3.3.0, net-snmp to 5.9.4, and tcpdump to
     4.99.4
 
+-   7 May 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.30. Added
+    enscript extension package. Added Application Note #17 about
+    printing from MuntsOS.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development

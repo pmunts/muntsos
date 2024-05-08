@@ -37,7 +37,7 @@ News
     extension package naming scheme has updated to be more meaningful
     for all platforms:
 
-    **`dma-muntsos-BeagleBone.deb  `** becomes **`dma-muntsos-armhf-beaglebone.deb`**
+    **`dma-muntsos-BeagleBone.deb`**   becomes **`dma-muntsos-armhf-beaglebone.deb`**
     **`dma-muntsos-RaspberryPi1.deb`** becomes **`dma-muntsos-armhf-raspberrypi1.deb`**
     **`dma-muntsos-RaspberryPi2.deb`** becomes **`dma-muntsos-armhf-raspberrypi2.deb`**
     **`dma-muntsos-RaspberryPi3.deb`** becomes **`dma-muntsos-aarch64.deb`**
@@ -147,6 +147,11 @@ News
     emailrelay to 2.5.2, openvpn to 2.6.10, .Net Runtime to 8.0.4,
     python3 to 3.12.3, rsync to 3.3.0, net-snmp to 5.9.4, and tcpdump to
     4.99.4
+
+-   7 May 2024 -- Upgraded 64-bit Raspberry Pi kernels to 6.6.30. Added
+    **`enscript`** extension package. Added [Application Note
+    \#17](http://git.munts.com/muntsos/doc/AppNote17-Printing.pdf) about
+    printing from MuntsOS.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
