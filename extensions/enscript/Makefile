@@ -72,6 +72,10 @@ $(PKGDIR): build.done
 	sed -i s/@@ARCH@@/$(PKGARCH)/g				$(PKGDIR)/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g				$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$(PKGDIR)/DEBIAN/control
+	install -cm 0755 postinst				$(PKGDIR)/DEBIAN
+	# Move enscript.cfg
+	mv $(PKGDIR)/usr/local/etc/enscript.cfg			$(PKGDIR)/usr/local/share/enscript/enscript.cfg.default
+	rm -rf							$(PKGDIR)/usr/local/etc
 	# Remove unwanted stuff
 	rm							$(PKGDIR)/usr/local/bin/diffpp
 	rm							$(PKGDIR)/usr/local/bin/mkafmmap
