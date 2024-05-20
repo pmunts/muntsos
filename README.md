@@ -433,6 +433,21 @@ on Fedora 40 and RHEL 9.1 and its derivatives are available at:
 
 <http://repo.munts.com/muntsos/toolchain-rpms>
 
+Debian Package Repository
+-------------------------
+
+Prebuilt cross-toolchain packages for [Debian](http://www.debian.org)
+Linux are available at:
+
+<http://repo.munts.com/debian12>
+
+File Repository
+---------------
+
+Prebuilt binaries for MuntsOS are available at:
+
+<http://repo.munts.com/muntsos>
+
 Git Repository
 --------------
 
@@ -443,22 +458,6 @@ The source code for MuntsOS is available at:
 Use the following command to clone it:
 
     git clone https://github.com/pmunts/muntsos.git
-
-File Repository
----------------
-
-Prebuilt binaries for MuntsOS are available at:
-
-<http://repo.munts.com/muntsos>
-
-[Make With Ada](https://www.makewithada.org/) Projects
-------------------------------------------------------
-
--   2017 [Ada Embedded Linux
-    Framework](https://www.makewithada.org/entry/ada_linux_sensor_framework)
--   2019 [Modbus RTU Framework for
-    Ada](https://www.hackster.io/philip-munts/modbus-rtu-framework-for-ada-f33cc6)
-    (Prize Winner!)
 
 ------------------------------------------------------------------------
 

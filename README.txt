@@ -32,9 +32,11 @@ News
     package naming scheme has updated to be more meaningful for all
     platforms:
 
-    dma-muntsos-BeagleBone.deb   becomes dma-muntsos-armhf-beaglebone.deb
-    dma-muntsos-RaspberryPi1.deb becomes dma-muntsos-armhf-raspberrypi1.deb
-    dma-muntsos-RaspberryPi2.deb becomes dma-muntsos-armhf-raspberrypi2.deb
+    dma-muntsos-BeagleBone.deb becomes dma-muntsos-armhf-beaglebone.deb
+    dma-muntsos-RaspberryPi1.deb becomes
+    dma-muntsos-armhf-raspberrypi1.deb
+    dma-muntsos-RaspberryPi2.deb becomes
+    dma-muntsos-armhf-raspberrypi2.deb
     dma-muntsos-RaspberryPi3.deb becomes dma-muntsos-aarch64.deb
 
 -   7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
@@ -372,6 +374,18 @@ on Fedora 40 and RHEL 9.1 and its derivatives are available at:
 
 http://repo.munts.com/muntsos/toolchain-rpms
 
+Debian Package Repository
+
+Prebuilt cross-toolchain packages for Debian Linux are available at:
+
+http://repo.munts.com/debian12
+
+File Repository
+
+Prebuilt binaries for MuntsOS are available at:
+
+http://repo.munts.com/muntsos
+
 Git Repository
 
 The source code for MuntsOS is available at:
@@ -381,17 +395,6 @@ https://github.com/pmunts/muntsos
 Use the following command to clone it:
 
 git clone https://github.com/pmunts/muntsos.git
-
-File Repository
-
-Prebuilt binaries for MuntsOS are available at:
-
-http://repo.munts.com/muntsos
-
-Make With Ada Projects
-
--   2017 Ada Embedded Linux Framework
--   2019 Modbus RTU Framework for Ada (Prize Winner!)
 
 ------------------------------------------------------------------------
 
