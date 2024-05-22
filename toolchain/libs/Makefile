@@ -31,7 +31,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 NCURSES_NAME	= ncurses
-NCURSES_VER	= 6.4
+NCURSES_VER	= 6.5
 NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
 NCURSES_TARBALL	= $(NCURSES_NAME)-$(NCURSES_VER).tar.gz
 NCURSES_SERVER	= http://ftp.gnu.org/pub/gnu/ncurses
@@ -80,7 +80,7 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(TEMP)/$(ZLIB_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.7.1
+CURL_VER	= 8.8.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -207,10 +207,10 @@ XZ_URL		= $(XZ_SERVER)/$(XZ_TARBALL)
 XZ_DIST		= $(TEMP)/$(XZ_TARBALL)
 
 ICU_NAME	= icu
-ICU_VER		= 74.2
+ICU_VER		= 75.1
 ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
-ICU_TARBALL	= icu4c-74_2-src.tgz
-ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-74-2
+ICU_TARBALL	= icu4c-75_1-src.tgz
+ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-75-1
 ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
 ICU_DIST	= $(TEMP)/$(ICU_TARBALL)
 
@@ -416,6 +416,8 @@ $(INSTALLDIR)/lib/libhidapi.a: $(HIDAPI_SRC)
 	$(CROSS_COMPILE)gcc -shared -fPIC -Wl,-soname,libhidapi.so.0 -o $(INSTALLDIR)/lib/libhidapi.so.$(HIDAPI_VER) $(HIDAPI_SRC)/*.o -L$(INSTALLDIR)/lib -lusb-1.0
 	ln -s libhidapi.so.$(HIDAPI_VER) $(INSTALLDIR)/lib/libhidapi.so
 	ln -s libhidapi.so.$(HIDAPI_VER) $(INSTALLDIR)/lib/libhidapi.so.0
+	ln -s libhidapi.so.$(HIDAPI_VER) $(INSTALLDIR)/lib/libhidapi-hidraw.so
+	ln -s libhidapi.so.$(HIDAPI_VER) $(INSTALLDIR)/lib/libhidapi-hidraw.so.0
 	$(CROSS_COMPILE)ar rcs $@ $(HIDAPI_SRC)/*.o
 	touch $@
 
