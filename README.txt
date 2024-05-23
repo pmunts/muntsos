@@ -32,11 +32,9 @@ News
     package naming scheme has updated to be more meaningful for all
     platforms:
 
-    dma-muntsos-BeagleBone.deb becomes dma-muntsos-armhf-beaglebone.deb
-    dma-muntsos-RaspberryPi1.deb becomes
-    dma-muntsos-armhf-raspberrypi1.deb
-    dma-muntsos-RaspberryPi2.deb becomes
-    dma-muntsos-armhf-raspberrypi2.deb
+    dma-muntsos-BeagleBone.deb   becomes dma-muntsos-armhf-beaglebone.deb
+    dma-muntsos-RaspberryPi1.deb becomes dma-muntsos-armhf-raspberrypi1.deb
+    dma-muntsos-RaspberryPi2.deb becomes dma-muntsos-armhf-raspberrypi2.deb
     dma-muntsos-RaspberryPi3.deb becomes dma-muntsos-aarch64.deb
 
 -   7 January 2024 -- Except for porting MuntsOS to the Raspberry Pi 5,
@@ -148,6 +146,10 @@ News
     post processing, using a shell command like:
 
     gnuplot test.plt > test.svg
+
+-   23 May 2024 -- More component upgrades: ncurses to 6.5, curl to
+    8.8.0, icu to 75.1, nano to 8.0, Raspberry Pi 64-bit kernels to
+    6.6.31.
 
 Quick Setup Instructions for the Impatient
 

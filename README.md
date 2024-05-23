@@ -167,6 +167,10 @@ News
 
     **`gnuplot test.plt > test.svg`**
 
+-   23 May 2024 -- More component upgrades: ncurses to 6.5, curl to
+    8.8.0, icu to 75.1, nano to 8.0, Raspberry Pi 64-bit kernels to
+    6.6.31.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
