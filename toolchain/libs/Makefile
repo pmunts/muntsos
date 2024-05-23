@@ -343,9 +343,9 @@ $(INSTALLDIR)/lib/libncurses.a: $(NCURSES_SRC)
 	# Relocate include files--Can't seem to configure ncurses6 to do this
 	sed -i 's@ncursesw/@@g' $(INSTALLDIR)/include/ncursesw/*
 	mv $(INSTALLDIR)/include/ncursesw/* $(INSTALLDIR)/include
-	ln -s libncursesw.so.6.4 $(INSTALLDIR)/lib/libtinfo.so
-	ln -s libncursesw.so.6.4 $(INSTALLDIR)/lib/libtinfo.so.6
-	ln -s libncursesw.so.6.4 $(INSTALLDIR)/lib/libtinfo.so.6.4
+	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so
+	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so.6
+	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so.$(NCURSES_VER)
 	rmdir $(INSTALLDIR)/include/ncursesw
 	touch $@
 
