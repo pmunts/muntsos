@@ -26,9 +26,9 @@
  					   clks->id, RPI_FIRMWARE_NUM_CLK_ID - 1);
  			return -EINVAL;
  		}
---- drivers/pci/controller/pcie-brcmstb.c.orig	2024-03-27 12:03:08.000000000 -0700
-+++ drivers/pci/controller/pcie-brcmstb.c	2024-04-03 21:02:44.352782210 -0700
-@@ -1431,7 +1431,7 @@
+--- drivers/pci/controller/pcie-brcmstb.c.orig	2024-06-12 09:29:38.000000000 -0700
++++ drivers/pci/controller/pcie-brcmstb.c	2024-06-15 08:19:03.204199515 -0700
+@@ -1443,7 +1443,7 @@
  		msleep(5);
  
  	if (!brcm_pcie_link_up(pcie)) {

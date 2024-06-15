@@ -28,9 +28,9 @@
  		return error;
  	}
  
---- drivers/usb/dwc2/gadget.c.orig	2024-03-27 12:03:08.000000000 -0700
-+++ drivers/usb/dwc2/gadget.c	2024-04-03 19:45:00.635428213 -0700
-@@ -3412,6 +3412,8 @@
+--- drivers/usb/dwc2/gadget.c.orig	2024-06-12 09:29:38.000000000 -0700
++++ drivers/usb/dwc2/gadget.c	2024-06-15 08:14:15.811979953 -0700
+@@ -3416,6 +3416,8 @@
  	usbcfg &= ~GUSBCFG_TOUTCAL_MASK;
  	usbcfg |= GUSBCFG_TOUTCAL(7);
  
