@@ -171,6 +171,10 @@ News
     8.8.0, icu to 75.1, nano to 8.0, Raspberry Pi 64-bit kernels to
     6.6.31.
 
+-   15 June 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.33.
+    Upgraded ethtool to 6.9. Added **`detach`**, a utility program that
+    runs a program in the background.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
