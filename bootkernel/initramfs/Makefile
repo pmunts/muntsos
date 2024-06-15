@@ -108,7 +108,7 @@ NANO_DIST		= $(TEMP)/$(NANO_TARBALL)
 # These are the subordinate component targets that have to be built before we
 # can start populating the root file system tree
 
-COMPONENT_TARGETS	= busybox openssh rpcbind force-umount iptables ethtool wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
+COMPONENT_TARGETS	= busybox openssh rpcbind detach force-umount iptables ethtool wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
 
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 COMPONENT_TARGETS	+= config-pin
@@ -207,6 +207,13 @@ ifneq ($(findstring Beagle, $(BOARDNAME)),)
 config-pin: config-pin.c
 	$(CROSS_COMPILE)gcc -Wall -o $@ $^
 endif
+
+###############################################################################
+
+# Build detach
+
+detach: detach.c
+	$(CROSS_COMPILE)gcc -Wall -o $@ $^ -lsimpleio
 
 ###############################################################################
 
@@ -464,6 +471,8 @@ ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	@echo "**** config-pin:"				>>$@
 	@head -n 23 config-pin.c | tail -n 21 | cut -c 4-	>>$@
 endif
+	@echo "**** detach:"					>>$@
+	@head -n 22 detach.c | tail -n 21 | cut -c 4-		>>$@
 	@echo "**** entropypump:"				>>$@
 	@head -n 22 entropypump.c | tail -n 21 | cut -c 4-	>>$@
 	@echo "**** force-umount:"				>>$@
@@ -547,6 +556,10 @@ initramfs.d: COPYING
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	install -cm 0755 config-pin				$@/sbin
 endif
+
+# Install detach
+
+	install -cm 0755 detach					$@/usr/sbin
 
 # Install pinctrl
 
@@ -974,6 +987,7 @@ reallyclean: clean
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	rm -f config-pin
 endif
+	rm -f detach
 	rm -f entropypump
 	rm -f force-umount
 	rm -f serialnumber
