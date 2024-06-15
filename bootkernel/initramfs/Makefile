@@ -213,7 +213,7 @@ endif
 # Build detach
 
 detach: detach.c
-	$(CROSS_COMPILE)gcc -Wall -o $@ $^ -lsimpleio
+	$(CROSS_COMPILE)gcc -Wall -o $@ $^
 
 ###############################################################################
 
