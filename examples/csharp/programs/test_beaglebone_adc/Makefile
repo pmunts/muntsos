@@ -1,6 +1,6 @@
-# Generic Makefile template for building C# .Net Core applications
+# Makefile template for building a C# .application
 
-# Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2018-2023, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,7 @@ include $(LIBSIMPLEIO)/csharp/include/coreapp.mk
 
 # Build the project
 
-default: coreapp_mk_build
+default: coreapp_mk_single
 
 # Build an application distribution package
 

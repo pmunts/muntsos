@@ -1,10 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <DefineConstants Condition="'$(BOARDNAME)' != ''">$(DefineConstants);$(BOARDNAME)</DefineConstants>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    <NoWarn>NU5118</NoWarn>
   </PropertyGroup>
 
   <!-- Disable internationalization to eliminate requirement for iconv -->
@@ -19,17 +22,39 @@
     <PackageReference Include="libsimpleio" Version="2.*" />
   </ItemGroup>
 
-  <!-- Include all necessary library assemblies in the package -->
+  <!-- Include library assemblies -->
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(BaseOutputPath)/$(Configuration)/$(TargetFramework)/*.dll" TargetPath=""/>
+    </ItemGroup>
+  </Target>
+
+  <!-- Include startup script, if it has been provided -->
 
   <ItemGroup>
-    <Content Include="$(BaseOutputPath)/$(Configuration)/$(TargetFramework)/libsimpleio.dll">
-      <Pack>true</Pack>
-      <PackagePath>lib/$(TargetFramework)</PackagePath>
-    </Content>
     <Content Include="S00$(ProjectName)" Condition="Exists('S00$(ProjectName)')">
       <Pack>true</Pack>
       <PackagePath>rc.d</PackagePath>
     </Content>
   </ItemGroup>
 
+  <!-- Deploy application file(s) to the target computer indicated by the -->
+  <!-- TARGETCOMPUTER environment variable                                -->
+
+  <Target Name="DeployPublish" AfterTargets="Publish" Condition="'$(PublishSingleFile)' != 'True' And '$(TARGETCOMPUTER)' != ''">
+    <Exec Command="echo Deploying $(ProjectName) files to $(TARGETCOMPUTER)" />
+    <Exec Command="scp $(OutputPath.Replace('\', '/'))publish/*.dll $(TARGETCOMPUTER)" />
+    <Exec Command="scp $(OutputPath.Replace('\', '/'))publish/*.runtimeconfig.json $(TARGETCOMPUTER)" />
+  </Target>
+
+  <Target Name="DeploySingle" AfterTargets="Publish" Condition="'$(PublishSingleFile)' == 'True' And '$(TARGETCOMPUTER)' != ''">
+    <Exec Command="echo Deploying $(ProjectName) to $(TARGETCOMPUTER)" />
+    <Exec Command="scp $(OutputPath.Replace('\', '/'))publish/$(ProjectName) $(TARGETCOMPUTER)" />
+  </Target>
+
+  <Target Name="DeployPack" AfterTargets="Pack" Condition="'$(TARGETCOMPUTER)' != ''">
+    <Exec Command="echo Deploying .nupkg file to $(TARGETCOMPUTER)" />
+    <Exec Command="scp $(BaseOutputPath.Replace('\', '/'))$(Configuration)/*.nupkg $(TARGETCOMPUTER)" />
+  </Target>
 </Project>
