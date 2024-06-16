@@ -10,12 +10,6 @@
     <NoWarn>NU5118</NoWarn>
   </PropertyGroup>
 
-  <!-- Disable internationalization to eliminate requirement for iconv -->
-
-  <ItemGroup>
-    <RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
-  </ItemGroup>
-
   <!-- Reference NuGet package libsimpleio (https://www.nuget.org/packages/libsimpleio) -->
 
   <ItemGroup>
