@@ -31,4 +31,9 @@ if [ $? -eq 1 ]; then
   echo "DOTNET_ROOT=/usr/local/lib/dotnet" >>/var/run/environment
 fi
 
+grep -q DOTNET_SYSTEM_GLOBALIZATION_INVARIANT /var/run/environment
+if [ $? -eq 1 ]; then
+  echo "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true" >>/var/run/environment
+fi
+
 chmod 0444 /var/run/environment
