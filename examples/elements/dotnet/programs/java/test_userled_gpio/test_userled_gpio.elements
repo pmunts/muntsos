@@ -57,7 +57,6 @@
     <Compile Include="Properties\Settings.Designer.java">
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
