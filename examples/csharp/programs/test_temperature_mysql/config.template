@@ -1,0 +1,13 @@
+# MySQL server settings
+
+[server]
+  hostname = MYHOSTNAME
+  port     = 3306
+  username = MYUSERNAME
+  password = MYPASSWORD
+  database = MYDATABASE
+
+# Sendor identification
+
+[sensor]
+  name     = MYSENSOR

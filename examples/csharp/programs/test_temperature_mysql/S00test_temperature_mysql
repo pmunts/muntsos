@@ -1,0 +1,1 @@
+exec detach test_temperature_mysql

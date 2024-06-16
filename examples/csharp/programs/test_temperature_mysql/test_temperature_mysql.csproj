@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <DefineConstants Condition="'$(BOARDNAME)' != ''">$(DefineConstants);$(BOARDNAME)</DefineConstants>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    <NoWarn>NU5118</NoWarn>
+  </PropertyGroup>
+
+  <!-- Disable internationalization to eliminate requirement for iconv -->
+
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
+  </ItemGroup>
+
+  <!-- Reference NuGet package libsimpleio (https://www.nuget.org/packages/libsimpleio) -->
+
+  <ItemGroup>
+    <PackageReference Include="DotNetConfig" Version="1.0.6" />
+    <PackageReference Include="libsimpleio" Version="2.*" />
+    <PackageReference Include="MySql.Data" Version="8.4.0" />
+  </ItemGroup>
+
+  <!-- Include library assemblies -->
+
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(BaseOutputPath)/$(Configuration)/$(TargetFramework)/*.dll" TargetPath="" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Include startup script, if it has been provided -->
+
+  <ItemGroup>
+    <Content Include="S00$(ProjectName)" Condition="Exists('S00$(ProjectName)')">
+      <Pack>true</Pack>
+      <PackagePath>rc.d</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+	<Content Include="config.template">
+      <Pack>true</Pack>
+      <PackagePath>lib/$(TargetFramework)</PackagePath>
+	</Content>
+  </ItemGroup>
+
+  <!-- Deploy application file(s) to the target computer indicated by the -->
+  <!-- TARGETCOMPUTER environment variable                                -->
+
+  <Target Name="DeployPack" AfterTargets="Pack" Condition="'$(TARGETCOMPUTER)' != ''">
+    <Exec Command="echo Deploying .nupkg file to $(TARGETCOMPUTER)" />
+    <Exec Command="scp $(BaseOutputPath.Replace('\', '/'))$(Configuration)/*.nupkg $(TARGETCOMPUTER)" />
+  </Target>
+</Project>
