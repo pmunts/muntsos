@@ -175,6 +175,8 @@ News
     Upgraded ethtool to 6.9. Added **`detach`**, a utility program that
     runs a program in the background.
 
+-   30 July 2024 -- Upgraded the .Net Runtime to 8.0.7.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
