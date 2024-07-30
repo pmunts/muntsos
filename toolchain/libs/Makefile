@@ -24,6 +24,7 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
+DISTDIR		:= $(TEMP)/muntsos
 INSTALLDIR	:= gcc-$(TOOLCHAIN_NAME)
 FINALDIR	:= $(GCCSYSROOT)/usr
 
@@ -36,7 +37,7 @@ NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
 NCURSES_TARBALL	= $(NCURSES_NAME)-$(NCURSES_VER).tar.gz
 NCURSES_SERVER	= http://ftp.gnu.org/pub/gnu/ncurses
 NCURSES_URL	= $(NCURSES_SERVER)/$(NCURSES_TARBALL)
-NCURSES_DIST	= $(TEMP)/$(NCURSES_TARBALL)
+NCURSES_DIST	= $(DISTDIR)/$(NCURSES_TARBALL)
 
 READLINE_NAME	= readline
 READLINE_VER	= 8.2
@@ -44,7 +45,7 @@ READLINE_SRC	= $(READLINE_NAME)-$(READLINE_VER)
 READLINE_TARBALL = $(READLINE_NAME)-$(READLINE_VER).tar.gz
 READLINE_SERVER	= http://ftp.gnu.org/pub/gnu/readline
 READLINE_URL	= $(READLINE_SERVER)/$(READLINE_TARBALL)
-READLINE_DIST	= $(TEMP)/$(READLINE_TARBALL)
+READLINE_DIST	= $(DISTDIR)/$(READLINE_TARBALL)
 
 LIBUSB_NAME	= libusb
 LIBUSB_VER	= 1.0.27
@@ -52,7 +53,7 @@ LIBUSB_SRC	= $(LIBUSB_NAME)-$(LIBUSB_VER)
 LIBUSB_TARBALL	= $(LIBUSB_NAME)-$(LIBUSB_VER).tar.bz2
 LIBUSB_SERVER	= https://github.com/libusb/libusb/releases/download/v$(LIBUSB_VER)
 LIBUSB_URL	= $(LIBUSB_SERVER)/$(LIBUSB_TARBALL)
-LIBUSB_DIST	= $(TEMP)/$(LIBUSB_TARBALL)
+LIBUSB_DIST	= $(DISTDIR)/$(LIBUSB_TARBALL)
 
 HIDAPI_NAME	= hidapi
 HIDAPI_VER	= 0.14.0
@@ -60,15 +61,15 @@ HIDAPI_SRC	= hidapi-$(HIDAPI_NAME)-$(HIDAPI_VER)
 HIDAPI_TARBALL	= $(HIDAPI_NAME)-$(HIDAPI_VER).tar.gz
 HIDAPI_SERVER	= https://github.com/libusb/hidapi/archive
 HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
-HIDAPI_DIST	= $(TEMP)/$(HIDAPI_TARBALL)
+HIDAPI_DIST	= $(DISTDIR)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 3.3.0
+OPENSSL_VER	= 3.3.1
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
 OPENSSL_URL	= $(OPENSSL_SERVER)/$(OPENSSL_TARBALL)
-OPENSSL_DIST	= $(TEMP)/$(OPENSSL_TARBALL)
+OPENSSL_DIST	= $(DISTDIR)/$(OPENSSL_TARBALL)
 OPENSSL_OS	= linux-generic32
 
 ZLIB_NAME	= zlib
@@ -77,29 +78,29 @@ ZLIB_SRC	= $(ZLIB_NAME)-$(ZLIB_VER)
 ZLIB_TARBALL	= $(ZLIB_NAME)-$(ZLIB_VER).tar.gz
 ZLIB_SERVER	= http://zlib.net
 ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
-ZLIB_DIST	= $(TEMP)/$(ZLIB_TARBALL)
+ZLIB_DIST	= $(DISTDIR)/$(ZLIB_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.8.0
+CURL_VER	= 8.9.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
 CURL_URL	= $(CURL_SERVER)/$(CURL_TARBALL)
-CURL_DIST	= $(TEMP)/$(CURL_TARBALL)
+CURL_DIST	= $(DISTDIR)/$(CURL_TARBALL)
 
 TIRPC_NAME	= libtirpc
-TIRPC_VER	= 1.3.4
+TIRPC_VER	= 1.3.5
 TIRPC_SRC	= libtirpc-$(TIRPC_VER)
 TIRPC_TARBALL	= libtirpc-$(TIRPC_VER).tar.bz2
 TIRPC_SERVER	= http://sourceforge.net/projects/libtirpc/files/libtirpc
 TIRPC_URL	= $(TIRPC_SERVER)/$(TIRPC_VER)/$(TIRPC_TARBALL)
-TIRPC_DIST	= $(TEMP)/$(TIRPC_TARBALL)
+TIRPC_DIST	= $(DISTDIR)/$(TIRPC_TARBALL)
 
 XMLRPC_C_NAME	= xmlrpc-c
 XMLRPC_C_SRC	= $(XMLRPC_C_NAME)
 XMLRPC_C_TARBALL = $(XMLRPC_C_NAME).tar.gz
 XMLRPC_C_URL	= http://svn.code.sf.net/p/xmlrpc-c/code/stable
-XMLRPC_C_DIST	= $(TEMP)/$(XMLRPC_C_TARBALL)
+XMLRPC_C_DIST	= $(DISTDIR)/$(XMLRPC_C_TARBALL)
 
 LIBPCAP_NAME	= libpcap
 LIBPCAP_VER	= 1.10.4
@@ -107,26 +108,26 @@ LIBPCAP_SRC	= $(LIBPCAP_NAME)-$(LIBPCAP_VER)
 LIBPCAP_TARBALL	= $(LIBPCAP_SRC).tar.gz
 LIBPCAP_SERVER	= http://www.tcpdump.org/release
 LIBPCAP_URL	= $(LIBPCAP_SERVER)/$(LIBPCAP_TARBALL)
-LIBPCAP_DIST	= $(TEMP)/$(LIBPCAP_TARBALL)
+LIBPCAP_DIST	= $(DISTDIR)/$(LIBPCAP_TARBALL)
 
 LIBMNL_SRC	= libmnl.src
 LIBMNL_URL	= git://git.netfilter.org/libmnl
 
 LIBNL_NAME	= libnl
-LIBNL_VER	= 3.9.0
+LIBNL_VER	= 3.10.0
 LIBNL_SRC	= $(LIBNL_NAME)-$(LIBNL_VER)
 LIBNL_TARBALL	= $(LIBNL_SRC).tar.gz
-LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_9_0
+LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_10_0
 LIBNL_URL	= $(LIBNL_SERVER)/$(LIBNL_TARBALL)
-LIBNL_DIST	= $(TEMP)/$(LIBNL_TARBALL)
+LIBNL_DIST	= $(DISTDIR)/$(LIBNL_TARBALL)
 
 LIBSODIUM_NAME	= libsodium
-LIBSODIUM_VER	= 1.0.19
+LIBSODIUM_VER	= 1.0.20
 LIBSODIUM_SRC	= $(LIBSODIUM_NAME)-$(LIBSODIUM_VER)
 LIBSODIUM_TARBALL	= $(LIBSODIUM_NAME)-$(LIBSODIUM_VER).tar.gz
 LIBSODIUM_SERVER	= https://download.libsodium.org/libsodium/releases
 LIBSODIUM_URL	= $(LIBSODIUM_SERVER)/$(LIBSODIUM_TARBALL)
-LIBSODIUM_DIST	= $(TEMP)/$(LIBSODIUM_TARBALL)
+LIBSODIUM_DIST	= $(DISTDIR)/$(LIBSODIUM_TARBALL)
 
 LIBMYSQLCLIENT_NAME	= mariadb-connector-c
 LIBMYSQLCLIENT_VER	= 3.3.8
@@ -134,15 +135,15 @@ LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src
 LIBMYSQLCLIENT_TARBALL	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src.tar.gz
 LIBMYSQLCLIENT_SERVER	= https://downloads.mariadb.com/Connectors/c/connector-c-$(LIBMYSQLCLIENT_VER)
 LIBMYSQLCLIENT_URL	= $(LIBMYSQLCLIENT_SERVER)/$(LIBMYSQLCLIENT_TARBALL)
-LIBMYSQLCLIENT_DIST	= $(TEMP)/$(LIBMYSQLCLIENT_TARBALL)
+LIBMYSQLCLIENT_DIST	= $(DISTDIR)/$(LIBMYSQLCLIENT_TARBALL)
 
 GDBM_NAME	= gdbm
-GDBM_VER	= 1.23
+GDBM_VER	= 1.24
 GDBM_SRC	= $(GDBM_NAME)-$(GDBM_VER)
 GDBM_TARBALL	= $(GDBM_NAME)-$(GDBM_VER).tar.gz
 GDBM_SERVER	= http://ftp.gnu.org/pub/gnu/gdbm
 GDBM_URL	= $(GDBM_SERVER)/$(GDBM_TARBALL)
-GDBM_DIST	= $(TEMP)/$(GDBM_TARBALL)
+GDBM_DIST	= $(DISTDIR)/$(GDBM_TARBALL)
 
 MQTT_NAME	= paho.mqtt.c
 MQTT_VER	= 1.3.13
@@ -150,7 +151,7 @@ MQTT_SRC	= $(MQTT_NAME)-$(MQTT_VER)
 MQTT_TARBALL	= v$(MQTT_VER).tar.gz
 MQTT_SERVER	= https://github.com/eclipse/paho.mqtt.c/archive
 MQTT_URL	= $(MQTT_SERVER)/$(MQTT_TARBALL)
-MQTT_DIST	= $(TEMP)/$(MQTT_SRC).tar.gz
+MQTT_DIST	= $(DISTDIR)/$(MQTT_SRC).tar.gz
 
 RABBITMQ_NAME	= rabbitmq-c
 RABBITMQ_VER	= 0.14.0
@@ -158,7 +159,7 @@ RABBITMQ_SRC	= $(RABBITMQ_NAME)-$(RABBITMQ_VER)
 RABBITMQ_TARBALL = $(RABBITMQ_NAME)-$(RABBITMQ_VER).tar.gz
 RABBITMQ_SERVER	= http://github.com/alanxz/rabbitmq-c/archive/v$(RABBITMQ_VER)
 RABBITMQ_URL	= $(RABBITMQ_SERVER)/$(RABBITMQ_TARBALL)
-RABBITMQ_DIST	= $(TEMP)/$(RABBITMQ_TARBALL)
+RABBITMQ_DIST	= $(DISTDIR)/$(RABBITMQ_TARBALL)
 
 ZEROMQ_NAME	= zeromq
 ZEROMQ_VER	= 4.3.5
@@ -166,7 +167,7 @@ ZEROMQ_SRC	= $(ZEROMQ_NAME)-$(ZEROMQ_VER)
 ZEROMQ_TARBALL	= $(ZEROMQ_NAME)-$(ZEROMQ_VER).tar.gz
 ZEROMQ_SERVER	= https://github.com/zeromq/libzmq/releases/download/v$(ZEROMQ_VER)
 ZEROMQ_URL	= $(ZEROMQ_SERVER)/$(ZEROMQ_TARBALL)
-ZEROMQ_DIST	= $(TEMP)/$(ZEROMQ_TARBALL)
+ZEROMQ_DIST	= $(DISTDIR)/$(ZEROMQ_TARBALL)
 
 MODBUS_NAME	= libmodbus
 MODBUS_VER	= 3.1.10
@@ -174,7 +175,7 @@ MODBUS_SRC	= libmodbus-$(MODBUS_VER)
 MODBUS_TARBALL	= libmodbus-$(MODBUS_VER).tar.gz
 MODBUS_SERVER	= https://github.com/stephane/libmodbus/releases/download/v$(MODBUS_VER)
 MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
-MODBUS_DIST	= $(TEMP)/$(MODBUS_TARBALL)
+MODBUS_DIST	= $(DISTDIR)/$(MODBUS_TARBALL)
 
 LIBFFI_NAME	= libffi
 LIBFFI_VER	= 3.4.6
@@ -182,7 +183,7 @@ LIBFFI_SRC	= $(LIBFFI_NAME)-$(LIBFFI_VER)
 LIBFFI_TARBALL	= $(LIBFFI_NAME)-$(LIBFFI_VER).tar.gz
 LIBFFI_SERVER	= https://github.com/libffi/libffi/releases/download/v$(LIBFFI_VER)
 LIBFFI_URL	= $(LIBFFI_SERVER)/$(LIBFFI_TARBALL)
-LIBFFI_DIST	= $(TEMP)/$(LIBFFI_TARBALL)
+LIBFFI_DIST	= $(DISTDIR)/$(LIBFFI_TARBALL)
 
 UTILLINUX_NAME	= util-linux
 UTILLINUX_VER	= 2.40
@@ -190,21 +191,21 @@ UTILLINUX_SRC	= $(UTILLINUX_NAME)-$(UTILLINUX_VER)
 UTILLINUX_TARBALL = $(UTILLINUX_SRC).tar.gz
 UTILLINUX_SERVER = https://kernel.org/pub/linux/utils/util-linux/v2.40
 UTILLINUX_URL	= $(UTILLINUX_SERVER)/$(UTILLINUX_TARBALL)
-UTILLINUX_DIST	= $(TEMP)/$(UTILLINUX_TARBALL)
+UTILLINUX_DIST	= $(DISTDIR)/$(UTILLINUX_TARBALL)
 
 BZIP2_VER	= 1.0.8
 BZIP2_SRC	= bzip2-$(BZIP2_VER)
 BZIP2_SERVER	= https://sourceware.org/pub/bzip2
 BZIP2_TARBALL	= bzip2-latest.tar.gz
 BZIP2_URL	= $(BZIP2_SERVER)/$(BZIP2_TARBALL)
-BZIP2_DIST	= $(TEMP)/$(BZIP2_TARBALL)
+BZIP2_DIST	= $(DISTDIR)/$(BZIP2_TARBALL)
 
-XZ_VER		= 5.4.6
+XZ_VER		= 5.6.2
 XZ_SRC		= xz-$(XZ_VER)
 XZ_SERVER	= https://github.com/tukaani-project/xz/releases/download/v$(XZ_VER)
 XZ_TARBALL	= xz-$(XZ_VER).tar.gz
 XZ_URL		= $(XZ_SERVER)/$(XZ_TARBALL)
-XZ_DIST		= $(TEMP)/$(XZ_TARBALL)
+XZ_DIST		= $(DISTDIR)/$(XZ_TARBALL)
 
 ICU_NAME	= icu
 ICU_VER		= 75.1
@@ -212,14 +213,14 @@ ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
 ICU_TARBALL	= icu4c-75_1-src.tgz
 ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-75-1
 ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
-ICU_DIST	= $(TEMP)/$(ICU_TARBALL)
+ICU_DIST	= $(DISTDIR)/$(ICU_TARBALL)
 
 LIBCAP_NAME	= libcap-ng
 LIBCAP_VER	= 0.8.5
 LIBCAP_SRC	= $(LIBCAP_NAME)-$(LIBCAP_VER)
 LIBCAP_TARBALL	= $(LIBCAP_SRC).tar.gz
 LIBCAP_URL	= https://github.com/stevegrubb/libcap-ng/archive/refs/tags/v$(LIBCAP_VER).tar.gz
-LIBCAP_DIST	= $(TEMP)/$(LIBCAP_TARBALL)
+LIBCAP_DIST	= $(DISTDIR)/$(LIBCAP_TARBALL)
 
 DCERPC_URL	= https://github.com/dcerpc/dcerpc.git
 DCERPC_SRC	= dcerpc.src
@@ -327,7 +328,7 @@ download: $(DISTFILES)
 # Download ncurses source distribution
 
 $(NCURSES_DIST):
-	wget -nv -P $(TEMP) $(NCURSES_URL)
+	wget -nv -P $(DISTDIR) $(NCURSES_URL)
 
 # Unpack ncurses source
 
@@ -356,7 +357,7 @@ ncurses: $(INSTALLDIR)/lib/libncurses.a
 # Download readline source distribution
 
 $(READLINE_DIST):
-	wget -nv -P $(TEMP) $(READLINE_URL)
+	wget -nv -P $(DISTDIR) $(READLINE_URL)
 
 # Unpack ncurses source
 
@@ -378,7 +379,7 @@ readline: $(INSTALLDIR)/lib/libreadline.a
 # Download libusb source distribution
 
 $(LIBUSB_DIST):
-	wget -nv -P $(TEMP) $(LIBUSB_URL)
+	wget -nv -P $(DISTDIR) $(LIBUSB_URL)
 
 # Unpack libusb source
 
@@ -400,7 +401,7 @@ libusb: $(INSTALLDIR)/lib/libusb-1.0.a
 # Download hidapi source distribution
 
 $(HIDAPI_DIST):
-	wget -nv -P $(TEMP) $(HIDAPI_URL)
+	wget -nv -P $(DISTDIR) $(HIDAPI_URL)
 
 # Unpack hidapi source
 
@@ -428,7 +429,7 @@ hidapi: $(INSTALLDIR)/lib/libhidapi.a
 # Download OpenSSL source
 
 $(OPENSSL_DIST):
-	wget -nv -P $(TEMP) $(OPENSSL_URL)
+	wget -nv -P $(DISTDIR) $(OPENSSL_URL)
 
 # Unpack OpenSSL source
 
@@ -450,7 +451,7 @@ openssl: $(INSTALLDIR)/lib/libssl.a
 # Download zlib source distribution
 
 $(ZLIB_DIST):
-	wget -nv -P $(TEMP) $(ZLIB_URL)
+	wget -nv -P $(DISTDIR) $(ZLIB_URL)
 
 # Unpack zlib source
 
@@ -472,7 +473,7 @@ zlib: $(INSTALLDIR)/lib/libz.a
 # Download curl source distribution
 
 $(CURL_DIST):
-	wget -nv -P $(TEMP) $(CURL_URL)
+	wget -nv -P $(DISTDIR) $(CURL_URL)
 
 # Unpack curl source
 
@@ -494,7 +495,7 @@ curl: $(INSTALLDIR)/lib/libcurl.a
 # Download the TI-RPC source distribution
 
 $(TIRPC_DIST):
-	wget -nv -P $(TEMP) $(TIRPC_URL)
+	wget -nv -P $(DISTDIR) $(TIRPC_URL)
 
 # Unpack TI-RPC source
 
@@ -515,10 +516,10 @@ tirpc: $(INSTALLDIR)/lib/libtirpc.a
 # Download xmlrpc-c source distribution
 
 $(XMLRPC_C_DIST):
-	svn co $(XMLRPC_C_URL) $(TEMP)/$(XMLRPC_C_SRC)
-	cp /usr/share/misc/config.guess $(TEMP)/$(XMLRPC_C_SRC)
-	cp /usr/share/misc/config.sub   $(TEMP)/$(XMLRPC_C_SRC)
-	cd $(TEMP) && tar czf $(XMLRPC_C_DIST) --exclude .svn $(XMLRPC_C_SRC) && rm -rf $(XMLRPC_C_SRC)
+	svn co $(XMLRPC_C_URL) $(DISTDIR)/$(XMLRPC_C_SRC)
+	cp /usr/share/misc/config.guess $(DISTDIR)/$(XMLRPC_C_SRC)
+	cp /usr/share/misc/config.sub   $(DISTDIR)/$(XMLRPC_C_SRC)
+	cd $(DISTDIR) && tar czf $(XMLRPC_C_DIST) --exclude .svn $(XMLRPC_C_SRC) && rm -rf $(XMLRPC_C_SRC)
 
 # Unpack xmlrpc-c source
 
@@ -543,7 +544,7 @@ xmlrpc: $(INSTALLDIR)/lib/libxmlrpc.a
 # Download libpcap source distribution
 
 $(LIBPCAP_DIST):
-	wget -nv -P $(TEMP) $(LIBPCAP_URL)
+	wget -nv -P $(DISTDIR) $(LIBPCAP_URL)
 
 # Unpack libpcap source
 
@@ -582,7 +583,7 @@ libmnl: $(INSTALLDIR)/lib/libmnl.a
 # Download the netlink source distribution
 
 $(LIBNL_DIST):
-	wget -nv -P $(TEMP) $(LIBNL_URL)
+	wget -nv -P $(DISTDIR) $(LIBNL_URL)
 
 # Unpack netlink source
 
@@ -604,13 +605,12 @@ libnl: $(INSTALLDIR)/lib/libnl-3.a
 # Download the Sodium source distribution
 
 $(LIBSODIUM_DIST):
-	wget -nv -P $(TEMP) $(LIBSODIUM_URL)
+	wget -nv -P $(DISTDIR) $(LIBSODIUM_URL)
 
 # Unpack Sodium source
 
 $(LIBSODIUM_SRC): $(LIBSODIUM_DIST)
 	tar xzf $(LIBSODIUM_DIST)
-	mv libsodium-stable $@
 
 # Build Sodium
 
@@ -627,7 +627,7 @@ libsodium: $(INSTALLDIR)/lib/libsodium.a
 # Download MariaDB C Connector
 
 $(LIBMYSQLCLIENT_DIST):
-	wget -nv -P $(TEMP) $(LIBMYSQLCLIENT_URL)
+	wget -nv -P $(DISTDIR) $(LIBMYSQLCLIENT_URL)
 
 # Unpack MariaDB C Connector source
 
@@ -663,7 +663,7 @@ libmysqlclient: $(INSTALLDIR)/lib/libmysqlclient.a
 # Download gdbm source distribution
 
 $(GDBM_DIST):
-	wget -nv -P $(TEMP) $(GDBM_URL)
+	wget -nv -P $(DISTDIR) $(GDBM_URL)
 
 # Unpack gdbm source
 
@@ -686,8 +686,8 @@ gdbm: $(INSTALLDIR)/lib/libgdbm.a
 # Download Paho MQTT C client library source distribution
 
 $(MQTT_DIST):
-	wget -nv -P $(TEMP) $(MQTT_URL)
-	mv $(TEMP)/$(MQTT_TARBALL) $@
+	wget -nv -P $(DISTDIR) $(MQTT_URL)
+	mv $(DISTDIR)/$(MQTT_TARBALL) $@
 
 # Unpack Paho MQTT C client library source
 
@@ -707,7 +707,7 @@ mqtt: $(INSTALLDIR)/lib/libpaho-mqtt3a.so
 # Download RabbitMQ C library source distribution
 
 $(RABBITMQ_DIST):
-	wget -nv -P $(TEMP) $(RABBITMQ_URL)
+	wget -nv -P $(DISTDIR) $(RABBITMQ_URL)
 
 # Unpack RabbitMQ C library source
 
@@ -735,7 +735,7 @@ rabbitmq: $(INSTALLDIR)/lib/librabbitmq.a
 # Download the ZeroMQ source distribution
 
 $(ZEROMQ_DIST):
-	wget -nv -P $(TEMP) $(ZEROMQ_URL)
+	wget -nv -P $(DISTDIR) $(ZEROMQ_URL)
 
 # Unpack ZeroMQ source
 
@@ -757,7 +757,7 @@ zeromq: $(INSTALLDIR)/lib/libzmq.a
 # Download the libmodbus source distribution
 
 $(MODBUS_DIST):
-	wget -nv -P $(TEMP) $(MODBUS_URL)
+	wget -nv -P $(DISTDIR) $(MODBUS_URL)
 
 # Unpack libmodbus source
 
@@ -778,7 +778,7 @@ modbus: $(INSTALLDIR)/lib/libmodbus.a
 # Download the libffi source distribution
 
 $(LIBFFI_DIST):
-	wget -nv -P $(TEMP) $(LIBFFI_URL)
+	wget -nv -P $(DISTDIR) $(LIBFFI_URL)
 
 # Unpack libffi source
 
@@ -803,7 +803,7 @@ libffi: $(INSTALLDIR)/lib/libffi.a
 # Download the util-linux source distribution
 
 $(UTILLINUX_DIST):
-	wget -nv -P $(TEMP) $(UTILLINUX_URL)
+	wget -nv -P $(DISTDIR) $(UTILLINUX_URL)
 
 # Unpack util-linux source
 
@@ -831,7 +831,7 @@ libuuid: $(INSTALLDIR)/lib/libuuid.a
 # Download the bzip2 source distribution
 
 $(BZIP2_DIST):
-	wget -nv -P $(TEMP) $(BZIP2_URL)
+	wget -nv -P $(DISTDIR) $(BZIP2_URL)
 
 # Unpack bzip2 source
 
@@ -862,7 +862,7 @@ libbz2: $(INSTALLDIR)/lib/libbz2.a
 # Download the util-linux source distribution
 
 $(XZ_DIST):
-	wget -nv -P $(TEMP) $(XZ_URL)
+	wget -nv -P $(DISTDIR) $(XZ_URL)
 
 # Unpack util-linux source
 
@@ -896,7 +896,7 @@ liblzma: $(INSTALLDIR)/lib/liblzma.a
 # Download icu source distribution
 
 $(ICU_DIST):
-	wget -nv -P $(TEMP) $(ICU_URL)
+	wget -nv -P $(DISTDIR) $(ICU_URL)
 
 # Unpack icu source
 
