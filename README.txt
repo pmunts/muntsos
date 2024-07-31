@@ -155,7 +155,10 @@ News
     Upgraded ethtool to 6.9. Added detach, a utility program that runs a
     program in the background.
 
--   30 July 2024 -- Upgraded the .Net Runtime to 8.0.7.
+-   30 July 2024 -- Upgraded OpenSSL to 3.3.1, curl to 8.9.0, libtirpc
+    to 1.3.5, libnl to 3.10.0, libsodium to 1.0.20, gdbm to 1.24, and xz
+    to 5.6.2. Upgraded .Net Runtime to 8.0.7, OpenSSH to 9.8p1, rpcbind
+    to 1.2.7, and nano to 8.1.
 
 Quick Setup Instructions for the Impatient
 
