@@ -178,7 +178,8 @@ News
 -   30 July 2024 -- Upgraded OpenSSL to 3.3.1, curl to 8.9.0, libtirpc
     to 1.3.5, libnl to 3.10.0, libsodium to 1.0.20, gdbm to 1.24, and xz
     to 5.6.2. Upgraded .Net Runtime to 8.0.7, OpenSSH to 9.8p1, rpcbind
-    to 1.2.7, and nano to 8.1.
+    to 1.2.7, and nano to 8.1. Upgraded the 64-bit Raspberry Pi kernel
+    to 6.6.42.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
