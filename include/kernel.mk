@@ -26,9 +26,9 @@ TEMP		?= /tmp
 
 DOWNLOADPREFIX	?= http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)
 
-KERNEL_CLONE	= $(TEMP)/$(KERNEL_NAME)
-KERNEL_DIST	= $(TEMP)/$(KERNEL_NAME).tgz
-KERNEL_COMMIT	= $(TEMP)/$(KERNEL_NAME).commit
+KERNEL_CLONE	= $(TEMP)/muntsos/$(KERNEL_NAME)
+KERNEL_DIST	= $(TEMP)/muntsos/$(KERNEL_NAME).tgz
+KERNEL_COMMIT	= $(TEMP)/muntsos/$(KERNEL_NAME).commit
 KERNEL_WORK	= $(MUNTSOS)/bootkernel/kernel/$(BOARDNAME).work
 KERNEL_SRC	= $(KERNEL_WORK)/$(KERNEL_NAME)
 KERNEL_DTC	= $(KERNEL_SRC)/scripts/dtc/dtc
@@ -43,5 +43,5 @@ $(KERNEL_DIST):
 	if [ ! -d $(KERNEL_CLONE) ]; then git clone --depth 1 $(KERNEL_REPO) -b $(KERNEL_TREEISH) $(KERNEL_CLONE) ; fi
 	cd $(KERNEL_CLONE) ; git archive --output=$(KERNEL_DIST) --prefix=$(KERNEL_NAME)/ $(KERNEL_TREEISH)
 	cd $(KERNEL_CLONE) ; git show $(KERNEL_TREEISH) | head -n 1 | awk '{ print $$2 }' >$(KERNEL_COMMIT)
-	if [ "$(shell dirname $(KERNEL_CLONE))" = "$(TEMP)" ]; then rm -rf $(KERNEL_CLONE) ; fi
+	if [ "$(shell dirname $(KERNEL_CLONE))" = "$(TEMP)/muntsos" ]; then rm -rf $(KERNEL_CLONE) ; fi
 	touch $@
