@@ -29,29 +29,31 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 BUILDOS			= --build=`uname -m`
 TARGETOS		= --host=$(CONFIGURE_NAME)
 
+DISTDIR			= $(TEMP)/muntsos
+
 BUSYBOX_VERSION		= 1.36.1
 BUSYBOX_NAME		= busybox
 BUSYBOX_SRC		= $(BUSYBOX_NAME)-$(BUSYBOX_VERSION)
 BUSYBOX_TARBALL		= $(BUSYBOX_NAME)-$(BUSYBOX_VERSION).tar.bz2
 BUSYBOX_SERVER		= http://www.busybox.net/downloads
 BUSYBOX_URL		= $(BUSYBOX_SERVER)/$(BUSYBOX_TARBALL)
-BUSYBOX_DIST		= $(TEMP)/$(BUSYBOX_TARBALL)
+BUSYBOX_DIST		= $(DISTDIR)/$(BUSYBOX_TARBALL)
 
 OPENSSH_NAME		= openssh
-OPENSSH_VER		= 9.7p1
+OPENSSH_VER		= 9.8p1
 OPENSSH_SRC		= $(OPENSSH_NAME)-$(OPENSSH_VER)
 OPENSSH_TARBALL		= $(OPENSSH_SRC).tar.gz
 OPENSSH_SERVER		= http://ftp3.usa.openbsd.org/pub/OpenBSD/OpenSSH/portable
 OPENSSH_URL		= $(OPENSSH_SERVER)/$(OPENSSH_TARBALL)
-OPENSSH_DIST		= $(TEMP)/$(OPENSSH_TARBALL)
+OPENSSH_DIST		= $(DISTDIR)/$(OPENSSH_TARBALL)
 
 RPCBIND_NAME		= rpcbind
-RPCBIND_VER		= 1.2.6
+RPCBIND_VER		= 1.2.7
 RPCBIND_SRC		= $(RPCBIND_NAME)-$(RPCBIND_VER)
 RPCBIND_TARBALL		= $(RPCBIND_NAME)-$(RPCBIND_VER).tar.bz2
 RPCBIND_SERVER		= https://downloads.sourceforge.net/project/rpcbind/rpcbind
 RPCBIND_URL		= $(RPCBIND_SERVER)/$(RPCBIND_VER)/$(RPCBIND_TARBALL)
-RPCBIND_DIST		= $(TEMP)/$(RPCBIND_TARBALL)
+RPCBIND_DIST		= $(DISTDIR)/$(RPCBIND_TARBALL)
 
 IPTABLES_NAME		= iptables
 IPTABLES_VER		= 1.4.21
@@ -59,7 +61,7 @@ IPTABLES_SRC		= $(IPTABLES_NAME)-$(IPTABLES_VER)
 IPTABLES_TARBALL	= $(IPTABLES_NAME)-$(IPTABLES_VER).tar.bz2
 IPTABLES_SERVER		= http://www.netfilter.org/projects/iptables/files
 IPTABLES_URL		= $(IPTABLES_SERVER)/$(IPTABLES_TARBALL)
-IPTABLES_DIST		= $(TEMP)/$(IPTABLES_TARBALL)
+IPTABLES_DIST		= $(DISTDIR)/$(IPTABLES_TARBALL)
 
 ETHTOOL_NAME		= ethtool
 ETHTOOL_VER		= 6.9
@@ -67,25 +69,25 @@ ETHTOOL_SRC		= $(ETHTOOL_NAME)-$(ETHTOOL_VER)
 ETHTOOL_TARBALL		= $(ETHTOOL_NAME)-$(ETHTOOL_VER).tar.gz
 ETHTOOL_SERVER		= http://www.kernel.org/pub/software/network/ethtool
 ETHTOOL_URL		= $(ETHTOOL_SERVER)/$(ETHTOOL_TARBALL)
-ETHTOOL_DIST		= $(TEMP)/$(ETHTOOL_TARBALL)
+ETHTOOL_DIST		= $(DISTDIR)/$(ETHTOOL_TARBALL)
 
 WPASUPP_NAME		= wpa_supplicant
-WPASUPP_VER		= 2.10
+WPASUPP_VER		= 2.11
 WPASUPP_SRC		= $(WPASUPP_NAME)-$(WPASUPP_VER)
 WPASUPP_TARBALL		= $(WPASUPP_NAME)-$(WPASUPP_VER).tar.gz
 WPASUPP_SERVER		= https://w1.fi/releases
 WPASUPP_URL		= $(WPASUPP_SERVER)/$(WPASUPP_TARBALL)
-WPASUPP_DIST		= $(TEMP)/$(WPASUPP_TARBALL)
+WPASUPP_DIST		= $(DISTDIR)/$(WPASUPP_TARBALL)
 
 FIRMWARE_NAME		= linux-firmware
 FIRMWARE_SRC		= $(FIRMWARE_NAME)
 FIRMWARE_URL		= http://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
-FIRMWARE_DIST		= $(TEMP)/$(FIRMWARE_NAME).tgz
+FIRMWARE_DIST		= $(DISTDIR)/$(FIRMWARE_NAME).tgz
 
 WIRELESS_REGDB_NAME	= wireless-regdb
 WIRELESS_REGDB_SRC	= $(WIRELESS_REGDB_NAME)
 WIRELESS_REGDB_URL	= git://git.kernel.org/pub/scm/linux/kernel/git/sforshee/wireless-regdb.git
-WIRELESS_REGDB_DIST	= $(TEMP)/$(WIRELESS_REGDB_NAME).tgz
+WIRELESS_REGDB_DIST	= $(DISTDIR)/$(WIRELESS_REGDB_NAME).tgz
 
 MAILUTILS_NAME		= mailutils
 MAILUTILS_VER		= 3.17
@@ -93,15 +95,15 @@ MAILUTILS_SRC		= $(MAILUTILS_NAME)-$(MAILUTILS_VER)
 MAILUTILS_TARBALL	= $(MAILUTILS_NAME)-$(MAILUTILS_VER).tar.gz
 MAILUTILS_SERVER	= https://ftp.gnu.org/gnu/mailutils
 MAILUTILS_URL		= $(MAILUTILS_SERVER)/$(MAILUTILS_TARBALL)
-MAILUTILS_DIST		= $(TEMP)/$(MAILUTILS_TARBALL)
+MAILUTILS_DIST		= $(DISTDIR)/$(MAILUTILS_TARBALL)
 
 NANO_NAME		= nano
-NANO_VER		= 8.0
+NANO_VER		= 8.1
 NANO_SRC		= $(NANO_NAME)-$(NANO_VER)
 NANO_TARBALL		= $(NANO_NAME)-$(NANO_VER).tar.gz
 NANO_SERVER		= https://www.nano-editor.org/dist/v8
 NANO_URL		= $(NANO_SERVER)/$(NANO_TARBALL)
-NANO_DIST		= $(TEMP)/$(NANO_TARBALL)
+NANO_DIST		= $(DISTDIR)/$(NANO_TARBALL)
 
 ###############################################################################
 
@@ -125,7 +127,7 @@ default: initramfs.cpio.gz
 # Download BusyBox source
 
 $(BUSYBOX_DIST):
-	wget -nv -P $(TEMP) $(BUSYBOX_URL)
+	wget -nv -P $(DISTDIR) $(BUSYBOX_URL)
 
 # Unpack BusyBox source
 
@@ -157,7 +159,7 @@ busybox: $(BUSYBOX_SRC)/skeleton
 # Download OpenSSH source
 
 $(OPENSSH_DIST):
-	wget -nv -P $(TEMP) $(OPENSSH_URL)
+	wget -nv -P $(DISTDIR) $(OPENSSH_URL)
 
 # Unpack OpenSSH source
 
@@ -234,7 +236,7 @@ noip2: noip2.c
 # Download iptables source
 
 $(IPTABLES_DIST):
-	wget -nv -P $(TEMP) $(IPTABLES_URL)
+	wget -nv -P $(DISTDIR) $(IPTABLES_URL)
 
 # Unpack iptables source
 
@@ -258,7 +260,7 @@ iptables: $(IPTABLES_SRC)/skeleton
 # Download ethtool source
 
 $(ETHTOOL_DIST):
-	wget -nv -P $(TEMP) $(ETHTOOL_URL)
+	wget -nv -P $(DISTDIR) $(ETHTOOL_URL)
 
 # Unpack ethtool source
 
@@ -280,7 +282,7 @@ ethtool: $(ETHTOOL_SRC)/ethtool
 # Download wpa_supplicant source
 
 $(WPASUPP_DIST):
-	wget -nv -P $(TEMP) $(WPASUPP_URL)
+	wget -nv -P $(DISTDIR) $(WPASUPP_URL)
 
 # Unpack wpa_supplicant source
 
@@ -303,7 +305,7 @@ wpasupp: $(WPASUPP_SRC)/wpa_supplicant/wpa_supplicant
 # Download mailutils source
 
 $(MAILUTILS_DIST):
-	wget -nv -P $(TEMP) $(MAILUTILS_URL)
+	wget -nv -P $(DISTDIR) $(MAILUTILS_URL)
 
 # Unpack mailutils source
 
@@ -325,7 +327,7 @@ mailutils: $(MAILUTILS_SRC)/mail/mail
 # Download nano source
 
 $(NANO_DIST):
-	wget -nv -P $(TEMP) $(NANO_URL)
+	wget -nv -P $(DISTDIR) $(NANO_URL)
 
 # Unpack nano source
 
@@ -347,9 +349,9 @@ nano: $(NANO_SRC)/src/nano
 # Download Linux firmware
 
 $(FIRMWARE_DIST):
-	git clone --depth 1 $(FIRMWARE_URL) $(TEMP)/$(FIRMWARE_NAME)
-	cd $(TEMP) ; tar czf $(FIRMWARE_DIST) $(FIRMWARE_NAME)
-	rm -rf $(TEMP)/$(FIRMWARE_NAME)
+	git clone --depth 1 $(FIRMWARE_URL) $(DISTDIR)/$(FIRMWARE_NAME)
+	cd $(DISTDIR) ; tar czf $(FIRMWARE_DIST) $(FIRMWARE_NAME)
+	rm -rf $(DISTDIR)/$(FIRMWARE_NAME)
 
 # Unpack Linux firmware source distribution
 
@@ -364,9 +366,9 @@ firmware: $(FIRMWARE_SRC)
 # Download wireless-regdb
 
 $(WIRELESS_REGDB_DIST):
-	git clone --depth 1 $(WIRELESS_REGDB_URL) $(TEMP)/$(WIRELESS_REGDB_NAME)
-	cd $(TEMP) ; tar czf $(WIRELESS_REGDB_DIST) $(WIRELESS_REGDB_NAME)
-	rm -rf $(TEMP)/$(WIRELESS_REGDB_NAME)
+	git clone --depth 1 $(WIRELESS_REGDB_URL) $(DISTDIR)/$(WIRELESS_REGDB_NAME)
+	cd $(DISTDIR) ; tar czf $(WIRELESS_REGDB_DIST) $(WIRELESS_REGDB_NAME)
+	rm -rf $(DISTDIR)/$(WIRELESS_REGDB_NAME)
 
 # Unpack wireless-regdb
 
