@@ -74,11 +74,7 @@ package.deb: cross.done
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
-ifeq ($(BOARDNAME), RaspberryPi3)
-	sed -i s/@@BOARDNAME@@/AArch64/g		$(PKGDIR)/DEBIAN/control
-else
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
-endif
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)
 	rmdir						$(PKGDIR)$(TOOLCHAIN_DIR)
 	cp -R -P -p $(DESTFILES)			$(PKGDIR)$(TOOLCHAIN_DIR)
@@ -101,21 +97,19 @@ endif
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
 	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(BOARDNAME).cgpr
-ifeq ($(BOARDNAME), BeagleBone)
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
-	sed -i 's/@@TARGET_NAME@@/PocketBeagle/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/PocketBeagle.cgpr
-endif
-ifeq ($(BOARDNAME), RaspberryPi3)
+ifeq ($(BOARDNAME), AArch64)
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
 	sed -i 's/@@TARGET_NAME@@/OrangePiZero2W/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
 	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/OrangePiZero2W.cgpr
+	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi3.cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi3.cgpr
+	sed -i 's/@@TARGET_NAME@@/RaspberryPi3/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi3.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi3.cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi3.cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi3.cgpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
 	sed -i 's/@@TARGET_NAME@@/RaspberryPi4/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/RaspberryPi4.cgpr
@@ -152,7 +146,7 @@ reconstitute:
 # night job!
 
 SERVERDIR	?= $(HOME)
-PLATFORMS	:= BeagleBone RaspberryPi1 RaspberryPi2 RaspberryPi3
+PLATFORMS	:= AArch64
 
 upload: package.deb
 	scp *.deb $(SERVERDIR)
