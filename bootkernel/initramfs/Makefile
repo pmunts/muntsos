@@ -40,7 +40,7 @@ BUSYBOX_URL		= $(BUSYBOX_SERVER)/$(BUSYBOX_TARBALL)
 BUSYBOX_DIST		= $(DISTDIR)/$(BUSYBOX_TARBALL)
 
 OPENSSH_NAME		= openssh
-OPENSSH_VER		= 9.8p1
+OPENSSH_VER		= 9.9p1
 OPENSSH_SRC		= $(OPENSSH_NAME)-$(OPENSSH_VER)
 OPENSSH_TARBALL		= $(OPENSSH_SRC).tar.gz
 OPENSSH_SERVER		= http://ftp3.usa.openbsd.org/pub/OpenBSD/OpenSSH/portable
@@ -64,12 +64,20 @@ IPTABLES_URL		= $(IPTABLES_SERVER)/$(IPTABLES_TARBALL)
 IPTABLES_DIST		= $(DISTDIR)/$(IPTABLES_TARBALL)
 
 ETHTOOL_NAME		= ethtool
-ETHTOOL_VER		= 6.9
+ETHTOOL_VER		= 6.11
 ETHTOOL_SRC		= $(ETHTOOL_NAME)-$(ETHTOOL_VER)
 ETHTOOL_TARBALL		= $(ETHTOOL_NAME)-$(ETHTOOL_VER).tar.gz
 ETHTOOL_SERVER		= http://www.kernel.org/pub/software/network/ethtool
 ETHTOOL_URL		= $(ETHTOOL_SERVER)/$(ETHTOOL_TARBALL)
 ETHTOOL_DIST		= $(DISTDIR)/$(ETHTOOL_TARBALL)
+
+IW_NAME			= iw
+IW_VER			= 6.9
+IW_SRC			= $(IW_NAME)-$(IW_VER)
+IW_TARBALL		= $(IW_NAME)-$(IW_VER).tar.gz
+IW_SERVER		= https://www.kernel.org/pub/software/network/iw
+IW_URL			= $(IW_SERVER)/$(IW_TARBALL)
+IW_DIST			= $(DISTDIR)/$(IW_TARBALL)
 
 WPASUPP_NAME		= wpa_supplicant
 WPASUPP_VER		= 2.10
@@ -98,7 +106,7 @@ MAILUTILS_URL		= $(MAILUTILS_SERVER)/$(MAILUTILS_TARBALL)
 MAILUTILS_DIST		= $(DISTDIR)/$(MAILUTILS_TARBALL)
 
 NANO_NAME		= nano
-NANO_VER		= 8.1
+NANO_VER		= 8.2
 NANO_SRC		= $(NANO_NAME)-$(NANO_VER)
 NANO_TARBALL		= $(NANO_NAME)-$(NANO_VER).tar.gz
 NANO_SERVER		= https://www.nano-editor.org/dist/v8
@@ -110,7 +118,7 @@ NANO_DIST		= $(DISTDIR)/$(NANO_TARBALL)
 # These are the subordinate component targets that have to be built before we
 # can start populating the root file system tree
 
-COMPONENT_TARGETS	= busybox openssh rpcbind detach force-umount iptables ethtool wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
+COMPONENT_TARGETS	= busybox openssh rpcbind detach force-umount iptables ethtool iw wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
 
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 COMPONENT_TARGETS	+= config-pin
@@ -279,6 +287,27 @@ ethtool: $(ETHTOOL_SRC)/ethtool
 
 ###############################################################################
 
+# Download iw source
+
+$(IW_DIST):
+	wget -nv -P $(DISTDIR) $(IW_URL)
+
+# Unpack iw source
+
+$(IW_SRC): $(IW_DIST)
+	tar xzf $(IW_DIST)
+	touch $@
+
+# Build iw
+
+$(IW_SRC)/iw: $(IW_SRC)
+	PKG_CONFIG_PATH=$(LIBSPKGCONFIG) $(MAKE) -C $(IW_SRC) CC=$(CROSS_COMPILE)gcc
+	touch $@
+
+iw: $(IW_SRC)/iw
+
+###############################################################################
+
 # Download wpa_supplicant source
 
 $(WPASUPP_DIST):
@@ -433,6 +462,10 @@ COPYING: $(COMPONENT_TARGETS)
 	@echo ""						>>$@
 	@cat $(ETHTOOL_SRC)/COPYING				>>$@
 	@echo ""						>>$@
+	@echo "**** iw:"					>>$@
+	@echo ""						>>$@
+	@cat $(IW_SRC)/COPYING					>>$@
+	@echo ""						>>$@
 	@echo "**** iptables:"					>>$@
 	@echo ""						>>$@
 	@cat $(IPTABLES_SRC)/COPYING				>>$@
@@ -574,6 +607,10 @@ endif
 # Install ethtool
 
 	install -cm 0755 $(ETHTOOL_SRC)/ethtool			$@/usr/sbin
+
+# Install iw
+
+	install -cm 0755 $(IW_SRC)/iw				$@/usr/sbin
 
 # Install force-umount
 
@@ -980,6 +1017,7 @@ reallyclean: clean
 	rm -rf $(RPCBIND_SRC)
 	rm -rf $(IPTABLES_SRC)
 	rm -rf $(ETHTOOL_SRC)
+	rm -rf $(IW_SRC)
 	rm -rf $(WPASUPP_SRC)
 	rm -rf $(MAILUTILS_SRC)
 	rm -rf $(NANO_SRC)
@@ -1004,6 +1042,7 @@ distclean: reallyclean
 	rm -f $(RPCBIND_DIST)
 	rm -f $(IPTABLES_DIST)
 	rm -f $(ETHTOOL_DIST)
+	rm -f $(IW_DIST)
 	rm -f $(WPASUPP_DIST)
 	rm -f $(MAILUTILS_DIST)
 	rm -f $(NANO_DIST)
