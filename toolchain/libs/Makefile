@@ -64,7 +64,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(DISTDIR)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 3.3.1
+OPENSSL_VER	= 3.4.0
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -80,8 +80,16 @@ ZLIB_SERVER	= http://zlib.net
 ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(DISTDIR)/$(ZLIB_TARBALL)
 
+ICU_NAME	= icu
+ICU_VER		= 76.1
+ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
+ICU_TARBALL	= icu4c-76_1-src.tgz
+ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-76-1
+ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
+ICU_DIST	= $(DISTDIR)/$(ICU_TARBALL)
+
 CURL_NAME	= curl
-CURL_VER	= 8.9.0
+CURL_VER	= 8.11.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -89,7 +97,7 @@ CURL_URL	= $(CURL_SERVER)/$(CURL_TARBALL)
 CURL_DIST	= $(DISTDIR)/$(CURL_TARBALL)
 
 TIRPC_NAME	= libtirpc
-TIRPC_VER	= 1.3.5
+TIRPC_VER	= 1.3.6
 TIRPC_SRC	= libtirpc-$(TIRPC_VER)
 TIRPC_TARBALL	= libtirpc-$(TIRPC_VER).tar.bz2
 TIRPC_SERVER	= http://sourceforge.net/projects/libtirpc/files/libtirpc
@@ -103,7 +111,7 @@ XMLRPC_C_URL	= http://svn.code.sf.net/p/xmlrpc-c/code/stable
 XMLRPC_C_DIST	= $(DISTDIR)/$(XMLRPC_C_TARBALL)
 
 LIBPCAP_NAME	= libpcap
-LIBPCAP_VER	= 1.10.4
+LIBPCAP_VER	= 1.10.5
 LIBPCAP_SRC	= $(LIBPCAP_NAME)-$(LIBPCAP_VER)
 LIBPCAP_TARBALL	= $(LIBPCAP_SRC).tar.gz
 LIBPCAP_SERVER	= http://www.tcpdump.org/release
@@ -114,10 +122,10 @@ LIBMNL_SRC	= libmnl.src
 LIBMNL_URL	= git://git.netfilter.org/libmnl
 
 LIBNL_NAME	= libnl
-LIBNL_VER	= 3.10.0
+LIBNL_VER	= 3.11.0
 LIBNL_SRC	= $(LIBNL_NAME)-$(LIBNL_VER)
 LIBNL_TARBALL	= $(LIBNL_SRC).tar.gz
-LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_10_0
+LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_11_0
 LIBNL_URL	= $(LIBNL_SERVER)/$(LIBNL_TARBALL)
 LIBNL_DIST	= $(DISTDIR)/$(LIBNL_TARBALL)
 
@@ -130,7 +138,7 @@ LIBSODIUM_URL	= $(LIBSODIUM_SERVER)/$(LIBSODIUM_TARBALL)
 LIBSODIUM_DIST	= $(DISTDIR)/$(LIBSODIUM_TARBALL)
 
 LIBMYSQLCLIENT_NAME	= mariadb-connector-c
-LIBMYSQLCLIENT_VER	= 3.3.8
+LIBMYSQLCLIENT_VER	= 3.4.3
 LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src
 LIBMYSQLCLIENT_TARBALL	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src.tar.gz
 LIBMYSQLCLIENT_SERVER	= https://downloads.mariadb.com/Connectors/c/connector-c-$(LIBMYSQLCLIENT_VER)
@@ -154,7 +162,7 @@ MQTT_URL	= $(MQTT_SERVER)/$(MQTT_TARBALL)
 MQTT_DIST	= $(DISTDIR)/$(MQTT_SRC).tar.gz
 
 RABBITMQ_NAME	= rabbitmq-c
-RABBITMQ_VER	= 0.14.0
+RABBITMQ_VER	= 0.15.0
 RABBITMQ_SRC	= $(RABBITMQ_NAME)-$(RABBITMQ_VER)
 RABBITMQ_TARBALL = $(RABBITMQ_NAME)-$(RABBITMQ_VER).tar.gz
 RABBITMQ_SERVER	= http://github.com/alanxz/rabbitmq-c/archive/v$(RABBITMQ_VER)
@@ -170,7 +178,7 @@ ZEROMQ_URL	= $(ZEROMQ_SERVER)/$(ZEROMQ_TARBALL)
 ZEROMQ_DIST	= $(DISTDIR)/$(ZEROMQ_TARBALL)
 
 MODBUS_NAME	= libmodbus
-MODBUS_VER	= 3.1.10
+MODBUS_VER	= 3.1.11
 MODBUS_SRC	= libmodbus-$(MODBUS_VER)
 MODBUS_TARBALL	= libmodbus-$(MODBUS_VER).tar.gz
 MODBUS_SERVER	= https://github.com/stephane/libmodbus/releases/download/v$(MODBUS_VER)
@@ -200,20 +208,12 @@ BZIP2_TARBALL	= bzip2-latest.tar.gz
 BZIP2_URL	= $(BZIP2_SERVER)/$(BZIP2_TARBALL)
 BZIP2_DIST	= $(DISTDIR)/$(BZIP2_TARBALL)
 
-XZ_VER		= 5.6.2
+XZ_VER		= 5.6.3
 XZ_SRC		= xz-$(XZ_VER)
 XZ_SERVER	= https://github.com/tukaani-project/xz/releases/download/v$(XZ_VER)
 XZ_TARBALL	= xz-$(XZ_VER).tar.gz
 XZ_URL		= $(XZ_SERVER)/$(XZ_TARBALL)
 XZ_DIST		= $(DISTDIR)/$(XZ_TARBALL)
-
-ICU_NAME	= icu
-ICU_VER		= 75.1
-ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
-ICU_TARBALL	= icu4c-75_1-src.tgz
-ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-75-1
-ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
-ICU_DIST	= $(DISTDIR)/$(ICU_TARBALL)
 
 LIBCAP_NAME	= libcap-ng
 LIBCAP_VER	= 0.8.5
@@ -233,6 +233,7 @@ SUBORDINATES	+= libusb
 SUBORDINATES	+= hidapi
 SUBORDINATES	+= openssl
 SUBORDINATES	+= zlib
+SUBORDINATES	+= icu
 SUBORDINATES	+= curl
 SUBORDINATES	+= tirpc
 SUBORDINATES	+= xmlrpc
@@ -250,7 +251,6 @@ SUBORDINATES	+= libffi
 SUBORDINATES	+= libuuid
 SUBORDINATES	+= libbz2
 SUBORDINATES	+= liblzma
-SUBORDINATES	+= icu
 SUBORDINATES	+= libcap
 #SUBORDINATES	+= dcerpc
 
@@ -260,6 +260,7 @@ SRCDIRS		+= $(LIBUSB_SRC)
 SRCDIRS		+= $(HIDAPI_SRC)
 SRCDIRS		+= $(OPENSSL_SRC)
 SRCDIRS		+= $(ZLIB_SRC)
+SRCDIRS		+= $(ICU_SRC)
 SRCDIRS		+= $(CURL_SRC)
 SRCDIRS		+= $(TIRPC_SRC)
 SRCDIRS		+= $(XMLRPC_C_SRC)
@@ -276,7 +277,6 @@ SRCDIRS		+= $(LIBFFI_SRC)
 SRCDIRS		+= $(UTILLINUX_SRC)
 SRCDIRS		+= $(BZIP2_SRC)
 SRCDIRS		+= $(XZ_SRC)
-SRCDIRS		+= $(ICU_SRC)
 SRCDIRS		+= $(LIBCAP_SRC)
 #SRCDIRS	+= $(DCERPC_SRC)
 
@@ -286,6 +286,7 @@ DISTFILES	+= $(LIBUSB_DIST)
 DISTFILES	+= $(HIDAPI_DIST)
 DISTFILES	+= $(OPENSSL_DIST)
 DISTFILES	+= $(ZLIB_DIST)
+DISTFILES	+= $(ICU_DIST)
 DISTFILES	+= $(CURL_DIST)
 DISTFILES	+= $(TIRPC_DIST)
 DISTFILES	+= $(XMLRPC_C_DIST)
@@ -302,7 +303,6 @@ DISTFILES	+= $(LIBFFI_DIST)
 DISTFILES	+= $(UTILLINUX_DIST)
 DISTFILES	+= $(BZIP2_DIST)
 DISTFILES	+= $(XZ_DIST)
-DISTFILES	+= $(ICU_DIST)
 DISTFILES	+= $(LIBCAP_DIST)
 
 BUILDNUM	?= 1
@@ -470,6 +470,36 @@ zlib: $(INSTALLDIR)/lib/libz.a
 
 ###############################################################################
 
+# Download icu source distribution
+
+$(ICU_DIST):
+	wget -nv -P $(DISTDIR) $(ICU_URL)
+
+# Unpack icu source
+
+$(ICU_SRC): $(ICU_DIST)
+	tar xzf $(ICU_DIST)
+	mv icu $(ICU_SRC)
+	touch $@
+
+# Build cross icu
+
+$(INSTALLDIR)/lib/libicudata.so: $(ICU_SRC)
+	# First, build native icu
+	cd $(ICU_SRC) && cp -R -P -p source native.d
+	cd $(ICU_SRC)/native.d && ./configure
+	$(MAKE) -C $(ICU_SRC)/native.d
+	# Then, build cross icu
+	cd $(ICU_SRC) && cp -R -P -p source cross.d
+	cd $(ICU_SRC)/cross.d && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-cross-build=$(shell pwd)/$(ICU_SRC)/native.d CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	$(MAKE) -C $(ICU_SRC)/cross.d
+	$(MAKE) -C $(ICU_SRC)/cross.d install DESTDIR=$(DESTDIR)
+	touch $@
+
+icu: $(INSTALLDIR)/lib/libicudata.so
+
+###############################################################################
+
 # Download curl source distribution
 
 $(CURL_DIST):
@@ -483,7 +513,7 @@ $(CURL_SRC): $(CURL_DIST)
 # Build curl
 
 $(INSTALLDIR)/lib/libcurl.a: $(CURL_SRC)
-	cd $(CURL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) CC=$(CROSS_COMPILE)gcc --with-ssl=$(shell pwd)/$(INSTALLDIR) --with-zlib=$(shell pwd)/$(INSTALLDIR) --without-brotli
+	cd $(CURL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-openssl=$(DESTDIR)/$(INSTALLDIR) --with-zlib=$(DESTDIR)/$(INSTALLDIR) --without-brotli --without-libpsl CC=$(CROSS_COMPILE)gcc
 	$(MAKE) -C $(CURL_SRC)
 	$(MAKE) -C $(CURL_SRC) install DESTDIR=$(DESTDIR)
 	touch $@
@@ -633,7 +663,6 @@ $(LIBMYSQLCLIENT_DIST):
 
 $(LIBMYSQLCLIENT_SRC): $(LIBMYSQLCLIENT_DIST)
 	tar xzf $(LIBMYSQLCLIENT_DIST)
-	cd $(LIBMYSQLCLIENT_SRC) && patch -b -p0 <../mariadb-connector-c.patch
 
 $(INSTALLDIR)/lib/libmysqlclient.a: $(LIBMYSQLCLIENT_SRC)
 	echo "set(CMAKE_SYSTEM_NAME Linux)"					>$(LIBMYSQLCLIENT_SRC)/toolchain.cmake
@@ -890,36 +919,6 @@ $(INSTALLDIR)/lib/liblzma.a: $(XZ_SRC)
 	touch $@
 
 liblzma: $(INSTALLDIR)/lib/liblzma.a
-
-###############################################################################
-
-# Download icu source distribution
-
-$(ICU_DIST):
-	wget -nv -P $(DISTDIR) $(ICU_URL)
-
-# Unpack icu source
-
-$(ICU_SRC): $(ICU_DIST)
-	tar xzf $(ICU_DIST)
-	mv icu $(ICU_SRC)
-	touch $@
-
-# Build cross icu
-
-$(INSTALLDIR)/lib/libicudata.so: $(ICU_SRC)
-	# First, build native icu
-	cd $(ICU_SRC) && cp -R -P -p source native.d
-	cd $(ICU_SRC)/native.d && ./configure
-	$(MAKE) -C $(ICU_SRC)/native.d
-	# Then, build cross icu
-	cd $(ICU_SRC) && cp -R -P -p source cross.d
-	cd $(ICU_SRC)/cross.d && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-cross-build=$(shell pwd)/$(ICU_SRC)/native.d CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
-	$(MAKE) -C $(ICU_SRC)/cross.d
-	$(MAKE) -C $(ICU_SRC)/cross.d install DESTDIR=$(DESTDIR)
-	touch $@
-
-icu: $(INSTALLDIR)/lib/libicudata.so
 
 ###############################################################################
 
