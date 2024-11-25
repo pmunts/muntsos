@@ -22,6 +22,10 @@ News
     to 1.2.7, and nano to 8.1. Upgraded the 64-bit Raspberry Pi kernel
     to 6.6.42.
 -   22 November 2024 -- Upgraded the .Net Runtime extension to 9.0.0.
+-   24 November 2024 -- Upgraded some library components: OpenSSL to
+    3.4.0, icu to 76.1, curl to 8.11.0, libtirpc to 1.3.6, libpcap to
+    1.10.5, libnl to 3.11.0, libmysqlclient (MariaDB Connector/C) to
+    3.4.3, rabbitmq to 0.15.0, libmodbus to 3.1.11, and xz to 5.6.3.
 
 Quick Setup Instructions for the Impatient
 
