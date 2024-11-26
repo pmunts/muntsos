@@ -37,4 +37,4 @@ sleep 5
 
 # Add firewall rule for the server
 
-rpcinfo -p | awk '/ 20000 / { printf("iptables -w -A INPUT -p %s -m conntrack --ctstate NEW --dport %s -j ACCEPT\n", $3, $4); }' | sh
+rpcinfo -p localhost | awk '/ 20000 / { printf("iptables -w -A INPUT -p %s -m conntrack --ctstate NEW --dport %s -j ACCEPT\n", $3, $4); }' | sh

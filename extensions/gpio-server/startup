@@ -52,4 +52,4 @@ iptables -w -A INPUT -p tcp -m conntrack --ctstate NEW --dport gpio-linx    -j A
 iptables -w -A INPUT -p tcp -m conntrack --ctstate NEW --dport gpio-xmlrpc  -j ACCEPT
 iptables -w -A INPUT -p udp -m conntrack --ctstate NEW --dport remoteio-udp -j ACCEPT
 
-rpcinfo -p | awk '/30000/ { printf("iptables -w -A INPUT -p %s -m conntrack --ctstate NEW --dport %s -j ACCEPT\n", $3, $4); }' | sh
+rpcinfo -p localhost | awk '/30000/ { printf("iptables -w -A INPUT -p %s -m conntrack --ctstate NEW --dport %s -j ACCEPT\n", $3, $4); }' | sh
