@@ -128,13 +128,14 @@ ln -s          @@USERLED@@/brightness /dev/userled
 
 # Set platform identification environment variables
 
+export OSNAME=MuntsOS
 export BOARDBASE=@@BOARDBASE@@
 export BOARDNAME=${BOARDNAME:-@@BOARDNAME@@}
 export BOARDARCH=@@BOARDARCH@@
 
 # Create /etc/platform
 
-echo "OSNAME=MuntsOS"				>/etc/platform
+echo "OSNAME=${OSNAME}"				>/etc/platform
 echo "OSREVISION=@@REVISION@@"			>>/etc/platform
 echo "BOARDBASE=${BOARDBASE}"			>>/etc/platform
 echo "BOARDNAME=${BOARDNAME}"			>>/etc/platform
