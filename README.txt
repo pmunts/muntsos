@@ -12,10 +12,10 @@ News
 -   1 January 2024 -- I have suspended development for 32-bit target
     platforms. The 32-bit BeagleBone kernel is frozen at 5.4.106. The
     32-bit Raspberry Pi 1 and 2 kernels are frozen at 5.15.92. The
-    muntsos-dev package has been updated to only pull in 64-bit AArch
-    toolchains. The 32-bit target platform deliverables (toolchains,
-    kernels, etc.) will be left in the repositories until the end of the
-    year.
+    muntsos-dev package has been updated to only pull in 64-bit
+    AArch64/ARMv8 toolchains. The 32-bit target platform deliverables
+    (toolchains, kernels, extensions, thin servers etc.) will be left in
+    the repositories until the end of the year.
 -   30 July 2024 -- Upgraded OpenSSL to 3.3.1, curl to 8.9.0, libtirpc
     to 1.3.5, libnl to 3.10.0, libsodium to 1.0.20, gdbm to 1.24, and xz
     to 5.6.2. Upgraded .Net Runtime to 8.0.7, OpenSSH to 9.8p1, rpcbind
@@ -26,6 +26,10 @@ News
     3.4.0, icu to 76.1, curl to 8.11.0, libtirpc to 1.3.6, libpcap to
     1.10.5, libnl to 3.11.0, libmysqlclient (MariaDB Connector/C) to
     3.4.3, rabbitmq to 0.15.0, libmodbus to 3.1.11, and xz to 5.6.3.
+-   25 November 2024 -- Upgraded some initramfs programs: OpenSSH to
+    9.9p1, ethtool to 6.11, and nano to 8.2. Added iw. Upgraded
+    Raspberry Pi 64-bit kernels to 6.6.62. Upgraded the Python runtime
+    extension to 3.13.0.
 
 Quick Setup Instructions for the Impatient
 
