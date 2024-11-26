@@ -29,9 +29,9 @@ News
     1.10.5, libnl to 3.11.0, libmysqlclient (MariaDB Connector/C) to
     3.4.3, rabbitmq to 0.15.0, libmodbus to 3.1.11, and xz to 5.6.3.
 -   25 November 2024 -- Upgraded some initramfs programs: OpenSSH to
-    9.9p1, ethtool to 6.11, and nano to 8.2. Added iw. Upgraded
-    Raspberry Pi 64-bit kernels to 6.6.62. Upgraded the Python runtime
-    extension to 3.13.0.
+    9.9p1, ethtool to 6.11, and nano to 8.2. Added iw. Upgraded the
+    Python runtime extension to 3.13.0.
+-   26 November 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.63.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
