@@ -1,5 +1,5 @@
---- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2024-06-12 09:29:38.000000000 -0700
-+++ arch/arm/boot/dts/overlays/overlay_map.dts	2024-06-15 08:21:58.614774932 -0700
+--- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2024-11-21 06:14:35.000000000 -0800
++++ arch/arm/boot/dts/overlays/overlay_map.dts	2024-11-24 21:17:54.669901291 -0800
 @@ -38,6 +38,14 @@
  		bcm2711;
  	};
@@ -15,7 +15,7 @@
  	disable-wifi {
  		bcm2835;
  		bcm2711;
-@@ -200,6 +208,14 @@
+@@ -214,6 +222,14 @@
  		bcm2712;
  	};
  
@@ -30,7 +30,7 @@
  	pi3-act-led {
  		renamed = "act-led";
  	};
-@@ -230,6 +246,14 @@
+@@ -248,6 +264,14 @@
  		bcm2711;
  	};
  
@@ -56,18 +56,18 @@
  					   clks->id, RPI_FIRMWARE_NUM_CLK_ID - 1);
  			return -EINVAL;
  		}
---- fs/super.c.orig	2024-03-27 12:03:08.000000000 -0700
-+++ fs/super.c	2024-03-29 12:15:23.175870402 -0700
-@@ -1484,7 +1484,7 @@
- 	bdev = blkdev_get_by_dev(sb->s_dev, mode, sb, &fs_holder_ops);
- 	if (IS_ERR(bdev)) {
+--- fs/super.c.orig	2024-11-21 06:14:35.000000000 -0800
++++ fs/super.c	2024-11-24 21:07:04.617096129 -0800
+@@ -1496,7 +1496,7 @@
+ 	bdev_handle = bdev_open_by_dev(sb->s_dev, mode, sb, &fs_holder_ops);
+ 	if (IS_ERR(bdev_handle)) {
  		if (fc)
 -			errorf(fc, "%s: Can't open blockdev", fc->source);
 +			warnf(fc, "%s: Can't open blockdev", fc->source);
- 		return PTR_ERR(bdev);
+ 		return PTR_ERR(bdev_handle);
  	}
- 
-@@ -1547,7 +1547,7 @@
+ 	bdev = bdev_handle->bdev;
+@@ -1561,7 +1561,7 @@
  
  	error = lookup_bdev(fc->source, &dev);
  	if (error) {
