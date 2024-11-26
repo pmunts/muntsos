@@ -1,17 +1,6 @@
---- Modules/Setup.stdlib.in.orig	2024-01-27 14:11:19.492430123 -0800
-+++ Modules/Setup.stdlib.in	2024-01-27 14:11:31.744598977 -0800
-@@ -113,7 +113,7 @@
- @MODULE_MMAP_TRUE@mmap mmapmodule.c
- # FreeBSD: nis/yp APIs are in libc
- # Linux: glibc has deprecated SUN RPC, APIs are in libnsl and libtirpc (bpo-32521)
--@MODULE_NIS_TRUE@nis nismodule.c
-+#@MODULE_NIS_TRUE@nis nismodule.c
- # needs sys/soundcard.h or linux/soundcard.h (Linux, FreeBSD)
- @MODULE_OSSAUDIODEV_TRUE@ossaudiodev ossaudiodev.c
- @MODULE__POSIXSUBPROCESS_TRUE@_posixsubprocess _posixsubprocess.c
---- Python/initconfig.c.orig	2024-04-09 01:09:14.000000000 -0700
-+++ Python/initconfig.c	2024-04-12 14:35:50.030833665 -0700
-@@ -790,7 +790,7 @@
+--- Python/initconfig.c.orig	2024-10-06 22:02:14.000000000 -0700
++++ Python/initconfig.c	2024-11-25 17:35:55.682887462 -0800
+@@ -865,7 +865,7 @@
      config->interactive = 0;
      config->optimization_level = 0;
      config->parser_debug= 0;

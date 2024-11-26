@@ -32,8 +32,8 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 BUILDOS		:= --build=$(shell uname -m)
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
-MAJORVER	:= 3.12
-MINORVER	:= 3
+MAJORVER	:= 3.13
+MINORVER	:= 0
 
 SRCNAME		:= python3
 SRCVER		:= $(MAJORVER).$(MINORVER)
@@ -58,7 +58,9 @@ CROSSCONFIG	+= $(BUILDOS)
 CROSSCONFIG	+= $(TARGETOS)
 CROSSCONFIG	+= --disable-ipv6
 CROSSCONFIG	+= --disable-test-modules
-CROSSCONFIG	+= --enable-optimizations
+CROSSCONFIG	+= --disable-optimizations
+CROSSCONFIG	+= --disable-bolt
+CROSSCONFIG	+= --without-lto
 CROSSCONFIG	+= --with-build-python=$(NATIVEPYTHON)
 CROSSCONFIG	+= --with-ensurepip
 CROSSCONFIG	+= AR=$(CROSS_COMPILE)ar
@@ -93,8 +95,7 @@ $(CROSSPYTHON) : $(NATIVEPYTHON)
 	cd $(CROSSDIR) && $(SRCDIR)/configure $(CROSSCONFIG)
 	cd $(CROSSDIR) && $(MAKE)
 	cd $(CROSSDIR) && $(MAKE) install DESTDIR=$(CROSSDIR)
-	# Remove stuff that doesn't belong in a runtime package
-	rm $(CROSSDIR)/usr/local/bin/2to3*
+	# Remove stuff that doesn't belong in a MuntsOS extension package
 	rm $(CROSSDIR)/usr/local/bin/idle3*
 	rm $(CROSSDIR)/usr/local/bin/pydoc3*
 	rm $(CROSSDIR)/usr/local/bin/python3
