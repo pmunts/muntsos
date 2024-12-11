@@ -30,6 +30,8 @@ News
     9.9p1, ethtool to 6.11, and nano to 8.2. Added iw. Upgraded the
     Python runtime extension to 3.13.0.
 -   26 November 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.63.
+-   11 December 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.64.
+    Added initial support for Raspberry Pi Compute Module 5.
 
 Quick Setup Instructions for the Impatient
 
@@ -209,9 +211,13 @@ Raspberry Pi 4, at the expense of greater power consumption. It has a
 or 8 GB of RAM. The Ethernet socket and USB ports have swapped sides, so
 it has a form factor that is sort of a cross between the Raspberry Pi 1
 B+ (same grouping of Ethernet and USB ports) and the Raspberry Pi 4
-(same dual micro-HDMI sockets and USB-C power socket). It uses the same
-AArch64 toolchain as all of the other 64-bit Raspberry Pi models, but a
-separate kernel and device tree.
+(same dual micro-HDMI sockets and USB-C power socket).
+
+There are also a myriad of Raspberry Pi 5 Compute Modules, with varying
+combinations of wireless Ethernet, RAM and eMMC.
+
+All Raspberry Pi 5 models use the same AArch64 toolchain and ARMv8
+kernels, but different device trees.
 
 The Raspberry Pi 5 introduced a breaking GPIO API change. See
 Application Note #11 for more information.

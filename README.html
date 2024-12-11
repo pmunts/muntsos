@@ -31,6 +31,11 @@ ethtool to 6.11, and nano to 8.2. Added iw. Upgraded the Python runtime
 extension to 3.13.0.</li>
 <br>
 <li>26 November 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.63.</li>
+<br>
+<li>11 December 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.64. Added
+initial support for <a href=
+"https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi Compute
+Module 5</a>.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -198,8 +203,12 @@ Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The Ethernet
 socket and USB ports have swapped sides, so it has a form factor that is sort
 of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and USB
 ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power
-socket). It uses the same AArch64 toolchain as all of the other 64-bit
-Raspberry Pi models, but a separate kernel and device tree.</p>
+socket).</p>
+<p>There are also a myriad of <a href=
+"https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi 5 Compute
+Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
+<p>All Raspberry Pi 5 models use the same AArch64 toolchain and ARMv8 kernels,
+but different device trees.</p>
 <p>The Raspberry Pi 5 introduced a breaking GPIO API change. See <a href=
 "http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
 #11</a> for more information.</p>
