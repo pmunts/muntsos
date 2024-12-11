@@ -30,6 +30,12 @@ include $(MUNTSOS)/include/RaspberryPi.mk
 KERNEL		:= kernel_2712
 KERNEL_DEFCONF	:= bcm2712_defconfig
 KERNEL_DTB	+= broadcom/bcm2712-rpi-5-b
+KERNEL_DTB	+= broadcom/bcm2712-rpi-500
+KERNEL_DTB	+= broadcom/bcm2712d0-rpi-5-b
+KERNEL_DTB	+= broadcom/bcm2712-cm5-cm4io
+KERNEL_DTB	+= broadcom/bcm2712-cm5-cm5io
+KERNEL_DTB	+= broadcom/bcm2712-cm5l-cm4io
+KERNEL_DTB	+= broadcom/bcm2712-cm5l-cm5io
 KERNEL_OVL	+= overlay_map
 KERNEL_OVL	+= anyspi
 KERNEL_OVL	+= disable-bt-pi5
