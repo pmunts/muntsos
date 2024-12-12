@@ -41,14 +41,10 @@ dtoverlay=disable-bt
 # Disable onboard WiFi
 #dtoverlay=disable-wifi
 
-[cm4]
-# Enable the PCF85063A RTC on the I/O board
-#dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
-[all]
-
 # Additional device tree overlays go here.  See ./overlays/README.txt and
 # https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
 # for more information.
 
+#dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
 #dtoverlay=Pi3ClickShield
 #dtoverlay=pwmchip0
