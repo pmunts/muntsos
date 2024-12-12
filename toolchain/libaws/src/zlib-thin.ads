@@ -374,4 +374,5 @@ private
    --  pragma Import (C, inflateBack, "inflateBack");
    --  pragma Import (C, inflateBackEnd, "inflateBackEnd");
 
+   pragma Link_With("-lz");
 end ZLib.Thin;

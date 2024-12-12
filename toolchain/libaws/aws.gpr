@@ -27,8 +27,4 @@ LIBRARY PROJECT AWS IS
   FOR Library_Dir      USE "LIBDIR/aws.lib";
   FOR Library_Kind     USE "static";
   FOR Source_Dirs      USE ("LIBDIR/aws.src");
-
-  PACKAGE Linker IS
-    FOR Linker_Options USE ("-lssl", "-lcrypto", "-lz");
-  END Linker;
 END AWS;

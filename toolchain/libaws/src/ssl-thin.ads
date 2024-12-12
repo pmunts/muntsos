@@ -1728,4 +1728,6 @@ package SSL.Thin is
    procedure SSL_SESSION_free (session : SSL_Session)
      with Import, Convention => C, External_Name => "SSL_SESSION_free";
 
+   pragma Link_With("-lssl");
+   pragma Link_With("-lcrypto");
 end SSL.Thin;
