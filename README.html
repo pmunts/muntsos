@@ -36,6 +36,17 @@ extension to 3.13.0.</li>
 initial support for <a href=
 "https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi Compute
 Module 5</a>.</li>
+<br>
+<li>12 December 2024 -- Finally fixed the <a href=
+"https://alire.ada.dev">Alire</a> crate <a href=
+"https://alire.ada.dev/crates/muntsos_aarch64.html">muntsos_aarch64</a>. The
+Alire web site and its client program <b><tt>alr</tt></b> serve as an active
+and searchable provider of <a href="https://ada-lang.io">Ada</a> library
+components (called <i>crates</i>), similar to how <a href=
+"https://www.nuget.org">NuGet</a> provides .Net library packages. See newly
+updated <a href=
+"http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">Application
+Note #7</a> for an example.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -152,8 +163,10 @@ now obsolete.</p>
 serial port signals that are brought out to the expansion header. By default,
 MuntsOS port disables the on-board Bluetooth radio, in favor of the serial port
 on the expansion header.</p>
+<p>All of the 64-bit Raspberry Pi models use the same AArch64
+cross-toolchain.</p>
 <h4>Raspberry Pi 3</h4>
-<p>The 64-bit <a href=
+<p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-2-model-b">Raspberry Pi 2
 Model B</a> Revision 1.2 with the 900 MHz BCM2710 ARMv8 Cortex-A53 quad-core
 CPU can be treated as a power conserving Raspberry Pi 3 Model B− and is useful
@@ -177,8 +190,8 @@ improved power management and networking components.</p>
 2 W</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
 BCM2710 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
 Bluetooth and WiFi radios.</p>
-<p>All Raspberry Pi 3 models use the same AArch64 toolchain and ARMv8 kernels,
-but different device trees.</p>
+<p>All Raspberry Pi 3 models use the same ARMv8 kernel, with different device
+trees.</p>
 <h4>Raspberry Pi 4</h4>
 <p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-4-model-b">Raspberry Pi 4
@@ -193,8 +206,8 @@ Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-4">Raspberry Pi 4 Compute
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
-<p>All Raspberry Pi 4 models use the same AArch64 toolchain and ARMv8 kernels,
-but different device trees.</p>
+<p>All Raspberry Pi 4 models use the same ARMv8 kernel, with different device
+trees.</p>
 <h4>Raspberry Pi 5</h4>
 <p>The <a href="https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry
 Pi 5</a> yields another 2-3x increase in performance over the Raspberry Pi 4,
@@ -207,8 +220,8 @@ socket).</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi 5 Compute
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
-<p>All Raspberry Pi 5 models use the same AArch64 toolchain and ARMv8 kernels,
-but different device trees.</p>
+<p>All Raspberry Pi 5 models use the same ARMv8 kernel, with different device
+trees.</p>
 <p>The Raspberry Pi 5 introduced a breaking GPIO API change. See <a href=
 "http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
 #11</a> for more information.</p>
@@ -247,15 +260,6 @@ host computers are available at either:</p>
 Fedora 40 and RHEL 9.1 and its derivatives are available at:</p>
 <a href=
 "http://repo.munts.com/muntsos/toolchain-rpms">http://repo.munts.com/muntsos/toolchain-rpms</a>
-<h2>Debian Package Repository</h2>
-<p>Prebuilt cross-toolchain packages for <a href=
-"http://www.debian.org">Debian</a> Linux are available at:</p>
-<p><a href=
-"http://repo.munts.com/debian12">http://repo.munts.com/debian12</a></p>
-<h2>File Repository</h2>
-<p>Prebuilt binaries for MuntsOS are available at:</p>
-<p><a href=
-"http://repo.munts.com/muntsos">http://repo.munts.com/muntsos</a></p>
 <h2>Git Repository</h2>
 <p>The source code for MuntsOS is available at:</p>
 <p><a href=
@@ -264,6 +268,25 @@ Fedora 40 and RHEL 9.1 and its derivatives are available at:</p>
 <pre>
 git clone https://github.com/pmunts/muntsos.git
 </pre>
+<h2>Debian Package Repository</h2>
+<p>Prebuilt cross-toolchain packages for <a href=
+"http://www.debian.org">Debian</a> Linux are available at:</p>
+<p><a href=
+"http://repo.munts.com/debian12">http://repo.munts.com/debian12</a></p>
+<h2>File Repository</h2>
+<p>Prebuilt binaries for MuntsOS (extensions, kernels, thin servers, and
+cross-toolchain packages) are available at:</p>
+<p><a href=
+"http://repo.munts.com/muntsos">http://repo.munts.com/muntsos</a></p>
+<h2><a href="https://alire.ada.dev">Alire</a> Crates</h2>
+<p><a href="https://alire.ada.dev/crates/muntsos_aarch64.html"><img alt=
+"muntsos_aarch64" src=
+"https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json"></a></p>
+<p id="alire_orphans">Please note that none of the other MuntsOS library crates
+in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are useable due to breaking
+changes in <b><tt>alr</tt></b> 2.0. Unfortunately, Alire project policies
+prohibit removing obsolete crates, so <b>muntsos_beaglebone</b> <i>et al</i>
+remain in the repository as broken and abandoned orphans.</p>
 <hr>
 Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>

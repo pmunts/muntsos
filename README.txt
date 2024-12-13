@@ -32,6 +32,11 @@ News
 -   26 November 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.63.
 -   11 December 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.64.
     Added initial support for Raspberry Pi Compute Module 5.
+-   12 December 2024 -- Finally fixed the Alire crate muntsos_aarch64.
+    The Alire web site and its client program alr serve as an active and
+    searchable provider of Ada library components (called crates),
+    similar to how NuGet provides .Net library packages. See newly
+    updated Application Note #7 for an example.
 
 Quick Setup Instructions for the Impatient
 
@@ -158,12 +163,15 @@ serial port signals that are brought out to the expansion header. By
 default, MuntsOS port disables the on-board Bluetooth radio, in favor of
 the serial port on the expansion header.
 
+All of the 64-bit Raspberry Pi models use the same AArch64
+cross-toolchain.
+
 Raspberry Pi 3
 
-The 64-bit Raspberry Pi 2 Model B Revision 1.2 with the 900 MHz BCM2710
-ARMv8 Cortex-A53 quad-core CPU can be treated as a power conserving
-Raspberry Pi 3 Model B− and is useful for industrial applications where
-wired Ethernet is preferred.
+The Raspberry Pi 2 Model B Revision 1.2 with the 900 MHz BCM2710 ARMv8
+Cortex-A53 quad-core CPU can be treated as a power conserving Raspberry
+Pi 3 Model B− and is useful for industrial applications where wired
+Ethernet is preferred.
 
 The Rasbperry Pi 3 Model B has a 1200 MHz BCM2710 ARMv8 Cortex-A53
 quad-core CPU and has 1 GB of RAM along with on-board Bluetooth and WiFi
@@ -182,8 +190,8 @@ The Raspberry Pi Zero 2 W has the same form factor as the Raspberry Pi
 Zero W, with a 1000 MHz BCM2710 ARMv8 Cortex-A53 quad core CPU and 512
 MB of RAM along with on-board Bluetooth and WiFi radios.
 
-All Raspberry Pi 3 models use the same AArch64 toolchain and ARMv8
-kernels, but different device trees.
+All Raspberry Pi 3 models use the same ARMv8 kernel, with different
+device trees.
 
 Raspberry Pi 4
 
@@ -200,8 +208,8 @@ Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.
 There are also a myriad of Raspberry Pi 4 Compute Modules, with varying
 combinations of wireless Ethernet, RAM and eMMC.
 
-All Raspberry Pi 4 models use the same AArch64 toolchain and ARMv8
-kernels, but different device trees.
+All Raspberry Pi 4 models use the same ARMv8 kernel, with different
+device trees.
 
 Raspberry Pi 5
 
@@ -216,8 +224,8 @@ B+ (same grouping of Ethernet and USB ports) and the Raspberry Pi 4
 There are also a myriad of Raspberry Pi 5 Compute Modules, with varying
 combinations of wireless Ethernet, RAM and eMMC.
 
-All Raspberry Pi 5 models use the same AArch64 toolchain and ARMv8
-kernels, but different device trees.
+All Raspberry Pi 5 models use the same ARMv8 kernel, with different
+device trees.
 
 The Raspberry Pi 5 introduced a breaking GPIO API change. See
 Application Note #11 for more information.
@@ -262,18 +270,6 @@ on Fedora 40 and RHEL 9.1 and its derivatives are available at:
 
 http://repo.munts.com/muntsos/toolchain-rpms
 
-Debian Package Repository
-
-Prebuilt cross-toolchain packages for Debian Linux are available at:
-
-http://repo.munts.com/debian12
-
-File Repository
-
-Prebuilt binaries for MuntsOS are available at:
-
-http://repo.munts.com/muntsos
-
 Git Repository
 
 The source code for MuntsOS is available at:
@@ -283,6 +279,29 @@ https://github.com/pmunts/muntsos
 Use the following command to clone it:
 
 git clone https://github.com/pmunts/muntsos.git
+
+Debian Package Repository
+
+Prebuilt cross-toolchain packages for Debian Linux are available at:
+
+http://repo.munts.com/debian12
+
+File Repository
+
+Prebuilt binaries for MuntsOS (extensions, kernels, thin servers, and
+cross-toolchain packages) are available at:
+
+http://repo.munts.com/muntsos
+
+Alire Crates
+
+https://alire.ada.dev/crates/muntsos_aarch64.html
+
+Please note that none of the other MuntsOS library crates in Alire (e.g.
+muntsos_beaglebone) are useable due to breaking changes in alr 2.0.
+Unfortunately, Alire project policies prohibit removing obsolete crates,
+so muntsos_beaglebone et al remain in the repository as broken and
+abandoned orphans.
 
 ------------------------------------------------------------------------
 
