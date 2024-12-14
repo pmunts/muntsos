@@ -39,14 +39,4 @@ ln -s -f /usr/local/bin/python3 /usr/bin/python3
 grep -q "PIP_ROOT_USER_ACTION=ignore" /etc/environment
 test $? -eq 0 || echo "PIP_ROOT_USER_ACTION=ignore" >> /etc/environment
 
-# Save site-packages
-
-echo "/usr/local/lib/python@@MAJORVER@@/site-packages" >>/etc/changes.manifest
-
-test -f /tmp/booting.flag && umount /boot
-
-sysconfig --save
-
-test -f /tmp/booting.flag && mount /boot
-
 exit 0
