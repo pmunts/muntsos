@@ -33,14 +33,14 @@ BUILDOS		:= --build=$(shell uname -m)
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
 MAJORVER	:= 3.13
-MINORVER	:= 0
+MINORVER	:= 1
 
 SRCNAME		:= python3
 SRCVER		:= $(MAJORVER).$(MINORVER)
 SRCDIR		:= Python-$(SRCVER)
 SRCTARBALL	:= $(SRCDIR).tgz
 SRCURL		:= https://www.python.org/ftp/python/$(SRCVER)/$(SRCTARBALL)
-SRCDIST		:= $(TEMP)/$(SRCTARBALL)
+SRCDIST		:= $(TEMP)/muntsos/$(SRCTARBALL)
 
 PKGNAME		:= $(SRCNAME)
 PKGVERSION	:= $(SRCVER)-$(shell date +%Y.%j)
@@ -71,10 +71,17 @@ CROSSCONFIG	+= ac_cv_file__dev_ptmx=no
 
 default: package.deb
 
+##############################################################################
+
 # Download the source distribution
 
 $(SRCDIST) :
-	wget -nv -P $(TEMP) $(SRCURL)
+	mkdir -p $(TEMP)/muntsos
+	wget -nv -P $(TEMP)/muntsos $(SRCURL)
+
+download: $(SRCDIST)
+
+##############################################################################
 
 # Compile native python3
 
@@ -87,6 +94,10 @@ $(NATIVEPYTHON) : $(SRCDIST)
 	touch $@
 
 native : $(NATIVEPYTHON)
+
+##############################################################################
+
+# Compile cross python3
 
 $(CROSSPYTHON) : $(NATIVEPYTHON)
 	mkdir -p $(CROSSDIR)
@@ -119,6 +130,8 @@ $(CROSSPYTHON) : $(NATIVEPYTHON)
 	touch $@
 
 cross : $(CROSSPYTHON)
+
+##############################################################################
 
 # Build the Debian package file
 
@@ -153,6 +166,8 @@ download_prebuilt: $(PKGFILE).downloaded
 $(PKGFILE).downloaded:
 	wget -q -nc $(DOWNLOADPREFIX)/extensions/$(PKGFILE)
 	touch $(PKGFILE).downloaded
+
+##############################################################################
 
 # Remove working files
 
