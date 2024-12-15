@@ -137,7 +137,6 @@ cross : $(CROSSPYTHON)
 
 PYLIBDIR	:= /usr/local/lib/python$(MAJORVER)
 PYETCDIR	:= /usr/local/etc/python$(MAJORVER)
-PYLIBEXECDIR	:= /usr/local/libexec/python$(MAJORVER)
 
 $(PKGDIR) : $(CROSSPYTHON)
 	mkdir -p					$(PKGDIR)/DEBIAN
@@ -148,8 +147,6 @@ $(PKGDIR) : $(CROSSPYTHON)
 	install -cm 0755 postinst			$(PKGDIR)/DEBIAN
 	sed -i s/@@MAJORVER@@/$(MAJORVER)/g		$(PKGDIR)/DEBIAN/postinst
 	mkdir -p					$(PKGDIR)/$(PYETCDIR)/site-packages
-	mkdir -p					$(PKGDIR)/$(PYLIBEXECDIR)
-	install -cm 0755 install-pip3			$(PKGDIR)/$(PYLIBEXECDIR)
 	cp -R -P -p $(CROSSDIR)/usr			$(PKGDIR)
 	cp -R -P -p $(LIBSIMPLEIO)/python/packages/munts $(PKGDIR)/$(PYLIBDIR)
 	rm -rf						$(PKGDIR)/$(PYLIBDIR)/site-packages
