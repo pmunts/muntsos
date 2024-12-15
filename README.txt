@@ -37,6 +37,11 @@ News
     searchable provider of Ada library components (called crates),
     similar to how NuGet provides .Net library packages. See newly
     updated Application Note #7 for an example.
+-   14 December 2024 -- Upgraded the Python3 extension to 3.13.1. Moved
+    the Python3 extension subdirectory site-packages/ from
+    /usr/local/lib/python3.13/ to /usr/local/etc/python3.13/. Added the
+    utility script /usr/local/libexec/python3.13/install-pip3 to the
+    Python3 extension.
 
 Quick Setup Instructions for the Impatient
 
