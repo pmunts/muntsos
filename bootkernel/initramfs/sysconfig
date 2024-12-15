@@ -127,6 +127,13 @@ EOD
     sed -i '/\/etc\/wpa_supplicant.conf/d' /etc/changes.manifest
   fi
 
+  if [ -f /usr/local/bin/pip3 ]; then
+    echo "/usr/local/bin/pip3" >>/etc/changes.manifest
+    chmod 555 /usr/local/bin/pip3
+  else
+    sed -i '/\/usr\/local\/bin\/pip3/d' /etc/changes.manifest
+  fi
+
   # Migrate from /etc/profile.d to /usr/local/etc/profile.d
 
   if [ -d /etc/profile.d -a -d /usr/local/etc/profile.d ]; then
@@ -585,6 +592,8 @@ function EditConfig {
 ###############################################################################
 
 function Finalize {
+  find /usr/local/etc/python3* -name __pycache__ -exec rm -rf {} ";" >/dev/null 2>&1
+
   sort -u </etc/changes.manifest >/etc/changes.manifest.new
   mv /etc/changes.manifest.new /etc/changes.manifest
   chmod 444 /etc/changes.manifest
