@@ -44,8 +44,11 @@ WITH libLinux;
 WITH BeagleBone;
 WITH PocketBeagle;
 WITH RaspberryPi;
+WITH RaspberryPi4;
+WITH RaspberryPi5;
 
 USE TYPE ClickBoard.Shields.Kind;
+USE TYPE RaspberryPi.CPUs;
 
 PROCEDURE remoteio_server IS
 
@@ -380,18 +383,46 @@ BEGIN
     -- Hardware PWM outputs are only available if one of the proper
     -- device tree overlays has been enabled in /boot/config.txt.
 
-    IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
-      -- Export BCM2835 PWM outputs
-      system("echo 0 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
-      system("echo 1 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
-      DELAY 1.0;
+    IF RaspberryPi.GetCPU < RaspberryPi.BCM2712 THEN
+      -- Raspberry Pi 1,2,3,4 all have two hardware PWM outputs
 
-      IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
-        pwm.Register(0, RaspberryPi.PWM0);
+      IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
+        system("echo 0 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
+        system("echo 1 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
+        DELAY 1.0;
+
+        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
+          pwm.Register(0, RaspberryPi.PWM0);
+        END IF;
+
+        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm1") THEN
+          pwm.Register(1, RaspberryPi.PWM1);
+        END IF;
       END IF;
+    ELSE
+      -- Raspberry Pi 5 has four hardware PWM outputs
+      IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2") THEN
+        system("echo 0 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
+        system("echo 1 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
+        system("echo 2 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
+        system("echo 3 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
+        DELAY 1.0;
 
-      IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm1") THEN
-        pwm.Register(1, RaspberryPi.PWM1);
+        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm0") THEN
+          pwm.Register(0, RaspberryPi5.PWM0);
+        END IF;
+
+        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm1") THEN
+          pwm.Register(1, RaspberryPi5.PWM1);
+        END IF;
+
+        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm2") THEN
+          pwm.Register(2, RaspberryPi5.PWM2);
+        END IF;
+
+        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm3") THEN
+          pwm.Register(3, RaspberryPi5.PWM3);
+        END IF;
       END IF;
     END IF;
 
