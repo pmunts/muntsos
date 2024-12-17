@@ -40,6 +40,12 @@ News
 -   14 December 2024 -- Upgraded the Python3 extension to 3.13.1. Moved
     the Python3 extension subdirectory site-packages/ from
     /usr/local/lib/python3.13/ to /usr/local/etc/python3.13/.
+-   17 December 2024 -- Moved all 32-bit target deliverables (toolchain
+    packages, kernels, extensions, and thin servers) to
+    http://repo.munts.com/muntsos/attic. I did a final build of the
+    32-bit target kernels with sysconfig modified to fetch extensions
+    from the attic. I do not anticipate ever building the 32-bit target
+    kernels or thin servers again.
 
 Quick Setup Instructions for the Impatient
 
