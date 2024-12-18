@@ -172,10 +172,10 @@ successively more sophisticated Broadcom ARM core CPU. The first two
 generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry Pi 2) are
 now obsolete.</p>
 <p>Some Raspberry Pi models have an on-board Bluetooth radio that uses the
-serial port signals that are brought out to the expansion header. By default,
-MuntsOS port disables the on-board Bluetooth radio, in favor of the serial port
-on the expansion header.</p>
-<p>All of the 64-bit Raspberry Pi models use the same AArch64
+serial port signals that are also brought out to the expansion header. By
+default, MuntsOS port disables the on-board Bluetooth radio, in favor of the
+serial port on the expansion header.</p>
+<p>All of the following 64-bit Raspberry Pi models use the same AArch64
 cross-toolchain.</p>
 <h4>Raspberry Pi 3</h4>
 <p>The <a href=
@@ -201,7 +201,9 @@ improved power management and networking components.</p>
 "https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
 2 W</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
 BCM2710 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
-Bluetooth and WiFi radios.</p>
+Bluetooth and WiFi radios. This small, light, and inexpensive board is probably
+one of the best Linux microcomputers available for implementing embedded
+systems.</p>
 <p>All Raspberry Pi 3 models use the same ARMv8 kernel, with different device
 trees.</p>
 <h4>Raspberry Pi 4</h4>
@@ -238,9 +240,10 @@ trees.</p>
 "http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
 #11</a> for more information.</p>
 <p>The Raspberry Pi 5 also introduced a breaking PWM API change. It has four
-hardware PWM outputs, but the pin mapping has changed as well. Notably, channel
-2 is mapped to GPIO18 instead of channel 0 on previous Raspberry Pi boards. See
-<a href="https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
+hardware PWM outputs with different pin mapping. Notably, PWM chip 2 channel 2
+is mapped to GPIO18 instead of PWM chip 0 channel 0 on previous Raspberry Pi
+boards. See <a href=
+"https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
 Peripherals</a> page 15 for more information.</p>
 <h4>Raspberry Pi USB Gadget Kernels</h4>
 <p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
@@ -265,13 +268,48 @@ the corresponding GCC cross-toolchain package.</p>
 "https://www.debian.org">Debian</a> Linux (x86-64 <i>and</i> ARM64) development
 host computers are available at either:</p>
 <a href="http://repo.munts.com/debian12">http://repo.munts.com/debian12</a>
-(Debian package repository) or <a href=
+(Debian package repository)<br>
+<a href=
 "http://repo.munts.com/muntsos/toolchain-debs">http://repo.munts.com/muntsos/toolchain-debs</a>
 (just the package files).
 <p>x86-64 RPM packages containing the exact same binaries and known to work on
 Fedora 40 and RHEL 9.1 and its derivatives are available at:</p>
 <a href=
 "http://repo.munts.com/muntsos/toolchain-rpms">http://repo.munts.com/muntsos/toolchain-rpms</a>
+<h2><a href="https://alire.ada.dev">Alire</a> Crates</h2>
+<p><a href="https://alire.ada.dev/crates/muntsos_aarch64.html"><img alt=
+"muntsos_aarch64" src=
+"https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json"></a></p>
+<p>Adding <b><tt>muntsos_aarch64</tt></b> to an Alire Ada program project turns
+it into one that produces a cross-compiled AArch64/ARMv8 program for MuntsOS.
+See <a href=
+"http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">Application
+Note #7</a> for a complete example using the <b><tt>alr</tt></b> command line
+tool.</p>
+<p id="alire_orphans">Please note that none of the other MuntsOS library crates
+in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are useable due to breaking
+changes in <b><tt>alr</tt></b> 2.0. Unfortunately, Alire project policies
+prohibit removing obsolete crates, so <b>muntsos_beaglebone</b> <i>et al</i>
+remain in the repository as broken and abandoned orphans.</p>
+<h2><a href="https://dotnet.microsoft.com">Microsoft .Net</a></h2>
+<p>With the <b><tt>dotnet</tt></b> extension installed, MuntsOS can run
+architecture independent .Net programs produced by <b><tt>dotnet
+build</tt></b>, <b><tt>dotnet publish</tt></b>, <b><tt>dotnet pack</tt></b> or
+the equivalent actions in <a href=
+"https://visualstudio.microsoft.com">Microsoft Visual Studio</a>. Many if not
+most of the library packages published on <a href=
+"https://www.nuget.org">Nuget</a> can be used. In particular, the library
+package <a href="https://www.nuget.org/packages/libsimpleio">libsimpleio</a>
+provides an elegant .Net binding to the shared library
+<b><tt>libsimpleio.so</tt></b> that is an integral part of MuntsOS. See
+<a href="http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf">Application
+Note #8</a> for a complete example using C# to flash an LED.</p>
+<p>The combination of Visual Studio + NuGet + libsimpleio provides a very high
+productivity development environment for creating embedded systems software to
+run on MuntsOS. With <a href="https://www.remobjects.com/elements">RemObjects
+Elements</a>, a commercial product addon for Visual Studio, you can even
+compile Object Pascal, Java, Go, and Swift programs to .Net assemblies that run
+on MuntsOS.</p>
 <h2>Git Repository</h2>
 <p>The source code for MuntsOS is available at:</p>
 <p><a href=
@@ -280,25 +318,11 @@ Fedora 40 and RHEL 9.1 and its derivatives are available at:</p>
 <pre>
 git clone https://github.com/pmunts/muntsos.git
 </pre>
-<h2>Debian Package Repository</h2>
-<p>Prebuilt cross-toolchain packages for <a href=
-"http://www.debian.org">Debian</a> Linux are available at:</p>
-<p><a href=
-"http://repo.munts.com/debian12">http://repo.munts.com/debian12</a></p>
 <h2>File Repository</h2>
 <p>Prebuilt binaries for MuntsOS (extensions, kernels, thin servers, and
 cross-toolchain packages) are available at:</p>
 <p><a href=
 "http://repo.munts.com/muntsos">http://repo.munts.com/muntsos</a></p>
-<h2><a href="https://alire.ada.dev">Alire</a> Crates</h2>
-<p><a href="https://alire.ada.dev/crates/muntsos_aarch64.html"><img alt=
-"muntsos_aarch64" src=
-"https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json"></a></p>
-<p id="alire_orphans">Please note that none of the other MuntsOS library crates
-in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are useable due to breaking
-changes in <b><tt>alr</tt></b> 2.0. Unfortunately, Alire project policies
-prohibit removing obsolete crates, so <b>muntsos_beaglebone</b> <i>et al</i>
-remain in the repository as broken and abandoned orphans.</p>
 <hr>
 Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>

@@ -199,11 +199,11 @@ two generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry
 Pi 2) are now obsolete.
 
 Some Raspberry Pi models have an on-board Bluetooth radio that uses the
-serial port signals that are brought out to the expansion header. By
-default, MuntsOS port disables the on-board Bluetooth radio, in favor of
-the serial port on the expansion header.
+serial port signals that are also brought out to the expansion header.
+By default, MuntsOS port disables the on-board Bluetooth radio, in favor
+of the serial port on the expansion header.
 
-All of the 64-bit Raspberry Pi models use the same AArch64
+All of the following 64-bit Raspberry Pi models use the same AArch64
 cross-toolchain.
 
 #### Raspberry Pi 3
@@ -235,7 +235,9 @@ The [Raspberry Pi Zero 2
 W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w) has the
 same form factor as the Raspberry Pi Zero W, with a 1000 MHz BCM2710
 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
-Bluetooth and WiFi radios.
+Bluetooth and WiFi radios. This small, light, and inexpensive board is
+probably one of the best Linux microcomputers available for implementing
+embedded systems.
 
 All Raspberry Pi 3 models use the same ARMv8 kernel, with different
 device trees.
@@ -286,9 +288,9 @@ The Raspberry Pi 5 introduced a breaking GPIO API change. See
 more information.
 
 The Raspberry Pi 5 also introduced a breaking PWM API change. It has
-four hardware PWM outputs, but the pin mapping has changed as well.
-Notably, channel 2 is mapped to GPIO18 instead of channel 0 on previous
-Raspberry Pi boards. See [RP1
+four hardware PWM outputs with different pin mapping. Notably, PWM chip
+2 channel 2 is mapped to GPIO18 instead of PWM chip 0 channel 0 on
+previous Raspberry Pi boards. See [RP1
 Peripherals](https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf)
 page 15 for more information.
 
@@ -323,13 +325,53 @@ Cross-toolchain packages built for [Debian](https://www.debian.org)
 Linux (x86-64 *and* ARM64) development host computers are available at
 either:
 
-<http://repo.munts.com/debian12> (Debian package repository) or
+<http://repo.munts.com/debian12> (Debian package repository)  
 <http://repo.munts.com/muntsos/toolchain-debs> (just the package files).
 
 x86-64 RPM packages containing the exact same binaries and known to work
 on Fedora 40 and RHEL 9.1 and its derivatives are available at:
 
 <http://repo.munts.com/muntsos/toolchain-rpms>
+
+[Alire](https://alire.ada.dev) Crates
+-------------------------------------
+
+[![muntsos\_aarch64](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json)](https://alire.ada.dev/crates/muntsos_aarch64.html)
+
+Adding **`muntsos_aarch64`** to an Alire Ada program project turns it
+into one that produces a cross-compiled AArch64/ARMv8 program for
+MuntsOS. See [Application Note
+\#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
+for a complete example using the **`alr`** command line tool.
+
+Please note that none of the other MuntsOS library crates in Alire
+(*e.g.* **muntsos\_beaglebone**) are useable due to breaking changes in
+**`alr`** 2.0. Unfortunately, Alire project policies prohibit removing
+obsolete crates, so **muntsos\_beaglebone** *et al* remain in the
+repository as broken and abandoned orphans.
+
+[Microsoft .Net](https://dotnet.microsoft.com)
+----------------------------------------------
+
+With the **`dotnet`** extension installed, MuntsOS can run architecture
+independent .Net programs produced by **`dotnet build`**,
+**`dotnet publish`**, **`dotnet pack`** or the equivalent actions in
+[Microsoft Visual Studio](https://visualstudio.microsoft.com). Many if
+not most of the library packages published on
+[Nuget](https://www.nuget.org) can be used. In particular, the library
+package [libsimpleio](https://www.nuget.org/packages/libsimpleio)
+provides an elegant .Net binding to the shared library
+**`libsimpleio.so`** that is an integral part of MuntsOS. See
+[Application Note
+\#8](http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf) for a
+complete example using C\# to flash an LED.
+
+The combination of Visual Studio + NuGet + libsimpleio provides a very
+high productivity development environment for creating embedded systems
+software to run on MuntsOS. With [RemObjects
+Elements](https://www.remobjects.com/elements), a commercial product
+addon for Visual Studio, you can even compile Object Pascal, Java, Go,
+and Swift programs to .Net assemblies that run on MuntsOS.
 
 Git Repository
 --------------
@@ -342,14 +384,6 @@ Use the following command to clone it:
 
     git clone https://github.com/pmunts/muntsos.git
 
-Debian Package Repository
--------------------------
-
-Prebuilt cross-toolchain packages for [Debian](http://www.debian.org)
-Linux are available at:
-
-<http://repo.munts.com/debian12>
-
 File Repository
 ---------------
 
@@ -357,17 +391,6 @@ Prebuilt binaries for MuntsOS (extensions, kernels, thin servers, and
 cross-toolchain packages) are available at:
 
 <http://repo.munts.com/muntsos>
-
-[Alire](https://alire.ada.dev) Crates
--------------------------------------
-
-[![muntsos\_aarch64](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json)](https://alire.ada.dev/crates/muntsos_aarch64.html)
-
-Please note that none of the other MuntsOS library crates in Alire
-(*e.g.* **muntsos\_beaglebone**) are useable due to breaking changes in
-**`alr`** 2.0. Unfortunately, Alire project policies prohibit removing
-obsolete crates, so **muntsos\_beaglebone** *et al* remain in the
-repository as broken and abandoned orphans.
 
 ------------------------------------------------------------------------
 
