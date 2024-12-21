@@ -47,4 +47,5 @@ dtoverlay=disable-bt
 
 #dtoverlay=i2c-rtc,pcf85063a,i2c_csi_dsi
 #dtoverlay=Pi3ClickShield
+#dtoverlay=Pi4ClickShield
 #dtoverlay=pwmchip0
