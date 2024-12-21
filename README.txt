@@ -46,6 +46,9 @@ News
     32-bit target kernels with sysconfig modified to fetch extensions
     from the attic. I do not anticipate ever building the 32-bit target
     kernels or thin servers again.
+-   20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67.
+    Added a new device tree overlay, Pi4ClickShield, to support the
+    eponymous Mikrobus shield.
 
 Quick Setup Instructions for the Impatient
 
