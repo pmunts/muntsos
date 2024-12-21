@@ -6,19 +6,94 @@
 / {
 	compatible = "brcm,bcm2711";
 
-	/* Turn on BCM2711 pwmchip0 but don't claim any GPIO pins */
+	/* Enable ADS1115 A/D Converter 0.000 to 4.096 full scale, 0.125 uV per step */
 
 	fragment@0 {
+		target = <&ads1115>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			channel_a: channel_a {
+				reg = <4>;
+				ti,gain = <1>;
+				ti,datarate = <7>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&ads1115>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			channel_b: channel_b {
+				reg = <5>;
+				ti,gain = <1>;
+				ti,datarate = <7>;
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&ads1115>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			channel_c: channel_c {
+				reg = <6>;
+				ti,gain = <1>;
+				ti,datarate = <7>;
+			};
+		};
+	};
+
+	fragment@3 {
+		target = <&ads1115>;
+		__dormant__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			channel_d: channel_d {
+				reg = <7>;
+				ti,gain = <3>;
+				ti,datarate = <7>;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&i2c_arm>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			ads1115: ads1115@48 {
+				compatible = "ti,ads1115";
+				status = "okay";
+				#address-cells = <1>;
+				#size-cells = <0>;
+				reg = <0x48>;
+			};
+		};
+	};
+
+	/* Enable BCM2711 pwmchip0 but don't claim any GPIO pins */
+
+	fragment@5 {
 		target = <&pwm>;
-		frag1: __overlay__ {
+		__overlay__ {
 			assigned-clock-rates = <100000000>;
 			status = "okay";
 		};
 	};
 
-        /* Enable Fan control on GPIO20 */
+        /* Enable GPIO20 fan control */
 
-	fragment@1 {
+	fragment@6 {
 		target-path = "/";
 		__overlay__ {
 			fan0: gpio-fan@0 {
@@ -30,25 +105,25 @@
 		};
 	};
 
-	fragment@2 {
+	fragment@7 {
 		target = <&cpu_thermal>;
 		__overlay__ {
 			polling-delay = <2000>;	/* milliseconds */
 		};
 	};
 
-	fragment@3 {
+	fragment@8 {
 		target = <&thermal_trips>;
 		__overlay__ {
 			cpu_hot: trip-point@0 {
-				temperature = <55000>;	/* (millicelsius) Fan started at 55°C */
-				hysteresis = <10000>;	/* (millicelsius) Fan stopped at 45°C */
+				temperature = <52000>;	/* (millicelsius) Fan started at 52°C */
+				hysteresis = <5000>;	/* (millicelsius) Fan stopped at 47°C */
 				type = "active";
 			};
 		};
 	};
 
-	fragment@4 {
+	fragment@9 {
 		target = <&cooling_maps>;
 		__overlay__ {
 			map0 {
