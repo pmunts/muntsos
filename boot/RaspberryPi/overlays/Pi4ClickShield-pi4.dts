@@ -1,0 +1,60 @@
+/* Device tree overlay for the Mikroelektronika Pi 4 Click Shield (MIKROE-4122). */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2711";
+
+	/* Turn on BCM2711 pwmchip0 but don't claim any GPIO pins */
+
+	fragment@0 {
+		target = <&pwm>;
+		frag1: __overlay__ {
+			assigned-clock-rates = <100000000>;
+			status = "okay";
+		};
+	};
+
+        /* Enable Fan control on GPIO20 */
+
+	fragment@1 {
+		target-path = "/";
+		__overlay__ {
+			fan0: gpio-fan@0 {
+				compatible = "gpio-fan";
+				gpios = <&gpio 20 0>;
+				gpio-fan,speed-map = <0    0>, <5000 1>;
+				#cooling-cells = <2>;
+			};
+		};
+	};
+
+	fragment@2 {
+		target = <&cpu_thermal>;
+		__overlay__ {
+			polling-delay = <2000>;	/* milliseconds */
+		};
+	};
+
+	fragment@3 {
+		target = <&thermal_trips>;
+		__overlay__ {
+			cpu_hot: trip-point@0 {
+				temperature = <55000>;	/* (millicelsius) Fan started at 55°C */
+				hysteresis = <10000>;	/* (millicelsius) Fan stopped at 45°C */
+				type = "active";
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&cooling_maps>;
+		__overlay__ {
+			map0 {
+				trip = <&cpu_hot>;
+				cooling-device = <&fan0 1 1>;
+			};
+		};
+	};
+};
