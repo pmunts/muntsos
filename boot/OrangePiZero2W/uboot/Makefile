@@ -48,12 +48,13 @@ bl31: $(BL31_BIN)
 # Build U-Boot
 
 UBOOT_URL	:= https://github.com/u-boot/u-boot.git
+UBOOT_TAG	:= v2024.10
 UBOOT_SRC	:= src
 UBOOT_MAKEOPTS	:= BL31=$(BL31_BIN) CROSS_COMPILE=$(CROSS_COMPILE)
 UBOOT_BIN	:= $(shell pwd)/u-boot-sunxi-with-spl.bin
 
 $(UBOOT_SRC):
-	git clone --depth 1 $(UBOOT_URL) $(UBOOT_SRC)
+	git clone --branch $(UBOOT_TAG) --depth 1 $(UBOOT_URL) $(UBOOT_SRC)
 	cd $(UBOOT_SRC) ; patch -b -p0 <../uboot.patch
 	touch $@
 
