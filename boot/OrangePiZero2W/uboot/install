@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+  echo ""
+  echo "Orange Pi Zero 2 W boot installer"
+  echo ""
+  echo "Usage: install <drive>"
+  echo ""
+  exit 1
+fi
+
+sudo umount /dev/${1}1
+
+sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/${1} bs=512 seek=16
