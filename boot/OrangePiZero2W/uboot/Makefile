@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../..
+MUNTSOS		?= ../../..
 BOARDNAME	?= OrangePiZero2W
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
@@ -34,12 +34,11 @@ default: uboot
 BL31_URL	:= https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git
 BL31_SRC	:= trusted-firmware-a
 BL31_MAKEOPTS	:= CROSS_COMPILE=$(CROSS_COMPILE) PLAT=sun50i_h616 DEBUG=1
-BL31_BIN	:= $(shell pwd)/bl31.bin
+BL31_BIN	:= $(shell pwd)/$(BL31_SRC)/build/sun50i_h616/debug/bl31.bin
 
 $(BL31_BIN):
 	git clone --depth 1 $(BL31_URL)
 	$(MAKE) -C $(BL31_SRC) $(BL31_MAKEOPTS)
-	cp $(BL31_SRC)/build/sun50i_h616/debug/bl31.bin $@
 	touch $@
 
 bl31: $(BL31_BIN)
@@ -49,23 +48,18 @@ bl31: $(BL31_BIN)
 # Build U-Boot
 
 UBOOT_URL	:= https://github.com/u-boot/u-boot.git
-UBOOT_SRC	:= u-boot
+UBOOT_SRC	:= src
 UBOOT_MAKEOPTS	:= BL31=$(BL31_BIN) CROSS_COMPILE=$(CROSS_COMPILE)
 UBOOT_BIN	:= $(shell pwd)/u-boot-sunxi-with-spl.bin
 
 $(UBOOT_SRC):
-	git clone --depth 1 $(UBOOT_URL)
+	git clone --depth 1 $(UBOOT_URL) $(UBOOT_SRC)
 	cd $(UBOOT_SRC) ; patch -b -p0 <../uboot.patch
 	touch $@
 
-$(UBOOT_BIN): $(BL31_BIN) $(UBOOT_SRC)
-	cp uboot.config $(UBOOT_SRC)/.config
-	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS) oldconfig
-	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS)
-	cp u-boot/u-boot-sunxi-with-spl.bin $@
-	touch $@
-
-uboot: $(UBOOT_BIN)
+defconfig: $(BL31_BIN) $(UBOOT_SRC)
+	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS) orangepi_zero2w_defconfig
+	cp $(UBOOT_SRC)/.config uboot.config
 
 menuconfig: $(BL31_BIN) $(UBOOT_SRC)
 	cp uboot.config $(UBOOT_SRC)/.config
@@ -73,9 +67,23 @@ menuconfig: $(BL31_BIN) $(UBOOT_SRC)
 	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS) menuconfig
 	cp $(UBOOT_SRC)/.config uboot.config
 
+$(UBOOT_BIN): $(BL31_BIN) $(UBOOT_SRC)
+	cp uboot.config $(UBOOT_SRC)/.config
+	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS) oldconfig
+	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS)
+	cp $(UBOOT_SRC)/u-boot-sunxi-with-spl.bin $@
+	touch $@
+
+uboot: $(UBOOT_BIN)
+
 ###############################################################################
 
 # Remove working files
 
 clean:
-	rm -rf $(BL31_SRC) $(UBOOT_SRC)
+	rm -rf $(UBOOT_SRC)
+
+reallyclean: clean
+	rm -rf $(BL31_SRC)
+
+distclean: reallyclean
