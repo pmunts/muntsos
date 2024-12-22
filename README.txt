@@ -306,16 +306,18 @@ With the dotnet extension installed, MuntsOS can run architecture
 independent .Net programs produced by dotnet build, dotnet publish,
 dotnet pack or the equivalent actions in Microsoft Visual Studio. Many
 if not most of the library packages published on Nuget can be used. In
-particular, the library package libsimpleio provides an elegant .Net
-binding to the shared library libsimpleio.so that is an integral part of
-MuntsOS. See Application Note #8 for a complete example using C# to
-flash an LED.
+particular, the NuGet library package libsimpleio provides
+libsimpleio.dll, .Net Standard 2.0 library assembly that binds to the
+Linux shared library libsimpleio.so that is an integral part of MuntsOS.
+See Application Note #8 for a complete example using C# to flash an LED.
+See also the API specification for libsimpleio.dll.
 
 The combination of Visual Studio + NuGet + libsimpleio provides a very
 high productivity development environment for creating embedded systems
 software to run on MuntsOS. With RemObjects Elements, a commercial
-product addon for Visual Studio, you can even compile Object Pascal,
-Java, Go, and Swift programs to .Net assemblies that run on MuntsOS.
+Visual Studio addon product, you can even compile Object Pascal, Java,
+Go, and Swift programs, all using libsimpleio.dll, to .Net program
+assemblies that run on MuntsOS.
 
 Git Repository
 

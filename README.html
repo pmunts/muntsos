@@ -302,18 +302,22 @@ build</tt></b>, <b><tt>dotnet publish</tt></b>, <b><tt>dotnet pack</tt></b> or
 the equivalent actions in <a href=
 "https://visualstudio.microsoft.com">Microsoft Visual Studio</a>. Many if not
 most of the library packages published on <a href=
-"https://www.nuget.org">Nuget</a> can be used. In particular, the library
+"https://www.nuget.org">Nuget</a> can be used. In particular, the NuGet library
 package <a href="https://www.nuget.org/packages/libsimpleio">libsimpleio</a>
-provides an elegant .Net binding to the shared library
-<b><tt>libsimpleio.so</tt></b> that is an integral part of MuntsOS. See
-<a href="http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf">Application
-Note #8</a> for a complete example using C# to flash an LED.</p>
+provides <b><tt>libsimpleio.dll</tt></b>, .Net Standard 2.0 library assembly
+that binds to the Linux shared library <b><tt>libsimpleio.so</tt></b> that is
+an integral part of MuntsOS. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf">Application Note
+#8</a> for a complete example using C# to flash an LED. See also the <a href=
+"http://tech.munts.com/libsimpleio.dll">API specification</a> for
+<b><tt>libsimpleio.dll</tt></b>.</p>
 <p>The combination of Visual Studio + NuGet + libsimpleio provides a very high
 productivity development environment for creating embedded systems software to
 run on MuntsOS. With <a href="https://www.remobjects.com/elements">RemObjects
-Elements</a>, a commercial product addon for Visual Studio, you can even
-compile Object Pascal, Java, Go, and Swift programs to .Net assemblies that run
-on MuntsOS.</p>
+Elements</a>, a commercial Visual Studio addon product, you can even compile
+Object Pascal, Java, Go, and Swift programs, all using
+<b><tt>libsimpleio.dll</tt></b>, to .Net program assemblies that run on
+MuntsOS.</p>
 <h2>Git Repository</h2>
 <p>The source code for MuntsOS is available at:</p>
 <p><a href=
