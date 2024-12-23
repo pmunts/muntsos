@@ -51,7 +51,7 @@ UBOOT_URL	:= https://github.com/u-boot/u-boot.git
 UBOOT_TAG	:= v2024.10
 UBOOT_SRC	:= src
 UBOOT_MAKEOPTS	:= BL31=$(BL31_BIN) CROSS_COMPILE=$(CROSS_COMPILE)
-UBOOT_BIN	:= $(shell pwd)/u-boot-sunxi-with-spl.bin
+UBOOT_BIN	:= $(shell pwd)/$(UBOOT_SRC)/u-boot-sunxi-with-spl.bin
 
 $(UBOOT_SRC):
 	git clone --branch $(UBOOT_TAG) --depth 1 $(UBOOT_URL) $(UBOOT_SRC)
@@ -69,11 +69,12 @@ menuconfig: $(BL31_BIN) $(UBOOT_SRC)
 	cp $(UBOOT_SRC)/.config uboot.config
 
 $(UBOOT_BIN): $(BL31_BIN) $(UBOOT_SRC)
+	rm -f $(shell basename $(UBOOT_BIN))
 	cp uboot.config $(UBOOT_SRC)/.config
 	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS) oldconfig
 	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS)
-	cp $(UBOOT_SRC)/u-boot-sunxi-with-spl.bin $@
 	touch $@
+	cp $(UBOOT_BIN) .
 
 uboot: $(UBOOT_BIN)
 
