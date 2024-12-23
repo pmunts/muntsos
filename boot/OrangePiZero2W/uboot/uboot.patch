@@ -1,6 +1,6 @@
---- include/configs/sunxi-common.h.orig	2024-12-22 20:58:13.117914822 -0800
-+++ include/configs/sunxi-common.h	2024-12-22 21:02:04.149037250 -0800
-@@ -287,16 +287,7 @@
+--- include/configs/sunxi-common.h.orig	2024-12-23 12:37:49.801051970 -0800
++++ include/configs/sunxi-common.h	2024-12-23 12:57:16.940860381 -0800
+@@ -287,16 +287,8 @@
  #endif
  
  #define CFG_EXTRA_ENV_SETTINGS \
@@ -15,6 +15,7 @@
 -	"partitions=" PARTS_DEFAULT "\0" \
 -	BOOTCMD_SUNXI_COMPAT \
 -	BOOTENV
++	"boardname=OrangePiZero2W\0" \
 +	"bootcmd=mmc dev 0 && load mmc 0:1 0x40100000 boot.scr && source 0x40100000\0" \
 +	"console=ttyS0,115200\0"
  
