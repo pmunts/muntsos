@@ -65,6 +65,10 @@ ifeq ($(BOARDBASE), BeagleBone)
 	cp $(MUNTSOS)/boot/BeagleBone/overlays/*.dtbo $(DESTDIR)/overlays
 endif
 
+ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+	cd $(DESTDIR) && mv $(shell basename $(KERNEL_DTB)).dtb $(BOARDNAME).dtb
+endif
+
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	$(MAKE) -C $(MUNTSOS)/boot/RaspberryPi/overlays DTC=$(KERNEL_DTC)
 	mkdir -p $(DESTDIR)/overlays
