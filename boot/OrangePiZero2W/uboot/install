@@ -29,6 +29,17 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-sudo umount /dev/${1}1
-sudo dd if=/dev/zero of=/dev/${1} bs=512 seek=16 count=2032
-sudo dd if=u-boot-sunxi-with-spl.bin of=/dev/${1} bs=512 seek=16
+DISK=/dev/${1}
+PART=${DISK}1
+
+# Copy boot loader to the FAT partition
+
+sudo umount ${PART}
+sudo mount ${PART} /mnt
+sudo install -cm 0444 *.bin /mnt
+sudo umount ${PART}
+
+# Copy boot loader to sector 16
+
+sudo dd if=/dev/zero of=${DISK} bs=512 seek=16 count=2032
+sudo dd if=u-boot-sunxi-with-spl.bin of=${DISK} bs=512 seek=16
