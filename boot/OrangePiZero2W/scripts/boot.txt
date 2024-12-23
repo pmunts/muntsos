@@ -22,12 +22,27 @@
 
 mmc dev 0
 
-# Flash boot loader to SPI flash, if requested
+# Flash boot loader to SPI flash, if u-boot-sunxi-with-spl.bin is present
+# in the FAT partition.
 
-if test -e mmc 0:1 flash.scr -a -e mmc 0:1 u-boot-sunxi-with-spl.bin ; then
-  load mmc 0:1 0x40200000 flash.scr
-  source 0x40200000
+if test -e mmc 0:1 u-boot-sunxi-with-spl.bin ; then
+  echo ""
+  echo "Writing u-boot-sunxi-with-spl.bin to SPI flash..."
+  echo ""
+
+  mmc dev 0
+  load mmc 0:1 0x40300000 u-boot-sunxi-with-spl.bin
+  sf probe
+  sf erase 0 +0xf0000
+  sf write 0x40300000 0 $filesize
+
+  echo ""
+  echo "Replace the reflash card with a MuntsOS boot card and then reboot."
+  echo ""
+
   exit
 fi
 
+echo ""
 echo "Loading kernel..."
+echo ""
