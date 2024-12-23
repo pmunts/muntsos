@@ -1,6 +1,6 @@
 # Make Das U-Boot scripts into .scr image files
 
-# Copyright (C)2024, Philip Munts.
+# Copyright (C)2024, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,13 +25,8 @@ SCRIPTS	:= $(shell ls *.txt | awk '{ print gensub("txt", "scr", "G", $$1); }')
 # Define a pattern rule to make a U-Boot image file
 
 %.scr : %.txt
-	mkimage -T script -C none -d $< $@
+	mkimage -T script -C none -d $< ../$@
 
 # Make all scripts
 
 default: $(SCRIPTS)
-
-# Remove working files
-
-clean:
-	rm -f *.scr
