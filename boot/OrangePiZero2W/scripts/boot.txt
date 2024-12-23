@@ -43,6 +43,11 @@ if test -e mmc 0:1 u-boot-sunxi-with-spl.bin ; then
   exit
 fi
 
-echo ""
-echo "Loading kernel..."
-echo ""
+setenv DTB    0x41000000
+setenv KERNEL 0x42000000
+
+load mmc 0:1 $DTB    $boardname.dtb
+load mmc 0:1 $KERNEL $boardname.img
+
+setenv bootargs console=ttyS0 quiet OPTIONS=0x032C BOARDNAME=$boardname BOOTPART=mmcblk0p1 
+booti $KERNEL - $DTB
