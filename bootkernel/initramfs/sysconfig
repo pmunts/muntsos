@@ -55,6 +55,12 @@ function Prepare {
     exit 1
   fi
 
+# Try to create some directories under /boot, just in case...
+
+mkdir -p /boot/autoexec.d
+mkdir -p /boot/packages
+mkdir -p /boot/tarballs
+
 # The following files and directories are always saved
 
   cat <<EOD >>/etc/changes.manifest
