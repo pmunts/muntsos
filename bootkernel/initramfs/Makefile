@@ -750,6 +750,9 @@ endif
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
 endif
+ifeq ($(BOARDBASE), OrangePiZero2W)
+	sed -i 's#@@USERLED@@#/sys/class/leds/green\:status#g'	$@/etc/rc
+endif
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 ifeq ($(KERNEL_BRANCH), 5.15)
 	sed -i 's#@@USERLED@@#/sys/class/leds/led0#g'		$@/etc/rc
