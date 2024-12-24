@@ -1,11 +1,20 @@
---- Makefile.orig	2023-12-21 06:06:09.000000000 -0800
-+++ Makefile	2023-12-23 09:43:27.536046553 -0800
-@@ -1577,8 +1577,6 @@
- 		ln -s $(CURDIR) $(MODLIB)/build ; \
- 	fi
- 	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
--	@cp -f modules.builtin $(MODLIB)/
--	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
- 
- endif # CONFIG_MODULES
- 
+--- fs/super.c.orig	2024-12-24 00:15:14.201874625 -0800
++++ fs/super.c	2024-12-24 00:15:59.158483076 -0800
+@@ -1554,7 +1554,7 @@
+ 	bdev_file = bdev_file_open_by_dev(sb->s_dev, mode, sb, &fs_holder_ops);
+ 	if (IS_ERR(bdev_file)) {
+ 		if (fc)
+-			errorf(fc, "%s: Can't open blockdev", fc->source);
++			warnf(fc, "%s: Can't open blockdev", fc->source);
+ 		return PTR_ERR(bdev_file);
+ 	}
+ 	bdev = file_bdev(bdev_file);
+@@ -1615,7 +1615,7 @@
+ 	error = lookup_bdev(fc->source, &dev);
+ 	if (error) {
+ 		if (!(flags & GET_TREE_BDEV_QUIET_LOOKUP))
+-			errorf(fc, "%s: Can't lookup blockdev", fc->source);
++			warnf(fc, "%s: Can't lookup blockdev", fc->source);
+ 		return error;
+ 	}
+ 	fc->sb_flags |= SB_NOSEC;
