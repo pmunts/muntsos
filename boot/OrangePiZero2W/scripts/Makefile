@@ -20,13 +20,20 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+DESTDIR ?= .
+
 SCRIPTS	:= $(shell ls *.txt | awk '{ print gensub("txt", "scr", "G", $$1); }')
 
-# Define a pattern rule to make a U-Boot image file
+# Define a pattern rule to make a U-Boot script image file from a text file
 
-%.scr : %.txt
-	mkimage -T script -C none -d $< ../$@
+$(DESTDIR)/%.scr : %.txt
+	mkimage -T script -C none -d $< $@
 
 # Make all scripts
 
 default: $(SCRIPTS)
+
+# Remove U-Boot image files
+
+clean:
+	rm -f *.scr
