@@ -43,11 +43,23 @@ if test -e mmc 0:1 u-boot-sunxi-with-spl.bin ; then
   exit
 fi
 
-setenv DTB    0x41000000
+# Allocate some memory buffers
+
+setenv CONFIG 0x40100000
+setenv DTB    0x40200000
 setenv KERNEL 0x42000000
 
+# Load boot files
+
+load mmc 0:1 $CONFIG config.txt
 load mmc 0:1 $DTB    $boardname.dtb
 load mmc 0:1 $KERNEL $boardname.img
 
-setenv bootargs console=ttyS0 quiet OPTIONS=0x032C BOARDNAME=$boardname BOOTPART=mmcblk0p1 
+# Import settings from config.txt
+
+env import -t -r $CONFIG ${filesize}
+
+# Boot the Linux kernel
+
+setenv bootargs $CMDLINE BOARDNAME=$boardname BOOTPART=mmcblk0p1
 booti $KERNEL - $DTB
