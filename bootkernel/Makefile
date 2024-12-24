@@ -65,8 +65,11 @@ ifeq ($(BOARDBASE), BeagleBone)
 	cp $(MUNTSOS)/boot/BeagleBone/overlays/*.dtbo $(DESTDIR)/overlays
 endif
 
-ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), OrangePiZero2W)
 	cd $(DESTDIR) && mv $(shell basename $(KERNEL_DTB)).dtb $(BOARDNAME).dtb
+	$(MAKE) -C $(MUNTSOS)/boot/OrangePiZero2W/overlays DTC=$(KERNEL_DTC)
+	mkdir -p $(DESTDIR)/overlays
+	cp $(MUNTSOS)/boot/OrangePiZero2W/overlays/*.dtbo $(DESTDIR)/overlays
 endif
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
@@ -129,6 +132,7 @@ reallyclean: clean
 	$(MAKE) -C kernel reallyclean
 	rm -rf *.tgz *.downloaded
 	$(MAKE) -C $(MUNTSOS)/boot/BeagleBone/overlays clean
+	$(MAKE) -C $(MUNTSOS)/boot/OrangePiZero2W/overlays clean
 	$(MAKE) -C $(MUNTSOS)/boot/RaspberryPi/overlays clean
 
 distclean: reallyclean
