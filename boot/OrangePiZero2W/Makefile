@@ -20,9 +20,18 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+BOOTFILES := bootfiles.md5 config.txt *.scr
+
 # Create boot files tarball
 
-bootfiles.tgz:
-	$(MAKE) -C scripts
-	tar czf $@ *.scr
-	rm -f *.scr
+default:
+	cp config.txt.OrangePiZero2W config.txt
+	$(MAKE) -C scripts DESTDIR=../
+	md5sum -b $(BOOTFILES) | grep -v bootfiles.md5 >bootfiles.md5
+	tar czf bootfiles.tgz $(BOOTFILES)
+	rm -f $(BOOTFILES)
+
+# Remove script image files
+
+clean:
+	rm -f $(BOOTFILES)
