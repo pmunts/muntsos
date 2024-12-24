@@ -750,7 +750,7 @@ endif
 ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
 endif
-ifeq ($(BOARDBASE), OrangePiZero2W)
+ifneq ($(findstring OrangePi, $(BOARDNAME)),)
 	sed -i 's#@@USERLED@@#/sys/class/leds/green\:status#g'	$@/etc/rc
 endif
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
@@ -937,6 +937,14 @@ ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	echo "ttyS3           root:gpio 660"			>>$@/etc/mdev.conf
 	echo "ttyS4           root:gpio 660"			>>$@/etc/mdev.conf
 	echo "ttyS5           root:gpio 660"			>>$@/etc/mdev.conf
+endif
+
+ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+	echo ""							>>$@/etc/mdev.conf
+	echo "# $(BOARDNAME) devices"				>>$@/etc/mdev.conf
+	echo "ttyS1           root:gpio 660"			>>$@/etc/mdev.conf
+	echo "ttyS2           root:gpio 660"			>>$@/etc/mdev.conf
+	echo "ttyS3           root:gpio 660"			>>$@/etc/mdev.conf
 endif
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
