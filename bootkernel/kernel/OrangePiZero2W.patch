@@ -1,3 +1,14 @@
+--- arch/arm64/boot/dts/allwinner/Makefile.orig	2024-12-24 12:45:00.769350672 -0800
++++ arch/arm64/boot/dts/allwinner/Makefile	2024-12-24 12:47:51.919659575 -0800
+@@ -1,4 +1,8 @@
+ # SPDX-License-Identifier: GPL-2.0
++
++# Enables support for device-tree overlays
++DTC_FLAGS_sun50i-h618-orangepi-zero2w := -@
++
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-amarula-relic.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-bananapi-m64.dtb
+ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-nanopi-a64.dtb
 --- fs/super.c.orig	2024-12-24 00:15:14.201874625 -0800
 +++ fs/super.c	2024-12-24 00:15:59.158483076 -0800
 @@ -1554,7 +1554,7 @@
