@@ -25,7 +25,6 @@ BOOTFILES := bootfiles.md5 *.scr u-boot
 # Create boot files tarball
 
 default:
-	cp config.txt.OrangePiZero2W config.txt
 	cd uboot && cp -r release ../u-boot
 	$(MAKE) -C scripts DESTDIR=../
 	md5sum -b *.scr u-boot/* >bootfiles.md5
