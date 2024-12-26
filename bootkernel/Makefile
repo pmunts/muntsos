@@ -89,7 +89,7 @@ endif
 endif
 
 	cd $(DESTDIR) ; find * -type f -exec md5sum -b {} ";" | sort -k 2 | grep -v kernel.md5 >kernel.md5
-	cd $(DESTDIR) ; tar czf ../$@ * --owner=nobody --group=nobody --mode=ugo-w
+	cd $(DESTDIR) ; tar czf ../$@ * --owner=nobody --group=nobody --mode=ugo-w --sort=name
 	rm -rf $(DESTDIR)
 
 ###############################################################################
