@@ -63,6 +63,14 @@ the 32-bit target kernels or thin servers again.</li>
 <li>20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67. Added a new
 device tree overlay, <b><tt>Pi4ClickShield</tt></b>, to support the eponymous
 <a href="https://www.mikroe.com/pi-4-click-shield">Mikrobus shield</a>.</li>
+<br>
+<li>26 December 2024 -- Added <i>preliminary</i> support for the <a href=
+"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
+Zero 2W</a>. I have the <a href="https://www.u-boot.org">U-Boot</a> boot loader
+and the Linux mainline 6.12 LTS kernel, both with serial port console, working
+all the way to the login prompt. Much work on the kernel and device tree
+remains before MuntsOS on the Orange Pi Zero 2W is ready for production
+use.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -168,6 +176,26 @@ contain more detailed instructions about how to install a MuntsOS Thin Server.
 <p><a href=
 "http://repo.munts.com/muntsos/thinservers">http://repo.munts.com/muntsos/thinservers</a></p>
 <h2>Boards</h2>
+<h3>Orange Pi Zero 2W</h3>
+<p>The <a href=
+"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
+Zero 2W</a> is a small Linux microcomputer with a form factor very similiar to
+the <a href=
+"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/">Raspberry Pi Zero
+2 W</a>, making it ideal for embedded system projects. It has a 1500 MHz
+Allwinner H618 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and
+on-board Bluetooth and WiFi radios. It is available for sale on Amazon for
+$21.99 (1 GB RAM) to $33.99 (4 GB RAM).</p>
+<p>Compared to the Raspberry Pi Zero 2 W, its greater RAM is a big advantage
+and I have been able to purchase as many as I want without limits when the
+Raspberry Pi Zero 2 W has been unavailable.</p>
+<p>Its big disadvantage is that its manufacturer <a href=
+"https://github.com/orangepi-xunlong/linux-orangepi/tree/orange-pi-6.1-sun50iw9">
+kernel source tree</a> has not been maintained regularly and is currently at
+6.1.31. Mainline Linux does contain support for the Orange Pi Zero 2W and I am
+currently building a booting kernel from the 6.12 LTS mainline branch. Much
+work remains to be done both with its kernel configuration and its device
+tree.</p>
 <h3>Raspberry Pi</h3>
 <p>The <a href="http://www.raspberrypi.com">Raspberry Pi</a> is a family of low
 cost Linux microcomputers selling for USD $15 to $80, depending on model. There
