@@ -27,6 +27,7 @@ BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 include $(MUNTSOS)/include/AArch64.mk
 
 BOOTFILESDIR	= $(MUNTSOS)/boot/$(BOARDBASE)
+BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles.tgz
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
