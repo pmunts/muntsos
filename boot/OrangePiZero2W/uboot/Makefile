@@ -40,6 +40,7 @@ $(BL31_BIN):
 	git clone --depth 1 $(BL31_URL)
 	$(MAKE) -C $(BL31_SRC) $(BL31_MAKEOPTS)
 	touch $@
+	pandoc -f rst -t plain $(BL31_SRC)/docs/license.rst >release/LICENSE.bl31
 
 bl31: $(BL31_BIN)
 
@@ -69,12 +70,12 @@ menuconfig: $(BL31_BIN) $(UBOOT_SRC)
 	cp $(UBOOT_SRC)/.config uboot.config
 
 $(UBOOT_BIN): $(BL31_BIN) $(UBOOT_SRC)
-	rm -f $(shell basename $(UBOOT_BIN))
 	cp uboot.config $(UBOOT_SRC)/.config
 	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS) oldconfig
 	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS)
 	touch $@
-	cp $(UBOOT_BIN) .
+	cp $(UBOOT_BIN) release
+	cp $(UBOOT_SRC)/Licenses/README release/LICENSE.u-boot
 
 uboot: $(UBOOT_BIN)
 
