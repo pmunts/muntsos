@@ -20,18 +20,19 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-BOOTFILES := bootfiles.md5 config.txt *.scr
+BOOTFILES := bootfiles.md5 config.txt *.scr u-boot
 
 # Create boot files tarball
 
 default:
 	cp config.txt.OrangePiZero2W config.txt
+	cd uboot && cp -r release ../u-boot
 	$(MAKE) -C scripts DESTDIR=../
 	md5sum -b $(BOOTFILES) | grep -v bootfiles.md5 >bootfiles.md5
-	tar czf bootfiles.tgz $(BOOTFILES)
-	rm -f $(BOOTFILES)
+	tar czf bootfiles.tgz $(BOOTFILES) --owner=root --group=root --mode=ugo-w --sort=name
+	rm -rf $(BOOTFILES)
 
 # Remove script image files
 
 clean:
-	rm -f $(BOOTFILES)
+	rm -rf $(BOOTFILES)
