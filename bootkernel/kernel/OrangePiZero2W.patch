@@ -9,6 +9,87 @@
  dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-amarula-relic.dtb
  dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-bananapi-m64.dtb
  dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-nanopi-a64.dtb
+--- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi.orig	2024-12-19 09:13:24.000000000 -0800
++++ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi	2024-12-26 23:56:39.723821497 -0800
+@@ -253,9 +253,9 @@
+ 				function = "i2c0";
+ 			};
+ 
+-			i2c3_ph_pins: i2c3-ph-pins {
+-				pins = "PH4", "PH5";
+-				function = "i2c3";
++			i2c1_pins: i2c1-pins {
++				pins = "PI7", "PI8";
++				function = "i2c1";
+ 			};
+ 
+ 			ir_rx_pin: ir-rx-pin {
+@@ -313,6 +313,12 @@
+ 				function = "spi1";
+ 			};
+ 
++			/omit-if-no-ref/
++			spi1_cs1_pin: spi1-cs1-pin {
++				pins = "PH9";
++				function = "spi1";
++			};
++
+ 			spdif_tx_pin: spdif-tx-pin {
+ 				pins = "PH4";
+ 				function = "spdif";
+@@ -530,6 +536,8 @@
+ 			dmas = <&dma 44>, <&dma 44>;
+ 			dma-names = "rx", "tx";
+ 			resets = <&ccu RST_BUS_I2C1>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&i2c1_pins>;
+ 			status = "disabled";
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+--- arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts.orig	2024-12-19 09:13:24.000000000 -0800
++++ arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts	2024-12-26 23:32:10.076322570 -0800
+@@ -139,20 +139,6 @@
+ 	};
+ };
+ 
+-&spi0  {
+-	status = "okay";
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&spi0_pins>, <&spi0_cs0_pin>;
+-
+-	flash@0 {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		compatible = "jedec,spi-nor";
+-		reg = <0>;
+-		spi-max-frequency = <40000000>;
+-	};
+-};
+-
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_ph_pins>;
+@@ -179,3 +165,20 @@
+ 	usb1_vbus-supply = <&reg_vcc5v>;
+ 	status = "okay";
+ };
++
++/* Enable /dev/i2c1 */
++
++&i2c1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c1_pins>;
++};
++
++/* Enable /dev/spidev1.0 and /dev/spidev1.1 */
++
++&spi1  {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&spi1_pins>, <&spi1_cs0_pin>, <&spi1_cs1_pin>;
++};
++
 --- fs/super.c.orig	2024-12-24 00:15:14.201874625 -0800
 +++ fs/super.c	2024-12-24 00:15:59.158483076 -0800
 @@ -1554,7 +1554,7 @@
