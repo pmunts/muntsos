@@ -46,10 +46,22 @@ $(KERNEL_WORK)/src.done: $(KERNEL_DIST)
 	rm -rf $(KERNEL_WORK)
 	mkdir -p $(KERNEL_WORK)
 	tar xzf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
+	mv $(KERNEL_SRC) $(KERNEL_SRC).orig
+	tar xzf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
 	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) && patch -b -p0 <../../$(KERNEL_PATCH) ; fi
 	touch $@
 
 src: $(KERNEL_WORK)/src.done
+
+###############################################################################
+
+# Update patch file
+
+patches: $(KERNEL_WORK)/src.done
+	-diff -r -u $(KERNEL_SRC).orig $(KERNEL_SRC) >$(KERNEL_PATCH)
+	sed -i 's#$(KERNEL_SRC).orig/##g'	$(KERNEL_PATCH)
+	sed -i 's#$(KERNEL_SRC)/##g'		$(KERNEL_PATCH)
+	sed -i '/^Only in.*orig$$/d'		$(KERNEL_PATCH)
 
 ###############################################################################
 
