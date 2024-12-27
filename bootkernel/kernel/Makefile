@@ -58,9 +58,10 @@ src: $(KERNEL_WORK)/src.done
 # Update patch file
 
 patches: $(KERNEL_WORK)/src.done
-	-diff -r -u $(KERNEL_SRC).orig $(KERNEL_SRC) >$(KERNEL_PATCH)
+	-diff -r -u --no-dereference $(KERNEL_SRC).orig $(KERNEL_SRC) >$(KERNEL_PATCH)
 	sed -i 's#$(KERNEL_SRC).orig/##g'	$(KERNEL_PATCH)
 	sed -i 's#$(KERNEL_SRC)/##g'		$(KERNEL_PATCH)
+	sed -i '/^diff -r -u/d'			$(KERNEL_PATCH)
 	sed -i '/^Only in.*orig$$/d'		$(KERNEL_PATCH)
 
 ###############################################################################
