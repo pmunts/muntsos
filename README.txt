@@ -54,6 +54,15 @@ News
     kernel, both with serial port console, working all the way to the
     login prompt. Much work on the kernel and device tree remains before
     MuntsOS on the Orange Pi Zero 2W is ready for production use.
+-   28 December 2024 -- I had to drop back to the manufacturer Linux 6.1
+    kernel tree for the Orange Pi Zero 2W. The Linux mainline 6.12 LTS
+    tree does not have drivers for PWM outputs nor the built-in WiFi
+    chipset, both of which are required for the application I have in
+    mind. MuntsOS for the Orange Pi Zero 2W built on Linux 6.1 is about
+    at the same point or a litte further along than what I had running
+    on Linux 6.12 LTS. Most things seem to be working except HDMI and
+    internal WiFi. I have been testing with a Broadcom WiFi Adapter and
+    Two Port Hub I got years ago for the Raspberry Pi Zero.
 
 Quick Setup Instructions for the Impatient
 
