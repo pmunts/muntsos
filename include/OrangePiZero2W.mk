@@ -31,7 +31,7 @@ BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles.tgz
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
-KERNEL_DEFCONF	= defconfig
+KERNEL_DEFCONF	= linux_sunxi64_defconfig
 KERNEL_IMGSRC	= Image
 KERNEL_IMG	= $(BOARDBASE).img
 KERNEL_DTB	= allwinner/sun50i-h618-orangepi-zero2w
@@ -39,10 +39,10 @@ KERNEL_TARGETS	= $(KERNEL_IMGSRC)
 
 # Definitions for the Orange Pi Zero 2 W kernel repository
 
-KERNEL_REPO     = https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-KERNEL_BRANCH	= 6.12
-KERNEL_TREEISH	= linux-$(KERNEL_BRANCH).y
-KERNEL_NAME	= linux-stable-$(KERNEL_BRANCH)
+KERNEL_REPO     = https://github.com/orangepi-xunlong/linux-orangepi.git
+KERNEL_BRANCH	= 6.1
+KERNEL_TREEISH	= orange-pi-$(KERNEL_BRANCH)-sun50iw9
+KERNEL_NAME	= linux-orangepizero2w-$(KERNEL_BRANCH)
 
 CFLAGS		+= -DORANGEPIZERO2W
 

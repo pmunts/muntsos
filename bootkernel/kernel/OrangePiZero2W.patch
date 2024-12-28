@@ -1,55 +1,157 @@
---- arch/arm64/boot/dts/allwinner/Makefile.orig	2024-12-24 12:45:00.769350672 -0800
-+++ arch/arm64/boot/dts/allwinner/Makefile	2024-12-24 12:47:51.919659575 -0800
-@@ -1,4 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0
-+
-+# Enables support for device-tree overlays
-+DTC_FLAGS_sun50i-h618-orangepi-zero2w := -@
-+
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-amarula-relic.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-bananapi-m64.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-nanopi-a64.dtb
---- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi.orig	2024-12-19 09:13:24.000000000 -0800
-+++ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi	2024-12-26 23:56:39.723821497 -0800
-@@ -253,9 +253,9 @@
- 				function = "i2c0";
+--- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi	2024-07-09 20:03:48.000000000 -0700.orig
++++ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -361,31 +361,13 @@
  			};
  
--			i2c3_ph_pins: i2c3-ph-pins {
--				pins = "PH4", "PH5";
--				function = "i2c3";
+ 			/omit-if-no-ref/
+-			i2c0_pi_pins: i2c0-pi-pins {
+-				pins = "PI5", "PI6";
+-				function = "i2c0";
+-			};
+-
+-			/omit-if-no-ref/
+-			i2c1_ph_pins: i2c1-ph-pins {
+-				pins = "PH0", "PH1";
+-				function = "i2c1";
+-			};
+-
+-			/omit-if-no-ref/
+-			i2c1_pi_pins: i2c1-pi-pins {
 +			i2c1_pins: i2c1-pins {
-+				pins = "PI7", "PI8";
-+				function = "i2c1";
+ 				pins = "PI7", "PI8";
+ 				function = "i2c1";
  			};
  
- 			ir_rx_pin: ir-rx-pin {
-@@ -313,6 +313,12 @@
- 				function = "spi1";
+ 			/omit-if-no-ref/
+-			i2c2_ph_pins: i2c2-ph-pins {
+-				pins = "PH2", "PH3";
+-				function = "i2c2";
+-			};
+-
+-			/omit-if-no-ref/
+-			i2c2_pi_pins: i2c2-pi-pins {
++			i2c2_pins: i2c2-pins {
+ 				pins = "PI9", "PI10";
+ 				function = "i2c2";
+ 			};
+@@ -396,12 +378,6 @@
+ 				function = "i2c3";
  			};
  
-+			/omit-if-no-ref/
-+			spi1_cs1_pin: spi1-cs1-pin {
-+				pins = "PH9";
-+				function = "spi1";
-+			};
-+
- 			spdif_tx_pin: spdif-tx-pin {
- 				pins = "PH4";
- 				function = "spdif";
-@@ -530,6 +536,8 @@
- 			dmas = <&dma 44>, <&dma 44>;
- 			dma-names = "rx", "tx";
+-			i2c3_pa_pins: i2c3-pa-pins {
+-				pins = "PA10", "PA11";
+-				function = "i2c3";
+-				bias-pull-up;
+-			};
+-
+ 			/omit-if-no-ref/
+ 			i2c4_ph_pins: i2c4-ph-pins {
+ 				pins = "PH6", "PH7";
+@@ -825,21 +801,6 @@
+ 			status = "disabled";
+ 		};
+ 
+-		i2c0: i2c@5002000 {
+-			compatible = "allwinner,sun50i-h616-i2c",
+-				     "allwinner,sun8i-v536-i2c",
+-				     "allwinner,sun6i-a31-i2c";
+-			reg = <0x05002000 0x400>;
+-			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
+-			clocks = <&ccu CLK_BUS_I2C0>;
+-			resets = <&ccu RST_BUS_I2C0>;
+-			pinctrl-names = "default";
+-			pinctrl-0 = <&i2c0_pi_pins>;
+-			status = "disabled";
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-		};
+-
+ 		i2c1: i2c@5002400 {
+ 			compatible = "allwinner,sun50i-h616-i2c",
+ 				     "allwinner,sun8i-v536-i2c",
+@@ -849,7 +810,7 @@
+ 			clocks = <&ccu CLK_BUS_I2C1>;
  			resets = <&ccu RST_BUS_I2C1>;
-+			pinctrl-names = "default";
+ 			pinctrl-names = "default";
+-			pinctrl-0 = <&i2c1_ph_pins>;
 +			pinctrl-0 = <&i2c1_pins>;
  			status = "disabled";
  			#address-cells = <1>;
  			#size-cells = <0>;
---- arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts.orig	2024-12-19 09:13:24.000000000 -0800
-+++ arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts	2024-12-26 23:32:10.076322570 -0800
-@@ -139,20 +139,6 @@
- 	};
+@@ -864,7 +825,7 @@
+ 			clocks = <&ccu CLK_BUS_I2C2>;
+ 			resets = <&ccu RST_BUS_I2C2>;
+ 			pinctrl-names = "default";
+-			pinctrl-0 = <&i2c2_ph_pins>;
++			pinctrl-0 = <&i2c2_pins>;
+ 			status = "disabled";
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+@@ -926,7 +887,7 @@
+ 			clock-names = "ahb", "mod";
+ 			resets = <&ccu RST_BUS_SPI1>;
+ 			pinctrl-names = "default";
+-			pinctrl-0 = <&spi1_pins>, <&spi1_cs1_pin>;
++			pinctrl-0 = <&spi1_pins>, <&spi1_cs0_pin>, <&spi1_cs1_pin>;
+ 			dmas = <&dma 23>, <&dma 23>;
+ 			dma-names = "rx", "tx";
+ 			status = "disabled";
+--- arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts	2024-07-09 20:03:48.000000000 -0700.orig
++++ arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
+@@ -282,48 +282,16 @@
+ 	status = "okay";
+ };
+ 
+-&i2c0 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c0_pi_pins>;
+-	status = "disabled";
+-};
+-
+ &i2c1 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c1_pi_pins>;
+-	status = "disabled";
++	status = "okay";
+ };
+ 
+ &i2c2 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c2_pi_pins>;
+-	status = "disabled";
+-};
+-
+-&i2c3 {
+ 	status = "okay";
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c3_pa_pins>;
+-
+-	ac200_x: mfd@10 {
+-		compatible = "x-powers,ac200";
+-		reg = <0x10>;
+-		clocks = <&ac200_pwm_clk>;
+-		// ephy id
+-		nvmem-cells = <&ephy_calibration>;
+-		nvmem-cell-names = "calibration";
+-
+-		ac200_ephy: phy {
+-			compatible = "x-powers,ac200-ephy";
+-			status = "okay";
+-		};
+-	};
+ };
+ 
+-&i2c4 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&i2c4_ph_pins>;
+-	status = "disabled";
++&spi1 {
++	status = "okay";
+ };
+ 
+ &uart2 {
+@@ -350,43 +318,6 @@
+ 	status = "disabled";
  };
  
 -&spi0  {
@@ -57,7 +159,15 @@
 -	pinctrl-names = "default";
 -	pinctrl-0 = <&spi0_pins>, <&spi0_cs0_pin>;
 -
+-	spidev@0 {
+-		status = "disabled";
+-		compatible = "rohm,dh2228fv";
+-		reg = <0>;
+-		spi-max-frequency = <1000000>;
+-	};
+-
 -	flash@0 {
+-		status = "okay";
 -		#address-cells = <1>;
 -		#size-cells = <1>;
 -		compatible = "jedec,spi-nor";
@@ -66,47 +176,32 @@
 -	};
 -};
 -
- &uart0 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_ph_pins>;
-@@ -179,3 +165,20 @@
- 	usb1_vbus-supply = <&reg_vcc5v>;
- 	status = "okay";
- };
-+
-+/* Enable /dev/i2c1 */
-+
-+&i2c1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1_pins>;
-+};
-+
-+/* Enable /dev/spidev1.0 and /dev/spidev1.1 */
-+
-+&spi1  {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi1_pins>, <&spi1_cs0_pin>, <&spi1_cs1_pin>;
-+};
-+
---- fs/super.c.orig	2024-12-24 00:15:14.201874625 -0800
-+++ fs/super.c	2024-12-24 00:15:59.158483076 -0800
-@@ -1554,7 +1554,7 @@
- 	bdev_file = bdev_file_open_by_dev(sb->s_dev, mode, sb, &fs_holder_ops);
- 	if (IS_ERR(bdev_file)) {
- 		if (fc)
--			errorf(fc, "%s: Can't open blockdev", fc->source);
-+			warnf(fc, "%s: Can't open blockdev", fc->source);
- 		return PTR_ERR(bdev_file);
- 	}
- 	bdev = file_bdev(bdev_file);
-@@ -1615,7 +1615,7 @@
- 	error = lookup_bdev(fc->source, &dev);
- 	if (error) {
- 		if (!(flags & GET_TREE_BDEV_QUIET_LOOKUP))
--			errorf(fc, "%s: Can't lookup blockdev", fc->source);
-+			warnf(fc, "%s: Can't lookup blockdev", fc->source);
- 		return error;
- 	}
- 	fc->sb_flags |= SB_NOSEC;
+-&spi1 {
+-	status = "disabled";
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&spi1_pins>, <&spi1_cs1_pin>;
+-
+-	spidev@1 {
+-		compatible = "rohm,dh2228fv";
+-		status = "disabled";
+-		reg = <1>;
+-		spi-max-frequency = <1000000>;
+-	};
+-};
+-
+ &codec {
+ 	allwinner,audio-routing =
+ 	        "Line Out", "LINEOUT";
+--- drivers/net/phy/Makefile	2024-07-09 20:03:48.000000000 -0700.orig
++++ drivers/net/phy/Makefile
+@@ -2,7 +2,7 @@
+ # Makefile for Linux PHY drivers
+ 
+ libphy-y			:= phy.o phy-c45.o phy-core.o phy_device.o \
+-				   linkmode.o sunxi-ephy.o
++				   linkmode.o
+ mdio-bus-y			+= mdio_bus.o mdio_device.o
+ 
+ ifdef CONFIG_MDIO_DEVICE
