@@ -97,6 +97,7 @@ endif
 # Rebuild the kernel distribution tarball with new initramfs
 
 rebuild:
+	find $(KERNEL_WORK) -type f -name '*.dtb' -exec rm {} ";"
 	rm -rf initramfs/initramfs.*
 	rm -f $(KERNEL_WORK)/build.done
 	rm -f $(KERNEL_WORK)/config.done
