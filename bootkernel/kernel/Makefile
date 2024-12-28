@@ -90,6 +90,9 @@ menuconfig: $(KERNEL_WORK)/src.done
 	cp $(KERNEL_SRC)/.config $(KERNEL_CONFIG)
 	touch $(KERNEL_WORK)/config.done
 
+mrproper: $(KERNEL_WORK)/src/done
+	$(MAKE) $(MAKE_ARGS) mrproper
+
 ###############################################################################
 
 # Build device tree blobs and overlays
