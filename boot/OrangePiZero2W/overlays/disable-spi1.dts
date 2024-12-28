@@ -1,0 +1,17 @@
+/* Disable SPI1, in case we need to use one or more of its GPIO pins */
+/* Example: Mikroelektronika MIKROE-1370 Relay Click, which controls */
+/* relay 2 with CS aka Slave Select.                                 */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "xunlong,orangepi-zero2w";
+
+	fragment@0 {
+		target = <&spi1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};

@@ -1,0 +1,15 @@
+/* Disable I2C2, in case we need to use one or both of its GPIO pins */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "xunlong,orangepi-zero2w";
+
+	fragment@0 {
+		target = <&i2c2>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
