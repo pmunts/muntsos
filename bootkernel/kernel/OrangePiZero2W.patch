@@ -88,16 +88,7 @@ Binary files arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr and arc
  			status = "disabled";
  			#address-cells = <1>;
  			#size-cells = <0>;
-@@ -919,14 +880,15 @@
- 
- 		spi1: spi@5011000 {
- 			compatible = "allwinner,sun50i-h616-spi",
--				     "allwinner,sun8i-h3-spi";
-+				     "allwinner,sun8i-h3-spi",
-+                                     "spi-dev";
- 			reg = <0x05011000 0x1000>;
- 			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&ccu CLK_BUS_SPI1>, <&ccu CLK_SPI1>;
+@@ -926,7 +887,7 @@
  			clock-names = "ahb", "mod";
  			resets = <&ccu RST_BUS_SPI1>;
  			pinctrl-names = "default";
@@ -108,7 +99,7 @@ Binary files arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr and arc
  			status = "disabled";
 --- arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts	2024-07-09 20:03:48.000000000 -0700.orig
 +++ arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
-@@ -282,48 +282,26 @@
+@@ -282,48 +282,48 @@
  	status = "okay";
  };
  
@@ -129,13 +120,20 @@ Binary files arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr and arc
 -	pinctrl-names = "default";
 -	pinctrl-0 = <&i2c2_pi_pins>;
 -	status = "disabled";
--};
--
++	status = "okay";
+ };
+ 
 -&i2c3 {
- 	status = "okay";
+-	status = "okay";
 -	pinctrl-names = "default";
 -	pinctrl-0 = <&i2c3_pa_pins>;
-+};
++/*
++&spi1 {
++	spidev@0 {
++		compatible = "spi-dev";
++		status = "okay";
++		reg = <0>;
++	};
  
 -	ac200_x: mfd@10 {
 -		compatible = "x-powers,ac200";
@@ -149,27 +147,40 @@ Binary files arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr and arc
 -			compatible = "x-powers,ac200-ephy";
 -			status = "okay";
 -		};
-+&spi1 {
-+	spidev@0 {
++	spidev@1 {
 +		compatible = "spi-dev";
 +		status = "okay";
-+		reg = <0>;
++		reg = <1>;
  	};
--};
+ };
++*/
  
 -&i2c4 {
 -	pinctrl-names = "default";
 -	pinctrl-0 = <&i2c4_ph_pins>;
 -	status = "disabled";
++&spi1 {
++        /* Enable spi1 */
++
++	status = "okay";
++
++	/* Enable /dev/spidev0.0, with slave select SPI0 CE0 */
++	spidev@0 {
++		compatible = "orangepi,spi-dev";
++		status = "okay";
++		reg = <0>;
++	};
++
++	/* Enable /dev/spidev0.1 with slave select SPI0 CE1 */
 +	spidev@1 {
-+		compatible = "spi-dev";
++		compatible = "orangepi,spi-dev";
 +		status = "okay";
 +		reg = <1>;
 +	};
  };
  
  &uart2 {
-@@ -350,43 +328,6 @@
+@@ -350,43 +350,6 @@
  	status = "disabled";
  };
  
