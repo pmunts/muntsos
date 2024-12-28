@@ -1,0 +1,15 @@
+/* Disable pwmchip0 */
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "xunlong,orangepi-zero2w";
+
+	fragment@0 {
+		target = <&pwm>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
