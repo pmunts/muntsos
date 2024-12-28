@@ -751,7 +751,11 @@ ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
 endif
 ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+ifeq ($(KERNEL_BRANCH), 6.1)
+	sed -i 's#@@USERLED@@#/sys/class/leds/green_led#g'	$@/etc/rc
+else
 	sed -i 's#@@USERLED@@#/sys/class/leds/green\:status#g'	$@/etc/rc
+endif
 endif
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 ifeq ($(KERNEL_BRANCH), 5.15)
@@ -808,6 +812,12 @@ ifneq ($(findstring BeagleBone, $(BOARDNAME)),)
 	mkdir -p						$@/lib/firmware/ti-connectivity
 	install -cm 0644 $(FIRMWARE_SRC)/ti-connectivity/wl18xx-fw-4.bin $@/lib/firmware/ti-connectivity
 	install -cm 0644 wl18xx-conf.bin			$@/lib/firmware/ti-connectivity
+endif
+
+ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+	# Firmware for the Orange Pi Zero 2W Wireless built-in WLAN interface
+	mkdir -p										$@/lib/firmware
+	install -cm 0644 wcnmodem.bin								$@/lib/firmware
 endif
 
 ifneq ($(findstring RaspberryPi1, $(BOARDNAME)),)

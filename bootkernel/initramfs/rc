@@ -48,6 +48,7 @@ WaitForFile()
   while [ ! $1 $2 ]
   do
     test $((OPTIONS & 0x2000)) -ne 0 && echo "DEBUG: Wait for $2"
+    test -n "$3" && sh -c "$3"
     usleep 100000
   done
 }
@@ -61,6 +62,7 @@ WaitForNetIF()
   while [ $? -ne 0 ]
   do
     test $((OPTIONS & 0x2000)) -ne 0 && echo "DEBUG: Wait for $1"
+    test -n "$3" && sh -c "$3"
     usleep 100000
 
     grep -q ${1}: /proc/net/dev
@@ -98,14 +100,6 @@ mdev -s
 # Start hotplug helper
 
 mdev -d
-
-# Create a symbolic link to the boot partition
-
-if [ -n "${BOOTPART}" ]; then
-  WaitForFile -b /dev/${BOOTPART}
-  ln -s ${BOOTPART} /dev/bootdisk
-  unset BOOTPART
-fi
 
 # Set CPU frequency governor
 
@@ -194,6 +188,20 @@ fi
 # Allow everything going out
 
 iptables -w -P OUTPUT ACCEPT
+
+# Create a symbolic link to the boot partition
+
+if [ "$BOARDBASE" = "OrangePiZero2W" ]; then
+  # mmc devices iterate non-deterministically
+  test -b /dev/mmcblk0p1 && export BOOTPART=mmcblk0p1
+  test -b /dev/mmcblk1p1 && export BOOTPART=mmcblk1p1
+fi
+
+if [ -n "${BOOTPART}" ]; then
+  WaitForFile -b /dev/${BOOTPART}
+  ln -s ${BOOTPART} /dev/bootdisk
+  unset BOOTPART
+fi
 
 # Mount /boot and look for device tree overlays, tarballs and packages
 
@@ -297,6 +305,18 @@ if [ $? -eq 0 ]; then
   modprobe wlcore_sdio
   WaitForNetIF wlan0
 fi
+
+#grep -q -i "OrangePi Zero2 W" /proc/device-tree/model
+#if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc0:8800:1/vendor ]; then
+#  modprobe sprdwl_ng
+#  WaitForNetIF wlan0
+#fi
+
+#grep -q -i "OrangePi Zero2 W" /proc/device-tree/model
+#if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:8800:1/vendor ]; then
+#  modprobe sprdwl_ng
+#  WaitForNetIF wlan0
+#fi
 
 grep -q -i "Raspberry Pi Zero W" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
