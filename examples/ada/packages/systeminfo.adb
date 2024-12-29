@@ -41,25 +41,6 @@ PACKAGE BODY SystemInfo IS
     END IF;
   END GetEnv;
 
-  FUNCTION ModelName RETURN String IS
-
-    m : Ada.Text_IO.File_Type;
-
-  BEGIN
-    IF NOT Ada.Directories.Exists(model) THEN
-      RETURN "unknown";
-    END IF;
-
-    Ada.Text_IO.Open(m, Ada.Text_IO.In_File, model);
-
-    DECLARE
-      buf : CONSTANT String := Ada.Text_IO.Get_Line(m);
-    BEGIN
-      Ada.Text_IO.Close(m);
-      RETURN buf;
-    END;
-  END ModelName;
-
   -- The following functions all return lower case strings!
 
   FUNCTION OSName RETURN String IS

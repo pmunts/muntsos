@@ -20,11 +20,13 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+WITH libLinux;
+
 PACKAGE SystemInfo IS
 
   FUNCTION GetEnv(e : String) RETURN String;
 
-  FUNCTION ModelName RETURN String;
+  FUNCTION ModelName RETURN String RENAMES libLinux.ModelName;
 
   -- The following functions all return lower case strings!
 
