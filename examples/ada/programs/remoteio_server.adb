@@ -43,6 +43,7 @@ WITH libLinux;
 
 WITH BeagleBone;
 WITH PocketBeagle;
+WITH OrangePiZero2W;
 WITH RaspberryPi;
 WITH RaspberryPi4;
 WITH RaspberryPi5;
@@ -68,6 +69,8 @@ PROCEDURE remoteio_server IS
 
   ADC_configured   : Boolean;
   I2C1_configured  : Boolean;
+  I2C2_configured  : Boolean;
+  PWM_configured   : Boolean;
   SPI00_configured : Boolean;
   SPI01_configured : Boolean;
   SPI10_configured : Boolean;
@@ -289,6 +292,82 @@ BEGIN
 
     spi.Register(0, PocketBeagle.SPI0_0);
     spi.Register(1, PocketBeagle.SPI1_1);
+
+  -- Register Orange Pi Zero 2W I/O Resources
+
+  ELSIF StartsWith(SystemInfo.BoardName, "orangepizero2w") THEN
+    -- See if I2C buses are configured
+    I2C1_configured  := Ada.Directories.Exists("/dev/i2c-1");
+    I2C2_configured  := Ada.Directories.Exists("/dev/i2c-2");
+
+    -- See if PWM is configured
+    PWM_configured   := Ada.Directories.Exists("/sys/class/pwm/pwmchip0");
+
+    -- See if SPI devices are configured
+    SPI00_configured := Ada.Directories.Exists("/dev/spidev0.0");
+    SPI01_configured := Ada.Directories.Exists("/dev/spidev0.1");
+    SPI0_configured  := SPI00_configured OR SPI01_configured;
+
+    IF NOT I2C1_configured THEN
+      gpio.Register(2,  OrangePiZero2W.GPIO2);  -- aka I2C1 SDA
+      gpio.Register(3,  OrangePiZero2W.GPIO3);  -- aka I2C1 SCL
+    END IF;
+
+    gpio.Register(4,  OrangePiZero2W.GPIO4);    -- aka PWM3
+    gpio.Register(5,  OrangePiZero2W.GPIO5);
+    gpio.Register(6,  OrangePiZero2W.GPIO6);
+
+    IF NOT SPI01_configured THEN
+      gpio.Register(7,  OrangePiZero2W.GPIO7);  -- aka SPI0 SS1
+    END IF;
+
+    IF NOT SPI00_configured THEN
+      gpio.Register(8,  OrangePiZero2W.GPIO8);  -- aka SPI0 SS0
+    END IF;
+
+    IF NOT SPI0_configured THEN
+      gpio.Register(9,  OrangePiZero2W.GPIO9);  -- aka SPI0 MISO
+      gpio.Register(10, OrangePiZero2W.GPIO10); -- aka SPI0 MOSI
+      gpio.Register(11, OrangePiZero2W.GPIO11); -- aka SPI0 SCLK
+    END IF;
+
+    gpio.Register(12, OrangePiZero2W.GPIO12);   -- aka PWM1
+    gpio.Register(13, OrangePiZero2W.GPIO13);   -- aka PWM2
+    gpio.Register(16, OrangePiZero2W.GPIO16);
+    gpio.Register(17, OrangePiZero2W.GPIO17);
+    gpio.Register(18, OrangePiZero2W.GPIO18);
+    gpio.Register(19, OrangePiZero2W.GPIO19);
+    gpio.Register(20, OrangePiZero2W.GPIO20);
+    gpio.Register(21, OrangePiZero2W.GPIO21);
+    gpio.Register(22, OrangePiZero2W.GPIO22);
+    gpio.Register(23, OrangePiZero2W.GPIO23);   -- aka PWM4
+    gpio.Register(24, OrangePiZero2W.GPIO24);
+    gpio.Register(25, OrangePiZero2W.GPIO25);
+    gpio.Register(26, OrangePiZero2W.GPIO26);
+    gpio.Register(27, OrangePiZero2W.GPIO27);
+
+    IF I2C1_configured THEN
+      i2c.Register(1, OrangePiZero2W.I2C1);
+    END IF;
+
+    IF I2C2_configured THEN
+      i2c.Register(2, OrangePiZero2W.I2C2);
+    END IF;
+
+    IF PWM_configured THEN
+      pwm.Register(1, OrangePiZero2W.PWM1);
+      pwm.Register(2, OrangePiZero2W.PWM2);
+      pwm.Register(3, OrangePiZero2W.PWM3);
+      pwm.Register(4, OrangePiZero2W.PWM4);
+    END IF;
+
+    IF SPI00_configured THEN
+      spi.Register(0, OrangePiZero2W.SPI0_0);
+    END IF;
+
+    IF SPI01_configured THEN
+      spi.Register(1, OrangePiZero2W.SPI0_1);
+    END IF;
 
   -- Register Raspberry Pi Family I/O Resources
 
