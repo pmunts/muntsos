@@ -39,5 +39,14 @@ BEGIN
   Put_Line("Board family: " & SystemInfo.BoardFamily);
   Put_Line("Board name:   " & SystemInfo.BoardName);
   Put_Line("Shield name:  " & SystemInfo.ShieldName);
-  Put_Line("Shield kind:  " & ClickBoard.Shields.Kind'Image(ClickBoard.Shields.Detect));
+
+  BEGIN
+    Put_Line("Shield kind:  " & ClickBoard.Shields.Kind'Image(ClickBoard.Shields.Detect));
+  EXCEPTION
+    WHEN ClickBoard.Shields.ShieldError =>
+      NULL;
+
+    WHEN OTHERS =>
+      RAISE;
+  END;
 END test_systeminfo;
