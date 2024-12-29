@@ -26,6 +26,7 @@ WITH Ada.Environment_Variables;
 WITH GPIO.UserLED;
 WITH MCP3204;
 WITH MUNTS_0018;
+WITH OrangePiZero2W;
 WITH RemoteIO.ADC;
 WITH RemoteIO.Executive;
 WITH RemoteIO.GPIO;
@@ -96,8 +97,8 @@ BEGIN
   gpio.Register(RemoteIO.MUNTS_0018.J4D1, MUNTS_0018.J4D1);
   gpio.Register(RemoteIO.MUNTS_0018.J5D0, MUNTS_0018.J5D0);
   gpio.Register(RemoteIO.MUNTS_0018.J5D1, MUNTS_0018.J5D1);
-  gpio.Register(RemoteIO.MUNTS_0018.J6D0, MUNTS_0018.J6D0);
   gpio.Register(RemoteIO.MUNTS_0018.J6D1, MUNTS_0018.J6D1);
+  gpio.Register(RemoteIO.MUNTS_0018.J7D1, MUNTS_0018.J7D1);
   gpio.Register(RemoteIO.MUNTS_0018.SW1,  MUNTS_0018.SW1, RemoteIO.GPIO.InputOnly); -- Button
 
   -- Register I2C buses
@@ -106,17 +107,18 @@ BEGIN
 
   -- Register PWM outputs
 
-  IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
-    -- Export BCM2835 PWM outputs
-    system("echo 0 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
-    system("echo 1 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
-    DELAY 1.0;
-
-    pwm.Register(RemoteIO.MUNTS_0018.J6PWM, MUNTS_0018.J6PWM);
-    pwm.Register(RemoteIO.MUNTS_0018.J7PWM, MUNTS_0018.J7PWM);
-  ELSE
+  IF NOT Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
+    -- No PWM outputs
     gpio.Register(RemoteIO.MUNTS_0018.J6D0, MUNTS_0018.J6D0);
     gpio.Register(RemoteIO.MUNTS_0018.J7D0, MUNTS_0018.J7D0);
+  ELSIF SystemInfo.ModelName = OrangePiZero2W.ModelName THEN
+    -- PWM connected to J6 but not J7
+    pwm.Register(RemoteIO.MUNTS_0018.J6PWM, MUNTS_0018.J6PWM);
+    gpio.Register(RemoteIO.MUNTS_0018.J7D0, MUNTS_0018.J7D0);
+  ELSE
+    -- PWM connected to both J6 and J7
+    pwm.Register(RemoteIO.MUNTS_0018.J6PWM, MUNTS_0018.J6PWM);
+    pwm.Register(RemoteIO.MUNTS_0018.J7PWM, MUNTS_0018.J7PWM);
   END IF;
 
 END remoteio_server_munts_0018;
