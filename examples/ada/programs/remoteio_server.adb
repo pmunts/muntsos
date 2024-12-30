@@ -25,6 +25,8 @@ WITH Ada.Environment_Variables;
 WITH Ada.Strings.Fixed;
 
 WITH ClickBoard.Shields;
+WITH CPUInfo;
+WITH Device;
 WITH GPIO.UserLED;
 WITH RemoteIO.ADC;
 WITH RemoteIO.Executive;
@@ -43,13 +45,12 @@ WITH libLinux;
 
 WITH BeagleBone;
 WITH PocketBeagle;
-WITH OrangePiZero2W;
 WITH RaspberryPi;
-WITH RaspberryPi4;
 WITH RaspberryPi5;
+WITH OrangePiZero2W;
 
 USE TYPE ClickBoard.Shields.Kind;
-USE TYPE RaspberryPi.CPUs;
+USE TYPE CPUInfo.Kinds;
 
 PROCEDURE remoteio_server IS
 
@@ -67,7 +68,14 @@ PROCEDURE remoteio_server IS
 
   -- Raspberry Pi subsystem configuration flags, to be calculated at run time.
 
-  ADC_configured   : Boolean;
+  ADC_inputs : CONSTANT ARRAY (Natural RANGE <>) OF Device.Designator :=
+   (RaspberryPi.AIN0, RaspberryPi.AIN1, RaspberryPi.AIN2, RaspberryPi.AIN3,
+    RaspberryPi.AIN4, RaspberryPi.AIN5, RaspberryPI.AIN6, RaspberryPi.AIN7);
+
+  Pi3Click : CONSTANT Boolean := ClickBoard.Shields.Detect = ClickBoard.Shields.PiClick3;
+  Pi4Click : CONSTANT Boolean := ClickBoard.Shields.Detect = ClickBoard.Shields.PiClick4;
+
+  ADC_configured   : ARRAY (0 .. 7) OF Boolean;
   I2C1_configured  : Boolean;
   I2C2_configured  : Boolean;
   PWM_configured   : Boolean;
@@ -293,92 +301,23 @@ BEGIN
     spi.Register(0, PocketBeagle.SPI0_0);
     spi.Register(1, PocketBeagle.SPI1_1);
 
-  -- Register Orange Pi Zero 2W I/O Resources
+  ELSIF StartsWith(SystemInfo.BoardName, "raspberrypi") OR
+        SystemInfo.ModelName = OrangePiZero2W.ModelName THEN
 
-  ELSIF StartsWith(SystemInfo.BoardName, "orangepizero2w") THEN
-    -- See if I2C buses are configured
-    I2C1_configured  := Ada.Directories.Exists("/dev/i2c-1");
-    I2C2_configured  := Ada.Directories.Exists("/dev/i2c-2");
-
-    -- See if PWM is configured
-    PWM_configured   := Ada.Directories.Exists("/sys/class/pwm/pwmchip0");
-
-    -- See if SPI devices are configured
-    SPI00_configured := Ada.Directories.Exists("/dev/spidev0.0");
-    SPI01_configured := Ada.Directories.Exists("/dev/spidev0.1");
-    SPI0_configured  := SPI00_configured OR SPI01_configured;
-
-    IF NOT I2C1_configured THEN
-      gpio.Register(2,  OrangePiZero2W.GPIO2);  -- aka I2C1 SDA
-      gpio.Register(3,  OrangePiZero2W.GPIO3);  -- aka I2C1 SCL
-    END IF;
-
-    gpio.Register(4,  OrangePiZero2W.GPIO4);    -- aka PWM3
-    gpio.Register(5,  OrangePiZero2W.GPIO5);
-    gpio.Register(6,  OrangePiZero2W.GPIO6);
-
-    IF NOT SPI01_configured THEN
-      gpio.Register(7,  OrangePiZero2W.GPIO7);  -- aka SPI0 SS1
-    END IF;
-
-    IF NOT SPI00_configured THEN
-      gpio.Register(8,  OrangePiZero2W.GPIO8);  -- aka SPI0 SS0
-    END IF;
-
-    IF NOT SPI0_configured THEN
-      gpio.Register(9,  OrangePiZero2W.GPIO9);  -- aka SPI0 MISO
-      gpio.Register(10, OrangePiZero2W.GPIO10); -- aka SPI0 MOSI
-      gpio.Register(11, OrangePiZero2W.GPIO11); -- aka SPI0 SCLK
-    END IF;
-
-    gpio.Register(12, OrangePiZero2W.GPIO12);   -- aka PWM1
-    gpio.Register(13, OrangePiZero2W.GPIO13);   -- aka PWM2
-    gpio.Register(16, OrangePiZero2W.GPIO16);
-    gpio.Register(17, OrangePiZero2W.GPIO17);
-    gpio.Register(18, OrangePiZero2W.GPIO18);
-    gpio.Register(19, OrangePiZero2W.GPIO19);
-    gpio.Register(20, OrangePiZero2W.GPIO20);
-    gpio.Register(21, OrangePiZero2W.GPIO21);
-    gpio.Register(22, OrangePiZero2W.GPIO22);
-    gpio.Register(23, OrangePiZero2W.GPIO23);   -- aka PWM4
-    gpio.Register(24, OrangePiZero2W.GPIO24);
-    gpio.Register(25, OrangePiZero2W.GPIO25);
-    gpio.Register(26, OrangePiZero2W.GPIO26);
-    gpio.Register(27, OrangePiZero2W.GPIO27);
-
-    IF I2C1_configured THEN
-      i2c.Register(1, OrangePiZero2W.I2C1);
-    END IF;
-
-    IF I2C2_configured THEN
-      i2c.Register(2, OrangePiZero2W.I2C2);
-    END IF;
-
-    IF PWM_configured THEN
-      pwm.Register(1, OrangePiZero2W.PWM1);
-      pwm.Register(2, OrangePiZero2W.PWM2);
-      pwm.Register(3, OrangePiZero2W.PWM3);
-      pwm.Register(4, OrangePiZero2W.PWM4);
-    END IF;
-
-    IF SPI00_configured THEN
-      spi.Register(0, OrangePiZero2W.SPI0_0);
-    END IF;
-
-    IF SPI01_configured THEN
-      spi.Register(1, OrangePiZero2W.SPI0_1);
-    END IF;
-
-  -- Register Raspberry Pi Family I/O Resources
-
-  ELSIF StartsWith(SystemInfo.BoardName, "raspberrypi") THEN
     -- See if ADC inputs are configured
-    ADC_configured :=
-     (ClickBoard.Shields.Detect = ClickBoard.Shields.PiClick3) AND
-     Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0");
+    ADC_configured(0) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage0_raw");
+    ADC_configured(1) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage1_raw");
+    ADC_configured(2) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage2_raw");
+    ADC_configured(3) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage3_raw");
+    ADC_configured(4) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage4_raw");
+    ADC_configured(5) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage5_raw");
+    ADC_configured(6) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage6_raw");
+    ADC_configured(7) := Ada.Directories.Exists("/sys/bus/iio/devices/iio:device0/in_voltage7_raw");
 
     -- See if I2C buses configured
     I2C1_configured  := Ada.Directories.Exists("/dev/i2c-1");
+    I2C2_configured  := SystemInfo.ModelName = OrangePiZero2W.ModelName AND 
+                          Ada.Directories.Exists("/dev/i2c-2");
 
     -- See if SPI devices are configured
     SPI00_configured := Ada.Directories.Exists("/dev/spidev0.0");
@@ -390,15 +329,25 @@ BEGIN
     SPI0_configured  := SPI00_configured OR SPI01_configured;
     SPI1_configured  := SPI10_configured OR SPI11_configured OR SPI12_configured;
 
-    -- The following analog inputs are only available if the MIKROE-2756
-    -- Pi 3 Click Shield and its device tree overlay are installed
+    -- Register Pi 3 Click Shield analog inputs
 
-    IF ADC_configured THEN
-      adc.Register(0, RaspberryPi.AIN0, 12);   -- 12-bit 4.096V range
-      adc.Register(1, RaspberryPi.AIN1, 12);   -- 12-bit 4.096V range
+    IF Pi3Click THEN
+      FOR n IN 0 .. 1 LOOP
+        IF ADC_configured(n) THEN
+          adc.Register(n, ADC_inputs(n), 12); -- 12 bits, 4.096V Vref
+        END IF;
+      END LOOP;
+
+    -- Register P 4 Click Shield analog inputs
+
+    ELSIF Pi4Click THEN
+      FOR n IN 0 .. 2 LOOP
+        IF ADC_configured(n) THEN
+          adc.Register(n, ADC_inputs(n), 15); -- 15 bits, 4.096V Vref
+        END IF;
+      END LOOP;
+
     END IF;
-
-    -- The following GPIO pins are available on all Raspberry Pi Models
 
     IF NOT I2C1_configured THEN
       gpio.Register(2,  RaspberryPi.GPIO2);    -- aka I2C1 SDA
@@ -406,6 +355,8 @@ BEGIN
     END IF;
 
     gpio.Register(4,  RaspberryPi.GPIO4);
+    gpio.Register(5,  RaspberryPi.GPIO5);
+    gpio.Register(6,  RaspberryPi.GPIO6);
 
     IF NOT SPI01_configured THEN
       gpio.Register(7,  RaspberryPi.GPIO7);    -- aka SPI0 SS1
@@ -421,6 +372,15 @@ BEGIN
       gpio.Register(11, RaspberryPi.GPIO11);   -- aka SPI0 SCLK
     END IF;
 
+    gpio.Register(12, RaspberryPi.GPIO12);     -- aka PWM0
+    gpio.Register(13, RaspberryPi.GPIO13);     -- aka PWM1
+
+    IF NOT SPI12_configured AND NOT Pi3Click THEN
+      -- The Mikroelektronika Pi 3 Click Shield MIKROE-2756 uses SPI1_2
+      -- for its MCP3204 A/D converter
+      gpio.Register(16, RaspberryPi.GPIO16);   -- aka SPI1 SS2
+    END IF;
+
     IF NOT SPI11_configured THEN
       gpio.Register(17, RaspberryPi.GPIO17);   -- aka SPI1 SS1
     END IF;
@@ -429,79 +389,62 @@ BEGIN
       gpio.Register(18, RaspberryPi.GPIO18);   -- aka SPI1 SS0 aka PWM0
     END IF;
 
-    gpio.Register(22, RaspberryPi.GPIO22);
-    gpio.Register(23, RaspberryPi.GPIO23);
-    gpio.Register(24, RaspberryPi.GPIO24);
-    gpio.Register(25, RaspberryPi.GPIO25);
-    gpio.Register(27, RaspberryPi.GPIO27);
-
-    -- The following GPIO pins are only available on Raspberry Pi Model
-    -- B+ and later, with 40-pin expansion headers
-
-    gpio.Register(5,  RaspberryPi.GPIO5);
-    gpio.Register(6,  RaspberryPi.GPIO6);
-    gpio.Register(12, RaspberryPi.GPIO12);     -- aka PWM0
-    gpio.Register(13, RaspberryPi.GPIO13);     -- aka PWM1
-
-    IF NOT ADC_configured AND NOT SPI12_configured THEN
-      gpio.Register(16, RaspberryPi.GPIO16);   -- aka SPI1 SS2
-    END IF;
-
-    IF NOT ADC_configured AND NOT SPI1_configured THEN
+    IF NOT SPI1_configured AND NOT Pi3Click THEN
+      -- The Mikroelektronika Pi 3 Click Shield MIKROE-2756 uses SPI1
+      -- for its MCP3204 A/D converter
       gpio.Register(19, RaspberryPi.GPIO19);   -- aka SPI1 MISO aka PWM1
-      gpio.Register(20, RaspberryPi.GPIO20);   -- aka SPI1 MOSI
+
+      IF NOT Pi4Click THEN
+        -- Mikroelektronika Pi 4 Click Shield MIKROE-4122 uses GPIO20 for the
+        -- The Pi 4 Click Shield uses GPIO20 for fan control
+        gpio.Register(20, RaspberryPi.GPIO20); -- aka SPI1 MOSI
+      END IF;
+
       gpio.Register(21, RaspberryPi.GPIO21);   -- aka SPI1 SCLK
     END IF;
 
+    gpio.Register(22, RaspberryPi.GPIO22);
+    gpio.Register(23, RaspberryPi.GPIO23);
+    gpio.Register(24, RaspberryPi.GPIO24);
+
+    IF NOT Pi4Click THEN
+      -- Mikroelektronika Pi 4 Click Shield MIKROE-4122 uses GPIO25 for the
+      -- ADS1115 A/D converter ALERT/RDY signal
+      gpio.Register(25, RaspberryPi.GPIO25);
+    END IF;
+
     gpio.Register(26, RaspberryPi.GPIO26);
+    gpio.Register(27, RaspberryPi.GPIO27);
 
     IF I2C1_configured THEN
       i2c.Register(1, RaspberryPi.I2C1);
     END IF;
 
-    -- Hardware PWM outputs are only available if one of the proper
-    -- device tree overlays has been enabled in /boot/config.txt.
+    IF I2C2_configured THEN
+      i2c.Register(2, OrangePiZero2W.I2C2);
+    END IF;
 
-    IF RaspberryPi.GetCPU < RaspberryPi.BCM2712 THEN
-      -- Raspberry Pi 1,2,3,4 all have two hardware PWM outputs
-
+    IF CPUInfo.Kind >= CPUInfo.BCM2708 AND CPUInfo.Kind <= CPUInfo.BCM2711 THEN
+      -- Raspberry Pi 1 to 4 all have two hardware PWM outputs from pwmchip0
       IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
-        system("echo 0 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
-        system("echo 1 >/sys/class/pwm/pwmchip0/export" & ASCII.NUL);
-        DELAY 1.0;
-
-        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm0") THEN
-          pwm.Register(0, RaspberryPi.PWM0);
-        END IF;
-
-        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0/pwm1") THEN
-          pwm.Register(1, RaspberryPi.PWM1);
-        END IF;
+        pwm.Register(0, RaspberryPi.PWM0);    -- GPIO12 or GPIO18
+        pwm.Register(1, RaspberryPi.PWM1);    -- GPIO13 or GPIO19
       END IF;
-    ELSE
-      -- Raspberry Pi 5 has four hardware PWM outputs
+    ELSIF CPUInfo.Kind = CPUInfo.BCM2712 THEN
+      -- Raspberry Pi 5 has four hardware PWM outputs from pwmchip2
       IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2") THEN
-        system("echo 0 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
-        system("echo 1 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
-        system("echo 2 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
-        system("echo 3 >/sys/class/pwm/pwmchip2/export" & ASCII.NUL);
-        DELAY 1.0;
-
-        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm0") THEN
-          pwm.Register(0, RaspberryPi5.PWM0);
-        END IF;
-
-        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm1") THEN
-          pwm.Register(1, RaspberryPi5.PWM1);
-        END IF;
-
-        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm2") THEN
-          pwm.Register(2, RaspberryPi5.PWM2);
-        END IF;
-
-        IF Ada.Directories.Exists("/sys/class/pwm/pwmchip2/pwm3") THEN
-          pwm.Register(3, RaspberryPi5.PWM3);
-        END IF;
+        pwm.Register(0, RaspberryPi5.PWM0);   -- GPIO12
+        pwm.Register(1, RaspberryPi5.PWM1);   -- GPIO13
+        pwm.Register(2, RaspberryPi5.PWM2);   -- GPIO14 or GPIO18
+        pwm.Register(3, RaspberryPi5.PWM3);   -- GPIO15 or GPIO19
+      END IF;
+    ELSIF SystemInfo.ModelName = OrangePiZero2W.ModelName THEN
+      -- Orange Pi Zero 2W has four hardware PWM outputs from pwmchip0
+      IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
+        pwm.Register(0, OrangePiZero2W.PWM1); -- GPIO12
+        pwm.Register(1, OrangePiZero2W.PWM2); -- GPIO13
+        pwm.Register(1, OrangePiZero2W.PWM3); -- GPIO4
+        pwm.Register(1, OrangePiZero2W.PWM4); -- GPIO23
       END IF;
     END IF;
 
