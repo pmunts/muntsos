@@ -82,6 +82,8 @@ if [ "`ethtool -i ${INTERFACE} 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether"
   exit 0
 fi
 
+test -f /etc/nethook && . /etc/nethook
+
 # Delegate network configuration to udhcpc, if applicable
 
 if [ -z "${ADDRESS}" -o "${ADDRESS}" = "dhcp" ]; then
