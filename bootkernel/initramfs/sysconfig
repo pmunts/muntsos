@@ -105,6 +105,13 @@ EOD
     sed -i '/\/etc\/hostname/d' /etc/changes.manifest
   fi
 
+  if [ -f /etc/nethook ]; then
+    echo /etc/nethook >>/etc/changes.manifest
+    chmod 444 /etc/nethook
+  else
+    sed -i '/\/etc\/nethook/d' /etc/changes.manifest
+  fi
+
   if [ -f /etc/pinmux.conf ]; then
     echo /etc/pinmux.conf >>/etc/changes.manifest
     chmod 444 /etc/pinmux.conf
