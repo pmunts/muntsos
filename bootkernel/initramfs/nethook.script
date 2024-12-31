@@ -23,7 +23,7 @@
 
 # This script is called from /usr/libexec/netstart.script just before each
 # network interface is configured, either dynamically by udhcpc or staticly
-# by ifconfig et al.
+# by ifconfig et al.  Edits to this script are preserved by sysconfig --save.
 
 # Turn off WiFi network interface power save
-echo $INTERFACE | grep -q wlan && iw dev $INTERFACE set power_save off
+#echo $INTERFACE | grep -q wlan && iw dev $INTERFACE set power_save off
