@@ -81,7 +81,6 @@ mkdir -p /boot/tarballs
 /etc/shadow
 /etc/ssh
 /root
-/usr/libexec/nethook.script
 /usr/local/etc
 EOD
 

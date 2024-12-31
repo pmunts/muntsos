@@ -51,7 +51,7 @@ fi
 
 # Call nethook script, if it exists
 
-test -f /usr/libexec/nethook.script && . /usr/libexec/nethook.script
+test -f /usr/local/etc/nethook && . /usr/local/etc/nethook
 
 # Start USB Network Gadget DHCP server on this interface, if requested
 
