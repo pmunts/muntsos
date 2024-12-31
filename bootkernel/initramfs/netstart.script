@@ -49,6 +49,10 @@ if [ -n "${MACADDR}" ]; then
   ifconfig ${INTERFACE} 0.0.0.0 down hw ether ${MACADDR}
 fi
 
+# Call nethook script, if it exists
+
+test -f /usr/libexec/nethook.script && . /usr/libexec/nethook.script
+
 # Start USB Network Gadget DHCP server on this interface, if requested
 
 if [ "`ethtool -i ${INTERFACE} 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" -a $((OPTIONS & 0x02)) -ne 0 ]; then
@@ -81,8 +85,6 @@ if [ "`ethtool -i ${INTERFACE} 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether"
 
   exit 0
 fi
-
-test -f /etc/nethook && . /etc/nethook
 
 # Delegate network configuration to udhcpc, if applicable
 

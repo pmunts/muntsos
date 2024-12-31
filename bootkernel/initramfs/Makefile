@@ -899,6 +899,7 @@ endif
 	install -cm 0555 mdev-helper-hidraw			$@/usr/libexec
 	install -cm 0555 mdev-helper-net			$@/usr/libexec
 	install -cm 0555 mdev-helper-pwm			$@/usr/libexec
+	install -cm 0755 nethook.script				$@/usr/libexec
 	install -cm 0755 netstart.script			$@/usr/libexec
 	install -cm 0755 netstop.script				$@/usr/libexec
 	install -cm 0755 udhcpc.script				$@/usr/libexec

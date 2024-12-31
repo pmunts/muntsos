@@ -81,6 +81,7 @@ mkdir -p /boot/tarballs
 /etc/shadow
 /etc/ssh
 /root
+/usr/libexec/nethook.script
 /usr/local/etc
 EOD
 
@@ -103,13 +104,6 @@ EOD
     chmod 444 /etc/hostname
   else
     sed -i '/\/etc\/hostname/d' /etc/changes.manifest
-  fi
-
-  if [ -f /etc/nethook ]; then
-    echo /etc/nethook >>/etc/changes.manifest
-    chmod 444 /etc/nethook
-  else
-    sed -i '/\/etc\/nethook/d' /etc/changes.manifest
   fi
 
   if [ -f /etc/pinmux.conf ]; then
