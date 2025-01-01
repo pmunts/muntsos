@@ -11,44 +11,6 @@ like traditional single chip microcontrollers.
 News
 ----
 
--   1 January 2024 -- I have suspended development for 32-bit target
-    platforms. The 32-bit BeagleBone kernel is frozen at 5.4.106. The
-    32-bit Raspberry Pi 1 and 2 kernels are frozen at 5.15.92. The
-    **`muntsos-dev`** package has been updated to only pull in 64-bit
-    AArch64/ARMv8 toolchains. The 32-bit target platform deliverables
-    (toolchains, kernels, extensions, thin servers *etc.*) will be left
-    in the repositories until the end of the year.
--   30 July 2024 -- Upgraded OpenSSL to 3.3.1, curl to 8.9.0, libtirpc
-    to 1.3.5, libnl to 3.10.0, libsodium to 1.0.20, gdbm to 1.24, and xz
-    to 5.6.2. Upgraded .Net Runtime to 8.0.7, OpenSSH to 9.8p1, rpcbind
-    to 1.2.7, and nano to 8.1. Upgraded the 64-bit Raspberry Pi kernel
-    to 6.6.42.
--   22 November 2024 -- Upgraded the .Net Runtime extension to 9.0.0.
--   24 November 2024 -- Upgraded some library components: OpenSSL to
-    3.4.0, icu to 76.1, curl to 8.11.0, libtirpc to 1.3.6, libpcap to
-    1.10.5, libnl to 3.11.0, libmysqlclient (MariaDB Connector/C) to
-    3.4.3, rabbitmq to 0.15.0, libmodbus to 3.1.11, and xz to 5.6.3.
--   25 November 2024 -- Upgraded some initramfs programs: OpenSSH to
-    9.9p1, ethtool to 6.11, and nano to 8.2. Added iw. Upgraded the
-    Python runtime extension to 3.13.0.
--   26 November 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.63.
--   11 December 2024 -- Upgraded Raspberry Pi 64-bit kernels to 6.6.64.
-    Added initial support for [Raspberry Pi Compute Module
-    5](https://www.raspberrypi.com/products/compute-module-5).
--   12 December 2024 -- Finally fixed the [Alire](https://alire.ada.dev)
-    crate
-    [muntsos\_aarch64](https://alire.ada.dev/crates/muntsos_aarch64.html).
-    The Alire web site and its client program **`alr`** serve as an
-    active and searchable provider of [Ada](https://ada-lang.io) library
-    components (called *crates*), similar to how
-    [NuGet](https://www.nuget.org) provides .Net library packages. See
-    newly updated [Application Note
-    \#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
-    for an example.
--   14 December 2024 -- Upgraded the Python3 extension to 3.13.1. Moved
-    the Python3 extension subdirectory **`site-packages/`** from
-    **`/usr/local/lib/python3.13/`** to
-    **`/usr/local/etc/python3.13/`**.
 -   17 December 2024 -- Moved all 32-bit target deliverables (toolchain
     packages, kernels, extensions, and thin servers) to
     <http://repo.munts.com/muntsos/attic>. I did a final build of the
@@ -57,7 +19,7 @@ News
     32-bit target kernels or thin servers again.
 -   20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67.
     Added a new device tree overlay, **`Pi4ClickShield`**, to support
-    the eponymous [Mikrobus
+    the eponymous [mikroBUS
     shield](https://www.mikroe.com/pi-4-click-shield).
 -   26 December 2024 -- Added *preliminary* support for the [Orange Pi
     Zero
@@ -224,17 +186,11 @@ Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and on-board
 Bluetooth and WiFi radios. It is available for sale on Amazon for $21.99
 (1 GB RAM) to $33.99 (4 GB RAM).
 
-Compared to the Raspberry Pi Zero 2 W, its greater RAM is a big
-advantage and I have been able to purchase as many as I want without
-limits when the Raspberry Pi Zero 2 W has been unavailable.
-
-Its big disadvantage is that its manufacturer [kernel source
+The much larger RAM is a big advantage and I have been able to purchase
+as many as I want without limits when the Raspberry Pi Zero 2 W has been
+unavailable. Unfortunately, the manufacturer [kernel source
 tree](https://github.com/orangepi-xunlong/linux-orangepi/tree/orange-pi-6.1-sun50iw9)
-has not been maintained regularly and is currently at 6.1.31. Mainline
-Linux does contain support for the Orange Pi Zero 2W and I am currently
-building a booting kernel from the 6.12 LTS mainline branch. Much work
-remains to be done both with its kernel configuration and its device
-tree.
+has not been maintained regularly and is currently at 6.1.31.
 
 ### Raspberry Pi
 
@@ -399,6 +355,9 @@ repository as broken and abandoned orphans.
 
 [Microsoft .Net](https://dotnet.microsoft.com)
 ----------------------------------------------
+
+[![libsimpleio](https://img.shields.io/nuget/v/libsimpleio?style=flat&logo=nuget&label=libsimpleio)](https://www.nuget.org/packages/libsimpleio)
+[![libsimpleio-templates](https://img.shields.io/nuget/v/libsimpleio-templates?style=flat&logo=nuget&label=libsimpleio-templates)](https://www.nuget.org/packages/libsimpleio-templates)
 
 With the **`dotnet`** extension installed, MuntsOS can run architecture
 independent .Net programs produced by **`dotnet build`**,
