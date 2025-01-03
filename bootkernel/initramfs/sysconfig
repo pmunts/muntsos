@@ -128,7 +128,7 @@ EOD
 
   if [ -f /etc/sysctl.conf ]; then
     echo /etc/sysctl.conf >>/etc/changes.manifest
-    chmod 444 /etc/scaling_governor
+    chmod 444 /etc/sysctl.conf
   else
     sed -i '/\/etc\/sysctl.conf/d' /etc/changes.manifest
   fi
