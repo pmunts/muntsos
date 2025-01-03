@@ -40,6 +40,13 @@ News
     Two Port
     Hub](https://uk.pi-supply.com/collections/dongles-hubs/products/broadcom-wifi-adapter-2-port-usb-hub-raspberry-pi)
     I got years ago for the Raspberry Pi Zero.
+-   3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69.
+    Got the Orange Pi Zero 2W console on USB keyboard / HDMI monitor
+    working. Modified **`/etc/inittab`** to support four virtual
+    terminals on HDMI video target platforms. Changed the kernel default
+    **`printk`** quiet priority level to 2, to suppress most
+    **`printk`** noise to the console. Added support for importing
+    settings from **`/etc/sysctl.conf`**.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
@@ -364,12 +371,20 @@ independent .Net programs produced by **`dotnet build`**,
 **`dotnet publish`**, **`dotnet pack`** or the equivalent actions in
 [Microsoft Visual Studio](https://visualstudio.microsoft.com). Many if
 not most of the library packages published on
-[Nuget](https://www.nuget.org) can be used. In particular, the NuGet
-library package
+[Nuget](https://www.nuget.org) can be used in such programs.
+
+The NuGet library package
 [libsimpleio](https://www.nuget.org/packages/libsimpleio) provides
-**`libsimpleio.dll`**, .Net Standard 2.0 library assembly that binds to
-the Linux shared library **`libsimpleio.so`** that is an integral part
-of MuntsOS. See [Application Note
+**`libsimpleio.dll`**, a .Net Standard 2.0 library assembly that binds
+to the Linux shared library **`libsimpleio.so`** that is an integral
+part of MuntsOS. The NuGet library package
+[libsimpleio-templates](https://www.nuget.org/packages/libsimpleio)
+provides a .Net Core console application project template
+**`csharp_console_libsimpleio`** that, while not strictly necessary,
+greatly simplifies creating an embedded system .Net Core console
+application project for MuntsOS.
+
+See [Application Note
 \#8](http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf) for a
 complete example using C\# to flash an LED. See also the [API
 specification](http://tech.munts.com/libsimpleio.dll) for

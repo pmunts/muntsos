@@ -1,370 +1,334 @@
 <h1>MuntsOS Embedded Linux</h1>
-<p>This framework supports Linux on several single board
-microcomputers. The goal of the MuntsOS project is to deliver a
-turnkey, RAM resident Linux operating system for very low cost
-single board microcomputers. With MuntsOS installed, such
-microcomputers can treated as components, as <i>Linux
-microcontrollers</i>, and integrated into other projects just like
-traditional single chip microcontrollers.</p>
+<p>This framework supports Linux on several single board microcomputers. The
+goal of the MuntsOS project is to deliver a turnkey, RAM resident Linux
+operating system for very low cost single board microcomputers. With MuntsOS
+installed, such microcomputers can treated as components, as <i>Linux
+microcontrollers</i>, and integrated into other projects just like traditional
+single chip microcontrollers.</p>
 <h2>News</h2>
 <ul>
-<li>17 December 2024 -- Moved all 32-bit target deliverables
-(toolchain packages, kernels, extensions, and thin servers) to
-<a href=
+<li>17 December 2024 -- Moved all 32-bit target deliverables (toolchain
+packages, kernels, extensions, and thin servers) to <a href=
 "http://repo.munts.com/muntsos/attic">http://repo.munts.com/muntsos/attic</a>.
-I did a final build of the 32-bit target kernels with
-<b><tt>sysconfig</tt></b> modified to fetch extensions from the
-attic. I do not anticipate ever building the 32-bit target kernels
-or thin servers again.</li>
+I did a final build of the 32-bit target kernels with <b><tt>sysconfig</tt></b>
+modified to fetch extensions from the attic. I do not anticipate ever building
+the 32-bit target kernels or thin servers again.</li>
 <br>
-<li>20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67.
-Added a new device tree overlay, <b><tt>Pi4ClickShield</tt></b>, to
-support the eponymous <a href=
-"https://www.mikroe.com/pi-4-click-shield">mikroBUS
-shield</a>.</li>
+<li>20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67. Added a new
+device tree overlay, <b><tt>Pi4ClickShield</tt></b>, to support the eponymous
+<a href="https://www.mikroe.com/pi-4-click-shield">mikroBUS shield</a>.</li>
 <br>
-<li>26 December 2024 -- Added <i>preliminary</i> support for the
-<a href=
-"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange
-Pi Zero 2W</a>. I have the <a href=
-"https://www.u-boot.org">U-Boot</a> boot loader and the Linux
-mainline 6.12 LTS kernel, both with serial port console, working
-all the way to the login prompt. Much work on the kernel and device
-tree remains before MuntsOS on the Orange Pi Zero 2W is ready for
-production use.</li>
+<li>26 December 2024 -- Added <i>preliminary</i> support for the <a href=
+"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
+Zero 2W</a>. I have the <a href="https://www.u-boot.org">U-Boot</a> boot loader
+and the Linux mainline 6.12 LTS kernel, both with serial port console, working
+all the way to the login prompt. Much work on the kernel and device tree
+remains before MuntsOS on the Orange Pi Zero 2W is ready for production
+use.</li>
 <br>
-<li>28 December 2024 -- I had to drop back to the manufacturer
-Linux 6.1 kernel tree for the Orange Pi Zero 2W. The Linux mainline
-6.12 LTS tree does not have drivers for PWM outputs nor the
-built-in WiFi chipset, both of which are required for the
-application I have in mind. MuntsOS for the Orange Pi Zero 2W built
-on Linux 6.1 is about at the same point or a litte further along
-than what I had running on Linux 6.12 LTS. Most things seem to be
-working except HDMI and internal WiFi. I have been testing with a
-<a href=
+<li>28 December 2024 -- I had to drop back to the manufacturer Linux 6.1 kernel
+tree for the Orange Pi Zero 2W. The Linux mainline 6.12 LTS tree does not have
+drivers for PWM outputs nor the built-in WiFi chipset, both of which are
+required for the application I have in mind. MuntsOS for the Orange Pi Zero 2W
+built on Linux 6.1 is about at the same point or a litte further along than
+what I had running on Linux 6.12 LTS. Most things seem to be working except
+HDMI and internal WiFi. I have been testing with a <a href=
 "https://uk.pi-supply.com/collections/dongles-hubs/products/broadcom-wifi-adapter-2-port-usb-hub-raspberry-pi">
-Broadcom WiFi Adapter and Two Port Hub</a> I got years ago for the
-Raspberry Pi Zero.</li>
+Broadcom WiFi Adapter and Two Port Hub</a> I got years ago for the Raspberry Pi
+Zero.</li>
+<br>
+<li>3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69. Got the
+Orange Pi Zero 2W console on USB keyboard / HDMI monitor working. Modified
+<b><tt>/etc/inittab</tt></b> to support four virtual terminals on HDMI video
+target platforms. Changed the kernel default <b><tt>printk</tt></b> quiet
+priority level to 2, to suppress most <b><tt>printk</tt></b> noise to the
+console. Added support for importing settings from
+<b><tt>/etc/sysctl.conf</tt></b>.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
-<p>Instructions for installing the MuntsOS cross-toolchain
-development environment onto a <b>host computer</b> are found in
-<a href=
-"http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf">Application
-Note #1</a> and <a href=
-"http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf">Application
-Note #2</a>. Or just download and run one of the following quick
-setup scripts:</p>
+<p>Instructions for installing the MuntsOS cross-toolchain development
+environment onto a <b>host computer</b> are found in <a href=
+"http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf">Application Note
+#1</a> and <a href=
+"http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf">Application Note
+#2</a>. Or just download and run one of the following quick setup scripts:</p>
 <a href=
 "http://git.munts.com/muntsos/scripts/setup-debian">setup-debian</a><br>
-
 <a href=
 "http://git.munts.com/muntsos/scripts/setup-fedora">setup-fedora</a><br>
-
+<a href="http://git.munts.com/muntsos/scripts/setup-rhel">setup-rhel</a>
+<p>Instructions for installing MuntsOS to a <b>target computer</b> are found in
 <a href=
-"http://git.munts.com/muntsos/scripts/setup-rhel">setup-rhel</a>
-<p>Instructions for installing MuntsOS to a <b>target computer</b>
-are found in <a href=
-"http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf">
-Application Note #3</a> and <a href=
-"http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf">
-Application Note #15</a>.</p>
+"http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf">Application
+Note #3</a> and <a href=
+"http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf">Application
+Note #15</a>.</p>
 <h2>Documentation</h2>
-<p>The documentation for MuntsOS (mostly application notes) is
-available online at:</p>
+<p>The documentation for MuntsOS (mostly application notes) is available online
+at:</p>
 <p><a href=
 "http://git.munts.com/muntsos/doc">http://git.munts.com/muntsos/doc</a></p>
 <h2>Embedded Linux Distribution in a Kernel</h2>
-<p>MuntsOS is a stripped down Linux distribution that includes a
-small compressed root file system within the kernel image binary
-itself. At boot time the root file system is unpacked into RAM and
-thereafter the system runs entirely in RAM.</p>
+<p>MuntsOS is a stripped down Linux distribution that includes a small
+compressed root file system within the kernel image binary itself. At boot time
+the root file system is unpacked into RAM and thereafter the system runs
+entirely in RAM.</p>
 <p>Each kernel release tarball contains a kernel image file
-(<b><tt>.img</tt></b>), which may be common to several different
-microcomputer boards, and one or more <a href=
+(<b><tt>.img</tt></b>), which may be common to several different microcomputer
+boards, and one or more <a href=
 "http://elinux.org/Device_Tree_Reference">device tree</a> files
-(<b><tt>.dtb</tt></b>) that are specific to particular
-microcomputer boards. Some kernel release tarballs also contain one
-or more device tree overlay files (<b><tt>.dtbo</tt></b>) that can
-make small changes to the device tree at boot time.</p>
+(<b><tt>.dtb</tt></b>) that are specific to particular microcomputer boards.
+Some kernel release tarballs also contain one or more device tree overlay files
+(<b><tt>.dtbo</tt></b>) that can make small changes to the device tree at boot
+time.</p>
 <p>Prebuilt MuntsOS kernel release tarballs are available at:</p>
 <p><a href=
 "http://repo.munts.com/muntsos/kernels">http://repo.munts.com/muntsos/kernels</a></p>
 <h2>Extensions</h2>
-<p>The MuntsOS root file system can be <i>extended</i> at boot time
-using any of three mechanisms:</p>
-<p>First, if <b><tt>/boot/tarballs</tt></b> exists, any
-<b><tt>gzip</tt></b>'ed tarball files (<b><tt>.tgz</tt></b>) in it
-will be extracted on top of the root file system. Typically you
-would use this mechanism for customized
-<b><tt>/etc/passwd</tt></b>, <b><tt>.ssh/authorized_keys</tt></b>,
-and similiar system configuration files.</p>
-<p>Secondly, if <b><tt>/boot/packages</tt></b> exists, any Debian
-package files (<b><tt>.deb</tt></b>) in it will be installed into
-the root file system. Note that packages from the <a href=
-"http://www.debian.org">Debian</a> project will probably not work;
-they must be built specifically for MuntsOS. The startup script
-that installs <b><tt>.deb</tt></b> packages also installs
+<p>The MuntsOS root file system can be <i>extended</i> at boot time using any
+of three mechanisms:</p>
+<p>First, if <b><tt>/boot/tarballs</tt></b> exists, any <b><tt>gzip</tt></b>'ed
+tarball files (<b><tt>.tgz</tt></b>) in it will be extracted on top of the root
+file system. Typically you would use this mechanism for customized
+<b><tt>/etc/passwd</tt></b>, <b><tt>.ssh/authorized_keys</tt></b>, and similiar
+system configuration files.</p>
+<p>Secondly, if <b><tt>/boot/packages</tt></b> exists, any Debian package files
+(<b><tt>.deb</tt></b>) in it will be installed into the root file system. Note
+that packages from the <a href="http://www.debian.org">Debian</a> project will
+probably not work; they must be built specifically for MuntsOS. The startup
+script that installs <b><tt>.deb</tt></b> packages also installs
 <b><tt>.rpm</tt></b> and <b><tt>.nupkg</tt></b> packages.</p>
-<p>The <a href=
-"http://git.munts.com/muntsos/extensions/gpio-server">GPIO
-Server</a> extension package demonstrates how to build a Debian
-package that adds application specific software to MuntsOS.</p>
-<p>Thirdly, the system startup script <b><tt>/etc/rc</tt></b> can
-be configured via a kernel command line option to search for a
-subdirectory called <b><tt>autoexec.d</tt></b> in various places,
-such as SD card, USB flash drive, USB CD-ROM or NFS mount. If an
-<b><tt>autoexec.d</tt></b> subdirectory is found, each executable
-program or script in it will be executed when the system boots.</p>
-<p>The idea is to build a MuntsOS kernel (which takes a long time)
-once and install it to the target platform. Then application
-specific software can be built after the fact and installed as
-tarball files in <b><tt>/boot/tarballs</tt></b>; Debian, RPM, and
-NuGet package files in <b><tt>/boot/packages</tt></b>; or
-executable programs and scripts in
+<p>The <a href="http://git.munts.com/muntsos/extensions/gpio-server">GPIO
+Server</a> extension package demonstrates how to build a Debian package that
+adds application specific software to MuntsOS.</p>
+<p>Thirdly, the system startup script <b><tt>/etc/rc</tt></b> can be configured
+via a kernel command line option to search for a subdirectory called
+<b><tt>autoexec.d</tt></b> in various places, such as SD card, USB flash drive,
+USB CD-ROM or NFS mount. If an <b><tt>autoexec.d</tt></b> subdirectory is
+found, each executable program or script in it will be executed when the system
+boots.</p>
+<p>The idea is to build a MuntsOS kernel (which takes a long time) once and
+install it to the target platform. Then application specific software can be
+built after the fact and installed as tarball files in
+<b><tt>/boot/tarballs</tt></b>; Debian, RPM, and NuGet package files in
+<b><tt>/boot/packages</tt></b>; or executable programs and scripts in
 <b><tt>/boot/autoexec.d</tt></b>.</p>
 <p>Prebuilt MuntsOS extension packages are available at:</p>
 <p><a href=
 "http://repo.munts.com/muntsos/extensions">http://repo.munts.com/muntsos/extensions</a></p>
 <h2>Thin Servers</h2>
 <h3>Boot Files + Kernel Files + Extensions = Thin Server</h3>
-<p>The <i>Thin Server</i> is a system design pattern that is little
-more than a network interface for a single I/O device. Ideally, a
-Thin Server will be built from a cheap and ubiquitous network
-microcomputer like the Raspberry Pi. The software must be easy to
-install from a user's PC or Mac without requiring any special
-programming tools. It must be able to run headless, administered
-via the network. It must be able to survive without orderly
-shutdowns, and must not write much to flash media. It must provide
-a network based API (Application Programming Interface) using HTTP
-as a lowest common denominator.</p>
-<p>MuntsOS, with its operating system running entirely from RAM,
-serves well for the Thin Server, and the two concepts have evolved
-together over the past few years. The simplest way to use MuntsOS
-is to download one of the prebuilt Thin Server <b><tt>.zip</tt></b>
-files and extract it to a freshly formatted FAT32 SD card. You can
-then modify <b><tt>autoexec.d/00-wlan-init</tt></b> on the SD card
-to pre-configure it for your wireless network environment, if
-desired, before inserting it in the target board. After booting
-MuntsOS, log in from the console or via SSH (user
-"<b><tt>root</tt></b>", password "<b><tt>default</tt></b>") and run
-<b><tt>sysconfig</tt></b> to perform more system configuration.</p>
+<p>The <i>Thin Server</i> is a system design pattern that is little more than a
+network interface for a single I/O device. Ideally, a Thin Server will be built
+from a cheap and ubiquitous network microcomputer like the Raspberry Pi. The
+software must be easy to install from a user's PC or Mac without requiring any
+special programming tools. It must be able to run headless, administered via
+the network. It must be able to survive without orderly shutdowns, and must not
+write much to flash media. It must provide a network based API (Application
+Programming Interface) using HTTP as a lowest common denominator.</p>
+<p>MuntsOS, with its operating system running entirely from RAM, serves well
+for the Thin Server, and the two concepts have evolved together over the past
+few years. The simplest way to use MuntsOS is to download one of the prebuilt
+Thin Server <b><tt>.zip</tt></b> files and extract it to a freshly formatted
+FAT32 SD card. You can then modify <b><tt>autoexec.d/00-wlan-init</tt></b> on
+the SD card to pre-configure it for your wireless network environment, if
+desired, before inserting it in the target board. After booting MuntsOS, log in
+from the console or via SSH (user "<b><tt>root</tt></b>", password
+"<b><tt>default</tt></b>") and run <b><tt>sysconfig</tt></b> to perform more
+system configuration.</p>
 <p><i>Note: Some platforms require the <a href=
-"https://en.wikipedia.org/wiki/Boot_flag">boot flag</a> to be set
-on the FAT32 boot partition on the SD card or on-board eMMC. The
-ROM boot loader in the CPU will ignore any partitions that are not
-marked as bootable.</i></p>
+"https://en.wikipedia.org/wiki/Boot_flag">boot flag</a> to be set on the FAT32
+boot partition on the SD card or on-board eMMC. The ROM boot loader in the CPU
+will ignore any partitions that are not marked as bootable.</i></p>
 MuntsOS Application Notes <a href=
-"http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf">
-3</a> and <a href=
-"http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf">
-15</a> contain more detailed instructions about how to install a
-MuntsOS Thin Server.
+"http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf">3</a>
+and <a href=
+"http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf">15</a>
+contain more detailed instructions about how to install a MuntsOS Thin Server.
 <p>Prebuilt MuntsOS Thin Servers are at available at:</p>
 <p><a href=
 "http://repo.munts.com/muntsos/thinservers">http://repo.munts.com/muntsos/thinservers</a></p>
 <h2>Boards</h2>
 <h3>Orange Pi Zero 2W</h3>
 <p>The <a href=
-"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange
-Pi Zero 2W</a> is a small Linux microcomputer with a form factor
-very similiar to the <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/">Raspberry
-Pi Zero 2 W</a>, making it ideal for embedded system projects. It
-has a 1500 MHz Allwinner H618 Cortex-A53 quad-core CPU and comes
-with 1 to 4 GB of RAM and on-board Bluetooth and WiFi radios. It is
-available for sale on Amazon for $21.99 (1 GB RAM) to $33.99 (4 GB
-RAM).</p>
-<p>The much larger RAM is a big advantage and I have been able to
-purchase as many as I want without limits when the Raspberry Pi
-Zero 2 W has been unavailable. Unfortunately, the manufacturer
-<a href=
+"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
+Zero 2W</a> is a small Linux microcomputer with a form factor very similiar to
+the <a href=
+"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/">Raspberry Pi Zero
+2 W</a>, making it ideal for embedded system projects. It has a 1500 MHz
+Allwinner H618 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and
+on-board Bluetooth and WiFi radios. It is available for sale on Amazon for
+$21.99 (1 GB RAM) to $33.99 (4 GB RAM).</p>
+<p>The much larger RAM is a big advantage and I have been able to purchase as
+many as I want without limits when the Raspberry Pi Zero 2 W has been
+unavailable. Unfortunately, the manufacturer <a href=
 "https://github.com/orangepi-xunlong/linux-orangepi/tree/orange-pi-6.1-sun50iw9">
-kernel source tree</a> has not been maintained regularly and is
-currently at 6.1.31.</p>
+kernel source tree</a> has not been maintained regularly and is currently at
+6.1.31.</p>
 <h3>Raspberry Pi</h3>
-<p>The <a href="http://www.raspberrypi.com">Raspberry Pi</a> is a
-family of low cost Linux microcomputers selling for USD $15 to $80,
-depending on model. There have been five generations of Raspberry
-Pi microcomputers, each using a successively more sophisticated
-Broadcom ARM core CPU. The first two generations (32-bit ARMv6
-Raspberry Pi 1 and 32-bit ARMv7 Raspberry Pi 2) are now
-obsolete.</p>
-<p>Some Raspberry Pi models have an on-board Bluetooth radio that
-uses the serial port signals that are also brought out to the
-expansion header. By default, MuntsOS port disables the on-board
-Bluetooth radio, in favor of the serial port on the expansion
-header.</p>
-<p>All of the following 64-bit Raspberry Pi models use the same
-AArch64 cross-toolchain.</p>
+<p>The <a href="http://www.raspberrypi.com">Raspberry Pi</a> is a family of low
+cost Linux microcomputers selling for USD $15 to $80, depending on model. There
+have been five generations of Raspberry Pi microcomputers, each using a
+successively more sophisticated Broadcom ARM core CPU. The first two
+generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry Pi 2) are
+now obsolete.</p>
+<p>Some Raspberry Pi models have an on-board Bluetooth radio that uses the
+serial port signals that are also brought out to the expansion header. By
+default, MuntsOS port disables the on-board Bluetooth radio, in favor of the
+serial port on the expansion header.</p>
+<p>All of the following 64-bit Raspberry Pi models use the same AArch64
+cross-toolchain.</p>
 <h4>Raspberry Pi 3</h4>
 <p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-2-model-b">Raspberry
-Pi 2 Model B</a> Revision 1.2 with the 900 MHz BCM2710 ARMv8
-Cortex-A53 quad-core CPU can be treated as a power conserving
-Raspberry Pi 3 Model B− and is useful for industrial applications
-where wired Ethernet is preferred.</p>
+"https://www.raspberrypi.com/products/raspberry-pi-2-model-b">Raspberry Pi 2
+Model B</a> Revision 1.2 with the 900 MHz BCM2710 ARMv8 Cortex-A53 quad-core
+CPU can be treated as a power conserving Raspberry Pi 3 Model B− and is useful
+for industrial applications where wired Ethernet is preferred.</p>
 <p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-3-model-b">Rasbperry
-Pi 3 Model B</a> has a 1200 MHz BCM2710 ARMv8 Cortex-A53 quad-core
-CPU and has 1 GB of RAM along with on-board Bluetooth and WiFi
-radios.</p>
+"https://www.raspberrypi.com/products/raspberry-pi-3-model-b">Rasbperry Pi 3
+Model B</a> has a 1200 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has 1 GB
+of RAM along with on-board Bluetooth and WiFi radios.</p>
 <p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus">Raspberry
-Pi 3 Model A+</a> has the same form factor as the Raspberry Pi 1
-Model A+, with only one USB host port and no wired Ethernet. It has
-a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has 512 MB of
-RAM along with on-board Bluetooth and WiFi radios.</p>
+"https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus">Raspberry Pi
+3 Model A+</a> has the same form factor as the Raspberry Pi 1 Model A+, with
+only one USB host port and no wired Ethernet. It has a 1400 MHz BCM2710 ARMv8
+Cortex-A53 quad-core CPU and has 512 MB of RAM along with on-board Bluetooth
+and WiFi radios.</p>
 <p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus">Raspberry
-Pi 3 Model B+</a> has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core
-CPU and has improved power management and networking
-components.</p>
+"https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus">Raspberry Pi
+3 Model B+</a> has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has
+improved power management and networking components.</p>
 <p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry
-Pi Zero 2 W</a> has the same form factor as the Raspberry Pi Zero
-W, with a 1000 MHz BCM2710 ARMv8 Cortex-A53 quad core CPU and 512
-MB of RAM along with on-board Bluetooth and WiFi radios. This
-small, light, and inexpensive board is probably one of the best
-Linux microcomputers available for implementing embedded
+"https://www.raspberrypi.com/products/raspberry-pi-zero-2-w">Raspberry Pi Zero
+2 W</a> has the same form factor as the Raspberry Pi Zero W, with a 1000 MHz
+BCM2710 ARMv8 Cortex-A53 quad core CPU and 512 MB of RAM along with on-board
+Bluetooth and WiFi radios. This small, light, and inexpensive board is probably
+one of the best Linux microcomputers available for implementing embedded
 systems.</p>
-<p>All Raspberry Pi 3 models use the same ARMv8 kernel, with
-different device trees.</p>
+<p>All Raspberry Pi 3 models use the same ARMv8 kernel, with different device
+trees.</p>
 <h4>Raspberry Pi 4</h4>
 <p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-4-model-b">Raspberry
-Pi 4 Model B</a> has a 1500 MHz BCM2711 ARMv8 Cortex-A72 quad-core
-CPU and is available with 1 to 8 GB of RAM. It diverged
-significantly from the Raspberry Pi 1 B+ form factor, with the USB
-and Ethernet ports reversed, two micro-HDMI connectors instead of a
-single full size HDMI connector, and a USB-C power connector
-instead of micro-USB. Two of the USB ports are 3.0 and two are 2.0.
-A major improvement is a Gigabit Ethernet controller connected via
-PCI Express instead of the USB connected Ethernet used for all
-earlier models. The Raspberry Pi 4 Model B uses the same wireless
-chip set as the 3+.</p>
+"https://www.raspberrypi.com/products/raspberry-pi-4-model-b">Raspberry Pi 4
+Model B</a> has a 1500 MHz BCM2711 ARMv8 Cortex-A72 quad-core CPU and is
+available with 1 to 8 GB of RAM. It diverged significantly from the Raspberry
+Pi 1 B+ form factor, with the USB and Ethernet ports reversed, two micro-HDMI
+connectors instead of a single full size HDMI connector, and a USB-C power
+connector instead of micro-USB. Two of the USB ports are 3.0 and two are 2.0. A
+major improvement is a Gigabit Ethernet controller connected via PCI Express
+instead of the USB connected Ethernet used for all earlier models. The
+Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.</p>
 <p>There are also a myriad of <a href=
-"https://www.raspberrypi.com/products/compute-module-4">Raspberry
-Pi 4 Compute Modules</a>, with varying combinations of wireless
-Ethernet, RAM and eMMC.</p>
-<p>All Raspberry Pi 4 models use the same ARMv8 kernel, with
-different device trees.</p>
+"https://www.raspberrypi.com/products/compute-module-4">Raspberry Pi 4 Compute
+Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
+<p>All Raspberry Pi 4 models use the same ARMv8 kernel, with different device
+trees.</p>
 <h4>Raspberry Pi 5</h4>
-<p>The <a href=
-"https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry Pi
-5</a> yields another 2-3x increase in performance over the
-Raspberry Pi 4, at the expense of greater power consumption. It has
-a 2400 MHz BCM2712 ARMv8 Cortex-A76 quad-core CPU and is available
-with 4 or 8 GB of RAM. The Ethernet socket and USB ports have
-swapped sides, so it has a form factor that is sort of a cross
-between the Raspberry Pi 1 B+ (same grouping of Ethernet and USB
-ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and
-USB-C power socket).</p>
+<p>The <a href="https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry
+Pi 5</a> yields another 2-3x increase in performance over the Raspberry Pi 4,
+at the expense of greater power consumption. It has a 2400 MHz BCM2712 ARMv8
+Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The Ethernet
+socket and USB ports have swapped sides, so it has a form factor that is sort
+of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and USB
+ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power
+socket).</p>
 <p>There are also a myriad of <a href=
-"https://www.raspberrypi.com/products/compute-module-5">Raspberry
-Pi 5 Compute Modules</a>, with varying combinations of wireless
-Ethernet, RAM and eMMC.</p>
-<p>All Raspberry Pi 5 models use the same ARMv8 kernel, with
-different device trees.</p>
-<p>The Raspberry Pi 5 introduced a breaking GPIO API change. See
-<a href=
-"http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application
-Note #11</a> for more information.</p>
-<p>The Raspberry Pi 5 also introduced a breaking PWM API change. It
-has four hardware PWM outputs with different pin mapping. Notably,
-PWM chip 2 channel 2 is mapped to GPIO18 instead of PWM chip 0
-channel 0 on previous Raspberry Pi boards. See <a href=
+"https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi 5 Compute
+Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
+<p>All Raspberry Pi 5 models use the same ARMv8 kernel, with different device
+trees.</p>
+<p>The Raspberry Pi 5 introduced a breaking GPIO API change. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
+#11</a> for more information.</p>
+<p>The Raspberry Pi 5 also introduced a breaking PWM API change. It has four
+hardware PWM outputs with different pin mapping. Notably, PWM chip 2 channel 2
+is mapped to GPIO18 instead of PWM chip 0 channel 0 on previous Raspberry Pi
+boards. See <a href=
 "https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
 Peripherals</a> page 15 for more information.</p>
 <h4>Raspberry Pi USB Gadget Kernels</h4>
-<p>MuntsOS also provides Raspberry Pi kernels with dedicated
-<a href="http://www.linux-usb.org/gadget">USB Gadget</a> support
-enabled. These kernels run on 3 A+, CM3, Zero 2 W, 4 B, and CM4.
-You can supply power to and communicate with a compatible Raspberry
-Pi solely through the USB port. This kernel supports USB Network,
-Raw HID, and Serial Port gadgets, selected by bits in the
-<b><tt>OPTIONS</tt></b> word passed on the kernel command line. The
-USB Gadget Thin Servers have USB Network Gadget selected by
-default.</p>
-<p>The absolute minimum possible usable Raspberry Pi kit consists
-of a Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card
-with one of the MuntsOS Raspberry Pi 3 USB Gadget Thin Servers
-installed.</p>
+<p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
+"http://www.linux-usb.org/gadget">USB Gadget</a> support enabled. These kernels
+run on 3 A+, CM3, Zero 2 W, 4 B, and CM4. You can supply power to and
+communicate with a compatible Raspberry Pi solely through the USB port. This
+kernel supports USB Network, Raw HID, and Serial Port gadgets, selected by bits
+in the <b><tt>OPTIONS</tt></b> word passed on the kernel command line. The USB
+Gadget Thin Servers have USB Network Gadget selected by default.</p>
+<p>The absolute minimum possible usable Raspberry Pi kit consists of a
+Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one of the
+MuntsOS Raspberry Pi 3 USB Gadget Thin Servers installed.</p>
 <h2>Cross-Toolchains</h2>
-<p>I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC
-cross-toolchain for each MuntsOS platform family. Each GCC
-cross-toolchain requires a number of additional software component
-libraries, which are packaged and distributed separately but
-installed into the same directory tree as the parent
-cross-toolchain. I also build <a href=
-"https://www.freepascal.org">Free Pascal</a> cross-compilers. Each
-of these rely on the libraries contained in the corresponding GCC
-cross-toolchain package.</p>
+<p>I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for each
+MuntsOS platform family. Each GCC cross-toolchain requires a number of
+additional software component libraries, which are packaged and distributed
+separately but installed into the same directory tree as the parent
+cross-toolchain. I also build <a href="https://www.freepascal.org">Free
+Pascal</a> cross-compilers. Each of these rely on the libraries contained in
+the corresponding GCC cross-toolchain package.</p>
 <p>Cross-toolchain packages built for <a href=
-"https://www.debian.org">Debian</a> Linux (x86-64 <i>and</i> ARM64)
-development host computers are available at either:</p>
-<a href=
-"http://repo.munts.com/debian12">http://repo.munts.com/debian12</a>
+"https://www.debian.org">Debian</a> Linux (x86-64 <i>and</i> ARM64) development
+host computers are available at either:</p>
+<a href="http://repo.munts.com/debian12">http://repo.munts.com/debian12</a>
 (Debian package repository)<br>
 <a href=
 "http://repo.munts.com/muntsos/toolchain-debs">http://repo.munts.com/muntsos/toolchain-debs</a>
 (just the package files).
-<p>x86-64 RPM packages containing the exact same binaries and known
-to work on Fedora 40 and RHEL 9.1 and its derivatives are available
-at:</p>
+<p>x86-64 RPM packages containing the exact same binaries and known to work on
+Fedora 40 and RHEL 9.1 and its derivatives are available at:</p>
 <a href=
 "http://repo.munts.com/muntsos/toolchain-rpms">http://repo.munts.com/muntsos/toolchain-rpms</a>
 <h2><a href="https://alire.ada.dev">Alire</a> Crates</h2>
-<p><a href=
-"https://alire.ada.dev/crates/muntsos_aarch64.html"><img alt=
+<p><a href="https://alire.ada.dev/crates/muntsos_aarch64.html"><img alt=
 "muntsos_aarch64" src=
 "https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json"></a></p>
-<p>Adding <b><tt>muntsos_aarch64</tt></b> to an Alire Ada program
-project turns it into one that produces a cross-compiled
-AArch64/ARMv8 program for MuntsOS. See <a href=
-"http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">
-Application Note #7</a> for a complete example using the
-<b><tt>alr</tt></b> command line tool.</p>
-<p id="alire_orphans">Please note that none of the other MuntsOS
-library crates in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are
-useable due to breaking changes in <b><tt>alr</tt></b> 2.0.
-Unfortunately, Alire project policies prohibit removing obsolete
-crates, so <b>muntsos_beaglebone</b> <i>et al</i> remain in the
-repository as broken and abandoned orphans.</p>
+<p>Adding <b><tt>muntsos_aarch64</tt></b> to an Alire Ada program project turns
+it into one that produces a cross-compiled AArch64/ARMv8 program for MuntsOS.
+See <a href=
+"http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">Application
+Note #7</a> for a complete example using the <b><tt>alr</tt></b> command line
+tool.</p>
+<p id="alire_orphans">Please note that none of the other MuntsOS library crates
+in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are useable due to breaking
+changes in <b><tt>alr</tt></b> 2.0. Unfortunately, Alire project policies
+prohibit removing obsolete crates, so <b>muntsos_beaglebone</b> <i>et al</i>
+remain in the repository as broken and abandoned orphans.</p>
 <h2><a href="https://dotnet.microsoft.com">Microsoft .Net</a></h2>
-<p><a href="https://www.nuget.org/packages/libsimpleio"><img alt=
-"libsimpleio" src=
+<p><a href="https://www.nuget.org/packages/libsimpleio"><img alt="libsimpleio"
+src=
 "https://img.shields.io/nuget/v/libsimpleio?style=flat&amp;logo=nuget&amp;label=libsimpleio"></a>
-<a href=
-"https://www.nuget.org/packages/libsimpleio-templates"><img alt=
+<a href="https://www.nuget.org/packages/libsimpleio-templates"><img alt=
 "libsimpleio-templates" src=
 "https://img.shields.io/nuget/v/libsimpleio-templates?style=flat&amp;logo=nuget&amp;label=libsimpleio-templates">
 </a></p>
-<p>With the <b><tt>dotnet</tt></b> extension installed, MuntsOS can
-run architecture independent .Net programs produced by
-<b><tt>dotnet build</tt></b>, <b><tt>dotnet publish</tt></b>,
-<b><tt>dotnet pack</tt></b> or the equivalent actions in <a href=
-"https://visualstudio.microsoft.com">Microsoft Visual Studio</a>.
-Many if not most of the library packages published on <a href=
-"https://www.nuget.org">Nuget</a> can be used. In particular, the
-NuGet library package <a href=
-"https://www.nuget.org/packages/libsimpleio">libsimpleio</a>
-provides <b><tt>libsimpleio.dll</tt></b>, .Net Standard 2.0 library
-assembly that binds to the Linux shared library
-<b><tt>libsimpleio.so</tt></b> that is an integral part of MuntsOS.
-See <a href=
-"http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf">Application
-Note #8</a> for a complete example using C# to flash an LED. See
-also the <a href="http://tech.munts.com/libsimpleio.dll">API
-specification</a> for <b><tt>libsimpleio.dll</tt></b>.</p>
-<p>The combination of Visual Studio + NuGet + libsimpleio provides
-a very high productivity development environment for creating
-embedded systems software to run on MuntsOS. With <a href=
-"https://www.remobjects.com/elements">RemObjects Elements</a>, a
-commercial Visual Studio addon product, you can even compile Object
-Pascal, Java, Go, and Swift programs, all using
-<b><tt>libsimpleio.dll</tt></b>, to .Net program assemblies that
-run on MuntsOS.</p>
+<p>With the <b><tt>dotnet</tt></b> extension installed, MuntsOS can run
+architecture independent .Net programs produced by <b><tt>dotnet
+build</tt></b>, <b><tt>dotnet publish</tt></b>, <b><tt>dotnet pack</tt></b> or
+the equivalent actions in <a href=
+"https://visualstudio.microsoft.com">Microsoft Visual Studio</a>. Many if not
+most of the library packages published on <a href=
+"https://www.nuget.org">Nuget</a> can be used in such programs.</p>
+<p>The NuGet library package <a href=
+"https://www.nuget.org/packages/libsimpleio">libsimpleio</a> provides
+<b><tt>libsimpleio.dll</tt></b>, a .Net Standard 2.0 library assembly that
+binds to the Linux shared library <b><tt>libsimpleio.so</tt></b> that is an
+integral part of MuntsOS. The NuGet library package <a href=
+"https://www.nuget.org/packages/libsimpleio">libsimpleio-templates</a> provides
+a .Net Core console application project template
+<b><tt>csharp_console_libsimpleio</tt></b> that, while not strictly necessary,
+greatly simplifies creating an embedded system .Net Core console application
+project for MuntsOS.</p>
+<p>See <a href=
+"http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf">Application Note
+#8</a> for a complete example using C# to flash an LED. See also the <a href=
+"http://tech.munts.com/libsimpleio.dll">API specification</a> for
+<b><tt>libsimpleio.dll</tt></b>.</p>
+<p>The combination of Visual Studio + NuGet + libsimpleio provides a very high
+productivity development environment for creating embedded systems software to
+run on MuntsOS. With <a href="https://www.remobjects.com/elements">RemObjects
+Elements</a>, a commercial Visual Studio addon product, you can even compile
+Object Pascal, Java, Go, and Swift programs, all using
+<b><tt>libsimpleio.dll</tt></b>, to .Net program assemblies that run on
+MuntsOS.</p>
 <h2>Git Repository</h2>
 <p>The source code for MuntsOS is available at:</p>
 <p><a href=
@@ -374,8 +338,8 @@ run on MuntsOS.</p>
 git clone https://github.com/pmunts/muntsos.git
 </pre>
 <h2>File Repository</h2>
-<p>Prebuilt binaries for MuntsOS (extensions, kernels, thin
-servers, and cross-toolchain packages) are available at:</p>
+<p>Prebuilt binaries for MuntsOS (extensions, kernels, thin servers, and
+cross-toolchain packages) are available at:</p>
 <p><a href=
 "http://repo.munts.com/muntsos">http://repo.munts.com/muntsos</a></p>
 <hr>

@@ -32,6 +32,12 @@ News
     on Linux 6.12 LTS. Most things seem to be working except HDMI and
     internal WiFi. I have been testing with a Broadcom WiFi Adapter and
     Two Port Hub I got years ago for the Raspberry Pi Zero.
+-   3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69.
+    Got the Orange Pi Zero 2W console on USB keyboard / HDMI monitor
+    working. Modified /etc/inittab to support four virtual terminals on
+    HDMI video target platforms. Changed the kernel default printk quiet
+    priority level to 2, to suppress most printk noise to the console.
+    Added support for importing settings from /etc/sysctl.conf.
 
 Quick Setup Instructions for the Impatient
 
@@ -305,10 +311,17 @@ https://www.nuget.org/packages/libsimpleio-templates
 With the dotnet extension installed, MuntsOS can run architecture
 independent .Net programs produced by dotnet build, dotnet publish,
 dotnet pack or the equivalent actions in Microsoft Visual Studio. Many
-if not most of the library packages published on Nuget can be used. In
-particular, the NuGet library package libsimpleio provides
-libsimpleio.dll, .Net Standard 2.0 library assembly that binds to the
-Linux shared library libsimpleio.so that is an integral part of MuntsOS.
+if not most of the library packages published on Nuget can be used in
+such programs.
+
+The NuGet library package libsimpleio provides libsimpleio.dll, a .Net
+Standard 2.0 library assembly that binds to the Linux shared library
+libsimpleio.so that is an integral part of MuntsOS. The NuGet library
+package libsimpleio-templates provides a .Net Core console application
+project template csharp_console_libsimpleio that, while not strictly
+necessary, greatly simplifies creating an embedded system .Net Core
+console application project for MuntsOS.
+
 See Application Note #8 for a complete example using C# to flash an LED.
 See also the API specification for libsimpleio.dll.
 
