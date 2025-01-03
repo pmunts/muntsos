@@ -713,7 +713,11 @@ endif
 	install -cm 0444 host.conf				$@/etc
 	install -cm 0444 hosts					$@/etc
 	install -cm 0444 httpd.conf				$@/etc
-	install -cm 0444 inittab				$@/etc
+ifneq ($(findstring BeagleBone, $(BOARDNAME)),)
+	install -cm 0444 inittab.serial				$@/etc/inittab
+else
+	install -cm 0444 inittab.vt				$@/etc/inittab
+endif
 	install -cm 0444 issue					$@/etc
 	install -cm 0444 ld.so.conf				$@/etc
 	install -cm 0644 mdev.conf				$@/etc
@@ -958,8 +962,6 @@ ifneq ($(findstring OrangePi, $(BOARDNAME)),)
 endif
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
-	sed -i 's/-h -L 115200 ttyS0/115200 tty1/g'		$@/etc/inittab
-
 	echo ""							>>$@/etc/mdev.conf
 	echo "# $(BOARDNAME) devices"				>>$@/etc/mdev.conf
 	echo "ttyAMA0         root:gpio 660"			>>$@/etc/mdev.conf

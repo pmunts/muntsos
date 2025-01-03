@@ -21,6 +21,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 ::sysinit:/etc/rc
-::respawn:/sbin/getty -h -L 115200 ttyS0 vt100
+::respawn:/sbin/getty 115200 tty1 vt100
+::respawn:/sbin/getty 115200 tty2 vt100
+::respawn:/sbin/getty 115200 tty3 vt100
+::respawn:/sbin/getty 115200 tty4 vt100
+#::respawn:/sbin/getty -h -L 115200 ttyS0 vt100
 ::restart:/sbin/init
 ::ctrlaltdel:/sbin/reboot
