@@ -1,2 +1,2 @@
-CMDLINE=console=ttyS0,115200 quiet OPTIONS=0x032C
+CMDLINE=console=tty1 quiet OPTIONS=0x032C
 OVERLAYS=
