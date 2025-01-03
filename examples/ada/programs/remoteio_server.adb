@@ -316,7 +316,7 @@ BEGIN
 
     -- See if I2C buses configured
     I2C1_configured  := Ada.Directories.Exists("/dev/i2c-1");
-    I2C2_configured  := SystemInfo.ModelName = OrangePiZero2W.ModelName AND 
+    I2C2_configured  := SystemInfo.ModelName = OrangePiZero2W.ModelName AND
                           Ada.Directories.Exists("/dev/i2c-2");
 
     -- See if SPI devices are configured
