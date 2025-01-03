@@ -126,6 +126,13 @@ EOD
     sed -i '/\/etc\/scaling_governor/d' /etc/changes.manifest
   fi
 
+  if [ -f /etc/sysctl.conf ]; then
+    echo /etc/sysctl.conf >>/etc/changes.manifest
+    chmod 444 /etc/scaling_governor
+  else
+    sed -i '/\/etc\/sysctl.conf/d' /etc/changes.manifest
+  fi
+
   if [ -f /etc/wpa_supplicant.conf ]; then
     echo /etc/wpa_supplicant.conf >>/etc/changes.manifest
     chmod 400 /etc/wpa_supplicant.conf

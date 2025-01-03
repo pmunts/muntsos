@@ -158,6 +158,10 @@ test -x /usr/libexec/link-gpiochip && /usr/libexec/link-gpiochip
 linklibs
 ldconfig
 
+# Import settings from sysctl.conf
+
+test -f /etc/sysctl.conf && sysctl -p /etc/sysctl.conf
+
 # Configure localhost interface
 
 ifconfig lo 127.0.0.1 netmask 255.255.255.0
