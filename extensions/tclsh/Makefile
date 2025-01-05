@@ -26,8 +26,6 @@ MUNTSOS		?= /usr/local/share/muntsos
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-#http://prdownloads.sourceforge.net/tcl/tcl8.6.16-src.tar.gz
-
 BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
@@ -56,30 +54,36 @@ $(SRCDIST):
 
 src.done: $(SRCDIST)
 	tar xzf $^
+	mv $(SRCDIR) src
 	touch $@
 
 # Compile sources
 
 build.done: src.done
-	cd $(SRCDIR)/unix ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc
-	$(MAKE) -C $(SRCDIR)/unix
+	cd src/unix ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc
+	$(MAKE) -C src/unix
 	touch $@
 
 # Build the Debian package file
 
 $(PKGDIR): build.done
-	mkdir -p					$(PKGDIR)/DEBIAN
-	install -cm 0644 control			$(PKGDIR)/DEBIAN
-	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
-	$(MAKE) -C $(SRCDIR)/unix install DESTDIR=$(shell pwd)/$(PKGDIR)
-	mkdir						$(PKGDIR)/usr/bin
-	ln -s tclsh8.6					$(PKGDIR)/usr/local/bin/tclsh
-	rm -f						$(PKGDIR)/usr/local/bin/sqlite*
-	rm -rf						$(PKGDIR)/usr/local/lib/sqlite*
-	rm -rf						$(PKGDIR)/usr/local/lib/tdbc*
-	rm -rf						$(PKGDIR)/usr/local/man
+	mkdir -p					$@/DEBIAN
+	install -cm 0644 control			$@/DEBIAN
+	sed -i s/@@ARCH@@/$(PKGARCH)/g			$@/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g			$@/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$@/DEBIAN/control
+	install -cm 0755 postinst			$@/DEBIAN
+	$(MAKE) -C src/unix install DESTDIR=../../$@
+	chmod -R u+w					$@
+	ln -s tclsh8.6					$@/usr/local/bin/tclsh
+	rm -f						$@/usr/local/bin/sqlite*
+	rm -rf						$@/usr/local/include
+	rm -rf						$@/usr/local/lib/sqlite*
+	rm -rf						$@/usr/local/lib/tdbc*
+	rm -rf						$@/usr/local/man
+	rm -rf						$@/usr/local/share
+	$(CROSS_COMPILE)strip				$@/usr/local/bin/*
+	find $@/usr/local/lib -name '*.so*' -exec $(CROSS_COMPILE)strip {} ";"
 	touch $@
 
 package.deb: $(PKGFILE)
@@ -104,7 +108,7 @@ clean:
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -f $(PKGFILE) ; fi
 
 reallyclean: clean
-	rm -rf build.done src.done $(SRCDIR) $(PKGFILE) $(PKGFILE).downloaded
+	rm -rf build.done src.done src $(SRCDIR) $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
 	rm -rf $(SRCDIST)
