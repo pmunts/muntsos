@@ -26,7 +26,7 @@ MUNTSOS		:= $(shell pwd)/..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 DESTDIR         = fakeroot
-TARBALL         = $(BOARDNAME)-Kernel.tgz
+TARBALL         = $(shell basename $(BOOTKERNELTGZ))
 
 REVISION	?= test
 
