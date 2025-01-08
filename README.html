@@ -44,6 +44,47 @@ target platforms. Changed the kernel default <b><tt>printk</tt></b> quiet
 priority level to 2, to suppress most <b><tt>printk</tt></b> noise to the
 console. Added support for importing settings from
 <b><tt>/etc/sysctl.conf</tt></b>.</li>
+<li>
+<p>4 January 2025 -- Added <b><tt>tclsh</tt></b>, <b><tt>expect</tt></b>, and
+<b><tt>socat</tt></b> extension packages. <a href=
+"https://www.tcl-lang.org">Tcl</a> is a scripting language that has been around
+in the Unix world for a very long time, since 1988. <b><tt>tclsh</tt></b> is
+the Tcl interpreter program. Some years ago I used Tcl for text fixture
+automation, an application for which it is very well suited.</p>
+<p><b><tt><a href="https://en.wikipedia.org/wiki/Expect">expect</a></tt></b> is
+both an extension to Tcl and a standalone program that is extremely useful for
+automating a dialog between a computer and an I/O device with a serial port
+interface. All manner of older lab instruments and other industrial equipment
+had serial ports for computer control, as do more modern devices such as the
+<a href="https://www.espressif.com/en/products/socs/esp8266">ESP8266 WiFi
+microcontroller</a>.</p>
+<p><b><tt><a href="https://manpages.org/socat">socat</a></tt></b> is a Linux
+utility program that bridges two byte stream communications channels of various
+kinds, such as <b><tt>stdin</tt></b>/<b><tt>stdout</tt></b> and a serial port,
+in the case of the <b><tt>expect</tt></b> script I was using to configure the
+ESP8266.</p>
+</li>
+<li>
+<p>8 January 2025 -- As I was preparing to work on USB Gadget mode for the
+Orange Pi Zero 2W, I came to the realization that, unlike the Raspberry Pi 3,
+the Raspberry Pi 4 does not need a separate USB Gadget kernel. The old obsolete
+BeagleBones, the Orange Pi Zero 2W, and the Raspberry Pi 4 Model B all have a
+dedicated USB controller dedicated to the USB Mini-A/USB micro-A/USB-C power
+connector that is entirely separate from the USB controller dedicated to the
+USB-A socket(s).</p>
+<p>The direction (host or peripheral) of the Raspberry Pi 4 Model B USB-C
+connector is set in the device tree, by adding either
+<b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> or
+<b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> to
+<b><tt>/boot/config.txt</tt></b>. This may or may work on CM4 carrier boards:
+The <a href=
+"https://www.raspberrypi.com/products/compute-module-4-io-board">Compute Module
+4 IO Board</a> can be placed into USB peripheral mode but the <a href=
+"https://www.waveshare.com/wiki/CM4-Duino">Waveshare CM4-Duino</a> cannot.
+Negotiating USB peripheral mode seems to require
+USB OTG (On The Go) configuration signals and/or resistors that are wired on the CM4 I/O Board
+but not on the CM4-Duino.</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
