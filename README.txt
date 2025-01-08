@@ -15,14 +15,17 @@ News
     32-bit target kernels with sysconfig modified to fetch extensions
     from the attic. I do not anticipate ever building the 32-bit target
     kernels or thin servers again.
+
 -   20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67.
     Added a new device tree overlay, Pi4ClickShield, to support the
     eponymous mikroBUS shield.
+
 -   26 December 2024 -- Added preliminary support for the Orange Pi Zero
     2W. I have the U-Boot boot loader and the Linux mainline 6.12 LTS
     kernel, both with serial port console, working all the way to the
     login prompt. Much work on the kernel and device tree remains before
     MuntsOS on the Orange Pi Zero 2W is ready for production use.
+
 -   28 December 2024 -- I had to drop back to the manufacturer Linux 6.1
     kernel tree for the Orange Pi Zero 2W. The Linux mainline 6.12 LTS
     tree does not have drivers for PWM outputs nor the built-in WiFi
@@ -32,12 +35,50 @@ News
     on Linux 6.12 LTS. Most things seem to be working except HDMI and
     internal WiFi. I have been testing with a Broadcom WiFi Adapter and
     Two Port Hub I got years ago for the Raspberry Pi Zero.
+
 -   3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69.
     Got the Orange Pi Zero 2W console on USB keyboard / HDMI monitor
     working. Modified /etc/inittab to support four virtual terminals on
     HDMI video target platforms. Changed the kernel default printk quiet
     priority level to 2, to suppress most printk noise to the console.
     Added support for importing settings from /etc/sysctl.conf.
+
+-   4 January 2025 -- Added tclsh, expect, and socat extension packages.
+    Tcl is a scripting language that has been around in the Unix world
+    for a very long time, since 1988. tclsh is the Tcl interpreter
+    program. Some years ago I used Tcl for text fixture automation, an
+    application for which it is very well suited.
+
+    expect is both an extension to Tcl and a standalone program that is
+    extremely useful for automating a dialog between a computer and an
+    I/O device with a serial port interface. All manner of older lab
+    instruments and other industrial equipment had serial ports for
+    computer control, as do more modern devices such as the ESP8266 WiFi
+    microcontroller.
+
+    socat is a Linux utility program that bridges two byte stream
+    communications channels of various kinds, such as stdin/stdout and a
+    serial port, in the case of the expect script I was using to
+    configure the ESP8266.
+
+-   8 January 2025 -- As I was preparing to work on USB Gadget mode for
+    the Orange Pi Zero 2W, I came to the realization that, unlike the
+    Raspberry Pi 3, the Raspberry Pi 4 does not need a separate USB
+    Gadget kernel. The old obsolete BeagleBones, the Orange Pi Zero 2W,
+    and the Raspberry Pi 4 Model B all have a dedicated USB controller
+    dedicated to the USB Mini-A/USB micro-A/USB-C power connector that
+    is entirely separate from the USB controller dedicated to the USB-A
+    socket(s).
+
+    The direction (host or peripheral) of the Raspberry Pi 4 Model B
+    USB-C connector is set in the device tree, by adding either
+    dtoverlay=dwc2,dr_mode=host or dtoverlay=dwc2,dr_mode=peripheral to
+    /boot/config.txt. This may or may work on CM4 carrier boards: The
+    Compute Module 4 IO Board can be placed into USB peripheral mode but
+    the Waveshare CM4-Duino cannot. Negotiating USB peripheral mode
+    seems to require USB OTG (On The Go) configuration signals and/or
+    resistors that are wired on the CM4 I/O Board but not on the
+    CM4-Duino.
 
 Quick Setup Instructions for the Impatient
 
