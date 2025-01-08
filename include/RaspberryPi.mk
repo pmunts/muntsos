@@ -1,6 +1,6 @@
 # Global make definitions for Raspberry Pi BCM283x ARM Linux microcomputer
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -45,6 +45,8 @@ endif
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
 ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/RaspberryPi4-Kernel.tgz
+else ifneq ($(findstring RaspberryPi5, $(BOARDNAME)),)
+BOOTKERNELTGZ	= $(BOOTKERNELDIR)/RaspberryPi5-Kernel.tgz
 else
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 endif
