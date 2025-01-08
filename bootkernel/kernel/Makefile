@@ -46,8 +46,10 @@ $(KERNEL_WORK)/src.done: $(KERNEL_DIST)
 	rm -rf $(KERNEL_WORK)
 	mkdir -p $(KERNEL_WORK)
 	tar xzf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
+ifeq ($(TWOSOURCES), yes)
 	mv $(KERNEL_SRC) $(KERNEL_SRC).orig
 	tar xzf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
+endif
 	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) && patch -p0 <../../$(KERNEL_PATCH) ; fi
 	touch $@
 
@@ -57,6 +59,7 @@ src: $(KERNEL_WORK)/src.done
 
 # Update patch file
 
+ifeq ($(TWOSOURCES), yes)
 patches: $(KERNEL_WORK)/src.done
 	-diff -r -u --new-file --no-dereference $(KERNEL_SRC).orig $(KERNEL_SRC) >$(KERNEL_PATCH)
 	sed -i 's#$(KERNEL_SRC).orig/##g'	$(KERNEL_PATCH)
@@ -64,6 +67,7 @@ patches: $(KERNEL_WORK)/src.done
 	sed -i '/^diff -r -u/d'			$(KERNEL_PATCH)
 	sed -i 's/\t*202[0-9].*0800$$//g'	$(KERNEL_PATCH)
 	sed -i 's/^\-\-\-.*$$/&.orig/g'		$(KERNEL_PATCH)
+endif
 
 ###############################################################################
 
