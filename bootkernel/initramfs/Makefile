@@ -1,6 +1,6 @@
 # Make root file system for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -530,14 +530,6 @@ endif
 
 ###############################################################################
 
-# Do not install USB WiFi adapter firmware for a USB Gadget kernel.
-ifeq ($(findstring Gadget, $(BOARDNAME)),)
-INSTALL_USB_WIFI_FIRMWARE := yes
-# Unless target is a Raspberry Pi 4, which has a separate USB-C slave port.
-else ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
-INSTALL_USB_WIFI_FIRMWARE := yes
-endif
-
 # Create root file system tree
 
 initramfs.d: COPYING
@@ -736,6 +728,16 @@ ifneq ($(findstring Gadget, $(BOARDNAME)),)
 	echo "#usb0_peer=10.254.254.253"		    >>	$@/etc/network.conf
 	chmod 444						$@/etc/network.conf
 endif
+ifeq ($(BOARDNAME), "RaspberryPi4")
+	chmod 644						$@/etc/network.conf
+	echo ""						    >>	$@/etc/network.conf
+	echo "# USB Network Gadget interface configuration" >>  $@/etc/network.conf
+	echo ""						    >>	$@/etc/network.conf
+	echo "#usb0_address=10.254.254.252"		    >>  $@/etc/network.conf
+	echo "#usb0_netmask=255.255.255.248"		    >>  $@/etc/network.conf
+	echo "#usb0_peer=10.254.254.253"		    >>	$@/etc/network.conf
+	chmod 444						$@/etc/network.conf
+endif
 	install -cm 0444 nsswitch.conf				$@/etc
 	install -cm 0444 ntp.conf				$@/etc
 	install -cm 0444 passwd					$@/etc
@@ -799,7 +801,7 @@ endif
 
 # Install firmware blobs to /lib/firmware
 
-ifneq ($(INSTALL_USB_WIFI_FIRMWARE),)
+ifeq ($(findstring Gadget, $(BOARDNAME)),)
 	# Firmware for the Raspberry Pi Official USB Wireless Adapter
 	mkdir -p						$@/lib/firmware/brcm
 	install -cm 0644 $(FIRMWARE_SRC)/brcm/brcmfmac43143.bin $@/lib/firmware/brcm

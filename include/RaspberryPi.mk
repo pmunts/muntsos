@@ -43,7 +43,11 @@ else
 BOOTFILESTGZ	= $(BOOTFILESDIR)/bootfiles4.tgz
 endif
 BOOTKERNELDIR	= $(MUNTSOS)/bootkernel
+ifneq ($(findstring RaspberryPi4, $(BOARDNAME)),)
+BOOTKERNELTGZ	= $(BOOTKERNELDIR)/RaspberryPi4-Kernel.tgz
+else
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
+endif
 
 # Definitions for the Raspberry Pi kernel repository
 
