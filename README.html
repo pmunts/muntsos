@@ -13,20 +13,22 @@ packages, kernels, extensions, and thin servers) to <a href=
 I did a final build of the 32-bit target kernels with <b><tt>sysconfig</tt></b>
 modified to fetch extensions from the attic. I do not anticipate ever building
 the 32-bit target kernels or thin servers again.</li>
-<br>
-<li>20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67. Added a new
+<li>
+<p>20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67. Added a new
 device tree overlay, <b><tt>Pi4ClickShield</tt></b>, to support the eponymous
-<a href="https://www.mikroe.com/pi-4-click-shield">mikroBUS shield</a>.</li>
-<br>
-<li>26 December 2024 -- Added <i>preliminary</i> support for the <a href=
+<a href="https://www.mikroe.com/pi-4-click-shield">mikroBUS shield</a>.</p>
+</li>
+<li>
+<p>26 December 2024 -- Added <i>preliminary</i> support for the <a href=
 "http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
 Zero 2W</a>. I have the <a href="https://www.u-boot.org">U-Boot</a> boot loader
 and the Linux mainline 6.12 LTS kernel, both with serial port console, working
 all the way to the login prompt. Much work on the kernel and device tree
 remains before MuntsOS on the Orange Pi Zero 2W is ready for production
-use.</li>
-<br>
-<li>28 December 2024 -- I had to drop back to the manufacturer Linux 6.1 kernel
+use.</p>
+</li>
+<li>
+<p>28 December 2024 -- I had to drop back to the manufacturer Linux 6.1 kernel
 tree for the Orange Pi Zero 2W. The Linux mainline 6.12 LTS tree does not have
 drivers for PWM outputs nor the built-in WiFi chipset, both of which are
 required for the application I have in mind. MuntsOS for the Orange Pi Zero 2W
@@ -35,15 +37,17 @@ what I had running on Linux 6.12 LTS. Most things seem to be working except
 HDMI and internal WiFi. I have been testing with a <a href=
 "https://uk.pi-supply.com/collections/dongles-hubs/products/broadcom-wifi-adapter-2-port-usb-hub-raspberry-pi">
 Broadcom WiFi Adapter and Two Port Hub</a> I got years ago for the Raspberry Pi
-Zero.</li>
-<br>
-<li>3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69. Got the
+Zero.</p>
+</li>
+<li>
+<p>3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69. Got the
 Orange Pi Zero 2W console on USB keyboard / HDMI monitor working. Modified
 <b><tt>/etc/inittab</tt></b> to support four virtual terminals on HDMI video
 target platforms. Changed the kernel default <b><tt>printk</tt></b> quiet
 priority level to 2, to suppress most <b><tt>printk</tt></b> noise to the
 console. Added support for importing settings from
-<b><tt>/etc/sysctl.conf</tt></b>.</li>
+<b><tt>/etc/sysctl.conf</tt></b>.</p>
+</li>
 <li>
 <p>4 January 2025 -- Added <b><tt>tclsh</tt></b>, <b><tt>expect</tt></b>, and
 <b><tt>socat</tt></b> extension packages. <a href=
@@ -55,9 +59,10 @@ automation, an application for which it is very well suited.</p>
 both an extension to Tcl and a standalone program that is extremely useful for
 automating a dialog between a computer and an I/O device with a serial port
 interface. All manner of older lab instruments and other industrial equipment
-had serial ports for computer control, as do more modern devices such as the
+had a serial port control interface, as do more modern devices such as the
 <a href="https://www.espressif.com/en/products/socs/esp8266">ESP8266 WiFi
-microcontroller</a>.</p>
+microcontroller</a>. Many modern instruments, such as my oscilloscope, have a
+USB port that enumerates as a serial port when plugged into a computer.</p>
 <p><b><tt><a href="https://manpages.org/socat">socat</a></tt></b> is a Linux
 utility program that bridges two byte stream communications channels of various
 kinds, such as <b><tt>stdin</tt></b>/<b><tt>stdout</tt></b> and a serial port,
@@ -65,19 +70,20 @@ in the case of the <b><tt>expect</tt></b> script I was using to configure the
 ESP8266.</p>
 </li>
 <li>
-<p>8 January 2025 -- As I was preparing to work on USB Gadget mode for the
-Orange Pi Zero 2W, I came to the realization that, unlike the Raspberry Pi 3,
-the Raspberry Pi 4 does not need a separate USB Gadget kernel. The old obsolete
-BeagleBones, the Orange Pi Zero 2W, and the Raspberry Pi 4 Model B all have a
-dedicated USB controller dedicated to the USB Mini-A/USB micro-A/USB-C power
+<p>8 January 2025 -- As I was preparing to begin work on USB Gadget mode for
+the Orange Pi Zero 2W, I realized that, unlike the Raspberry Pi 3, the
+Raspberry Pi 4 does not need a separate USB Gadget kernel. The old obsolete
+BeagleBones, the Raspberry Pi 4 Model B, and the Raspberry Pi 5 Model B all
+have a USB controller dedicated to the USB Mini-A/USB micro-A/USB-C power
 connector that is entirely separate from the USB controller dedicated to the
-USB-A socket(s).</p>
-<p>The direction (host or peripheral) of the Raspberry Pi 4 Model B USB-C
-connector is set in the device tree, by adding either
-<b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> or
+USB-A receptacle(s). The BeagleBone family never needed a separate USB Gadget
+kernel and neither do the Raspberry Pi 4 or 5.</p>
+<p>The direction (host or peripheral) of the Raspberry Pi 4 Model B (and the
+Raspberry Pi 5 Model B) USB-C connector is set in the device tree, by adding
+either <b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> or
 <b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> to
-<b><tt>/boot/config.txt</tt></b>. This may or may work on CM4 carrier boards:
-The <a href=
+<b><tt>/boot/config.txt</tt></b>. This may or may work on CM4/CM5 carrier
+boards: The <a href=
 "https://www.raspberrypi.com/products/compute-module-4-io-board">Compute Module
 4 IO Board</a> can be placed into USB peripheral mode but the <a href=
 "https://www.waveshare.com/wiki/CM4-Duino">Waveshare CM4-Duino</a> cannot.
@@ -85,14 +91,14 @@ Negotiating USB peripheral mode seems to require USB OTG (On The Go)
 configuration signals and/or resistors that are wired on the CM4 I/O Board but
 not on the CM4-Duino.</p>
 <p>This USB Gadget scheme works equally well on the Raspberry Pi 5 Model B and
-I have added support for USB Gadget mode to the Raspberry Pi 5 kernel. Both my
-Windows laptop and Dell tower running Debian Linux Bookworm are able to supply
-enough current to their USB-A sockets to power up a Raspberry Pi 5 Model B with
-4 GB of RAM running MuntsOS. YMMV.</p>
-<p>Just for the fun of it, I added the <a href=
+I have enabled support for USB Gadget mode in the Raspberry Pi 5 kernel. Both
+my Windows laptop and Dell tower running Debian Linux Bookworm are able to
+supply enough current to their USB-A receptacles to power up a Raspberry Pi 5
+Model B with 4 GB of RAM running MuntsOS. YMMV.</p>
+<p>Just for the fun of it, I have added the <a href=
 "https://github.com/ColinIanKing/stress-ng">stress-ng</a> extension package to
 MuntsOS see how a Raspberry Pi 5 Model B would hold up drawing power from the
-Dell tower's front panel USB-A socket.</p>
+Dell tower's front panel USB-A receptacle.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
@@ -260,10 +266,16 @@ trees.</p>
 <h5>USB Gadgets</h5>
 <p>MuntsOS also provides a second, different Raspberry Pi 3 ARMv8 kernel with
 dedicated <a href="http://www.linux-usb.org/gadget">USB Gadget</a> support
-enabled. This kernel runs on 3 A+, CM3 and Zero 2 W boards. It supports USB
-Network, Raw HID, and Serial Port gadgets, selected by bits in the
-<b><tt>OPTIONS</tt></b> word passed on the kernel command line. All of the USB
-Gadget Thin Servers have USB Network Gadget selected by default.</p>
+enabled. This kernel only runs on 3 A+, Zero 2 W, and certain CM3 carrier
+boards which lack the USB hub present on all Model B boards. The single USB
+controller that is part of the BCM27xx SOC (System On Chip) is wired directly
+to the USB-A receptacle on the 3 A+ or the USB Micro-A receptacle on the CM3
+I/O board or the Raspberry Pi Zero 2 W.</p>
+<p>All of the MuntsOS USB Gadget kernels and Thin Servers support USB Network,
+Raw HID, and Serial Port gadgets, selected by bits in the
+<b><tt>OPTIONS</tt></b> word passed on the kernel command line (as configured
+in <b><tt>/boot/cmdline.txt</tt></b>). All of the USB Gadget Thin Servers have
+USB Network Gadget selected by default.</p>
 <p>You can supply power to and communicate with a compatible Raspberry Pi 3
 (A+, CM3, or Zero 2W) running the USB Gadget kernel through the USB port. The
 absolute minimum possible usable Raspberry Pi kit consists of a Raspberry Pi
@@ -294,16 +306,16 @@ and/or programming resistors seem to be required to negotiate USB Gadget mode,
 and not all carrier boards have these.
 <p>The Raspberry Pi 4 family consumes significantly more power than the
 Raspberry Pi 3 and not all host computers will be able to supply enough current
-to a single USB socket to support a Raspberry Pi 4 in USB Gadget mode.</p>
+to a single USB receptacle to support a Raspberry Pi 4 in USB Gadget mode.</p>
 <h4>Raspberry Pi 5</h4>
 <p>The <a href="https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry
 Pi 5 Model B</a> yields another 2-3x increase in performance over the Raspberry
 Pi 4, at the expense of greater power consumption. It has a 2400 MHz BCM2712
 ARMv8 Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The
-Ethernet socket and USB ports have swapped sides, so it has a form factor that
-is sort of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and
-USB ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power
-socket).</p>
+Ethernet receptacle and USB ports have swapped sides, so it has a form factor
+that is sort of a cross between the Raspberry Pi 1 B+ (same grouping of
+Ethernet and USB ports) and the Raspberry Pi 4 (same dual micro-HDMI
+receptacles and USB-C power receptacle).</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi 5 Compute
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
@@ -327,7 +339,7 @@ and/or programming resistors seem to be required to negotiate USB Gadget mode,
 and not all carrier boards have these.
 <p>The Raspberry Pi 5 family consumes even more power than the Raspberry Pi 4
 and not all host computers will be able to supply enough current to a single
-USB socket to support a Raspberry Pi 5 in USB Gadget mode.</p>
+USB receptacle to support a Raspberry Pi 5 in USB Gadget mode.</p>
 <h2>Cross-Toolchains</h2>
 <p>I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for each
 MuntsOS platform family. Each GCC cross-toolchain requires a number of
