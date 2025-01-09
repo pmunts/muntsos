@@ -1,5 +1,5 @@
---- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-11-08 06:44:58.000000000 -0800
-+++ drivers/clk/bcm/clk-raspberrypi.c	2022-11-18 12:26:08.115955355 -0800
+--- drivers/clk/bcm/clk-raspberrypi.c.orig
++++ drivers/clk/bcm/clk-raspberrypi.c
 @@ -362,7 +362,7 @@
  		struct raspberrypi_clk_variant *variant;
  
@@ -20,8 +20,8 @@
  		return PTR_ERR(bdev);
  	}
  
---- arch/arm/Kconfig.orig	2022-04-12 07:12:05.000000000 -0700
-+++ arch/arm/Kconfig	2022-04-12 14:17:08.779623562 -0700
+--- arch/arm/Kconfig.orig
++++ arch/arm/Kconfig
 @@ -96,11 +96,6 @@
  	select HAVE_GCC_PLUGINS
  	select HAVE_HW_BREAKPOINT if PERF_EVENTS && (CPU_V6 || CPU_V6K || CPU_V7)
@@ -34,8 +34,8 @@
  	select HAVE_KPROBES if !XIP_KERNEL && !CPU_ENDIAN_BE32 && !CPU_V7M
  	select HAVE_KRETPROBES if HAVE_KPROBES
  	select HAVE_MOD_ARCH_SPECIFIC
---- drivers/usb/gadget/legacy/hid.c.orig	2022-01-22 05:56:56.000000000 -0800
-+++ drivers/usb/gadget/legacy/hid.c	2022-01-22 09:26:47.326896150 -0800
+--- drivers/usb/gadget/legacy/hid.c.orig
++++ drivers/usb/gadget/legacy/hid.c
 @@ -271,6 +271,48 @@
  	},
  };
@@ -94,8 +94,8 @@
  	status = platform_driver_probe(&hidg_plat_driver,
  				hidg_plat_driver_probe);
  	if (status < 0)
---- drivers/usb/dwc2/gadget.c.orig	2022-04-12 07:12:05.000000000 -0700
-+++ drivers/usb/dwc2/gadget.c	2022-04-12 14:26:07.706729114 -0700
+--- drivers/usb/dwc2/gadget.c.orig
++++ drivers/usb/dwc2/gadget.c
 @@ -3413,6 +3413,8 @@
  	usbcfg &= ~GUSBCFG_TOUTCAL_MASK;
  	usbcfg |= GUSBCFG_TOUTCAL(7);

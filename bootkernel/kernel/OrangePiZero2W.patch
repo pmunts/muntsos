@@ -1,5 +1,4 @@
-Binary files arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr and arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr differ
---- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi	2024-07-09 20:03:48.000000000 -0700.orig
+--- arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi.orig
 +++ arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
 @@ -361,31 +361,13 @@
  			};
@@ -97,7 +96,7 @@ Binary files arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr and arc
  			dmas = <&dma 23>, <&dma 23>;
  			dma-names = "rx", "tx";
  			status = "disabled";
---- arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts	2024-07-09 20:03:48.000000000 -0700.orig
+--- arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts.orig
 +++ arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero2w.dts
 @@ -282,48 +282,48 @@
  	status = "okay";
@@ -224,7 +223,7 @@ Binary files arch/arm64/boot/dts/allwinner/overlay/sun50i-h616-fixup.scr and arc
  &codec {
  	allwinner,audio-routing =
  	        "Line Out", "LINEOUT";
---- drivers/net/phy/Makefile	2024-07-09 20:03:48.000000000 -0700.orig
+--- drivers/net/phy/Makefile.orig
 +++ drivers/net/phy/Makefile
 @@ -2,7 +2,7 @@
  # Makefile for Linux PHY drivers

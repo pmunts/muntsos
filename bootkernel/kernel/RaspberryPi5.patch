@@ -1,5 +1,5 @@
---- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2024-12-17 01:37:23.000000000 -0800
-+++ arch/arm/boot/dts/overlays/overlay_map.dts	2024-12-17 20:46:41.436384040 -0800
+--- arch/arm/boot/dts/overlays/overlay_map.dts.orig
++++ arch/arm/boot/dts/overlays/overlay_map.dts
 @@ -38,6 +38,14 @@
  		bcm2711;
  	};

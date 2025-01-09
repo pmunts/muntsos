@@ -1,5 +1,5 @@
---- drivers/clk/bcm/clk-raspberrypi.c.orig	2022-11-08 06:44:58.000000000 -0800
-+++ drivers/clk/bcm/clk-raspberrypi.c	2022-11-18 12:26:08.115955355 -0800
+--- drivers/clk/bcm/clk-raspberrypi.c.orig
++++ drivers/clk/bcm/clk-raspberrypi.c
 @@ -362,7 +362,7 @@
  		struct raspberrypi_clk_variant *variant;
  
@@ -20,8 +20,8 @@
  		return PTR_ERR(bdev);
  	}
  
---- arch/arm/Kconfig.orig	2022-04-12 07:12:05.000000000 -0700
-+++ arch/arm/Kconfig	2022-04-12 14:17:08.779623562 -0700
+--- arch/arm/Kconfig.orig
++++ arch/arm/Kconfig
 @@ -96,11 +96,6 @@
  	select HAVE_GCC_PLUGINS
  	select HAVE_HW_BREAKPOINT if PERF_EVENTS && (CPU_V6 || CPU_V6K || CPU_V7)
