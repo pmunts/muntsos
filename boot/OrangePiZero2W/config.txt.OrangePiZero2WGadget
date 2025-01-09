@@ -1,0 +1,2 @@
+CMDLINE=console=tty1 quiet OPTIONS=0x032E
+OVERLAYS=
