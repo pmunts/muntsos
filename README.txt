@@ -94,6 +94,24 @@ News
     to MuntsOS see how a Raspberry Pi 5 Model B would hold up drawing
     power from the Dell tower's front panel USB-A receptacle.
 
+-   9 January 2025 -- Another big milestone for the Orange Pi Zero 2W:
+    USB Gadget support is working.
+
+    The Orange Pi Zero 2W has two USB-C receptacles. If you orient the
+    board vertically, with the micro-SD socket at the top, the 40-pin
+    expansion bus on the right, and the HDMI and USB-C receptacles on
+    the left, the bottom USB-C receptacle (labeled TYPEC1 on the
+    schematic diagram) is the peripheral or slave USB port and the one
+    above it (labeled TYPEC2 on the schematic diagram) is the host or
+    master USB port. You can supply power to either USB-C receptacle,
+    but you will almost always want to use the lower one for power and
+    tethering and the upper one for USB devices.
+
+    The default Orange Pi Zero 2W /boot/config.txt leaves the USB Gadget
+    controller disabled. You can enable it by changing the OPTIONS word
+    in /boot/config.txt to 0x132C for a USB HID gadget, 0x032E for USB
+    Ethernet gadget, or 0x03AC for a USB serial port gadget.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
