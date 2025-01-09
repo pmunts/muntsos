@@ -251,6 +251,21 @@ microcomputers available for implementing embedded systems.
 All Raspberry Pi 3 models use the same ARMv8 kernel, with different
 device trees.
 
+USB Gadgets
+
+MuntsOS also provides a second, different Raspberry Pi 3 ARMv8 kernel
+with dedicated USB Gadget support enabled. This kernel runs on 3 A+, CM3
+and Zero 2 W boards. It supports USB Network, Raw HID, and Serial Port
+gadgets, selected by bits in the OPTIONS word passed on the kernel
+command line. All of the USB Gadget Thin Servers have USB Network Gadget
+selected by default.
+
+You can supply power to and communicate with a compatible Raspberry Pi 3
+(A+, CM3, or Zero 2W) running the USB Gadget kernel through the USB
+port. The absolute minimum possible usable Raspberry Pi kit consists of
+a Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one
+of the MuntsOS Raspberry Pi 3 USB Gadget Thin Servers installed.
+
 Raspberry Pi 4
 
 The Raspberry Pi 4 Model B has a 1500 MHz BCM2711 ARMv8 Cortex-A72
@@ -268,6 +283,15 @@ combinations of wireless Ethernet, RAM and eMMC.
 
 All Raspberry Pi 4 models use the same ARMv8 kernel, with different
 device trees.
+
+USB Gadgets
+
+Raspberry Pi 4 USB Gadget Thin Servers contain /boot/cmdline.txt and
+/boot/config.txt files that place the USB-C receptable on the Raspberry
+Pi 4 Model B into USB Gadget mode. This may or may not work on CM4
+carrier boards, as some extra signals and/or programming resistors seem
+to be required to negotiate USB Gadget mode, and not all CM4 carrier
+boards have these.
 
 Raspberry Pi 5
 
@@ -293,20 +317,6 @@ four hardware PWM outputs with different pin mapping. Notably, PWM chip
 2 channel 2 is mapped to GPIO18 instead of PWM chip 0 channel 0 on
 previous Raspberry Pi boards. See RP1 Peripherals page 15 for more
 information.
-
-Raspberry Pi USB Gadget Kernels
-
-MuntsOS also provides Raspberry Pi kernels with dedicated USB Gadget
-support enabled. These kernels run on 3 A+, CM3, Zero 2 W, 4 B, and CM4.
-You can supply power to and communicate with a compatible Raspberry Pi
-solely through the USB port. This kernel supports USB Network, Raw HID,
-and Serial Port gadgets, selected by bits in the OPTIONS word passed on
-the kernel command line. The USB Gadget Thin Servers have USB Network
-Gadget selected by default.
-
-The absolute minimum possible usable Raspberry Pi kit consists of a
-Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one
-of the MuntsOS Raspberry Pi 3 USB Gadget Thin Servers installed.
 
 Cross-Toolchains
 

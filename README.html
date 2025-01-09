@@ -81,9 +81,9 @@ The <a href=
 "https://www.raspberrypi.com/products/compute-module-4-io-board">Compute Module
 4 IO Board</a> can be placed into USB peripheral mode but the <a href=
 "https://www.waveshare.com/wiki/CM4-Duino">Waveshare CM4-Duino</a> cannot.
-Negotiating USB peripheral mode seems to require
-USB OTG (On The Go) configuration signals and/or resistors that are wired on the CM4 I/O Board
-but not on the CM4-Duino.</p>
+Negotiating USB peripheral mode seems to require USB OTG (On The Go)
+configuration signals and/or resistors that are wired on the CM4 I/O Board but
+not on the CM4-Duino.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
@@ -248,6 +248,18 @@ one of the best Linux microcomputers available for implementing embedded
 systems.</p>
 <p>All Raspberry Pi 3 models use the same ARMv8 kernel, with different device
 trees.</p>
+<h5>USB Gadgets</h5>
+<p>MuntsOS also provides a second, different Raspberry Pi 3 ARMv8 kernel with
+dedicated <a href="http://www.linux-usb.org/gadget">USB Gadget</a> support
+enabled. This kernel runs on 3 A+, CM3 and Zero 2 W boards. It supports USB
+Network, Raw HID, and Serial Port gadgets, selected by bits in the
+<b><tt>OPTIONS</tt></b> word passed on the kernel command line. All of the USB
+Gadget Thin Servers have USB Network Gadget selected by default.</p>
+<p>You can supply power to and communicate with a compatible Raspberry Pi 3
+(A+, CM3, or Zero 2W) running the USB Gadget kernel through the USB port. The
+absolute minimum possible usable Raspberry Pi kit consists of a Raspberry Pi
+Zero 2 W, a micro-USB cable, and a micro-SD card with one of the MuntsOS
+Raspberry Pi 3 USB Gadget Thin Servers installed.</p>
 <h4>Raspberry Pi 4</h4>
 <p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-4-model-b">Raspberry Pi 4
@@ -264,6 +276,13 @@ Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.</p>
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
 <p>All Raspberry Pi 4 models use the same ARMv8 kernel, with different device
 trees.</p>
+<h5>USB Gadgets</h5>
+Raspberry Pi 4 USB Gadget Thin Servers contain
+<b><tt>/boot/cmdline.txt</tt></b> and <b><tt>/boot/config.txt</tt></b> files
+that place the USB-C receptable on the Raspberry Pi 4 Model B into USB Gadget
+mode. This may or may not work on CM4 carrier boards, as some extra signals
+and/or programming resistors seem to be required to negotiate USB Gadget mode,
+and not all CM4 carrier boards have these.
 <h4>Raspberry Pi 5</h4>
 <p>The <a href="https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry
 Pi 5</a> yields another 2-3x increase in performance over the Raspberry Pi 4,
@@ -287,17 +306,6 @@ is mapped to GPIO18 instead of PWM chip 0 channel 0 on previous Raspberry Pi
 boards. See <a href=
 "https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
 Peripherals</a> page 15 for more information.</p>
-<h4>Raspberry Pi USB Gadget Kernels</h4>
-<p>MuntsOS also provides Raspberry Pi kernels with dedicated <a href=
-"http://www.linux-usb.org/gadget">USB Gadget</a> support enabled. These kernels
-run on 3 A+, CM3, Zero 2 W, 4 B, and CM4. You can supply power to and
-communicate with a compatible Raspberry Pi solely through the USB port. This
-kernel supports USB Network, Raw HID, and Serial Port gadgets, selected by bits
-in the <b><tt>OPTIONS</tt></b> word passed on the kernel command line. The USB
-Gadget Thin Servers have USB Network Gadget selected by default.</p>
-<p>The absolute minimum possible usable Raspberry Pi kit consists of a
-Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one of the
-MuntsOS Raspberry Pi 3 USB Gadget Thin Servers installed.</p>
 <h2>Cross-Toolchains</h2>
 <p>I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for each
 MuntsOS platform family. Each GCC cross-toolchain requires a number of
