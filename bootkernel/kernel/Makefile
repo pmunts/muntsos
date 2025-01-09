@@ -49,8 +49,10 @@ $(KERNEL_WORK)/src.done: $(KERNEL_DIST)
 ifeq ($(TWOSOURCES), yes)
 	mv $(KERNEL_SRC) $(KERNEL_SRC).orig
 	tar xzf $(KERNEL_DIST) --directory=$(KERNEL_WORK)
-endif
 	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) && patch -p0 <../../$(KERNEL_PATCH) ; fi
+else
+	if [ -f $(KERNEL_PATCH) ] ; then cd $(KERNEL_SRC) && patch -b -p0 <../../$(KERNEL_PATCH) ; fi
+endif
 	touch $@
 
 src: $(KERNEL_WORK)/src.done
