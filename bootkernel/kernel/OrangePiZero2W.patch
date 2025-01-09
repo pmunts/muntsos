@@ -234,3 +234,63 @@
  mdio-bus-y			+= mdio_bus.o mdio_device.o
  
  ifdef CONFIG_MDIO_DEVICE
+--- drivers/usb/gadget/legacy/hid.c.orig	2024-07-09 20:03:48.000000000 -0700
++++ drivers/usb/gadget/legacy/hid.c	2025-01-09 13:08:42.144555519 -0800
+@@ -272,6 +272,48 @@
+ 	},
+ };
+ 
++/* Additional goop to define a USB raw HID gadget */
++
++static struct hidg_func_descriptor raw_hid_data = {
++        .subclass               = 0, /* No subclass */
++        .protocol               = 0, /* No protocol */
++        .report_length          = 64,
++        .report_desc_length     = 33,
++        .report_desc            = {
++0x06, 0x00, 0xFF, // Usage Page = 0xFF00 (Vendor Defined Page 1)
++0x09, 0x01,       // Usage (Vendor Usage 1)
++0xA1, 0x01,       // Collection (Application)
++// Input report
++0x19, 0x01,       // Usage Minimum
++0x29, 0x40,       // Usage Maximum
++0x15, 0x00,       // Logical Minimum
++0x26, 0xFF, 0x00, // Logical Maximum
++0x75, 0x08,       // Report Size: 8-bit field size
++0x95, 64,         // Report Count
++0x81, 0x02,       // Input (Data, Array, Abs)
++// Output report
++0x19, 0x01,       // Usage Minimum
++0x29, 0x40,       // Usage Maximum
++0x75, 0x08,       // Report Size: 8-bit field size
++0x95, 64,         // Report Count
++0x91, 0x02,       // Output (Data, Array, Abs)
++0xC0              // End Collection
++        }
++};
++
++static struct platform_device raw_hid = {
++        .name                   = "hidg",
++        .id                     = 0,
++        .num_resources          = 0,
++        .resource               = 0,
++        .dev.platform_data      = &raw_hid_data,
++};
++
++int __init init_raw_hid(void)
++{
++	pr_info("g_hid: loading raw HID descriptor\n");
++	return platform_device_register(&raw_hid);
++}
+ 
+ MODULE_DESCRIPTION(DRIVER_DESC);
+ MODULE_AUTHOR("Fabien Chouteau, Peter Korsgaard");
+@@ -281,6 +323,8 @@
+ {
+ 	int status;
+ 
++	init_raw_hid();
++
+ 	status = platform_driver_probe(&hidg_plat_driver,
+ 				hidg_plat_driver_probe);
+ 	if (status < 0)
