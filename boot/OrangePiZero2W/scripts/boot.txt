@@ -56,7 +56,7 @@ env import -t -r $INBUF ${filesize}
 
 # Load device tree
 
-load mmc 0:1 $DTB $boardname.dtb
+load mmc 0:1 $DTB $BOARDNAME.dtb
 fdt addr $DTB
 fdt resize 65536
 
@@ -69,9 +69,9 @@ done
 
 # Load kernel files
 
-load mmc 0:1 $KERNEL $boardname.img
+load mmc 0:1 $KERNEL $BOARDNAME.img
 
 # Boot the Linux kernel
 
-setenv bootargs $CMDLINE BOARDNAME=$boardname
+setenv bootargs $CMDLINE BOARDNAME=$BOARDNAME
 booti $KERNEL - $DTB
