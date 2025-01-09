@@ -33,7 +33,7 @@ BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 
 KERNEL_DEFCONF	= linux_sunxi64_defconfig
 KERNEL_IMGSRC	= Image
-KERNEL_IMG	= $(BOARDBASE).img
+KERNEL_IMG	= $(BOARDNAME).img
 KERNEL_DTB	= allwinner/sun50i-h618-orangepi-zero2w
 KERNEL_TARGETS	= $(KERNEL_IMGSRC)
 
