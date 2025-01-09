@@ -44,7 +44,7 @@ default: package.deb
 # Unpack the source distribution
 
 src.done:
-	git clone https://repo.or.cz/socat.git src
+	git clone $(SRCURL) src
 	cd src && git checkout $(SRCTAG)
 	cd src && autoconf -i
 	touch $@
