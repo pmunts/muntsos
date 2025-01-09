@@ -1,4 +1,4 @@
-# Boot Configuration for MuntsOS on a Raspberry Pi 5
+# Boot Configuration for MuntsOS on a Raspberry Pi 5 in USB Gadget mode
 
 arm_64bit=1
 kernel=RaspberryPi5.img
@@ -24,8 +24,8 @@ dtparam=i2c_arm=on,i2c_arm_baudrate=100000
 dtparam=spi=on
 dtparam=uart0=on
 
-# Enable USB host mode
-#dtoverlay=dwc2,dr_mode=host
+# Enable USB peripheral mode
+dtoverlay=dwc2,dr_mode=peripheral
 
 # Disable onboard Bluetooth
 dtoverlay=disable-bt
