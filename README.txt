@@ -80,6 +80,17 @@ News
     resistors that are wired on the CM4 I/O Board but not on the
     CM4-Duino.
 
+    This USB Gadget scheme works equally well on the Raspberry Pi 5
+    Model B and I have added support for USB Gadget mode to the
+    Raspberry Pi 5 kernel. Both my Windows laptop and Dell tower running
+    Debian Linux Bookworm are able to supply enough current to their
+    USB-A sockets to power up a Raspberry Pi 5 Model B with 4 GB of RAM
+    running MuntsOS. YMMV.
+
+    Just for the fun of it, I added the stress-ng extension package to
+    MuntsOS see how a Raspberry Pi 5 Model B would hold up drawing power
+    from the Dell tower's front panel USB-A socket.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
@@ -290,18 +301,23 @@ Raspberry Pi 4 USB Gadget Thin Servers contain /boot/cmdline.txt and
 /boot/config.txt files that place the USB-C receptable on the Raspberry
 Pi 4 Model B into USB Gadget mode. This may or may not work on CM4
 carrier boards, as some extra signals and/or programming resistors seem
-to be required to negotiate USB Gadget mode, and not all CM4 carrier
-boards have these.
+to be required to negotiate USB Gadget mode, and not all carrier boards
+have these.
+
+The Raspberry Pi 4 family consumes significantly more power than the
+Raspberry Pi 3 and not all host computers will be able to supply enough
+current to a single USB socket to support a Raspberry Pi 4 in USB Gadget
+mode.
 
 Raspberry Pi 5
 
-The Raspberry Pi 5 yields another 2-3x increase in performance over the
-Raspberry Pi 4, at the expense of greater power consumption. It has a
-2400 MHz BCM2712 ARMv8 Cortex-A76 quad-core CPU and is available with 4
-or 8 GB of RAM. The Ethernet socket and USB ports have swapped sides, so
-it has a form factor that is sort of a cross between the Raspberry Pi 1
-B+ (same grouping of Ethernet and USB ports) and the Raspberry Pi 4
-(same dual micro-HDMI sockets and USB-C power socket).
+The Raspberry Pi 5 Model B yields another 2-3x increase in performance
+over the Raspberry Pi 4, at the expense of greater power consumption. It
+has a 2400 MHz BCM2712 ARMv8 Cortex-A76 quad-core CPU and is available
+with 4 or 8 GB of RAM. The Ethernet socket and USB ports have swapped
+sides, so it has a form factor that is sort of a cross between the
+Raspberry Pi 1 B+ (same grouping of Ethernet and USB ports) and the
+Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power socket).
 
 There are also a myriad of Raspberry Pi 5 Compute Modules, with varying
 combinations of wireless Ethernet, RAM and eMMC.
@@ -317,6 +333,19 @@ four hardware PWM outputs with different pin mapping. Notably, PWM chip
 2 channel 2 is mapped to GPIO18 instead of PWM chip 0 channel 0 on
 previous Raspberry Pi boards. See RP1 Peripherals page 15 for more
 information.
+
+USB Gadgets
+
+Raspberry Pi 5 USB Gadget Thin Servers contain /boot/cmdline.txt and
+/boot/config.txt files that place the USB-C receptable on the Raspberry
+Pi 5 Model B into USB Gadget mode. This may or may not work on CM5
+carrier boards, as some extra signals and/or programming resistors seem
+to be required to negotiate USB Gadget mode, and not all carrier boards
+have these.
+
+The Raspberry Pi 5 family consumes even more power than the Raspberry Pi
+4 and not all host computers will be able to supply enough current to a
+single USB socket to support a Raspberry Pi 5 in USB Gadget mode.
 
 Cross-Toolchains
 
@@ -341,7 +370,7 @@ http://repo.munts.com/muntsos/toolchain-rpms
 
 Alire Crates
 
-https://alire.ada.dev/crates/muntsos_aarch64.html
+[muntsos_aarch64]
 
 Adding muntsos_aarch64 to an Alire Ada program project turns it into one
 that produces a cross-compiled AArch64/ARMv8 program for MuntsOS. See
@@ -356,8 +385,7 @@ abandoned orphans.
 
 Microsoft .Net
 
-https://www.nuget.org/packages/libsimpleio
-https://www.nuget.org/packages/libsimpleio-templates
+[libsimpleio] [libsimpleio-templates]
 
 With the dotnet extension installed, MuntsOS can run architecture
 independent .Net programs produced by dotnet build, dotnet publish,

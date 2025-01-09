@@ -93,6 +93,18 @@ News
     configuration signals and/or resistors that are wired on the CM4 I/O
     Board but not on the CM4-Duino.
 
+    This USB Gadget scheme works equally well on the Raspberry Pi 5
+    Model B and I have added support for USB Gadget mode to the
+    Raspberry Pi 5 kernel. Both my Windows laptop and Dell tower running
+    Debian Linux Bookworm are able to supply enough current to their
+    USB-A sockets to power up a Raspberry Pi 5 Model B with 4 GB of RAM
+    running MuntsOS. YMMV.
+
+    Just for the fun of it, I added the
+    [stress-ng](https://github.com/ColinIanKing/stress-ng) extension
+    package to MuntsOS see how a Raspberry Pi 5 Model B would hold up
+    drawing power from the Dell tower's front panel USB-A socket.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
@@ -339,13 +351,18 @@ Raspberry Pi 4 USB Gadget Thin Servers contain **`/boot/cmdline.txt`**
 and **`/boot/config.txt`** files that place the USB-C receptable on the
 Raspberry Pi 4 Model B into USB Gadget mode. This may or may not work on
 CM4 carrier boards, as some extra signals and/or programming resistors
-seem to be required to negotiate USB Gadget mode, and not all CM4
-carrier boards have these.
+seem to be required to negotiate USB Gadget mode, and not all carrier
+boards have these.
+
+The Raspberry Pi 4 family consumes significantly more power than the
+Raspberry Pi 3 and not all host computers will be able to supply enough
+current to a single USB socket to support a Raspberry Pi 4 in USB Gadget
+mode.
 
 #### Raspberry Pi 5
 
-The [Raspberry Pi
-5](https://www.raspberrypi.com/products/raspberry-pi-5) yields another
+The [Raspberry Pi 5 Model
+B](https://www.raspberrypi.com/products/raspberry-pi-5) yields another
 2-3x increase in performance over the Raspberry Pi 4, at the expense of
 greater power consumption. It has a 2400 MHz BCM2712 ARMv8 Cortex-A76
 quad-core CPU and is available with 4 or 8 GB of RAM. The Ethernet
@@ -372,6 +389,19 @@ four hardware PWM outputs with different pin mapping. Notably, PWM chip
 previous Raspberry Pi boards. See [RP1
 Peripherals](https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf)
 page 15 for more information.
+
+##### USB Gadgets
+
+Raspberry Pi 5 USB Gadget Thin Servers contain **`/boot/cmdline.txt`**
+and **`/boot/config.txt`** files that place the USB-C receptable on the
+Raspberry Pi 5 Model B into USB Gadget mode. This may or may not work on
+CM5 carrier boards, as some extra signals and/or programming resistors
+seem to be required to negotiate USB Gadget mode, and not all carrier
+boards have these.
+
+The Raspberry Pi 5 family consumes even more power than the Raspberry Pi
+4 and not all host computers will be able to supply enough current to a
+single USB socket to support a Raspberry Pi 5 in USB Gadget mode.
 
 Cross-Toolchains
 ----------------

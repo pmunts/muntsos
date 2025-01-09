@@ -84,6 +84,15 @@ The <a href=
 Negotiating USB peripheral mode seems to require USB OTG (On The Go)
 configuration signals and/or resistors that are wired on the CM4 I/O Board but
 not on the CM4-Duino.</p>
+<p>This USB Gadget scheme works equally well on the Raspberry Pi 5 Model B and
+I have added support for USB Gadget mode to the Raspberry Pi 5 kernel. Both my
+Windows laptop and Dell tower running Debian Linux Bookworm are able to supply
+enough current to their USB-A sockets to power up a Raspberry Pi 5 Model B with
+4 GB of RAM running MuntsOS. YMMV.</p>
+<p>Just for the fun of it, I added the <a href=
+"https://github.com/ColinIanKing/stress-ng">stress-ng</a> extension package to
+MuntsOS see how a Raspberry Pi 5 Model B would hold up drawing power from the
+Dell tower's front panel USB-A socket.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
@@ -282,15 +291,18 @@ Raspberry Pi 4 USB Gadget Thin Servers contain
 that place the USB-C receptable on the Raspberry Pi 4 Model B into USB Gadget
 mode. This may or may not work on CM4 carrier boards, as some extra signals
 and/or programming resistors seem to be required to negotiate USB Gadget mode,
-and not all CM4 carrier boards have these.
+and not all carrier boards have these.
+<p>The Raspberry Pi 4 family consumes significantly more power than the
+Raspberry Pi 3 and not all host computers will be able to supply enough current
+to a single USB socket to support a Raspberry Pi 4 in USB Gadget mode.</p>
 <h4>Raspberry Pi 5</h4>
 <p>The <a href="https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry
-Pi 5</a> yields another 2-3x increase in performance over the Raspberry Pi 4,
-at the expense of greater power consumption. It has a 2400 MHz BCM2712 ARMv8
-Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The Ethernet
-socket and USB ports have swapped sides, so it has a form factor that is sort
-of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and USB
-ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power
+Pi 5 Model B</a> yields another 2-3x increase in performance over the Raspberry
+Pi 4, at the expense of greater power consumption. It has a 2400 MHz BCM2712
+ARMv8 Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The
+Ethernet socket and USB ports have swapped sides, so it has a form factor that
+is sort of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and
+USB ports) and the Raspberry Pi 4 (same dual micro-HDMI sockets and USB-C power
 socket).</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi 5 Compute
@@ -306,6 +318,16 @@ is mapped to GPIO18 instead of PWM chip 0 channel 0 on previous Raspberry Pi
 boards. See <a href=
 "https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
 Peripherals</a> page 15 for more information.</p>
+<h5>USB Gadgets</h5>
+Raspberry Pi 5 USB Gadget Thin Servers contain
+<b><tt>/boot/cmdline.txt</tt></b> and <b><tt>/boot/config.txt</tt></b> files
+that place the USB-C receptable on the Raspberry Pi 5 Model B into USB Gadget
+mode. This may or may not work on CM5 carrier boards, as some extra signals
+and/or programming resistors seem to be required to negotiate USB Gadget mode,
+and not all carrier boards have these.
+<p>The Raspberry Pi 5 family consumes even more power than the Raspberry Pi 4
+and not all host computers will be able to supply enough current to a single
+USB socket to support a Raspberry Pi 5 in USB Gadget mode.</p>
 <h2>Cross-Toolchains</h2>
 <p>I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for each
 MuntsOS platform family. Each GCC cross-toolchain requires a number of
