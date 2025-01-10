@@ -29,8 +29,8 @@ dtparam=i2c_arm=on,i2c_arm_baudrate=100000
 #dtparam=i2c_vc=on,i2c_vc_baudrate=100000
 dtparam=spi=on
 
-# Enable USB host mode
-#dtoverlay=dwc2,dr_mode=host
+# Enable USB host mode (needed for some CM4 carrier boards)
+dtoverlay=dwc2,dr_mode=host
 
 # Disable onboard Bluetooth and route /dev/ttyAMA0 to the expansion header
 dtoverlay=disable-bt
