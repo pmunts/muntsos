@@ -62,7 +62,8 @@ interface. All manner of older lab instruments and other industrial equipment
 had a serial port control interface, as do more modern devices such as the
 <a href="https://www.espressif.com/en/products/socs/esp8266">ESP8266 WiFi
 microcontroller</a>. Many modern instruments, such as my oscilloscope, have a
-USB port that enumerates as a serial port when plugged into a computer.</p>
+USB-B receptacle that enumerates as a serial port when plugged into a
+computer.</p>
 <p><b><tt><a href="https://manpages.org/socat">socat</a></tt></b> is a Linux
 utility program that bridges two byte stream communications channels of various
 kinds, such as <b><tt>stdin</tt></b>/<b><tt>stdout</tt></b> and a serial port,
@@ -75,14 +76,14 @@ the Orange Pi Zero 2W, I realized that, unlike the Raspberry Pi 3, the
 Raspberry Pi 4 does not need a separate USB Gadget kernel. The old obsolete
 BeagleBones, the Raspberry Pi 4 Model B, and the Raspberry Pi 5 Model B all
 have a USB controller dedicated to the USB Mini-A/USB micro-A/USB-C power
-connector that is entirely separate from the USB controller dedicated to the
+receptacle that is entirely separate from the USB controller dedicated to the
 USB-A receptacle(s). The BeagleBone family never needed a separate USB Gadget
 kernel and neither do the Raspberry Pi 4 or 5.</p>
 <p>The direction (host or peripheral) of the Raspberry Pi 4 Model B (and the
-Raspberry Pi 5 Model B) USB-C connector is set in the device tree, by adding
+Raspberry Pi 5 Model B) USB-C receptacle is set in the device tree, by adding
 either <b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> or
 <b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> to
-<b><tt>/boot/config.txt</tt></b>. This may or may work on CM4/CM5 carrier
+<b><tt>/boot/config.txt</tt></b>. This may or may not work on CM4/CM5 carrier
 boards: The <a href=
 "https://www.raspberrypi.com/products/compute-module-4-io-board">Compute Module
 4 IO Board</a> can be placed into USB peripheral mode but the <a href=
@@ -102,21 +103,15 @@ Dell tower's front panel USB-A receptacle.</p>
 </li>
 <li>
 <p>9 January 2025 -- Another big milestone for the Orange Pi Zero 2W: USB
-Gadget support is working.</p>
-<p>The Orange Pi Zero 2W has two USB-C receptacles. If you orient the board
-vertically, with the micro-SD socket at the top, the 40-pin expansion bus on
-the right, and the HDMI and USB-C receptacles on the left, the bottom USB-C
-receptacle (labeled <b><tt>TYPEC1</tt></b> on the schematic diagram) is the
-peripheral or slave USB port and the one above it (labeled
-<b><tt>TYPEC2</tt></b> on the schematic diagram) is the host or master USB
-port. You can supply power to either USB-C receptacle, but you will almost
-always want to use the lower one for power and tethering and the upper one for
-USB devices.</p>
-<p>The default Orange Pi Zero 2W <b><tt>/boot/config.txt</tt></b> leaves the
-USB Gadget controller disabled. You can enable it by changing the
-<b><tt>OPTIONS</tt></b> word in <b><tt>/boot/config.txt</tt></b> to
-<b><tt>0x132C</tt></b> for a USB HID gadget, <b><tt>0x032E</tt></b> for USB
-Ethernet gadget, or <b><tt>0x03AC</tt></b> for a USB serial port gadget.</p>
+Gadget support is working. The Orange Pi Zero 2W has two USB-C receptacles. If
+you orient the board vertically, with the micro-SD receptacle at the top, the
+40-pin expansion bus on the right, and the HDMI and USB-C receptacles on the
+left, the bottom USB-C receptacle (labeled <b><tt>TYPEC1</tt></b> on the
+schematic diagram) is the USB peripheral receptacle and the one above it
+(labeled <b><tt>TYPEC2</tt></b> on the schematic diagram) is the USB host
+receptacle. You can supply power to either USB-C receptacle, but you will
+almost always want to use the lower one for power and tethering and the upper
+one for USB devices.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
@@ -239,6 +234,13 @@ unavailable. Unfortunately, the manufacturer <a href=
 "https://github.com/orangepi-xunlong/linux-orangepi/tree/orange-pi-6.1-sun50iw9">
 kernel source tree</a> has not been maintained regularly and is currently at
 6.1.31.</p>
+<h5>USB Gadgets</h5>
+<p>You will need to edit <b><tt>/boot/config.txt</tt></b> to enable USB Gadget
+mode. Change the <b><tt>OPTIONS</tt></b> word to <b><tt>0x132C</tt></b> for a
+USB HID gadget, <b><tt>0x032E</tt></b> for a USB Ethernet gadget, or
+<b><tt>0x03AC</tt></b> for a USB serial port gadget. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf">Application Note
+#10</a> for more information about the <b><tt>OPTIONS</tt></b> word.</p>
 <h3>Raspberry Pi</h3>
 <p>The <a href="http://www.raspberrypi.com">Raspberry Pi</a> is a family of low
 cost Linux microcomputers selling for USD $15 to $80, depending on model. There
@@ -265,9 +267,9 @@ of RAM along with on-board Bluetooth and WiFi radios.</p>
 <p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-3-model-a-plus">Raspberry Pi
 3 Model A+</a> has the same form factor as the Raspberry Pi 1 Model A+, with
-only one USB host port and no wired Ethernet. It has a 1400 MHz BCM2710 ARMv8
-Cortex-A53 quad-core CPU and has 512 MB of RAM along with on-board Bluetooth
-and WiFi radios.</p>
+only one USB host receptacle and no wired Ethernet. It has a 1400 MHz BCM2710
+ARMv8 Cortex-A53 quad-core CPU and has 512 MB of RAM along with on-board
+Bluetooth and WiFi radios.</p>
 <p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus">Raspberry Pi
 3 Model B+</a> has a 1400 MHz BCM2710 ARMv8 Cortex-A53 quad-core CPU and has
@@ -282,46 +284,53 @@ systems.</p>
 <p>All Raspberry Pi 3 models use the same ARMv8 kernel, with different device
 trees.</p>
 <h5>USB Gadgets</h5>
-<p>MuntsOS also provides a second, different Raspberry Pi 3 ARMv8 kernel with
-dedicated <a href="http://www.linux-usb.org/gadget">USB Gadget</a> support
-enabled. This kernel only runs on 3 A+, Zero 2 W, and certain CM3 carrier
-boards which lack the USB hub present on all Model B boards. The single USB
-controller that is part of the BCM27xx SOC (System On Chip) is wired directly
-to the USB-A receptacle on the 3 A+ or the USB Micro-A receptacle on the CM3
-I/O board or the Raspberry Pi Zero 2 W.</p>
-<p>All of the MuntsOS USB Gadget kernels and Thin Servers support USB Network,
-Raw HID, and Serial Port gadgets, selected by bits in the
-<b><tt>OPTIONS</tt></b> word passed on the kernel command line (as configured
-in <b><tt>/boot/cmdline.txt</tt></b>). All of the USB Gadget Thin Servers have
-USB Network Gadget selected by default.</p>
+<p>MuntsOS also provides a second, different Raspberry Pi 3 kernel with USB
+host support disabled and <a href="http://www.linux-usb.org/gadget">USB
+Gadget</a> peripheral support enabled. This kernel only runs on 3 A+, Zero 2 W,
+and certain CM3 carrier boards which lack the USB hub present on Raspberry Pi 3
+Model B and B+ boards. The single USB controller that is part of the BCM2710
+CPU is wired directly to the USB-A receptacle on the 3 A+ or the USB Micro-A
+receptacle on the CM3 I/O board or the Raspberry Pi Zero 2 W.</p>
+<p>The Raspberry Pi 3 USB Gadget kernel supports USB Ethernet, Raw HID, and
+Serial Port gadgets, selected by bits in the <b><tt>OPTIONS</tt></b> word
+passed on the kernel command line (as configured in
+<b><tt>/boot/cmdline.txt</tt></b>). See <a href=
+"http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf">Application Note
+#10</a> for more information about the <b><tt>OPTIONS</tt></b> word. Raspberry
+Pi 3 USB Gadget Thin Servers have USB Network Gadget selected by default.</p>
 <p>You can supply power to and communicate with a compatible Raspberry Pi 3
-(A+, CM3, or Zero 2W) running the USB Gadget kernel through the USB port. The
-absolute minimum possible usable Raspberry Pi kit consists of a Raspberry Pi
-Zero 2 W, a micro-USB cable, and a micro-SD card with one of the MuntsOS
+(A+, CM3, or Zero 2W) running the USB Gadget kernel through the USB receptacle.
+The absolute minimum possible usable Raspberry Pi kit consists of a Raspberry
+Pi Zero 2 W, a micro-USB cable, and a micro-SD card with one of the MuntsOS
 Raspberry Pi 3 USB Gadget Thin Servers installed.</p>
 <h4>Raspberry Pi 4</h4>
 <p>The <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-4-model-b">Raspberry Pi 4
 Model B</a> has a 1500 MHz BCM2711 ARMv8 Cortex-A72 quad-core CPU and is
 available with 1 to 8 GB of RAM. It diverged significantly from the Raspberry
-Pi 1 B+ form factor, with the USB and Ethernet ports reversed, two micro-HDMI
-connectors instead of a single full size HDMI connector, and a USB-C power
-connector instead of micro-USB. Two of the USB ports are 3.0 and two are 2.0. A
-major improvement is a Gigabit Ethernet controller connected via PCI Express
-instead of the USB connected Ethernet used for all earlier models. The
-Raspberry Pi 4 Model B uses the same wireless chip set as the 3+.</p>
+Pi 1 B+ form factor, with the USB and Ethernet receptacles reversed, two
+micro-HDMI receptacles instead of a single full size HDMI receptacle, and a
+USB-C power receptacle instead of micro-USB. Two of the USB receptacles are 3.0
+and two are 2.0. A major improvement is a Gigabit Ethernet controller connected
+via PCI Express instead of the USB connected Ethernet used for all earlier
+models. The Raspberry Pi 4 Model B uses the same wireless chip set as the
+3+.</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-4">Raspberry Pi 4 Compute
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
 <p>All Raspberry Pi 4 models use the same ARMv8 kernel, with different device
 trees.</p>
 <h5>USB Gadgets</h5>
-Raspberry Pi 4 USB Gadget Thin Servers contain
-<b><tt>/boot/cmdline.txt</tt></b> and <b><tt>/boot/config.txt</tt></b> files
-that place the USB-C receptable on the Raspberry Pi 4 Model B into USB Gadget
-mode. This may or may not work on CM4 carrier boards, as some extra signals
-and/or programming resistors seem to be required to negotiate USB Gadget mode,
-and not all carrier boards have these.
+<p>You will need to edit some boot configuration files to enable USB Gadget
+mode. First, change <b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> to
+<b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> in
+<b><tt>/boot/config.txt</tt></b> to change the USB-C receptacle from USB host
+to USB peripheral. Then change the <b><tt>OPTIONS</tt></b> word in
+<b><tt>/boot/cmdline.txt</tt></b> to <b><tt>0x132C</tt></b> for a USB HID
+gadget, <b><tt>0x032E</tt></b> for a USB Ethernet gadget, or
+<b><tt>0x03AC</tt></b> for a USB serial port gadget. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf">Application Note
+#10</a> for more information about the <b><tt>OPTIONS</tt></b> word.</p>
 <p>The Raspberry Pi 4 family consumes significantly more power than the
 Raspberry Pi 3 and not all host computers will be able to supply enough current
 to a single USB receptacle to support a Raspberry Pi 4 in USB Gadget mode.</p>
@@ -330,9 +339,9 @@ to a single USB receptacle to support a Raspberry Pi 4 in USB Gadget mode.</p>
 Pi 5 Model B</a> yields another 2-3x increase in performance over the Raspberry
 Pi 4, at the expense of greater power consumption. It has a 2400 MHz BCM2712
 ARMv8 Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The
-Ethernet receptacle and USB ports have swapped sides, so it has a form factor
-that is sort of a cross between the Raspberry Pi 1 B+ (same grouping of
-Ethernet and USB ports) and the Raspberry Pi 4 (same dual micro-HDMI
+Ethernet receptacle and USB receptacles have swapped sides, so it has a form
+factor that is sort of a cross between the Raspberry Pi 1 B+ (same grouping of
+Ethernet and USB receptacles) and the Raspberry Pi 4 (same dual micro-HDMI
 receptacles and USB-C power receptacle).</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi 5 Compute
@@ -349,12 +358,16 @@ boards. See <a href=
 "https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
 Peripherals</a> page 15 for more information.</p>
 <h5>USB Gadgets</h5>
-Raspberry Pi 5 USB Gadget Thin Servers contain
-<b><tt>/boot/cmdline.txt</tt></b> and <b><tt>/boot/config.txt</tt></b> files
-that place the USB-C receptable on the Raspberry Pi 5 Model B into USB Gadget
-mode. This may or may not work on CM5 carrier boards, as some extra signals
-and/or programming resistors seem to be required to negotiate USB Gadget mode,
-and not all carrier boards have these.
+<p>You will need to edit some boot configuration files to enable USB Gadget
+mode. First, change <b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> to
+<b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> in
+<b><tt>/boot/config.txt</tt></b> to change the USB-C receptacle from USB host
+to USB peripheral. Then change the <b><tt>OPTIONS</tt></b> word in
+<b><tt>/boot/cmdline.txt</tt></b> to <b><tt>0x132C</tt></b> for a USB HID
+gadget, <b><tt>0x032E</tt></b> for a USB Ethernet gadget, or
+<b><tt>0x03AC</tt></b> for a USB serial port gadget. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf">Application Note
+#10</a> for more information about the <b><tt>OPTIONS</tt></b> word.</p>
 <p>The Raspberry Pi 5 family consumes even more power than the Raspberry Pi 4
 and not all host computers will be able to supply enough current to a single
 USB receptacle to support a Raspberry Pi 5 in USB Gadget mode.</p>
