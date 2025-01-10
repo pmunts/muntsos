@@ -40,7 +40,7 @@ common_mk_default: default
 
 common_mk_prebuilt:
 	$(MAKE) -C $(MUNTSOS)/bootkernel download_prebuilt
-	for E in $(EXTENSIONS) ; do $(MAKE) -C $(MUNTSOS)/extensions/$$E download_prebuilt ; done
+	-for E in $(EXTENSIONS) ; do $(MAKE) -C $(MUNTSOS)/extensions/$$E download_prebuilt ; done
 
 ###############################################################################
 
@@ -57,7 +57,8 @@ ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 endif
 	cp $(BOOTFILESDIR)/config.txt.$(BOARDNAME)	$(ZIPDIR)/config.txt
 	cp $(MUNTSOS)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d
-	for E in $(EXTENSIONS) ; do cp $(MUNTSOS)/extensions/$$E/$$E-muntsos-$(BOARDARCH).deb $(ZIPDIR)/packages ; done
+	-for E in $(EXTENSIONS) ; do cp $(MUNTSOS)/extensions/$$E/$$E-muntsos-$(BOARDARCH).deb $(ZIPDIR)/packages ; done
+	-for E in $(EXTENSIONS) ; do wget -P $(ZIPDIR)/autoexec.d http://repo.munts.com/muntsos/extensions/$$E-$(BOARDARCH) ; done
 	find $(ZIPDIR) -type f -exec chmod 644 {} ";"
 	find $(ZIPDIR)/autoexec.d -type f -exec chmod 755 {} ";"
 
