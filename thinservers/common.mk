@@ -81,6 +81,6 @@ common_mk_clean:
 
 common_mk_reallyclean: common_mk_clean
 	$(MAKE) -C $(MUNTSOS)/bootkernel reallyclean
-	for E in $(EXTENSIONS) ; do $(MAKE) -C $(MUNTSOS)/extensions/$$E reallyclean ; done
+	-for E in $(EXTENSIONS) ; do $(MAKE) -C $(MUNTSOS)/extensions/$$E reallyclean ; done
 
 common_mk_distclean: common_mk_reallyclean
