@@ -162,7 +162,6 @@ allconfig:
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi3
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi3Gadget
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi4
-	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi4Gadget
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi5
 
 ###############################################################################
