@@ -833,7 +833,7 @@ endif
 ifneq ($(findstring OrangePi, $(BOARDNAME)),)
 	# Firmware for the Orange Pi Zero 2W Wireless built-in WLAN interface
 	mkdir -p										$@/lib/firmware
-	install -cm 0644 wcnmodem.bin								$@/lib/firmware
+	install -cm 0644 uwe5622/*								$@/lib/firmware
 endif
 
 ifneq ($(findstring RaspberryPi1, $(BOARDNAME)),)
