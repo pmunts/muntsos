@@ -429,6 +429,13 @@ BEGIN
       IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
         pwm.Register(0, RaspberryPi.PWM0);    -- GPIO12 or GPIO18
         pwm.Register(1, RaspberryPi.PWM1);    -- GPIO13 or GPIO19
+        -- Emulate Raspberry Pi 5 PWM outputs:
+        -- PWM0 on GPIO12
+        -- PWM1 on GPIO13
+        -- PWM2 on GPIO18
+        -- PWM3 on GPIO19.
+        pwm.Register(2, RaspberryPi.PWM0);    -- GPIO12 or GPIO18
+        pwm.Register(3, RaspberryPi.PWM1);    -- GPIO13 or GPIO19
       END IF;
     ELSIF CPUInfo.Kind = CPUInfo.BCM2712 THEN
       -- Raspberry Pi 5 has four hardware PWM outputs from pwmchip2
@@ -443,8 +450,8 @@ BEGIN
       IF Ada.Directories.Exists("/sys/class/pwm/pwmchip0") THEN
         pwm.Register(0, OrangePiZero2W.PWM1); -- GPIO12
         pwm.Register(1, OrangePiZero2W.PWM2); -- GPIO13
-        pwm.Register(1, OrangePiZero2W.PWM3); -- GPIO4
-        pwm.Register(1, OrangePiZero2W.PWM4); -- GPIO23
+        pwm.Register(2, OrangePiZero2W.PWM3); -- GPIO4
+        pwm.Register(3, OrangePiZero2W.PWM4); -- GPIO23
       END IF;
     END IF;
 
