@@ -36,6 +36,7 @@ WITH RemoteIO.Server.Dev;
 WITH RemoteIO.Server.Foundation;
 WITH RemoteIO.Server.Serial;
 WITH RemoteIO.Server.UDP;
+WITH RemoteIO.Server.ZeroMQ;
 
 PROCEDURE remoteio_server_adc_dac_pi_zero IS
 
@@ -45,6 +46,7 @@ PROCEDURE remoteio_server_adc_dac_pi_zero IS
   srvh   : RemoteIO.Server.Instance;
   srvs   : RemoteIO.Server.Instance;
   srvu   : RemoteIO.Server.Instance;
+  srvz   : RemoteIO.Server.Instance;
   adc    : RemoteIO.ADC.Dispatcher;
   dac    : RemoteIO.DAC.Dispatcher;
   gpio   : RemoteIO.GPIO.Dispatcher;
@@ -58,6 +60,7 @@ BEGIN
   srvh := RemoteIO.Server.Dev.Create(exec, "Raw HID", "/dev/hidg0");
   srvs := RemoteIO.Server.Serial.Create(exec, "Serial Port", "/dev/ttyGS0");
   srvu := RemoteIO.Server.UDP.Create(exec, "UDP");
+  srvz := RemoteIO.Server.ZeroMQ.Create(exec, "ZeroMQ");
 
   -- Create I/O subsystem objects
 

@@ -31,6 +31,7 @@ WITH RemoteIO.Server.Dev;
 WITH RemoteIO.Server.Foundation;
 WITH RemoteIO.Server.Serial;
 WITH RemoteIO.Server.UDP;
+WITH RemoteIO.Server.ZeroMQ;
 
 PROCEDURE remoteio_server_Enviro_pHAT IS
 
@@ -40,6 +41,7 @@ PROCEDURE remoteio_server_Enviro_pHAT IS
   srvh   : RemoteIO.Server.Instance;
   srvs   : RemoteIO.Server.Instance;
   srvu   : RemoteIO.Server.Instance;
+  srvz   : RemoteIO.Server.Instance;
   adc    : RemoteIO.ADC.Dispatcher;
   gpio   : RemoteIO.GPIO.Dispatcher;
   i2c    : RemoteIO.I2C.Dispatcher;
@@ -53,6 +55,7 @@ BEGIN
   srvh := RemoteIO.Server.Dev.Create(exec, "Raw HID", "/dev/hidg0");
   srvs := RemoteIO.Server.Serial.Create(exec, "Serial Port", "/dev/ttyGS0");
   srvu := RemoteIO.Server.UDP.Create(exec, "UDP");
+  srvz := RemoteIO.Server.ZeroMQ.Create(exec, "ZeroMQ");
 
   -- Create I/O subsystem objects
 
