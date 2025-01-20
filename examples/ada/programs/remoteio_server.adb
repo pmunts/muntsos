@@ -1,6 +1,6 @@
 -- MuntsOS Remote I/O Server
 
--- Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2018-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -99,7 +99,13 @@ PROCEDURE remoteio_server IS
   END StartsWith;
 
 BEGIN
-  RemoteIO.Server.Foundation.Initialize(title, caps);
+  IF ClickBoard.Shields.Detect = ClickBoard.Shields.Unknown THEN
+    RemoteIO.Server.Foundation.Initialize(title, caps);
+  ELSE
+    RemoteIO.Server.Foundation.Initialize(title, caps & " " &
+      ClickBoard.Shields.Detect'Image);
+  END IF;
+
   exec := RemoteIO.Server.Foundation.Executor;
 
   -- Initialize server subsystem tasks
