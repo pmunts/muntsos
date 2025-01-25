@@ -80,7 +80,6 @@ PROCEDURE remoteio_server IS
   ADC_configured   : ARRAY (0 .. 7) OF Boolean;
   I2C1_configured  : Boolean;
   I2C2_configured  : Boolean;
-  PWM_configured   : Boolean;
   SPI00_configured : Boolean;
   SPI01_configured : Boolean;
   SPI10_configured : Boolean;
@@ -356,6 +355,14 @@ BEGIN
         END IF;
       END LOOP;
 
+    -- Register MUNTS-0018 analog inputs
+
+    ELSIF SystemInfo.ShieldName = "munts-0018" THEN
+      FOR n IN 0 .. 3 LOOP
+        IF ADC_configured(n) THEN
+          adc.Register(n, ADC_inputs(n), 12); -- 12 bits, 3.3V Vref
+        END IF;
+      END LOOP;
     END IF;
 
     IF NOT I2C1_configured THEN
