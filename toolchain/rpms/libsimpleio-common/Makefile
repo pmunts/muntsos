@@ -38,7 +38,6 @@ package.rpm:
 	cp -R -P -p $(SRCDIR)			$(RPMDIR)/usr/local/share
 	chmod -R u+w				$(RPMDIR)
 	rm -rf					$(RPMDIR)/usr/local/share/libsimpleio/ada/lib
-	rm -rf					$(RPMDIR)/usr/local/share/libsimpleio/nuget
 	cd $(RPMDIR) && find usr/local/share/libsimpleio -type d -exec echo "%dir /{}" ";"   >>../specfile
 	cd $(RPMDIR) && find usr/local/share/libsimpleio -type f -exec echo "/{}" ";"        >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
