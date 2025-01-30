@@ -395,14 +395,17 @@ Fedora 40 and RHEL 9.1 and its derivatives are available at:</p>
 <p><a href="https://alire.ada.dev/crates/muntsos_aarch64.html"><img alt=
 "muntsos_aarch64" src=
 "https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json"></a></p>
-<p>Adding <b><tt>muntsos_aarch64</tt></b> to an Alire Ada program project turns
-it into one that produces a cross-compiled AArch64/ARMv8 program for MuntsOS.
-See <a href=
+<p>Adding the <b><tt>muntsos_aarch64</tt></b> crate to an Alire Ada program
+project transforms said project into one that produces a cross-compiled AArch64
+program for MuntsOS. See <a href=
 "http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">Application
 Note #7</a> for a complete example using the <b><tt>alr</tt></b> command line
 tool.</p>
-<p id="alire_orphans">Please note that none of the other MuntsOS library crates
-in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are useable due to breaking
+<p><b><tt>muntsos_aarch64</tt></b> depends upon the Linux distribution
+meta-package <b><tt>muntsos-dev-aarch64</tt></b> that in turn pulls in the rest
+of the MuntsOS AArch64 cross-toolchain packages.</p>
+<p id="alire_orphans">Please note that the other MuntsOS library crates in
+Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are unusable due to breaking
 changes in <b><tt>alr</tt></b> 2.0. Unfortunately, Alire project policies
 prohibit removing obsolete crates, so <b>muntsos_beaglebone</b> <i>et al</i>
 remain in the repository as broken and abandoned orphans.</p>
@@ -414,13 +417,13 @@ src=
 "libsimpleio-templates" src=
 "https://img.shields.io/nuget/v/libsimpleio-templates?style=flat&amp;logo=nuget&amp;label=libsimpleio-templates">
 </a></p>
-<p>With the <b><tt>dotnet</tt></b> extension installed, MuntsOS can run
+<p>With the <b><tt>dotnet</tt></b> runtime extension installed, MuntsOS can run
 architecture independent .Net programs produced by <b><tt>dotnet
 build</tt></b>, <b><tt>dotnet publish</tt></b>, <b><tt>dotnet pack</tt></b> or
 the equivalent actions in <a href=
 "https://visualstudio.microsoft.com">Microsoft Visual Studio</a>. Many if not
 most of the library packages published on <a href=
-"https://www.nuget.org">Nuget</a> can be used in such programs.</p>
+"https://www.nuget.org">NuGet</a> can be used in such programs.</p>
 <p>The NuGet library package <a href=
 "https://www.nuget.org/packages/libsimpleio">libsimpleio</a> provides
 <b><tt>libsimpleio.dll</tt></b>, a .Net Standard 2.0 library assembly that
@@ -429,20 +432,30 @@ integral part of MuntsOS. The NuGet library package <a href=
 "https://www.nuget.org/packages/libsimpleio">libsimpleio-templates</a> provides
 a .Net Core console application project template
 <b><tt>csharp_console_libsimpleio</tt></b> that, while not strictly necessary,
-greatly simplifies creating an embedded system .Net Core console application
+greatly simplifies creating an .Net Core console embedded system application
 project for MuntsOS.</p>
+<b>
+<pre>
+dotnet new install libsimpleio-templates
+mkdir myprogram
+cd myprogram
+dotnet new csharp_console_libsimpleio
+dotnet new sln
+dotnet sln add myprogram.csproj
+</pre>
+</b>
 <p>See <a href=
 "http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf">Application Note
 #8</a> for a complete example using C# to flash an LED. See also the <a href=
 "http://tech.munts.com/libsimpleio.dll">API specification</a> for
 <b><tt>libsimpleio.dll</tt></b>.</p>
-<p>The combination of Visual Studio + NuGet + libsimpleio provides a very high
-productivity development environment for creating embedded systems software to
-run on MuntsOS. With <a href="https://www.remobjects.com/elements">RemObjects
-Elements</a>, a commercial Visual Studio addon product, you can even compile
-Object Pascal, Java, Go, and Swift programs, all using
-<b><tt>libsimpleio.dll</tt></b>, to .Net program assemblies that run on
-MuntsOS.</p>
+<p>The combination of Visual Studio + NuGet + <b><tt>libsimpleio.dll</tt></b>
+provides a very high productivity development environment for creating embedded
+systems software to run on MuntsOS. With <a href=
+"https://www.remobjects.com/elements">RemObjects Elements</a>, a commercial
+Visual Studio addon product, you can even compile Object Pascal, Java, Go, and
+Swift programs, all using <b><tt>libsimpleio.dll</tt></b>, to .Net program
+assemblies that run on MuntsOS.</p>
 <h2>Git Repository</h2>
 <p>The source code for MuntsOS is available at:</p>
 <p><a href=

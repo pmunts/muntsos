@@ -405,47 +405,57 @@ http://repo.munts.com/muntsos/toolchain-rpms
 
 Alire Crates
 
-https://alire.ada.dev/crates/muntsos_aarch64.html
+[muntsos_aarch64]
 
-Adding muntsos_aarch64 to an Alire Ada program project turns it into one
-that produces a cross-compiled AArch64/ARMv8 program for MuntsOS. See
-Application Note #7 for a complete example using the alr command line
-tool.
+Adding the muntsos_aarch64 crate to an Alire Ada program project
+transforms said project into one that produces a cross-compiled AArch64
+program for MuntsOS. See Application Note #7 for a complete example
+using the alr command line tool.
 
-Please note that none of the other MuntsOS library crates in Alire (e.g.
-muntsos_beaglebone) are useable due to breaking changes in alr 2.0.
+muntsos_aarch64 depends upon the Linux distribution meta-package
+muntsos-dev-aarch64 that in turn pulls in the rest of the MuntsOS
+AArch64 cross-toolchain packages.
+
+Please note that the other MuntsOS library crates in Alire (e.g.
+muntsos_beaglebone) are unusable due to breaking changes in alr 2.0.
 Unfortunately, Alire project policies prohibit removing obsolete crates,
 so muntsos_beaglebone et al remain in the repository as broken and
 abandoned orphans.
 
 Microsoft .Net
 
-https://www.nuget.org/packages/libsimpleio
-https://www.nuget.org/packages/libsimpleio-templates
+[libsimpleio] [libsimpleio-templates]
 
-With the dotnet extension installed, MuntsOS can run architecture
-independent .Net programs produced by dotnet build, dotnet publish,
-dotnet pack or the equivalent actions in Microsoft Visual Studio. Many
-if not most of the library packages published on Nuget can be used in
-such programs.
+With the dotnet runtime extension installed, MuntsOS can run
+architecture independent .Net programs produced by dotnet build,
+dotnet publish, dotnet pack or the equivalent actions in Microsoft
+Visual Studio. Many if not most of the library packages published on
+NuGet can be used in such programs.
 
 The NuGet library package libsimpleio provides libsimpleio.dll, a .Net
 Standard 2.0 library assembly that binds to the Linux shared library
 libsimpleio.so that is an integral part of MuntsOS. The NuGet library
 package libsimpleio-templates provides a .Net Core console application
 project template csharp_console_libsimpleio that, while not strictly
-necessary, greatly simplifies creating an embedded system .Net Core
-console application project for MuntsOS.
+necessary, greatly simplifies creating an .Net Core console embedded
+system application project for MuntsOS.
+
+dotnet new install libsimpleio-templates
+mkdir myprogram
+cd myprogram
+dotnet new csharp_console_libsimpleio
+dotnet new sln
+dotnet sln add myprogram.csproj
 
 See Application Note #8 for a complete example using C# to flash an LED.
 See also the API specification for libsimpleio.dll.
 
-The combination of Visual Studio + NuGet + libsimpleio provides a very
-high productivity development environment for creating embedded systems
-software to run on MuntsOS. With RemObjects Elements, a commercial
-Visual Studio addon product, you can even compile Object Pascal, Java,
-Go, and Swift programs, all using libsimpleio.dll, to .Net program
-assemblies that run on MuntsOS.
+The combination of Visual Studio + NuGet + libsimpleio.dll provides a
+very high productivity development environment for creating embedded
+systems software to run on MuntsOS. With RemObjects Elements, a
+commercial Visual Studio addon product, you can even compile Object
+Pascal, Java, Go, and Swift programs, all using libsimpleio.dll, to .Net
+program assemblies that run on MuntsOS.
 
 Git Repository
 
