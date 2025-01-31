@@ -1,6 +1,6 @@
-# Build U-Boot for Orange Pi Zero 2 W
+# Build U-Boot and friends for Orange Pi Zero 2 W
 
-# Copyright (C)2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2024-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,12 +20,14 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+.PHONY: bl31 defconfig menuconfig uboot tarball clean reallyclean distclean
+
 MUNTSOS		?= ../../..
 BOARDNAME	?= OrangePiZero2W
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-default: uboot
+default: tarball
 
 ###############################################################################
 
@@ -81,12 +83,24 @@ uboot: $(UBOOT_BIN)
 
 ###############################################################################
 
+tarball:
+	rm -rf			bootfiles.d
+	mkdir -p		bootfiles.d/u-boot
+	cp -r release/*		bootfiles.d/u-boot
+	$(MAKE) -C scripts
+	cp scripts/*.scr	bootfiles.d
+	cd bootfiles.d && find * -type f -exec md5sum -b {} ";" | LC_ALL=C sort -k 2 >bootfiles.md5
+	cd bootfiles.d && tar czf ../$(BOOTFILESTGZ) * --owner=root --group=root --mode=ugo-w --sort=name
+
+###############################################################################
+
 # Remove working files
 
 clean:
-	rm -rf $(UBOOT_SRC)
+	$(MAKE) -C scripts clean
+	rm -rf bootfiles.d
 
 reallyclean: clean
-	rm -rf $(BL31_SRC)
+	rm -rf $(BL31_SRC) $(UBOOT_SRC)
 
 distclean: reallyclean
