@@ -1,0 +1,19 @@
+--- include/env_default.h.orig	2025-02-01 12:27:37.330445930 -0800
++++ include/env_default.h	2025-02-01 12:36:16.185391724 -0800
+@@ -121,13 +121,12 @@
+ #ifdef CONFIG_MTDPARTS_DEFAULT
+ 	"mtdparts="	CONFIG_MTDPARTS_DEFAULT		"\0"
+ #endif
+-#ifdef CONFIG_EXTRA_ENV_TEXT
+-	/* This is created in the Makefile */
+-	CONFIG_EXTRA_ENV_TEXT
+-#endif
+ #ifdef	CFG_EXTRA_ENV_SETTINGS
+ 	CFG_EXTRA_ENV_SETTINGS
+ #endif
++	"boardname=BeaglePlay\0" \
++	"bootcmd=mmc dev 1 && load mmc 1:1 0x82000000 boot.scr && source 0x82000000\0" \
++	"console=ttyS0,115200\0"
+ #ifdef CONFIG_OF_SERIAL_BAUD
+ 	/* Padding for baudrate at the end when environment is writable */
+ 	"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
