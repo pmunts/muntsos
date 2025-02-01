@@ -106,6 +106,15 @@ News
     the lower one for power and tethering and the upper one for USB
     devices.
 
+-   31 January 2025 -- Upgraded the Raspberry Pi kernel to 6.6.74,
+    mailutils to 3.18, and nano editor to 8.3.
+
+    Backed out the link-gpiochip hack, since the Raspberry Pi team has
+    since fixed the Raspberry Pi 5 GPIO compatibility issue. The
+    Raspberry Pi 5 expansion header GPIO pins are back on gpiochip0 like
+    all previous Raspberry Pi models. See this Application Note for more
+    information.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
@@ -359,14 +368,12 @@ combinations of wireless Ethernet, RAM and eMMC.
 All Raspberry Pi 5 models use the same ARMv8 kernel, with different
 device trees.
 
-The Raspberry Pi 5 introduced a breaking GPIO API change. See
-Application Note #11 for more information.
-
-The Raspberry Pi 5 also introduced a breaking PWM API change. It has
-four hardware PWM outputs with different pin mapping. Notably, PWM chip
-2 channel 2 is mapped to GPIO18 instead of PWM chip 0 channel 0 on
-previous Raspberry Pi boards. See RP1 Peripherals page 15 for more
-information.
+The Raspberry Pi 5 introduced a breaking PWM (Pulse Width Modulated)
+output API change: It has four hardware PWM outputs on pwmchip2 (all
+previous Raspberry Pi models had two PWM outputs on pwmchip0) with
+different pin mapping. Notably, PWM chip 2 channel 2 is mapped to GPIO18
+instead of PWM chip 0 channel 0 on previous Raspberry Pi boards. See RP1
+Peripherals page 15 for more information.
 
 USB Gadgets
 

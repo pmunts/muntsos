@@ -113,6 +113,16 @@ receptacle. You can supply power to either USB-C receptacle, but you will
 almost always want to use the lower one for power and tethering and the upper
 one for USB devices.</p>
 </li>
+<li>
+<p>31 January 2025 -- Upgraded the Raspberry Pi kernel to 6.6.74, mailutils to
+3.18, and nano editor to 8.3.</p>
+<p>Backed out the <b><tt>link-gpiochip</tt></b> hack, since the Raspberry Pi
+team has since fixed the Raspberry Pi 5 GPIO compatibility issue. The Raspberry
+Pi 5 expansion header GPIO pins are back on <b><tt>gpiochip0</tt></b> like all
+previous Raspberry Pi models. See this <a href=
+"https://pip.raspberrypi.com/categories/685-app-notes-guides-whitepapers/documents/RP-006553-WP/A-history-of-GPIO-usage-on-Raspberry-Pi-devices-and-current-best-practices.pdf">
+Application Note</a> for more information.</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the MuntsOS cross-toolchain development
@@ -348,13 +358,11 @@ receptacles and USB-C power receptacle).</p>
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
 <p>All Raspberry Pi 5 models use the same ARMv8 kernel, with different device
 trees.</p>
-<p>The Raspberry Pi 5 introduced a breaking GPIO API change. See <a href=
-"http://git.munts.com/muntsos/doc/AppNote11-link-gpiochip.pdf">Application Note
-#11</a> for more information.</p>
-<p>The Raspberry Pi 5 also introduced a breaking PWM API change. It has four
-hardware PWM outputs with different pin mapping. Notably, PWM chip 2 channel 2
-is mapped to GPIO18 instead of PWM chip 0 channel 0 on previous Raspberry Pi
-boards. See <a href=
+<p>The Raspberry Pi 5 introduced a breaking PWM (Pulse Width Modulated) output
+API change: It has four hardware PWM outputs on <b><tt>pwmchip2</tt></b> (all
+previous Raspberry Pi models had two PWM outputs on <b><tt>pwmchip0</tt></b>)
+with different pin mapping. Notably, PWM chip 2 channel 2 is mapped to GPIO18
+instead of PWM chip 0 channel 0 on previous Raspberry Pi boards. See <a href=
 "https://datasheets.raspberrypi.com/rp1/rp1-peripherals.pdf">RP1
 Peripherals</a> page 15 for more information.</p>
 <h5>USB Gadgets</h5>
@@ -434,16 +442,14 @@ a .Net Core console application project template
 <b><tt>csharp_console_libsimpleio</tt></b> that, while not strictly necessary,
 greatly simplifies creating an .Net Core console embedded system application
 project for MuntsOS.</p>
-<b>
-<pre>
+<pre><b>
 dotnet new install libsimpleio-templates
 mkdir myprogram
 cd myprogram
 dotnet new csharp_console_libsimpleio
 dotnet new sln
 dotnet sln add myprogram.csproj
-</pre>
-</b>
+</b></pre>
 <p>See <a href=
 "http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf">Application Note
 #8</a> for a complete example using C# to flash an LED. See also the <a href=
