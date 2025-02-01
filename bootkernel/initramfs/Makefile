@@ -918,7 +918,6 @@ endif
 	install -cm 0755 netstart.script			$@/usr/libexec
 	install -cm 0755 netstop.script				$@/usr/libexec
 	install -cm 0755 udhcpc.script				$@/usr/libexec
-	install -cm 0755 $(GCCSYSROOT)/usr/libexec/link-gpiochip $@/usr/libexec
 	mkdir -p						$@/usr/libexec/services/ttyGS0
 	echo "#!/bin/sh" >					$@/usr/libexec/services/ttyGS0/run
 	echo "exec /sbin/getty -h -L ttyGS0 115200 vt100" >>	$@/usr/libexec/services/ttyGS0/run

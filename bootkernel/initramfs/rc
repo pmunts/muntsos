@@ -148,11 +148,6 @@ fi
 
 chmod 444 /etc/platform
 
-# Symlink /dev/gpiochip-rpi to proper /dev/gpiochipN for Raspberry Pi
-# expansion header GPIO pins
-
-test -x /usr/libexec/link-gpiochip && /usr/libexec/link-gpiochip
-
 # Scan shared libraries
 
 linklibs
