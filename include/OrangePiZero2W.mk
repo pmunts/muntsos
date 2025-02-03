@@ -1,6 +1,6 @@
 # Global make definitions for the Orange Pi Zero 2 W ARM Linux microcomputer
 
-# Copyright (C)2023-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2023-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -37,7 +37,7 @@ KERNEL_IMG	= $(BOARDNAME).img
 KERNEL_DTB	= allwinner/sun50i-h618-orangepi-zero2w
 KERNEL_TARGETS	= $(KERNEL_IMGSRC)
 
-# Definitions for the Orange Pi Zero 2 W kernel repository
+# Definitions for the kernel repository
 
 KERNEL_REPO     = https://github.com/orangepi-xunlong/linux-orangepi.git
 KERNEL_BRANCH	= 6.1

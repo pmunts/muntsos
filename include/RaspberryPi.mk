@@ -51,7 +51,7 @@ else
 BOOTKERNELTGZ	= $(BOOTKERNELDIR)/$(BOARDNAME)-Kernel.tgz
 endif
 
-# Definitions for the Raspberry Pi kernel repository
+# Definitions for the kernel repository
 
 KERNEL_REPO	= https://github.com/raspberrypi/linux.git
 ifeq ($(GCCARCH), aarch64)
