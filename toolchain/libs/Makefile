@@ -1,6 +1,6 @@
 # Makefile for application libraries for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -46,6 +46,14 @@ READLINE_TARBALL = $(READLINE_NAME)-$(READLINE_VER).tar.gz
 READLINE_SERVER	= http://ftp.gnu.org/pub/gnu/readline
 READLINE_URL	= $(READLINE_SERVER)/$(READLINE_TARBALL)
 READLINE_DIST	= $(DISTDIR)/$(READLINE_TARBALL)
+
+LIBGPIOD_NAME	= libgpiod
+LIBGPIOD_VER	= 2.2
+LIBGPIOD_SRC	= $(LIBGPIOD_NAME)-$(LIBGPIOD_VER)
+LIBGPIOD_TARBALL = $(LIBGPIOD_NAME)-$(LIBGPIOD_VER).tar.gz
+LIBGPIOD_SERVER	= https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot
+LIBGPIOD_URL	= $(LIBGPIOD_SERVER)/$(LIBGPIOD_TARBALL)
+LIBGPIOD_DIST	= $(DISTDIR)/$(LIBGPIOD_TARBALL)
 
 LIBUSB_NAME	= libusb
 LIBUSB_VER	= 1.0.27
@@ -229,6 +237,7 @@ DESTDIR		= $(shell pwd)
 
 SUBORDINATES	+= ncurses
 SUBORDINATES	+= readline
+SUBORDINATES	+= libgpiod
 SUBORDINATES	+= libusb
 SUBORDINATES	+= hidapi
 SUBORDINATES	+= openssl
@@ -256,6 +265,7 @@ SUBORDINATES	+= libcap
 
 SRCDIRS		+= $(NCURSES_SRC)
 SRCDIRS		+= $(READLINE_SRC)
+SRCDIRS		+= $(LIBGPIOD_SRC)
 SRCDIRS		+= $(LIBUSB_SRC)
 SRCDIRS		+= $(HIDAPI_SRC)
 SRCDIRS		+= $(OPENSSL_SRC)
@@ -282,6 +292,7 @@ SRCDIRS		+= $(LIBCAP_SRC)
 
 DISTFILES	+= $(NCURSES_DIST)
 DISTFILES	+= $(READLINE_DIST)
+DISTFILES	+= $(LIBGPIOD_DIST)
 DISTFILES	+= $(LIBUSB_DIST)
 DISTFILES	+= $(HIDAPI_DIST)
 DISTFILES	+= $(OPENSSL_DIST)
@@ -373,6 +384,28 @@ $(INSTALLDIR)/lib/libreadline.a: $(READLINE_SRC)
 	touch $@
 
 readline: $(INSTALLDIR)/lib/libreadline.a
+
+###############################################################################
+
+# Download libgpiod source distribution
+
+$(LIBGPIOD_DIST):
+	wget -nv -P $(DISTDIR) $(LIBGPIOD_URL)
+
+# Unpack libgpiod source distribution
+
+$(LIBGPIOD_SRC): $(LIBGPIOD_DIST)
+	tar xzf $^
+
+# Build libgpiod
+
+$(LIBGPIOD_SRC)/lib/.libs/libgpiod.so: $(LIBGPIOD_SRC)
+	cd $(LIBGPIOD_SRC) && ./autogen.sh
+	cd $(LIBGPIOD_SRC) && ./configure $(BUILDOS) $(TARGETOS) --enable-tools --enable-bindings-cxx --prefix=/$(INSTALLDIR) CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	$(MAKE) -C $(LIBGPIOD_SRC)
+	$(MAKE) -C $(LIBGPIOD_SRC) install DESTDIR=$(DESTDIR)
+
+libgpiod: $(LIBGPIOD_SRC)/lib/.libs/libgpiod.so
 
 ###############################################################################
 
