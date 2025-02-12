@@ -115,6 +115,13 @@ News
     all previous Raspberry Pi models. See this Application Note for more
     information.
 
+-   12 February 2025 -- Added libgpiod to the toolchain libraries
+    packages gcc-*-muntsos-linux-gnu-ctng-libs and added the libgpiod
+    runtime extension package. Because they use the same ioctl()
+    services, libgpiod and libsimpleio interoperate without any
+    problems. Note that this libgpiod is newer than that in Debian 12
+    (Bookworm), including Raspberry Pi OS.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
