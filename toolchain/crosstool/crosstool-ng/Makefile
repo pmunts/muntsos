@@ -1,6 +1,6 @@
 # Makefile for building crosstool-ng package for Debian
 
-# Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-CTNG_VERSION	?= 1.26.0
+CTNG_VERSION	?= 1.27.0
 CTNG_BRANCH	:= -b crosstool-ng-$(CTNG_VERSION)
 CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
 CTNG_SRC	:= crosstool-ng.src
