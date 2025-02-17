@@ -122,6 +122,9 @@ News
     problems. Note that this libgpiod is newer than that in Debian 12
     (Bookworm), including Raspberry Pi OS.
 
+-   17 February 2025 -- Upgraded the .Net Runtime to 9.0.2. Upgraded the
+    Raspberry Pi kernel to 6.6.78.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
