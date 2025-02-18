@@ -52,7 +52,7 @@ default: package.deb
 # Prepare the system for building a Crosstool-NG toolchain
 
 prepare:
-	sudo apt -y install autoconf bison build-essential curl flex gcc-13 g++-13 gm2-13  gnat-13 m4 zlib1g-dev
+	sudo apt -y install autoconf bison build-essential curl flex gcc-14 g++-14 gm2-14 gnat-14 m4 zlib1g-dev
 
 ################################################################################
 
