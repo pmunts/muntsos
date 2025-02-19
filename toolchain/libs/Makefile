@@ -1147,7 +1147,7 @@ clean:
 	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	rm -rf *.o $(INSTALLDIR) $(SRCDIRS)
+	rm -rf *.o $(INSTALLDIR) $(SRCDIRS) ._libmodbus*
 
 distclean: reallyclean
 	rm -f $(DISTFILES)
