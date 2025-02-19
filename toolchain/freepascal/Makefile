@@ -46,7 +46,7 @@ ifeq ($(BOARDBASE), RaspberryPi2)
 CPUOPTS		= -CaEABIHF -CpARMV7A -CfVFPV3
 BUILDOPTS	+= OPT=-dFPC_ARMHF CROSSOPT="$(CPUOPTS)"
 endif
-ifeq ($(BOARDBASE), RaspberryPi3)
+ifeq ($(BOARDBASE), AArch64)
 ARCH		= aarch64
 CPUOPTS		= -CpARMV8
 BUILDOPTS	+= OPT=-dFPC_AARCH64 CROSSOPT="$(CPUOPTS)"
@@ -97,7 +97,7 @@ build.done: src.done
 
 install.done: build.done
 	$(MAKE) -C $(FPC_SRCDIR) crossinstall $(BUILDOPTS) INSTALL_PREFIX=$(INSTALLDIR)
-ifeq ($(BOARDNAME), RaspberryPi3)
+ifeq ($(BOARDBASE), AArch64)
 	ln -s ../lib/fpc/$(FPC_VERSION)/ppcrossa64	$(INSTALLDIR)/bin/fpc
 else
 	ln -s ../lib/fpc/$(FPC_VERSION)/ppcross$(ARCH)	$(INSTALLDIR)/bin/fpc
