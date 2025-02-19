@@ -1,12 +1,22 @@
-MuntsOS Embedded Linux
-======================
+**MuntsOS** Embedded Linux
+==========================
 
-This framework supports Linux on several single board microcomputers.
-The goal of the MuntsOS project is to deliver a turnkey, RAM resident
-Linux operating system for very low cost single board microcomputers.
-With MuntsOS installed, such microcomputers can treated as components,
-as *Linux microcontrollers*, and integrated into other projects just
-like traditional single chip microcontrollers.
+**MuntsOS** is a *ferociously* reduced Linux distribution for **embedded
+systems**. It runs on several microcomputer boards, including all 64-bit
+[Raspberry Pi](https://www.raspberrypi.com/) boards. **MuntsOS**
+delivers a turnkey RAM resident Linux operating system. With **MuntsOS**
+installed, such microcomputers can treated as components, as *Linux
+microcontrollers*, and integrated into other projects just like
+traditional single chip microcontrollers.
+
+Other embedded system Linux distributions such as
+[Buildroot](https://buildroot.org) or [Yocto
+Linux](https://www.yoctoproject.org) are *very* cumbersome and have
+*very* steep learning curves. If you are building a test fixture or
+process controller or almost any other embedded system that contains a
+Raspberry Pi board, **MuntsOS** offers a very high productivity
+development environment and a very easy to deploy target operating
+system.
 
 News
 ----
@@ -29,18 +39,18 @@ News
     I have the [U-Boot](https://www.u-boot.org) boot loader and the
     Linux mainline 6.12 LTS kernel, both with serial port console,
     working all the way to the login prompt. Much work on the kernel and
-    device tree remains before MuntsOS on the Orange Pi Zero 2W is ready
-    for production use.
+    device tree remains before **MuntsOS** on the Orange Pi Zero 2W is
+    ready for production use.
 
 -   28 December 2024 -- I had to drop back to the manufacturer Linux 6.1
     kernel tree for the Orange Pi Zero 2W. The Linux mainline 6.12 LTS
     tree does not have drivers for PWM outputs nor the built-in WiFi
     chipset, both of which are required for the application I have in
-    mind. MuntsOS for the Orange Pi Zero 2W built on Linux 6.1 is about
-    at the same point or a litte further along than what I had running
-    on Linux 6.12 LTS. Most things seem to be working except HDMI and
-    internal WiFi. I have been testing with a [Broadcom WiFi Adapter and
-    Two Port
+    mind. **MuntsOS** for the Orange Pi Zero 2W built on Linux 6.1 is
+    about at the same point or a litte further along than what I had
+    running on Linux 6.12 LTS. Most things seem to be working except
+    HDMI and internal WiFi. I have been testing with a [Broadcom WiFi
+    Adapter and Two Port
     Hub](https://uk.pi-supply.com/collections/dongles-hubs/products/broadcom-wifi-adapter-2-port-usb-hub-raspberry-pi)
     I got years ago for the Raspberry Pi Zero.
 
@@ -103,12 +113,12 @@ News
     Raspberry Pi 5 kernel. Both my Windows laptop and Dell tower running
     Debian Linux Bookworm are able to supply enough current to their
     USB-A receptacles to power up a Raspberry Pi 5 Model B with 4 GB of
-    RAM running MuntsOS. YMMV.
+    RAM running **MuntsOS**. YMMV.
 
     Just for the fun of it, I have added the
     [stress-ng](https://github.com/ColinIanKing/stress-ng) extension
-    package to MuntsOS see how a Raspberry Pi 5 Model B would hold up
-    drawing power from the Dell tower's front panel USB-A receptacle.
+    package to **MuntsOS** see how a Raspberry Pi 5 Model B would hold
+    up drawing power from the Dell tower's front panel USB-A receptacle.
 
 -   9 January 2025 -- Another big milestone for the Orange Pi Zero 2W:
     USB Gadget support is working. The Orange Pi Zero 2W has two USB-C
@@ -148,8 +158,9 @@ News
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
-Instructions for installing the MuntsOS cross-toolchain development
-environment onto a **host computer** are found in [Application Note
+Instructions for installing the **MuntsOS** cross-toolchain development
+environment onto a development **host computer** are found in
+[Application Note
 \#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
 [Application Note
 \#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
@@ -159,8 +170,8 @@ download and run one of the following quick setup scripts:
 [setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
 [setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel)
 
-Instructions for installing MuntsOS to a **target computer** are found
-in [Application Note
+Instructions for installing **MuntsOS** to a **target computer** are
+found in [Application Note
 \#3](http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
 and [Application Note
 \#15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
@@ -168,18 +179,20 @@ and [Application Note
 Documentation
 -------------
 
-The documentation for MuntsOS (mostly application notes) is available
-online at:
+The documentation for **MuntsOS** (mostly application notes) is
+available online at:
 
 <http://git.munts.com/muntsos/doc>
 
 Embedded Linux Distribution in a Kernel
 ---------------------------------------
 
-MuntsOS is a stripped down Linux distribution that includes a small
+**MuntsOS** is a stripped down Linux distribution that includes a small
 compressed root file system within the kernel image binary itself. At
 boot time the root file system is unpacked into RAM and thereafter the
-system runs entirely in RAM.
+system runs entirely in RAM. After **MuntsOS** has finished booting, it
+unmounts the boot media, so you don't have to worry about an orderly
+shutdown. Just power off the microcomputer board whenever you want to.
 
 Each kernel release tarball contains a kernel image file (**`.img`**),
 which may be common to several different microcomputer boards, and one
@@ -189,15 +202,15 @@ kernel release tarballs also contain one or more device tree overlay
 files (**`.dtbo`**) that can make small changes to the device tree at
 boot time.
 
-Prebuilt MuntsOS kernel release tarballs are available at:
+Prebuilt **MuntsOS** kernel release tarballs are available at:
 
 <http://repo.munts.com/muntsos/kernels>
 
 Extensions
 ----------
 
-The MuntsOS root file system can be *extended* at boot time using any of
-three mechanisms:
+The **MuntsOS** root file system can be *extended* at boot time using
+any of three mechanisms:
 
 First, if **`/boot/tarballs`** exists, any **`gzip`**'ed tarball files
 (**`.tgz`**) in it will be extracted on top of the root file system.
@@ -207,13 +220,13 @@ Typically you would use this mechanism for customized **`/etc/passwd`**,
 Secondly, if **`/boot/packages`** exists, any Debian package files
 (**`.deb`**) in it will be installed into the root file system. Note
 that packages from the [Debian](http://www.debian.org) project will
-probably not work; they must be built specifically for MuntsOS. The
+probably not work; they must be built specifically for **MuntsOS**. The
 startup script that installs **`.deb`** packages also installs
 **`.rpm`** and **`.nupkg`** packages.
 
 The [GPIO Server](http://git.munts.com/muntsos/extensions/gpio-server)
 extension package demonstrates how to build a Debian package that adds
-application specific software to MuntsOS.
+application specific software to **MuntsOS**.
 
 Thirdly, the system startup script **`/etc/rc`** can be configured via a
 kernel command line option to search for a subdirectory called
@@ -222,14 +235,14 @@ USB CD-ROM or NFS mount. If an **`autoexec.d`** subdirectory is found,
 each executable program or script in it will be executed when the system
 boots.
 
-The idea is to build a MuntsOS kernel (which takes a long time) once and
-install it to the target platform. Then application specific software
-can be built after the fact and installed as tarball files in
+The idea is to build a **MuntsOS** kernel (which takes a long time) once
+and install it to the target platform. Then application specific
+software can be built after the fact and installed as tarball files in
 **`/boot/tarballs`**; Debian, RPM, and NuGet package files in
 **`/boot/packages`**; or executable programs and scripts in
 **`/boot/autoexec.d`**.
 
-Prebuilt MuntsOS extension packages are available at:
+Prebuilt **MuntsOS** extension packages are available at:
 
 <http://repo.munts.com/muntsos/extensions>
 
@@ -248,15 +261,15 @@ without orderly shutdowns, and must not write much to flash media. It
 must provide a network based API (Application Programming Interface)
 using HTTP as a lowest common denominator.
 
-MuntsOS, with its operating system running entirely from RAM, serves
+**MuntsOS**, with its operating system running entirely from RAM, serves
 well for the Thin Server, and the two concepts have evolved together
-over the past few years. The simplest way to use MuntsOS is to download
-one of the prebuilt Thin Server **`.zip`** files and extract it to a
-freshly formatted FAT32 SD card. You can then modify
+over the past few years. The simplest way to use **MuntsOS** is to
+download one of the prebuilt Thin Server **`.zip`** files and extract it
+to a freshly formatted FAT32 SD card. You can then modify
 **`autoexec.d/00-wlan-init`** on the SD card to pre-configure it for
 your wireless network environment, if desired, before inserting it in
-the target board. After booting MuntsOS, log in from the console or via
-SSH (user "**`root`**", password "**`default`**") and run
+the target board. After booting **MuntsOS**, log in from the console or
+via SSH (user "**`root`**", password "**`default`**") and run
 **`sysconfig`** to perform more system configuration.
 
 *Note: Some platforms require the [boot
@@ -264,14 +277,14 @@ flag](https://en.wikipedia.org/wiki/Boot_flag) to be set on the FAT32
 boot partition on the SD card or on-board eMMC. The ROM boot loader in
 the CPU will ignore any partitions that are not marked as bootable.*
 
-MuntsOS Application Notes
+**MuntsOS** Application Notes
 [3](http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
 and
 [15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf)
-contain more detailed instructions about how to install a MuntsOS Thin
-Server.
+contain more detailed instructions about how to install a **MuntsOS**
+Thin Server.
 
-Prebuilt MuntsOS Thin Servers are at available at:
+Prebuilt **MuntsOS** Thin Servers are at available at:
 
 <http://repo.munts.com/muntsos/thinservers>
 
@@ -316,8 +329,8 @@ Pi 2) are now obsolete.
 
 Some Raspberry Pi models have an on-board Bluetooth radio that uses the
 serial port signals that are also brought out to the expansion header.
-By default, MuntsOS port disables the on-board Bluetooth radio, in favor
-of the serial port on the expansion header.
+By default, **MuntsOS** port disables the on-board Bluetooth radio, in
+favor of the serial port on the expansion header.
 
 All of the following 64-bit Raspberry Pi models use the same AArch64
 cross-toolchain.
@@ -360,14 +373,14 @@ device trees.
 
 ##### USB Gadgets
 
-MuntsOS also provides a second, different Raspberry Pi 3 kernel with USB
-host support disabled and [USB Gadget](http://www.linux-usb.org/gadget)
-peripheral support enabled. This kernel only runs on 3 A+, Zero 2 W, and
-certain CM3 carrier boards which lack the USB hub present on Raspberry
-Pi 3 Model B and B+ boards. The single USB controller that is part of
-the BCM2710 CPU is wired directly to the USB-A receptacle on the 3 A+ or
-the USB Micro-A receptacle on the CM3 I/O board or the Raspberry Pi Zero
-2 W.
+**MuntsOS** also offers a second, different Raspberry Pi 3 kernel with
+USB host support disabled and [USB
+Gadget](http://www.linux-usb.org/gadget) peripheral support enabled.
+This kernel only runs on 3 A+, Zero 2 W, and certain CM3 carrier boards
+which lack the USB hub present on Raspberry Pi 3 Model B and B+ boards.
+The single USB controller that is part of the BCM2710 CPU is wired
+directly to the USB-A receptacle on the 3 A+ or the USB Micro-A
+receptacle on the CM3 I/O board or the Raspberry Pi Zero 2 W.
 
 The Raspberry Pi 3 USB Gadget kernel supports USB Ethernet, Raw HID, and
 Serial Port gadgets, selected by bits in the **`OPTIONS`** word passed
@@ -381,7 +394,7 @@ You can supply power to and communicate with a compatible Raspberry Pi 3
 (A+, CM3, or Zero 2W) running the USB Gadget kernel through the USB
 receptacle. The absolute minimum possible usable Raspberry Pi kit
 consists of a Raspberry Pi Zero 2 W, a micro-USB cable, and a micro-SD
-card with one of the MuntsOS Raspberry Pi 3 USB Gadget Thin Servers
+card with one of the **MuntsOS** Raspberry Pi 3 USB Gadget Thin Servers
 installed.
 
 #### Raspberry Pi 4
@@ -470,10 +483,10 @@ Cross-Toolchains
 ----------------
 
 I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for
-each MuntsOS platform family. Each GCC cross-toolchain requires a number
-of additional software component libraries, which are packaged and
-distributed separately but installed into the same directory tree as the
-parent cross-toolchain. I also build [Free
+each **MuntsOS** platform family. Each GCC cross-toolchain requires a
+number of additional software component libraries, which are packaged
+and distributed separately but installed into the same directory tree as
+the parent cross-toolchain. I also build [Free
 Pascal](https://www.freepascal.org) cross-compilers. Each of these rely
 on the libraries contained in the corresponding GCC cross-toolchain
 package.
@@ -485,8 +498,8 @@ either:
 <http://repo.munts.com/debian12> (Debian package repository)  
 <http://repo.munts.com/muntsos/toolchain-debs> (just the package files).
 
-x86-64 RPM packages containing the exact same binaries and known to work
-on Fedora 40 and RHEL 9.1 and its derivatives are available at:
+x86-64 RPM packages containing the exact same binaries, and known to
+work on Fedora 40 and RHEL 9.1 and its derivatives, are available at:
 
 <http://repo.munts.com/muntsos/toolchain-rpms>
 
@@ -497,15 +510,15 @@ on Fedora 40 and RHEL 9.1 and its derivatives are available at:
 
 Adding the **`muntsos_aarch64`** crate to an Alire Ada program project
 transforms said project into one that produces a cross-compiled AArch64
-program for MuntsOS. See [Application Note
+program for **MuntsOS**. See [Application Note
 \#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
 for a complete example using the **`alr`** command line tool.
 
 **`muntsos_aarch64`** depends upon the Linux distribution meta-package
-**`muntsos-dev-aarch64`** that in turn pulls in the rest of the MuntsOS
-AArch64 cross-toolchain packages.
+**`muntsos-dev-aarch64`** that in turn pulls in the rest of the
+**MuntsOS** AArch64 cross-toolchain packages.
 
-Please note that the other MuntsOS library crates in Alire (*e.g.*
+Please note that the other **MuntsOS** library crates in Alire (*e.g.*
 **muntsos\_beaglebone**) are unusable due to breaking changes in
 **`alr`** 2.0. Unfortunately, Alire project policies prohibit removing
 obsolete crates, so **muntsos\_beaglebone** *et al* remain in the
@@ -517,7 +530,7 @@ repository as broken and abandoned orphans.
 [![libsimpleio](https://img.shields.io/nuget/v/libsimpleio?style=flat&logo=nuget&label=libsimpleio)](https://www.nuget.org/packages/libsimpleio)
 [![libsimpleio-templates](https://img.shields.io/nuget/v/libsimpleio-templates?style=flat&logo=nuget&label=libsimpleio-templates)](https://www.nuget.org/packages/libsimpleio-templates)
 
-With the **`dotnet`** runtime extension installed, MuntsOS can run
+With the **`dotnet`** runtime extension installed, **MuntsOS** can run
 architecture independent .Net programs produced by **`dotnet build`**,
 **`dotnet publish`**, **`dotnet pack`** or the equivalent actions in
 [Microsoft Visual Studio](https://visualstudio.microsoft.com). Many if
@@ -528,12 +541,12 @@ The NuGet library package
 [libsimpleio](https://www.nuget.org/packages/libsimpleio) provides
 **`libsimpleio.dll`**, a .Net Standard 2.0 library assembly that binds
 to the Linux shared library **`libsimpleio.so`** that is an integral
-part of MuntsOS. The NuGet library package
+part of **MuntsOS**. The NuGet library package
 [libsimpleio-templates](https://www.nuget.org/packages/libsimpleio)
 provides a .Net Core console application project template
 **`csharp_console_libsimpleio`** that, while not strictly necessary,
 greatly simplifies creating an .Net Core console embedded system
-application project for MuntsOS.
+application project for **MuntsOS**.
 
     dotnet new install libsimpleio-templates
     mkdir myprogram
@@ -549,17 +562,17 @@ specification](http://tech.munts.com/libsimpleio.dll) for
 **`libsimpleio.dll`**.
 
 The combination of Visual Studio + NuGet + **`libsimpleio.dll`**
-provides a very high productivity development environment for creating
-embedded systems software to run on MuntsOS. With [RemObjects
+delivers a very high productivity development environment for creating
+embedded systems software to run on **MuntsOS**. With [RemObjects
 Elements](https://www.remobjects.com/elements), a commercial Visual
 Studio addon product, you can even compile Object Pascal, Java, Go, and
 Swift programs, all using **`libsimpleio.dll`**, to .Net program
-assemblies that run on MuntsOS.
+assemblies that run on **MuntsOS**.
 
 Git Repository
 --------------
 
-The source code for MuntsOS is available at:
+The source code for **MuntsOS** is available at:
 
 <https://github.com/pmunts/muntsos>
 
@@ -570,8 +583,8 @@ Use the following command to clone it:
 File Repository
 ---------------
 
-Prebuilt binaries for MuntsOS (extensions, kernels, thin servers, and
-cross-toolchain packages) are available at:
+Prebuilt binaries for **MuntsOS** (extensions, kernels, thin servers,
+and cross-toolchain packages) are available at:
 
 <http://repo.munts.com/muntsos>
 

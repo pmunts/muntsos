@@ -1,11 +1,18 @@
 MuntsOS Embedded Linux
 
-This framework supports Linux on several single board microcomputers.
-The goal of the MuntsOS project is to deliver a turnkey, RAM resident
-Linux operating system for very low cost single board microcomputers.
-With MuntsOS installed, such microcomputers can treated as components,
-as Linux microcontrollers, and integrated into other projects just like
-traditional single chip microcontrollers.
+MuntsOS is a ferociously reduced Linux distribution for embedded
+systems. It runs on several microcomputer boards, including all 64-bit
+Raspberry Pi boards. MuntsOS delivers a turnkey RAM resident Linux
+operating system. With MuntsOS installed, such microcomputers can
+treated as components, as Linux microcontrollers, and integrated into
+other projects just like traditional single chip microcontrollers.
+
+Other embedded system Linux distributions such as Buildroot or Yocto
+Linux are very cumbersome and have very steep learning curves. If you
+are building a test fixture or process controller or almost any other
+embedded system that contains a Raspberry Pi board, MuntsOS offers a
+very high productivity development environment and a very easy to deploy
+target operating system.
 
 News
 
@@ -128,9 +135,9 @@ News
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
-environment onto a host computer are found in Application Note #1 and
-Application Note #2. Or just download and run one of the following quick
-setup scripts:
+environment onto a development host computer are found in Application
+Note #1 and Application Note #2. Or just download and run one of the
+following quick setup scripts:
 
 setup-debian
 setup-fedora
@@ -151,7 +158,9 @@ Embedded Linux Distribution in a Kernel
 MuntsOS is a stripped down Linux distribution that includes a small
 compressed root file system within the kernel image binary itself. At
 boot time the root file system is unpacked into RAM and thereafter the
-system runs entirely in RAM.
+system runs entirely in RAM. After MuntsOS has finished booting, it
+unmounts the boot media, so you don't have to worry about an orderly
+shutdown. Just power off the microcomputer board whenever you want to.
 
 Each kernel release tarball contains a kernel image file (.img), which
 may be common to several different microcomputer boards, and one or more
@@ -305,7 +314,7 @@ device trees.
 
 USB Gadgets
 
-MuntsOS also provides a second, different Raspberry Pi 3 kernel with USB
+MuntsOS also offers a second, different Raspberry Pi 3 kernel with USB
 host support disabled and USB Gadget peripheral support enabled. This
 kernel only runs on 3 A+, Zero 2 W, and certain CM3 carrier boards which
 lack the USB hub present on Raspberry Pi 3 Model B and B+ boards. The
@@ -415,8 +424,8 @@ development host computers are available at either:
 http://repo.munts.com/debian12 (Debian package repository)
 http://repo.munts.com/muntsos/toolchain-debs (just the package files).
 
-x86-64 RPM packages containing the exact same binaries and known to work
-on Fedora 40 and RHEL 9.1 and its derivatives are available at:
+x86-64 RPM packages containing the exact same binaries, and known to
+work on Fedora 40 and RHEL 9.1 and its derivatives, are available at:
 
 http://repo.munts.com/muntsos/toolchain-rpms
 
@@ -467,7 +476,7 @@ dotnet sln add myprogram.csproj
 See Application Note #8 for a complete example using C# to flash an LED.
 See also the API specification for libsimpleio.dll.
 
-The combination of Visual Studio + NuGet + libsimpleio.dll provides a
+The combination of Visual Studio + NuGet + libsimpleio.dll delivers a
 very high productivity development environment for creating embedded
 systems software to run on MuntsOS. With RemObjects Elements, a
 commercial Visual Studio addon product, you can even compile Object
