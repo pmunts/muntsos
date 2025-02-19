@@ -89,9 +89,8 @@ package.deb: $(PKGFILE)
 # Remove working files
 
 clean:
-	rm -rf $(PKGDIR) $(PKGFILE)
+	rm -rf *.a obj src/aws-os_lib.ads $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
-	rm -rf *.a obj src/aws-os_lib.ads
 
 distclean: reallyclean
