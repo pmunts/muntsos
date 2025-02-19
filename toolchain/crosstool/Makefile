@@ -167,7 +167,7 @@ clean:
 
 reallyclean: clean
 	-chmod -R u+w gcc*
-	rm -rf .build .config* build* config* *.done gcc* include
+	rm -rf .config* build* config* *.done gcc* include
 
 distclean: reallyclean
 	rm -rf distfiles
