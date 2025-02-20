@@ -1,6 +1,6 @@
 # Makefile for an embedded Linux boot kernel
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,7 +30,12 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 MAKE_ARGS	= -C $(KERNEL_SRC)
 MAKE_ARGS	+= ARCH=$(ARCH)
+
+ifneq ($(KCROSS_COMPILE),)
+MAKE_ARGS	+= CROSS_COMPILE=$(KCROSS_COMPILE)
+else
 MAKE_ARGS	+= CROSS_COMPILE=$(CROSS_COMPILE)
+endif
 
 ifneq ($(KERNEL),)
 MAKE_ARGS	+= KERNEL=$(KERNEL)
