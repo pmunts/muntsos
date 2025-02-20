@@ -177,3 +177,80 @@
  	| c4x | clipper \
  	| d10v | d30v | dlx | dsp16xx \
  	| fr30 | frv \
+--- exp_chan.c.orig	2018-02-02 11:15:52.000000000 -0800
++++ exp_chan.c	2025-02-19 17:55:09.578957638 -0800
+@@ -37,6 +37,8 @@
+ #include "exp_log.h"
+ #include "tcldbg.h" /* Dbg_StdinMode */
+ 
++extern void exp_background_channelhandler _ANSI_ARGS_((ClientData,int));
++
+ extern int		expSetBlockModeProc _ANSI_ARGS_((int fd, int mode));
+ static int		ExpBlockModeProc _ANSI_ARGS_((ClientData instanceData,
+ 			    int mode));
+@@ -58,7 +60,7 @@
+ 
+ Tcl_ChannelType expChannelType = {
+     "exp",				/* Type name. */
+-    ExpBlockModeProc,			/* Set blocking/nonblocking mode.*/
++    NULL,
+     ExpCloseProc,			/* Close proc. */
+     ExpInputProc,			/* Input proc. */
+     ExpOutputProc,			/* Output proc. */
+@@ -68,6 +70,7 @@
+     ExpWatchProc,			/* Initialize notifier. */
+     ExpGetHandleProc,			/* Get OS handles out of channel. */
+     NULL,				/* Close2 proc */
++    ExpBlockModeProc,			/* Set blocking/nonblocking mode.*/
+ };
+ 
+ typedef struct ThreadSpecificData {
+--- exp_clib.c.orig	2018-02-02 11:15:52.000000000 -0800
++++ exp_clib.c	2025-02-19 17:23:44.428849135 -0800
+@@ -50,11 +50,13 @@
+ # endif
+ #endif
+ 
++#include <errno.h>
+ #include <signal.h>
+-/*#include <memory.h> - deprecated - ANSI C moves them into string.h */
+-#include "string.h"
++#include <string.h>
++#include <unistd.h>
++#include <sys/wait.h>
+ 
+-#include <errno.h>
++extern void exp_init_tty();
+ 
+ #ifdef NO_STDLIB_H
+ 
+--- exp_main_sub.c.orig	2025-02-19 17:26:33.186460640 -0800
++++ exp_main_sub.c	2025-02-19 17:27:45.563151243 -0800
+@@ -28,6 +28,8 @@
+ #include "tcldbg.h"
+ #endif
+ 
++extern int exp_tty_cooked_echo(Tcl_Interp *interp, exp_tty *tty_old, int *was_raw, int *was_echo);
++
+ #ifndef EXP_VERSION
+ #define EXP_VERSION PACKAGE_VERSION
+ #endif
+--- pty_termios.c.orig	2018-02-02 11:15:52.000000000 -0800
++++ pty_termios.c	2025-02-19 18:23:29.490978393 -0800
+@@ -7,6 +7,7 @@
+ 
+ */
+ 
++#include <pty.h>
+ #include <stdio.h>
+ #include <signal.h>
+ 
+@@ -16,6 +17,8 @@
+ 
+ #include "expect_cf.h"
+ 
++extern char * expErrnoMsg(int errorNo);
++
+ /*
+    The following functions are linked from the Tcl library.  They
+    don't cause anything else in the library to be dragged in, so it
