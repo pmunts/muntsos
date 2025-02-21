@@ -155,6 +155,18 @@ News
 -   17 February 2025 -- Upgraded the .Net Runtime to 9.0.2. Upgraded the
     Raspberry Pi kernel to 6.6.78.
 
+-   20 February 2025 -- [Crosstool-NG](https://crosstool-ng.github.io)
+    release 1.27.0 was published a few days ago. I have used it to build
+    the 10th iteration of the **MuntsOS** cross-toolchain packages,
+    upgrading binutils to 2.43, GCC to 14.2.0, and glibc to 2.41. GCC
+    14.2.0 includes support for [Ada
+    2022](http://www.ada-auth.org/standards/ada22.html) and a lot of
+    Modula-2 fixes. All of the extensions, kernels, and thin servers
+    have been rebuilt with the new GCC 14.2.0 toolchain. The previous
+    GCC 13.2.0 cross-toolchain packages, extensions, kernels, and thin
+    servers have been moved to the
+    [attic.](http://repo.munts.com/muntsos/attic)
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
