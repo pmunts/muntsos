@@ -44,6 +44,9 @@ KERNEL_BRANCH	= 6.1
 KERNEL_TREEISH	= orange-pi-$(KERNEL_BRANCH)-sun50iw9
 KERNEL_NAME	= linux-orangepizero2w-$(KERNEL_BRANCH)
 
+# Can't use GCC 14 for the Orange Pi Zero 2W kernel
+KCROSS_COMPILE	= /usr/local/arm-gnu-toolchain-13.2.Rel1-x86_64-aarch64-none-elf/bin/aarch64-none-elf-
+
 CFLAGS		+= -DORANGEPIZERO2W
 
 include $(MUNTSOS)/include/kernel.mk

@@ -47,7 +47,7 @@ $(PKGDIR):
 ifneq ($(findstring RaspberryPi1, $(BOARDNAME)),)
 	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.13	$@/usr/local/lib
 else
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.22	$@/usr/local/lib
+	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.23	$@/usr/local/lib
 endif
 	$(CROSS_COMPILE)strip					$@/usr/local/lib/*.so.*
 	touch $@
