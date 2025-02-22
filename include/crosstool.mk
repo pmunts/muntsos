@@ -1,6 +1,6 @@
 # Global definitions for cross-toolchains built with Crosstool-NG
 
-# Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,6 +22,8 @@
 
 CONFIGURE_NAME	= $(GCCARCH)-muntsos-linux-$(GCCABI)
 ifeq ($(GCCARCH), aarch64)
+TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng
+else ifeq ($(GCCARCH), riscv64)
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng
 else
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng-$(BOARDBASELC)
@@ -59,6 +61,8 @@ GNATPREFIX	= $(CROSS_COMPILE)
 
 ifeq ($(GCCARCH), aarch64)
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/AArch64.cgpr
+else ifeq ($(GCCARCH), riscv64)
+GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/RISCV64.cgpr
 else
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
 endif

@@ -1,0 +1,40 @@
+# Global make definitions for 64-bit RISC-V platforms
+
+# Copyright (C)2025, Philip Munts dba Munts Technologies.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+ifeq ($(BOARDNAME), RISCV64)
+# Need to define the following if board name is RISCV64
+BOARDBASE	:= RISCV64
+BOARDBASELC	:= $(shell echo $(BOARDBASE) | tr A-Z a-z)
+BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
+endif
+
+ARCH		= riscv64
+DEBARCH		= riscv64
+DOTNETARCH	= linux-riscv64
+GCCABI		= gnu
+GCCARCH		= riscv64
+BOARDARCH	= $(GCCARCH)
+LOADER		= ld-linux-riscv64-lp64d.so.1
+WORDSIZE	= 64
+
+TOOLCHAIN_BUILDER ?= crosstool
+include $(MUNTSOS)/include/$(TOOLCHAIN_BUILDER).mk
