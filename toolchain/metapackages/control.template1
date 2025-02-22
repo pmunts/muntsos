@@ -9,11 +9,5 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: all
 Description: Cross-toolchain packages for MuntsOS.
 
-Conflicts:
-  muntsos-dev-ctng
-
 Depends:
   muntsos-dev-aarch64
-
-Replaces:
-  muntsos-dev-ctng

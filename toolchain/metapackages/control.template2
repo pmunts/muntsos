@@ -10,16 +10,10 @@ Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@.
 
 Depends:
   muntsos-common,
-  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@,
-  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libs,
-  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libaws,
-  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@-libsimpleio
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@,
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libs,
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libaws,
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libsimpleio
 
 Recommends:
-  fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@-@@BOARDNAMELC@@
-
-Conflicts:
-  muntsos-dev-ctng-@@BOARDNAMELC@@
-
-Replaces:
-  muntsos-dev-ctng-@@BOARDNAMELC@@
+  fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@
