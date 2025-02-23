@@ -45,6 +45,7 @@ WITH libLinux;
 -- Board dependent packages
 
 WITH BeagleBone;
+WITH BeaglePlay;
 WITH PocketBeagle;
 WITH RaspberryPi;
 WITH RaspberryPi5;
@@ -122,12 +123,6 @@ BEGIN
   pwm  := RemoteIO.PWM.Create(exec);
   spi  := RemoteIO.SPI.Create(exec);
 
-  -- Register user LED on GPIO channel 0, if possible
-
-  IF Standard.GPIO.UserLED.Available THEN
-    gpio.Register(0, Standard.GPIO.UserLED.Create, RemoteIO.GPIO.OutputOnly);
-  END IF;
-
   -- Register BeagleBone family I/O resources
 
   IF StartsWith(SystemInfo.BoardName, "beaglebone") THEN
@@ -140,6 +135,8 @@ BEGIN
       adc.register(5, BeagleBone.AIN5, 12);    -- P9.36 1.8V
       adc.register(6, BeagleBone.AIN6, 12);    -- P9.35 1.8V
     END IF;
+
+    gpio.Register(0, Standard.GPIO.UserLED.Create, RemoteIO.GPIO.OutputOnly);
 
     gpio.Register(2,   BeagleBone.GPIO2);      -- P9.22  SPI0 SCK  UART2 RXD EHRPWM0B
     gpio.Register(3,   BeagleBone.GPIO3);      -- P9.21  SPI0 MISO UART2 TXD
@@ -226,6 +223,22 @@ BEGIN
     spi.Register(1, BeagleBone.SPI1_1);
     spi.Register(2, BeagleBone.SPI0_0);
 
+  -- Register BeaglePlay I/O Resources
+
+  ELSIF SystemInfo.BoardName = "beagleplay" THEN
+
+    -- BeaglePlay has 5 user LEDs
+
+    gpio.Register(0, Standard.GPIO.UserLED.Create(BeaglePlay.USR0), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(1, Standard.GPIO.UserLED.Create(BeaglePlay.USR1), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(2, Standard.GPIO.UserLED.Create(BeaglePlay.USR2), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(3, Standard.GPIO.UserLED.Create(BeaglePlay.USR3), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(4, Standard.GPIO.UserLED.Create(BeaglePlay.USR4), RemoteIO.GPIO.OutputOnly);
+
+    -- BeaglePlay has 1 user button
+
+    gpio.Register(5, BeaglePlay.USR_BUTTON, RemoteIO.GPIO.InputOnly, RemoteIO.GPIO.ActiveLow);
+
   -- Register PocketBeagle I/O Resources
 
   ELSIF SystemInfo.BoardName = "pocketbeagle" THEN
@@ -239,6 +252,8 @@ BEGIN
       adc.register(6, PocketBeagle.AIN6, 12);  -- P1.2  3.6V
       adc.register(7, PocketBeagle.AIN7, 12);  -- P2.36 1.8V
     END IF;
+
+    gpio.Register(0, Standard.GPIO.UserLED.Create, RemoteIO.GPIO.OutputOnly);
 
     gpio.Register(2,   PocketBeagle.GPIO2);    -- P1.8   SPI0 SCLK
     gpio.Register(3,   PocketBeagle.GPIO3);    -- P1.10  SPI0 MISO
@@ -364,6 +379,8 @@ BEGIN
         END IF;
       END LOOP;
     END IF;
+
+    gpio.Register(0, Standard.GPIO.UserLED.Create, RemoteIO.GPIO.OutputOnly);
 
     IF NOT I2C1_configured THEN
       gpio.Register(2,  RaspberryPi.GPIO2);    -- aka I2C1 SDA
