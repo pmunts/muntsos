@@ -1,0 +1,59 @@
+--- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-23 11:00:35.695840870 -0800
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-23 12:31:19.764503053 -0800
+@@ -167,50 +167,34 @@
+ 		led-0 {
+ 			bootph-all;
+ 			gpios = <&main_gpio0 3 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "heartbeat";
+-			function = LED_FUNCTION_HEARTBEAT;
+ 			default-state = "off";
+ 		};
+ 
+ 		led-1 {
+ 			bootph-all;
+ 			gpios = <&main_gpio0 4 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "disk-activity";
+-			function = LED_FUNCTION_DISK_ACTIVITY;
+-			default-state = "keep";
++			default-state = "off";
+ 		};
+ 
+ 		led-2 {
+ 			bootph-all;
+ 			gpios = <&main_gpio0 5 GPIO_ACTIVE_HIGH>;
+-			function = LED_FUNCTION_CPU;
++			default-state = "off";
+ 		};
+ 
+ 		led-3 {
+ 			bootph-all;
+ 			gpios = <&main_gpio0 6 GPIO_ACTIVE_HIGH>;
+-			function = LED_FUNCTION_LAN;
++			default-state = "off";
+ 		};
+ 
+ 		led-4 {
+ 			bootph-all;
+ 			gpios = <&main_gpio0 9 GPIO_ACTIVE_HIGH>;
+-			function = LED_FUNCTION_WLAN;
+-		};
+-	};
+-
+-	gpio_keys: gpio-keys {
+-		compatible = "gpio-keys";
+-		autorepeat;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&usr_button_pins_default>;
+-
+-		usr: button-usr {
+-			label = "User Key";
+-			linux,code = <BTN_0>;
+-			gpios = <&main_gpio0 18 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "heartbeat";
++			function = LED_FUNCTION_HEARTBEAT;
++			default-state = "off";
+ 		};
+-
+ 	};
+ 
+ 	hdmi0: connector-hdmi {
