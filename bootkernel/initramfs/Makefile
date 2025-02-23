@@ -763,8 +763,11 @@ endif
 	sed -i 's/@@REVISION@@/$(REVISION)/g'			$@/etc/rc
 	sed -i 's/@@TOOLCHAINBUILDER@@/$(TOOLCHAIN_BUILDER)/g'	$@/etc/rc
 	sed -i 's/@@TOOLCHAINREVISION@@/$(TOOLCHAIN_REV)/g'	$@/etc/rc
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
+endif
+ifeq ($(BOARDNAME), BeaglePlay)
+	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr4#g' $@/etc/rc
 endif
 ifneq ($(findstring OrangePi, $(BOARDNAME)),)
 ifeq ($(KERNEL_BRANCH), 6.1)
