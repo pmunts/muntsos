@@ -54,5 +54,5 @@ load mmc 1:1 $KERNEL $boardname.img
 
 # Boot the Linux kernel
 
-setenv bootargs $CMDLINE BOARDNAME=$boardname
+setenv bootargs $CMDLINE BOARDNAME=$boardname BOOTPART=mmcblk1p1
 booti $KERNEL - $DTB
