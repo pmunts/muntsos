@@ -120,7 +120,7 @@ NANO_DIST		= $(DISTDIR)/$(NANO_TARBALL)
 
 COMPONENT_TARGETS	= busybox openssh rpcbind detach force-umount iptables ethtool iw wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
 
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 COMPONENT_TARGETS	+= config-pin
 endif
 
@@ -213,7 +213,7 @@ rpcbind: $(RPCBIND_SRC)/rpcbind
 
 # Build config-pin
 
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 config-pin: config-pin.c
 	$(CROSS_COMPILE)gcc -Wall -o $@ $^
 endif
@@ -502,7 +502,7 @@ endif
 	@echo ""						>>$@
 	@cat $(WPASUPP_SRC)/COPYING				>>$@
 	@echo ""						>>$@
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	@echo "**** config-pin:"				>>$@
 	@head -n 23 config-pin.c | tail -n 21 | cut -c 4-	>>$@
 endif
@@ -580,7 +580,7 @@ initramfs.d: COPYING
 
 # Install config-pin
 
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	install -cm 0755 config-pin				$@/sbin
 endif
 
@@ -1058,7 +1058,7 @@ reallyclean: clean
 	rm -rf $(FIRMWARE_SRC)
 	rm -rf $(WIRELESS_REGDB_SRC)
 	rm -f COPYING
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	rm -f config-pin
 endif
 	rm -f detach
