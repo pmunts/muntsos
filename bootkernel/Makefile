@@ -1,6 +1,6 @@
 # Makefile for boot kernel for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -63,6 +63,10 @@ ifeq ($(BOARDBASE), BeagleBone)
 	$(MAKE) -C $(MUNTSOS)/boot/BeagleBone/overlays DTC=$(KERNEL_DTC)
 	mkdir -p $(DESTDIR)/overlays
 	cp $(MUNTSOS)/boot/BeagleBone/overlays/*.dtbo $(DESTDIR)/overlays
+endif
+
+ifeq ($(BOARDBASE), BeaglePlay)
+	cd $(DESTDIR) && mv $(shell basename $(KERNEL_DTB)).dtb $(BOARDNAME).dtb
 endif
 
 ifeq ($(BOARDBASE), OrangePiZero2W)
