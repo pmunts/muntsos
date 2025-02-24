@@ -141,6 +141,10 @@ News
     previous GCC 13.2.0 cross-toolchain packages, extensions, kernels,
     and thin servers have been moved to the attic.
 
+-   23 February 2025 -- Added initial support for the 64-bit BeaglePlay.
+    Next up will probably be the 64-bit RISC-V VisionFive 2. I have
+    successfully built a GCC 14.2.0 riscv64 cross-toolchain for MuntsOS.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
@@ -255,13 +259,30 @@ http://repo.munts.com/muntsos/thinservers
 
 Boards
 
+BeaglePlay
+
+The BeaglePlay is a small Linux microcomputer board with industry
+standard interfaces for add-on I/O modules (a mikroBUS socket, a QWIIC
+socket, and a Grove socket) instead of a general purpose expansion
+header. It has a Texas Instruments AM6254 ARMv8 Cortex-A53 quad core CPU
+and comes with 2 GB of RAM. The BeaglePlay has one USB-A receptacle for
+peripheral devices and one USB-C receptacle for power and tethering as
+well as a 10Base-T1L single pair Ethernet interface (intended for a
+factory automation network and worthless for any other purpose), and a
+CC1352P7 wireless microcontroller capable of supporting a wide variety
+of radio networks.
+
+For MuntsOS, the BeaglePlay device tree has been modified to turn the
+five user LED's off by default, and to make the user button a GPIO input
+instead of a keyboard key.
+
 Orange Pi Zero 2W
 
 The Orange Pi Zero 2W is a small Linux microcomputer with a form factor
 very similiar to the Raspberry Pi Zero 2 W, making it ideal for embedded
-system projects. It has a 1500 MHz Allwinner H618 Cortex-A53 quad-core
-CPU and comes with 1 to 4 GB of RAM and on-board Bluetooth and WiFi
-radios. It is available for sale on Amazon for $21.99 (1 GB RAM) to
+system projects. It has a 1500 MHz Allwinner H618 ARMv8 Cortex-A53
+quad-core CPU and comes with 1 to 4 GB of RAM and on-board Bluetooth and
+WiFi radios. It is available for sale on Amazon for $21.99 (1 GB RAM) to
 $33.99 (4 GB RAM).
 
 The much larger RAM is a big advantage and I have been able to purchase

@@ -157,6 +157,14 @@ rebuilt with the new GCC 14.2.0 toolchain. The previous GCC 13.2.0
 cross-toolchain packages, extensions, kernels, and thin servers have been moved
 to the <a href="http://repo.munts.com/muntsos/attic">attic.</a></p>
 </li>
+<li>
+<p>23 February 2025 -- Added initial support for the 64-bit <a href=
+"https://www.beagleboard.org/boards/beagleplay">BeaglePlay</a>. Next up will
+probably be the 64-bit <a href="https://riscv.org">RISC-V</a> <a href=
+"https://www.waveshare.com/wiki/VisionFive2">VisionFive 2</a>. I have
+successfully built a GCC 14.2.0 <b><tt>riscv64</tt></b> cross-toolchain for
+<b>MuntsOS</b>.</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development
@@ -265,6 +273,24 @@ Server.
 <p><a href=
 "http://repo.munts.com/muntsos/thinservers">http://repo.munts.com/muntsos/thinservers</a></p>
 <h2>Boards</h2>
+<h3>BeaglePlay</h3>
+<p>The <a href="https://www.beagleboard.org/boards/beagleplay">BeaglePlay</a>
+is a small Linux microcomputer board with industry standard interfaces for
+add-on I/O modules (a <a href="https://www.mikroe.com/mikrobus">mikroBUS</a>
+socket, a <a href="https://www.sparkfun.com/qwiic">QWIIC</a> socket, and a
+<a href="https://wiki.seeedstudio.com/Grove_System">Grove</a> socket) instead
+of a general purpose expansion header. It has a Texas Instruments AM6254 ARMv8
+Cortex-A53 quad core CPU and comes with 2 GB of RAM. The BeaglePlay has one
+USB-A receptacle for peripheral devices and one USB-C receptacle for power and
+tethering as well as a <a href=
+"https://www.analog.com/en/resources/technical-articles/the-new-10base-t1l-standard.html">
+10Base-T1L</a> single pair Ethernet interface (intended for a factory
+automation network and worthless for any other purpose), and a <a href=
+"https://www.ti.com/product/CC1352P">CC1352P7</a> wireless microcontroller
+capable of supporting a wide variety of radio networks.</p>
+<p>For <b>MuntsOS</b>, the BeaglePlay device tree has been modified to turn the
+five user LED's off by default, and to make the user button a GPIO input
+instead of a keyboard key.</p>
 <h3>Orange Pi Zero 2W</h3>
 <p>The <a href=
 "http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
@@ -272,8 +298,8 @@ Zero 2W</a> is a small Linux microcomputer with a form factor very similiar to
 the <a href=
 "https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/">Raspberry Pi Zero
 2 W</a>, making it ideal for embedded system projects. It has a 1500 MHz
-Allwinner H618 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and
-on-board Bluetooth and WiFi radios. It is available for sale on Amazon for
+Allwinner H618 ARMv8 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM
+and on-board Bluetooth and WiFi radios. It is available for sale on Amazon for
 $21.99 (1 GB RAM) to $33.99 (4 GB RAM).</p>
 <p>The much larger RAM is a big advantage and I have been able to purchase as
 many as I want without limits when the Raspberry Pi Zero 2 W has been

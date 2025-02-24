@@ -167,6 +167,12 @@ News
     servers have been moved to the
     [attic.](http://repo.munts.com/muntsos/attic)
 
+-   23 February 2025 -- Added initial support for the 64-bit
+    [BeaglePlay](https://www.beagleboard.org/boards/beagleplay). Next up
+    will probably be the 64-bit [RISC-V](https://riscv.org) [VisionFive
+    2](https://www.waveshare.com/wiki/VisionFive2). I have successfully
+    built a GCC 14.2.0 **`riscv64`** cross-toolchain for **MuntsOS**.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
@@ -303,6 +309,27 @@ Prebuilt **MuntsOS** Thin Servers are at available at:
 Boards
 ------
 
+### BeaglePlay
+
+The [BeaglePlay](https://www.beagleboard.org/boards/beagleplay) is a
+small Linux microcomputer board with industry standard interfaces for
+add-on I/O modules (a [mikroBUS](https://www.mikroe.com/mikrobus)
+socket, a [QWIIC](https://www.sparkfun.com/qwiic) socket, and a
+[Grove](https://wiki.seeedstudio.com/Grove_System) socket) instead of a
+general purpose expansion header. It has a Texas Instruments AM6254
+ARMv8 Cortex-A53 quad core CPU and comes with 2 GB of RAM. The
+BeaglePlay has one USB-A receptacle for peripheral devices and one USB-C
+receptacle for power and tethering as well as a
+[10Base-T1L](https://www.analog.com/en/resources/technical-articles/the-new-10base-t1l-standard.html)
+single pair Ethernet interface (intended for a factory automation
+network and worthless for any other purpose), and a
+[CC1352P7](https://www.ti.com/product/CC1352P) wireless microcontroller
+capable of supporting a wide variety of radio networks.
+
+For **MuntsOS**, the BeaglePlay device tree has been modified to turn
+the five user LED's off by default, and to make the user button a GPIO
+input instead of a keyboard key.
+
 ### Orange Pi Zero 2W
 
 The [Orange Pi Zero
@@ -311,9 +338,9 @@ a small Linux microcomputer with a form factor very similiar to the
 [Raspberry Pi Zero 2
 W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/), making
 it ideal for embedded system projects. It has a 1500 MHz Allwinner H618
-Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and on-board
-Bluetooth and WiFi radios. It is available for sale on Amazon for $21.99
-(1 GB RAM) to $33.99 (4 GB RAM).
+ARMv8 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and
+on-board Bluetooth and WiFi radios. It is available for sale on Amazon
+for $21.99 (1 GB RAM) to $33.99 (4 GB RAM).
 
 The much larger RAM is a big advantage and I have been able to purchase
 as many as I want without limits when the Raspberry Pi Zero 2 W has been
