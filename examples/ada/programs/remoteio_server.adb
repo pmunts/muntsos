@@ -229,15 +229,35 @@ BEGIN
 
     -- BeaglePlay has 5 user LEDs
 
-    gpio.Register(0, Standard.GPIO.UserLED.Create(BeaglePlay.USR0), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(1, Standard.GPIO.UserLED.Create(BeaglePlay.USR1), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(2, Standard.GPIO.UserLED.Create(BeaglePlay.USR2), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(3, Standard.GPIO.UserLED.Create(BeaglePlay.USR3), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(4, Standard.GPIO.UserLED.Create(BeaglePlay.USR4), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(0, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR0), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(1, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR1), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(2, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR2), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(3, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR3), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(4, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR4), RemoteIO.GPIO.OutputOnly);
 
-    -- BeaglePlay has 1 user button
+    -- User button
 
-    gpio.Register(5, BeaglePlay.USR_BUTTON, RemoteIO.GPIO.InputOnly, RemoteIO.GPIO.ActiveLow);
+    gpio.Register(5, BeaglePlay.GPIO_BUTTON, RemoteIO.GPIO.InputOnly, RemoteIO.GPIO.ActiveLow);
+
+    -- mikroBUS GPIOs
+
+    gpio.Register(6, BeaglePlay.GPIO_AN);
+    gpio.Register(7, BeaglePlay.GPIO_RST);
+    gpio.Register(8, BeaglePlay.GPIO_INT);
+
+    -- I2C buses
+
+    i2c.Register(0, BeaglePlay.I2C_GROVE);
+    i2c.Register(1, BeaglePlay.I2C_MIKROBUS);
+    i2c.Register(2, BeaglePlay.I2C_QWIIC);
+
+    -- PWM outputs
+
+    pwm.Register(0, BeaglePlay.PWM_MIKROBUS);
+
+    -- SPI devices
+
+    spi.Register(0, BeaglePlay.SPI_MIKROBUS);
 
   -- Register PocketBeagle I/O Resources
 
