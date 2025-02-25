@@ -1,5 +1,5 @@
---- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts
+--- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-05 10:47:52.000000000 -0800
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-24 21:41:08.838120998 -0800
 @@ -167,50 +167,34 @@
  		led-0 {
  			bootph-all;
@@ -57,8 +57,31 @@
  	};
  
  	hdmi0: connector-hdmi {
---- drivers/usb/gadget/legacy/hid.c.orig
-+++ drivers/usb/gadget/legacy/hid.c
+@@ -857,6 +841,12 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&mikrobus_spi_pins_default>;
+ 	status = "okay";
++
++	spidev@0 {
++		compatible = "beagleplay,spi-dev";
++		status = "okay";
++		reg = <0>;
++	};
+ };
+ 
+ &sdhci0 {
+--- drivers/spi/spidev.c.orig	2025-02-24 21:28:21.262039492 -0800
++++ drivers/spi/spidev.c	2025-02-24 21:33:15.503787593 -0800
+@@ -734,6 +734,7 @@
+ }
+ 
+ static const struct of_device_id spidev_dt_ids[] = {
++	{ .compatible = "beagleplay,spi-dev", .data = &spidev_of_check },
+ 	{ .compatible = "cisco,spi-petra", .data = &spidev_of_check },
+ 	{ .compatible = "dh,dhcom-board", .data = &spidev_of_check },
+ 	{ .compatible = "elgin,jg10309-01", .data = &spidev_of_check },
+--- drivers/usb/gadget/legacy/hid.c.orig	2025-02-05 10:47:52.000000000 -0800
++++ drivers/usb/gadget/legacy/hid.c	2025-02-24 14:56:06.605381701 -0800
 @@ -267,6 +267,48 @@
  	},
  };
