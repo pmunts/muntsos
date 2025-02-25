@@ -1,5 +1,5 @@
 --- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-05 10:47:52.000000000 -0800
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-25 08:44:42.769672864 -0800
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-25 13:41:23.582510973 -0800
 @@ -167,50 +167,34 @@
  		led-0 {
  			bootph-all;
@@ -57,19 +57,14 @@
  	};
  
  	hdmi0: connector-hdmi {
-@@ -244,6 +228,36 @@
- };
- 
- &main_pmx0 {
+@@ -530,6 +514,25 @@
+ 			AM62X_IOPAD(0x01b8, PIN_OUTPUT, 2) /* (C13) SPI0_CS1.EHRPWM0_B */
+ 		>;
+ 	};
 +
-+	// Initialize all mikroBUS pins to GPIO inputs.
-+	//
-+	// The SPI/I2C/PWM/UART subsystems will override these pin
-+	// configurations as they are instantiated.  Disabling a subsystem
-+	// with a device tree overlay with leave its pins configured
-+	// GPIO inputs, available for GPIO usage.
++	// Configure all mikroBUS pins as GPIO.  Invoked by mikrobus-gpio.dtbo.
 +
-+	mikrobus_pins: mikrobus-pins {
++	mikrobus_gpio: mikrobus-gpio {
 +		pinctrl-single,pins = <
 +			AM62X_IOPAD(0x01a0, PIN_INPUT, 7) /* (E18) AN   */
 +			AM62X_IOPAD(0x01a8, PIN_INPUT, 7) /* (D20) RST  */
@@ -85,16 +80,10 @@
 +			AM62X_IOPAD(0x01d4, PIN_INPUT, 7) /* (B15) SDA  */
 +		>;
 +	};
-+
-+	@main_pmx0 {
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&mikrobus_pins>;
-+	};
-+
- 	gpio0_pins_default: gpio0-default-pins {
- 		bootph-all;
- 		pinctrl-single,pins = <
-@@ -857,6 +871,12 @@
+ };
+ 
+ &mcu_pmx0 {
+@@ -857,6 +860,12 @@
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_spi_pins_default>;
  	status = "okay";

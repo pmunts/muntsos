@@ -1,0 +1,45 @@
+// Configure all mikroBUS pins as GPIO.  An example of the need for this is the
+// Relay Click, which controls one of the relays with CS for some reason.
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "beagle,am625-beagleplay";
+
+	fragment@0 {
+		target = <&main_i2c3>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@1 {
+		target = <&ecap2>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@2 {
+		target = <&main_spi2>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@3 {
+		target = <&main_uart5>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@4 {
+		target = <&main_gpio1>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&mikrobus_gpio>;
+		};
+	};
+};
