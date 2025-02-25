@@ -59,21 +59,11 @@ ifneq ($(KERNEL_OVL),)
 	for f in $(KERNEL_OVL) ; do cp $(KERNEL_WORK)/dtbs/overlays/$$f.dtb* $(DESTDIR)/overlays ; done
 endif
 
-ifeq ($(BOARDBASE), BeagleBone)
-	$(MAKE) -C $(MUNTSOS)/boot/BeagleBone/overlays DTC=$(KERNEL_DTC)
-	mkdir -p $(DESTDIR)/overlays
-	cp $(MUNTSOS)/boot/BeagleBone/overlays/*.dtbo $(DESTDIR)/overlays
-endif
-
-ifeq ($(BOARDBASE), BeaglePlay)
+ifneq ($(wildcard $(MUNTSOS)/boot/$(BOARDBASE)/overlays),)
 	cd $(DESTDIR) && mv $(shell basename $(KERNEL_DTB)).dtb $(BOARDNAME).dtb
-endif
-
-ifeq ($(BOARDBASE), OrangePiZero2W)
-	cd $(DESTDIR) && mv $(shell basename $(KERNEL_DTB)).dtb $(BOARDNAME).dtb
-	$(MAKE) -C $(MUNTSOS)/boot/OrangePiZero2W/overlays DTC=$(KERNEL_DTC)
+	$(MAKE) -C $(MUNTSOS)/boot/$(BOARDBASE)/overlays DTC=$(KERNEL_DTC)
 	mkdir -p $(DESTDIR)/overlays
-	cp $(MUNTSOS)/boot/OrangePiZero2W/overlays/*.dtbo $(DESTDIR)/overlays
+	cp $(MUNTSOS)/boot/BeaglePlay/overlays/*.dtbo $(DESTDIR)/overlays
 endif
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
@@ -102,16 +92,20 @@ endif
 
 rebuild:
 	find $(KERNEL_WORK) -type f -name '*.dtb' -exec rm {} ";"
-	rm -rf initramfs/initramfs.*
+	find $(KERNEL_WORK) -type f -name '*.dtbo' -exec rm {} ";"
 	rm -f $(KERNEL_WORK)/build.done
 	rm -f $(KERNEL_WORK)/config.done
+	rm -rf $(KERNEL_WORK)/dtbs
 	rm -f $(KERNEL_WORK)/dtbs.done
+	rm -rf initramfs/initramfs.*
 	rm -f $(KERNEL_WORK)/initramfs.done
+	rm -rf $(KERNEL_WORK)/modules
 	rm -f $(KERNEL_WORK)/modules.done
 	rm -f $(KERNEL_WORK)/$(KERNEL_IMG)
-	rm -rf $(KERNEL_WORK)/dtbs
-	rm -rf $(KERNEL_WORK)/modules
 	rm -f $(TARBALL)
+ifneq ($(wildcard $(MUNTSOS)/boot/$(BOARDBASE)/overlays),)
+	$(MAKE) -C $(MUNTSOS)/boot/$(BOARDBASE)/overlays clean
+endif
 	$(MAKE) $(TARBALL)
 
 ###############################################################################
