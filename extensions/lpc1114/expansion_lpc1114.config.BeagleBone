@@ -1,6 +1,6 @@
 # LPC1114 I/O Processor Configuration, for BeagleBone
 
-# Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2018-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,3 +22,10 @@
 
 LPC1114_SERIAL=/dev/ttyS2
 LPC1114_I2C=/dev/i2c-2
+
+LPC1114_HTTP=yes
+LPC1114_LINX=yes
+LPC1114_ONCRPC=yes
+LPC1114_REMOTEIO=yes
+LPC1114_XMLRPC=yes
+LPC1114_ZEROMQ=yes
