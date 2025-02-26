@@ -9,8 +9,7 @@
 	fragment@0 {
 		target = <&main_uart1>;
 		__overlay__ {
-			pinctrl-names = "default";
-			pinctrl-0 = <&grove_uart_pins>;
+			status = "okay";
 		};
 	};
 };
