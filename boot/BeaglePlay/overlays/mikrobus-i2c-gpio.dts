@@ -1,0 +1,16 @@
+// Configure mikroBUS I2C pins as GPIO
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "beagle,am625-beagleplay";
+
+	fragment@0 {
+		target = <&main_i2c3>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&mikrobus_i2c_gpio_pins>;
+		};
+	};
+};

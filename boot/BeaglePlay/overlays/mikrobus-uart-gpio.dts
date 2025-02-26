@@ -1,0 +1,16 @@
+// Configure mikroBUS UART pins as GPIO
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "beagle,am625-beagleplay";
+
+	fragment@0 {
+		target = <&main_uart5>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&mikrobus_uart_gpio_pins>;
+		};
+	};
+};
