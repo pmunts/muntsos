@@ -1,6 +1,6 @@
 # /etc/profile for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,7 +25,7 @@ export PS1='`hostname -s`# '
 export EDITOR=nano
 export TERMINFO=/usr/share/terminfo
 
-stty crterase erase ^?
+stty icrnl crterase erase ^?
 
 # Import environment variables defined in /etc/platform
 
