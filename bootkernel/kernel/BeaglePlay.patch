@@ -1,5 +1,5 @@
 --- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-05 10:47:52.000000000 -0800
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-25 20:18:28.151019800 -0800
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-26 12:42:31.684880788 -0800
 @@ -35,9 +35,10 @@
  		mmc2 = &sdhci2;
  		rtc0 = &rtc;
@@ -145,14 +145,47 @@
 +
 +	grove_uart_pins: grove-uart-pins {
 +		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x01e8, PIN_INPUT, 1) /* (B17) D0 */
-+			AM62X_IOPAD(0x01ec, PIN_INPUT, 1) /* (A17) D1 */
++			AM62X_IOPAD(0x01e8, PIN_INPUT, 1) /* (B17) RXD */
++			AM62X_IOPAD(0x01ec, PIN_OUTPUT, 1) /* (A17) TXD */
 +		>;
 +	};
  };
  
  &mcu_pmx0 {
-@@ -857,6 +916,12 @@
+@@ -576,6 +635,7 @@
+ };
+ 
+ &mcu_i2c0 {
++	// QWIIC socket
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c_qwiic_pins_default>;
+ 	clock-frequency = <100000>;
+@@ -797,10 +857,11 @@
+ };
+ 
+ &main_i2c1 {
++	// Grove socket
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&grove_pins_default>;
+ 	clock-frequency = <100000>;
+-	status = "okay";
++	status = "disabled";
+ };
+ 
+ &main_i2c2 {
+@@ -847,6 +908,7 @@
+ };
+ 
+ &main_i2c3 {
++	// mikroBUS socket
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&mikrobus_i2c_pins_default>;
+ 	clock-frequency = <400000>;
+@@ -854,9 +916,16 @@
+ };
+ 
+ &main_spi2 {
++	// mikroBUS socket
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_spi_pins_default>;
  	status = "okay";
@@ -165,18 +198,31 @@
  };
  
  &sdhci0 {
-@@ -914,8 +979,9 @@
+@@ -907,6 +976,7 @@
+ };
+ 
+ &main_uart0 {
++	// Console header
+ 	bootph-all;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&main_uart0_pins_default>;
+@@ -914,11 +984,14 @@
  };
  
  &main_uart1 {
 -	/* Main UART1 is used by TIFS firmware */
 -	status = "reserved";
++	// Grove socket
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&grove_pins_default>;
-+	status = "okay";
++	pinctrl-0 = <&grove_uart_pins>;
++	status = "disabled";
  };
  
  &main_uart5 {
++	// mikroBUS socket
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&mikrobus_uart_pins_default>;
+ 	status = "okay";
 --- drivers/usb/gadget/legacy/hid.c.orig	2025-02-05 10:47:52.000000000 -0800
 +++ drivers/usb/gadget/legacy/hid.c	2025-02-25 14:23:09.667847817 -0800
 @@ -267,6 +267,48 @@
