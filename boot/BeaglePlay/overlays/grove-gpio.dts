@@ -7,10 +7,10 @@
 	compatible = "beagle,am625-beagleplay";
 
 	fragment@0 {
-		target = <&main_i2c1>;
+		target = <&main_gpio1>;
 		__overlay__ {
 			pinctrl-names = "default";
-			pinctrl-0 = <&grove_gpio_pins>;
+			pinctrl-0 = <&mikrobus_gpio_pins_default>, <&grove_gpio_pins>;
 		};
 	};
 };
