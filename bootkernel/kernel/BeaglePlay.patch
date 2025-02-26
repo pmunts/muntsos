@@ -1,6 +1,20 @@
 --- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-05 10:47:52.000000000 -0800
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-25 13:41:23.582510973 -0800
-@@ -167,50 +167,34 @@
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-25 20:18:28.151019800 -0800
+@@ -35,9 +35,10 @@
+ 		mmc2 = &sdhci2;
+ 		rtc0 = &rtc;
+ 		rtc1 = &wkup_rtc0;
+-		serial0 = &main_uart5;
+-		serial1 = &main_uart6;
+-		serial2 = &main_uart0;
++		serial0 = &main_uart0;
++		serial1 = &main_uart1;
++		serial5 = &main_uart5;
++		serial6 = &main_uart6;
+ 		usb0 = &usb0;
+ 		usb1 = &usb1;
+ 	};
+@@ -167,50 +168,34 @@
  		led-0 {
  			bootph-all;
  			gpios = <&main_gpio0 3 GPIO_ACTIVE_HIGH>;
@@ -57,7 +71,7 @@
  	};
  
  	hdmi0: connector-hdmi {
-@@ -530,6 +514,25 @@
+@@ -530,6 +515,80 @@
  			AM62X_IOPAD(0x01b8, PIN_OUTPUT, 2) /* (C13) SPI0_CS1.EHRPWM0_B */
  		>;
  	};
@@ -80,10 +94,65 @@
 +			AM62X_IOPAD(0x01d4, PIN_INPUT, 7) /* (B15) SDA  */
 +		>;
 +	};
++
++	// Configure mikroBUS I2C pins as GPIO.  Invoked by mikrobus-i2c-gpio.dtbo.
++
++	mikrobus_i2c_gpio_pins: mikrobus-i2c-gpio-pins {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01d0, PIN_INPUT, 7) /* (A15) SCL  */
++			AM62X_IOPAD(0x01d4, PIN_INPUT, 7) /* (B15) SDA  */
++		>;
++	};
++
++	// Configure mikroBUS PWM pins as GPIO.  Invoked by mikrobus-pwm-gpio.dtbo.
++
++	mikrobus_pwm_gpio_pins: mikrobus-pwm-gpio-pins {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01a4, PIN_INPUT, 7) /* (B20) PWM  */
++		>;
++	};
++
++        // Configure mikroBUS SPI pins as GPIO.  Invoked by mikrobus-spi-gpio.dtbo.
++
++	mikrobus_spi_gpio_pins: mikrobus-spi-gpio-pins {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01ac, PIN_INPUT, 7) /* (E19) CS   */
++			AM62X_IOPAD(0x01b0, PIN_INPUT, 7) /* (A20) SCK  */
++			AM62X_IOPAD(0x0194, PIN_INPUT, 7) /* (B19) MISO */
++			AM62X_IOPAD(0x0198, PIN_INPUT, 7) /* (A19) MOSI */
++		>;
++	};
++
++	// Configure mikroBUS UART pins as GPIO.  Invoked by mikrobus-uart-gpio.dtbo.
++
++	mikrobus_uart_gpio_pins: mikrobus-uart-gpio-pins {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01d8, PIN_INPUT, 7) /* (C15) RX   */
++			AM62X_IOPAD(0x01dc, PIN_INPUT, 7) /* (E15) TX   */
++		>;
++	};
++
++	// Configure Grove socket as GPIO.  Invoked by grove-gpio.dtbo.
++
++	grove_gpio_pins: grove-gpio-pins {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01e8, PIN_INPUT, 7) /* (B17) D0 */
++			AM62X_IOPAD(0x01ec, PIN_INPUT, 7) /* (A17) D1 */
++		>;
++	};
++
++	// Configure Grove socket as UART.  Invoked by grove-uart.dtbo.
++
++	grove_uart_pins: grove-uart-pins {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01e8, PIN_INPUT, 1) /* (B17) D0 */
++			AM62X_IOPAD(0x01ec, PIN_INPUT, 1) /* (A17) D1 */
++		>;
++	};
  };
  
  &mcu_pmx0 {
-@@ -857,6 +860,12 @@
+@@ -857,6 +916,12 @@
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_spi_pins_default>;
  	status = "okay";
@@ -96,8 +165,20 @@
  };
  
  &sdhci0 {
+@@ -914,8 +979,9 @@
+ };
+ 
+ &main_uart1 {
+-	/* Main UART1 is used by TIFS firmware */
+-	status = "reserved";
++	pinctrl-names = "default";
++	pinctrl-0 = <&grove_pins_default>;
++	status = "okay";
+ };
+ 
+ &main_uart5 {
 --- drivers/usb/gadget/legacy/hid.c.orig	2025-02-05 10:47:52.000000000 -0800
-+++ drivers/usb/gadget/legacy/hid.c	2025-02-24 22:53:32.488524396 -0800
++++ drivers/usb/gadget/legacy/hid.c	2025-02-25 14:23:09.667847817 -0800
 @@ -267,6 +267,48 @@
  	},
  };
