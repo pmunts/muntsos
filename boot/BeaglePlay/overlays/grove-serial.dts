@@ -1,4 +1,4 @@
-// Configure Grove socket as a serial port
+// Change Grove socket from I2C to serial port
 
 /dts-v1/;
 /plugin/;
@@ -7,6 +7,13 @@
 	compatible = "beagle,am625-beagleplay";
 
 	fragment@0 {
+		target = <&main_i2c1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@1 {
 		target = <&main_uart1>;
 		__overlay__ {
 			status = "okay";
