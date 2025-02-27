@@ -1,0 +1,26 @@
+// Change Grove socket from I2C to motor driver
+
+// Type 1 Motor Driver: PWM on D0 and DIR on D1.
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "beagle,am625-beagleplay";
+
+	fragment@0 {
+		target = <&main_i2c1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@1 {
+		target = <&epwm2>;
+		__overlay__ {
+			status = "okay";
+			pinctrl-names = "default";
+			pinctrl-0 =  <&grove_motor_pins1>;
+		};
+	};
+};

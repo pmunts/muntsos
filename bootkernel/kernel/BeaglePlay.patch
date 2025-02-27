@@ -1,5 +1,5 @@
 --- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-05 10:47:52.000000000 -0800
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-27 08:33:10.010762864 -0800
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-27 10:36:06.286424837 -0800
 @@ -35,9 +35,10 @@
  		mmc2 = &sdhci2;
  		rtc0 = &rtc;
@@ -71,7 +71,7 @@
  	};
  
  	hdmi0: connector-hdmi {
-@@ -530,6 +515,80 @@
+@@ -530,6 +515,112 @@
  			AM62X_IOPAD(0x01b8, PIN_OUTPUT, 2) /* (C13) SPI0_CS1.EHRPWM0_B */
  		>;
  	};
@@ -149,10 +149,42 @@
 +			AM62X_IOPAD(0x01ec, PIN_OUTPUT, 1) /* (A17) TXD */
 +		>;
 +	};
++
++	// Configure Grove socket as motor driver.  Invoked by grove-motor1.dtbo.
++	// Type 1 Motor Driver: PWM on D0 and DIR on D1.
++
++	grove_motor_pins1: grove-motor-pins1 {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01e8, PIN_INPUT, 8) /* (B17) PWM */
++			AM62X_IOPAD(0x01ec, PIN_INPUT, 7) /* (A17) DIR */
++		>;
++	};
++
++	// Configure Grove socket as motor driver.  Invoked by grove-motor2.dtbo.
++	// Type 2 Motor Driver: CW PWM on D0 and CCW PWM on D1.
++	// Example: Toshiba TB6612FNG
++
++	grove_motor_pins2: grove-motor-pins2 {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01e8, PIN_INPUT, 8) /* (B17) PWM CW  */
++			AM62X_IOPAD(0x01ec, PIN_INPUT, 8) /* (A17) PWM CCW */
++		>;
++	};
++
++	// Configure Grove socket as motor driver.  Invoked by grove-motor3.dtbo.
++	// Type 3 Motor Driver: DIR on D0 and PWM on D1.
++	// Example: Cytron MD13S
++
++	grove_motor_pins3: grove-motor-pins3 {
++		pinctrl-single,pins = <
++			AM62X_IOPAD(0x01e8, PIN_INPUT, 7) /* (B17) DIR */
++			AM62X_IOPAD(0x01ec, PIN_INPUT, 8) /* (A17) PWM */
++		>;
++	};
  };
  
  &mcu_pmx0 {
-@@ -857,6 +916,12 @@
+@@ -857,6 +948,12 @@
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_spi_pins_default>;
  	status = "okay";
@@ -165,7 +197,7 @@
  };
  
  &sdhci0 {
-@@ -914,8 +979,9 @@
+@@ -914,8 +1011,9 @@
  };
  
  &main_uart1 {
@@ -177,6 +209,14 @@
  };
  
  &main_uart5 {
+@@ -977,3 +1075,7 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&mikrobus_pwm_pins_default>;
+ };
++
++&epwm2 {
++	status = "disabled";
++};
 --- drivers/usb/gadget/legacy/hid.c.orig	2025-02-05 10:47:52.000000000 -0800
 +++ drivers/usb/gadget/legacy/hid.c	2025-02-25 14:23:09.667847817 -0800
 @@ -267,6 +267,48 @@
