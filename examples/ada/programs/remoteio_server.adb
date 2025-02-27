@@ -229,21 +229,36 @@ BEGIN
 
     -- BeaglePlay has 5 user LEDs
 
-    gpio.Register(0, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR0), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(1, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR1), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(2, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR2), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(3, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR3), RemoteIO.GPIO.OutputOnly);
-    gpio.Register(4, Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR4), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(0,  Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR0), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(1,  Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR1), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(2,  Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR2), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(3,  Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR3), RemoteIO.GPIO.OutputOnly);
+    gpio.Register(4,  Standard.GPIO.UserLED.Create(BeaglePlay.LED_USR4), RemoteIO.GPIO.OutputOnly);
 
     -- User button
 
-    gpio.Register(5, BeaglePlay.GPIO_BUTTON, RemoteIO.GPIO.InputOnly, RemoteIO.GPIO.ActiveLow);
+    gpio.Register(5,  Standard.BeaglePlay.USER_BUTTON, RemoteIO.GPIO.InputOnly, RemoteIO.GPIO.ActiveLow);
 
     -- mikroBUS GPIOs
 
-    gpio.Register(6, BeaglePlay.GPIO_AN);
-    gpio.Register(7, BeaglePlay.GPIO_RST);
-    gpio.Register(8, BeaglePlay.GPIO_INT);
+    gpio.Register(6,  BeaglePlay.AN);
+    gpio.Register(7,  BeaglePlay.RST);
+    gpio.Register(8,  BeaglePlay.CS);   -- Conflicts with SPI
+    gpio.Register(9,  BeaglePlay.SCK);  -- Conflicts with SPI
+    gpio.Register(10, BeaglePlay.MISO); -- Conflicts with SPI
+    gpio.Register(11, BeaglePlay.MOSI); -- Conflicts with SPI
+  
+    gpio.Register(12, BeaglePlay.PWM);  -- Conflicts with PWM
+    gpio.Register(13, BeaglePlay.INT);
+    gpio.Register(14, BeaglePlay.RX);   -- Conflicts with UART
+    gpio.Register(15, BeaglePlay.TX);   -- Conflicts with UART
+    gpio.Register(16, BeaglePlay.SCL);  -- Conflicts with I2C
+    gpio.Register(17, BeaglePlay.SDA);  -- Conflicts with I2C
+
+    -- Grove GPIOs
+
+    gpio.Register(18, BeaglePlay.D0);
+    gpio.Register(19, BeaglePlay.D1);
 
     -- I2C buses
 
