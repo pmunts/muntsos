@@ -1,11 +1,12 @@
 <h1><b>MuntsOS</b> Embedded Linux</h1>
 <p><b>MuntsOS</b> is a <i>ferociously</i> reduced Linux distribution for
 <b>embedded systems</b>. It runs on several microcomputer boards, including all
-64-bit <a href="https://www.raspberrypi.com/">Raspberry Pi</a> boards.
-<b>MuntsOS</b> delivers a turnkey RAM resident Linux operating system. With
-<b>MuntsOS</b> installed, such microcomputers can treated as components, as
-<i>Linux microcontrollers</i>, and integrated into other projects just like
-traditional single chip microcontrollers.</p>
+64-bit <a href="https://www.raspberrypi.com/">Raspberry Pi</a> models,
+providing a turnkey RAM resident Linux operating system. With <b>MuntsOS</b>
+installed, a small and low cost Linux microcomputer becomes a <i>Linux
+microcontroller</i>, and can be integrated into an embedded system just like a
+single chip microcontroller but coming with a much, much richer development
+ecosystem.</p>
 <p>Other embedded system Linux distributions such as <a href=
 "https://buildroot.org">Buildroot</a> or <a href=
 "https://www.yoctoproject.org">Yocto Linux</a> are <i>very</i> cumbersome and
@@ -288,9 +289,13 @@ tethering as well as a <a href=
 automation network and worthless for any other purpose), and a <a href=
 "https://www.ti.com/product/CC1352P">CC1352P7</a> wireless microcontroller
 capable of supporting a wide variety of radio networks.</p>
-<p>For <b>MuntsOS</b>, the BeaglePlay device tree has been modified to turn the
-five user LED's off by default, and to make the user button a GPIO input
-instead of a keyboard key.</p>
+<h5>USB Gadgets</h5>
+<p>You will need to edit <b><tt>/boot/config.txt</tt></b> to enable USB Gadget
+mode. Change the <b><tt>OPTIONS</tt></b> word to <b><tt>0x132C</tt></b> for a
+USB HID gadget, <b><tt>0x032E</tt></b> for a USB Ethernet gadget, or
+<b><tt>0x03AC</tt></b> for a USB serial port gadget. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf">Application Note
+#10</a> for more information about the <b><tt>OPTIONS</tt></b> word.</p>
 <h3>Orange Pi Zero 2W</h3>
 <p>The <a href=
 "http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi

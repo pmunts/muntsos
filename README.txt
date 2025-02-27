@@ -2,10 +2,11 @@ MuntsOS Embedded Linux
 
 MuntsOS is a ferociously reduced Linux distribution for embedded
 systems. It runs on several microcomputer boards, including all 64-bit
-Raspberry Pi boards. MuntsOS delivers a turnkey RAM resident Linux
-operating system. With MuntsOS installed, such microcomputers can
-treated as components, as Linux microcontrollers, and integrated into
-other projects just like traditional single chip microcontrollers.
+Raspberry Pi models, providing a turnkey RAM resident Linux operating
+system. With MuntsOS installed, a small and low cost Linux microcomputer
+becomes a Linux microcontroller, and can be integrated into an embedded
+system just like a single chip microcontroller but coming with a much,
+much richer development ecosystem.
 
 Other embedded system Linux distributions such as Buildroot or Yocto
 Linux are very cumbersome and have very steep learning curves. If you
@@ -272,9 +273,12 @@ factory automation network and worthless for any other purpose), and a
 CC1352P7 wireless microcontroller capable of supporting a wide variety
 of radio networks.
 
-For MuntsOS, the BeaglePlay device tree has been modified to turn the
-five user LED's off by default, and to make the user button a GPIO input
-instead of a keyboard key.
+USB Gadgets
+
+You will need to edit /boot/config.txt to enable USB Gadget mode. Change
+the OPTIONS word to 0x132C for a USB HID gadget, 0x032E for a USB
+Ethernet gadget, or 0x03AC for a USB serial port gadget. See Application
+Note #10 for more information about the OPTIONS word.
 
 Orange Pi Zero 2W
 
