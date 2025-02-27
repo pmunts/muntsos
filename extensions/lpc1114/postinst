@@ -2,7 +2,7 @@
 
 # Post-Install script for LPC1114 I/O Processor
 
-# Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2016-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -60,12 +60,19 @@ if [ $? -ne 0 ]; then
   echo "spiagent-linx 8086/tcp" >>/etc/services
 fi
 
-grep -q 'spiagent-remoteio' /etc/services
+grep -q 'spiagent-remoteio-udp' /etc/services
 if [ $? -ne 0 ]; then
   sed -i '/8087\//d' /etc/services
   echo "" >>/etc/services
   echo "# LPC1114 I/O Processor Remote I/O service" >> /etc/services
-  echo "spiagent-remoteio 8087/udp" >>/etc/services
+  echo "spiagent-remoteio-udp 8087/udp" >>/etc/services
+fi
+grep -q 'spiagent-remoteio-zeromq' /etc/services
+if [ $? -ne 0 ]; then
+  sed -i '/8088\//d' /etc/services
+  echo "" >>/etc/services
+  echo "# LPC1114 I/O Processor Remote I/O service" >> /etc/services
+  echo "spiagent-remoteio-zeromq 8088/tcp" >>/etc/services
 fi
 
 # Install initial configuration file
