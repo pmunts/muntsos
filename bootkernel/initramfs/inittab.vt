@@ -1,6 +1,6 @@
 # /etc/inittab for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,6 +25,6 @@
 ::respawn:/sbin/getty 115200 tty2 vt100
 ::respawn:/sbin/getty 115200 tty3 vt100
 ::respawn:/sbin/getty 115200 tty4 vt100
-#::respawn:/sbin/getty -h -L 115200 ttyS0 vt100
+#::respawn:/sbin/getty -L 115200 ttyS0 vt100
 ::restart:/sbin/init
 ::ctrlaltdel:/sbin/reboot

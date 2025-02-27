@@ -1,6 +1,6 @@
 # /etc/inittab for an embedded Linux system with a serial console
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,5 +21,5 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 ::sysinit:/etc/rc
-::respawn:/sbin/getty -h -L 115200 ttyS0 vt100
+::respawn:/sbin/getty -L 115200 ttyS0 vt100
 ::restart:/sbin/init
