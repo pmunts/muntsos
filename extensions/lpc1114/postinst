@@ -68,6 +68,18 @@ if [ $? -ne 0 ]; then
   echo "spiagent-remoteio 8087/udp" >>/etc/services
 fi
 
+# Install initial configuration file
+
+ETC=/usr/local/etc
+SHARE=/usr/local/share/lpc1114
+CFG=expansion_lpc1114.config
+
+if [ ! -f ${ETC}/${CFG} ]; then
+  test -f ${SHARE}/${CFG}.${BOARDBASE}        && cp ${SHARE}/${CFG}.${BOARDBASE}    ${ETC}/${CFG}
+  echo ${BOARDNAME} | grep -q BeagleBoneGreen && cp ${SHARE}/${CFG}.BeagleBoneGreen ${ETC}/${CFG}
+  echo ${BOARDNAME} | grep -q RaspberryPi     && cp ${SHARE}/${CFG}.RaspberryPi     ${ETC}/${CFG}
+fi
+
 # Restore saved configuration file
 
 if [ -f /usr/local/etc/expansion_lpc1114.config.save ]; then

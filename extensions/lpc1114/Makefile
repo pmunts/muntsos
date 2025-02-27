@@ -154,12 +154,6 @@ $(PKGDIR): $(COMPONENTS)
 	mkdir -p										$@/usr/local/share/lpc1114
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/utils/lpc21isp/lpc21isp			$@/usr/local/bin
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-lib/clients/c/spi_agent_test	$@/usr/local/bin
-ifneq ($(findstring BeagleBone,$(BOARDNAME)),)
-	install -cm 0644 expansion_lpc1114.config.BeagleBoneGreen				$@/usr/local/etc/expansion_lpc1114.config
-endif
-ifneq ($(findstring RaspberryPi,$(BOARDNAME)),)
-	install -cm 0644 expansion_lpc1114.config.RaspberryPi					$@/usr/local/etc/expansion_lpc1114.config
-endif
 	install -cm 0755 $(LIBSLIBDIR)/libcurl.so.4						$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libsodium.so.26						$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libspiagent.so						$@/usr/local/lib
