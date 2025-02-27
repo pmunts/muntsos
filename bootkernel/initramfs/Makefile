@@ -767,7 +767,7 @@ ifeq ($(BOARDBASE), BeagleBone)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
 endif
 ifeq ($(BOARDNAME), BeaglePlay)
-	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr4#g' $@/etc/rc
+	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
 endif
 ifneq ($(findstring OrangePi, $(BOARDNAME)),)
 ifeq ($(KERNEL_BRANCH), 6.1)
