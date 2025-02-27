@@ -705,7 +705,7 @@ endif
 	install -cm 0444 host.conf				$@/etc
 	install -cm 0444 hosts					$@/etc
 	install -cm 0444 httpd.conf				$@/etc
-ifneq ($(findstring BeagleBone, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	install -cm 0444 inittab.serial				$@/etc/inittab
 else
 	install -cm 0444 inittab.vt				$@/etc/inittab
@@ -769,7 +769,7 @@ endif
 ifeq ($(BOARDNAME), BeaglePlay)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
 endif
-ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), OrangePiZero2W)
 ifeq ($(KERNEL_BRANCH), 6.1)
 	sed -i 's#@@USERLED@@#/sys/class/leds/green_led#g'	$@/etc/rc
 else
@@ -826,14 +826,14 @@ ifeq ($(findstring Gadget, $(BOARDNAME)),)
 	install -cm 0644 $(FIRMWARE_SRC)/rtlwifi/rtl8192cufw_TMSC.bin $@/lib/firmware/rtlwifi
 endif
 
-ifneq ($(findstring BeagleBone, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	# Firmware for the BeagleBone Black Wireless built-in WLAN interface
 	mkdir -p						$@/lib/firmware/ti-connectivity
 	install -cm 0644 $(FIRMWARE_SRC)/ti-connectivity/wl18xx-fw-4.bin $@/lib/firmware/ti-connectivity
 	install -cm 0644 wl18xx-conf.bin			$@/lib/firmware/ti-connectivity
 endif
 
-ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), OrangePiZero2W)
 	# Firmware for the Orange Pi Zero 2W Wireless built-in WLAN interface
 	mkdir -p										$@/lib/firmware
 	install -cm 0644 uwe5622/*								$@/lib/firmware
@@ -930,7 +930,7 @@ endif
 
 	cp -R -P -p $(LIBSSHAREDIR)/terminfo			$@/usr/share
 
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	install -cm 0444 pinmux.*Beagle*			$@/usr/share/sysconfig
 	install -cm 0444 overlays.*Beagle*			$@/usr/share/sysconfig
 endif
@@ -957,7 +957,7 @@ endif
 
 # Perform board dependent customizations
 
-ifneq ($(findstring Beagle, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), BeagleBone)
 	echo ""							>>$@/etc/mdev.conf
 	echo "# $(BOARDNAME) devices"				>>$@/etc/mdev.conf
 	echo "ttyS1           root:gpio 660"			>>$@/etc/mdev.conf
@@ -967,7 +967,8 @@ ifneq ($(findstring Beagle, $(BOARDNAME)),)
 	echo "ttyS5           root:gpio 660"			>>$@/etc/mdev.conf
 endif
 
-ifneq ($(findstring OrangePi, $(BOARDNAME)),)
+ifeq ($(BOARDBASE), OrangePiZero2W)
+
 	echo ""							>>$@/etc/mdev.conf
 	echo "# $(BOARDNAME) devices"				>>$@/etc/mdev.conf
 	echo "ttyS1           root:gpio 660"			>>$@/etc/mdev.conf
