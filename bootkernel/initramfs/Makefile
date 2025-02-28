@@ -833,6 +833,13 @@ ifeq ($(BOARDBASE), BeagleBone)
 	install -cm 0644 wl18xx-conf.bin			$@/lib/firmware/ti-connectivity
 endif
 
+ifeq ($(BOARDBASE), BeaglePlay)
+	# Firmware for the BeagleBone Black Wireless built-in WLAN interface
+	mkdir -p						$@/lib/firmware/ti-connectivity
+	install -cm 0644 $(FIRMWARE_SRC)/ti-connectivity/wl18xx-fw-4.bin $@/lib/firmware/ti-connectivity
+	install -cm 0644 wl18xx-conf.bin			$@/lib/firmware/ti-connectivity
+endif
+
 ifeq ($(BOARDBASE), OrangePiZero2W)
 	# Firmware for the Orange Pi Zero 2W Wireless built-in WLAN interface
 	mkdir -p										$@/lib/firmware
