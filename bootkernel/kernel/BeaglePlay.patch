@@ -1,5 +1,5 @@
 --- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-05 10:47:52.000000000 -0800
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-27 10:36:06.286424837 -0800
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-27 16:27:13.946355725 -0800
 @@ -35,9 +35,10 @@
  		mmc2 = &sdhci2;
  		rtc0 = &rtc;
@@ -141,7 +141,7 @@
 +		>;
 +	};
 +
-+	// Configure Grove socket as UART.  Invoked by grove-serial/.dtbo.
++	// Configure Grove socket as UART.  Invoked by grove-serial.dtbo.
 +
 +	grove_uart_pins: grove-uart-pins {
 +		pinctrl-single,pins = <
