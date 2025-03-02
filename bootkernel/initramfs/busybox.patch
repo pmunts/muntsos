@@ -1,3 +1,15 @@
+--- ./loginutils/getty.c.orig	2023-01-03 06:14:43.000000000 -0800
++++ ./loginutils/getty.c	2025-03-02 15:15:41.256517228 -0800
+@@ -467,6 +467,9 @@
+ 	usleep(100*1000); /* 0.1 sec */
+ 	tcflush(STDIN_FILENO, TCIFLUSH);
+ 
++	G.tty_attrs.c_lflag = 0;
++	set_tty_attrs();
++
+ 	/* Prompt for and read a login name */
+ 	do {
+ 		/* Write issue file and prompt */
 --- mailutils/sendmail.c.orig	2021-12-26 08:53:21.000000000 -0800
 +++ mailutils/sendmail.c	2022-09-07 16:47:04.178417356 -0700
 @@ -225,6 +225,7 @@
