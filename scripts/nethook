@@ -1,0 +1,3 @@
+# Copy this script to /usr/local/etc/nethook
+
+echo $INTERFACE | grep -q wlan && iw dev $INTERFACE set power_save off
