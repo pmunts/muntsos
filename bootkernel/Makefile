@@ -97,6 +97,7 @@ rebuild:
 	rm -f $(KERNEL_WORK)/config.done
 	rm -rf $(KERNEL_WORK)/dtbs
 	rm -f $(KERNEL_WORK)/dtbs.done
+	rm -rf initramfs/busy*/skeleton
 	rm -rf initramfs/initramfs.*
 	rm -f $(KERNEL_WORK)/initramfs.done
 	rm -rf $(KERNEL_WORK)/modules
