@@ -42,6 +42,6 @@ kernel_mk_default: default
 $(KERNEL_DIST):
 	if [ ! -d $(KERNEL_CLONE) ]; then git clone --depth 1 $(KERNEL_REPO) -b $(KERNEL_TREEISH) $(KERNEL_CLONE) ; fi
 	cd $(KERNEL_CLONE) ; git archive --output=$(KERNEL_DIST) --prefix=$(KERNEL_NAME)/ $(KERNEL_TREEISH)
-	cd $(KERNEL_CLONE) ; git show $(KERNEL_TREEISH) | head -n 1 | awk '{ print $$2 }' >$(KERNEL_COMMIT)
+	cd $(KERNEL_CLONE) ; git show @ | head -n 1 | awk '{ print $$2 }' >$(KERNEL_COMMIT)
 	if [ "$(shell dirname $(KERNEL_CLONE))" = "$(TEMP)/muntsos" ]; then rm -rf $(KERNEL_CLONE) ; fi
 	touch $@
