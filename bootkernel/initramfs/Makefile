@@ -695,9 +695,13 @@ endif
 # Install files to /etc
 
 	echo "publisher=`whoami`@`hostname`"			>$@/etc/publisher
+	echo "timestamp=`date`"					>>$@/etc/publisher
 	echo "revision=$(REVISION)"				>>$@/etc/publisher
 	echo "compiler=`$(CROSS_COMPILE)gcc --version | head -n 1`" >>$@/etc/publisher
-	echo "timestamp=`date`"					>>$@/etc/publisher
+	echo "kernelrepo=$(KERNEL_REPO)"			>>$@/etc/publisher
+	echo "kernelbranch=$(KERNEL_BRANCH)"			>>$@/etc/publisher
+	echo "kerneltreeish=$(KERNEL_TREEISH)"			>>$@/etc/publisher
+	echo "kernelcommit=$(shell cat $(KERNEL_COMMIT))"	>>$@/etc/publisher
 	install -cm 0444 environment				$@/etc
 	install -cm 0444 fstab					$@/etc
 	install -cm 0444 group					$@/etc
@@ -754,14 +758,9 @@ endif
 	install -cm 0444 profile				$@/etc
 	install -cm 0444 /etc/protocols				$@/etc
 	install -cm 0755 rc					$@/etc
+	sed -i 's/@@BOARDARCH@@/$(BOARDARCH)/g'			$@/etc/rc
 	sed -i 's/@@BOARDBASE@@/$(BOARDBASE)/g'			$@/etc/rc
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			$@/etc/rc
-	sed -i 's/@@BOARDARCH@@/$(BOARDARCH)/g'			$@/etc/rc
-	sed -i 's#@@KERNELREPO@@#$(KERNEL_REPO)#g'		$@/etc/rc
-	sed -i 's/@@KERNELBRANCH@@/$(KERNEL_BRANCH)/g'		$@/etc/rc
-	sed -i 's/@@KERNELCOMMIT@@/$(shell cat $(KERNEL_COMMIT))/g' $@/etc/rc
-	sed -i 's/@@REVISION@@/$(REVISION)/g'			$@/etc/rc
-	sed -i 's/@@TOOLCHAINBUILDER@@/$(TOOLCHAIN_BUILDER)/g'	$@/etc/rc
 	sed -i 's/@@TOOLCHAINREVISION@@/$(TOOLCHAIN_REV)/g'	$@/etc/rc
 ifeq ($(BOARDBASE), BeagleBone)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc

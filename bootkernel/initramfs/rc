@@ -140,24 +140,18 @@ fi
 
 # Set platform identification environment variables
 
-export OSNAME=MuntsOS
+export BOARDARCH=@@BOARDARCH@@
 export BOARDBASE=@@BOARDBASE@@
 export BOARDNAME=${BOARDNAME:-@@BOARDNAME@@}
-export BOARDARCH=@@BOARDARCH@@
 
 # Create /etc/platform
 
-echo "OSNAME=${OSNAME}"				>/etc/platform
-echo "OSREVISION=@@REVISION@@"			>>/etc/platform
+echo "OSNAME=MuntsOS"				>/etc/platform
+echo "BOARDARCH=${BOARDARCH}"		>>/etc/platform
 echo "BOARDBASE=${BOARDBASE}"			>>/etc/platform
 echo "BOARDNAME=${BOARDNAME}"			>>/etc/platform
-echo "BOARDARCH=${BOARDARCH}"		>>/etc/platform
-echo "KERNELREPO=@@KERNELREPO@@"		>>/etc/platform
-echo "KERNELBRANCH=@@KERNELBRANCH@@"		>>/etc/platform
-echo "KERNELCOMMIT=@@KERNELCOMMIT@@"		>>/etc/platform
 echo "OPTIONS=${OPTIONS}"			>>/etc/platform
 echo "SERIALNUMBER=`serialnumber`"		>>/etc/platform
-echo "TOOLCHAINBUILDER=@@TOOLCHAINBUILDER@@"	>>/etc/platform
 echo "TOOLCHAINREVISION=@@TOOLCHAINREVISION@@"	>>/etc/platform
 
 if [ -n "${SHIELDNAME}" ]; then
