@@ -349,7 +349,9 @@ W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/), making
 it ideal for embedded system projects. It has a 1500 MHz Allwinner H618
 ARMv8 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and
 on-board Bluetooth and WiFi radios. It is available for sale on Amazon
-for $21.99 (1 GB RAM) to $33.99 (4 GB RAM).
+for $21.99 (1 GB RAM) to $33.99 (4 GB RAM). See [Application Note
+\#20](http://git.munts.com/muntsos/doc/AppNote20-OrangePiZero2W.pdf) for
+more information.
 
 The much larger RAM is a big advantage and I have been able to purchase
 as many as I want without limits when the Raspberry Pi Zero 2 W has been
