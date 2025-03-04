@@ -1,0 +1,15 @@
+// Disable 10/100/1000BASE-T Ethernet interface
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "beagle,am625-beagleplay";
+
+	fragment@0 {
+		target = <&cpsw_port1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+};
