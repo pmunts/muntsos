@@ -132,6 +132,7 @@ reallyclean: clean
 	$(MAKE) -C kernel reallyclean
 	rm -rf *.tgz *.downloaded
 	$(MAKE) -C $(MUNTSOS)/boot/BeagleBone/overlays clean
+	$(MAKE) -C $(MUNTSOS)/boot/BeaglePlay/overlays clean
 	$(MAKE) -C $(MUNTSOS)/boot/OrangePiZero2W/overlays clean
 	$(MAKE) -C $(MUNTSOS)/boot/RaspberryPi/overlays clean
 
