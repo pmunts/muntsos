@@ -144,7 +144,7 @@ News
 
 -   23 February 2025 -- Added initial support for the 64-bit BeaglePlay.
     Next up will probably be the 64-bit RISC-V VisionFive 2. I have
-    successfully built a GCC 14.2.0 riscv64 cross-toolchain for MuntsOS.
+    already built a GCC 14.2.0 riscv64 cross-toolchain for MuntsOS.
 
 Quick Setup Instructions for the Impatient
 
