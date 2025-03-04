@@ -303,8 +303,15 @@ fi
 
 # Load kernel modules for built-in wireless network interfaces
 
-grep -E -q -i "BeagleBone Black Wireless|BeagleBone Green Wireless|BeaglePlay" /proc/device-tree/model
+grep -E -q -i "BeagleBone Black Wireless|BeagleBone Green Wireless" /proc/device-tree/model
 if [ $? -eq 0 ]; then
+  modprobe wl18xx
+  modprobe wlcore_sdio
+  WaitForNetIF wlan0
+fi
+
+grep -E -q -i "BeaglePlay" /proc/device-tree/model
+if [ $? -eq 0 -a -d /sys/class/mmc_host/mmc2 ]; then
   modprobe wl18xx
   modprobe wlcore_sdio
   WaitForNetIF wlan0
