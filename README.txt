@@ -268,7 +268,7 @@ socket, and a Grove socket) instead of a general purpose expansion
 header. It has a Texas Instruments AM6254 ARMv8 Cortex-A53 quad core CPU
 and comes with 2 GB of RAM. The BeaglePlay has one USB-A receptacle for
 peripheral devices and one USB-C receptacle for power and tethering. It
-has a 10/100/1000BASE-T wired Ethernet interface, a 10Base-T1L single
+has a 10/100/1000BASE-T wired Ethernet interface, a 10BASE-T1L single
 pair Ethernet interface (intended for a factory automation network and
 worthless for any other purpose), and a CC1352P7 wireless
 microcontroller capable of supporting a wide variety of radio networks.

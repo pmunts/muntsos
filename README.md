@@ -322,7 +322,7 @@ ARMv8 Cortex-A53 quad core CPU and comes with 2 GB of RAM. The
 BeaglePlay has one USB-A receptacle for peripheral devices and one USB-C
 receptacle for power and tethering. It has a 10/100/1000BASE-T wired
 Ethernet interface, a
-[10Base-T1L](https://www.analog.com/en/resources/technical-articles/the-new-10base-t1l-standard.html)
+[10BASE-T1L](https://www.analog.com/en/resources/technical-articles/the-new-10base-t1l-standard.html)
 single pair Ethernet interface (intended for a factory automation
 network and worthless for any other purpose), and a
 [CC1352P7](https://www.ti.com/product/CC1352P) wireless microcontroller
