@@ -247,7 +247,7 @@ BEGIN
     gpio.Register(9,  BeaglePlay.SCK);  -- Conflicts with SPI
     gpio.Register(10, BeaglePlay.MISO); -- Conflicts with SPI
     gpio.Register(11, BeaglePlay.MOSI); -- Conflicts with SPI
-  
+
     gpio.Register(12, BeaglePlay.PWM);  -- Conflicts with PWM
     gpio.Register(13, BeaglePlay.INT);
     gpio.Register(14, BeaglePlay.RX);   -- Conflicts with UART
