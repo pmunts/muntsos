@@ -269,6 +269,8 @@ BEGIN
     -- PWM outputs
 
     pwm.Register(0, BeaglePlay.PWM_MIKROBUS);
+    pwm.Register(1, BeaglePlay.PWM_GROVE_D0);
+    pwm.Register(2, BeaglePlay.PWM_GROVE_D1);
 
     -- SPI devices
 
