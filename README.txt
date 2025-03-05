@@ -143,8 +143,11 @@ News
     and thin servers have been moved to the attic.
 
 -   23 February 2025 -- Added initial support for the 64-bit BeaglePlay.
-    Next up will probably be the 64-bit RISC-V VisionFive 2. I have
-    already built a GCC 14.2.0 riscv64 cross-toolchain for MuntsOS.
+    Next up will probably be the 64-bit VisionFive 2. I have already
+    built a GCC 14.2.0 riscv64 cross-toolchain for MuntsOS.
+
+-   4 March 2025 -- Support for the BeaglePlay is now done. See
+    Application Note #19 for more information.
 
 Quick Setup Instructions for the Impatient
 
