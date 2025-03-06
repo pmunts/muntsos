@@ -275,7 +275,11 @@ has a 10/100/1000BASE-T wired Ethernet interface, a 10BASE-T1L single
 pair Ethernet interface (intended for a factory automation network and
 worthless for any other purpose), and a CC1352P7 wireless
 microcontroller capable of supporting a wide variety of radio networks.
-See Application Note #19 for more information.
+
+The BeaglePlay has a couple of serious design defects: The AM6254 CPU
+hardware watchdog timers are unusable and the ADC102S051 A/D converter
+has only 10 bits resolution and lacks a Linux kernel driver. For more
+information, good and bad, see Application Note #19.
 
 USB Gadgets
 
