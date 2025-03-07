@@ -1,0 +1,11 @@
+--- alire_common.gpr.orig	2025-03-07 10:32:12.309408898 -0800
++++ alire_common.gpr	2025-03-07 10:32:55.109776015 -0800
+@@ -136,7 +136,7 @@
+       case Host_OS is
+          -- Link statically on Windows to avoid DLL dependencies
+          when "windows" => for Switches ("Ada") use ("-static");
+-         when others    => null;
++         when others    => for Switches ("Ada") use ("-static");
+       end case;
+    end Linker;
+ 
