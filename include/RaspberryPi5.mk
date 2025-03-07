@@ -38,6 +38,7 @@ KERNEL_DTB	+= broadcom/bcm2712-rpi-cm5l-cm4io
 KERNEL_DTB	+= broadcom/bcm2712-rpi-cm5l-cm5io
 KERNEL_OVL	+= overlay_map
 KERNEL_OVL	+= anyspi
+KERNEL_OVL	+= bcm2712d0
 KERNEL_OVL	+= disable-bt-pi5
 KERNEL_OVL	+= disable-wifi-pi5
 KERNEL_OVL	+= dwc2

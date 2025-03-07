@@ -24,6 +24,9 @@ dtparam=i2c_arm=on,i2c_arm_baudrate=100000
 dtparam=spi=on
 dtparam=uart0=on
 
+# Overlay for BCM2712d0
+#dtoverlay=bcm2712d0
+
 # Enable USB host mode (needed for some CM5 carrier boards)
 dtoverlay=dwc2,dr_mode=host
 
