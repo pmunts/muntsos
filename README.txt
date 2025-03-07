@@ -149,6 +149,10 @@ News
 -   4 March 2025 -- Support for the BeaglePlay is now done. See
     Application Note #19 for more information.
 
+-   6 March 2025 -- Finally got around to completing a couple of loose
+    ends for the Raspberry Pi CM5 on a CM5IO. This has proven to be a
+    very nice setup.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development

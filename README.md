@@ -179,6 +179,10 @@ News
     \#19](http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf) for
     more information.
 
+-   6 March 2025 -- Finally got around to completing a couple of loose
+    ends for the Raspberry Pi CM5 on a CM5IO. This has proven to be a
+    very nice setup.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
