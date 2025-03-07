@@ -49,7 +49,7 @@ WaitForFile()
   do
     test $((OPTIONS & 0x2000)) -ne 0 && echo "DEBUG: Wait for $2"
     test -n "$3" && sh -c "$3"
-    usleep 100000
+    read -rsn1 -t 0.1 && test $((OPTIONS & 0x2000)) -ne 0 && break
   done
 }
 
@@ -63,7 +63,7 @@ WaitForNetIF()
   do
     test $((OPTIONS & 0x2000)) -ne 0 && echo "DEBUG: Wait for $1"
     test -n "$3" && sh -c "$3"
-    usleep 100000
+    read -rsn1 -t 0.1 && test $((OPTIONS & 0x2000)) -ne 0 && break
 
     grep -q ${1}: /proc/net/dev
   done
@@ -366,6 +366,12 @@ if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
 fi
 
 grep -q -i "Raspberry Pi 5 Model B" /proc/device-tree/model
+if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
+  modprobe brcmfmac
+  WaitForNetIF wlan0
+fi
+
+grep -q -i "Raspberry Pi Compute Module 5" /proc/device-tree/model
 if [ $? -eq 0 -a -f /sys/bus/sdio/devices/mmc1:0001:1/vendor ]; then
   modprobe brcmfmac
   WaitForNetIF wlan0
