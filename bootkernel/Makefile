@@ -63,7 +63,7 @@ ifneq ($(wildcard $(MUNTSOS)/boot/$(BOARDBASE)/overlays),)
 	cd $(DESTDIR) && mv $(shell basename $(KERNEL_DTB)).dtb $(BOARDNAME).dtb
 	$(MAKE) -C $(MUNTSOS)/boot/$(BOARDBASE)/overlays DTC=$(KERNEL_DTC)
 	mkdir -p $(DESTDIR)/overlays
-	cp $(MUNTSOS)/boot/BeaglePlay/overlays/*.dtbo $(DESTDIR)/overlays
+	cp $(MUNTSOS)/boot/$(BOARDBASE)/overlays/*.dtbo $(DESTDIR)/overlays
 endif
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
