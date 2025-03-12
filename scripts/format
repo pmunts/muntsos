@@ -27,7 +27,7 @@ ShowUsage()
   echo ""
   echo "Format media for MuntsOS Embedded Linux"
   echo ""
-  echo "Usage: format <drive> <label>"
+  echo "Usage: format <drive> <label> [<start sector>]"
   echo ""
   echo "where <drive> is sdg etc."
   echo ""
@@ -36,7 +36,7 @@ ShowUsage()
 
 # Verify parameters
 
-if [ $# -lt 1 -o $# -gt 2 ]; then
+if [ $# -lt 2 -o $# -gt 3 ]; then
   ShowUsage
 fi
 
@@ -54,20 +54,16 @@ done
 
 # Nuke the drive
 
-dd if=/dev/zero of=${1} bs=512 count=10000 >/dev/null 2>&1
+dd if=/dev/zero of=${1} bs=512 count=100000 >/dev/null 2>&1
 partprobe
 sleep 1
 
 # Partition the drive
 
-echo "16,+,0x0C,*" | sfdisk -q -w always $1
+echo "${3:-16},+,0x0C,*" | sfdisk -q -w always $1
 partprobe
 sleep 1
 
 # Format the FAT32 filesystem
 
-if [ -n "$2" ]; then
-  mkfs.vfat -F 32 -n "`echo $2 | awk '{ print substr(toupper($1), 1, 11) }'`" ${1}1
-else
-  mkfs.vfat -F 32 ${1}1
-fi
+mkfs.vfat -F 32 -n "`echo $2 | awk '{ print substr(toupper($1), 1, 11) }'`" ${1}1
