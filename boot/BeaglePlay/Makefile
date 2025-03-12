@@ -1,4 +1,4 @@
-# Boot script for a BeaglePlay running MuntsOS Embedded Linux
+# Build boot files tarball for BeaglePlay
 
 # Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
@@ -20,39 +20,24 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Load kernel et al from micro-SD card
+default:
+	rm -rf			bootfiles.d
+	mkdir			bootfiles.d
+	cp uboot/release/*	bootfiles.d
+	$(MAKE) -C scripts
+	cp scripts/*.scr	bootfiles.d
+	cp scripts/README.boot	bootfiles.d
+	$(MAKE) -C scripts clean
+	cd bootfiles.d && find * -type f -exec md5sum -b {} ";" | LC_ALL=C sort -k 2 >bootfiles.md5
+	cd bootfiles.d && tar czf ../bootfiles.tgz * --owner=root --group=root --mode=ugo-w --sort=name
+	rm -rf			bootfiles.d
 
-mmc dev 1
+# Remove working files
 
-# Allocate some memory buffers
+clean:
+	$(MAKE) -C scripts clean
+	rm -rf bootfiles.d
 
-setexpr INBUF  $loadaddr + 0x000000
-setexpr DTB    $loadaddr + 0x100000
-setexpr KERNEL $loadaddr + 0x200000
+reallyclean: clean
 
-# Import some target settings from config.txt
-
-load mmc 1:1 $INBUF config.txt
-env import -t -r $INBUF ${filesize}
-
-# Load device tree
-
-load mmc 1:1 $DTB $boardname.dtb
-fdt addr $DTB
-fdt resize 65536
-
-# Load device tree overlays
-
-for OVL in ${OVERLAYS} ; do
-  load mmc 1:1 $INBUF overlays/${OVL}.dtbo
-  fdt apply $INBUF
-done
-
-# Load kernel files
-
-load mmc 1:1 $KERNEL $boardname.img
-
-# Boot the Linux kernel
-
-setenv bootargs $CMDLINE BOARDNAME=$boardname BOOTPART=mmcblk1p1
-booti $KERNEL - $DTB
+distclean: reallyclean

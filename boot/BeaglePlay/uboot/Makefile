@@ -27,7 +27,7 @@ BOARDNAME	?= BeaglePlay
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-default: tarball
+default: uboot
 
 ###############################################################################
 
@@ -129,20 +129,8 @@ $(UBOOT_BIN): $(BL31_BIN) $(OPTEE_BIN) $(FW_SRC) $(UBOOT_SRC)
 	$(MAKE) -C $(UBOOT_SRC) $(UBOOT_MAKEOPTS)
 	touch $@
 	cp $(UBOOT_BIN) release
-	cd release && md5sum -b * | grep -v u-boot.md5 >u-boot.md5
 
 uboot: $(UBOOT_BIN)
-
-###############################################################################
-
-tarball:
-	rm -rf			bootfiles.d
-	mkdir -p		bootfiles.d/u-boot
-	cp release/*		bootfiles.d/u-boot
-	$(MAKE) -C scripts
-	cp scripts/*.scr	bootfiles.d
-	cd bootfiles.d && find * -type f -exec md5sum -b {} ";" | LC_ALL=C sort -k 2 >bootfiles.md5
-	cd bootfiles.d && tar czf ../$(BOOTFILESTGZ) * --owner=root --group=root --mode=ugo-w --sort=name
 
 ###############################################################################
 
@@ -153,10 +141,8 @@ sources: $(BL31_SRC) $(OPTEE_SRC) $(FW_SRC) $(UBOOT_SRC)
 # Remove working files
 
 clean:
-	$(MAKE) -C scripts clean
-	rm -rf bootfiles.d
+	rm -rf *.scr *.src
 
 reallyclean: clean
-	rm -rf *.scr *.src
 
 distclean: reallyclean

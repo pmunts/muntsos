@@ -1,0 +1,56 @@
+# Boot script for a BeaglePlay running MuntsOS Embedded Linux
+
+# Copyright (C)2025, Philip Munts dba Munts Technologies.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+# Allocate some memory buffers
+
+setexpr INBUF  $loadaddr + 0x000000
+setexpr DTB    $loadaddr + 0x100000
+setexpr KERNEL $loadaddr + 0x200000
+
+# Import some target settings from config.txt
+
+mmc dev ${mmcdev}
+
+load mmc ${mmcdev}:1 $INBUF config.txt
+env import -t -r $INBUF ${filesize}
+
+# Load device tree
+
+load mmc ${mmcdev}:1 $DTB $boardname.dtb
+fdt addr $DTB
+fdt resize 65536
+
+# Load device tree overlays
+
+for OVL in ${OVERLAYS} ; do
+  load mmc ${mmcdev}:1 $INBUF overlays/${OVL}.dtbo
+  fdt apply $INBUF
+done
+
+# Load kernel
+
+load mmc ${mmcdev}:1 $KERNEL $boardname.img
+
+# Boot the Linux kernel
+
+setenv bootargs $CMDLINE BOARDNAME=$boardname BOOTPART=mmcblk${mmcdev}p1
+booti $KERNEL - $DTB

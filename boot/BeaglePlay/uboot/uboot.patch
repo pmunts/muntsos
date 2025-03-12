@@ -12,7 +12,7 @@
  	CFG_EXTRA_ENV_SETTINGS
  #endif
 +	"boardname=BeaglePlay\0" \
-+	"bootcmd=mmc dev 1 && load mmc 1:1 0x82000000 boot.scr && source 0x82000000\0" \
++	"bootcmd=gpio read button gpio@600000_18 && setexp mmcdev $button ^ 1 && mmc dev ${mmcdev} && load mmc ${mmcdev}:1 0x82000000 boot.scr && source 0x82000000\0" \
 +	"console=ttyS0,115200\0"
  #ifdef CONFIG_OF_SERIAL_BAUD
  	/* Padding for baudrate at the end when environment is writable */
