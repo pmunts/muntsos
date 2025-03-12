@@ -44,7 +44,9 @@ common_mk_populate:
 	mkdir -p					$(ZIPDIR)/packages
 	wget http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)/kernels/$(BOARDNAME)-Kernel.tgz
 	$(TAR) xzf $(BOARDNAME)-Kernel.tgz -C		$(ZIPDIR)
+ifneq ($(NOBOOTFILES), yes)
 	$(TAR) xzf $(BOOTFILESTGZ)  -C			$(ZIPDIR)
+endif
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	cp $(BOOTFILESDIR)/cmdline.txt.$(BOARDNAME)	$(ZIPDIR)/cmdline.txt
 endif
