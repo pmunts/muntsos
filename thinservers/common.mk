@@ -47,7 +47,7 @@ common_mk_populate:
 ifneq ($(NOBOOTFILES), yes)
 	$(TAR) xzf $(BOOTFILESTGZ)  -C			$(ZIPDIR)
 ifeq ($(BOARDNAME), BeaglePlay)
-	cp $(ZIPDIR)/boota.scr				$(ZIPDIR)/boot.scr
+	cp $(ZIPDIR)/boot1.scr				$(ZIPDIR)/boot.scr
 endif
 endif
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
