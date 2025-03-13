@@ -174,14 +174,14 @@ News
     2](https://www.waveshare.com/wiki/VisionFive2). I have already built
     a GCC 14.2.0 **`riscv64`** cross-toolchain for **MuntsOS**.
 
--   4 March 2025 -- Support for the BeaglePlay is now done. See
-    [Application Note
-    \#19](http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf) for
-    more information.
-
 -   6 March 2025 -- Finally got around to completing a couple of loose
     ends for the Raspberry Pi CM5 on a CM5IO. This has proven to be a
     very nice setup.
+
+-   13 March 2025 -- Support for the BeaglePlay is now done. See
+    [Application Note
+    \#19](http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf) for
+    important information.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
@@ -335,14 +335,14 @@ Ethernet interface, a
 single pair Ethernet interface (intended for a factory automation
 network and worthless for any other purpose), and a
 [CC1352P7](https://www.ti.com/product/CC1352P) wireless microcontroller
-capable of supporting a wide variety of radio networks.
+capable of supporting a wide variety of radio networks. For more
+information read the target platform notes in [Application Note
+\#19](http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf).
 
 The BeaglePlay has a couple of serious design defects: The AM6254 CPU
 hardware watchdog timers are unusable and the
 [ADC102S051](https://www.ti.com/product/ADC102S051) A/D converter has
-only 10 bits resolution and lacks a Linux kernel driver. For more
-information, good and bad, see [Application Note
-\#19](http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf).
+only 10 bit resolution and lacks a Linux kernel driver.
 
 ##### USB Gadgets
 

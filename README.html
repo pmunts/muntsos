@@ -167,13 +167,13 @@ built a GCC 14.2.0 <b><tt>riscv64</tt></b> cross-toolchain for
 <b>MuntsOS</b>.</p>
 </li>
 <li>
-<p>4 March 2025 -- Support for the BeaglePlay is now done. See <a href=
-"http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf">Application Note
-#19</a> for more information.</p>
-</li>
-<li>
 <p>6 March 2025 -- Finally got around to completing a couple of loose ends for
 the Raspberry Pi CM5 on a CM5IO. This has proven to be a very nice setup.</p>
+</li>
+<li>
+<p>13 March 2025 -- Support for the BeaglePlay is now done. See <a href=
+"http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf">Application Note
+#19</a> for important information.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
@@ -297,14 +297,14 @@ tethering. It has a 10/100/1000BASE-T wired Ethernet interface, a <a href=
 10BASE-T1L</a> single pair Ethernet interface (intended for a factory
 automation network and worthless for any other purpose), and a <a href=
 "https://www.ti.com/product/CC1352P">CC1352P7</a> wireless microcontroller
-capable of supporting a wide variety of radio networks.</p>
+capable of supporting a wide variety of radio networks. For more information
+read the target platform notes in <a href=
+"http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf">Application Note
+#19</a>.</p>
 <p>The BeaglePlay has a couple of serious design defects: The AM6254 CPU
 hardware watchdog timers are unusable and the <a href=
 "https://www.ti.com/product/ADC102S051">ADC102S051</a> A/D converter has only
-10 bits resolution and lacks a Linux kernel driver. For more information, good
-and bad, see <a href=
-"http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf">Application Note
-#19</a>.</p>
+10 bit resolution and lacks a Linux kernel driver.</p>
 <h5>USB Gadgets</h5>
 <p>You will need to edit <b><tt>/boot/config.txt</tt></b> to enable USB Gadget
 mode. Change the <b><tt>OPTIONS</tt></b> word to <b><tt>0x132C</tt></b> for a
