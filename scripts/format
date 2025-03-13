@@ -54,13 +54,13 @@ done
 
 # Nuke the drive
 
-dd if=/dev/zero of=${1} bs=512 count=100000 >/dev/null 2>&1
+dd if=/dev/zero of=${1} bs=512 count=10000 >/dev/null 2>&1
 partprobe
 sleep 1
 
 # Partition the drive
 
-echo "${3:-16},+,0x0C,*" | sfdisk -q -w always $1
+echo "${3:-2048},+,0x0C,*" | sfdisk -q -w always $1
 partprobe
 sleep 1
 
