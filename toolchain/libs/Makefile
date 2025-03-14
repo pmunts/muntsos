@@ -916,6 +916,8 @@ UTILLINUX_CONFIG_FLAGS += --enable-libfdisk --enable-libsmartcols
 UTILLINUX_CONFIG_FLAGS += --enable-fdisks
 UTILLINUX_CONFIG_FLAGS += --enable-static --enable-shared
 UTILLINUX_CONFIG_FLAGS += CC=$(CROSS_COMPILE)gcc
+UTILLINUX_CONFIG_FLAGS += CFLAGS="-I$(DESTDIR)/$(INSTALLDIR)/include"
+UTILLINUX_CONFIG_FLAGS += LDFLAGS="-L$(DESTDIR)/$(INSTALLDIR)/lib"
 
 $(INSTALLDIR)/lib/libuuid.a: $(UTILLINUX_SRC)
 	cd $(UTILLINUX_SRC) ; ./configure $(UTILLINUX_CONFIG_FLAGS)
@@ -1127,6 +1129,10 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo "**** libffi:"				>>$@
 	@echo ""					>>$@
 	@cat $(LIBFFI_SRC)/LICENSE			>>$@
+	@echo ""					>>$@
+	@echo "**** util-linux:"			>>$@
+	@cat $(UTILLINUX_SRC)/README.licensing		>>$@
+	@cat $(UTILLINUX_SRC)/COPYING			>>$@
 	@echo ""					>>$@
 	@echo "**** libbz2:"				>>$@
 	@tail -n +3 $(BZIP2_SRC)/LICENSE | head -n -1	>>$@
