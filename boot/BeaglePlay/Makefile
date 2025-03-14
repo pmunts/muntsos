@@ -26,7 +26,6 @@ default:
 	cp uboot/release/*	bootfiles.d
 	$(MAKE) -C scripts
 	cp scripts/*.scr	bootfiles.d
-	cp scripts/README.boot	bootfiles.d
 	$(MAKE) -C scripts clean
 	cd bootfiles.d && find * -type f -exec md5sum -b {} ";" | LC_ALL=C sort -k 2 >bootfiles.md5
 	cd bootfiles.d && tar czf ../bootfiles.tgz * --owner=root --group=root --mode=ugo-w --sort=name
