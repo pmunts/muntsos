@@ -38,6 +38,7 @@ LIBSETCDIR	= $(GCCSYSROOT)/usr/etc
 LIBSINCDIR	= $(GCCSYSROOT)/usr/include
 LIBSLIBDIR	= $(GCCSYSROOT)/usr/lib
 LIBSPKGCONFIG	= $(GCCSYSROOT)/usr/lib/pkgconfig
+LIBSSBINDIR	= $(GCCSYSROOT)/usr/sbin
 LIBSSHAREDIR	= $(GCCSYSROOT)/usr/share
 
 GCCVER		= $(shell $(CROSS_COMPILE)gcc --version | awk '/gcc/ { print $$4 }')
