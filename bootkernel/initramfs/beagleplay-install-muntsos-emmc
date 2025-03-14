@@ -1,0 +1,53 @@
+# Install MuntsOS Embedded Linux to eMMC
+
+# Copyright (C)2025, Philip Munts dba Munts Technologies.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+# Install tiboot3.bin to eMMC boot partition
+
+mount /boot
+echo 0 > /sys/block/mmcblk0boot0/force_ro
+dd if=/dev/zero of=/dev/mmcblk0boot0 bs=512 count=4096
+dd if=/boot/tiboot3.bin of=/dev/mmcblk0boot0
+echo 1 > /sys/block/mmcblk0boot0/force_ro
+
+# Nuke any existing eMMC data partitions
+
+dd if=/dev/zero of=/dev/mmcblk0 bs=512 count=10000 >/dev/null 2>&1
+partprobe
+sleep 1
+
+# Partition the eMMC
+
+echo "2048,+,0x0C,*" | sfdisk -q -w always /dev/mmcblk0
+partprobe
+sleep 1
+
+# Format the eMMC data partition
+
+mkdosfs -F 32 -n BOOT /dev/mmcblk0p1
+
+# Install MuntsOS to eMMC data partition
+
+mount /dev/mmcblk0p1 /mnt
+cp -r -p /boot/*     /mnt
+cp -p /mnt/boot0.scr /mnt/boot.scr
+umount /boot
+umount /mnt

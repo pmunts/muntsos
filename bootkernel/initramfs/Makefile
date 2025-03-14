@@ -927,6 +927,10 @@ endif
 	install -cm 0755 netstart.script			$@/usr/libexec
 	install -cm 0755 netstop.script				$@/usr/libexec
 	install -cm 0755 udhcpc.script				$@/usr/libexec
+ifeq ($(BOARDNAME), BeaglePlay)
+	install -cm 0755 beagleplay-install-muntsos-emmc	$@/usr/libexec/install-muntsos-emmc
+	install -cm 0755 beagleplay-install-uboot-emmc		$@/usr/libexec/install-uboot-emmc
+endif
 	mkdir -p						$@/usr/libexec/services/ttyGS0
 	echo "#!/bin/sh" >					$@/usr/libexec/services/ttyGS0/run
 	echo "exec /sbin/getty -h -L ttyGS0 115200 vt100" >>	$@/usr/libexec/services/ttyGS0/run
