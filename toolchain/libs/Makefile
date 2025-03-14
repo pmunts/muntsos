@@ -266,7 +266,7 @@ SUBORDINATES	+= rabbitmq
 SUBORDINATES	+= zeromq
 SUBORDINATES	+= modbus
 SUBORDINATES	+= libffi
-SUBORDINATES	+= libuuid
+SUBORDINATES	+= util-linux
 SUBORDINATES	+= libbz2
 SUBORDINATES	+= liblzma
 SUBORDINATES	+= libcap
@@ -388,6 +388,7 @@ $(INSTALLDIR)/lib/libncurses.a: $(NCURSES_SRC)
 	# Relocate include files--Can't seem to configure ncurses6 to do this
 	sed -i 's@ncursesw/@@g' $(INSTALLDIR)/include/ncursesw/*
 	mv $(INSTALLDIR)/include/ncursesw/* $(INSTALLDIR)/include
+	ln -s libncursesw.a                 $(INSTALLDIR)/lib/libtinfo.a
 	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so
 	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so.6
 	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so.$(NCURSES_VER)
@@ -905,12 +906,14 @@ $(UTILLINUX_DIST):
 $(UTILLINUX_SRC): $(UTILLINUX_DIST)
 	tar xzf $(UTILLINUX_DIST)
 
-# Build libuuid
+# Build util-linux
 
 UTILLINUX_CONFIG_FLAGS += $(BUILDOS) $(TARGETOS)
 UTILLINUX_CONFIG_FLAGS += --prefix=/$(INSTALLDIR)
 UTILLINUX_CONFIG_FLAGS += --disable-all-programs --disable-bash-completion
 UTILLINUX_CONFIG_FLAGS += --enable-libuuid --enable-uuidgen
+UTILLINUX_CONFIG_FLAGS += --enable-libfdisk --enable-libsmartcols
+UTILLINUX_CONFIG_FLAGS += --enable-fdisks
 UTILLINUX_CONFIG_FLAGS += --enable-static --enable-shared
 UTILLINUX_CONFIG_FLAGS += CC=$(CROSS_COMPILE)gcc
 
@@ -919,7 +922,7 @@ $(INSTALLDIR)/lib/libuuid.a: $(UTILLINUX_SRC)
 	$(MAKE) -C $(UTILLINUX_SRC)
 	$(MAKE) -C $(UTILLINUX_SRC) install DESTDIR=$(DESTDIR)
 
-libuuid: $(INSTALLDIR)/lib/libuuid.a
+util-linux: $(INSTALLDIR)/lib/libuuid.a
 
 ###############################################################################
 
