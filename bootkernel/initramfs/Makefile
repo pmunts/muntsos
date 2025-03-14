@@ -679,6 +679,10 @@ endif
 
 	install -cm 0755 $(RPCBIND_SRC)/rpcinfo			$@/usr/sbin
 
+# Install sfdisk
+
+	install -cm 0755 $(LIBSSBINDIR)/sfdisk			$@/sbin
+
 # Install sysconfig
 
 	install -cm 0755 sysconfig				$@/usr/sbin
@@ -793,6 +797,7 @@ endif
 	install -cm 0755 $(LIBSLIBDIR)/libcrypt.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libcrypto.so.3 		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libdl.so.2		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libfdisk.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libgcc_s.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libm.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libmnl.so.0		$@/lib
@@ -805,10 +810,12 @@ endif
 	install -cm 0755 $(LIBSLIBDIR)/libpthread.so.0		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libresolv.so.2		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/librt.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libsmartcols.so.1	$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libssl.so.3		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libstdc++.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libtirpc.so.3		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libutil.so.1		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libuuid.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libz.so.1		$@/lib
 
 # Install firmware blobs to /lib/firmware
