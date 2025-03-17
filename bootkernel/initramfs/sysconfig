@@ -448,7 +448,7 @@ function Extensions {
   GetYesNo "Manage extensions"
   if [ $? -ne 0 ]; then return; fi
 
-  EXTENSIONSDIR=${EXTENSIONSDIR:-http://repo.munts.com/muntsos/${TOOLCHAINREVISION}/extensions}
+  EXTENSIONSDIR=${EXTENSIONSDIR:-https://repo.munts.com/muntsos/${TOOLCHAINREVISION}/extensions}
   echo "Fetching extensions from ${EXTENSIONSDIR}"
 
   wget -q -O /tmp/extensions.manifest ${EXTENSIONSDIR}/.extensions.manifest2.${BOARDARCH}

@@ -42,7 +42,7 @@ common_mk_populate:
 	mkdir -p					$(ZIPDIR)/autoexec.d
 	mkdir -p					$(ZIPDIR)/tarballs
 	mkdir -p					$(ZIPDIR)/packages
-	wget http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)/kernels/$(BOARDNAME)-Kernel.tgz
+	wget https://repo.munts.com/muntsos/$(TOOLCHAIN_REV)/kernels/$(BOARDNAME)-Kernel.tgz
 	$(TAR) xzf $(BOARDNAME)-Kernel.tgz -C		$(ZIPDIR)
 ifneq ($(NOBOOTFILES), yes)
 	$(TAR) xzf $(BOOTFILESTGZ)  -C			$(ZIPDIR)
@@ -55,8 +55,8 @@ ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 endif
 	cp $(BOOTFILESDIR)/config.txt.$(BOARDNAME)	$(ZIPDIR)/config.txt
 	cp $(MUNTSOS)/scripts/00-wlan-init		$(ZIPDIR)/autoexec.d
-	-for E in $(EXTENSIONS) ; do wget -P $(ZIPDIR)/packages   http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)/extensions/$$E-muntsos-$(BOARDARCH).deb ; done
-	-for E in $(EXTENSIONS) ; do wget -P $(ZIPDIR)/autoexec.d http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)/extensions/$$E-$(BOARDARCH) ; done
+	-for E in $(EXTENSIONS) ; do wget -P $(ZIPDIR)/packages   https://repo.munts.com/muntsos/$(TOOLCHAIN_REV)/extensions/$$E-muntsos-$(BOARDARCH).deb ; done
+	-for E in $(EXTENSIONS) ; do wget -P $(ZIPDIR)/autoexec.d https://repo.munts.com/muntsos/$(TOOLCHAIN_REV)/extensions/$$E-$(BOARDARCH) ; done
 	find $(ZIPDIR) -type f -exec chmod 644 {} ";"
 	find $(ZIPDIR)/autoexec.d -type f -exec chmod 755 {} ";"
 

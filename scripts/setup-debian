@@ -3,7 +3,7 @@
 # This script sets up a Debian Linux machine for developing applications for
 # MuntsOS Embedded Linux
 
-# Copyright (C)2019-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2019-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -40,12 +40,12 @@ fi
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
   if [ "${MACHINE}" = "x86_64" ]; then
     # 64-Bit Debian amd64
-    wget http://repo.munts.com/debian12/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget https://repo.munts.com/debian12/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 
   if [ "${MACHINE}" = "aarch64" ]; then
     # 64-Bit Debian arm64
-    wget http://repo.munts.com/debian12/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget https://repo.munts.com/debian12/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 fi
 

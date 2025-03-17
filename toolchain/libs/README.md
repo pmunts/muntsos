@@ -34,7 +34,7 @@ Build installation packages with either of:
 
 `make BOARDNAME=RaspberryPi1 tarball`
 
-Prebuilt toolchain packages are available at: <http://repo.munts.com>.
+Prebuilt toolchain packages are available at: <https://repo.munts.com>.
 
 ------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 # Global definitions for embedded Linux microcomputer framework
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -24,7 +24,7 @@
 
 TEMP		?= /tmp
 
-DOWNLOADPREFIX	?= http://repo.munts.com/muntsos/$(TOOLCHAIN_REV)
+DOWNLOADPREFIX	?= https://repo.munts.com/muntsos/$(TOOLCHAIN_REV)
 
 KERNEL_CLONE	= $(TEMP)/muntsos/$(KERNEL_NAME)
 KERNEL_DIST	= $(TEMP)/muntsos/$(KERNEL_NAME).tgz

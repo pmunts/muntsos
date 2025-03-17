@@ -31,7 +31,7 @@ Installation
    make BOARDNAME=RaspberryPi1 tarball
 
    Prebuilt toolchain packages are available at:
-   [14]http://repo.munts.com.
+   [14]https://repo.munts.com.
    _______________________________________________________________________
 
    Questions or comments to Philip Munts [15]phil@munts.net
@@ -51,5 +51,5 @@ References
   11. https://download.libsodium.org/doc
   12. http://zeromq.org/
   13. http://www.gnu.org/software/gdbm
-  14. http://repo.munts.com/
+  14. https://repo.munts.com/
   15. mailto:phil@munts.net

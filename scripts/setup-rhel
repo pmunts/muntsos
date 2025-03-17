@@ -3,7 +3,7 @@
 # This script sets up a RHEL Linux machine for developing applications for
 # MuntsOS Embedded Linux
 
-# Copyright (C)2023-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2023-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -43,7 +43,7 @@ echo ""
 echo "Download MuntsOS Embedded Linux cross-toolchain packages..."
 echo ""
 
-wget -q -r -np http://repo.munts.com/muntsos/toolchain-rpms/
+wget -q -r -np https://repo.munts.com/muntsos/toolchain-rpms/
 
 echo ""
 echo "Install MuntsOS Embedded Linux cross-toolchain packages..."
