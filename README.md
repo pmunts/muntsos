@@ -435,7 +435,7 @@ device trees.
 
 **MuntsOS** also offers a second, different Raspberry Pi 3 kernel with
 USB host support disabled and [USB
-Gadget](https://www.linux-usb.org/gadget) peripheral support enabled.
+Gadget](http://www.linux-usb.org/gadget) peripheral support enabled.
 This kernel only runs on 3 A+, Zero 2 W, and certain CM3 carrier boards
 which lack the USB hub present on Raspberry Pi 3 Model B and B+ boards.
 The single USB controller that is part of the BCM2710 CPU is wired
