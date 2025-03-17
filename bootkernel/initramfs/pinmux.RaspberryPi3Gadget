@@ -1,6 +1,6 @@
 # Raspberry Pi 3 GPIO Pin Configuration
 
-# Copyright (C)2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2024-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -15,14 +15,14 @@
 # LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
 # CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
 
-# See also http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf
+# See also https://repo.munts.com/muntsos/doc/AppNote12-pinctrl.pdf
 # SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
 # INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# See also http://git.munts.com/muntsos/doc/AppNote12-pinctrl.pdf
+# See also https://repo.munts.com/muntsos/doc/AppNote12-pinctrl.pdf
 
 # Syntax: Blank lines and comments are filtered and the remainder appended
 # to "pinctrl get " and executed as shell commands

@@ -2,7 +2,7 @@ WPF Client for the Dream Cheeky USB Missile Launcher ONC-RPC Server
 
 Original works herein are copyrighted as follows:
 
-Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
+Copyright (C)2016-2025, Philip Munts dba Munts Technologies.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -27,7 +27,7 @@ respective authors.
 
 Source code for this application is available at:
 
-http://git.munts.com/muntsos/extensions/Missile/clients/WPF
+https://github.com/pmunts/muntsos/extensions/Missile/clients/WPF
 
 Source code for the Remote Tea .NET ONC-RPC library is available at:
 

@@ -1,6 +1,6 @@
 Section: misc
 Priority: optional
-Homepage: http://git.munts.com/muntsos
+Homepage: https://github.com/pmunts/muntsos
 Standards-Version: 3.9.2
 
 Package: muntsos-dev

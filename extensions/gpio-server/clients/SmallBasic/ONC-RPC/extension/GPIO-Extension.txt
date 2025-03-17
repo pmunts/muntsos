@@ -4,10 +4,10 @@ This is a Microsoft Small Basic extension for communicating with
 a Munts OS GPIO Thin Server, using ONC RPC.  Visit the following
 pages for more information on the server:
 
-http://git.munts.com/muntsos/extensions/GPIO
-http://git.munts.com/muntsos/thinservers/GPIO
+https://github.com/pmunts/muntsos/extensions/GPIO
+https://github.com/pmunts/muntsos/thinservers/GPIO
 
-Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
+Copyright (C)2016-2025, Philip Munts dba Munts Technologies.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
