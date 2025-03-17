@@ -3,7 +3,7 @@
 
 **MuntsOS** is a *ferociously* reduced Linux distribution for **embedded
 systems**. It runs on several microcomputer boards, including all 64-bit
-[Raspberry Pi](https://www.raspberrypi.com/) models, providing a turnkey
+[Raspberry Pi](https://www.raspberrypi.com) models, providing a turnkey
 RAM resident Linux operating system. With **MuntsOS** installed, a small
 and low cost Linux microcomputer becomes a *Linux microcontroller*, and
 can be integrated into an embedded system just like a single chip
@@ -24,7 +24,7 @@ News
 
 -   17 December 2024 -- Moved all 32-bit target deliverables (toolchain
     packages, kernels, extensions, and thin servers) to
-    <http://repo.munts.com/muntsos/attic>. I did a final build of the
+    <https://repo.munts.com/muntsos/attic>. I did a final build of the
     32-bit target kernels with **`sysconfig`** modified to fetch
     extensions from the attic. I do not anticipate ever building the
     32-bit target kernels or thin servers again.
@@ -166,7 +166,7 @@ News
     have been rebuilt with the new GCC 14.2.0 toolchain. The previous
     GCC 13.2.0 cross-toolchain packages, extensions, kernels, and thin
     servers have been moved to the
-    [attic.](http://repo.munts.com/muntsos/attic)
+    [attic.](https://repo.munts.com/muntsos/attic)
 
 -   23 February 2025 -- Added initial support for the 64-bit
     [BeaglePlay](https://www.beagleboard.org/boards/beagleplay). Next up
@@ -180,8 +180,8 @@ News
 
 -   13 March 2025 -- Support for the BeaglePlay is now done. See
     [Application Note
-    \#19](http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf) for
-    important information.
+    \#19](https://repo.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf)
+    for important information.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
@@ -189,20 +189,20 @@ Quick Setup Instructions for the Impatient
 Instructions for installing the **MuntsOS** cross-toolchain development
 environment onto a development **host computer** are found in
 [Application Note
-\#1](http://git.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
+\#1](https://repo.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
 [Application Note
-\#2](http://git.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
+\#2](https://repo.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
 download and run one of the following quick setup scripts:
 
-[setup-debian](http://git.munts.com/muntsos/scripts/setup-debian)  
-[setup-fedora](http://git.munts.com/muntsos/scripts/setup-fedora)  
-[setup-rhel](http://git.munts.com/muntsos/scripts/setup-rhel)
+[setup-debian](https://repo.munts.com/muntsos/scripts/setup-debian)  
+[setup-fedora](https://repo.munts.com/muntsos/scripts/setup-fedora)  
+[setup-rhel](https://repo.munts.com/muntsos/scripts/setup-rhel)
 
 Instructions for installing **MuntsOS** to a **target computer** are
 found in [Application Note
-\#3](http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
+\#3](https://repo.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
 and [Application Note
-\#15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
+\#15](https://repo.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
 
 Documentation
 -------------
@@ -210,7 +210,7 @@ Documentation
 The documentation for **MuntsOS** (mostly application notes) is
 available online at:
 
-<http://git.munts.com/muntsos/doc>
+<https://repo.munts.com/muntsos/doc>
 
 Embedded Linux Distribution in a Kernel
 ---------------------------------------
@@ -224,7 +224,7 @@ shutdown. Just power off the microcomputer board whenever you want to.
 
 Each kernel release tarball contains a kernel image file (**`.img`**),
 which may be common to several different microcomputer boards, and one
-or more [device tree](http://elinux.org/Device_Tree_Reference) files
+or more [device tree](https://elinux.org/Device_Tree_Reference) files
 (**`.dtb`**) that are specific to particular microcomputer boards. Some
 kernel release tarballs also contain one or more device tree overlay
 files (**`.dtbo`**) that can make small changes to the device tree at
@@ -232,7 +232,7 @@ boot time.
 
 Prebuilt **MuntsOS** kernel release tarballs are available at:
 
-<http://repo.munts.com/muntsos/kernels>
+<https://repo.munts.com/muntsos/kernels>
 
 Extensions
 ----------
@@ -247,14 +247,10 @@ Typically you would use this mechanism for customized **`/etc/passwd`**,
 
 Secondly, if **`/boot/packages`** exists, any Debian package files
 (**`.deb`**) in it will be installed into the root file system. Note
-that packages from the [Debian](http://www.debian.org) project will
+that packages from the [Debian](https://www.debian.org) project will
 probably not work; they must be built specifically for **MuntsOS**. The
 startup script that installs **`.deb`** packages also installs
 **`.rpm`** and **`.nupkg`** packages.
-
-The [GPIO Server](http://git.munts.com/muntsos/extensions/gpio-server)
-extension package demonstrates how to build a Debian package that adds
-application specific software to **MuntsOS**.
 
 Thirdly, the system startup script **`/etc/rc`** can be configured via a
 kernel command line option to search for a subdirectory called
@@ -272,7 +268,7 @@ software can be built after the fact and installed as tarball files in
 
 Prebuilt **MuntsOS** extension packages are available at:
 
-<http://repo.munts.com/muntsos/extensions>
+<https://repo.munts.com/muntsos/extensions>
 
 Thin Servers
 ------------
@@ -306,15 +302,15 @@ boot partition on the SD card or on-board eMMC. The ROM boot loader in
 the CPU will ignore any partitions that are not marked as bootable.*
 
 **MuntsOS** Application Notes
-[3](http://git.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
+[3](https://repo.munts.com/muntsos/doc/AppNote3-Installation-from-Linux.pdf)
 and
-[15](http://git.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf)
+[15](https://repo.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf)
 contain more detailed instructions about how to install a **MuntsOS**
 Thin Server.
 
 Prebuilt **MuntsOS** Thin Servers are at available at:
 
-<http://repo.munts.com/muntsos/thinservers>
+<https://repo.munts.com/muntsos/thinservers>
 
 Boards
 ------
@@ -337,7 +333,7 @@ network and worthless for any other purpose), and a
 [CC1352P7](https://www.ti.com/product/CC1352P) wireless microcontroller
 capable of supporting a wide variety of radio networks. For more
 information read the target platform notes in [Application Note
-\#19](http://git.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf).
+\#19](https://repo.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf).
 
 The BeaglePlay has a couple of serious design defects: The AM6254 CPU
 hardware watchdog timers are unusable and the
@@ -350,7 +346,7 @@ You will need to edit **`/boot/config.txt`** to enable USB Gadget mode.
 Change the **`OPTIONS`** word to **`0x132C`** for a USB HID gadget,
 **`0x032E`** for a USB Ethernet gadget, or **`0x03AC`** for a USB serial
 port gadget. See [Application Note
-\#10](http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
+\#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.
 
 ### Orange Pi Zero 2W
@@ -359,13 +355,13 @@ The [Orange Pi Zero
 2W](http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W) is
 a small Linux microcomputer with a form factor very similiar to the
 [Raspberry Pi Zero 2
-W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/), making
+W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w), making
 it ideal for embedded system projects. It has a 1500 MHz Allwinner H618
 ARMv8 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and
 on-board Bluetooth and WiFi radios. It is available for sale on Amazon
 for $21.99 (1 GB RAM) to $33.99 (4 GB RAM). See [Application Note
-\#20](http://git.munts.com/muntsos/doc/AppNote20-OrangePiZero2W.pdf) for
-more information.
+\#20](https://repo.munts.com/muntsos/doc/AppNote20-OrangePiZero2W.pdf)
+for more information.
 
 The much larger RAM is a big advantage and I have been able to purchase
 as many as I want without limits when the Raspberry Pi Zero 2 W has been
@@ -379,12 +375,12 @@ You will need to edit **`/boot/config.txt`** to enable USB Gadget mode.
 Change the **`OPTIONS`** word to **`0x132C`** for a USB HID gadget,
 **`0x032E`** for a USB Ethernet gadget, or **`0x03AC`** for a USB serial
 port gadget. See [Application Note
-\#10](http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
+\#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.
 
 ### Raspberry Pi
 
-The [Raspberry Pi](http://www.raspberrypi.com) is a family of low cost
+The [Raspberry Pi](https://www.raspberrypi.com) is a family of low cost
 Linux microcomputers selling for USD $15 to $80, depending on model.
 There have been five generations of Raspberry Pi microcomputers, each
 using a successively more sophisticated Broadcom ARM core CPU. The first
@@ -439,7 +435,7 @@ device trees.
 
 **MuntsOS** also offers a second, different Raspberry Pi 3 kernel with
 USB host support disabled and [USB
-Gadget](http://www.linux-usb.org/gadget) peripheral support enabled.
+Gadget](https://www.linux-usb.org/gadget) peripheral support enabled.
 This kernel only runs on 3 A+, Zero 2 W, and certain CM3 carrier boards
 which lack the USB hub present on Raspberry Pi 3 Model B and B+ boards.
 The single USB controller that is part of the BCM2710 CPU is wired
@@ -450,7 +446,7 @@ The Raspberry Pi 3 USB Gadget kernel supports USB Ethernet, Raw HID, and
 Serial Port gadgets, selected by bits in the **`OPTIONS`** word passed
 on the kernel command line (as configured in **`/boot/cmdline.txt`**).
 See [Application Note
-\#10](http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
+\#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word. Raspberry Pi 3 USB Gadget Thin
 Servers have USB Network Gadget selected by default.
 
@@ -491,7 +487,7 @@ change the USB-C receptacle from USB host to USB peripheral. Then change
 the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x132C`** for a
 USB HID gadget, **`0x032E`** for a USB Ethernet gadget, or **`0x03AC`**
 for a USB serial port gadget. See [Application Note
-\#10](http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
+\#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.
 
 The Raspberry Pi 4 family consumes significantly more power than the
@@ -536,7 +532,7 @@ change the USB-C receptacle from USB host to USB peripheral. Then change
 the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x132C`** for a
 USB HID gadget, **`0x032E`** for a USB Ethernet gadget, or **`0x03AC`**
 for a USB serial port gadget. See [Application Note
-\#10](http://git.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
+\#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.
 
 The Raspberry Pi 5 family consumes even more power than the Raspberry Pi
@@ -559,13 +555,14 @@ Cross-toolchain packages built for [Debian](https://www.debian.org)
 Linux (x86-64 *and* ARM64) development host computers are available at
 either:
 
-<http://repo.munts.com/debian12> (Debian package repository)  
-<http://repo.munts.com/muntsos/toolchain-debs> (just the package files).
+<https://repo.munts.com/debian12> (Debian package repository)  
+<https://repo.munts.com/muntsos/toolchain-debs> (just the package
+files).
 
 x86-64 RPM packages containing the exact same binaries, and known to
 work on Fedora 40 and RHEL 9.1 and its derivatives, are available at:
 
-<http://repo.munts.com/muntsos/toolchain-rpms>
+<https://repo.munts.com/muntsos/toolchain-rpms>
 
 [Alire](https://alire.ada.dev) Crates
 -------------------------------------
@@ -575,7 +572,7 @@ work on Fedora 40 and RHEL 9.1 and its derivatives, are available at:
 Adding the **`muntsos_aarch64`** crate to an Alire Ada program project
 transforms said project into one that produces a cross-compiled AArch64
 program for **MuntsOS**. See [Application Note
-\#7](http://git.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
+\#7](https://repo.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf)
 for a complete example using the **`alr`** command line tool.
 
 **`muntsos_aarch64`** depends upon the Linux distribution meta-package
@@ -620,10 +617,10 @@ application project for **MuntsOS**.
     dotnet sln add myprogram.csproj
 
 See [Application Note
-\#8](http://git.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf) for a
-complete example using C\# to flash an LED. See also the [API
-specification](http://tech.munts.com/libsimpleio.dll) for
-**`libsimpleio.dll`**.
+\#8](https://repo.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf) for
+a complete example using C\# to flash an LED. See also the [API
+specification](https://repo.munts.com/libsimpleio/doc/libsimpleio.dll)
+for **`libsimpleio.dll`**.
 
 The combination of Visual Studio + NuGet + **`libsimpleio.dll`**
 delivers a very high productivity development environment for creating
@@ -650,7 +647,7 @@ File Repository
 Prebuilt binaries for **MuntsOS** (extensions, kernels, thin servers,
 and cross-toolchain packages) are available at:
 
-<http://repo.munts.com/muntsos>
+<https://repo.munts.com/muntsos>
 
 ------------------------------------------------------------------------
 

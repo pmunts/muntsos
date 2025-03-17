@@ -19,7 +19,7 @@ News
 
 -   17 December 2024 -- Moved all 32-bit target deliverables (toolchain
     packages, kernels, extensions, and thin servers) to
-    http://repo.munts.com/muntsos/attic. I did a final build of the
+    https://repo.munts.com/muntsos/attic. I did a final build of the
     32-bit target kernels with sysconfig modified to fetch extensions
     from the attic. I do not anticipate ever building the 32-bit target
     kernels or thin servers again.
@@ -172,7 +172,7 @@ Documentation
 The documentation for MuntsOS (mostly application notes) is available
 online at:
 
-http://git.munts.com/muntsos/doc
+https://repo.munts.com/muntsos/doc
 
 Embedded Linux Distribution in a Kernel
 
@@ -192,7 +192,7 @@ tree at boot time.
 
 Prebuilt MuntsOS kernel release tarballs are available at:
 
-http://repo.munts.com/muntsos/kernels
+https://repo.munts.com/muntsos/kernels
 
 Extensions
 
@@ -210,9 +210,6 @@ the Debian project will probably not work; they must be built
 specifically for MuntsOS. The startup script that installs .deb packages
 also installs .rpm and .nupkg packages.
 
-The GPIO Server extension package demonstrates how to build a Debian
-package that adds application specific software to MuntsOS.
-
 Thirdly, the system startup script /etc/rc can be configured via a
 kernel command line option to search for a subdirectory called
 autoexec.d in various places, such as SD card, USB flash drive, USB
@@ -228,7 +225,7 @@ or executable programs and scripts in /boot/autoexec.d.
 
 Prebuilt MuntsOS extension packages are available at:
 
-http://repo.munts.com/muntsos/extensions
+https://repo.munts.com/muntsos/extensions
 
 Thin Servers
 
@@ -263,7 +260,7 @@ about how to install a MuntsOS Thin Server.
 
 Prebuilt MuntsOS Thin Servers are at available at:
 
-http://repo.munts.com/muntsos/thinservers
+https://repo.munts.com/muntsos/thinservers
 
 Boards
 
@@ -468,13 +465,13 @@ cross-toolchain package.
 Cross-toolchain packages built for Debian Linux (x86-64 and ARM64)
 development host computers are available at either:
 
-http://repo.munts.com/debian12 (Debian package repository)
-http://repo.munts.com/muntsos/toolchain-debs (just the package files).
+https://repo.munts.com/debian12 (Debian package repository)
+https://repo.munts.com/muntsos/toolchain-debs (just the package files).
 
 x86-64 RPM packages containing the exact same binaries, and known to
 work on Fedora 40 and RHEL 9.1 and its derivatives, are available at:
 
-http://repo.munts.com/muntsos/toolchain-rpms
+https://repo.munts.com/muntsos/toolchain-rpms
 
 Alire Crates
 
@@ -545,7 +542,7 @@ File Repository
 Prebuilt binaries for MuntsOS (extensions, kernels, thin servers, and
 cross-toolchain packages) are available at:
 
-http://repo.munts.com/muntsos
+https://repo.munts.com/muntsos
 
 ------------------------------------------------------------------------
 
