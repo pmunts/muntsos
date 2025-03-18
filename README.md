@@ -183,6 +183,14 @@ News
     \#19](https://repo.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf)
     for important information.
 
+-   18 March 2025 -- Enabled encryption for **repo.munts.com** ([GitHub
+    issue \#2](https://github.com/pmunts/muntsos/issues/2)) which is now
+    accessible either without encryption at <http://repo.munts.com> or
+    with encryption at <https://repo.munts.com>. Document and script
+    hyperlinks that formerly referenced **git.munts.com** now reference
+    <https://repo.munts.com/muntsos> and **`sysconfig`** has switched
+    from **`wget`** to **`curl`**.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 

@@ -153,6 +153,13 @@ News
 -   13 March 2025 -- Support for the BeaglePlay is now done. See
     Application Note #19 for important information.
 
+-   18 March 2025 -- Enabled encryption for repo.munts.com (GitHub issue
+    #2) which is now accessible either without encryption at
+    http://repo.munts.com or with encryption at https://repo.munts.com.
+    Document and script hyperlinks that formerly referenced
+    git.munts.com now reference https://repo.munts.com/muntsos and
+    sysconfig has switched from wget to curl.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
