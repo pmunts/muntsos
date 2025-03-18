@@ -580,7 +580,7 @@ $(CURL_SRC): $(CURL_DIST)
 # Build curl
 
 $(INSTALLDIR)/lib/libcurl.a: $(CURL_SRC)
-	cd $(CURL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-openssl=$(DESTDIR)/$(INSTALLDIR) --with-zlib=$(DESTDIR)/$(INSTALLDIR) --without-brotli --without-libpsl CC=$(CROSS_COMPILE)gcc
+	cd $(CURL_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-ca-bundle=/etc/ssl/certs/ca-certificates.crt --with-openssl=$(DESTDIR)/$(INSTALLDIR) --with-zlib=$(DESTDIR)/$(INSTALLDIR) --without-brotli --without-libpsl CC=$(CROSS_COMPILE)gcc
 	$(MAKE) -C $(CURL_SRC)
 	$(MAKE) -C $(CURL_SRC) install DESTDIR=$(DESTDIR)
 	touch $@
