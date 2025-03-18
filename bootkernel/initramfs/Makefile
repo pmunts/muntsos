@@ -539,6 +539,7 @@ initramfs.d: COPYING
 	mkdir -p $@/dev/pts
 	mkdir -p $@/dev/shm
 	mkdir -p $@/etc/ssh
+	mkdir -p $@/etc/ssl/certs
 	mkdir -p $@/lib/modules
 	mkdir -p $@/mnt
 	mkdir -p $@/proc
@@ -577,6 +578,10 @@ initramfs.d: COPYING
 	cp -P -p $(BUSYBOX_SRC)/skeleton/usr/bin/*		$@/usr/bin
 	cp -P -p $(BUSYBOX_SRC)/skeleton/usr/sbin/*		$@/usr/sbin
 	ln -s sbin/init						$@/init
+
+# Install curl
+
+	install -cm 0755 $(LIBSBINDIR)/curl			$@/bin
 
 # Install config-pin
 
@@ -786,6 +791,7 @@ else
 	sed -i 's#@@USERLED@@#/sys/class/leds/ACT#g'		$@/etc/rc
 endif
 endif
+	install -cm 0444 ca-certificates.crt			$@/etc/ssl/certs
 	install -cm 0444 rpc					$@/etc
 	install -cm 0444 services				$@/etc
 	install -cm 0400 shadow					$@/etc
@@ -796,6 +802,7 @@ endif
 	install -cm 0755 $(LIBSLIBDIR)/libc.so.6		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libcrypt.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libcrypto.so.3 		$@/lib
+	install -cm 0755 $(LIBSLIBDIR)/libcurl.so.4		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libdl.so.2		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libfdisk.so.1		$@/lib
 	install -cm 0755 $(LIBSLIBDIR)/libgcc_s.so.1		$@/lib

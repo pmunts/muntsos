@@ -80,6 +80,7 @@ mkdir -p /boot/tarballs
 /etc/passwd
 /etc/shadow
 /etc/ssh
+/etc/ssl
 /root
 /usr/local/etc
 EOD
@@ -176,6 +177,7 @@ EOD
   sed -i '/\/usr\/local\/etc\/+*/d' /etc/changes.manifest
 
   chmod -R ugo-w /etc/ssh
+  chmod -R ugo-w /etc/ssl
   chmod -R ugo-w /usr/local/etc
 }
 
@@ -451,7 +453,8 @@ function Extensions {
   EXTENSIONSDIR=${EXTENSIONSDIR:-https://repo.munts.com/muntsos/${TOOLCHAINREVISION}/extensions}
   echo "Fetching extensions from ${EXTENSIONSDIR}"
 
-  wget -q -O /tmp/extensions.manifest ${EXTENSIONSDIR}/.extensions.manifest2.${BOARDARCH}
+  curl -s -o /tmp/extensions.manifest ${EXTENSIONSDIR}/.extensions.manifest2.${BOARDARCH}
+
   if [ $? -ne 0 ]; then
     echo "ERROR: Cannot download extensions manifest."
     return;
@@ -480,7 +483,7 @@ function Extensions {
       if [ "$OldSum" != "$NewSum" ]; then
         GetYesNo "Upgrade ${EName}"
         if [ $? -eq 0 ]; then
-          wget -O ${EFile}.new ${EURL}
+          curl -# -o ${EFile}.new ${EURL}
           if [ $? -eq 0 ]; then
             mv ${EFile}.new ${EFile}
           else
@@ -505,7 +508,7 @@ function Extensions {
     if [ ! -f ${EFile} ]; then
       GetYesNo "Install ${EName}"
       if [ $? -eq 0 ]; then
-        wget -O ${EFile}.new ${EURL}
+        curl -# -o ${EFile}.new ${EURL}
         if [ $? -eq 0 ]; then
           mv ${EFile}.new ${EFile}
         else
