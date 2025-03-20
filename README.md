@@ -351,8 +351,8 @@ only 10 bit resolution and lacks a Linux kernel driver.
 ##### USB Gadgets
 
 You will need to edit **`/boot/config.txt`** to enable USB Gadget mode.
-Change the **`OPTIONS`** word to **`0x132C`** for a USB HID gadget,
-**`0x032E`** for a USB Ethernet gadget, or **`0x03AC`** for a USB serial
+Change the **`OPTIONS`** word to **`0x172C`** for a USB HID gadget,
+**`0x072E`** for a USB Ethernet gadget, or **`0x03AC`** for a USB serial
 port gadget. See [Application Note
 \#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.
@@ -380,8 +380,8 @@ has not been maintained regularly and is currently at 6.1.31.
 ##### USB Gadgets
 
 You will need to edit **`/boot/config.txt`** to enable USB Gadget mode.
-Change the **`OPTIONS`** word to **`0x132C`** for a USB HID gadget,
-**`0x032E`** for a USB Ethernet gadget, or **`0x03AC`** for a USB serial
+Change the **`OPTIONS`** word to **`0x172C`** for a USB HID gadget,
+**`0x072E`** for a USB Ethernet gadget, or **`0x03AC`** for a USB serial
 port gadget. See [Application Note
 \#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.
@@ -492,8 +492,8 @@ You will need to edit some boot configuration files to enable USB Gadget
 mode. First, change **`dtoverlay=dwc2,dr_mode=host`** to
 **`dtoverlay=dwc2,dr_mode=peripheral`** in **`/boot/config.txt`** to
 change the USB-C receptacle from USB host to USB peripheral. Then change
-the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x132C`** for a
-USB HID gadget, **`0x032E`** for a USB Ethernet gadget, or **`0x03AC`**
+the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x172C`** for a
+USB HID gadget, **`0x072E`** for a USB Ethernet gadget, or **`0x03AC`**
 for a USB serial port gadget. See [Application Note
 \#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.
@@ -537,8 +537,8 @@ You will need to edit some boot configuration files to enable USB Gadget
 mode. First, change **`dtoverlay=dwc2,dr_mode=host`** to
 **`dtoverlay=dwc2,dr_mode=peripheral`** in **`/boot/config.txt`** to
 change the USB-C receptacle from USB host to USB peripheral. Then change
-the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x132C`** for a
-USB HID gadget, **`0x032E`** for a USB Ethernet gadget, or **`0x03AC`**
+the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x172C`** for a
+USB HID gadget, **`0x072E`** for a USB Ethernet gadget, or **`0x03AC`**
 for a USB serial port gadget. See [Application Note
 \#10](https://repo.munts.com/muntsos/doc/AppNote10-OPTIONS.pdf) for more
 information about the **`OPTIONS`** word.

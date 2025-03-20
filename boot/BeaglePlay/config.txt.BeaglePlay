@@ -1,3 +1,3 @@
 BOARDNAME=BeaglePlay
-CMDLINE=console=tty1 quiet OPTIONS=0x032C
+CMDLINE=console=tty1 quiet OPTIONS=0x072C
 OVERLAYS=
