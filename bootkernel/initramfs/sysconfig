@@ -106,6 +106,13 @@ EOD
     sed -i '/\/etc\/hostname/d' /etc/changes.manifest
   fi
 
+  if [ -f /etc/inetd.conf ]; then
+    echo /etc/inetd.conf >>/etc/changes.manifest
+    chmod 444 /etc/inetd.conf
+  else
+    sed -i '/\/etc\/inetd.conf/d' /etc/changes.manifest
+  fi
+
   if [ -f /etc/pinmux.conf ]; then
     echo /etc/pinmux.conf >>/etc/changes.manifest
     chmod 444 /etc/pinmux.conf
