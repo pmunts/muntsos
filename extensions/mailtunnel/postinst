@@ -1,0 +1,57 @@
+# Post install script for mailtunnel
+
+# Copyright (C)2025, Philip Munts dba Munts Technologies.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+# Create mailtunnel user
+
+adduser -h /home/mailtunnel -g "Mail Tunnel" -s /bin/sh -D -H -u 555 mailtunnel
+chown -R mailtunnel:mailtunnel /home/mailtunnel
+chmod -R ugo-w /home/mailtunnel
+
+# Add entry to inetd.conf
+
+test -f /etc/inetd.conf || touch /etc/inetd.conf
+
+grep -q 'Redirect port 25 to munts.net:25' /etc/inetd.conf
+
+if [ $? -ne 0 ]; then
+  cat <<EOD >>/etc/inetd.conf
+
+# Redirect port 25 to munts.net:25 
+127.0.0.1:25 stream tcp nowait mailtunnel /usr/bin/ssh -q -T munts.net
+EOD
+fi
+
+# Add entry to ssh_known_hosts
+
+test -f /etc/ssh/ssh_known_hosts || touch /etc/ssh_known_hosts
+
+grep -q 'munts.net' /etc/ssh/ssh_known_hosts
+
+if [ $? -ne 0 ]; then
+  cat <<EOD >>/etc/ssh/ssh_known_hosts
+  echo "@@SERVERKEY@@" >>/etc/ssh/ssh_known_hosts
+EOD
+fi
+
+# Save changes
+
+sysconfig --save
