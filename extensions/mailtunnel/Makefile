@@ -26,6 +26,7 @@ PKGARCH		:= all
 PKGDIR		:= $(PKGNAME)-muntsos-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
 
+MAILIDENT	?= id_rsa
 MAILUSER	?= $(PKGNAME)
 MAILSERVER	?= UNKNOWN
 
@@ -35,7 +36,7 @@ $(PKGFILE): $(PKGDIR)
 	fakeroot dpkg-deb --build $(PKGDIR)
 
 $(PKGDIR):
-	mkdir -p $(PKGDIR)/DEBIAN
+	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control		$(PKGDIR)/DEBIAN
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
@@ -43,10 +44,9 @@ $(PKGDIR):
 	install -cm 0755 postinst		$(PKGDIR)/DEBIAN
 	sed -i 's/@@MAILUSER@@/$(MAILUSER)/g'	$(PKGDIR)/DEBIAN/postinst
 	sed -i 's/@@MAILSERVER@@/$(MAILSERVER)/g' $(PKGDIR)/DEBIAN/postinst
-	mkdir -p 				$(PKGDIR)/home/$(MAILUSER)/.ssh
-	install -cm 0600 id_rsa			$(PKGDIR)/home/$(MAILUSER)/.ssh
-	install -cm 0644 id_rsa.pub		$(PKGDIR)/home/$(MAILUSER)/.ssh
-	install -cm 0644 known_hosts		$(PKGDIR)/home/$(MAILUSER)/.ssh
+	mkdir -p				$(PKGDIR)/etc
+	install -cm 0400 $(MAILIDENT)		$(PKGDIR)/etc/mailtunnel.id
+	install -cm 0400 known_hosts		$(PKGDIR)/etc/mailtunnel.hosts
 
 clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)

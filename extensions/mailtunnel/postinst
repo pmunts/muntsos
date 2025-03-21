@@ -18,29 +18,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Create user @@MAILUSER@@
-
-grep -q 'Mail Tunnel User' /etc/passwd
-
-if [ $? -ne 0 ]; then
-  adduser -h /home/@@MAILUSER@@ -g "Mail Tunnel User" -s /bin/sh -D -H -u 555 @@MAILUSER@@
-fi
-
 # Add entry to inetd.conf
 
 test -f /etc/inetd.conf || touch /etc/inetd.conf
 
-grep -q 'Redirect port 25 to @@MAILSERVER@@:25' /etc/inetd.conf
+grep -q 'Redirect localhost:25 to @@MAILSERVER@@:25' /etc/inetd.conf
 
 if [ $? -ne 0 ]; then
   cat <<EOD >>/etc/inetd.conf
-
-# Redirect port 25 to @@MAILSERVER@@:25 
-127.0.0.1:25 stream tcp nowait @@MAILUSER@@ /usr/bin/ssh -q -T @@MAILSERVER@@
+# Redirect localhost:25 to @@MAILSERVER@@:25 
+127.0.0.1:25 stream tcp nowait root /usr/bin/ssh -4 -i /etc/mailtunnel.id -o UserKnownHostsFile=/etc/mailtunnel.hosts -q -T @@MAILUSER@@@@@MAILSERVER@@
 EOD
 fi
-
-# Fixup ownership and permissions
-
-chown -R @@MAILUSER@@:@@MAILUSER@@ /home/@@MAILUSER@@
-chmod -R ugo-w /home/@@MAILUSER@@
