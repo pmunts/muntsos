@@ -1,5 +1,3 @@
-# Post install script for mailtunnel
-
 # Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -20,38 +18,29 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Create mailtunnel user
+# Create user @@MAILUSER@@
 
-adduser -h /home/mailtunnel -g "Mail Tunnel" -s /bin/sh -D -H -u 555 mailtunnel
-chown -R mailtunnel:mailtunnel /home/mailtunnel
-chmod -R ugo-w /home/mailtunnel
+grep -q 'Mail Tunnel User' /etc/passwd
+
+if [ $? -ne 0 ]; then
+  adduser -h /home/@@MAILUSER@@ -g "Mail Tunnel User" -s /bin/sh -D -H -u 555 @@MAILUSER@@
+fi
 
 # Add entry to inetd.conf
 
 test -f /etc/inetd.conf || touch /etc/inetd.conf
 
-grep -q 'Redirect port 25 to munts.net:25' /etc/inetd.conf
+grep -q 'Redirect port 25 to @@MAILSERVER@@:25' /etc/inetd.conf
 
 if [ $? -ne 0 ]; then
   cat <<EOD >>/etc/inetd.conf
 
-# Redirect port 25 to munts.net:25 
-127.0.0.1:25 stream tcp nowait mailtunnel /usr/bin/ssh -q -T munts.net
+# Redirect port 25 to @@MAILSERVER@@:25 
+127.0.0.1:25 stream tcp nowait @@MAILUSER@@ /usr/bin/ssh -q -T @@MAILSERVER@@
 EOD
 fi
 
-# Add entry to ssh_known_hosts
+# Fixup ownership and permissions
 
-test -f /etc/ssh/ssh_known_hosts || touch /etc/ssh_known_hosts
-
-grep -q 'munts.net' /etc/ssh/ssh_known_hosts
-
-if [ $? -ne 0 ]; then
-  cat <<EOD >>/etc/ssh/ssh_known_hosts
-  echo "@@SERVERKEY@@" >>/etc/ssh/ssh_known_hosts
-EOD
-fi
-
-# Save changes
-
-sysconfig --save
+chown -R @@MAILUSER@@:@@MAILUSER@@ /home/@@MAILUSER@@
+chmod -R ugo-w /home/@@MAILUSER@@

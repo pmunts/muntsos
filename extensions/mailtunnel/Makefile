@@ -1,4 +1,4 @@
-# Makefile for mailtunnel
+# Makefile for mailtunnel lightweight MTA extension package
 
 # Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
@@ -26,7 +26,8 @@ PKGARCH		:= all
 PKGDIR		:= $(PKGNAME)-muntsos-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
 
-SERVERKEY	:= $(shell cat ssh_known_hosts)
+MAILUSER	?= $(PKGNAME)
+MAILSERVER	?= UNKNOWN
 
 default: $(PKGFILE)
 
@@ -40,12 +41,12 @@ $(PKGDIR):
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g	$(PKGDIR)/DEBIAN/control
 	install -cm 0755 postinst		$(PKGDIR)/DEBIAN
-	sed -i 's/@@SERVERKEY@@/$(SERVERKEY)/g'	$(PKGDIR)/DEBIAN/postinst
-	mkdir -p 				$(PKGDIR)/home/mailtunnel/.ssh
-	install -cm 0600 id_rsa			$(PKGDIR)/home/mailtunnel/.ssh
-	install -cm 0644 id_rsa.pub		$(PKGDIR)/home/mailtunnel/.ssh
-	chmod 700				$(PKGDIR)/home/mailtunnel/.ssh
-	chmod 700				$(PKGDIR)/home/mailtunnel
+	sed -i 's/@@MAILUSER@@/$(MAILUSER)/g'	$(PKGDIR)/DEBIAN/postinst
+	sed -i 's/@@MAILSERVER@@/$(MAILSERVER)/g' $(PKGDIR)/DEBIAN/postinst
+	mkdir -p 				$(PKGDIR)/home/$(MAILUSER)/.ssh
+	install -cm 0600 id_rsa			$(PKGDIR)/home/$(MAILUSER)/.ssh
+	install -cm 0644 id_rsa.pub		$(PKGDIR)/home/$(MAILUSER)/.ssh
+	install -cm 0644 known_hosts		$(PKGDIR)/home/$(MAILUSER)/.ssh
 
 clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
