@@ -1036,8 +1036,8 @@ endif
 	chmod 444						$@/etc/mdev.conf
 	chmod 444						$@/etc/publisher
 	chmod 555						$@/etc/rc
-	chmod 500						$@/etc/ssh
-	chmod 700						$@/root/.ssh
+	chmod 555						$@/etc/ssh
+	chmod 500						$@/root/.ssh
 	chmod 1777						$@/tmp
 	chmod 400						$@/var/spool/cron/crontabs/root
 	chmod -R -w						$@/bin $@/lib $@/sbin $@/usr $@/www
