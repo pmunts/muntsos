@@ -191,6 +191,14 @@ News
     <https://repo.munts.com/muntsos> and **`sysconfig`** has switched
     from **`wget`** to **`curl`**.
 
+-   22 March 2025 -- Overhauled **MuntsOS** email support: Rewrote
+    [Application Note
+    \#16](https://repo.munts.com/muntsos/doc/AppNote16-Sending-Email.pdf),
+    upgraded the **`dma`** and **`emailrelay`** extension packages to
+    latest releases, and updated their configuration files for
+    authenticated SMTP relay. Added **`mailtunnel`**, an extension
+    package template.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
