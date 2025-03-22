@@ -45,9 +45,7 @@ mkdir -p /var/spool/dma
 
 if [ ! -f /usr/local/etc/dma/auth.conf ]; then
   cat <<EOD >/usr/local/etc/dma/auth.conf
-# SMTP authentication entries (currently AUTH LOGIN only)
-# Format: user|my.smarthost.example.com:password
-
+username|smarthost:password
 EOD
 fi
 
@@ -55,8 +53,12 @@ fi
 
 if [ ! -f /usr/local/etc/dma/dma.conf ]; then
   cat <<EOD >/usr/local/etc/dma/dma.conf
+SMARTHOST smarthost
+PORT 587
+AUTHPATH /usr/local/etc/dma/auth.conf
 SECURETRANSFER
 STARTTLS
+MASQUERADE username@domain
 EOD
 fi
 
