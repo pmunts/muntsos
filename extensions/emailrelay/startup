@@ -23,4 +23,4 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 mkdir -p /var/spool/emailrelay
-/usr/local/libexec/emailrelay /usr/local/etc/emailrelay.conf
+/usr/local/libexec/emailrelay /usr/local/etc/emailrelay/emailrelay.conf
