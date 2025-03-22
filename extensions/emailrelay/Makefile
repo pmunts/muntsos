@@ -1,6 +1,6 @@
 # Makefile for building the E-MailRelay package for MuntsOS
 
-# Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2020-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -30,7 +30,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 SRCNAME		= emailrelay
-SRCVER		= 2.5.2
+SRCVER		= 2.6
 SRCDIR		= $(SRCNAME)-$(SRCVER)
 SRCTARBALL	= $(SRCDIR)-src.tar.gz
 SRCSERVER	= https://sourceforge.net/projects/emailrelay/files/emailrelay/$(SRCVER)

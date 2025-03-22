@@ -2,7 +2,7 @@
 
 # Post-installation script for the E-MailRelay package for MuntsOS
 
-# Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -22,26 +22,26 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-mkdir -p /usr/local/etc/emailrelay
+mkdir -p /usr/local/etc
 
-# Create initial auth.conf, if necessary
+# Create initial emailrelay.auth, if necessary
 
-if [ ! -f /usr/local/etc/emailrelay/auth.conf ]; then
-  cat <<EOD >/usr/local/etc/emailrelay/auth.conf
-# Replace username and password with your credentials
+if [ ! -f /usr/local/etc/emailrelay.auth ]; then
+  cat <<EOD >/usr/local/etc/emailrelay.auth
 client plain username password
 EOD
-  chmod 400 /usr/local/etc/emailrelay/auth.conf
+  chmod 400 /usr/local/etc/emailrelay.auth
 fi
 
 # Create initial emailrelay.conf, if necessary
 
-if [ ! -f /usr/local/etc/emailrelay/emailrelay.conf ]; then
-  cat <<EOD >/usr/local/etc/emailrelay/emailrelay.conf
-AUTHFILE=/usr/local/etc/emailrelay/auth.conf
-SPOOLDIR=/var/spool/emailrelay
-# Replace servername and port with your SMTP smarthost server
-SMARTHOST=servername:port
+if [ ! -f /usr/local/etc/emailrelay.conf ]; then
+  cat <<EOD >/usr/local/etc/emailrelay.conf
+as-proxy servername:port
+client-auth /usr/local/etc/emailrelay.auth
+client-tls
+client-tls-required
+spool-dir /var/spool/emailrelay
 EOD
-  chmod 444 /usr/local/etc/emailrelay/emailrelay.conf
+  chmod 444 /usr/local/etc/emailrelay.conf
 fi
