@@ -32,6 +32,12 @@ MAILSERVER	?= UNKNOWN
 
 default: $(PKGFILE)
 
+id_rsa:
+	ssh-keygen -C "Mail Tunnel User" -t rsa -b 4096 -f id_rsa
+
+known_hosts:
+	ssh-keyscan $(MAILSERVER) >$@
+
 $(PKGFILE): $(PKGDIR)
 	fakeroot dpkg-deb --build $(PKGDIR)
 
@@ -52,5 +58,6 @@ clean:
 	-rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
+	rm -f $(MAILIDENT) $(MAILIDENT).pub known_hosts
 
 distclean: reallyclean
