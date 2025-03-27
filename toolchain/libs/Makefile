@@ -64,7 +64,7 @@ LIBGPIOD_URL	= $(LIBGPIOD_SERVER)/$(LIBGPIOD_TARBALL)
 LIBGPIOD_DIST	= $(DISTDIR)/$(LIBGPIOD_TARBALL)
 
 LIBUSB_NAME	= libusb
-LIBUSB_VER	= 1.0.27
+LIBUSB_VER	= 1.0.28
 LIBUSB_SRC	= $(LIBUSB_NAME)-$(LIBUSB_VER)
 LIBUSB_TARBALL	= $(LIBUSB_NAME)-$(LIBUSB_VER).tar.bz2
 LIBUSB_SERVER	= https://github.com/libusb/libusb/releases/download/v$(LIBUSB_VER)
@@ -80,7 +80,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(DISTDIR)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 3.4.0
+OPENSSL_VER	= 3.4.1
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -97,7 +97,7 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(DISTDIR)/$(ZLIB_TARBALL)
 
 ICU_NAME	= icu
-ICU_VER		= 76.1
+ICU_VER		= 77.1
 ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
 ICU_TARBALL	= icu4c-76_1-src.tgz
 ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-76-1
@@ -105,7 +105,7 @@ ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
 ICU_DIST	= $(DISTDIR)/$(ICU_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.11.0
+CURL_VER	= 8.12.1
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -120,11 +120,13 @@ TIRPC_SERVER	= http://sourceforge.net/projects/libtirpc/files/libtirpc
 TIRPC_URL	= $(TIRPC_SERVER)/$(TIRPC_VER)/$(TIRPC_TARBALL)
 TIRPC_DIST	= $(DISTDIR)/$(TIRPC_TARBALL)
 
-XMLRPC_C_NAME	= xmlrpc-c
-XMLRPC_C_SRC	= $(XMLRPC_C_NAME)
-XMLRPC_C_TARBALL = $(XMLRPC_C_NAME).tar.gz
-XMLRPC_C_URL	= http://svn.code.sf.net/p/xmlrpc-c/code/stable
-XMLRPC_C_DIST	= $(DISTDIR)/$(XMLRPC_C_TARBALL)
+XMLRPC_NAME	= xmlrpc-c
+XMLRPC_VER	= 1.60.04
+XMLRPC_SRC	= $(XMLRPC_NAME)-$(XMLRPC_VER)
+XMLRPC_TARBALL	= $(XMLRPC_NAME)-$(XMLRPC_VER).tgz
+XMLRPC_SERVER	= https://sourceforge.net/projects/xmlrpc-c/files/Xmlrpc-c%20Super%20Stable
+XMLRPC_URL	= $(XMLRPC_SERVER)/$(XMLRPC_VER)/$(XMLRPC_TARBALL)
+XMLRPC_DIST	= $(DISTDIR)/$(XMLRPC_TARBALL)
 
 LIBPCAP_NAME	= libpcap
 LIBPCAP_VER	= 1.10.5
@@ -154,7 +156,7 @@ LIBSODIUM_URL	= $(LIBSODIUM_SERVER)/$(LIBSODIUM_TARBALL)
 LIBSODIUM_DIST	= $(DISTDIR)/$(LIBSODIUM_TARBALL)
 
 LIBMYSQLCLIENT_NAME	= mariadb-connector-c
-LIBMYSQLCLIENT_VER	= 3.4.3
+LIBMYSQLCLIENT_VER	= 3.4.4
 LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src
 LIBMYSQLCLIENT_TARBALL	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src.tar.gz
 LIBMYSQLCLIENT_SERVER	= https://downloads.mariadb.com/Connectors/c/connector-c-$(LIBMYSQLCLIENT_VER)
@@ -162,7 +164,7 @@ LIBMYSQLCLIENT_URL	= $(LIBMYSQLCLIENT_SERVER)/$(LIBMYSQLCLIENT_TARBALL)
 LIBMYSQLCLIENT_DIST	= $(DISTDIR)/$(LIBMYSQLCLIENT_TARBALL)
 
 GDBM_NAME	= gdbm
-GDBM_VER	= 1.24
+GDBM_VER	= 1.25
 GDBM_SRC	= $(GDBM_NAME)-$(GDBM_VER)
 GDBM_TARBALL	= $(GDBM_NAME)-$(GDBM_VER).tar.gz
 GDBM_SERVER	= http://ftp.gnu.org/pub/gnu/gdbm
@@ -170,7 +172,7 @@ GDBM_URL	= $(GDBM_SERVER)/$(GDBM_TARBALL)
 GDBM_DIST	= $(DISTDIR)/$(GDBM_TARBALL)
 
 MQTT_NAME	= paho.mqtt.c
-MQTT_VER	= 1.3.13
+MQTT_VER	= 1.3.14
 MQTT_SRC	= $(MQTT_NAME)-$(MQTT_VER)
 MQTT_TARBALL	= v$(MQTT_VER).tar.gz
 MQTT_SERVER	= https://github.com/eclipse/paho.mqtt.c/archive
@@ -202,7 +204,7 @@ MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(DISTDIR)/$(MODBUS_TARBALL)
 
 LIBFFI_NAME	= libffi
-LIBFFI_VER	= 3.4.6
+LIBFFI_VER	= 3.4.7
 LIBFFI_SRC	= $(LIBFFI_NAME)-$(LIBFFI_VER)
 LIBFFI_TARBALL	= $(LIBFFI_NAME)-$(LIBFFI_VER).tar.gz
 LIBFFI_SERVER	= https://github.com/libffi/libffi/releases/download/v$(LIBFFI_VER)
@@ -210,10 +212,10 @@ LIBFFI_URL	= $(LIBFFI_SERVER)/$(LIBFFI_TARBALL)
 LIBFFI_DIST	= $(DISTDIR)/$(LIBFFI_TARBALL)
 
 UTILLINUX_NAME	= util-linux
-UTILLINUX_VER	= 2.40
+UTILLINUX_VER	= 2.41
 UTILLINUX_SRC	= $(UTILLINUX_NAME)-$(UTILLINUX_VER)
 UTILLINUX_TARBALL = $(UTILLINUX_SRC).tar.gz
-UTILLINUX_SERVER = https://kernel.org/pub/linux/utils/util-linux/v2.40
+UTILLINUX_SERVER = https://kernel.org/pub/linux/utils/util-linux/v$(UTILLINUX_VER)
 UTILLINUX_URL	= $(UTILLINUX_SERVER)/$(UTILLINUX_TARBALL)
 UTILLINUX_DIST	= $(DISTDIR)/$(UTILLINUX_TARBALL)
 
@@ -224,7 +226,7 @@ BZIP2_TARBALL	= bzip2-latest.tar.gz
 BZIP2_URL	= $(BZIP2_SERVER)/$(BZIP2_TARBALL)
 BZIP2_DIST	= $(DISTDIR)/$(BZIP2_TARBALL)
 
-XZ_VER		= 5.6.3
+XZ_VER		= 5.8.0
 XZ_SRC		= xz-$(XZ_VER)
 XZ_SERVER	= https://github.com/tukaani-project/xz/releases/download/v$(XZ_VER)
 XZ_TARBALL	= xz-$(XZ_VER).tar.gz
@@ -283,7 +285,7 @@ SRCDIRS		+= $(ZLIB_SRC)
 SRCDIRS		+= $(ICU_SRC)
 SRCDIRS		+= $(CURL_SRC)
 SRCDIRS		+= $(TIRPC_SRC)
-SRCDIRS		+= $(XMLRPC_C_SRC)
+SRCDIRS		+= $(XMLRPC_SRC)
 SRCDIRS		+= $(LIBPCAP_SRC)
 SRCDIRS		+= $(LIBMNL_SRC)
 SRCDIRS		+= $(LIBNL_SRC)
@@ -311,7 +313,7 @@ DISTFILES	+= $(ZLIB_DIST)
 DISTFILES	+= $(ICU_DIST)
 DISTFILES	+= $(CURL_DIST)
 DISTFILES	+= $(TIRPC_DIST)
-DISTFILES	+= $(XMLRPC_C_DIST)
+DISTFILES	+= $(XMLRPC_DIST)
 DISTFILES	+= $(LIBPCAP_DIST)
 DISTFILES	+= $(LIBNL_DIST)
 DISTFILES	+= $(LIBSODIUM_DIST)
@@ -344,6 +346,12 @@ default: package.deb
 # Fetch source distributions
 
 download: $(DISTFILES)
+
+###############################################################################
+
+# Build software components
+
+build: $(SUBORDINATES)
 
 ###############################################################################
 
@@ -612,26 +620,23 @@ tirpc: $(INSTALLDIR)/lib/libtirpc.a
 
 # Download xmlrpc-c source distribution
 
-$(XMLRPC_C_DIST):
-	svn co $(XMLRPC_C_URL) $(DISTDIR)/$(XMLRPC_C_SRC)
-	cp /usr/share/misc/config.guess $(DISTDIR)/$(XMLRPC_C_SRC)
-	cp /usr/share/misc/config.sub   $(DISTDIR)/$(XMLRPC_C_SRC)
-	cd $(DISTDIR) && tar czf $(XMLRPC_C_DIST) --exclude .svn $(XMLRPC_C_SRC) && rm -rf $(XMLRPC_C_SRC)
+$(XMLRPC_DIST):
+	wget -nv -P $(DISTDIR) $(XMLRPC_URL)
 
 # Unpack xmlrpc-c source
 
-$(XMLRPC_C_SRC): $(XMLRPC_C_DIST)
-	tar xzf $(XMLRPC_C_DIST)
+$(XMLRPC_SRC): $(XMLRPC_DIST)
+	tar xzf $(XMLRPC_DIST)
 
 # Build xmlrpc-c
 
-$(INSTALLDIR)/lib/libxmlrpc.a: $(XMLRPC_C_SRC)
-	cd $(XMLRPC_C_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --mandir=/$(INSTALLDIR)/share/man CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
-	cd $(XMLRPC_C_SRC)/lib/expat/gennmtab ; $(MAKE) CC=gcc
-	$(MAKE) -C $(XMLRPC_C_SRC) CFLAGS_PERSONAL="-fpermissive -I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib" AR=$(CROSS_COMPILE)ar RANLIB=$(CROSS_COMPILE)ranlib
-	$(MAKE) -C $(XMLRPC_C_SRC) install DESTDIR=$(DESTDIR) RANLIB=$(CROSS_COMPILE)ranlib
-	$(MAKE) -C $(XMLRPC_C_SRC)/tools/xmlrpc LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib -lcurl -lz -lssl -lcrypto"
-	$(MAKE) -C $(XMLRPC_C_SRC)/tools/xmlrpc install DESTDIR=$(DESTDIR)
+$(INSTALLDIR)/lib/libxmlrpc.a: $(XMLRPC_SRC)
+	cd $(XMLRPC_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --mandir=/$(INSTALLDIR)/share/man CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	cd $(XMLRPC_SRC)/lib/expat/gennmtab ; $(MAKE) CC=gcc
+	$(MAKE) -C $(XMLRPC_SRC) CFLAGS_PERSONAL="-fpermissive -I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib" AR=$(CROSS_COMPILE)ar RANLIB=$(CROSS_COMPILE)ranlib
+	$(MAKE) -C $(XMLRPC_SRC) install DESTDIR=$(DESTDIR) RANLIB=$(CROSS_COMPILE)ranlib
+	$(MAKE) -C $(XMLRPC_SRC)/tools/xmlrpc LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib -lcurl -lz -lssl -lcrypto"
+	$(MAKE) -C $(XMLRPC_SRC)/tools/xmlrpc install DESTDIR=$(DESTDIR)
 	touch $@
 
 xmlrpc: $(INSTALLDIR)/lib/libxmlrpc.a
@@ -1088,7 +1093,7 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo ""					>>$@
 	@echo "**** xmlrpc-c:"				>>$@
 	@echo ""					>>$@
-	@cat $(XMLRPC_C_SRC)/doc/COPYING		>>$@
+	@cat $(XMLRPC_SRC)/doc/COPYING			>>$@
 	@echo ""					>>$@
 	@echo "**** libpcap:"				>>$@
 	@echo ""					>>$@
