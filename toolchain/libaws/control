@@ -1,8 +1,0 @@
-Package: @@NAME@@
-Section: misc
-Priority: extra
-Maintainer: Philip Munts <phil@munts.net>
-Architecture: @@ARCH@@
-Version: @@VERSION@@
-Description: GCC cross-toolchain Ada Web Server library for @@BOARDNAME@@
-Depends: gcc-@@TOOLCHAIN@@-libs

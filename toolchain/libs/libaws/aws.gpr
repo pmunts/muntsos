@@ -1,6 +1,6 @@
--- Project for using the Ada Web Server library
+-- Project for using the prebuilt-for-MuntsOS Ada Web Server library
 
--- Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -23,8 +23,8 @@
 LIBRARY PROJECT AWS IS
   FOR Externally_Built USE "true";
   FOR Languages        USE ("Ada");
-  FOR Library_Name     USE "aws";
-  FOR Library_Dir      USE "LIBDIR/aws.lib";
+  FOR Library_Name     USE "libaws";
+  FOR Library_Dir      USE "@@LIBDIR@@/libaws.lib";
   FOR Library_Kind     USE "static";
-  FOR Source_Dirs      USE ("LIBDIR/aws.src");
+  FOR Source_Dirs      USE ("@@LIBDIR@@/libaws.src");
 END AWS;

@@ -12,7 +12,6 @@ Depends:
   muntsos-common,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libs,
-  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libaws,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libsimpleio
 
 Recommends:

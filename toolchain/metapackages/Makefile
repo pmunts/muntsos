@@ -35,7 +35,7 @@ BOARDNAMES	:= AArch64 RISCV64
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
 PKGVERSION1	:= 9.4
-PKGVERSION2	:= 9.4
+PKGVERSION2	:= 9.5
 
 default:
 	$(MAKE) allplatforms

@@ -273,6 +273,7 @@ SUBORDINATES	+= libbz2
 SUBORDINATES	+= liblzma
 SUBORDINATES	+= libcap
 #SUBORDINATES	+= dcerpc
+SUBORDINATES	+= aws
 
 SRCDIRS		+= $(LIBXCRYPT_SRC)
 SRCDIRS		+= $(NCURSES_SRC)
@@ -1053,6 +1054,19 @@ dcerpc: $(INSTALLDIR)/lib/libdcerpc.la
 
 ###############################################################################
 
+# Make AdaCore Ada Web Server library
+
+$(INSTALLDIR)/lib/aws.lib/liblibaws.a:
+	$(MAKE) -C libaws BOARDNAME=$(BOARDNAME)
+	mkdir -p					$(INSTALLDIR)/lib/libaws.lib
+	install -cm 0644 libaws/libaws.lib/*		$(INSTALLDIR)/lib/libaws.lib
+	mkdir -p					$(INSTALLDIR)/lib/libaws.src
+	install -cm 0644 libaws/src/*.ad*		$(INSTALLDIR)/lib/libaws.src
+
+aws: $(INSTALLDIR)/lib/aws.lib/liblibaws.a
+
+###############################################################################
+
 # Collect copyright/license information into one place
 
 $(INSTALLDIR)/COPYING: $(SUBORDINATES)
@@ -1155,6 +1169,12 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	#@echo "**** dcerpc:"				>>$@
 	#@echo ""					>>$@
 	#@cat $(DCERPC_SRC)/dcerpc/COPYING		>>$@
+	@echo ""					>>$@
+	@echo "**** aws:"				>>$@
+	@echo ""					>>$@
+	@cat libaws/src/COPYING3.txt			>>$@
+	@echo ""					>>$@
+	@cat libaws/src/COPYING.RUNTIME			>>$@
 	sed -i 's/\^L//g'				$@
 	sed -i 's/\f//g'				$@
 	@dos2unix					$@
@@ -1173,6 +1193,9 @@ $(PKGDIR): $(INSTALLDIR)/COPYING
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDBASE)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@TOOLCHAIN@@/$(TOOLCHAIN_NAME)/g	$(PKGDIR)/DEBIAN/control
+	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
+	install -cm 0644 libaws/aws.gpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
+	sed -i 's#@@LIBDIR@@#$(LIBSLIBDIR)#g'		$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/aws.gpr
 	mkdir -p					$(PKGDIR)$(FINALDIR)
 	cp -R -P -p $(INSTALLDIR)/*			$(PKGDIR)$(FINALDIR)
 	rm -rf						$(PKGDIR)$(FINALDIR)/lib/*.la
@@ -1199,6 +1222,7 @@ clean:
 
 reallyclean: clean
 	rm -rf *.o $(INSTALLDIR) $(SRCDIRS) ._libmodbus*
+	$(MAKE) -C libaws clean
 
 distclean: reallyclean
 	rm -f $(DISTFILES)

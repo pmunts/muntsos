@@ -113,12 +113,11 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip
 	mkdir -p				$(PKGDIR)$(LIBDIR)
 	install -cm 0644 $(LIBSIMPLEIO)/COPYING	$(PKGDIR)$(LIBDIR)/libsimpleio.COPYING
 	install -cm 0644 libsimpleio.a		$(PKGDIR)$(LIBDIR)
-	install -cm 0644 libsimpleio.gpr	$(PKGDIR)$(LIBDIR)
-	sed -i 's@LIBDIR@$(LIBDIR)@g'		$(PKGDIR)$(LIBDIR)/libsimpleio.gpr
 	install -cm 0755 libsimpleio.so		$(PKGDIR)$(LIBDIR)
 	cp -R -P -p libsimpleio.lib		$(PKGDIR)$(LIBDIR)
 	mkdir -p				$(PKGDIR)$(GPRDIR)
-	ln -s $(LIBDIR)/libsimpleio.gpr		$(PKGDIR)$(GPRDIR)/libsimpleio.gpr
+	install -cm 0644 libsimpleio.gpr	$(PKGDIR)$(GPRDIR)
+	sed -i 's@LIBDIR@$(LIBDIR)@g'		$(PKGDIR)$(GPRDIR)/libsimpleio.gpr
 	touch $@
 
 package.deb: $(PKGFILE)

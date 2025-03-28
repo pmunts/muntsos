@@ -5,4 +5,6 @@ Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
 Description: GCC cross-toolchain libraries for @@BOARDNAME@@
-Depends: gcc-@@TOOLCHAIN@@
+Depends:   gcc-@@TOOLCHAIN@@
+Conflicts: gcc-@@TOOLCHAIN@@-libaws
+Replaces:  gcc-@@TOOLCHAIN@@-libaws
