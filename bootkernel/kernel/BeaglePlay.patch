@@ -1,9 +1,9 @@
---- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-02-05 10:47:52.000000000 -0800
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-02-27 16:27:13.946355725 -0800
-@@ -35,9 +35,10 @@
+--- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-03-21 17:18:56.000000000 -0700
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-03-27 20:42:24.529917638 -0700
+@@ -34,9 +34,10 @@
+ 		mmc1 = &sdhci1;
  		mmc2 = &sdhci2;
  		rtc0 = &rtc;
- 		rtc1 = &wkup_rtc0;
 -		serial0 = &main_uart5;
 -		serial1 = &main_uart6;
 -		serial2 = &main_uart0;
@@ -14,7 +14,7 @@
  		usb0 = &usb0;
  		usb1 = &usb1;
  	};
-@@ -167,50 +168,34 @@
+@@ -166,50 +167,34 @@
  		led-0 {
  			bootph-all;
  			gpios = <&main_gpio0 3 GPIO_ACTIVE_HIGH>;
@@ -71,8 +71,8 @@
  	};
  
  	hdmi0: connector-hdmi {
-@@ -530,6 +515,112 @@
- 			AM62X_IOPAD(0x01b8, PIN_OUTPUT, 2) /* (C13) SPI0_CS1.EHRPWM0_B */
+@@ -543,6 +528,112 @@
+ 			AM62X_MCU_IOPAD(0x0084, PIN_OUTPUT, 0) /* (A12) WKUP_CLKOUT0 */
  		>;
  	};
 +
@@ -183,8 +183,8 @@
 +	};
  };
  
- &mcu_pmx0 {
-@@ -857,6 +948,12 @@
+ &a53_opp_table {
+@@ -795,6 +886,12 @@
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_spi_pins_default>;
  	status = "okay";
@@ -197,7 +197,7 @@
  };
  
  &sdhci0 {
-@@ -914,8 +1011,9 @@
+@@ -852,8 +949,9 @@
  };
  
  &main_uart1 {
@@ -209,7 +209,7 @@
  };
  
  &main_uart5 {
-@@ -977,3 +1075,7 @@
+@@ -915,3 +1013,7 @@
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_pwm_pins_default>;
  };
@@ -217,63 +217,3 @@
 +&epwm2 {
 +	status = "disabled";
 +};
---- drivers/usb/gadget/legacy/hid.c.orig	2025-02-05 10:47:52.000000000 -0800
-+++ drivers/usb/gadget/legacy/hid.c	2025-02-25 14:23:09.667847817 -0800
-@@ -267,6 +267,48 @@
- 	},
- };
- 
-+/* Additional goop to define a USB raw HID gadget */
-+
-+static struct hidg_func_descriptor raw_hid_data = {
-+        .subclass               = 0, /* No subclass */
-+        .protocol               = 0, /* No protocol */
-+        .report_length          = 64,
-+        .report_desc_length     = 33,
-+        .report_desc            = {
-+0x06, 0x00, 0xFF, // Usage Page = 0xFF00 (Vendor Defined Page 1)
-+0x09, 0x01,       // Usage (Vendor Usage 1)
-+0xA1, 0x01,       // Collection (Application)
-+// Input report
-+0x19, 0x01,       // Usage Minimum
-+0x29, 0x40,       // Usage Maximum
-+0x15, 0x00,       // Logical Minimum
-+0x26, 0xFF, 0x00, // Logical Maximum
-+0x75, 0x08,       // Report Size: 8-bit field size
-+0x95, 64,         // Report Count
-+0x81, 0x02,       // Input (Data, Array, Abs)
-+// Output report
-+0x19, 0x01,       // Usage Minimum
-+0x29, 0x40,       // Usage Maximum
-+0x75, 0x08,       // Report Size: 8-bit field size
-+0x95, 64,         // Report Count
-+0x91, 0x02,       // Output (Data, Array, Abs)
-+0xC0              // End Collection
-+        }
-+};
-+
-+static struct platform_device raw_hid = {
-+        .name                   = "hidg",
-+        .id                     = 0,
-+        .num_resources          = 0,
-+        .resource               = 0,
-+        .dev.platform_data      = &raw_hid_data,
-+};
-+
-+int __init init_raw_hid(void)
-+{
-+	pr_info("g_hid: loading raw HID descriptor\n");
-+	return platform_device_register(&raw_hid);
-+}
- 
- MODULE_DESCRIPTION(DRIVER_DESC);
- MODULE_AUTHOR("Fabien Chouteau, Peter Korsgaard");
-@@ -276,6 +318,8 @@
- {
- 	int status;
- 
-+	init_raw_hid();
-+
- 	status = platform_driver_probe(&hidg_plat_driver,
- 				hidg_plat_driver_probe);
- 	if (status < 0)

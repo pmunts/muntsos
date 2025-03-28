@@ -41,7 +41,7 @@ KERNEL_TARGETS	= $(KERNEL_IMGSRC)
 
 KERNEL_REPO     = https://github.com/beagleboard/linux.git
 KERNEL_BRANCH	= 6.6
-KERNEL_TREEISH	= 6.6.58-ti-arm64-r23
+KERNEL_TREEISH	= 6.6.58-ti-arm64-r24
 KERNEL_NAME	= linux-beagleplay-$(KERNEL_BRANCH)
 
 CFLAGS		+= -DBEAGLEPLAY
