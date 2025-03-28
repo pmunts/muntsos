@@ -166,6 +166,13 @@ News
     for authenticated SMTP relay. Added mailtunnel, an extension package
     template.
 
+-   28 March 2025 -- Switched the BeaglePlay kernel branch to
+    6.6.58-ti-arm64-r24. Upgraded a lot of library components: libusb to
+    1.0.28, openssl to 3.4.1, icu to 77.1, curl to 8.12.1, xmlrpc to
+    1.60.04, libmysqlclient to 3.4.4, gdbm to 1.25, paho.mqtt.c to
+    1.3.14, libffi to 3.4.7, util-linux to 2.41, and xz to 5.8.0.
+    Toolchain Debian package gcc-*-libs has subsumed gcc-*-libaws.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
