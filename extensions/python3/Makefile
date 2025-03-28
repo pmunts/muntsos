@@ -1,6 +1,6 @@
 # Makefile for building the Python 3 Runtime package for MuntsOS
 
-# Copyright (C)2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2024-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@ BUILDOS		:= --build=$(shell uname -m)
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
 MAJORVER	:= 3.13
-MINORVER	:= 1
+MINORVER	:= 2
 
 SRCNAME		:= python3
 SRCVER		:= $(MAJORVER).$(MINORVER)
