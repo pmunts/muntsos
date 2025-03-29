@@ -1058,10 +1058,11 @@ dcerpc: $(INSTALLDIR)/lib/libdcerpc.la
 
 $(INSTALLDIR)/lib/aws.lib/liblibaws.a:
 	$(MAKE) -C libaws BOARDNAME=$(BOARDNAME)
-	mkdir -p					$(INSTALLDIR)/lib/libaws.lib
-	install -cm 0644 libaws/libaws.lib/*		$(INSTALLDIR)/lib/libaws.lib
-	mkdir -p					$(INSTALLDIR)/lib/libaws.src
-	install -cm 0644 libaws/src/*.ad*		$(INSTALLDIR)/lib/libaws.src
+	mkdir -p				$(INSTALLDIR)/lib/libaws.lib
+	install -cm 0644 libaws/libaws.lib/*	$(INSTALLDIR)/lib/libaws.lib
+	mkdir -p				$(INSTALLDIR)/lib/libaws.src
+	install -cm 0644 libaws/src/*.ad*	$(INSTALLDIR)/lib/libaws.src
+	rm 					$(INSTALLDIR)/lib/libaws.src/aws-os_lib.ads-*
 
 aws: $(INSTALLDIR)/lib/aws.lib/liblibaws.a
 
