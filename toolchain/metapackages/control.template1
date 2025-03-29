@@ -10,4 +10,5 @@ Architecture: all
 Description: Cross-toolchain packages for MuntsOS.
 
 Depends:
-  muntsos-dev-aarch64
+  muntsos-dev-aarch64,
+  muntsos-dev-riscv64
