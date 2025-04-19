@@ -29,10 +29,11 @@ LIBRARY PROJECT build IS
    ("-O3",
     "-ffunction-sections",
     "-fdata-sections",
-    "-gnato1",
-    "-gnatwa",
-    "-gnatwJ",
     "-gnatVa",
+    "-gnata",
+    "-gnato1",
+    "-gnatwJ",
+    "-gnatwa",
     "-gnat2022"
    );
 
