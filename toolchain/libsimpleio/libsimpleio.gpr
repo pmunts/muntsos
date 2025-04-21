@@ -43,6 +43,7 @@ LIBRARY PROJECT libsimpleio IS
     "-gnatVa",
     "-gnatwa",
     "-gnatwJ",
+    "-gnatwK",
     "-gnat2022"
    );
 END libsimpleio;

@@ -29,6 +29,7 @@ LIBRARY PROJECT build IS
     "-gnatVa",
     "-gnatwa",
     "-gnatwJ",
+    "-gnatwK",
     "-gnat2022"
    );
 
