@@ -40,6 +40,7 @@ package.rpm:
 	rm -rf					$(RPMDIR)/usr/local/share/libsimpleio/ada/lib
 	cd $(RPMDIR) && find usr/local/share/libsimpleio -type d -exec echo "%dir /{}" ";"   >>../specfile
 	cd $(RPMDIR) && find usr/local/share/libsimpleio -type f -exec echo "/{}" ";"        >>../specfile
+	cd $(RPMDIR) && find usr/local/share/libsimpleio -type l -exec echo "/{}" ";"        >>../specfile
 	rpmbuild --buildroot=`pwd`/$(RPMDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
 	cp rpmbuild/RPMS/*/*.rpm .
 	rm -rf rpmbuild specfile
