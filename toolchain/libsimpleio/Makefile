@@ -1,6 +1,6 @@
 # Makefile to build the Linux Simple I/O Library for MuntsOS Embedded Linux
 
-# Copyright (C)2021-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2021-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -88,17 +88,18 @@ libsimpleio.lib:
 
 ###############################################################################
 
-# Compile link-gpiochip
+# Build Ada source and C API shared libraries
 
-link-gpiochip: libsimpleio.a
-	$(CC) -Wall -I. -o$@ $(LIBSIMPLEIO)/hotplug/linux/link-gpiochip.c libsimpleio.a
+libwioe5ham1.so:
+	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1
+	cp $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1/lib/libwioe5ham1.so .
 	$(STRIP) $@
 
 ###############################################################################
 
 # Create Debian package file
 
-$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip
+$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libwioe5ham1.so
 	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
@@ -107,14 +108,14 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip
 	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g	$(PKGDIR)/DEBIAN/control
 	sed -i s/@@TOOLCHAIN@@/$(TOOLCHAIN_NAME)/g $(PKGDIR)/DEBIAN/control
 	mkdir -p				$(PKGDIR)$(BINDIR)
-	install -cm 0755 link-gpiochip		$(PKGDIR)$(BINDIR)
 	mkdir -p				$(PKGDIR)$(INCDIR)
 	ln -s /usr/local/include/libsimpleio	$(PKGDIR)$(INCDIR)/libsimpleio
+	install -cm 0644 $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1/libwioe5ham1.h $(PKGDIR)$(INCDIR)
 	mkdir -p				$(PKGDIR)$(LIBDIR)
 	install -cm 0644 $(LIBSIMPLEIO)/COPYING	$(PKGDIR)$(LIBDIR)/libsimpleio.COPYING
-	install -cm 0644 libsimpleio.a		$(PKGDIR)$(LIBDIR)
-	install -cm 0755 libsimpleio.so		$(PKGDIR)$(LIBDIR)
-	cp -R -P -p libsimpleio.lib		$(PKGDIR)$(LIBDIR)
+	install -cm 0644 *.a			$(PKGDIR)$(LIBDIR)
+	install -cm 0755 *.so			$(PKGDIR)$(LIBDIR)
+	cp -R -P -p *.lib			$(PKGDIR)$(LIBDIR)
 	mkdir -p				$(PKGDIR)$(GPRDIR)
 	install -cm 0644 libsimpleio.gpr	$(PKGDIR)$(GPRDIR)
 	sed -i 's@LIBDIR@$(LIBDIR)@g'		$(PKGDIR)$(GPRDIR)/libsimpleio.gpr
@@ -127,8 +128,9 @@ package.deb: $(PKGFILE)
 # Remove working files
 
 clean:
-	-rm -rf $(PKGDIR) $(PKGFILE)
-	-rm -rf compile.done libsimpleio libsimpleio.a libsimpleio.lib libsimpleio.obj libsimpleio.so link-gpiochip obj
+	-rm -rf compile.done obj libsimpleio $(PKGDIR) $(PKGFILE)
+	-rm -rf *.a *.lib *.obj *.so
+	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1 clean
 
 reallyclean: clean
 
