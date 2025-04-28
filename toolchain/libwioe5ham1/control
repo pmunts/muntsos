@@ -1,0 +1,8 @@
+Package: @@NAME@@
+Section: misc
+Priority: extra
+Maintainer: Philip Munts <phil@munts.net>
+Architecture: @@ARCH@@
+Version: @@VERSION@@
+Description: Linux Wio-E5 Driver Library (Amateur Radio Flaver #1) for @@TARGET@@
+Depends: gcc-@@TOOLCHAIN@@-libsimpleio
