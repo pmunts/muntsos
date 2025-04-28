@@ -104,7 +104,7 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib link-gpiochip
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g	$(PKGDIR)/DEBIAN/control
-	sed -i s/@@TARGET@@/$(TARGET)/g		$(PKGDIR)/DEBIAN/control
+	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g	$(PKGDIR)/DEBIAN/control
 	sed -i s/@@TOOLCHAIN@@/$(TOOLCHAIN_NAME)/g $(PKGDIR)/DEBIAN/control
 	mkdir -p				$(PKGDIR)$(BINDIR)
 	install -cm 0755 link-gpiochip		$(PKGDIR)$(BINDIR)
