@@ -30,7 +30,7 @@ LIBRARY PROJECT libsimpleio IS
   FOR Library_Kind     USE "static";
   FOR Source_Dirs      USE
    ("/usr/local/share/libsimpleio/ada/bindings",
-    "/usr/local/share/libsimpleio/ada/devices",
+    "/usr/local/share/libsimpleio/ada/devices/**",
     "/usr/local/share/libsimpleio/ada/interfaces",
     "/usr/local/share/libsimpleio/ada/objects/**");
 
