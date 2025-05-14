@@ -95,6 +95,11 @@ libwioe5ham1.so:
 	cp $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1/lib/libwioe5ham1.so .
 	$(STRIP) $@
 
+libwioe5ham2.so:
+	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham2
+	cp $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham2/lib/libwioe5ham2.so .
+	$(STRIP) $@
+
 libwioe5p2p.so:
 	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5p2p
 	cp $(LIBSIMPLEIO)/ada/shared-libs/libwioe5p2p/lib/libwioe5p2p.so .
@@ -104,7 +109,7 @@ libwioe5p2p.so:
 
 # Create Debian package file
 
-$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libwioe5ham1.so libwioe5p2p.so
+$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libwioe5ham1.so libwioe5ham2.so libwioe5p2p.so
 	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
@@ -116,6 +121,7 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libwioe5ham1.so libwioe5
 	mkdir -p				$(PKGDIR)$(INCDIR)
 	ln -s /usr/local/include/libsimpleio	$(PKGDIR)$(INCDIR)/libsimpleio
 	install -cm 0644 $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1/libwioe5ham1.h $(PKGDIR)$(INCDIR)
+	install -cm 0644 $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham2/libwioe5ham2.h $(PKGDIR)$(INCDIR)
 	install -cm 0644 $(LIBSIMPLEIO)/ada/shared-libs/libwioe5p2p/libwioe5p2p.h $(PKGDIR)$(INCDIR)
 	mkdir -p				$(PKGDIR)$(LIBDIR)
 	install -cm 0644 $(LIBSIMPLEIO)/COPYING	$(PKGDIR)$(LIBDIR)/libsimpleio.COPYING
@@ -137,7 +143,8 @@ clean:
 	-rm -rf compile.done obj libsimpleio $(PKGDIR) $(PKGFILE)
 	-rm -rf *.a *.lib *.obj *.so
 	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1 clean
-	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5p2p clean
+	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham2 clean
+	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5p2p  clean
 
 reallyclean: clean
 
