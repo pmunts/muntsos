@@ -40,7 +40,7 @@ BEGIN
 
   -- Configure button
 
-  Button := GPIO.libsimpleio.Create(BeaglePlay.USR_BUTTON, GPIO.Input,
+  Button := GPIO.libsimpleio.Create(BeaglePlay.USER_BUTTON, GPIO.Input,
     polarity => GPIO.libsimpleio.ActiveLow);
 
   -- Configure LED
