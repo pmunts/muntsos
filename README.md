@@ -209,8 +209,7 @@ News
 -   19 May 2025 -- Added extension packages **`libwioe5p2p`**,
     **`libwioe5ham1`**, **`libwioe5ham2`**, and
     **`wioe5_ham1_rabbitmq`**. Added Ada extension programs
-    **`wioe5_ham1_mailer`**, **`wioe5_ham1_responder`**,
-    **`wioe5_ham2_mailer`**, and **`wioe5_ham2_responder`**. These all
+    **`wioe5_ham1_mailer`** and **`wioe5_ham1_responder`**. These all
     result from a deep dive study about using the [Wio-E5 LoRa
     Transceiver
     Module](https://wiki.seeedstudio.com/LoRa-E5_STM32WLE5JC_Module) for
