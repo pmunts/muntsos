@@ -83,9 +83,9 @@ BEGIN
     IF len > 0 THEN
       DECLARE
         username  : String := trim(srcnet) & '-' & trim(srcnode'Image);
-        address   : String := tolower(username) & '@' & getenv("WIOE5_DOMAIN");
+        address   : String := tolower(username) & '@' & getenv("EMAIL_DOMAIN");
         sender    : String := username & " <" & address & ">";
-        recipient : String := getenv("WIOE5_MAILTO");
+        recipient : String := getenv("EMAIL_RECIPIENT");
       BEGIN
         relay.Send(sender, recipient, LoRa.ToString(msg, len), "Forwarded Message");
       END;
