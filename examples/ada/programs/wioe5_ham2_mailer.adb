@@ -23,7 +23,9 @@
 WITH Ada.Environment_Variables;
 WITH Ada.Strings.Fixed;
 WITH Ada.Strings.Maps.Constants;
+WITH Ada.Text_IO; USE Ada.Text_IO;
 
+WITH Debug;
 WITH Email_Sendmail;
 WITH libLinux;
 WITH Messaging.Text;
@@ -63,15 +65,26 @@ PROCEDURE wioe5_ham2_mailer IS
   relay : CONSTANT Messaging.Text.Relay := Email_Sendmail.Create;
 
 BEGIN
-  libLinux.Detach(err);
+  IF Debug.Enabled THEN
+    New_Line;
+    Put_Line("Wio-E5 LoRa Transceiver Mail Forwarder");
+    New_Line;
+  ELSE
+    New_Line;
+    Put("Wio-E5 LoRa Transceiver Mail Forwarder");
 
-  -- Create a watchdog timer device object
+    -- Run as background process
 
-  wd := Watchdog.libsimpleio.Create;
+    libLinux.Detach(err);
 
-  -- Change the watchdog timeout period to 5 seconds
+    -- Create a watchdog timer device object
 
-  wd.SetTimeout(5.0);
+    wd := Watchdog.libsimpleio.Create;
+
+    -- Change the watchdog timeout period to 5 seconds
+
+    wd.SetTimeout(5.0);
+  END IF;
 
   -- Create a LoRa transceiver object
 
@@ -83,14 +96,21 @@ BEGIN
     IF len > 0 THEN
       DECLARE
         username  : String := trim(srcnet) & '-' & trim(srcnode'Image);
-        address   : String := tolower(username) & '@' & getenv("EMAIL_DOMAIN");
-        sender    : String := username & " <" & address & ">";
+        sender    : String := tolower(username) & '@' & getenv("EMAIL_DOMAIN");
         recipient : String := getenv("EMAIL_RECIPIENT");
       BEGIN
-        relay.Send(sender, recipient, LoRa.ToString(msg, len), "Forwarded Message");
+        Debug.Put("Sender    => " & sender);
+        Debug.Put("Recipient => " & recipient);
+        Debug.Put("Message   => " & LoRa.ToString(msg, len));
+        Debug.Put("");
+
+        relay.Send(sender, recipient, LoRa.ToString(msg, len),
+          "Message from LoRa Station " & username);
       END;
     END IF;
 
-    wd.Kick;
+    IF NOT Debug.Enabled THEN
+      wd.Kick;
+    END IF;
   END LOOP;
 END wioe5_ham2_mailer;
