@@ -226,7 +226,7 @@ int main(int argc, char *argv[])
   if (argc != 2)
   {
     fprintf(stderr, "\nNuGet Application Package Installer for MuntSOS "
-      "Embedded Linux\n\nUsage: install-nupkg <filename>\n\n");
+      "Embedded Linux\n\nUsage: nupkg <filename>\n\n");
     exit(1);
   }
 
