@@ -48,7 +48,11 @@ static void ExtractAppName(char *src, char *dst, int dstsize)
   memset(dst, 0, dstsize);
 
   for (i = 0; (i < strlen(src)) && (i < dstsize - 1); i++)
+    // As built by dotnet pack or Visual Studio
     if (p[i] == '.')
+      break;
+    // Canonical MuntsOS extension package form
+    else if (!strcmp(p+i, "-muntsos-all.nupkg"))
       break;
     else
       dst[i] = p[i];
