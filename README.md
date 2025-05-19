@@ -206,6 +206,21 @@ News
     1.3.14, libffi to 3.4.7, util-linux to 2.41, and xz to 5.8.0.
     Toolchain Debian package gcc-\*-libs has subsumed gcc-\*-libaws.
 
+-   19 May 2025 -- Added extension packages **`libwioe5p2p`**,
+    **`libwioe5ham1`**, **`libwioe5ham2`**, and
+    **`wioe5_ham1_rabbitmq`**. Added Ada extension programs
+    **`wioe5_ham1_mailer`**, **`wioe5_ham1_responder`**,
+    **`wioe5_ham2_mailer`**, and **`wioe5_ham2_responder`**. These all
+    result from a deep dive study about using the [Wio-E5 LoRa
+    Transceiver
+    Module](https://wiki.seeedstudio.com/LoRa-E5_STM32WLE5JC_Module) for
+    Amateur Radio operation in the [33-cm
+    band](https://en.wikipedia.org/wiki/33-centimeter_band). See
+    [WioE5LoRaP2P.pdf](https://repo.munts.com/libsimpleio/doc/WioE5LoRaP2P.pdf)
+    for more background information. Also fixed a bug in **`sysconfig`**
+    that installed **`.nupkg`** extension package files to
+    **`/boot/autoexec.d`** instead of **`/boot/packages`**.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
