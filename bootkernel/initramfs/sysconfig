@@ -475,7 +475,7 @@ function Extensions {
     EURL=${EXTENSIONSDIR}/${EName}
     NewSum=`echo ${ERecord} | awk -F ':' '{ print $2 }'`
 
-    echo ${EName} | grep -E -q '\.deb$|\.rpm$|\.nuget$'
+    echo ${EName} | grep -E -q '\.deb$|\.nupkg$|\.rpm$'
 
     if [ $? -eq 0 ]; then
       EFile=/boot/packages/${EName}
