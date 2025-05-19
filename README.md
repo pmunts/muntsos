@@ -217,9 +217,15 @@ News
     Amateur Radio operation in the [33-cm
     band](https://en.wikipedia.org/wiki/33-centimeter_band). See
     [WioE5LoRaP2P.pdf](https://repo.munts.com/libsimpleio/doc/WioE5LoRaP2P.pdf)
-    for more background information. Also fixed a bug in **`sysconfig`**
-    that installed **`.nupkg`** extension package files to
-    **`/boot/autoexec.d`** instead of **`/boot/packages`**.
+    for more background information. Fixed a bug in **`sysconfig`** that
+    installed **`.nupkg`** extension package files to
+    **`/boot/autoexec.d`** instead of **`/boot/packages`**. Modified
+    **`nupkg`** to support an additional (and hereafter canonical)
+    scheme for naming .Net Core extension package files:
+    **`<progname>-muntsos-all.nupkg`**. The older (and hereafter
+    deprecated) naming scheme (as built by **`dotnet pack`** or Visual
+    Studio **`Build -> Pack`**) **`<progname>.<progversion>.nupkg`** is
+    still supported.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------

@@ -212,9 +212,16 @@ These all result from a deep dive study about using the <a href=
 Transceiver Module</a> for Amateur Radio operation in the <a href=
 "https://en.wikipedia.org/wiki/33-centimeter_band">33-cm band</a>. See <a href=
 "https://repo.munts.com/libsimpleio/doc/WioE5LoRaP2P.pdf">WioE5LoRaP2P.pdf</a>
-for more background information. Also fixed a bug in <b><tt>sysconfig</tt></b>
-that installed <b><tt>.nupkg</tt></b> extension package files to
-<b><tt>/boot/autoexec.d</tt></b> instead of <b><tt>/boot/packages</tt></b>.</p>
+for more background information. Fixed a bug in <b><tt>sysconfig</tt></b> that
+installed <b><tt>.nupkg</tt></b> extension package files to
+<b><tt>/boot/autoexec.d</tt></b> instead of <b><tt>/boot/packages</tt></b>.
+Modified <b><tt>nupkg</tt></b> to support an additional (and hereafter
+canonical) scheme for naming .Net Core extension package files:
+<b><tt>&lt;progname&gt;-muntsos-all.nupkg</tt></b>. The older (and hereafter
+deprecated) naming scheme (as built by <b><tt>dotnet pack</tt></b> or Visual
+Studio <b><tt>Build -&gt; Pack</tt></b>)
+<b><tt>&lt;progname&gt;.&lt;progversion&gt;.nupkg</tt></b> is still
+supported.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
