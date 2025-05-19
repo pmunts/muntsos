@@ -33,7 +33,7 @@ include $(LIBSIMPLEIO)/csharp/include/coreapp.mk
 # Build the project
 
 default: coreapp_mk_nupkg
-	mv $(PROGNAME).$(PROGVERSION).nupkg $(PROGNAME).nupkg
+	mv $(PROGNAME).$(PROGVERSION).nupkg $(PROGNAME)-muntsos-all.nupkg
 
 # Remove working files
 
