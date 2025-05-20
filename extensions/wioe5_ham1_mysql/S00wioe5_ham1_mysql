@@ -1,5 +1,7 @@
 #! /bin/sh
 
+echo "Starting wioe5_ham1_mysql"
+
 # Check for libwioe5ham1.so
 
 if [ ! -f /usr/local/lib/libwioe5ham1.so ]; then
