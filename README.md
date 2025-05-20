@@ -207,7 +207,7 @@ News
     Toolchain Debian package gcc-\*-libs has subsumed gcc-\*-libaws.
 
 -   19 May 2025 -- Added extension packages **`libwioe5p2p`**,
-    **`libwioe5ham1`**, **`libwioe5ham2`**, and
+    **`libwioe5ham1`**, **`libwioe5ham2`**, **`wioe5_ham1_mysql`**, and
     **`wioe5_ham1_rabbitmq`**. Added Ada extension programs
     **`wioe5_ham1_mailer`** and **`wioe5_ham1_responder`**. These all
     result from a deep dive study about using the [Wio-E5 LoRa

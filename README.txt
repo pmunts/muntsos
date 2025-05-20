@@ -174,17 +174,18 @@ News
     Toolchain Debian package gcc-*-libs has subsumed gcc-*-libaws.
 
 -   19 May 2025 -- Added extension packages libwioe5p2p, libwioe5ham1,
-    libwioe5ham2, and wioe5_ham1_rabbitmq. Added Ada extension programs
-    wioe5_ham1_mailer and wioe5_ham1_responder. These all result from a
-    deep dive study about using the Wio-E5 LoRa Transceiver Module for
-    Amateur Radio operation in the 33-cm band. See WioE5LoRaP2P.pdf for
-    more background information. Fixed a bug in sysconfig that installed
-    .nupkg extension package files to /boot/autoexec.d instead of
-    /boot/packages. Modified nupkg to support an additional (and
-    hereafter canonical) scheme for naming .Net Core extension package
-    files: <progname>-muntsos-all.nupkg. The older (and hereafter
-    deprecated) naming scheme (as built by dotnet pack or Visual Studio
-    Build -> Pack) <progname>.<progversion>.nupkg is still supported.
+    libwioe5ham2, wioe5_ham1_mysql, and wioe5_ham1_rabbitmq. Added Ada
+    extension programs wioe5_ham1_mailer and wioe5_ham1_responder. These
+    all result from a deep dive study about using the Wio-E5 LoRa
+    Transceiver Module for Amateur Radio operation in the 33-cm band.
+    See WioE5LoRaP2P.pdf for more background information. Fixed a bug in
+    sysconfig that installed .nupkg extension package files to
+    /boot/autoexec.d instead of /boot/packages. Modified nupkg to
+    support an additional (and hereafter canonical) scheme for naming
+    .Net Core extension package files: <progname>-muntsos-all.nupkg. The
+    older (and hereafter deprecated) naming scheme (as built by
+    dotnet pack or Visual Studio Build -> Pack)
+    <progname>.<progversion>.nupkg is still supported.
 
 Quick Setup Instructions for the Impatient
 
