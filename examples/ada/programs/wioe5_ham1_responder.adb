@@ -20,6 +20,9 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+WITH Ada.Text_IO; USE Ada.Text_IO;
+
+WITH Debug;
 WITH libLinux;
 WITH Watchdog.libsimpleio;
 WITH Wio_E5.Ham1;
@@ -39,15 +42,23 @@ PROCEDURE wioe5_ham1_responder IS
   SNR     : Integer;
 
 BEGIN
-  libLinux.Detach(err);
+  IF Debug.Enabled THEN
+    New_Line;
+    Put_Line("Wio-E5 LoRa Transceiver Signal Level Responder");
+    New_Line;
+  ELSE
+    New_Line;
+    Put("Wio-E5 LoRa Transceiver Signal Level Responder");
 
-  -- Create a watchdog timer device object
+    -- Run as background process
 
-  wd := Watchdog.libsimpleio.Create;
+    libLinux.Detach(err);
 
-  -- Change the watchdog timeout period to 5 seconds
+    -- Create a watchdog timer device object
 
-  wd.SetTimeout(5.0);
+    wd := Watchdog.libsimpleio.Create;
+    wd.SetTimeout(5.0);
+  END IF;
 
   -- Create a LoRa transceiver object
 
@@ -61,6 +72,8 @@ BEGIN
         SNR'Image & " dB", srcnode);
     END IF;
 
-    wd.Kick;
+    IF NOT Debug.Enabled THEN
+      wd.Kick;
+    END IF;
   END LOOP;
 END wioe5_ham1_responder;
