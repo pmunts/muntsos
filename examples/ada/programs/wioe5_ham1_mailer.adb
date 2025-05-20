@@ -26,7 +26,7 @@ WITH Ada.Strings.Maps.Constants;
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
 WITH Debug;
-WITH Email_Sendmail;
+WITH Email_Mail;
 WITH libLinux;
 WITH Messaging.Text;
 WITH Watchdog.libsimpleio;
@@ -60,7 +60,7 @@ PROCEDURE wioe5_ham1_mailer IS
   RSS     : Integer;
   SNR     : Integer;
 
-  relay : CONSTANT Messaging.Text.Relay := Email_Sendmail.Create;
+  relay : CONSTANT Messaging.Text.Relay := Email_Mail.Create;
 
 BEGIN
   IF Debug.Enabled THEN
@@ -78,9 +78,6 @@ BEGIN
     -- Create a watchdog timer device object
 
     wd := Watchdog.libsimpleio.Create;
-
-    -- Change the watchdog timeout period to 5 seconds
-
     wd.SetTimeout(5.0);
   END IF;
 
