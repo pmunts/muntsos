@@ -68,6 +68,9 @@ BEGIN
     dev.Receive(msg, len, srcnode, dstnode, RSS, SNR);
 
     IF len > 0 THEN
+      Debug.Put("Received => """ & LoRa.ToString(msg, len) & """ LEN:" &
+        len'Image & " bytes RSS:" & RSS'Image & " dBm SNR:" & SNR'Image & " dB");
+
       dev.Send("LEN:" & len'Image & " bytes RSS:" & RSS'Image & " dBm SNR:" &
         SNR'Image & " dB", srcnode);
     END IF;
