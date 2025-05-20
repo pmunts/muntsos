@@ -9,4 +9,4 @@ fi
 
 # Run wioe5_ham1_rabbitmq as a background process
 
-detach /usr/local/bin/wioe5_ham1_rabbitmq
+exec detach /usr/local/bin/wioe5_ham1_rabbitmq
