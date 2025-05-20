@@ -1,5 +1,12 @@
 #! /bin/sh
 
+# Check for libwioe5ham1.so
+
+if [ ! -f /usr/local/lib/libwioe5ham1.so ]; then
+  echo "ERROR: You must install the libwioe5ham1 extension package."
+  exit 1
+fi
+
 # Run wioe5_ham1_rabbitmq as a background process
 
 detach /usr/local/bin/wioe5_ham1_rabbitmq

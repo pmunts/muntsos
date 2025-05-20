@@ -24,13 +24,9 @@ using RabbitMQ.Client;
 using System.Text;
 using static System.Environment;
 
-// Create watchdog timer object
+// Configure the Wio-E5 LoRa transceiver module
 
-var wd = new IO.Objects.SimpleIO.Watchdog.Timer("/dev/watchdog");
-
-// Change the watchdog timer period to 5 seconds
-
-wd.timeout = 5;
+var dev = new IO.Devices.WioE5.Ham1.Device();
 
 // Configure RabbitMQ.Client
 
@@ -59,17 +55,18 @@ for (;;)
 
   catch
   {
-    wd.Kick();
     System.Threading.Thread.Sleep(1000);
   }
 }
 
-// Configure Wio-E5 LoRa transceiver module
+// Start the watchdog timer
 
-var dev = new IO.Devices.WioE5.Ham1.Device();
-var msg = new byte[255];
+var wd = new IO.Objects.SimpleIO.Watchdog.Timer("/dev/watchdog");
+wd.timeout = 5;
 
 // Message loop
+
+var msg = new byte[255];
 
 for (;;)
 {
@@ -78,7 +75,7 @@ for (;;)
 
   if (len > 0)
   {
-    var outbuf = $"{System.DateTime.Now}\t"          +
+    var outbuf = $"{System.DateTime.Now}\t"        +
       $"{srcnet}-{srcnode}\t{dstnet}-{dstnode}\t"  +
       $"{len} bytes RSS:{RSS} dBm SNR: {SNR} dB\t" +
       $"{Encoding.UTF8.GetString(msg, 0, len)}";
