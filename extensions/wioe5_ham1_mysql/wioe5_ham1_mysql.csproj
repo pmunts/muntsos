@@ -10,11 +10,11 @@
     <NoWarn>NU5118</NoWarn>
   </PropertyGroup>
 
-  <!-- Reference NuGet package libsimpleio (https://www.nuget.org/packages/libsimpleio) -->
+  <!-- Reference NuGet packages -->
 
   <ItemGroup>
     <PackageReference Include="libsimpleio" Version="2.*" />
-    <PackageReference Include="MySql.Data" Version="9.3.0" />
+    <PackageReference Include="MySql.Data" Version="9.*" />
   </ItemGroup>
 
   <!-- Include library assemblies -->
