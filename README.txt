@@ -251,6 +251,11 @@ CD-ROM or NFS mount. If an autoexec.d subdirectory is found, each
 executable program or script in it will be executed when the system
 boots.
 
+Many recent extensions are just compiled Ada programs (e.g.
+remoteio_server). They just need to be copied to /boot/autoexec.d for
+execution at boot time. Some of these Ada extension programs will
+require one or more shared library extension packages such as libzmq.
+
 The idea is to build a MuntsOS kernel (which takes a long time) once and
 install it to the target platform. Then application specific software
 can be built after the fact and installed as tarball files in
@@ -496,8 +501,9 @@ parent cross-toolchain. I also build Free Pascal cross-compilers. Each
 of these rely on the libraries contained in the corresponding GCC
 cross-toolchain package.
 
-Cross-toolchain packages built for Debian Linux (x86-64 and ARM64)
-development host computers are available at either:
+Cross-toolchain packages containing GCC 14.2.0, including support for
+Ada 2022, and built for Debian Linux (x86-64 and ARM64) development host
+computers are available at either:
 
 https://repo.munts.com/debian12 (Debian package repository)
 https://repo.munts.com/muntsos/toolchain-debs (just the package files).
@@ -513,12 +519,14 @@ Alire Crates
 
 Adding the muntsos_aarch64 crate to an Alire Ada program project
 transforms said project into one that produces a cross-compiled AArch64
-program for MuntsOS. See Application Note #7 for a complete example
-using the alr command line tool.
+program for MuntsOS, using the system package muntsos-dev-aarch64, which
+pulls in all of the cross-toolchain components described above. See
+Application Note #7 for a complete example using the alr command line
+tool.
 
 muntsos_aarch64 depends upon the Linux distribution meta-package
-muntsos-dev-aarch64 that in turn pulls in the rest of the MuntsOS
-AArch64 cross-toolchain packages.
+muntsos-dev-aarch64 that pulls in the rest of the MuntsOS AArch64
+cross-toolchain packages.
 
 Please note that the other MuntsOS library crates in Alire (e.g.
 muntsos_beaglebone) are unusable due to breaking changes in alr 2.0.

@@ -285,6 +285,11 @@ via a kernel command line option to search for a subdirectory called
 USB CD-ROM or NFS mount. If an <b><tt>autoexec.d</tt></b> subdirectory is
 found, each executable program or script in it will be executed when the system
 boots.</p>
+<p>Many recent extensions are just compiled Ada programs (<i>e.g.</i>
+<b><tt>remoteio_server</tt></b>). They just need to be copied to
+<b><tt>/boot/autoexec.d</tt></b> for execution at boot time. Some of these Ada
+extension programs will require one or more shared library extension packages
+such as <b><tt>libzmq</tt></b>.</p>
 <p>The idea is to build a <b>MuntsOS</b> kernel (which takes a long time) once
 and install it to the target platform. Then application specific software can
 be built after the fact and installed as tarball files in
@@ -518,9 +523,10 @@ separately but installed into the same directory tree as the parent
 cross-toolchain. I also build <a href="https://www.freepascal.org">Free
 Pascal</a> cross-compilers. Each of these rely on the libraries contained in
 the corresponding GCC cross-toolchain package.</p>
-<p>Cross-toolchain packages built for <a href=
-"https://www.debian.org">Debian</a> Linux (x86-64 <i>and</i> ARM64) development
-host computers are available at either:</p>
+<p>Cross-toolchain packages containing GCC 14.2.0, including support for
+<a href="https://www.adaic.org/ada-resources/standards/ada22">Ada 2022</a>, and
+built for <a href="https://www.debian.org">Debian</a> Linux (x86-64 <i>and</i>
+ARM64) development host computers are available at either:</p>
 <a href="https://repo.munts.com/debian12">https://repo.munts.com/debian12</a>
 (Debian package repository)<br>
 <a href=
@@ -536,13 +542,15 @@ Fedora 40 and RHEL 9.1 and its derivatives, are available at:</p>
 "https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json"></a></p>
 <p>Adding the <b><tt>muntsos_aarch64</tt></b> crate to an Alire Ada program
 project transforms said project into one that produces a cross-compiled AArch64
-program for <b>MuntsOS</b>. See <a href=
+program for <b>MuntsOS</b>, using the system package
+<b><tt>muntsos-dev-aarch64</tt></b>, which pulls in all of the cross-toolchain
+components described above. See <a href=
 "https://repo.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">Application
 Note #7</a> for a complete example using the <b><tt>alr</tt></b> command line
 tool.</p>
 <p><b><tt>muntsos_aarch64</tt></b> depends upon the Linux distribution
-meta-package <b><tt>muntsos-dev-aarch64</tt></b> that in turn pulls in the rest
-of the <b>MuntsOS</b> AArch64 cross-toolchain packages.</p>
+meta-package <b><tt>muntsos-dev-aarch64</tt></b> that pulls in the rest of the
+<b>MuntsOS</b> AArch64 cross-toolchain packages.</p>
 <p id="alire_orphans">Please note that the other <b>MuntsOS</b> library crates
 in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are unusable due to breaking
 changes in <b><tt>alr</tt></b> 2.0. Unfortunately, Alire project policies
