@@ -187,6 +187,12 @@ RABBITMQ_SERVER	= http://github.com/alanxz/rabbitmq-c/archive/v$(RABBITMQ_VER)
 RABBITMQ_URL	= $(RABBITMQ_SERVER)/$(RABBITMQ_TARBALL)
 RABBITMQ_DIST	= $(DISTDIR)/$(RABBITMQ_TARBALL)
 
+NNG_NAME	= nng
+NNG_VER		= 1.10.1
+NNG_SRC		= $(NNG_NAME)-$(NNG_VER)
+NNG_URL		= https://github.com/nanomsg/nng/archive/refs/tags/v$(NNG_VER).tar.gz
+NNG_DIST	= $(DISTDIR)/$(NNG_SRC).tar.gz
+
 ZEROMQ_NAME	= zeromq
 ZEROMQ_VER	= 4.3.5
 ZEROMQ_SRC	= $(ZEROMQ_NAME)-$(ZEROMQ_VER)
@@ -264,6 +270,7 @@ SUBORDINATES	+= libsodium
 SUBORDINATES	+= libmysqlclient
 SUBORDINATES	+= gdbm
 SUBORDINATES	+= mqtt
+SUBORDINATES	+= nng
 SUBORDINATES	+= rabbitmq
 SUBORDINATES	+= zeromq
 SUBORDINATES	+= modbus
@@ -293,6 +300,7 @@ SRCDIRS		+= $(LIBNL_SRC)
 SRCDIRS		+= $(LIBSODIUM_SRC)
 SRCDIRS		+= $(LIBMYSQLCLIENT_SRC)
 SRCDIRS		+= $(GDBM_SRC) $(MQTT_SRC)
+SRCDIRS		+= $(NNG_SRC)
 SRCDIRS		+= $(RABBITMQ_SRC)
 SRCDIRS		+= $(ZEROMQ_SRC)
 SRCDIRS		+= $(MODBUS_SRC)
@@ -321,6 +329,7 @@ DISTFILES	+= $(LIBSODIUM_DIST)
 DISTFILES	+= $(LIBMYSQLCLIENT_DIST)
 DISTFILES	+= $(GDBM_DIST)
 DISTFILES	+= $(MQTT_DIST)
+DISTFILES	+= $(NNG_DIST)
 DISTFILES	+= $(RABBITMQ_DIST)
 DISTFILES	+= $(ZEROMQ_DIST)
 DISTFILES	+= $(MODBUS_DIST)
@@ -803,6 +812,41 @@ $(INSTALLDIR)/lib/libpaho-mqtt3a.so: $(MQTT_SRC)
 	$(MAKE) -C $(MQTT_SRC) CC=$(CROSS_COMPILE)gcc CFLAGS="-I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L$(DESTDIR)/$(INSTALLDIR)/lib" install DESTDIR=$(DESTDIR)/ prefix=$(INSTALLDIR) LDCONFIG=true
 
 mqtt: $(INSTALLDIR)/lib/libpaho-mqtt3a.so
+
+###############################################################################
+
+# Download the nng source distribution
+
+$(NNG_DIST):
+	wget -nv -O $(NNG_DIST) $(NNG_URL)
+
+# Unpack nng source
+
+$(NNG_SRC): $(NNG_DIST)
+	tar xzf $(NNG_DIST)
+
+# Build nng
+
+$(INSTALLDIR)/lib/libnng.a: $(NNG_SRC)
+	echo "set(CMAKE_SYSTEM_NAME Linux)"					>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_SYSTEM_PROCESSOR $(ARCH))"				>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_BUILD_TYPE Release)"					>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_C_COMPILER $(CROSS_COMPILE)gcc)"			>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_CXX_COMPILER $(CROSS_COMPILE)g++)"			>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_FIND_ROOT_PATH $(DESTDIR)/$(INSTALLDIR))" 		>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)"			>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)"			>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)"			>>$(NNG_SRC)/toolchain.cmake
+	echo "set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)"			>>$(NNG_SRC)/toolchain.cmake
+	echo "set(WITH_EXTERNAL_ZLIB on)"					>>$(NNG_SRC)/toolchain.cmake
+	mkdir -p $(NNG_SRC)/cross
+	cd $(NNG_SRC)/cross && cmake .. -DBUILD_SHARED_LIBS=ON -DCMAKE_TOOLCHAIN_FILE=../toolchain.cmake -DCMAKE_INSTALL_PREFIX=/$(INSTALLDIR) -DCMAKE_C_FLAGS=-I$(INSTALLDIR)/include
+	$(MAKE) -C $(NNG_SRC)/cross
+	$(MAKE) -C $(NNG_SRC)/cross install DESTDIR=$(DESTDIR)
+	echo rm -rf $(DESTDIR)/$(INSTALLDIR)/lib/cmake
+	touch $@
+
+nng: $(INSTALLDIR)/lib/libnng.a
 
 ###############################################################################
 
