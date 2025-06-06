@@ -71,8 +71,8 @@ BEGIN
       Debug.Put("Received => """ & LoRa.ToString(msg, len) & """ LEN:" &
         len'Image & " bytes RSS:" & RSS'Image & " dBm SNR:" & SNR'Image & " dB");
 
-      dev.Send("LEN:" & len'Image & " bytes RSS:" & RSS'Image & " dBm SNR:" &
-        SNR'Image & " dB", srcnode);
+      dev.Send(LoRa.ToString(msg, len) & " LEN:" & len'Image & " bytes RSS:" &
+        RSS'Image & " dBm SNR:" & SNR'Image & " dB", srcnode);
     END IF;
 
     IF NOT Debug.Enabled THEN
