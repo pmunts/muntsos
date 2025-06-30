@@ -20,6 +20,7 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+WITH Ada.Directories;
 WITH Ada.Environment_Variables;
 WITH Ada.Strings.Fixed;
 WITH Ada.Strings.Maps.Constants;
@@ -33,10 +34,9 @@ WITH NNG.Sub;
 
 PROCEDURE wioe5_ham1_nng_mailer IS
 
+  PACKAGE dir RENAMES Ada.Directories;
   PACKAGE env RENAMES Ada.Environment_Variables;
-
   PACKAGE map RENAMES Ada.Strings.Maps;
-
   PACKAGE str RENAMES Ada.Strings.Fixed;
 
   FUNCTION GetEnv(s : String) RETURN String RENAMES env.Value;
@@ -74,9 +74,11 @@ PROCEDURE wioe5_ham1_nng_mailer IS
     WHEN Ada.Strings.Index_Error => RETURN "";
   END GetToken;
 
-  err    : Integer;
-  client : NNG.Sub.Client;
-  relay  : Messaging.Text.Relay := Email_Mail.Create;
+  sockname : CONSTANT String := "ipc:///tmp/wioe5.sock";
+
+  err      : Integer;
+  client   : NNG.Sub.Client;
+  relay    : Messaging.Text.Relay := Email_Mail.Create;
 
 BEGIN
   IF Debug.Enabled THEN
@@ -89,7 +91,11 @@ BEGIN
     libLinux.Detach(err);
   END IF;
 
-  client.Initialize("ipc:///tmp/wioe5.sock");
+  WHILE NOT dir.Exists(sockname) LOOP
+    DELAY 0.1;
+  END LOOP;
+
+  client.Initialize(sockname);
 
   LOOP
     DECLARE
