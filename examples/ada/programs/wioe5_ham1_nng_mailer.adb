@@ -29,38 +29,57 @@ WITH Debug;
 WITH Email_Mail;
 WITH libLinux;
 WITH Messaging.Text;
+WITH NNG.Sub;
 WITH Watchdog.libsimpleio;
-WITH Wio_E5.Ham1;
 
-PROCEDURE wioe5_ham1_mailer IS
+PROCEDURE wioe5_ham1_nng_mailer IS
 
-  FUNCTION getenv(s : String) RETURN String RENAMES Ada.Environment_Variables.Value;
+  PACKAGE env RENAMES Ada.Environment_Variables;
 
-  FUNCTION tolower(s : string) RETURN String IS
+  PACKAGE map RENAMES Ada.Strings.Maps;
+
+  PACKAGE str RENAMES Ada.Strings.Fixed;
+
+  FUNCTION GetEnv(s : String) RETURN String RENAMES env.Value;
+
+  FUNCTION ToLower(s : string) RETURN String IS
 
   BEGIN
-    RETURN Ada.Strings.Fixed.Translate(s, Ada.Strings.Maps.Constants.Lower_Case_Map);
-  END tolower;
+    RETURN str.Translate(s, map.Constants.Lower_Case_Map);
+  END ToLower;
 
-  FUNCTION trim(s : String) RETURN String IS
+  FUNCTION Trim(s : String) RETURN String IS
 
   BEGIN
-    RETURN Ada.Strings.Fixed.Trim(s, Ada.Strings.Both);
-  END trim;
+    RETURN str.Trim(s, Ada.Strings.Both);
+  END Trim;
 
-  PACKAGE LoRa IS NEW Wio_E5.Ham1;
+  FUNCTION GetToken(s : String; num : Positive) RETURN String IS
 
-  err     : Integer;
-  wd      : Watchdog.Timer;
-  dev     : LoRa.Device;
-  msg     : LoRa.Payload;
-  len     : Natural;
-  srcnode : LoRa.NodeID;
-  dstnode : LoRa.NodeID;
-  RSS     : Integer;
-  SNR     : Integer;
+    Delimiters : CONSTANT map.Character_Set :=
+      map.To_Set(' ');
 
-  relay : CONSTANT Messaging.Text.Relay := Email_Mail.Create;
+    F : Positive;
+    L : Natural := 0;
+    N : Natural := 0;
+
+  BEGIN
+    WHILE N < num LOOP
+      Ada.Strings.Fixed.Find_Token(s, Delimiters, L + 1, Ada.Strings.Outside, F, L);
+      N := N + 1;
+    END LOOP;
+
+    RETURN s(F .. L);
+
+  EXCEPTION
+    WHEN Ada.Strings.Index_Error => RETURN "";
+  END GetToken;
+
+
+  err    : Integer;
+  wd     : Watchdog.Timer;
+  client : NNG.Sub.Client;
+  relay  : Messaging.Text.Relay := Email_Mail.Create;
 
 BEGIN
   IF Debug.Enabled THEN
@@ -81,31 +100,25 @@ BEGIN
     wd.SetTimeout(5.0);
   END IF;
 
-  -- Create a LoRa transceiver object
-
-  dev := LoRa.Create;
+  client.Initialize("ipc:///tmp/wioe5.sock");
 
   LOOP
-    dev.Receive(msg, len, srcnode, dstnode, RSS, SNR);
+    DECLARE
+      message   : String := client.Get;
+      username  : String := GetToken(message, 1);
+      sender    : String := ToLower(username) & '@' & GetEnv("EMAIL_DOMAIN");
+      recipient : String := GetEnv("EMAIL_RECIPIENT");
+    BEGIN
+      Debug.Put("Sender    => " & sender);
+      Debug.Put("Recipient => " & recipient);
+      Debug.Put("Message   => " & message);
+      Debug.Put("");
 
-    IF len > 0 THEN
-      DECLARE
-        username  : String := getenv("WIOE5_NETWORK") & '-' & trim(srcnode'Image);
-        sender    : String := tolower(username) & '@' & getenv("EMAIL_DOMAIN");
-        recipient : String := getenv("EMAIL_RECIPIENT");
-      BEGIN
-        Debug.Put("Sender    => " & sender);
-        Debug.Put("Recipient => " & recipient);
-        Debug.Put("Message   => " & LoRa.ToString(msg, len));
-        Debug.Put("");
-
-        relay.Send(sender, recipient, LoRa.ToString(msg, len),
-          "Message from LoRa Station " & username);
-      END;
-    END IF;
+      relay.Send(sender, recipient, message, "Message from LoRa Station " & username);
+    END;
 
     IF NOT Debug.Enabled THEN
       wd.Kick;
     END IF;
   END LOOP;
-END wioe5_ham1_mailer;
+END wioe5_ham1_nng_mailer;
