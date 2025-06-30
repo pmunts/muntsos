@@ -26,14 +26,15 @@ WITH NNG.Sub;
 
 PROCEDURE wioe5_ham1_nng_messages IS
 
-  client : NNG.Sub.Client;
+  sockname : CONSTANT String := "/var/run/wioe5.sock";
+  client   : NNG.Sub.Client;
 
 BEGIN
   New_Line;
   Put_Line("Wio-E5 LoRa Transceiver NNG Message Displayer");
   New_Line;
 
-  client.Initialize("ipc:///tmp/wioe5.sock");
+  client.Initialize("ipc://" & sockname);
 
   LOOP
     Put_Line(client.Get);

@@ -74,11 +74,11 @@ PROCEDURE wioe5_ham1_nng_mailer IS
     WHEN Ada.Strings.Index_Error => RETURN "";
   END GetToken;
 
-  sockname : CONSTANT String := "ipc:///tmp/wioe5.sock";
-
   err      : Integer;
-  client   : NNG.Sub.Client;
   relay    : Messaging.Text.Relay := Email_Mail.Create;
+
+  sockname : CONSTANT String := "/var/run/wioe5.sock";
+  client   : NNG.Sub.Client;
 
 BEGIN
   IF Debug.Enabled THEN
@@ -95,7 +95,7 @@ BEGIN
     DELAY 0.1;
   END LOOP;
 
-  client.Initialize(sockname);
+  client.Initialize("ipc://" & sockname);
 
   LOOP
     DECLARE

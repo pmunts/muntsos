@@ -42,17 +42,18 @@ PROCEDURE wioe5_ham1_nng_publisher IS
 
   PACKAGE LoRa IS NEW Wio_E5.Ham1;
 
-  err     : Integer;
-  wd      : Watchdog.Timer;
-  dev     : LoRa.Device;
-  msg     : LoRa.Payload;
-  len     : Natural;
-  srcnode : LoRa.NodeID;
-  dstnode : LoRa.NodeID;
-  RSS     : Integer;
-  SNR     : Integer;
+  err      : Integer;
+  wd       : Watchdog.Timer;
+  dev      : LoRa.Device;
+  msg      : LoRa.Payload;
+  len      : Natural;
+  srcnode  : LoRa.NodeID;
+  dstnode  : LoRa.NodeID;
+  RSS      : Integer;
+  SNR      : Integer;
 
-  server : NNG.Pub.Server;
+  sockname : CONSTANT String := "/var/run/wioe5.sock";
+  server   : NNG.Pub.Server;
 
 BEGIN
   IF Debug.Enabled THEN
@@ -77,7 +78,7 @@ BEGIN
 
   dev := LoRa.Create;
 
-  server.Initialize("ipc:///tmp/wioe5.sock");
+  server.Initialize("ipc://" & sockname);
 
   LOOP
     dev.Receive(msg, len, srcnode, dstnode, RSS, SNR);
