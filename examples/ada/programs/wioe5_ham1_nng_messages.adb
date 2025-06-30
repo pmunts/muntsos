@@ -1,4 +1,4 @@
--- Wio-E5 LoRa Transceiver NNG Subscriber Message Displayer
+-- Wio-E5 LoRa Transceiver NNG Message Displayer
 
 -- Copyright (C)2025, Philip Munts dba Munts Technologies.
 --
@@ -30,7 +30,7 @@ PROCEDURE wioe5_ham1_nng_messages IS
 
 BEGIN
   New_Line;
-  Put_Line("Wio-E5 LoRa Transceiver NNG Subscriber Message Displayer");
+  Put_Line("Wio-E5 LoRa Transceiver NNG Message Displayer");
   New_Line;
 
   client.Initialize("ipc:///tmp/wioe5.sock");

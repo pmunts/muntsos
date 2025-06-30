@@ -1,4 +1,4 @@
--- Wio-E5 LoRa Transceiver NNG Subscriber Message Mailer
+-- Wio-E5 LoRa Transceiver NNG Message Mailer
 
 -- Copyright (C)2025, Philip Munts dba Munts Technologies.
 --
@@ -83,11 +83,11 @@ PROCEDURE wioe5_ham1_nng_mailer IS
 BEGIN
   IF Debug.Enabled THEN
     New_Line;
-    Put_Line("Wio-E5 LoRa Transceiver NNG Subscriber Message Mailer");
+    Put_Line("Wio-E5 LoRa Transceiver NNG Message Mailer");
     New_Line;
   ELSE
     New_Line;
-    Put("Wio-E5 LoRa Transceiver NNG Subscriber Message Mailer");
+    Put("Wio-E5 LoRa Transceiver NNG Message Mailer");
     libLinux.Detach(err);
   END IF;
 
