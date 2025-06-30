@@ -84,8 +84,14 @@ BEGIN
 
     IF len > 0 THEN
       DECLARE
-        sender : String := getenv("WIOE5_NETWORK") & '-' & trim(srcnode'Image);
-        outbuf : String := sender & " " & LoRa.ToString(msg, len);
+        sender    : String := getenv("WIOE5_NETWORK") & '-' & trim(srcnode'Image);
+        recipient : String := getenv("WIOE5_NETWORK") & '-' & trim(dstnode'Image);
+
+        outbuf    : String := "SRC:" & sender          & " " &
+                              "DST:" & recipient       & " " &
+                              "RSS:" & Trim(RSS'Image) & " " &
+                              "SNR:" & Trim(SNR'Image) & " " &
+                              "MSG:" & LoRa.ToString(msg, len);
       BEGIN
         Debug.Put(outbuf);
         server.Put(outbuf);
