@@ -1,4 +1,4 @@
--- Wio-E5 LoRa Transceiver nng Message Publisher
+-- Wio-E5 LoRa Transceiver NNG Message Publisher
 
 -- Copyright (C)2025, Philip Munts dba Munts Technologies.
 --
@@ -57,11 +57,11 @@ PROCEDURE wioe5_ham1_nng_publisher IS
 BEGIN
   IF Debug.Enabled THEN
     New_Line;
-    Put_Line("Wio-E5 LoRa Transceiver nng Message Publisher");
+    Put_Line("Wio-E5 LoRa Transceiver NNG Message Publisher");
     New_Line;
   ELSE
     New_Line;
-    Put("Wio-E5 LoRa Transceiver nng Message Publisher");
+    Put("Wio-E5 LoRa Transceiver NNG Message Publisher");
 
     -- Run as background process
 
