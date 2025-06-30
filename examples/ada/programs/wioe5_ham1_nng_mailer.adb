@@ -30,7 +30,6 @@ WITH Email_Mail;
 WITH libLinux;
 WITH Messaging.Text;
 WITH NNG.Sub;
-WITH Watchdog.libsimpleio;
 
 PROCEDURE wioe5_ham1_nng_mailer IS
 
@@ -65,7 +64,7 @@ PROCEDURE wioe5_ham1_nng_mailer IS
 
   BEGIN
     WHILE N < num LOOP
-      Ada.Strings.Fixed.Find_Token(s, Delimiters, L + 1, Ada.Strings.Outside, F, L);
+      str.Find_Token(s, Delimiters, L + 1, Ada.Strings.Outside, F, L);
       N := N + 1;
     END LOOP;
 
@@ -75,16 +74,14 @@ PROCEDURE wioe5_ham1_nng_mailer IS
     WHEN Ada.Strings.Index_Error => RETURN "";
   END GetToken;
 
-
   err    : Integer;
-  wd     : Watchdog.Timer;
   client : NNG.Sub.Client;
   relay  : Messaging.Text.Relay := Email_Mail.Create;
 
 BEGIN
   IF Debug.Enabled THEN
     New_Line;
-    Put_Line("Wio-E5 LoRa Transceiver Mail Forwarder");
+    Put_Line("Wio-E5 LoRa Transceiver NNG Mail Forwarder");
     New_Line;
   ELSE
     New_Line;
@@ -93,11 +90,6 @@ BEGIN
     -- Run as background process
 
     libLinux.Detach(err);
-
-    -- Create a watchdog timer device object
-
-    wd := Watchdog.libsimpleio.Create;
-    wd.SetTimeout(5.0);
   END IF;
 
   client.Initialize("ipc:///tmp/wioe5.sock");
@@ -105,7 +97,8 @@ BEGIN
   LOOP
     DECLARE
       message   : String := client.Get;
-      username  : String := GetToken(message, 1);
+      srcnode   : String := GetToken(message, 1);
+      username  : String := srcnode(5 .. srcnode'Last);
       sender    : String := ToLower(username) & '@' & GetEnv("EMAIL_DOMAIN");
       recipient : String := GetEnv("EMAIL_RECIPIENT");
     BEGIN
@@ -114,11 +107,8 @@ BEGIN
       Debug.Put("Message   => " & message);
       Debug.Put("");
 
-      relay.Send(sender, recipient, message, "Message from LoRa Station " & username);
+      relay.Send(sender, recipient, message, "Message from LoRa Station " &
+        username);
     END;
-
-    IF NOT Debug.Enabled THEN
-      wd.Kick;
-    END IF;
   END LOOP;
 END wioe5_ham1_nng_mailer;
