@@ -26,12 +26,12 @@
 //
 // create table LoRaMessages
 // (
-//   time     datetime,
-//   sender   varchar(20),
-//   receiver varchar(20),
-//   RSS      int,
-//   SNR      int,
-//   message  varchar(256)
+//   sender   varchar(20) not null,
+//   receiver varchar(20) not null,
+//   RSS      int not null,
+//   SNR      int not null,
+//   message  varchar(256) not null,
+//   time     datetime not null default current_timestamp
 // );
 
 using MySql.Data.MySqlClient;
@@ -94,9 +94,8 @@ for (;;)
     // Build the MySQL command
 
     var cmdstr = $"INSERT LoRaMessages VALUES (" +
-      $"'{System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', " +
       $"'{srcnet}-{srcnode}', '{dstnet}-{dstnode}', {RSS}, {SNR}, " +
-      $"'{System.Text.Encoding.UTF8.GetString(msg, 0, len)}');";
+      $"'{System.Text.Encoding.UTF8.GetString(msg, 0, len)}', DEFAULT);";
 
     // Dispatch the MySQL command
 
