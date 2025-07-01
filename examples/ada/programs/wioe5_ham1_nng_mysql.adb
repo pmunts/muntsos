@@ -20,8 +20,10 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+-- MySQL script to create table LoRaMessages:
+--
 -- drop table if exists LoRaMessages;
--- 
+--
 -- create table LoRaMessages
 -- (
 --   sender   varchar(20) not null,
