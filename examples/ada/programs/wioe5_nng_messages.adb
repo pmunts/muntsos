@@ -24,7 +24,7 @@ WITH Ada.Text_IO; USE Ada.Text_IO;
 
 WITH NNG.Sub;
 
-PROCEDURE wioe5_ham1_nng_messages IS
+PROCEDURE wioe5_nng_messages IS
 
   sockname : CONSTANT String := "/var/run/wioe5.sock";
   client   : NNG.Sub.Client;
@@ -39,4 +39,4 @@ BEGIN
   LOOP
     Put_Line(client.Get);
   END LOOP;
-END wioe5_ham1_nng_messages;
+END wioe5_nng_messages;
