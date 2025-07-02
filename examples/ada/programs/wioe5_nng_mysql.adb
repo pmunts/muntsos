@@ -45,7 +45,7 @@ WITH libLinux;
 WITH MySQL.libmysqlclient;
 WITH NNG.Sub;
 
-PROCEDURE wioe5_ham1_nng_mysql IS
+PROCEDURE wioe5_nng_mysql IS
 
   PACKAGE dir RENAMES Ada.Directories;
   PACKAGE env RENAMES Ada.Environment_Variables;
@@ -149,4 +149,4 @@ BEGIN
       dbserver.Dispatch(cmd);
     END;
   END LOOP;
-END wioe5_ham1_nng_mysql;
+END wioe5_nng_mysql;
