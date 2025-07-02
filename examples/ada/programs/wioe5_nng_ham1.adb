@@ -34,11 +34,11 @@ PROCEDURE wioe5_nng_ham1 IS
 
   FUNCTION getenv(s : String) RETURN String RENAMES Ada.Environment_Variables.Value;
 
-  FUNCTION trim(s : String) RETURN String IS
+  FUNCTION Trim(s : String) RETURN String IS
 
   BEGIN
     RETURN Ada.Strings.Fixed.Trim(s, Ada.Strings.Both);
-  END trim;
+  END Trim;
 
   PACKAGE LoRa IS NEW Wio_E5.Ham1;
 
@@ -85,8 +85,8 @@ BEGIN
 
     IF len > 0 THEN
       DECLARE
-        sender    : String := getenv("WIOE5_NETWORK") & '-' & trim(srcnode'Image);
-        recipient : String := getenv("WIOE5_NETWORK") & '-' & trim(dstnode'Image);
+        sender    : String := getenv("WIOE5_NETWORK") & '-' & Trim(srcnode'Image);
+        recipient : String := getenv("WIOE5_NETWORK") & '-' & Trim(dstnode'Image);
 
         outbuf    : String := "SRC:" & sender          & " " &
                               "DST:" & recipient       & " " &
