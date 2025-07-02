@@ -32,7 +32,7 @@ WITH libLinux;
 WITH Messaging.Text;
 WITH NNG.Sub;
 
-PROCEDURE wioe5_ham1_nng_mailer IS
+PROCEDURE wioe5_nng_mailer IS
 
   PACKAGE dir RENAMES Ada.Directories;
   PACKAGE env RENAMES Ada.Environment_Variables;
@@ -114,4 +114,4 @@ BEGIN
         username);
     END;
   END LOOP;
-END wioe5_ham1_nng_mailer;
+END wioe5_nng_mailer;
