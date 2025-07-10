@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
+<title></title>
+</head>
+<body>
 <h1><b>MuntsOS</b> Embedded Linux</h1>
 <p><b>MuntsOS</b> is a <i>ferociously</i> reduced Linux distribution for
 <b>embedded systems</b>. It runs on several microcomputer boards, including all
@@ -15,122 +22,6 @@ Raspberry Pi board, <b>MuntsOS</b> offers a very high productivity development
 environment and a very easy to deploy target operating system.</p>
 <h2>News</h2>
 <ul>
-<li>17 December 2024 -- Moved all 32-bit target deliverables (toolchain
-packages, kernels, extensions, and thin servers) to <a href=
-"https://repo.munts.com/muntsos/attic">https://repo.munts.com/muntsos/attic</a>.
-I did a final build of the 32-bit target kernels with <b><tt>sysconfig</tt></b>
-modified to fetch extensions from the attic. I do not anticipate ever building
-the 32-bit target kernels or thin servers again.</li>
-<li>
-<p>20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67. Added a new
-device tree overlay, <b><tt>Pi4ClickShield</tt></b>, to support the eponymous
-<a href="https://www.mikroe.com/pi-4-click-shield">mikroBUS shield</a>.</p>
-</li>
-<li>
-<p>26 December 2024 -- Added <i>preliminary</i> support for the <a href=
-"http://www.orangepi.org/orangepiwiki/index.php/Orange_Pi_Zero_2W">Orange Pi
-Zero 2W</a>. I have the <a href="https://www.u-boot.org">U-Boot</a> boot loader
-and the Linux mainline 6.12 LTS kernel, both with serial port console, working
-all the way to the login prompt. Much work on the kernel and device tree
-remains before <b>MuntsOS</b> on the Orange Pi Zero 2W is ready for production
-use.</p>
-</li>
-<li>
-<p>28 December 2024 -- I had to drop back to the manufacturer Linux 6.1 kernel
-tree for the Orange Pi Zero 2W. The Linux mainline 6.12 LTS tree does not have
-drivers for PWM outputs nor the built-in WiFi chipset, both of which are
-required for the application I have in mind. <b>MuntsOS</b> for the Orange Pi
-Zero 2W built on Linux 6.1 is about at the same point or a litte further along
-than what I had running on Linux 6.12 LTS. Most things seem to be working
-except HDMI and internal WiFi. I have been testing with a <a href=
-"https://uk.pi-supply.com/collections/dongles-hubs/products/broadcom-wifi-adapter-2-port-usb-hub-raspberry-pi">
-Broadcom WiFi Adapter and Two Port Hub</a> I got years ago for the Raspberry Pi
-Zero.</p>
-</li>
-<li>
-<p>3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69. Got the
-Orange Pi Zero 2W console on USB keyboard / HDMI monitor working. Modified
-<b><tt>/etc/inittab</tt></b> to support four virtual terminals on HDMI video
-target platforms. Changed the kernel default <b><tt>printk</tt></b> quiet
-priority level to 2, to suppress most <b><tt>printk</tt></b> noise to the
-console. Added support for importing settings from
-<b><tt>/etc/sysctl.conf</tt></b>.</p>
-</li>
-<li>
-<p>4 January 2025 -- Added <b><tt>tclsh</tt></b>, <b><tt>expect</tt></b>, and
-<b><tt>socat</tt></b> extension packages. <a href=
-"https://www.tcl-lang.org">Tcl</a> is a scripting language that has been around
-in the Unix world for a very long time, since 1988. <b><tt>tclsh</tt></b> is
-the Tcl interpreter program. Some years ago I used Tcl for text fixture
-automation, an application for which it is very well suited.</p>
-<p><b><tt><a href="https://manpages.org/expect">expect</a></tt></b> is both an
-extension to Tcl and a standalone program that is extremely useful for
-automating a dialog between a computer and an I/O device with a serial port
-interface. All manner of older lab instruments and other industrial equipment
-had a serial port control interface, as do more modern devices such as the
-<a href="https://www.espressif.com/en/products/socs/esp8266">ESP8266 WiFi
-microcontroller</a>. Many modern instruments, such as my oscilloscope, have a
-USB-B receptacle that enumerates as a serial port when plugged into a
-computer.</p>
-<p><b><tt><a href="https://manpages.org/socat">socat</a></tt></b> is a Linux
-utility program that bridges two byte stream communications channels of various
-kinds, such as <b><tt>stdin</tt></b>/<b><tt>stdout</tt></b> and a serial port,
-in the case of the <b><tt>expect</tt></b> script I was using to configure the
-ESP8266.</p>
-</li>
-<li>
-<p>8 January 2025 -- As I was preparing to begin work on USB Gadget mode for
-the Orange Pi Zero 2W, I realized that, unlike the Raspberry Pi 3, the
-Raspberry Pi 4 does not need a separate USB Gadget kernel. The old obsolete
-BeagleBones, the Raspberry Pi 4 Model B, and the Raspberry Pi 5 Model B all
-have a USB controller dedicated to the USB Mini-A/USB micro-A/USB-C power
-receptacle that is entirely separate from the USB controller dedicated to the
-USB-A receptacle(s). The BeagleBone family never needed a separate USB Gadget
-kernel and neither do the Raspberry Pi 4 or 5.</p>
-<p>The direction (host or peripheral) of the Raspberry Pi 4 Model B (and the
-Raspberry Pi 5 Model B) USB-C receptacle is set in the device tree, by adding
-either <b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> or
-<b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> to
-<b><tt>/boot/config.txt</tt></b>. This may or may not work on CM4/CM5 carrier
-boards: The <a href=
-"https://www.raspberrypi.com/products/compute-module-4-io-board">Compute Module
-4 IO Board</a> can be placed into USB peripheral mode but the <a href=
-"https://www.waveshare.com/wiki/CM4-Duino">Waveshare CM4-Duino</a> cannot.
-Negotiating USB peripheral mode seems to require USB OTG (On The Go)
-configuration signals and/or resistors that are wired on the CM4 I/O Board but
-not on the CM4-Duino.</p>
-<p>This USB Gadget scheme works equally well on the Raspberry Pi 5 Model B and
-I have enabled support for USB Gadget mode in the Raspberry Pi 5 kernel. Both
-my Windows laptop and Dell tower running Debian Linux Bookworm are able to
-supply enough current to their USB-A receptacles to power up a Raspberry Pi 5
-Model B with 4 GB of RAM running <b>MuntsOS</b>. YMMV.</p>
-<p>Just for the fun of it, I have added the <a href=
-"https://github.com/ColinIanKing/stress-ng">stress-ng</a> extension package to
-<b>MuntsOS</b> see how a Raspberry Pi 5 Model B would hold up drawing power
-from the Dell tower's front panel USB-A receptacle.</p>
-</li>
-<li>
-<p>9 January 2025 -- Another big milestone for the Orange Pi Zero 2W: USB
-Gadget support is working. The Orange Pi Zero 2W has two USB-C receptacles. If
-you orient the board vertically, with the micro-SD receptacle at the top, the
-40-pin expansion bus on the right, and the HDMI and USB-C receptacles on the
-left, the bottom USB-C receptacle (labeled <b><tt>TYPEC1</tt></b> on the
-schematic diagram) is the USB peripheral receptacle and the one above it
-(labeled <b><tt>TYPEC2</tt></b> on the schematic diagram) is the USB host
-receptacle. You can supply power to either USB-C receptacle, but you will
-almost always want to use the lower one for power and tethering and the upper
-one for USB devices.</p>
-</li>
-<li>
-<p>31 January 2025 -- Upgraded the Raspberry Pi kernel to 6.6.74, mailutils to
-3.18, and nano editor to 8.3.</p>
-<p>Backed out the <b><tt>link-gpiochip</tt></b> hack, since the Raspberry Pi
-team has since fixed the Raspberry Pi 5 GPIO compatibility issue. The Raspberry
-Pi 5 expansion header GPIO pins are back on <b><tt>gpiochip0</tt></b> like all
-previous Raspberry Pi models. See this <a href=
-"https://pip.raspberrypi.com/categories/685-app-notes-guides-whitepapers/documents/RP-006553-WP/A-history-of-GPIO-usage-on-Raspberry-Pi-devices-and-current-best-practices.pdf">
-Application Note</a> for more information.</p>
-</li>
 <li>
 <p>12 February 2025 -- Added <b><a href=
 "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/tree">libgpiod</a></b>
@@ -223,6 +114,12 @@ Studio <b><tt>Build -&gt; Pack</tt></b>)
 <b><tt>&lt;progname&gt;.&lt;progversion&gt;.nupkg</tt></b> is still
 supported.</p>
 </li>
+<li>10 July 2025 -- Upgraded library components readline to 8.3, libgpiod to
+2.2.2, libusb to 1.0.29, hidapi to 0.15.0, openssl to 3.5.1, curl to 8.14.1,
+xmlrpc-c to 1.60.05, mariadb-connector-c aka libmysql to 3.4.5, nng to 1.11,
+libffi to 3.5.1, and xz to 5.8.1. Upgraded userland programs openssh to 10.0p1,
+ethtool to 6.15, mailutils to 3.19, and nano editor to 8.5. Upgraded Raspberry
+kernels to 6.12.36. Upgraded .Net Runtime extension to 9.0.8.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development
@@ -617,3 +514,5 @@ cross-toolchain packages) are available at:</p>
 <hr>
 Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
+</body>
+</html>

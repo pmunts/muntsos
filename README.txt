@@ -17,112 +17,6 @@ target operating system.
 
 News
 
--   17 December 2024 -- Moved all 32-bit target deliverables (toolchain
-    packages, kernels, extensions, and thin servers) to
-    https://repo.munts.com/muntsos/attic. I did a final build of the
-    32-bit target kernels with sysconfig modified to fetch extensions
-    from the attic. I do not anticipate ever building the 32-bit target
-    kernels or thin servers again.
-
--   20 December 2024 -- Upgraded the Raspberry Pi kernel to 6.6.67.
-    Added a new device tree overlay, Pi4ClickShield, to support the
-    eponymous mikroBUS shield.
-
--   26 December 2024 -- Added preliminary support for the Orange Pi Zero
-    2W. I have the U-Boot boot loader and the Linux mainline 6.12 LTS
-    kernel, both with serial port console, working all the way to the
-    login prompt. Much work on the kernel and device tree remains before
-    MuntsOS on the Orange Pi Zero 2W is ready for production use.
-
--   28 December 2024 -- I had to drop back to the manufacturer Linux 6.1
-    kernel tree for the Orange Pi Zero 2W. The Linux mainline 6.12 LTS
-    tree does not have drivers for PWM outputs nor the built-in WiFi
-    chipset, both of which are required for the application I have in
-    mind. MuntsOS for the Orange Pi Zero 2W built on Linux 6.1 is about
-    at the same point or a litte further along than what I had running
-    on Linux 6.12 LTS. Most things seem to be working except HDMI and
-    internal WiFi. I have been testing with a Broadcom WiFi Adapter and
-    Two Port Hub I got years ago for the Raspberry Pi Zero.
-
--   3 January 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.6.69.
-    Got the Orange Pi Zero 2W console on USB keyboard / HDMI monitor
-    working. Modified /etc/inittab to support four virtual terminals on
-    HDMI video target platforms. Changed the kernel default printk quiet
-    priority level to 2, to suppress most printk noise to the console.
-    Added support for importing settings from /etc/sysctl.conf.
-
--   4 January 2025 -- Added tclsh, expect, and socat extension packages.
-    Tcl is a scripting language that has been around in the Unix world
-    for a very long time, since 1988. tclsh is the Tcl interpreter
-    program. Some years ago I used Tcl for text fixture automation, an
-    application for which it is very well suited.
-
-    expect is both an extension to Tcl and a standalone program that is
-    extremely useful for automating a dialog between a computer and an
-    I/O device with a serial port interface. All manner of older lab
-    instruments and other industrial equipment had a serial port control
-    interface, as do more modern devices such as the ESP8266 WiFi
-    microcontroller. Many modern instruments, such as my oscilloscope,
-    have a USB-B receptacle that enumerates as a serial port when
-    plugged into a computer.
-
-    socat is a Linux utility program that bridges two byte stream
-    communications channels of various kinds, such as stdin/stdout and a
-    serial port, in the case of the expect script I was using to
-    configure the ESP8266.
-
--   8 January 2025 -- As I was preparing to begin work on USB Gadget
-    mode for the Orange Pi Zero 2W, I realized that, unlike the
-    Raspberry Pi 3, the Raspberry Pi 4 does not need a separate USB
-    Gadget kernel. The old obsolete BeagleBones, the Raspberry Pi 4
-    Model B, and the Raspberry Pi 5 Model B all have a USB controller
-    dedicated to the USB Mini-A/USB micro-A/USB-C power receptacle that
-    is entirely separate from the USB controller dedicated to the USB-A
-    receptacle(s). The BeagleBone family never needed a separate USB
-    Gadget kernel and neither do the Raspberry Pi 4 or 5.
-
-    The direction (host or peripheral) of the Raspberry Pi 4 Model B
-    (and the Raspberry Pi 5 Model B) USB-C receptacle is set in the
-    device tree, by adding either dtoverlay=dwc2,dr_mode=host or
-    dtoverlay=dwc2,dr_mode=peripheral to /boot/config.txt. This may or
-    may not work on CM4/CM5 carrier boards: The Compute Module 4 IO
-    Board can be placed into USB peripheral mode but the Waveshare
-    CM4-Duino cannot. Negotiating USB peripheral mode seems to require
-    USB OTG (On The Go) configuration signals and/or resistors that are
-    wired on the CM4 I/O Board but not on the CM4-Duino.
-
-    This USB Gadget scheme works equally well on the Raspberry Pi 5
-    Model B and I have enabled support for USB Gadget mode in the
-    Raspberry Pi 5 kernel. Both my Windows laptop and Dell tower running
-    Debian Linux Bookworm are able to supply enough current to their
-    USB-A receptacles to power up a Raspberry Pi 5 Model B with 4 GB of
-    RAM running MuntsOS. YMMV.
-
-    Just for the fun of it, I have added the stress-ng extension package
-    to MuntsOS see how a Raspberry Pi 5 Model B would hold up drawing
-    power from the Dell tower's front panel USB-A receptacle.
-
--   9 January 2025 -- Another big milestone for the Orange Pi Zero 2W:
-    USB Gadget support is working. The Orange Pi Zero 2W has two USB-C
-    receptacles. If you orient the board vertically, with the micro-SD
-    receptacle at the top, the 40-pin expansion bus on the right, and
-    the HDMI and USB-C receptacles on the left, the bottom USB-C
-    receptacle (labeled TYPEC1 on the schematic diagram) is the USB
-    peripheral receptacle and the one above it (labeled TYPEC2 on the
-    schematic diagram) is the USB host receptacle. You can supply power
-    to either USB-C receptacle, but you will almost always want to use
-    the lower one for power and tethering and the upper one for USB
-    devices.
-
--   31 January 2025 -- Upgraded the Raspberry Pi kernel to 6.6.74,
-    mailutils to 3.18, and nano editor to 8.3.
-
-    Backed out the link-gpiochip hack, since the Raspberry Pi team has
-    since fixed the Raspberry Pi 5 GPIO compatibility issue. The
-    Raspberry Pi 5 expansion header GPIO pins are back on gpiochip0 like
-    all previous Raspberry Pi models. See this Application Note for more
-    information.
-
 -   12 February 2025 -- Added libgpiod to the toolchain libraries
     packages gcc-*-muntsos-linux-gnu-ctng-libs and added the libgpiod
     runtime extension package. Because they use the same ioctl()
@@ -186,6 +80,14 @@ News
     older (and hereafter deprecated) naming scheme (as built by
     dotnet pack or Visual Studio Build -> Pack)
     <progname>.<progversion>.nupkg is still supported.
+
+-   10 July 2025 -- Upgraded library components readline to 8.3,
+    libgpiod to 2.2.2, libusb to 1.0.29, hidapi to 0.15.0, openssl to
+    3.5.1, curl to 8.14.1, xmlrpc-c to 1.60.05, mariadb-connector-c aka
+    libmysql to 3.4.5, nng to 1.11, libffi to 3.5.1, and xz to 5.8.1.
+    Upgraded userland programs openssh to 10.0p1, ethtool to 6.15,
+    mailutils to 3.19, and nano editor to 8.5. Upgraded Raspberry
+    kernels to 6.12.36. Upgraded .Net Runtime extension to 9.0.8.
 
 Quick Setup Instructions for the Impatient
 
