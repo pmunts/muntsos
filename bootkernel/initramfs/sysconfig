@@ -48,7 +48,11 @@ function GetYesNo {
 function Prepare {
   oldhostname=`hostname -s`
 
-  mount -o rw /boot
+  if [ -f /boot/config.txt ]; then
+    mount -oremount,rw /boot
+  else
+    mount -o rw /boot
+  fi
 
   if [ ! -f /boot/config.txt ]; then
     echo "ERROR: Invalid boot file system"
