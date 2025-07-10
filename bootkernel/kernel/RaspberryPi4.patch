@@ -1,6 +1,6 @@
---- arch/arm/boot/dts/overlays/overlay_map.dts.orig
-+++ arch/arm/boot/dts/overlays/overlay_map.dts
-@@ -38,6 +38,14 @@
+--- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2025-07-08 13:08:17.000000000 -0700
++++ arch/arm/boot/dts/overlays/overlay_map.dts	2025-07-10 11:37:40.957188746 -0700
+@@ -43,6 +43,14 @@
  		bcm2711;
  	};
  
@@ -15,7 +15,7 @@
  	disable-wifi {
  		bcm2835;
  		bcm2711;
-@@ -214,6 +222,14 @@
+@@ -223,6 +231,14 @@
  		bcm2712;
  	};
  
@@ -30,8 +30,8 @@
  	pi3-act-led {
  		renamed = "act-led";
  	};
---- drivers/usb/gadget/legacy/hid.c.orig
-+++ drivers/usb/gadget/legacy/hid.c
+--- drivers/usb/gadget/legacy/hid.c.orig	2025-07-08 13:08:17.000000000 -0700
++++ drivers/usb/gadget/legacy/hid.c	2025-07-10 11:37:40.957188746 -0700
 @@ -267,6 +267,48 @@
  	},
  };
