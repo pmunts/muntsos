@@ -55,7 +55,7 @@ endif
 
 KERNEL_REPO	= https://github.com/raspberrypi/linux.git
 ifeq ($(GCCARCH), aarch64)
-KERNEL_BRANCH	?= 6.6
+KERNEL_BRANCH	?= 6.12
 else
 KERNEL_BRANCH	?= 5.15
 endif
