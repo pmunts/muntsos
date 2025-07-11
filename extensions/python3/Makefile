@@ -33,7 +33,7 @@ BUILDOS		:= --build=$(shell uname -m)
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
 MAJORVER	:= 3.13
-MINORVER	:= 2
+MINORVER	:= 5
 
 SRCNAME		:= python3
 SRCVER		:= $(MAJORVER).$(MINORVER)
