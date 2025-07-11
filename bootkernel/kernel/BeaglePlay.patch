@@ -1,5 +1,5 @@
---- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-03-21 17:18:56.000000000 -0700
-+++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-03-27 20:42:24.529917638 -0700
+--- arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts.orig	2025-06-24 16:15:11.000000000 -0700
++++ arch/arm64/boot/dts/ti/k3-am625-beagleplay.dts	2025-07-10 17:07:07.211321418 -0700
 @@ -34,9 +34,10 @@
  		mmc1 = &sdhci1;
  		mmc2 = &sdhci2;
@@ -71,7 +71,7 @@
  	};
  
  	hdmi0: connector-hdmi {
-@@ -543,6 +528,112 @@
+@@ -557,6 +542,112 @@
  			AM62X_MCU_IOPAD(0x0084, PIN_OUTPUT, 0) /* (A12) WKUP_CLKOUT0 */
  		>;
  	};
@@ -184,7 +184,7 @@
  };
  
  &a53_opp_table {
-@@ -795,6 +886,12 @@
+@@ -847,6 +938,12 @@
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_spi_pins_default>;
  	status = "okay";
@@ -197,7 +197,7 @@
  };
  
  &sdhci0 {
-@@ -852,8 +949,9 @@
+@@ -904,8 +1001,9 @@
  };
  
  &main_uart1 {
@@ -209,7 +209,7 @@
  };
  
  &main_uart5 {
-@@ -915,3 +1013,7 @@
+@@ -967,3 +1065,7 @@
  	pinctrl-names = "default";
  	pinctrl-0 = <&mikrobus_pwm_pins_default>;
  };
