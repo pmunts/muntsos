@@ -1,4 +1,4 @@
-// Wio-E5 LoRa to RabbitMQ Gateway
+// Wio-E5 LoRa to MySQL Database Gateway
 
 // Copyright (C)2025, Philip Munts dba Munts Technologies.
 //
