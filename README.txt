@@ -68,9 +68,8 @@ News
     Toolchain Debian package gcc-*-libs has subsumed gcc-*-libaws.
 
 -   19 May 2025 -- Added extension packages libwioe5p2p, libwioe5ham1,
-    libwioe5ham2, wioe5_ham1_mysql, and wioe5_ham1_rabbitmq. Added Ada
-    extension programs wioe5_ham1_mailer and wioe5_ham1_responder. These
-    all result from a deep dive study about using the Wio-E5 LoRa
+    and libwioe5ham2 as well as both Ada and C# .Net example programs.
+    These all result from a deep dive study about using the Wio-E5 LoRa
     Transceiver Module for Amateur Radio operation in the 33-cm band.
     See WioE5LoRaP2P.pdf for more background information. Fixed a bug in
     sysconfig that installed .nupkg extension package files to
@@ -81,13 +80,15 @@ News
     dotnet pack or Visual Studio Build -> Pack)
     <progname>.<progversion>.nupkg is still supported.
 
--   10 July 2025 -- Upgraded library components readline to 8.3,
-    libgpiod to 2.2.2, libusb to 1.0.29, hidapi to 0.15.0, openssl to
-    3.5.1, curl to 8.14.1, xmlrpc-c to 1.60.05, mariadb-connector-c aka
-    libmysql to 3.4.5, nng to 1.11, libffi to 3.5.1, and xz to 5.8.1.
-    Upgraded userland programs openssh to 10.0p1, ethtool to 6.15,
-    mailutils to 3.19, and nano editor to 8.5. Upgraded Raspberry
-    kernels to 6.12.36. Upgraded .Net Runtime extension to 9.0.8.
+-   10 July 2025 -- Following a June vacation hiatus, I upgraded library
+    components readline to 8.3, libgpiod to 2.2.2, libusb to 1.0.29,
+    hidapi to 0.15.0, openssl to 3.5.1, curl to 8.14.1, xmlrpc-c to
+    1.60.05, mariadb-connector-c aka libmysql to 3.4.5, nng to 1.11,
+    libffi to 3.5.1, and xz to 5.8.1. Upgraded userland programs openssh
+    to 10.0p1, ethtool to 6.15, mailutils to 3.19, and nano editor to
+    8.5. Upgraded the BeaglePlay kernel to 6.6.58-ti-arm64-r29. Upgraded
+    all 64-bit Raspberry kernels to 6.12.36. Upgraded the .Net Runtime
+    extension to 9.0.8 and the Python3 extension to 3.13.5.
 
 Quick Setup Instructions for the Impatient
 
@@ -164,7 +165,7 @@ can be built after the fact and installed as tarball files in
 /boot/tarballs; Debian, RPM, and NuGet package files in /boot/packages;
 or executable programs and scripts in /boot/autoexec.d.
 
-Prebuilt MuntsOS extension packages are available at:
+Prebuilt MuntsOS ext6.6.58-ti-arm64-r29ension packages are available at:
 
 https://repo.munts.com/muntsos/extensions
 
@@ -222,7 +223,10 @@ For more information read the target platform notes in Application Note
 
 The BeaglePlay has a couple of serious design defects: The AM6254 CPU
 hardware watchdog timers are unusable and the ADC102S051 A/D converter
-has only 10 bit resolution and lacks a Linux kernel driver.
+has only 10 bit resolution and lacks a Linux kernel driver. Furthermore,
+the manufacturer kernel source repository does not often pull changes
+from the corresponding stable or longterm kernel trees and therefore
+lacks many upstream changes.
 
 USB Gadgets
 
@@ -242,8 +246,8 @@ $33.99 (4 GB RAM). See Application Note #20 for more information.
 
 The much larger RAM is a big advantage and I have been able to purchase
 as many as I want without limits when the Raspberry Pi Zero 2 W has been
-unavailable. Unfortunately, the manufacturer kernel source tree has not
-been maintained regularly and is currently at 6.1.31.
+unavailable. Unfortunately, the manufacturer kernel source repository
+has not been maintained and is currently frozen at 6.1.31.
 
 USB Gadgets
 
@@ -421,14 +425,10 @@ Alire Crates
 
 Adding the muntsos_aarch64 crate to an Alire Ada program project
 transforms said project into one that produces a cross-compiled AArch64
-program for MuntsOS, using the system package muntsos-dev-aarch64, which
-pulls in all of the cross-toolchain components described above. See
-Application Note #7 for a complete example using the alr command line
-tool.
-
-muntsos_aarch64 depends upon the Linux distribution meta-package
-muntsos-dev-aarch64 that pulls in the rest of the MuntsOS AArch64
-cross-toolchain packages.
+program for MuntsOS. The muntsos_aarch64 crate depends upon the Linux
+distribution meta-package muntsos-dev-aarch64 that pulls in the rest of
+the MuntsOS AArch64 cross-toolchain packages. See Application Note #7
+for a complete example using the alr command line tool.
 
 Please note that the other MuntsOS library crates in Alire (e.g.
 muntsos_beaglebone) are unusable due to breaking changes in alr 2.0.

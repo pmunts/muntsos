@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="generator" content="HTML Tidy for HTML5 for Linux version 5.6.0">
-<title></title>
-</head>
-<body>
 <h1><b>MuntsOS</b> Embedded Linux</h1>
 <p><b>MuntsOS</b> is a <i>ferociously</i> reduced Linux distribution for
 <b>embedded systems</b>. It runs on several microcomputer boards, including all
@@ -23,8 +16,8 @@ environment and a very easy to deploy target operating system.</p>
 <h2>News</h2>
 <ul>
 <li>
-<p>12 February 2025 -- Added <b><a href=
-"https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/tree">libgpiod</a></b>
+<p>12 February 2025 -- Added <a href=
+"https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/tree">libgpiod</a>
 to the toolchain libraries packages
 <b><tt>gcc-*-muntsos-linux-gnu-ctng-libs</tt></b> and added the <b>libgpiod</b>
 runtime extension package. Because they use the same <b><tt>ioctl()</tt></b>
@@ -94,11 +87,9 @@ subsumed gcc-*-libaws.</p>
 </li>
 <li>
 <p>19 May 2025 -- Added extension packages <b><tt>libwioe5p2p</tt></b>,
-<b><tt>libwioe5ham1</tt></b>, <b><tt>libwioe5ham2</tt></b>,
-<b><tt>wioe5_ham1_mysql</tt></b>, and <b><tt>wioe5_ham1_rabbitmq</tt></b>.
-Added Ada extension programs <b><tt>wioe5_ham1_mailer</tt></b> and
-<b><tt>wioe5_ham1_responder</tt></b>. These all result from a deep dive study
-about using the <a href=
+<b><tt>libwioe5ham1</tt></b>, and <b><tt>libwioe5ham2</tt></b> as well as both
+Ada and C# .Net example programs. These all result from a deep dive study about
+using the <a href=
 "https://wiki.seeedstudio.com/LoRa-E5_STM32WLE5JC_Module">Wio-E5 LoRa
 Transceiver Module</a> for Amateur Radio operation in the <a href=
 "https://en.wikipedia.org/wiki/33-centimeter_band">33-cm band</a>. See <a href=
@@ -114,12 +105,14 @@ Studio <b><tt>Build -&gt; Pack</tt></b>)
 <b><tt>&lt;progname&gt;.&lt;progversion&gt;.nupkg</tt></b> is still
 supported.</p>
 </li>
-<li>10 July 2025 -- Upgraded library components readline to 8.3, libgpiod to
-2.2.2, libusb to 1.0.29, hidapi to 0.15.0, openssl to 3.5.1, curl to 8.14.1,
-xmlrpc-c to 1.60.05, mariadb-connector-c aka libmysql to 3.4.5, nng to 1.11,
-libffi to 3.5.1, and xz to 5.8.1. Upgraded userland programs openssh to 10.0p1,
-ethtool to 6.15, mailutils to 3.19, and nano editor to 8.5. Upgraded Raspberry
-kernels to 6.12.36. Upgraded .Net Runtime extension to 9.0.8.</li>
+<li>10 July 2025 -- Following a June vacation hiatus, I upgraded library
+components readline to 8.3, libgpiod to 2.2.2, libusb to 1.0.29, hidapi to
+0.15.0, openssl to 3.5.1, curl to 8.14.1, xmlrpc-c to 1.60.05,
+mariadb-connector-c <i>aka</i> libmysql to 3.4.5, nng to 1.11, libffi to 3.5.1,
+and xz to 5.8.1. Upgraded userland programs openssh to 10.0p1, ethtool to 6.15,
+mailutils to 3.19, and nano editor to 8.5. Upgraded the BeaglePlay kernel to
+6.6.58-ti-arm64-r29. Upgraded all 64-bit Raspberry kernels to 6.12.36. Upgraded
+the .Net Runtime extension to 9.0.8 and the Python3 extension to 3.13.5.</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development
@@ -193,7 +186,8 @@ be built after the fact and installed as tarball files in
 <b><tt>/boot/tarballs</tt></b>; Debian, RPM, and NuGet package files in
 <b><tt>/boot/packages</tt></b>; or executable programs and scripts in
 <b><tt>/boot/autoexec.d</tt></b>.</p>
-<p>Prebuilt <b>MuntsOS</b> extension packages are available at:</p>
+<p>Prebuilt <b>MuntsOS</b> ext6.6.58-ti-arm64-r29ension packages are available
+at:</p>
 <p><a href=
 "https://repo.munts.com/muntsos/extensions">https://repo.munts.com/muntsos/extensions</a></p>
 <h2>Thin Servers</h2>
@@ -251,7 +245,10 @@ read the target platform notes in <a href=
 <p>The BeaglePlay has a couple of serious design defects: The AM6254 CPU
 hardware watchdog timers are unusable and the <a href=
 "https://www.ti.com/product/ADC102S051">ADC102S051</a> A/D converter has only
-10 bit resolution and lacks a Linux kernel driver.</p>
+10 bit resolution and lacks a Linux kernel driver. Furthermore, the
+manufacturer <a href="https://github.com/beagleboard/linux">kernel source
+repository</a> does not often pull changes from the corresponding stable or
+longterm kernel trees and therefore lacks many upstream changes.</p>
 <h5>USB Gadgets</h5>
 <p>You will need to edit <b><tt>/boot/config.txt</tt></b> to enable USB Gadget
 mode. Change the <b><tt>OPTIONS</tt></b> word to <b><tt>0x172C</tt></b> for a
@@ -275,7 +272,7 @@ Note #20</a> for more information.</p>
 many as I want without limits when the Raspberry Pi Zero 2 W has been
 unavailable. Unfortunately, the manufacturer <a href=
 "https://github.com/orangepi-xunlong/linux-orangepi/tree/orange-pi-6.1-sun50iw9">
-kernel source tree</a> has not been maintained regularly and is currently at
+kernel source repository</a> has not been maintained and is currently frozen at
 6.1.31.</p>
 <h5>USB Gadgets</h5>
 <p>You will need to edit <b><tt>/boot/config.txt</tt></b> to enable USB Gadget
@@ -439,15 +436,13 @@ Fedora 40 and RHEL 9.1 and its derivatives, are available at:</p>
 "https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json"></a></p>
 <p>Adding the <b><tt>muntsos_aarch64</tt></b> crate to an Alire Ada program
 project transforms said project into one that produces a cross-compiled AArch64
-program for <b>MuntsOS</b>, using the system package
-<b><tt>muntsos-dev-aarch64</tt></b>, which pulls in all of the cross-toolchain
-components described above. See <a href=
+program for <b>MuntsOS</b>. The <b><tt>muntsos_aarch64</tt></b> crate depends
+upon the Linux distribution meta-package <b><tt>muntsos-dev-aarch64</tt></b>
+that pulls in the rest of the <b>MuntsOS</b> AArch64 cross-toolchain packages.
+See <a href=
 "https://repo.munts.com/muntsos/doc/AppNote7-Flash-LED-Ada-Alire.pdf">Application
 Note #7</a> for a complete example using the <b><tt>alr</tt></b> command line
 tool.</p>
-<p><b><tt>muntsos_aarch64</tt></b> depends upon the Linux distribution
-meta-package <b><tt>muntsos-dev-aarch64</tt></b> that pulls in the rest of the
-<b>MuntsOS</b> AArch64 cross-toolchain packages.</p>
 <p id="alire_orphans">Please note that the other <b>MuntsOS</b> library crates
 in Alire (<i>e.g.</i> <b>muntsos_beaglebone</b>) are unusable due to breaking
 changes in <b><tt>alr</tt></b> 2.0. Unfortunately, Alire project policies
@@ -514,5 +509,3 @@ cross-toolchain packages) are available at:</p>
 <hr>
 Questions or comments to Philip Munts <a href=
 "mailto:phil@munts.net">phil@munts.net</a>
-</body>
-</html>
