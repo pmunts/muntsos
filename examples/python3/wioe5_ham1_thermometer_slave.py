@@ -81,16 +81,21 @@ scalefile = open('/sys/bus/iio/devices/iio:device0/in_temp_scale', 'r')
 
 while True:
 
-# Wait for command
+# Wait for measurement command
 
   LoRa.wioe5ham1_receive(handle.value, cmd, ctypes.byref(cmdlen),
     ctypes.byref(src), ctypes.byref(dst), ctypes.byref(RSS),
     ctypes.byref(SNR), ctypes.byref(error))
 
-  if cmdlen.value == 0:
+  if cmdlen.value != 7:
+    continue
+  
+  cmd[cmdlen.value] = b'\x00'
+
+  if cmd.value.decode('ascii') != 'MEASURE':
     continue
 
-# Read the thermocouple temperature
+# Measure the thermocouple temperature
 
   rawfile.seek(0)
   scalefile.seek(0)
