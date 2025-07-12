@@ -90,6 +90,8 @@ News
     all 64-bit Raspberry kernels to 6.12.36. Upgraded the .Net Runtime
     extension to 9.0.8 and the Python3 extension to 3.13.5.
 
+-   12 July 2025 -- Renamed /boot/packages to /boot/extensions.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
@@ -141,11 +143,13 @@ will be extracted on top of the root file system. Typically you would
 use this mechanism for customized /etc/passwd, .ssh/authorized_keys, and
 similiar system configuration files.
 
-Secondly, if /boot/packages exists, any Debian package files (.deb) in
+Secondly, if /boot/extensions exists, any Debian package files (.deb) in
 it will be installed into the root file system. Note that packages from
 the Debian project will probably not work; they must be built
 specifically for MuntsOS. The startup script that installs .deb packages
-also installs .rpm and .nupkg packages.
+from /boot/extensions also installs .nupkg and .rpm packages as well as
+self-contained executable extension programs (e.g.
+remoteio_server-aarch64).
 
 Thirdly, the system startup script /etc/rc can be configured via a
 kernel command line option to search for a subdirectory called
@@ -154,16 +158,12 @@ CD-ROM or NFS mount. If an autoexec.d subdirectory is found, each
 executable program or script in it will be executed when the system
 boots.
 
-Many recent extensions are just compiled Ada programs (e.g.
-remoteio_server). They just need to be copied to /boot/autoexec.d for
-execution at boot time. Some of these Ada extension programs will
-require one or more shared library extension packages such as libzmq.
-
 The idea is to build a MuntsOS kernel (which takes a long time) once and
 install it to the target platform. Then application specific software
 can be built after the fact and installed as tarball files in
-/boot/tarballs; Debian, RPM, and NuGet package files in /boot/packages;
-or executable programs and scripts in /boot/autoexec.d.
+/boot/tarballs; Debian, RPM, and NuGet package files or executable
+extension programs in /boot/extensions; or executable programs and
+scripts in /boot/autoexec.d.
 
 Prebuilt MuntsOS ext6.6.58-ti-arm64-r29ension packages are available at:
 
