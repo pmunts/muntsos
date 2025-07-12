@@ -499,6 +499,8 @@ for p in /usr/local/autoexec/* ; do
   fi
 done
 
+rm -rf /usr/local/autoexec
+
 # Run /etc/rc.local, if it is available
 
 if [ -x /etc/rc.local ]; then
