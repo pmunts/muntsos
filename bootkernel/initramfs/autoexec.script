@@ -2,7 +2,7 @@
 
 # Automatic execution script for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -43,15 +43,3 @@ Autoexec() {
 Autoexec /boot
 Autoexec /umass
 Autoexec /cdrom
-
-# Execute what has been found
-
-for s in /usr/local/autoexec/* ; do
-  if [ -x "$s" ]; then
-    "$s"
-  fi
-done
-
-# Remove what we can
-
-rm -rf /usr/local/autoexec

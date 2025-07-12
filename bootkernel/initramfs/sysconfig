@@ -61,8 +61,7 @@ function Prepare {
 
 # Try to create some directories under /boot, just in case...
 
-mkdir -p /boot/autoexec.d
-mkdir -p /boot/packages
+mkdir -p /boot/extensions
 mkdir -p /boot/tarballs
 
 # The following files and directories are always saved
@@ -476,16 +475,12 @@ function Extensions {
 
   for ERecord in `cat /tmp/extensions.manifest`; do
     EName=`echo ${ERecord} | awk -F ':' '{ print $1 }'`
+    EFile=/boot/extensions/${EName}
     EURL=${EXTENSIONSDIR}/${EName}
     NewSum=`echo ${ERecord} | awk -F ':' '{ print $2 }'`
 
-    echo ${EName} | grep -E -q '\.deb$|\.nupkg$|\.rpm$'
-
-    if [ $? -eq 0 ]; then
-      EFile=/boot/packages/${EName}
-    else
-      EFile=/boot/autoexec.d/${EName}
-    fi
+    # Migrate extension program from /boot/autoexec.d to /boot/extensions
+    test -f /boot/autoexec.d/${EName} && mv /boot/autoexec.d/${EName} /boot/extensions
 
     # Upgrade this extension
     if [ -f ${EFile} ]; then

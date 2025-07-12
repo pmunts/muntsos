@@ -210,7 +210,7 @@ if [ -n "${BOOTPART}" ]; then
   unset BOOTPART
 fi
 
-# Mount /boot and look for device tree overlays, tarballs and packages
+# Mount /boot and look for device tree overlays, tarballs and extensions
 
 mount -o ro /boot >/dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -241,23 +241,41 @@ if [ $? -eq 0 ]; then
     awk '{ sub("[ \t]*[#].*$",""); gsub("[ \t]+", " "); if ($0 != "") printf("pinctrl set %s\n", $0); }' /etc/pinmux.conf | sh
   fi
 
-# Install packages, if any
+# Migrate /boot/packages to /boot/extensions
 
-  for p in /boot/packages/*.deb ; do
+if [ -d /boot/packages ]; then
+  echo "Move extension packages to /boot/extensions"
+  mount -oremount,rw /boot
+  mkdir -p /boot/extensions
+  mv /boot/packages/* /boot/extensions
+  rmdir /boot/packages
+  mount -oremount,ro /boot
+fi
+
+# Install extensions, if any
+
+  for p in /boot/extensions/*.deb ; do
     if [ -f $p ]; then
       dpkg -i $p >/dev/null
     fi
   done
 
-  for p in /boot/packages/*.rpm ; do
+  for p in /boot/extensions/*.rpm ; do
     if [ -f $p ]; then
       rpm -i $p >/dev/null
     fi
   done
 
-  for p in /boot/packages/*.nupkg ; do
+  for p in /boot/extensions/*.nupkg ; do
     if [ -f $p ]; then
       nupkg $p
+    fi
+  done
+
+  for p in /boot/extensions/*${BOARDARCH} ; do
+    if [ -f $p ]; then
+      mkdir -p /usr/local/autoexec
+      install -cm 0555 $p /usr/local/autoexec
     fi
   done
 
@@ -470,6 +488,14 @@ fi
 for s in /etc/rc.d/* ; do
   if [ -x $s ]; then
     $s
+  fi
+done
+
+# Run programs in /usr/local/autoexec, if it exists
+
+for p in /usr/local/autoexec/* ; do
+  if [ -x "$p" ]; then
+    "$p"
   fi
 done
 
