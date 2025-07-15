@@ -19,8 +19,7 @@ BEGIN
     Put_Line("MuntsOS Embedded Linux Ada Program Extension Template");
     New_Line;
   ELSE
-    New_Line;
-    Put("Wio-E5 LoRa Transceiver NNG Message Publisher");
+    Put("MuntsOS Embedded Linux Ada Program Extension Template");
 
     -- Run as background process
 
