@@ -1,7 +1,4 @@
--- MuntsOS Embedded Linux Ada Program Extension Template
-
 WITH Ada.Text_IO; USE Ada.Text_IO;
-
 WITH Debug;
 WITH libLinux;
 WITH Watchdog.libsimpleio;
@@ -11,15 +8,15 @@ PROCEDURE extension_program_template IS
   err : Integer;
   wd  : Watchdog.Timer;
 
-  -- Declare your application specific variables here
+  -- Add your application specific data declarations here
 
 BEGIN
   IF Debug.Enabled THEN
     New_Line;
-    Put_Line("MuntsOS Embedded Linux Ada Program Extension Template");
+    Put_Line("Starting Ada Extension Program");
     New_Line;
   ELSE
-    Put("MuntsOS Embedded Linux Ada Program Extension Template");
+    Put("Starting Ada Extension Program");
 
     -- Run as background process
 
