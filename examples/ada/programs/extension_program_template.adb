@@ -8,8 +8,8 @@ WITH Watchdog.libsimpleio;
 
 PROCEDURE extension_program_template IS
 
-  err      : Integer;
-  wd       : Watchdog.Timer;
+  err : Integer;
+  wd  : Watchdog.Timer;
 
   -- Declare your application specific variables here
 
@@ -29,15 +29,11 @@ BEGIN
 
     wd := Watchdog.libsimpleio.Create;
     wd.SetTimeout(5.0);
-
-    -- Any unhandled exception or signal after this point cause the target
-    -- computer to reset.
   END IF;
 
   -- Add your application specific initialization code here
 
   LOOP
-
     -- Add your application specific event handling code here
 
     IF NOT Debug.Enabled THEN
