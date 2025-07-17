@@ -11,19 +11,13 @@ PROCEDURE extension_program_template IS
   -- Add your application specific data declarations here
 
 BEGIN
-  IF Debug.Enabled THEN
-    New_Line;
-    Put_Line("Starting Ada Extension Program");
-    New_Line;
-  ELSE
-    Put("Starting Ada Extension Program");
+  Put_Line("Starting Ada Extension Program");
 
+  IF NOT Debug.Enabled THEN
     -- Run as background process
-
     libLinux.Detach(err);
 
     -- Create a watchdog timer device object
-
     wd := Watchdog.libsimpleio.Create;
     wd.SetTimeout(5.0);
   END IF;
@@ -34,6 +28,7 @@ BEGIN
     -- Add your application specific event handling code here
 
     IF NOT Debug.Enabled THEN
+      -- Reset the watchdog timer
       wd.Kick;
     END IF;
   END LOOP;
