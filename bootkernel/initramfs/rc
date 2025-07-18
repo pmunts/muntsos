@@ -2,7 +2,7 @@
 
 # /etc/rc for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -217,29 +217,29 @@ if [ $? -eq 0 ]; then
 
 # Install the device tree overlays requested in /boot/overlays.txt
 
-  /usr/libexec/install-overlays
+/usr/libexec/install-overlays
 
 # Extract tarballs, if any
 
-  for t in /boot/tarballs/*gz ; do
-    if [ -f $t ]; then
-      tar xzf $t --directory=/
-    fi
-  done
+for t in /boot/tarballs/*gz ; do
+  if [ -f $t ]; then
+    tar xzf $t --directory=/
+  fi
+done
 
 # Configure initial hostname if /etc/hostname came from a tarball
 
-  test -f /etc/hostname && hostname -F /etc/hostname
+test -f /etc/hostname && hostname -F /etc/hostname
 
 # Configure GPIO pin modes
 
-  if [ -x /sbin/config-pin -a -f /etc/pinmux.conf ]; then
-    config-pin -c /etc/pinmux.conf
-  fi
+if [ -x /sbin/config-pin -a -f /etc/pinmux.conf ]; then
+  config-pin -c /etc/pinmux.conf
+fi
 
-  if [ -x /sbin/pinctrl -a -f /etc/pinmux.conf ]; then
-    awk '{ sub("[ \t]*[#].*$",""); gsub("[ \t]+", " "); if ($0 != "") printf("pinctrl set %s\n", $0); }' /etc/pinmux.conf | sh
-  fi
+if [ -x /sbin/pinctrl -a -f /etc/pinmux.conf ]; then
+  awk '{ sub("[ \t]*[#].*$",""); gsub("[ \t]+", " "); if ($0 != "") printf("pinctrl set %s\n", $0); }' /etc/pinmux.conf | sh
+fi
 
 # Migrate /boot/packages to /boot/extensions
 
@@ -254,49 +254,50 @@ fi
 
 # Install extensions, if any
 
-  for p in /boot/extensions/*.deb ; do
-    if [ -f $p ]; then
-      dpkg -i $p >/dev/null
-    fi
-  done
+for E in /boot/extensions/* ; do
+  echo $E | grep -E -q '.*\.deb$'
+  
+  if [ $? -eq 0 ]; then
+    dpkg -i $E >/dev/null
+    continue
+  fi
 
-  for p in /boot/extensions/*.rpm ; do
-    if [ -f $p ]; then
-      rpm -i $p >/dev/null
-    fi
-  done
+  echo $E | grep -E -q '.*\.rpm$'
+  
+  if [ $? -eq 0 ]; then
+    rpm -i $E >/dev/null
+    continue
+  fi
 
-  for p in /boot/extensions/*.nupkg ; do
-    if [ -f $p ]; then
-      nupkg $p
-    fi
-  done
+  echo $E | grep -E -q '.*\.nupkg$'
+  
+  if [ $? -eq 0 ]; then
+    nupkg $E
+    continue
+  fi
 
-  for p in /boot/extensions/*${BOARDARCH} ; do
-    if [ -f $p ]; then
-      mkdir -p /usr/local/autoexec
-      install -cm 0555 $p /usr/local/autoexec
-    fi
-  done
+  mkdir -p /usr/local/autoexec
+  install -cm 0555 $E /usr/local/autoexec
+done
 
 # Pick up any new libraries
 
-  linklibs
-  ldconfig
+linklibs
+ldconfig
 
 # Pick up any new environment variables
 
-  if [ -f /etc/environment ]; then
-    for e in `cat /etc/environment` ; do
-      export $e
-    done
-  fi
+if [ -f /etc/environment ]; then
+  for e in `cat /etc/environment` ; do
+    export $e
+  done
+fi
 
-  if [ -f /var/run/environment ]; then
-    for e in `cat /var/run/environment` ; do
-      export $e
-    done
-  fi
+if [ -f /var/run/environment ]; then
+  for e in `cat /var/run/environment` ; do
+    export $e
+  done
+fi
 
   umount /boot
 fi
