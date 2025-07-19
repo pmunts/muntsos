@@ -112,24 +112,25 @@ News
     all 64-bit Raspberry kernels to 6.12.36. Upgraded the .Net Runtime
     extension to 9.0.8 and the Python3 extension to 3.13.5.
 
--   12 July 2025 -- In recent years I have written a lot of
+-   19 July 2025 -- In recent years I have written a lot of
     self-contained extension programs for **MuntsOS** using the Ada
-    programming language (*e.g.* **`remoteio_server`**). Managing
-    extension programs has always been a little awkward because they
-    needed to be installed to **`/boot/autoexec.d`** instead of
+    programming language (*e.g.* **`remoteio_server`**). See new
+    [Application Note
+    \#21.](https://repo.munts.com/muntsos/doc/AppNote21-Ada-Extension-Programs.pdf)
+    Managing extension programs has always been a little awkward because
+    they needed to be installed to **`/boot/autoexec.d`** instead of
     **`/boot/packages`** like other extensions. I have now renamed
     **`/boot/packages`** to **`/boot/extensions`**, to contain both
     extension package files (any of **`.deb`**, **`.nupkg`**, or
-    **`.rpm`**) as well as extension program files (which must have the
-    proper board architecture suffix *e.g.*
-    **`remoteio_server-aarch64`**) and have modifed **`/etc/rc`** and
-    **`sysconfig`** accordingly. You can still install executable
-    programs and scripts to **`/boot/autoexec.d`** but **`sysconfig`**
-    will no longer attempt to manage them. Note that executable programs
-    and scripts installed to either **`/boot/autoexec.d`** or
-    **`/boot/extensions`** must run to completion quickly or detach
-    themselves to run as background processes, to avoid blocking the
-    **MuntsOS** startup script **`/etc/rc`**.
+    **`.rpm`**) as well as extension program files and have modifed
+    **`/etc/rc`** and **`sysconfig`** accordingly. You can still install
+    executable programs and scripts to **`/boot/autoexec.d`** but
+    **`sysconfig`** will no longer attempt to manage them. Note that
+    executable programs and scripts installed to either
+    **`/boot/autoexec.d`** or **`/boot/extensions`** must run to
+    completion quickly or detach themselves to run as background
+    processes, to avoid blocking the **MuntsOS** startup script
+    **`/etc/rc`**.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------

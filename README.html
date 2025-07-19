@@ -116,18 +116,18 @@ mailutils to 3.19, and nano editor to 8.5. Upgraded the BeaglePlay kernel to
 the .Net Runtime extension to 9.0.8 and the Python3 extension to 3.13.5.</p>
 </li>
 <li>
-<p>12 July 2025 -- In recent years I have written a lot of self-contained
+<p>19 July 2025 -- In recent years I have written a lot of self-contained
 extension programs for <b>MuntsOS</b> using the Ada programming language
-(<i>e.g.</i> <b><tt>remoteio_server</tt></b>). Managing extension programs has
-always been a little awkward because they needed to be installed to
-<b><tt>/boot/autoexec.d</tt></b> instead of <b><tt>/boot/packages</tt></b> like
-other extensions. I have now renamed <b><tt>/boot/packages</tt></b> to
-<b><tt>/boot/extensions</tt></b>, to contain both extension package files (any
-of <b><tt>.deb</tt></b>, <b><tt>.nupkg</tt></b>, or <b><tt>.rpm</tt></b>) as
-well as extension program files (which must have the proper board architecture
-suffix <i>e.g.</i> <b><tt>remoteio_server-aarch64</tt></b>) and have modifed
-<b><tt>/etc/rc</tt></b> and <b><tt>sysconfig</tt></b> accordingly. You can
-still install executable programs and scripts to
+(<i>e.g.</i> <b><tt>remoteio_server</tt></b>). See new <a href=
+"https://repo.munts.com/muntsos/doc/AppNote21-Ada-Extension-Programs.pdf">Application
+Note #21.</a> Managing extension programs has always been a little awkward
+because they needed to be installed to <b><tt>/boot/autoexec.d</tt></b> instead
+of <b><tt>/boot/packages</tt></b> like other extensions. I have now renamed
+<b><tt>/boot/packages</tt></b> to <b><tt>/boot/extensions</tt></b>, to contain
+both extension package files (any of <b><tt>.deb</tt></b>,
+<b><tt>.nupkg</tt></b>, or <b><tt>.rpm</tt></b>) as well as extension program
+files and have modifed <b><tt>/etc/rc</tt></b> and <b><tt>sysconfig</tt></b>
+accordingly. You can still install executable programs and scripts to
 <b><tt>/boot/autoexec.d</tt></b> but <b><tt>sysconfig</tt></b> will no longer
 attempt to manage them. Note that executable programs and scripts installed to
 either <b><tt>/boot/autoexec.d</tt></b> or <b><tt>/boot/extensions</tt></b>
