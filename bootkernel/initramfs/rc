@@ -492,6 +492,12 @@ for s in /etc/rc.d/* ; do
   fi
 done
 
+# Copy programs from autoexec.d on removable media to /usr/local/autoexec
+
+if [ $((OPTIONS & 0x100)) -ne 0 -a -x /usr/libexec/autoexec.script ]; then
+  /usr/libexec/autoexec.script
+fi
+
 # Run programs in /usr/local/autoexec, if it exists
 
 for p in /usr/local/autoexec/* ; do
@@ -506,12 +512,6 @@ rm -rf /usr/local/autoexec
 
 if [ -x /etc/rc.local ]; then
   /etc/rc.local
-fi
-
-# Run application software on other media
-
-if [ $((OPTIONS & 0x100)) -ne 0 -a -x /usr/libexec/autoexec.script ]; then
-  /usr/libexec/autoexec.script
 fi
 
 # Scan USB devices one last time, to pick up any newly installed kernel modules,
