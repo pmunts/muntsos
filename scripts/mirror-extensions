@@ -24,13 +24,12 @@
 
 SRCURL=https://repo.munts.com/muntsos/extensions
 ARCHS="aarch64"
-TOOLCHAINREVISION=10
 
 # Download curated extensions
 
 for A in ${ARCHS} ; do
   # Download manifest for this architecture
-  MANIFEST=.extensions.manifest${TOOLCHAINREVISION}.${A}
+  MANIFEST=.extensions.manifest${TOOLCHAINREVISION:-10}.${A}
   wget -nv ${SRCURL}/${MANIFEST} -O ${MANIFEST}
   # Create list of extension files for this architecture
   EXTENSIONS=`awk < ${MANIFEST} '{ print $2 }'`
@@ -42,4 +41,4 @@ done
 
 # Append local extensions to the manifest
 
-#sha512sum mailtunnel*all.deb | sort -k2 >> .extensions.manifest${TOOLCHAINREVISION}.aarch64
+#sha512sum mailtunnel*all.deb | sort -k2 >> .extensions.manifest${TOOLCHAINREVISION:-10}.aarch64
