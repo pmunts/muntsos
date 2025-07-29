@@ -23,6 +23,8 @@
 BOARDNAME	?= UNDEFINED
 MUNTSOS		?= /usr/local/share/muntsos
 
+default: package.deb
+
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
@@ -31,27 +33,32 @@ PBHSRC		= python-build-hat
 
 PKGNAME		= buildhat-firmware
 PKGVERSION	= $(shell date +%Y.%j)
-PKGARCH		= all
-PKGDIR		= $(PKGNAME)-muntsos-all
+PKGARCH		= $(DEBARCH)
+PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		= $(PKGDIR).deb
 
-default: package.deb
-
-# Clone Raspberry Pi Build HAT Python library
+# Clone Raspberry Pi Build HAT Python Library source tree
 
 $(PBHSRC):
-	git clone https://github.com/RaspberryPiFoundation/python-build-hat.git
+	git clone $(PBHURL) $(PBHSRC)
+
+# Compile firmware loader program
+
+loader:
+	gprbuild -p $(GPRBUILDCONFIG) $@
 
 # Build the Debian package file
 
-$(PKGDIR): $(PBHSRC)
-	mkdir -p						$@/DEBIAN
-	install -cm 0644 control				$@/DEBIAN
-	sed -i s/@@ARCH@@/$(PKGARCH)/g				$@/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g				$@/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$@/DEBIAN/control
-	mkdir -p						$@/usr/local/lib/firmware/buildhat
-	install -cm 0644 $(PBHSRC)/buildhat/data/*.bin		$@/usr/local/lib/firmware/buildhat
+$(PKGDIR): $(PBHSRC) loader
+	mkdir -p					$@/DEBIAN
+	install -cm 0644 control			$@/DEBIAN
+	sed -i s/@@ARCH@@/$(PKGARCH)/g			$@/DEBIAN/control
+	sed -i s/@@NAME@@/$(PKGNAME)/g			$@/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$@/DEBIAN/control
+	install -cm 0755 postinst			$@/DEBIAN
+	mkdir -p					$@/lib/firmware/buildhat
+	install -cm 0644 $(PBHSRC)/buildhat/data/*.bin	$@/lib/firmware/buildhat
+	install -cm 0755 loader				$@/lib/firmware/buildhat
 	touch $@
 
 package.deb: $(PKGFILE)
@@ -72,11 +79,11 @@ $(PKGFILE).downloaded:
 # Remove working files
 
 clean:
-	rm -rf $(PKGDIR)
+	rm -rf loader obj $(PKGDIR)
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -f $(PKGFILE) ; fi
 
 reallyclean: clean
 	rm -rf $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
-	rm -rf python-build-hat
+	rm -rf $(PBHSRC)
