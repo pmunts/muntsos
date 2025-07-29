@@ -46,6 +46,7 @@ $(PBHSRC):
 
 loader:
 	gprbuild -p $(GPRBUILDCONFIG) $@
+	$(CROSS_COMPILE)strip $@
 
 # Build the Debian package file
 
