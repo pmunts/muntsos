@@ -20,12 +20,11 @@
 
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
-PROCEDURE Loader IS
+WITH BuildHAT.Firmware;
 
-  Firmware_DirName   : CONSTANT String := "/lib/firmware/buildhat";
-  Firmware_FileName  : CONSTANT String := Firmware_DirName & "/firmware.bin";
-  Signature_Filename : CONSTANT String := Firmware_DirName & "/signature.bin";
+PROCEDURE Loader IS
 
 BEGIN
   Put_Line("Raspberry Pi Build HAT Firmware Loader");
+  BuildHAT.Firmware.Load;
 END Loader;
