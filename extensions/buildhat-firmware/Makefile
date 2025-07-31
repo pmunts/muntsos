@@ -31,8 +31,10 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 PBHURL		= https://github.com/RaspberryPiFoundation/python-build-hat.git
 PBHSRC		= python-build-hat
 
+FWVERSION	= $(shell cat $(PBHSRC)/buildhat/data/version)
+
 PKGNAME		= buildhat-firmware
-PKGVERSION	= $(shell date +%Y.%j)
+PKGVERSION	= $(FWVERSION)-$(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
 PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)
 PKGFILE		= $(PKGDIR).deb
@@ -42,7 +44,9 @@ PKGFILE		= $(PKGDIR).deb
 $(PBHSRC):
 	git clone $(PBHURL) $(PBHSRC)
 
-# Compile firmware loader program
+python: $(PBHSRC)
+
+# Compile Raspberry Pi Build HAT firmware loader program
 
 loader:
 	gprbuild -p $(GPRBUILDCONFIG) $@
@@ -50,7 +54,7 @@ loader:
 
 # Build the Debian package file
 
-$(PKGDIR): $(PBHSRC) loader
+$(PKGDIR): python loader
 	mkdir -p					$@/DEBIAN
 	install -cm 0644 control			$@/DEBIAN
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$@/DEBIAN/control
@@ -58,7 +62,7 @@ $(PKGDIR): $(PBHSRC) loader
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$@/DEBIAN/control
 	install -cm 0755 postinst			$@/DEBIAN
 	mkdir -p					$@/lib/firmware/buildhat
-	install -cm 0644 $(PBHSRC)/buildhat/data/*.bin	$@/lib/firmware/buildhat
+	install -cm 0644 $(PBHSRC)/buildhat/data/*	$@/lib/firmware/buildhat
 	install -cm 0755 loader				$@/lib/firmware/buildhat
 	touch $@
 
