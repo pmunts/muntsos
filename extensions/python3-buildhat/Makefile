@@ -26,7 +26,7 @@ MUNTSOS		?= /usr/local/share/muntsos
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-PKGNAME		= buildhat-python3
+PKGNAME		= python3-buildhat
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= all
 PKGDIR		= $(PKGNAME)-muntsos-all
@@ -45,7 +45,7 @@ $(PKGDIR): $(PKGNAME).tgz
 	mkdir -p						$@/dev
 	ln -s ttyAMA0						$@/dev/serial0
 	mkdir -p						$@/usr/local/lib/python3.13
-	tar xzf buildhat-python3.tgz -C				$@/usr/local/lib/python3.13
+	tar xzf python3-buildhat.tgz -C				$@/usr/local/lib/python3.13
 	touch $@
 
 package.deb: $(PKGFILE)
