@@ -135,6 +135,25 @@ must run to completion quickly or detach themselves to run as background
 processes, to avoid blocking the <b>MuntsOS</b> startup script
 <b><tt>/etc/rc</tt></b>.</p>
 </li>
+<li>
+<p>31 July 2024 -- Added two new extension packages to support the <a href=
+"https://www.raspberrypi.com/products/build-hat">Raspberry Pi Build HAT</a>,
+which acts as a four port controller for <a href=
+"https://www.lego.com/en-us/themes/powered-up/about">LEGO® Powered Up</a>
+(<i>aka <b>LEGO® Power Functions 2.0</b></i>) actuators and sensors. With a
+<a href=
+"https://pv-productions.com/product/powered-up-to-power-functions-adapter">Powered
+Up to Power Functions Adapter</a> or a <a href=
+"https://pv-productions.com/product/powered-up-to-ev3-nxt-adapter">Powered Up
+to EV3/NXT Adapter</a> you can also control older LEGO® actuators and sensors.
+The <b><tt>python3-buildhat</tt></b> extension package installs the official
+<a href="https://github.com/RaspberryPiFoundation/python-build-hat">Build HAT
+Python library</a>. The <b><tt>buildhat-firmware</tt></b> extension package
+just downloads firmware to the Build Hat RP2040 microcontroller whenever the
+<b>MuntsOS</b> target computer reboots. Install <b><tt>python3</tt></b> and
+<b><tt>python3-buildhat</tt></b> for Python development and
+<b><tt>buildhat-firmware</tt></b> for all other programming languages.</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development
