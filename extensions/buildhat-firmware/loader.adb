@@ -18,6 +18,7 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+WITH Ada.Exceptions;
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
 WITH BuildHAT.Firmware;
@@ -25,6 +26,9 @@ WITH BuildHAT.Firmware;
 PROCEDURE Loader IS
 
 BEGIN
-  Put_Line("Raspberry Pi Build HAT Firmware Loader");
+  Put_Line(Standard_Error, "Raspberry Pi Build HAT Firmware Loader");
   BuildHAT.Firmware.Load;
+EXCEPTION
+  WHEN E : OTHERS =>
+    Put_Line(Standard_Error, "ERROR: " & Ada.Exceptions.Exception_Message(E));
 END Loader;
