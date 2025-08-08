@@ -1,6 +1,6 @@
 // NuGet Application Package Installer for MuntSOS
 
-// Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+// Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -23,6 +23,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <libgen.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,6 +33,14 @@
 #include <sys/types.h>
 
 #include "unzip.h"
+
+static bool ends_with(const char *s, const char *suffix)
+{
+    char *p = strrchr(s, '.');
+    if (p == NULL) return false;
+
+    return !strcmp(p, suffix);
+}
 
 // Extract application program name from the NuGet package name
 
@@ -97,9 +106,17 @@ static void CopyFile(unzFile zf, char *appname, char *srcname)
   }
 
   memset(dstname, 0, sizeof(dstname));
-  snprintf(dstname, sizeof(dstname), "/usr/local/lib/%s/%s", appname, srcname);
 
-  fd = creat(dstname, 0444);
+  if (ends_with(srcname, ".so"))
+  {
+    snprintf(dstname, sizeof(dstname), "/usr/local/lib/%s", srcname);
+    fd = creat(dstname, 0555);
+  }
+  else
+  {
+    snprintf(dstname, sizeof(dstname), "/usr/local/lib/%s/%s", appname, srcname);
+    fd = creat(dstname, 0444);
+  }
 
   if (fd < 0)
     fprintf(stderr, "ERROR: Cannot create %s, %s\n", dstname, strerror(errno));
@@ -219,6 +236,7 @@ int main(int argc, char *argv[])
   unzFile zf;
   char appname[64];
   char filename[256];
+  char dirname[256];
   int status;
 
   // Validate parameters
@@ -271,6 +289,9 @@ int main(int argc, char *argv[])
     if (!strncmp(filename, "rc.d/", 5))
       CopyStartupScript(zf, appname, basename(filename));
 
+    if (ends_with(filename, ".so"))
+      CopyFile(zf, appname, basename(filename));
+
     // Seek to the next file in the NuGet package
 
     status = unzGoToNextFile(zf);
@@ -287,6 +308,11 @@ int main(int argc, char *argv[])
   unzClose(zf);
 
   CreateHelperScript(appname);
+
+  // Remove empty application directory
+
+  snprintf(dirname, sizeof(dirname), "/usr/local/lib/%s", appname);
+  rmdir(dirname);
 
   exit(0);
 }
