@@ -30,7 +30,7 @@
 import buildhat
 import time
 
-print('Raspberry Pi Build HAT Passive Motor Test')
+print('\nRaspberry Pi Build HAT Passive Motor Test\n')
 
 M0 = buildhat.PassiveMotor('A')
 M0.plimit(1.0)
