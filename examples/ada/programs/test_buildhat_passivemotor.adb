@@ -37,9 +37,15 @@ BEGIN
   Put_Line("Raspberry Pi Build HAT Passive Motor Test");
   New_Line;
 
-  outp.Put(1.0);
-  DELAY 10.0;
-  outp.Put(-1.0);
-  DELAY 10.0;
-  outp.Put(0.0); 
+  LOOP
+    outp.Put(1.0);
+    DELAY 5.0;
+    outp.Put(0.0);
+    DELAY 2.0;
+
+    outp.Put(-1.0);
+    DELAY 5.0;
+    outp.Put(0.0);
+    DELAY 2.0;
+  END LOOP;
 END test_buildhat_passivemotor;
