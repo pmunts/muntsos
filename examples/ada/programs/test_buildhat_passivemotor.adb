@@ -20,6 +20,13 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+-- This test program requires the Raspberry Pi Build HAT and the python3 and
+-- buildhat-python3 MuntsOS Embedded Linux extension packages.
+--
+-- Tested with a LEGO® Power Functions M-Motor 8883 connected to the Build HAT
+-- with a PV-Productions Powered Up to Power Functions Adapter cable
+-- (https://pv-productions.com/product/powered-up-to-power-functions-adapter).
+
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
 WITH BuildHAT.PassiveMotor;
