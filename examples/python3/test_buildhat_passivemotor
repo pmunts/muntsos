@@ -30,15 +30,18 @@
 import buildhat
 import time
 
+print('Raspberry Pi Build HAT Passive Motor Test')
+
 M0 = buildhat.PassiveMotor('A')
 M0.plimit(1.0)
 
-# Kick motor full power to start rotation
+while True:
+  M0.start(100)
+  time.sleep(5)
+  M0.stop()
+  time.sleep(2)
 
-M0.start(100)
-time.sleep(0.02)
-
-# Now reduce speed
-
-M0.start(2)
-time.sleep(5)
+  M0.start(-100)
+  time.sleep(5)
+  M0.stop()
+  time.sleep(2)
