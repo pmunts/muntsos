@@ -147,10 +147,9 @@ export BOARDNAME=${BOARDNAME:-@@BOARDNAME@@}
 # Create /etc/platform
 
 echo "OSNAME=MuntsOS"				>/etc/platform
-echo "BOARDARCH=${BOARDARCH}"			>>/etc/platform
+echo "BOARDARCH=${BOARDARCH}"		>>/etc/platform
 echo "BOARDBASE=${BOARDBASE}"			>>/etc/platform
 echo "BOARDNAME=${BOARDNAME}"			>>/etc/platform
-echo "DOTNETARCH=${DOTNETARCH}"			>>/etc/platform
 echo "OPTIONS=${OPTIONS}"			>>/etc/platform
 echo "SERIALNUMBER=`serialnumber`"		>>/etc/platform
 echo "TOOLCHAINREVISION=@@TOOLCHAINREVISION@@"	>>/etc/platform

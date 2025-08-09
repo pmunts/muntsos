@@ -770,7 +770,6 @@ endif
 	sed -i 's/@@BOARDARCH@@/$(BOARDARCH)/g'			$@/etc/rc
 	sed -i 's/@@BOARDBASE@@/$(BOARDBASE)/g'			$@/etc/rc
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			$@/etc/rc
-	sed -i 's/@@DOTNETARCH@@/$(DOTNETARCH)/g'		$@/etc/rc
 	sed -i 's/@@TOOLCHAINREVISION@@/$(TOOLCHAIN_REV)/g'	$@/etc/rc
 ifeq ($(BOARDBASE), BeagleBone)
 	sed -i 's#@@USERLED@@#/sys/class/leds/beaglebone\:green\:usr0#g' $@/etc/rc
