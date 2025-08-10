@@ -21,7 +21,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 // This test program requires the Raspberry Pi Build HAT and the python3 and
-// buildhat-python3 MuntsOS Embedded Linux extension packages.
+// python3-buildhat MuntsOS Embedded Linux extension packages.
 //
 // Tested with a LEGO® Power Functions M-Motor 8883 connected to the Build HAT
 // with a PV-Productions Powered Up to Power Functions Adapter cable
