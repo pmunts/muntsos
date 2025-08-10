@@ -196,7 +196,7 @@ News
     **`libgpiod.so.3`**.
 
     I have also added [Application Note
-    \#23](https://repo.munts.com/muntsos/doc/AppNote23-Setup-Debian.pdf),
+    \#23](https://repo.munts.com/muntsos/doc/AppNote23-Flash-LED-C%23-.Net-IoT.pdf),
     which contains a complete example using **`System.Device.Gpio`** on
     a **MuntsOS** target computer.
 

@@ -133,7 +133,8 @@ News
     failure: My first test program test_led runs fine on a Raspberry Pi
     3 but fails on a Raspberry Pi 5 with the following exception:
 
-    Unhandled exception. System.DllNotFoundException: Unable to load shared library 'libgpiod.so.2' or one of its dependencies.
+    Unhandled exception. System.DllNotFoundException: Unable to load
+    shared library 'libgpiod.so.2' or one of its dependencies.
 
     A little searching led me to RaspberryPi3Driver.cs. This .Net IoT
     Libraries source file contains some GPIO code for 64-bit Raspberry
