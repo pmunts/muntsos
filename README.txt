@@ -128,6 +128,32 @@ News
     adding C# components and test programs using Iot.Device.Bindings and
     System.Device.Gpio.
 
+-   10 August 2025 -- I was playing around this morning with .Net
+    programs using System.Device.Gpio and stumbled across an odd
+    failure: My first test program test_led runs fine on a Raspberry Pi
+    3 but fails on a Raspberry Pi 5 with the following exception:
+
+    Unhandled exception. System.DllNotFoundException: Unable to load shared library 'libgpiod.so.2' or one of its dependencies.
+
+    A little searching led me to RaspberryPi3Driver.cs. This .Net IoT
+    Libraries source file contain GPIO services for 64-bit Raspberry Pi
+    Models, but it is missing platform detection code for the Raspberry
+    Pi 5. After failing to detect the Raspberry Pi 5, the code somewhere
+    inside System.Device.Gpio fell back to libgpiod V1, which
+    subsequently failed because libgpiod.so.2 was missing. This is a bit
+    of a cautionary tale: The .Net IoT Libraries contain a lot of
+    wonderful code, but it may not be well maintained. The Raspberry Pi
+    5 was released almost two years ago.
+
+    I have added a new extension package libgpiod1-muntsos-aarch64.deb
+    and for sanity's sake I have renamed the previous extension package
+    libgpiod-muntsos-aarch64.deb to libgpiod2-muntsos-aarch64.deb.
+    Confusingly, libgpiod1 provides libgpiod.so.2 and libgpiod2 provides
+    libgpiod.so.3.
+
+    I have also added Application Note #23, which contains a complete
+    example using System.Device.Gpio on a MuntsOS target computer.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
