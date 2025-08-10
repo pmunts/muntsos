@@ -1,4 +1,4 @@
-# Makefile for building the libgpiod package for MuntsOS
+# Makefile for building the libgpiod V2 package for MuntsOS
 
 # Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
@@ -26,7 +26,7 @@ MUNTSOS		?= /usr/local/share/muntsos
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-PKGNAME		= libgpiod
+PKGNAME		= libgpiod2
 PKGVERSION	= $(shell date +%Y.%j)
 PKGARCH		= $(DEBARCH)
 PKGDIR		= $(PKGNAME)-muntsos-$(BOARDARCH)

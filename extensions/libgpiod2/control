@@ -4,4 +4,4 @@ Priority: extra
 Maintainer: Philip Munts <phil@munts.net>
 Architecture: @@ARCH@@
 Version: @@VERSION@@
-Description: libgpiod for MuntsOS
+Description: libgpiod V2 for MuntsOS

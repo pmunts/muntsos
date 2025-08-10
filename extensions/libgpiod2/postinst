@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Post-Install script for libgpiod extension package
+# Post-Install script for libgpiod2 extension package
 
 # Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
