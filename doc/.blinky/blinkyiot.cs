@@ -3,7 +3,7 @@ using System.Device.Gpio;
 using static System.Console;
 using static System.Threading.Thread;
 
-WriteLine("\nSystem.Device.Gpio LED Test\n");
+WriteLine("\n.Net IoT Library LED Test\n");
 
 var dev = new GpioController();
 
