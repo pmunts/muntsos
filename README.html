@@ -154,6 +154,21 @@ just downloads firmware to the Build Hat RP2040 microcontroller whenever the
 <b><tt>python3-buildhat</tt></b> for Python development and
 <b><tt>buildhat-firmware</tt></b> for all other programming languages.</p>
 </li>
+<li>
+<p>9 August 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.12.41. Upgraded
+the .Net Runtime to 9.0.8. Started adding Ada, C#, and Python3 test programs
+for the Raspberry Pi Build HAT. Modified the <tt><b>nupkg</b></tt> utility
+program to handle shared library <b><tt>.so</tt></b> files in
+<b><tt>.nupkg</tt></b> files. Added the
+<b><tt>libsystem.io.ports-aarch64.nupkg</tt></b> extension package, which
+installs <b><tt>libSystem.IO.Ports.Native.so</tt></b> to
+<b><tt>/usr/local/lib</tt></b>, and is required by programs using <a href=
+"https://github.com/dotnet/iot/tree/main/src/devices/BuildHat">Iot.Device.Bindings.BuildHAT</a>.
+Started adding C# components and test programs using <a href=
+"https://www.nuget.org/packages/Iot.Device.Bindings">Iot.Device.Bindings</a>
+and <a href=
+"https://www.nuget.org/packages/System.Device.Gpio">System.Device.Gpio</a>.</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development

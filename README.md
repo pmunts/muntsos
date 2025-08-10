@@ -152,6 +152,19 @@ News
     **`python3-buildhat`** for Python development and
     **`buildhat-firmware`** for all other programming languages.
 
+-   9 August 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.12.41.
+    Upgraded the .Net Runtime to 9.0.8. Started adding Ada, C\#, and
+    Python3 test programs for the Raspberry Pi Build HAT. Modified the
+    `nupkg` utility program to handle shared library **`.so`** files in
+    **`.nupkg`** files. Added the **`libsystem.io.ports-aarch64.nupkg`**
+    extension package, which installs **`libSystem.IO.Ports.Native.so`**
+    to **`/usr/local/lib`**, and is required by programs using
+    [Iot.Device.Bindings.BuildHAT](https://github.com/dotnet/iot/tree/main/src/devices/BuildHat).
+    Started adding C\# components and test programs using
+    [Iot.Device.Bindings](https://www.nuget.org/packages/Iot.Device.Bindings)
+    and
+    [System.Device.Gpio](https://www.nuget.org/packages/System.Device.Gpio).
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
