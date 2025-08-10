@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <DefineConstants Condition="'$(BOARDNAME)' != ''">$(DefineConstants);$(BOARDNAME)</DefineConstants>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    <NoWarn>NU5118</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="libsimpleio" Version="2.*" />
+    <PackageReference Include="System.Device.Gpio" Version="4.0.1" />
+    <Compile Include="../../../components/dotnet-iot/gpio.cs" Link="gpio.cs" />
+  </ItemGroup>
+
+  <Target Name="DeploySingle" AfterTargets="Publish" Condition="'$(PublishSingleFile)' == 'True' And '$(TARGETCOMPUTER)' != ''">
+    <Exec Command="echo Deploying $(ProjectName) to $(TARGETCOMPUTER)" />
+    <Exec Command="scp $(OutputPath.Replace('\', '/'))publish/$(ProjectName) $(TARGETCOMPUTER)" />
+  </Target>
+</Project>
