@@ -181,9 +181,9 @@ Unhandled exception. System.DllNotFoundException: Unable to load shared library 
 <p>A little searching led me to <a href=
 "https://github.com/dotnet/iot/blob/main/src/System.Device.Gpio/System/Device/Gpio/Drivers/RaspberryPi3Driver.cs">
 RaspberryPi3Driver.cs</a>. This <b><a href="https://github.com/dotnet/iot">.Net
-IoT Libraries</a></b> source file contain GPIO services for 64-bit Raspberry Pi
-Models, <i>but</i> it is missing platform detection code for the Raspberry Pi
-5. After failing to detect the Raspberry Pi 5, the code somewhere inside
+IoT Libraries</a></b> source file contains some GPIO code for 64-bit Raspberry
+Pi Models, <i>but</i> it is missing platform detection code for the Raspberry
+Pi 5. After failing to recognize the Raspberry Pi 5, the code somewhere inside
 <b><tt>System.Device.Gpio</tt></b> fell back to <a href=
 "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git">libgpiod</a> V1,
 which subsequently failed because <b><tt>libgpiod.so.2</tt></b> was missing.

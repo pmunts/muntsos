@@ -177,9 +177,9 @@ News
     A little searching led me to
     [RaspberryPi3Driver.cs](https://github.com/dotnet/iot/blob/main/src/System.Device.Gpio/System/Device/Gpio/Drivers/RaspberryPi3Driver.cs).
     This **[.Net IoT Libraries](https://github.com/dotnet/iot)** source
-    file contain GPIO services for 64-bit Raspberry Pi Models, *but* it
-    is missing platform detection code for the Raspberry Pi 5. After
-    failing to detect the Raspberry Pi 5, the code somewhere inside
+    file contains some GPIO code for 64-bit Raspberry Pi Models, *but*
+    it is missing platform detection code for the Raspberry Pi 5. After
+    failing to recognize the Raspberry Pi 5, the code somewhere inside
     **`System.Device.Gpio`** fell back to
     [libgpiod](https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git)
     V1, which subsequently failed because **`libgpiod.so.2`** was

@@ -136,12 +136,12 @@ News
     Unhandled exception. System.DllNotFoundException: Unable to load shared library 'libgpiod.so.2' or one of its dependencies.
 
     A little searching led me to RaspberryPi3Driver.cs. This .Net IoT
-    Libraries source file contain GPIO services for 64-bit Raspberry Pi
-    Models, but it is missing platform detection code for the Raspberry
-    Pi 5. After failing to detect the Raspberry Pi 5, the code somewhere
-    inside System.Device.Gpio fell back to libgpiod V1, which
-    subsequently failed because libgpiod.so.2 was missing. This is a bit
-    of a cautionary tale: The .Net IoT Libraries contain a lot of
+    Libraries source file contains some GPIO code for 64-bit Raspberry
+    Pi Models, but it is missing platform detection code for the
+    Raspberry Pi 5. After failing to recognize the Raspberry Pi 5, the
+    code somewhere inside System.Device.Gpio fell back to libgpiod V1,
+    which subsequently failed because libgpiod.so.2 was missing. This is
+    a bit of a cautionary tale: The .Net IoT Libraries contain a lot of
     wonderful code, but it may not be well maintained. The Raspberry Pi
     5 was released almost two years ago.
 
