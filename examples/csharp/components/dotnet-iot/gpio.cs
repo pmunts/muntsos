@@ -19,6 +19,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 using System.Device.Gpio;
+using System.Device.Gpio.Drivers;
 
 namespace IO.Objects.IoT.GPIO
 {
@@ -27,44 +28,33 @@ namespace IO.Objects.IoT.GPIO
     /// </summary>
     public class Pin : IO.Interfaces.GPIO.Pin
     {
-        private readonly GpioController mydev;
-        private readonly int mynum;
-        private readonly PinMode mymode;
+	// Cache GpioController instances in the following array:
+        private static GpioController[] gpiochips = new GpioController[10];
+ 
+        private readonly int chip;
+        private readonly int line;
+        private readonly PinMode mode;
         private bool mystate = false;
 
         /// <summary>
         /// Constructor for a single GPIO pin.
         /// </summary>
-        /// <param name="dev">GPIO controller device instance.</param>
-        /// <param name="num">Logical GPIO pin number.</param>
-        /// <param name="mode">Pin mode.</param>
-        /// <param name="state">Initial GPIO output state.</param>
-        public Pin(GpioController dev, int num, PinMode mode, bool state = false)
-        {
-            this.mydev = dev;
-            this.mynum = num;
-            this.mymode = mode;
-
-            this.mydev.OpenPin(this.mynum, this.mymode);
-
-            if (mode == PinMode.Output) this.state = state;
-        }
-
-        /// <summary>
-        /// Constructor for a single GPIO pin.
-        /// </summary>
-        /// <param name="dev">GPIO controller device instance.</param>
         /// <param name="desg">GPIO pin designator.</param>
         /// <param name="mode">Pin mode.</param>
         /// <param name="state">Initial GPIO output state.</param>
-        public Pin(GpioController dev, IO.Objects.SimpleIO.Device.Designator desg,
-          PinMode mode, bool state = false)
+        public Pin(IO.Objects.SimpleIO.Device.Designator desg, PinMode mode, bool state = false)
         {
-            this.mydev = dev;
-            this.mynum = (int) desg.chan;
-            this.mymode = mode;
+	    if (desg.chip >= gpiochips.Length)
+              throw new System.Exception("GPIO chip number is out of range");
 
-            this.mydev.OpenPin(this.mynum, this.mymode);
+            if (gpiochips[desg.chip] == null)
+              gpiochips[desg.chip] = new GpioController(new LibGpiodDriver((int) desg.chip));
+
+            this.chip = (int) desg.chip;
+            this.line = (int) desg.chan;
+            this.mode = mode;
+
+            gpiochips[this.chip].OpenPin(this.line, this.mode);
 
             if (mode == PinMode.Output) this.state = state;
         }
@@ -76,17 +66,17 @@ namespace IO.Objects.IoT.GPIO
         {
             get
             {
-                if (this.mymode == PinMode.Output)
+                if (this.mode == PinMode.Output)
                     return this.mystate;
                 else
-                    return this.mydev.Read(this.mynum) == PinValue.High ? true : false;
+                    return gpiochips[this.chip].Read(this.line) == PinValue.High ? true : false;
             }
 
             set
             {
-                if (this.mymode == PinMode.Output)
+                if (this.mode == PinMode.Output)
                 {
-                    this.mydev.Write(this.mynum, value ? PinValue.High : PinValue.Low);
+                    gpiochips[this.chip].Write(this.line, value ? PinValue.High : PinValue.Low);
                     this.mystate = value;
                 }
                 else
