@@ -20,14 +20,20 @@
 
 using System.Device.Gpio;
 
-using static IO.Objects.SimpleIO.Platforms.RaspberryPi;
 using static System.Console;
 using static System.Threading.Thread;
 
+#if BeaglePlay
+var LED_Desg = IO.Objects.SimpleIO.Platforms.BeaglePlay.INT;
+#elif OrangePiZero2W
+var LED_Desg = IO.Objects.SimpleIO.Platforms.OrangePiZero2W_RaspberryPi.GPIO26;
+#else
+var LED_Desg = IO.Objects.SimpleIO.Platforms.RaspberryPi.GPIO26;
+#endif
+
 WriteLine("\n.Net IoT GPIO Test\n");
 
-var dev = new System.Device.Gpio.GpioController();
-var LED = new IO.Objects.IoT.GPIO.Pin(dev, GPIO26, PinMode.Output, false);
+var LED = new IO.Objects.IoT.GPIO.Pin(LED_Desg, PinMode.Output, false);
 
 for (;;)
 {
