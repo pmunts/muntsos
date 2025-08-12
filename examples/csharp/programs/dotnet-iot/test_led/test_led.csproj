@@ -10,11 +10,16 @@
     <NoWarn>NU5118</NoWarn>
   </PropertyGroup>
 
+  <!-- Reference NuGet packages -->
+
   <ItemGroup>
     <PackageReference Include="libsimpleio" Version="2.*" />
     <PackageReference Include="System.Device.Gpio" Version="4.0.1" />
     <Compile Include="../../../components/dotnet-iot/gpio.cs" Link="gpio.cs" />
   </ItemGroup>
+
+  <!-- Deploy application file(s) to the target computer indicated by the -->
+  <!-- TARGETCOMPUTER environment variable                                -->
 
   <Target Name="DeploySingle" AfterTargets="Publish" Condition="'$(PublishSingleFile)' == 'True' And '$(TARGETCOMPUTER)' != ''">
     <Exec Command="echo Deploying $(ProjectName) to $(TARGETCOMPUTER)" />
