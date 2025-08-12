@@ -34,23 +34,25 @@ using Iot.Device.BuildHat.Motors;
 using static System.Console;
 using static System.Threading.Thread;
 
-WriteLine("Raspberry Pi Build HAT Passive Motor Test");
+WriteLine("\nRaspberry Pi Build HAT Passive Motor Test\n");
 
 var brick = new Brick("/dev/ttyAMA0");
 brick.WaitForSensorToConnect(SensorPort.PortA);
 
-var M0 = (PassiveMotor)brick.GetMotor(SensorPort.PortA);
+var M0 = (PassiveMotor) brick.GetMotor(SensorPort.PortA);
 M0.SetPowerLimit(1.0);
+M0.SetBias(0.0);
+M0.Start(100);
 
 for (;;)
 {
   M0.SetSpeed(100);
   Sleep(5000);
-  M0.Stop();
+  M0.SetSpeed(0);
   Sleep(2000);
 
   M0.SetSpeed(-100);
   Sleep(5000);
-  M0.Stop();
+  M0.SetSpeed(0);
   Sleep(2000);
 }
