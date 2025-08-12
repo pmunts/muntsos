@@ -17,14 +17,6 @@
     <PackageReference Include="System.Device.Gpio" Version="4.0.1-dev" />
   </ItemGroup>
 
-  <!-- Include library assemblies -->
-
-  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="BuildOnlySettings;ResolveReferences">
-    <ItemGroup>
-      <BuildOutputInPackage Include="$(BaseOutputPath)/$(Configuration)/$(TargetFramework)/*.dll" TargetPath="" />
-    </ItemGroup>
-  </Target>
-
   <!-- Deploy application file(s) to the target computer indicated by the -->
   <!-- TARGETCOMPUTER environment variable                                -->
 
