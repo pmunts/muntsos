@@ -30,7 +30,7 @@ WITH NNG.Pub;
 WITH Watchdog.libsimpleio;
 WITH Wio_E5.Ham1;
 
-PROCEDURE wioe5_nng_ham1 IS
+PROCEDURE wioe5_ham1_nng IS
 
   FUNCTION getenv(s : String) RETURN String RENAMES Ada.Environment_Variables.Value;
 
@@ -103,4 +103,4 @@ BEGIN
       wd.Kick;
     END IF;
   END LOOP;
-END wioe5_nng_ham1;
+END wioe5_ham1_nng;
