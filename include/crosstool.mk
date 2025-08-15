@@ -59,14 +59,7 @@ FPC_FLAGS	+= -dMUNTSOS
 # GNAT Ada
 
 GNATPREFIX	= $(CROSS_COMPILE)
-
-ifeq ($(GCCARCH), aarch64)
-GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/AArch64.cgpr
-else ifeq ($(GCCARCH), riscv64)
-GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/RISCV64.cgpr
-else
-GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(BOARDBASE).cgpr
-endif
+GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 
 # Alire
 
