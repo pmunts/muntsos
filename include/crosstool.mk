@@ -59,6 +59,7 @@ FPC_FLAGS	+= -dMUNTSOS
 # GNAT Ada
 
 GNATPREFIX	= $(CROSS_COMPILE)
+GNATMAKELDFLAGS	+= -shared-libgcc
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 
 # Alire
