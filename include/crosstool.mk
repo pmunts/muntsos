@@ -60,6 +60,18 @@ FPC_FLAGS	+= -dMUNTSOS
 
 GNATPREFIX	= $(CROSS_COMPILE)
 GNATADAVERSION	= -gnat2022
+# The following list of compiler options needs to be kept consistent with
+# ../toolchain/libsimpleio/libsimpleio.gpr
+GNATMAKECFLAGS	+= -O3
+GNATMAKECFLAGS	+=-ffunction-sections
+GNATMAKECFLAGS	+=-fdata-sections
+#GNATMAKECFLAGS	+=-gnata     (set in ada.mk)
+GNATMAKECFLAGS	+=-gnato1
+GNATMAKECFLAGS	+=-gnatVa
+GNATMAKECFLAGS	+=-gnatwa
+GNATMAKECFLAGS	+=-gnatwJ
+GNATMAKECFLAGS	+=-gnatwK
+#GNATMAKECFLAGS	+=-gnat2022  (set in ada.mk)
 GNATMAKELDFLAGS	+= -shared-libgcc
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 
