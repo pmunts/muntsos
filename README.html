@@ -198,9 +198,33 @@ renamed the previous extension package
 <b><tt>libgpiod1</tt></b> provides <b><tt>libgpiod.so.2</tt></b> and
 <b><tt>libgpiod2</tt></b> provides <b><tt>libgpiod.so.3</tt></b>.</p>
 I have also added <a href=
-"https://repo.munts.com/muntsos/doc/AppNote23-Flash-LED-C%23-.Net-IoT.pdf">
-Application Note #23</a>, which contains a complete example using
+"https://repo.munts.com/muntsos/doc/AppNote23-Flash-LED-C%23-.Net-IoT.pdf">Application
+Note #23</a>, which contains a complete example using
 <b><tt>System.Device.Gpio</tt></b> on a <b>MuntsOS</b> target computer.</li>
+<li>
+<p>16 August 2025 -- I noticed while trying to compile
+<b><tt>wioe5_ham1_nng_publisher.adb</tt></b> on a Debian 12 machine that the
+native <b><tt>gprbuild</tt></b> inserts a spurious <b><tt>-static</tt></b> into
+the link options. Ada programs for <b>MuntsOS</b> are <i>supposed</i> to always
+be linked dynamically. Some investigation revealed that Debian 11 native
+<b><tt>gprbuild</tt></b> and <a href="https://alire.ada.dev">Alire</a>
+<b><tt>gprbuild</tt></b> version 22.0.1 both work correctly while Debian 12
+native <b><tt>gprbuild</tt></b> and Alire <b><tt>gprbuild</tt></b> version
+25.0.1 both insert the erroneous <b><tt>-static</tt></b> link option. Very
+mysterious. See the ongoing <a href=
+"https://forum.ada-lang.io/t/gprbuild-and-link-options/3755/1">discussion
+thread</a> for more information. For now, the solution on Debian 12 is to
+replace the native <b><tt>gprbuild</tt></b> with the Alire version 22.0.1 by
+installing the package <b><tt>alire-gprbuild</tt></b>. I have updated the
+<b>MuntsOS</b> development tools installation script
+<b><tt>setup-debian</tt></b> accordingly. I also added the
+<b><tt>-shared-libgcc</tt></b> link option to the cross-toolchain configuration
+project files <b><tt>aarch64-muntsos-linux-gnu.cgpr</tt></b> and
+<b><tt>riscv64-muntsos-linux-gnu.cgpr</tt></b>. I also cleaned up the
+<b><tt>gnatmake</tt></b> flags in <b><tt>ada.mk</tt></b> and
+<b><tt>crosstool.mk</tt></b> to keep compile and link flags consistent between
+building with <b><tt>gnatmake</tt></b> and <b><tt>gprbuild</tt></b>.</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development

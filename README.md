@@ -200,6 +200,29 @@ News
     which contains a complete example using **`System.Device.Gpio`** on
     a **MuntsOS** target computer.
 
+-   16 August 2025 -- I noticed while trying to compile
+    **`wioe5_ham1_nng_publisher.adb`** on a Debian 12 machine that the
+    native **`gprbuild`** inserts a spurious **`-static`** into the link
+    options. Ada programs for **MuntsOS** are *supposed* to always be
+    linked dynamically. Some investigation revealed that Debian 11
+    native **`gprbuild`** and [Alire](https://alire.ada.dev)
+    **`gprbuild`** version 22.0.1 both work correctly while Debian 12
+    native **`gprbuild`** and Alire **`gprbuild`** version 25.0.1 both
+    insert the erroneous **`-static`** link option. Very mysterious. See
+    the ongoing [discussion
+    thread](https://forum.ada-lang.io/t/gprbuild-and-link-options/3755/1)
+    for more information. For now, the solution on Debian 12 is to
+    replace the native **`gprbuild`** with the Alire version 22.0.1 by
+    installing the package **`alire-gprbuild`**. I have updated the
+    **MuntsOS** development tools installation script **`setup-debian`**
+    accordingly. I also added the **`-shared-libgcc`** link option to
+    the cross-toolchain configuration project files
+    **`aarch64-muntsos-linux-gnu.cgpr`** and
+    **`riscv64-muntsos-linux-gnu.cgpr`**. I also cleaned up the
+    **`gnatmake`** flags in **`ada.mk`** and **`crosstool.mk`** to keep
+    compile and link flags consistent between building with
+    **`gnatmake`** and **`gprbuild`**.
+
 Quick Setup Instructions for the Impatient
 ------------------------------------------
 
