@@ -29,11 +29,7 @@ MACHINE=`uname -m`
 
 sudo apt update
 sudo apt -y upgrade
-sudo apt -y install alire build-essential libhidapi-dev libusb-1.0-0-dev git gprbuild wget
-
-if [ -d /usr/libexec/gprbuild ]; then
-  sudo ln -s -f ../libexec/gprbuild /usr/lib/gprbuild
-fi
+sudo apt -y install build-essential libhidapi-dev libusb-1.0-0-dev git wget
 
 # Register Munts Technologies Debian package repository
 
@@ -52,6 +48,6 @@ fi
 # Install packages from the Munts Technologies Debian package repository
 
 sudo apt update
-sudo apt -y install muntsos-dev
+sudo apt -y install alire alire-gprbuild muntsos-dev
 
 alr toolchain --disable-assistant
