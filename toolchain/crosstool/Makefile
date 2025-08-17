@@ -45,6 +45,11 @@ PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
 
+GPRBUILDVER	:= 22.0.1
+GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_22.0.1_24dfc1b5
+GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
+GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
+
 default: package.deb
 
 ################################################################################
@@ -116,7 +121,7 @@ build.done: source.done
 reconstitute:
 	cp -R -P -p $(TOOLCHAIN_DIR) $(INSTALLDIR)
 	chmod -R u+w $(INSTALLDIR)
-	rm -rf $(INSTALLDIR)/share/gpr
+	rm -rf $(INSTALLDIR)/bin/gpr* $(INSTALLDIR)/libexec/gprbuild* $(INSTALLDIR)/share/gpr
 	touch build.done
 
 ################################################################################
@@ -132,10 +137,19 @@ package.deb: build.done
 	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
 	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
+	mkdir -p					$(GPRBUILDDEST)
+	cp -R -P -p $(GPRBUILDDIST)/*			$(GPRBUILDDEST)
+	rm -rf						$(GPRBUILDDEST)/alire*
+	rm -rf						$(GPRBUILDDEST)/doinstall
+	cd $(GPRBUILDDEST)/bin && for P in * ; do ln -s ../$(GPRBUILDDIR)/bin/$$P ../../../bin/$$P ; done
+	install -cm 0644 native.cgpr.$(PKGARCH)		$(GPRBUILDDEST)/share/gpr/default.cgpr
+	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(GPRBUILDDEST)/share/gpr/default.cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(GPRBUILDDEST)/share/gpr/default.cgpr
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
