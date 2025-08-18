@@ -173,6 +173,11 @@ News
     in ada.mk and crosstool.mk to keep compile and link flags consistent
     between building with gnatmake and gprbuild.
 
+-   17 August 2025 -- Fussing around with gprbuild has driven me to
+    incorporate a known working version of it into each of the
+    cross-toolchain packages. The OS native gprbuild is no longer
+    necessary.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
