@@ -109,6 +109,8 @@ configuration project Default is
    end Naming;
 
    package Binder is
+      for Bindfile_Option_Substitution ("-static") use ("-static-libgcc");
+      for Bindfile_Option_Substitution ("-shared") use ("-shared-libgcc");
       for Required_Switches ("Ada") use
           Binder'Required_Switches ("Ada") &
           ("gnatbind_prefix=@@TOOLCHAIN_DIR@@/bin/@@CONFIGURE_NAME@@-");
