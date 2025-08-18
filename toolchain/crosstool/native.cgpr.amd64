@@ -37,7 +37,7 @@ configuration project Default is
         when others =>
    end case;
    for Library_Partial_Linker use
-         ("/usr/bin/gnatgcc", "-nostdlib", "-Wl,-r", "-o");
+         ("/usr/bin/gcc", "-nostdlib", "-Wl,-r", "-o");
    for Library_Rpath_Options ("C++") use ("-print-file-name=libstdc++.so");
    for Default_Language use "Ada";
 
@@ -71,7 +71,7 @@ configuration project Default is
          Compiler'Leading_Required_Switches ("Fortran") &
          ("-c", "-fno-underscoring");
       for Include_Path      ("Fortran") use "CPATH";
-      for Driver                   ("Ada") use "/usr/bin/gnatgcc";
+      for Driver                   ("Ada") use "/usr/bin/gcc";
       for Language_Kind            ("Ada") use "unit_based";
       for Dependency_Kind          ("Ada") use "ALI_File";
       for Leading_Required_Switches        ("Ada") use
@@ -130,7 +130,7 @@ configuration project Default is
    package Binder is
       for Required_Switches ("Ada") use
           Binder'Required_Switches ("Ada") &
-          ("gnatbind_prefix=");
+          ("gnatbind_prefix=/usr/bind");
       for Objects_Path_File     ("Ada") use "ADA_PRJ_OBJECTS_FILE";
       for Driver         ("Ada") use
           "@@TOOLCHAIN_DIR@@/@@GPRBUILD_DIR@@/libexec/gprbuild/gprbind";
