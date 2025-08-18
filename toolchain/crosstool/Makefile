@@ -146,6 +146,7 @@ package.deb: build.done
 	cp -R -P -p $(GPRBUILDDIST)/*			$(GPRBUILDDEST)
 	rm -rf						$(GPRBUILDDEST)/alire*
 	rm -rf						$(GPRBUILDDEST)/doinstall
+	rm -rf						$(GPRBUILDDEST)/share
 	cd $(GPRBUILDDEST)/bin && for P in * ; do ln -s ../$(GPRBUILDDIR)/bin/$$P ../../../bin/$$P ; done
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
