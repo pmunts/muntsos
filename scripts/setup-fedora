@@ -38,11 +38,7 @@ echo ""
 
 sudo dnf -y -q group install "C Development Tools and Libraries"
 sudo dnf -y -q group install "Development Tools"
-sudo dnf -y -q install gprbuild hidapi-devel libusb1-devel wget
-
-if [ -d /usr/libexec/gprbuild ]; then
-  sudo ln -s -f ../libexec/gprbuild /usr/lib/gprbuild
-fi
+sudo dnf -y -q install hidapi-devel libusb1-devel wget
 
 echo ""
 echo "Download MuntsOS Embedded Linux cross-toolchain packages..."
