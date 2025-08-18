@@ -45,8 +45,13 @@ PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
 
-GPRBUILDVER	:= 22.0.1
-GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_22.0.1_24dfc1b5
+GPRBUILDVER	:= 25.0.1
+ifeq ($(PKGARCH), amd64)
+GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_9a2e6cfb
+endif
+ifeq ($(PKGARCH), arm64)
+GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_5e58c08e
+endif
 GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
 GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
 
