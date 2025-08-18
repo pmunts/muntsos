@@ -223,10 +223,11 @@ News
     compile and link flags consistent between building with
     **`gnatmake`** and **`gprbuild`**.
 
--   17 August 2025 -- Fussing around with **`gprbuild`** has driven me
-    to incorporate a known working version of it into each of the
-    cross-toolchain packages. The OS native **`gprbuild`** is no longer
-    necessary.
+-   18 August 2025 -- I have now incorporated a known working version of
+    **`gprbuild`** (presently Alire **`gprbuild`** 25.0.1) into each of
+    the cross-toolchain packages. A Linux distribution **`gprbuild`** is
+    no longer necessary for building Ada programs for **MuntsOS**
+    targets.
 
 Quick Setup Instructions for the Impatient
 ------------------------------------------
