@@ -1,6 +1,6 @@
 # Makefile for building and packaging a crosstool-NG cross-toolchain
 
-# Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -142,9 +142,6 @@ package.deb: build.done
 	rm -rf						$(GPRBUILDDEST)/alire*
 	rm -rf						$(GPRBUILDDEST)/doinstall
 	cd $(GPRBUILDDEST)/bin && for P in * ; do ln -s ../$(GPRBUILDDIR)/bin/$$P ../../../bin/$$P ; done
-	install -cm 0644 native.cgpr.$(PKGARCH)		$(GPRBUILDDEST)/share/gpr/default.cgpr
-	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(GPRBUILDDEST)/share/gpr/default.cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(GPRBUILDDEST)/share/gpr/default.cgpr
 	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
 	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
