@@ -497,7 +497,7 @@ Cross-toolchain packages containing GCC 14.2.0, including support for
 Ada 2022, and built for Debian Linux (x86-64 and ARM64) development host
 computers are available at either:
 
-https://repo.munts.com/debian12 (Debian package repository)
+https://repo.munts.com/debian13 (Debian package repository)
 https://repo.munts.com/muntsos/toolchain-debs (just the package files).
 
 x86-64 RPM packages containing the exact same binaries, and known to

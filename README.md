@@ -1,5 +1,4 @@
-**MuntsOS** Embedded Linux
-==========================
+# **MuntsOS** Embedded Linux
 
 **MuntsOS** is a *ferociously* reduced Linux distribution for **embedded
 systems**. It runs on several microcomputer boards, including all 64-bit
@@ -19,218 +18,214 @@ Raspberry Pi board, **MuntsOS** offers a very high productivity
 development environment and a very easy to deploy target operating
 system.
 
-News
-----
+## News
 
--   12 February 2025 -- Added
-    [libgpiod](https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/tree)
-    to the toolchain libraries packages
-    **`gcc-*-muntsos-linux-gnu-ctng-libs`** and added the **libgpiod**
-    runtime extension package. Because they use the same **`ioctl()`**
-    services, **libgpiod** and **libsimpleio** interoperate without any
-    problems. Note that this **libgpiod** is newer than that in Debian
-    12 (Bookworm), including Raspberry Pi OS.
+- 12 February 2025 -- Added
+  [libgpiod](https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/tree)
+  to the toolchain libraries packages
+  **`gcc-*-muntsos-linux-gnu-ctng-libs`** and added the **libgpiod**
+  runtime extension package. Because they use the same **`ioctl()`**
+  services, **libgpiod** and **libsimpleio** interoperate without any
+  problems. Note that this **libgpiod** is newer than that in Debian 12
+  (Bookworm), including Raspberry Pi OS.
 
--   17 February 2025 -- Upgraded the .Net Runtime to 9.0.2. Upgraded the
-    Raspberry Pi kernel to 6.6.78.
+- 17 February 2025 -- Upgraded the .Net Runtime to 9.0.2. Upgraded the
+  Raspberry Pi kernel to 6.6.78.
 
--   20 February 2025 -- [Crosstool-NG](https://crosstool-ng.github.io)
-    release 1.27.0 was published a few days ago. I have used it to build
-    the 10th iteration of the **MuntsOS** cross-toolchain packages,
-    upgrading binutils to 2.43, GCC to 14.2.0, and glibc to 2.41. GCC
-    14.2.0 includes support for [Ada
-    2022](http://www.ada-auth.org/standards/ada22.html) and a lot of
-    Modula-2 fixes. All of the extensions, kernels, and thin servers
-    have been rebuilt with the new GCC 14.2.0 toolchain. The previous
-    GCC 13.2.0 cross-toolchain packages, extensions, kernels, and thin
-    servers have been moved to the
-    [attic.](https://repo.munts.com/muntsos/attic)
+- 20 February 2025 -- [Crosstool-NG](https://crosstool-ng.github.io)
+  release 1.27.0 was published a few days ago. I have used it to build
+  the 10th iteration of the **MuntsOS** cross-toolchain packages,
+  upgrading binutils to 2.43, GCC to 14.2.0, and glibc to 2.41. GCC
+  14.2.0 includes support for [Ada
+  2022](http://www.ada-auth.org/standards/ada22.html) and a lot of
+  Modula-2 fixes. All of the extensions, kernels, and thin servers have
+  been rebuilt with the new GCC 14.2.0 toolchain. The previous GCC
+  13.2.0 cross-toolchain packages, extensions, kernels, and thin servers
+  have been moved to the [attic.](https://repo.munts.com/muntsos/attic)
 
--   23 February 2025 -- Added initial support for the 64-bit
-    [BeaglePlay](https://www.beagleboard.org/boards/beagleplay). Next up
-    will probably be the 64-bit [VisionFive
-    2](https://www.waveshare.com/wiki/VisionFive2). I have already built
-    a GCC 14.2.0 **`riscv64`** cross-toolchain for **MuntsOS**.
+- 23 February 2025 -- Added initial support for the 64-bit
+  [BeaglePlay](https://www.beagleboard.org/boards/beagleplay). Next up
+  will probably be the 64-bit [VisionFive
+  2](https://www.waveshare.com/wiki/VisionFive2). I have already built a
+  GCC 14.2.0 **`riscv64`** cross-toolchain for **MuntsOS**.
 
--   6 March 2025 -- Finally got around to completing a couple of loose
-    ends for the Raspberry Pi CM5 on a CM5IO. This has proven to be a
-    very nice setup.
+- 6 March 2025 -- Finally got around to completing a couple of loose
+  ends for the Raspberry Pi CM5 on a CM5IO. This has proven to be a very
+  nice setup.
 
--   13 March 2025 -- Support for the BeaglePlay is now done. See
-    [Application Note
-    \#19](https://repo.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf)
-    for important information.
+- 13 March 2025 -- Support for the BeaglePlay is now done. See
+  [Application Note
+  \#19](https://repo.munts.com/muntsos/doc/AppNote19-BeaglePlay.pdf) for
+  important information.
 
--   18 March 2025 -- Enabled encryption for **repo.munts.com** ([GitHub
-    issue \#2](https://github.com/pmunts/muntsos/issues/2)) which is now
-    accessible either without encryption at <http://repo.munts.com> or
-    with encryption at <https://repo.munts.com>. Document and script
-    hyperlinks that formerly referenced **git.munts.com** now reference
-    <https://repo.munts.com/muntsos> and **`sysconfig`** has switched
-    from **`wget`** to **`curl`**.
+- 18 March 2025 -- Enabled encryption for **repo.munts.com** ([GitHub
+  issue \#2](https://github.com/pmunts/muntsos/issues/2)) which is now
+  accessible either without encryption at <http://repo.munts.com> or
+  with encryption at <https://repo.munts.com>. Document and script
+  hyperlinks that formerly referenced **git.munts.com** now reference
+  <https://repo.munts.com/muntsos> and **`sysconfig`** has switched from
+  **`wget`** to **`curl`**.
 
--   22 March 2025 -- Overhauled **MuntsOS** email support: Rewrote
-    [Application Note
-    \#16](https://repo.munts.com/muntsos/doc/AppNote16-Sending-Email.pdf),
-    upgraded the **`dma`** and **`emailrelay`** extension packages to
-    latest releases, and updated their configuration files for
-    authenticated SMTP relay. Added **`mailtunnel`**, an extension
-    package template.
+- 22 March 2025 -- Overhauled **MuntsOS** email support: Rewrote
+  [Application Note
+  \#16](https://repo.munts.com/muntsos/doc/AppNote16-Sending-Email.pdf),
+  upgraded the **`dma`** and **`emailrelay`** extension packages to
+  latest releases, and updated their configuration files for
+  authenticated SMTP relay. Added **`mailtunnel`**, an extension package
+  template.
 
--   28 March 2025 -- Switched the BeaglePlay kernel branch to
-    6.6.58-ti-arm64-r24. Upgraded a lot of library components: libusb to
-    1.0.28, openssl to 3.4.1, icu to 77.1, curl to 8.12.1, xmlrpc to
-    1.60.04, libmysqlclient to 3.4.4, gdbm to 1.25, paho.mqtt.c to
-    1.3.14, libffi to 3.4.7, util-linux to 2.41, and xz to 5.8.0.
-    Toolchain Debian package gcc-\*-libs has subsumed gcc-\*-libaws.
+- 28 March 2025 -- Switched the BeaglePlay kernel branch to
+  6.6.58-ti-arm64-r24. Upgraded a lot of library components: libusb to
+  1.0.28, openssl to 3.4.1, icu to 77.1, curl to 8.12.1, xmlrpc to
+  1.60.04, libmysqlclient to 3.4.4, gdbm to 1.25, paho.mqtt.c to 1.3.14,
+  libffi to 3.4.7, util-linux to 2.41, and xz to 5.8.0. Toolchain Debian
+  package gcc-\*-libs has subsumed gcc-\*-libaws.
 
--   19 May 2025 -- Added extension packages **`libwioe5p2p`**,
-    **`libwioe5ham1`**, and **`libwioe5ham2`** as well as both Ada and
-    C\# .Net example programs. These all result from a deep dive study
-    about using the [Wio-E5 LoRa Transceiver
-    Module](https://wiki.seeedstudio.com/LoRa-E5_STM32WLE5JC_Module) for
-    Amateur Radio operation in the [33-cm
-    band](https://en.wikipedia.org/wiki/33-centimeter_band). See
-    [WioE5LoRaP2P.pdf](https://repo.munts.com/libsimpleio/doc/WioE5LoRaP2P.pdf)
-    for more background information. Fixed a bug in **`sysconfig`** that
-    installed **`.nupkg`** extension package files to
-    **`/boot/autoexec.d`** instead of **`/boot/packages`**. Modified
-    **`nupkg`** to support an additional (and hereafter canonical)
-    scheme for naming .Net Core extension package files:
-    **`<progname>-muntsos-all.nupkg`**. The older (and hereafter
-    deprecated) naming scheme (as built by **`dotnet pack`** or Visual
-    Studio **`Build -> Pack`**) **`<progname>.<progversion>.nupkg`** is
-    still supported.
+- 19 May 2025 -- Added extension packages **`libwioe5p2p`**,
+  **`libwioe5ham1`**, and **`libwioe5ham2`** as well as both Ada and C#
+  .Net example programs. These all result from a deep dive study about
+  using the [Wio-E5 LoRa Transceiver
+  Module](https://wiki.seeedstudio.com/LoRa-E5_STM32WLE5JC_Module) for
+  Amateur Radio operation in the [33-cm
+  band](https://en.wikipedia.org/wiki/33-centimeter_band). See
+  [WioE5LoRaP2P.pdf](https://repo.munts.com/libsimpleio/doc/WioE5LoRaP2P.pdf)
+  for more background information. Fixed a bug in **`sysconfig`** that
+  installed **`.nupkg`** extension package files to
+  **`/boot/autoexec.d`** instead of **`/boot/packages`**. Modified
+  **`nupkg`** to support an additional (and hereafter canonical) scheme
+  for naming .Net Core extension package files:
+  **`<progname>-muntsos-all.nupkg`**. The older (and hereafter
+  deprecated) naming scheme (as built by **`dotnet pack`** or Visual
+  Studio **`Build -> Pack`**) **`<progname>.<progversion>.nupkg`** is
+  still supported.
 
--   10 July 2025 -- Following a June vacation hiatus, I upgraded library
-    components readline to 8.3, libgpiod to 2.2.2, libusb to 1.0.29,
-    hidapi to 0.15.0, openssl to 3.5.1, curl to 8.14.1, xmlrpc-c to
-    1.60.05, mariadb-connector-c *aka* libmysql to 3.4.5, nng to 1.11,
-    libffi to 3.5.1, and xz to 5.8.1. Upgraded userland programs openssh
-    to 10.0p1, ethtool to 6.15, mailutils to 3.19, and nano editor to
-    8.5. Upgraded the BeaglePlay kernel to 6.6.58-ti-arm64-r29. Upgraded
-    all 64-bit Raspberry kernels to 6.12.36. Upgraded the .Net Runtime
-    extension to 9.0.8 and the Python3 extension to 3.13.5.
+- 10 July 2025 -- Following a June vacation hiatus, I upgraded library
+  components readline to 8.3, libgpiod to 2.2.2, libusb to 1.0.29,
+  hidapi to 0.15.0, openssl to 3.5.1, curl to 8.14.1, xmlrpc-c to
+  1.60.05, mariadb-connector-c *aka* libmysql to 3.4.5, nng to 1.11,
+  libffi to 3.5.1, and xz to 5.8.1. Upgraded userland programs openssh
+  to 10.0p1, ethtool to 6.15, mailutils to 3.19, and nano editor to 8.5.
+  Upgraded the BeaglePlay kernel to 6.6.58-ti-arm64-r29. Upgraded all
+  64-bit Raspberry kernels to 6.12.36. Upgraded the .Net Runtime
+  extension to 9.0.8 and the Python3 extension to 3.13.5.
 
--   19 July 2025 -- In recent years I have written a lot of
-    self-contained extension programs for **MuntsOS** using the Ada
-    programming language (*e.g.* **`remoteio_server`**). See new
-    [Application Note
-    \#21.](https://repo.munts.com/muntsos/doc/AppNote21-Ada-Extension-Programs.pdf)
-    Managing extension programs has always been a little awkward because
-    they needed to be installed to **`/boot/autoexec.d`** instead of
-    **`/boot/packages`** like other extensions. I have now renamed
-    **`/boot/packages`** to **`/boot/extensions`**, to contain both
-    extension package files (any of **`.deb`**, **`.nupkg`**, or
-    **`.rpm`**) as well as extension program files and have modifed
-    **`/etc/rc`** and **`sysconfig`** accordingly. You can still install
-    executable programs and scripts to **`/boot/autoexec.d`** but
-    **`sysconfig`** will no longer attempt to manage them. Note that
-    executable programs and scripts installed to either
-    **`/boot/autoexec.d`** or **`/boot/extensions`** must run to
-    completion quickly or detach themselves to run as background
-    processes, to avoid blocking the **MuntsOS** startup script
-    **`/etc/rc`**.
+- 19 July 2025 -- In recent years I have written a lot of self-contained
+  extension programs for **MuntsOS** using the Ada programming language
+  (*e.g.* **`remoteio_server`**). See new [Application Note
+  \#21.](https://repo.munts.com/muntsos/doc/AppNote21-Ada-Extension-Programs.pdf)
+  Managing extension programs has always been a little awkward because
+  they needed to be installed to **`/boot/autoexec.d`** instead of
+  **`/boot/packages`** like other extensions. I have now renamed
+  **`/boot/packages`** to **`/boot/extensions`**, to contain both
+  extension package files (any of **`.deb`**, **`.nupkg`**, or
+  **`.rpm`**) as well as extension program files and have modifed
+  **`/etc/rc`** and **`sysconfig`** accordingly. You can still install
+  executable programs and scripts to **`/boot/autoexec.d`** but
+  **`sysconfig`** will no longer attempt to manage them. Note that
+  executable programs and scripts installed to either
+  **`/boot/autoexec.d`** or **`/boot/extensions`** must run to
+  completion quickly or detach themselves to run as background
+  processes, to avoid blocking the **MuntsOS** startup script
+  **`/etc/rc`**.
 
--   31 July 2024 -- Added two new extension packages to support the
-    [Raspberry Pi Build
-    HAT](https://www.raspberrypi.com/products/build-hat), which acts as
-    a four port controller for [LEGO® Powered
-    Up](https://www.lego.com/en-us/themes/powered-up/about) (*aka
-    **LEGO® Power Functions 2.0***) actuators and sensors. With a
-    [Powered Up to Power Functions
-    Adapter](https://pv-productions.com/product/powered-up-to-power-functions-adapter)
-    or a [Powered Up to EV3/NXT
-    Adapter](https://pv-productions.com/product/powered-up-to-ev3-nxt-adapter)
-    you can also control older LEGO® actuators and sensors. The
-    **`python3-buildhat`** extension package installs the official
-    [Build HAT Python
-    library](https://github.com/RaspberryPiFoundation/python-build-hat).
-    The **`buildhat-firmware`** extension package just downloads
-    firmware to the Build Hat RP2040 microcontroller whenever the
-    **MuntsOS** target computer reboots. Install **`python3`** and
-    **`python3-buildhat`** for Python development and
-    **`buildhat-firmware`** for all other programming languages.
+- 31 July 2024 -- Added two new extension packages to support the
+  [Raspberry Pi Build
+  HAT](https://www.raspberrypi.com/products/build-hat), which acts as a
+  four port controller for [LEGO® Powered
+  Up](https://www.lego.com/en-us/themes/powered-up/about) (*aka **LEGO®
+  Power Functions 2.0***) actuators and sensors. With a [Powered Up to
+  Power Functions
+  Adapter](https://pv-productions.com/product/powered-up-to-power-functions-adapter)
+  or a [Powered Up to EV3/NXT
+  Adapter](https://pv-productions.com/product/powered-up-to-ev3-nxt-adapter)
+  you can also control older LEGO® actuators and sensors. The
+  **`python3-buildhat`** extension package installs the official [Build
+  HAT Python
+  library](https://github.com/RaspberryPiFoundation/python-build-hat).
+  The **`buildhat-firmware`** extension package just downloads firmware
+  to the Build Hat RP2040 microcontroller whenever the **MuntsOS**
+  target computer reboots. Install **`python3`** and
+  **`python3-buildhat`** for Python development and
+  **`buildhat-firmware`** for all other programming languages.
 
--   9 August 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.12.41.
-    Upgraded the .Net Runtime to 9.0.8. Started adding Ada, C\#, and
-    Python3 test programs for the Raspberry Pi Build HAT. Modified the
-    `nupkg` utility program to handle shared library **`.so`** files in
-    **`.nupkg`** files. Added the **`libsystem.io.ports-aarch64.nupkg`**
-    extension package, which installs **`libSystem.IO.Ports.Native.so`**
-    to **`/usr/local/lib`**, and is required by programs using
-    [Iot.Device.Bindings.BuildHAT](https://github.com/dotnet/iot/tree/main/src/devices/BuildHat).
-    Started adding C\# components and test programs using
-    [Iot.Device.Bindings](https://www.nuget.org/packages/Iot.Device.Bindings)
-    and
-    [System.Device.Gpio](https://www.nuget.org/packages/System.Device.Gpio).
+- 9 August 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.12.41.
+  Upgraded the .Net Runtime to 9.0.8. Started adding Ada, C#, and
+  Python3 test programs for the Raspberry Pi Build HAT. Modified the
+  **`nupkg`** utility program to handle shared library **`.so`** files
+  in **`.nupkg`** files. Added the
+  **`libsystem.io.ports-aarch64.nupkg`** extension package, which
+  installs **`libSystem.IO.Ports.Native.so`** to **`/usr/local/lib`**,
+  and is required by programs using
+  [Iot.Device.Bindings.BuildHAT](https://github.com/dotnet/iot/tree/main/src/devices/BuildHat).
+  Started adding C# components and test programs using
+  [Iot.Device.Bindings](https://www.nuget.org/packages/Iot.Device.Bindings)
+  and
+  [System.Device.Gpio](https://www.nuget.org/packages/System.Device.Gpio).
 
--   10 August 2025 -- I was playing around this morning with .Net
-    programs using **`System.Device.Gpio`** and stumbled across an odd
-    failure: My first test program
-    [test\_led](https://github.com/pmunts/muntsos/tree/master/examples/csharp/programs/dotnet-iot/test_led)
-    runs fine on a Raspberry Pi 3 but fails on a Raspberry Pi 5 with the
-    following exception:
+- 10 August 2025 -- I was playing around this morning with .Net programs
+  using **`System.Device.Gpio`** and stumbled across an odd failure: My
+  first test program
+  [test_led](https://github.com/pmunts/muntsos/tree/master/examples/csharp/programs/dotnet-iot/test_led)
+  runs fine on a Raspberry Pi 3 but fails on a Raspberry Pi 5 with the
+  following exception:
 
-        Unhandled exception. System.DllNotFoundException: Unable to load shared library 'libgpiod.so.2' or one of its dependencies.
+      Unhandled exception. System.DllNotFoundException: Unable to load shared library 'libgpiod.so.2' or one of its dependencies.
 
-    A little searching led me to
-    [RaspberryPi3Driver.cs](https://github.com/dotnet/iot/blob/main/src/System.Device.Gpio/System/Device/Gpio/Drivers/RaspberryPi3Driver.cs).
-    This **[.Net IoT Libraries](https://github.com/dotnet/iot)** source
-    file contains some GPIO code for 64-bit Raspberry Pi Models, *but*
-    it is missing platform detection code for the Raspberry Pi 5. After
-    failing to recognize the Raspberry Pi 5, the code somewhere inside
-    **`System.Device.Gpio`** fell back to
-    [libgpiod](https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git)
-    V1, which subsequently failed because **`libgpiod.so.2`** was
-    missing. This is a bit of a cautionary tale: The **.Net IoT
-    Libraries** contain a lot of wonderful code, but it may not be well
-    maintained. The Raspberry Pi 5 was released almost two years ago.
+  A little searching led me to
+  [RaspberryPi3Driver.cs](https://github.com/dotnet/iot/blob/main/src/System.Device.Gpio/System/Device/Gpio/Drivers/RaspberryPi3Driver.cs).
+  This **[.Net IoT Libraries](https://github.com/dotnet/iot)** source
+  file contains some GPIO code for 64-bit Raspberry Pi Models, *but* it
+  is missing platform detection code for the Raspberry Pi 5. After
+  failing to recognize the Raspberry Pi 5, the code somewhere inside
+  **`System.Device.Gpio`** fell back to
+  [libgpiod](https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git)
+  V1, which subsequently failed because **`libgpiod.so.2`** was missing.
+  This is a bit of a cautionary tale: The **.Net IoT Libraries** contain
+  a lot of wonderful code, but it may not be well maintained. The
+  Raspberry Pi 5 was released almost two years ago.
 
-    I have added a new extension package
-    **`libgpiod1-muntsos-aarch64.deb`** and for sanity's sake I have
-    renamed the previous extension package
-    **`libgpiod-muntsos-aarch64.deb`** to
-    **`libgpiod2-muntsos-aarch64.deb`**. Confusingly, **`libgpiod1`**
-    provides **`libgpiod.so.2`** and **`libgpiod2`** provides
-    **`libgpiod.so.3`**.
+  I have added a new extension package
+  **`libgpiod1-muntsos-aarch64.deb`** and for sanity's sake I have
+  renamed the previous extension package
+  **`libgpiod-muntsos-aarch64.deb`** to
+  **`libgpiod2-muntsos-aarch64.deb`**. Confusingly, **`libgpiod1`**
+  provides **`libgpiod.so.2`** and **`libgpiod2`** provides
+  **`libgpiod.so.3`**.
 
-    I have also added [Application Note
-    \#23](https://repo.munts.com/muntsos/doc/AppNote23-Flash-LED-C%23-.Net-IoT.pdf),
-    which contains a complete example using **`System.Device.Gpio`** on
-    a **MuntsOS** target computer.
+  I have also added [Application Note
+  \#23](https://repo.munts.com/muntsos/doc/AppNote23-Flash-LED-C%23-.Net-IoT.pdf),
+  which contains a complete example using **`System.Device.Gpio`** on a
+  **MuntsOS** target computer.
 
--   16 August 2025 -- I noticed while trying to compile
-    **`wioe5_ham1_nng_publisher.adb`** on a Debian 12 machine that the
-    native **`gprbuild`** inserts a spurious **`-static`** into the link
-    options. Ada programs for **MuntsOS** are *supposed* to always be
-    linked dynamically. Some investigation revealed that Debian 11
-    native **`gprbuild`** and [Alire](https://alire.ada.dev)
-    **`gprbuild`** version 22.0.1 both work correctly while Debian 12
-    native **`gprbuild`** and Alire **`gprbuild`** version 25.0.1 both
-    insert the erroneous **`-static`** link option. Very mysterious. See
-    the ongoing [discussion
-    thread](https://forum.ada-lang.io/t/gprbuild-and-link-options/3755/1)
-    for more information. For now, the solution on Debian 12 is to
-    replace the native **`gprbuild`** with the Alire version 22.0.1 by
-    installing the package **`alire-gprbuild`**. I have updated the
-    **MuntsOS** development tools installation script **`setup-debian`**
-    accordingly. I also added the **`-shared-libgcc`** link option to
-    the cross-toolchain configuration project files
-    **`aarch64-muntsos-linux-gnu.cgpr`** and
-    **`riscv64-muntsos-linux-gnu.cgpr`**. I also cleaned up the
-    **`gnatmake`** flags in **`ada.mk`** and **`crosstool.mk`** to keep
-    compile and link flags consistent between building with
-    **`gnatmake`** and **`gprbuild`**.
+- 16 August 2025 -- I noticed while trying to compile
+  **`wioe5_ham1_nng_publisher.adb`** on a Debian 12 machine that the
+  native **`gprbuild`** inserts a spurious **`-static`** into the link
+  options. Ada programs for **MuntsOS** are *supposed* to always be
+  linked dynamically. Some investigation revealed that Debian 11 native
+  **`gprbuild`** and [Alire](https://alire.ada.dev) **`gprbuild`**
+  version 22.0.1 both work correctly while Debian 12 native
+  **`gprbuild`** and Alire **`gprbuild`** version 25.0.1 both insert the
+  erroneous **`-static`** link option. Very mysterious. See the ongoing
+  [discussion
+  thread](https://forum.ada-lang.io/t/gprbuild-and-link-options/3755/1)
+  for more information. For now, the solution on Debian 12 is to replace
+  the native **`gprbuild`** with the Alire version 22.0.1 by installing
+  the package **`alire-gprbuild`**. I have updated the **MuntsOS**
+  development tools installation script **`setup-debian`** accordingly.
+  I also added the **`-shared-libgcc`** link option to the
+  cross-toolchain configuration project files
+  **`aarch64-muntsos-linux-gnu.cgpr`** and
+  **`riscv64-muntsos-linux-gnu.cgpr`**. I also cleaned up the
+  **`gnatmake`** flags in **`ada.mk`** and **`crosstool.mk`** to keep
+  compile and link flags consistent between building with **`gnatmake`**
+  and **`gprbuild`**.
 
--   18 August 2025 -- I have now incorporated a known working version of
-    **`gprbuild`** (presently Alire **`gprbuild`** 25.0.1) into each of
-    the cross-toolchain packages. A Linux distribution **`gprbuild`** is
-    no longer necessary for building Ada programs for **MuntsOS**
-    targets.
+- 18 August 2025 -- I have now incorporated a known working version of
+  **`gprbuild`** (presently Alire **`gprbuild`** 25.0.1) into each of
+  the cross-toolchain packages. A Linux distribution **`gprbuild`** is
+  no longer necessary for building Ada programs for **MuntsOS** targets.
 
-Quick Setup Instructions for the Impatient
-------------------------------------------
+## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
 environment onto a development **host computer** are found in
@@ -250,16 +245,14 @@ found in [Application Note
 and [Application Note
 \#15](https://repo.munts.com/muntsos/doc/AppNote15-Installation-from-Windows.pdf).
 
-Documentation
--------------
+## Documentation
 
 The documentation for **MuntsOS** (mostly application notes) is
 available online at:
 
 <https://repo.munts.com/muntsos/doc>
 
-Embedded Linux Distribution in a Kernel
----------------------------------------
+## Embedded Linux Distribution in a Kernel
 
 **MuntsOS** is a stripped down Linux distribution that includes a small
 compressed root file system within the kernel image binary itself. At
@@ -280,8 +273,7 @@ Prebuilt **MuntsOS** kernel release tarballs are available at:
 
 <https://repo.munts.com/muntsos/kernels>
 
-Extensions
-----------
+## Extensions
 
 The **MuntsOS** root file system can be *extended* at boot time using
 any of three mechanisms:
@@ -319,8 +311,7 @@ at:
 
 <https://repo.munts.com/muntsos/extensions>
 
-Thin Servers
-------------
+## Thin Servers
 
 ### Boot Files + Kernel Files + Extensions = Thin Server
 
@@ -361,8 +352,7 @@ Prebuilt **MuntsOS** Thin Servers are at available at:
 
 <https://repo.munts.com/muntsos/thinservers>
 
-Boards
-------
+## Boards
 
 ### BeaglePlay
 
@@ -412,7 +402,7 @@ W](https://www.raspberrypi.com/products/raspberry-pi-zero-2-w), making
 it ideal for embedded system projects. It has a 1500 MHz Allwinner H618
 ARMv8 Cortex-A53 quad-core CPU and comes with 1 to 4 GB of RAM and
 on-board Bluetooth and WiFi radios. It is available for sale on Amazon
-for $21.99 (1 GB RAM) to $33.99 (4 GB RAM). See [Application Note
+for \$21.99 (1 GB RAM) to \$33.99 (4 GB RAM). See [Application Note
 \#20](https://repo.munts.com/muntsos/doc/AppNote20-OrangePiZero2W.pdf)
 for more information.
 
@@ -434,7 +424,7 @@ information about the **`OPTIONS`** word.
 ### Raspberry Pi
 
 The [Raspberry Pi](https://www.raspberrypi.com) is a family of low cost
-Linux microcomputers selling for USD $15 to $80, depending on model.
+Linux microcomputers selling for USD \$15 to \$80, depending on model.
 There have been five generations of Raspberry Pi microcomputers, each
 using a successively more sophisticated Broadcom ARM core CPU. The first
 two generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry
@@ -592,8 +582,7 @@ The Raspberry Pi 5 family consumes even more power than the Raspberry Pi
 4 and not all host computers will be able to supply enough current to a
 single USB receptacle to support a Raspberry Pi 5 in USB Gadget mode.
 
-Cross-Toolchains
-----------------
+## Cross-Toolchains
 
 I build a custom Ada/C/C++/Fortran/Go/Modula-2 GCC cross-toolchain for
 each **MuntsOS** platform family. Each GCC cross-toolchain requires a
@@ -609,7 +598,7 @@ Cross-toolchain packages containing GCC 14.2.0, including support for
 built for [Debian](https://www.debian.org) Linux (x86-64 *and* ARM64)
 development host computers are available at either:
 
-<https://repo.munts.com/debian12> (Debian package repository)  
+<https://repo.munts.com/debian13> (Debian package repository)  
 <https://repo.munts.com/muntsos/toolchain-debs> (just the package
 files).
 
@@ -618,10 +607,9 @@ work on Fedora 40 and RHEL 9.1 and its derivatives, are available at:
 
 <https://repo.munts.com/muntsos/toolchain-rpms>
 
-[Alire](https://alire.ada.dev) Crates
--------------------------------------
+## [Alire](https://alire.ada.dev) Crates
 
-[![muntsos\_aarch64](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json)](https://alire.ada.dev/crates/muntsos_aarch64.html)
+[![muntsos_aarch64](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/muntsos_aarch64.json)](https://alire.ada.dev/crates/muntsos_aarch64.html)
 
 Adding the **`muntsos_aarch64`** crate to an Alire Ada program project
 transforms said project into one that produces a cross-compiled AArch64
@@ -633,13 +621,12 @@ in the rest of the **MuntsOS** AArch64 cross-toolchain packages. See
 for a complete example using the **`alr`** command line tool.
 
 Please note that the other **MuntsOS** library crates in Alire (*e.g.*
-**muntsos\_beaglebone**) are unusable due to breaking changes in
+**muntsos_beaglebone**) are unusable due to breaking changes in
 **`alr`** 2.0. Unfortunately, Alire project policies prohibit removing
-obsolete crates, so **muntsos\_beaglebone** *et al* remain in the
+obsolete crates, so **muntsos_beaglebone** *et al* remain in the
 repository as broken and abandoned orphans.
 
-[Microsoft .Net](https://dotnet.microsoft.com)
-----------------------------------------------
+## [Microsoft .Net](https://dotnet.microsoft.com)
 
 [![libsimpleio](https://img.shields.io/nuget/v/libsimpleio?style=flat&logo=nuget&label=libsimpleio)](https://www.nuget.org/packages/libsimpleio)
 [![libsimpleio-templates](https://img.shields.io/nuget/v/libsimpleio-templates?style=flat&logo=nuget&label=libsimpleio-templates)](https://www.nuget.org/packages/libsimpleio-templates)
@@ -671,7 +658,7 @@ application project for **MuntsOS**.
 
 See [Application Note
 \#8](https://repo.munts.com/muntsos/doc/AppNote8-Flash-LED-C%23.pdf) for
-a complete example using C\# to flash an LED. See also the [API
+a complete example using C# to flash an LED. See also the [API
 specification](https://repo.munts.com/libsimpleio/doc/libsimpleio.dll)
 for **`libsimpleio.dll`**.
 
@@ -683,8 +670,7 @@ Studio addon product, you can even compile Object Pascal, Java, Go, and
 Swift programs, all using **`libsimpleio.dll`**, to .Net program
 assemblies that run on **MuntsOS**.
 
-Git Repository
---------------
+## Git Repository
 
 The source code for **MuntsOS** is available at:
 
@@ -694,8 +680,7 @@ Use the following command to clone it:
 
     git clone https://github.com/pmunts/muntsos.git
 
-File Repository
----------------
+## File Repository
 
 Prebuilt binaries for **MuntsOS** (extensions, kernels, thin servers,
 and cross-toolchain packages) are available at:
