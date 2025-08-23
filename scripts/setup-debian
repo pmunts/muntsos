@@ -36,12 +36,12 @@ sudo apt -y install build-essential libhidapi-dev libusb-1.0-0-dev git wget
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
   if [ "${MACHINE}" = "x86_64" ]; then
     # 64-Bit Debian amd64
-    wget https://repo.munts.com/debian12/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget https://repo.munts.com/debian13/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 
   if [ "${MACHINE}" = "aarch64" ]; then
     # 64-Bit Debian arm64
-    wget https://repo.munts.com/debian12/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget https://repo.munts.com/debian13/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 fi
 
