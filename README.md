@@ -208,12 +208,8 @@ system.
   erroneous **`-static`** link option. Very mysterious. See the ongoing
   [discussion
   thread](https://forum.ada-lang.io/t/gprbuild-and-link-options/3755/1)
-  for more information. For now, the solution on Debian 12 is to replace
-  the native **`gprbuild`** with the Alire version 22.0.1 by installing
-  the package **`alire-gprbuild`**. I have updated the **MuntsOS**
-  development tools installation script **`setup-debian`** accordingly.
-  I also added the **`-shared-libgcc`** link option to the
-  cross-toolchain configuration project files
+  for more information. I added the **`-shared-libgcc`** link option to
+  the cross-toolchain configuration project files
   **`aarch64-muntsos-linux-gnu.cgpr`** and
   **`riscv64-muntsos-linux-gnu.cgpr`**. I also cleaned up the
   **`gnatmake`** flags in **`ada.mk`** and **`crosstool.mk`** to keep
@@ -229,7 +225,7 @@ system.
   (Trixie)](https://www.debian.org/News/2025/20250809) and created the
   [Munts Technologies Debian package repository for Debian
   13](https://repo.munts.com/debian13). I plan to maintain the Debian 12
-  package repository until the end of this 2025.
+  package repository until the end of 2025.
 
 ## Quick Setup Instructions for the Impatient
 

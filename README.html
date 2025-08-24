@@ -213,13 +213,9 @@ native <b><tt>gprbuild</tt></b> and Alire <b><tt>gprbuild</tt></b> version
 25.0.1 both insert the erroneous <b><tt>-static</tt></b> link option. Very
 mysterious. See the ongoing <a href=
 "https://forum.ada-lang.io/t/gprbuild-and-link-options/3755/1">discussion
-thread</a> for more information. For now, the solution on Debian 12 is to
-replace the native <b><tt>gprbuild</tt></b> with the Alire version 22.0.1 by
-installing the package <b><tt>alire-gprbuild</tt></b>. I have updated the
-<b>MuntsOS</b> development tools installation script
-<b><tt>setup-debian</tt></b> accordingly. I also added the
-<b><tt>-shared-libgcc</tt></b> link option to the cross-toolchain configuration
-project files <b><tt>aarch64-muntsos-linux-gnu.cgpr</tt></b> and
+thread</a> for more information. I added the <b><tt>-shared-libgcc</tt></b>
+link option to the cross-toolchain configuration project files
+<b><tt>aarch64-muntsos-linux-gnu.cgpr</tt></b> and
 <b><tt>riscv64-muntsos-linux-gnu.cgpr</tt></b>. I also cleaned up the
 <b><tt>gnatmake</tt></b> flags in <b><tt>ada.mk</tt></b> and
 <b><tt>crosstool.mk</tt></b> to keep compile and link flags consistent between
@@ -237,7 +233,7 @@ each of the cross-toolchain packages. A Linux distribution
 "https://www.debian.org/News/2025/20250809">Debian 13 (Trixie)</a> and created
 the <a href="https://repo.munts.com/debian13">Munts Technologies Debian package
 repository for Debian 13</a>. I plan to maintain the Debian 12 package
-repository until the end of this 2025.</p>
+repository until the end of 2025.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>

@@ -163,15 +163,12 @@ News
     gprbuild version 22.0.1 both work correctly while Debian 12 native
     gprbuild and Alire gprbuild version 25.0.1 both insert the erroneous
     -static link option. Very mysterious. See the ongoing discussion
-    thread for more information. For now, the solution on Debian 12 is
-    to replace the native gprbuild with the Alire version 22.0.1 by
-    installing the package alire-gprbuild. I have updated the MuntsOS
-    development tools installation script setup-debian accordingly. I
-    also added the -shared-libgcc link option to the cross-toolchain
-    configuration project files aarch64-muntsos-linux-gnu.cgpr and
-    riscv64-muntsos-linux-gnu.cgpr. I also cleaned up the gnatmake flags
-    in ada.mk and crosstool.mk to keep compile and link flags consistent
-    between building with gnatmake and gprbuild.
+    thread for more information. I added the -shared-libgcc link option
+    to the cross-toolchain configuration project files
+    aarch64-muntsos-linux-gnu.cgpr and riscv64-muntsos-linux-gnu.cgpr. I
+    also cleaned up the gnatmake flags in ada.mk and crosstool.mk to
+    keep compile and link flags consistent between building with
+    gnatmake and gprbuild.
 
 -   18 August 2025 -- I have now incorporated a known working version of
     gprbuild (presently Alire gprbuild 25.0.1) into each of the
@@ -181,7 +178,7 @@ News
 -   23 August 2025 -- I have now upgraded my build server to Debian 13
     (Trixie) and created the Munts Technologies Debian package
     repository for Debian 13. I plan to maintain the Debian 12 package
-    repository until the end of this 2025.
+    repository until the end of 2025.
 
 Quick Setup Instructions for the Impatient
 
