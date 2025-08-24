@@ -225,6 +225,12 @@ system.
   the cross-toolchain packages. A Linux distribution **`gprbuild`** is
   no longer necessary for building Ada programs for **MuntsOS** targets.
 
+- 23 August 2025 -- I have now upgraded my build server to [Debian 13
+  (Trixie)](https://www.debian.org/News/2025/20250809) and created the
+  [Munts Technologies Debian package repository for Debian
+  13](https://repo.munts.com/debian13). I plan to maintain the Debian 12
+  package repository until the end of this 2025.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
