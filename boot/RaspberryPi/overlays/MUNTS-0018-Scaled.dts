@@ -1,0 +1,51 @@
+// Device tree overlay for the MUNTS-0018 Raspberry Pi Tutorial I/O Board
+// attached to a Raspberry Pi Zero, Zero W, or Zero 2 W.
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			munts0018_3v3: munts0018-3v3 {
+				compatible = "regulator-fixed";
+				regulator-name = "munts0018_3v3";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				regulator-always-on;
+				status = "okay";
+ 			};
+		};
+	};
+
+	// Enable pwmchip0
+
+	fragment@1 {
+		target = <&pwm>;
+		frag1: __overlay__ {
+			assigned-clock-rates = <100000000>;
+			status = "okay";
+		};
+	};
+
+	// Enable MCP3204 on GPIO7
+
+	fragment@2 {
+		target = <&spi0>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			mcp3204_01: mcp3204@1 {
+				compatible = "mcp3204";
+				reg = <1>;
+				spi-max-frequency = <1000000>;
+				vref-supply = <&munts0018_3v3>;
+			};
+		};
+	};
+};
