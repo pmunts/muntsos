@@ -78,6 +78,7 @@ ifeq ($(findstring RaspberryPi5, $(BOARDNAME)),)
 	rm -f $(DESTDIR)/overlays/*-pi5.dtbo
 else
 	rm -f $(DESTDIR)/overlays/Pi3ClickShield.dtbo
+	rm -f $(DESTDIR)/overlays/Pi3ClickShield-Scaled.dtbo
 	rm -f $(DESTDIR)/overlays/pwmchip0.dtbo
 endif
 endif
