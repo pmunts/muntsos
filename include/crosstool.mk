@@ -73,7 +73,7 @@ GNATMAKECFLAGS	+=-gnatwJ
 GNATMAKECFLAGS	+=-gnatwK
 #GNATMAKECFLAGS	+=-gnat2022  (set in ada.mk)
 GNATMAKELDFLAGS	+= -shared-libgcc
-GPRBUILD	= $(TOOLCHAIN_DIR)/bin/gprbuild
+GPRBUILD	?= $(TOOLCHAIN_DIR)/bin/gprbuild
 GPRBUILDCONFIG	= --config=$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 
 # Alire
