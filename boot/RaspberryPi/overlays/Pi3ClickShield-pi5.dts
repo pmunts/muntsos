@@ -8,6 +8,20 @@
 	compatible = "brcm,bcm2712";
 
 	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			piclick3_vref: piclick3-vref {
+				compatible = "regulator-fixed";
+				regulator-name = "piclick3_mcp1541";
+				regulator-min-microvolt = <4096000>;
+				regulator-max-microvolt = <4096000>;
+				regulator-always-on;
+				status = "okay";
+ 			};
+		};
+	};
+
+	fragment@1 {
 		target = <&gpio>;
 		__overlay__ {
 			spi1_pins: spi1_pins {
@@ -22,7 +36,7 @@
 		};
 	};
 
-	fragment@1 {
+	fragment@2 {
 		target = <&pwm>;
 		frag1: __overlay__ {
 			assigned-clock-rates = <30720000>;
@@ -30,7 +44,7 @@
 		};
 	};
 
-	fragment@2 {
+	fragment@3 {
 		target = <&spi1>;
 		frag2: __overlay__ {
 			#address-cells = <1>;
@@ -51,21 +65,21 @@
 		};
 	};
 
-	fragment@3 {
+	fragment@4 {
 		target = <&aux>;
 		__overlay__ {
 			status = "okay";
 		};
 	};
 
-	fragment@4 {
+	fragment@5 {
 		target-path = "spi1/spidev@0";
 		__overlay__ {
 			status = "disabled";
 		};
 	};
 
-	fragment@5 {
+	fragment@6 {
 		target = <&spi1>;
 		__overlay__ {
 			status = "okay";
@@ -76,6 +90,7 @@
 				compatible = "mcp3204";
 				reg = <0>;
 				spi-max-frequency = <2000000>;
+				vref-supply = <&piclick3_vref>;
 			};
 		};
 	};
