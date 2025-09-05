@@ -7,9 +7,13 @@
 / {
 	compatible = "brcm,bcm2835";
 
+	fragment@0 {
+		target = <&vdd_3v3_reg>;
+	};
+
 	// Enable pwmchip0
 
-	fragment@0 {
+	fragment@1 {
 		target = <&pwm>;
 		frag1: __overlay__ {
 			assigned-clock-rates = <100000000>;
@@ -19,7 +23,7 @@
 
 	// Enable MCP3204 on GPIO7
 
-	fragment@1 {
+	fragment@2 {
 		target = <&spi0>;
 		__overlay__ {
 			#address-cells = <1>;
@@ -30,6 +34,7 @@
 				compatible = "mcp3204";
 				reg = <1>;
 				spi-max-frequency = <1000000>;
+				vref-supply = <&vdd_3v3_reg>;
 			};
 		};
 	};
