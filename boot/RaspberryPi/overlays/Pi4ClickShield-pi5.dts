@@ -140,7 +140,7 @@
 		};
 	};
 
-	fragment@9 {
+	fragment@10 {
 		target = <&cooling_maps>;
 		__overlay__ {
 			map0 {
