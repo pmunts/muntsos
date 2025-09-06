@@ -6,9 +6,25 @@
 / {
 	compatible = "brcm,bcm2711";
 
-	/* Enable ADS1115 A/D Converter 0.000 to 4.096 full scale, 0.125 uV per step */
+	// Create a fictitious voltage regulator for the ADS1115 reference
 
 	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			piclick4_vref: piclick4-vref {
+				compatible = "regulator-fixed";
+				regulator-name = "piclick4_ads1115";
+				regulator-min-microvolt = <4096000>;
+				regulator-max-microvolt = <4096000>;
+				regulator-always-on;
+				status = "okay";
+ 			};
+		};
+	};
+
+	/* Enable ADS1115 A/D Converter, 0.000 to 4.096 V full scale, 0.125 uV per step */
+
+	fragment@1 {
 		target = <&ads1115>;
 		__overlay__ {
 			#address-cells = <1>;
@@ -22,7 +38,7 @@
 		};
 	};
 
-	fragment@1 {
+	fragment@2 {
 		target = <&ads1115>;
 		__overlay__ {
 			#address-cells = <1>;
@@ -36,7 +52,7 @@
 		};
 	};
 
-	fragment@2 {
+	fragment@3 {
 		target = <&ads1115>;
 		__overlay__ {
 			#address-cells = <1>;
@@ -50,7 +66,7 @@
 		};
 	};
 
-	fragment@3 {
+	fragment@4 {
 		target = <&ads1115>;
 		__dormant__ {
 			#address-cells = <1>;
@@ -64,7 +80,7 @@
 		};
 	};
 
-	fragment@4 {
+	fragment@5 {
 		target = <&i2c_arm>;
 		__overlay__ {
 			#address-cells = <1>;
@@ -77,13 +93,14 @@
 				#address-cells = <1>;
 				#size-cells = <0>;
 				reg = <0x48>;
+				vref-supply = <&piclick4_vref>;
 			};
 		};
 	};
 
 	/* Enable pwmchip0 but don't claim any GPIO pins */
 
-	fragment@5 {
+	fragment@6 {
 		target = <&pwm>;
 		__overlay__ {
 			assigned-clock-rates = <100000000>;
@@ -93,7 +110,7 @@
 
         /* Enable GPIO20 fan control */
 
-	fragment@6 {
+	fragment@7 {
 		target-path = "/";
 		__overlay__ {
 			fan0: gpio-fan@0 {
@@ -105,14 +122,14 @@
 		};
 	};
 
-	fragment@7 {
+	fragment@8 {
 		target = <&cpu_thermal>;
 		__overlay__ {
 			polling-delay = <2000>;	/* milliseconds */
 		};
 	};
 
-	fragment@8 {
+	fragment@9 {
 		target = <&thermal_trips>;
 		__overlay__ {
 			cpu_hot: trip-point@0 {
