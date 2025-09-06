@@ -8,7 +8,7 @@
 	compatible = "brcm,bcm2835";
 
 	// Create a fictitious voltage regulator for the MCP3204 reference
- 
+
 	fragment@0 {
 		target-path = "/";
 		__overlay__ {
@@ -33,7 +33,7 @@
 		};
 	};
 
-	// Enable MCP3204 on SPI chip 0 slave select 0 (GPIO7)
+	// Enable MCP3204 on SPI chip 0 slave select 1 (GPIO7)
 
 	fragment@2 {
 		target = <&spi0>;
