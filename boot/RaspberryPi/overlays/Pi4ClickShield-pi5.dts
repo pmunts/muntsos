@@ -81,7 +81,7 @@
 		};
 	};
 
-	/* Enable RP1 pwmchip2 but don't claim any GPIO pins */
+	/* Enable pwmchip2 but don't claim any GPIO pins */
 
 	fragment@5 {
 		target = <&pwm>;
