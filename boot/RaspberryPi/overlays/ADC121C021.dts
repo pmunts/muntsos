@@ -1,0 +1,51 @@
+// Overlay for the Texas Instruments ADC121C021 ADC
+
+/dts-v1/;
+/plugin/;
+
+/{
+	compatible = "brcm,bcm2835";
+
+	// Create a fictitious voltage regulator for the ADC121C021 reference
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			adc121c021_vref: adc121c021-vref {
+				compatible = "regulator-fixed";
+				regulator-name = "ADC121C021";
+				regulator-min-microvolt = <6600000>; // 3.3V & 0.5 gain
+				regulator-max-microvolt = <6600000>; // 3.3V & 0.5 gain
+				regulator-always-on;
+				status = "okay";
+ 			};
+		};
+	};
+
+        // Enable ADC121C021 on I2C1
+
+	fragment@1 {
+		target = <&i2c_arm>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			adc121c021: adc121c021@50 {
+				compatible = "ti,adc121c";
+				reg = <0x50>;
+				status = "okay";
+				vref-supply = <&adc121c021_vref>;
+			};
+		};
+	};
+
+	// Define parameters to change the I2C address and to calibrate the
+        // ADC121C021 reference voltage
+
+	__overrides__ {
+		addr = <&adc121c021>,"reg:0";
+		min = <&adc121c021_vref>, "regulator-min-microvolt:0";
+		max = <&adc121c021_vref>, "regulator-max-microvolt:0";
+	};
+};
