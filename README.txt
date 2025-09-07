@@ -180,6 +180,17 @@ News
     repository for Debian 13. I plan to maintain the Debian 12 package
     repository until the end of 2025.
 
+-   6 September 2025 -- I have added support for scaled ADC (Analog to
+    Digital Converter) inputs. Some ADC chips with an internal voltage
+    reference populate the scale factor files (in_voltage(Y)_scale et
+    al) automatically. Others, especially those with an external voltage
+    reference, require some magic in a device tree overlay to configure
+    the scaling. I've updated the MUNTS-0018, Pi3ClickShield, and the
+    Pi4ClickShield overlays to support scaling. I've also added new
+    overlays for the Texas Instruments ADC121C021 (the ADC on the Grove
+    I²C ADC module) and the Microchip MCP3428 (the ADC on the
+    Mikroelektronika ADC 3 Click) that support scaling.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
