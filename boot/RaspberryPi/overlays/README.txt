@@ -4,7 +4,7 @@ Here are some collected device tree overlays for Raspberry Pi boards
 that have been written from scratch or customized from the kernel source
 distribution for MuntsOS.
 
-For I² devices, the easiest way to determine the correct slave address
+For I²C devices, the easiest way to determine the correct slave address
 is to run i2cdetect -y 1 before and after attaching the device and see
 what changes. Then you can add the proper dtoverlay command to
 /boot/config.txt
