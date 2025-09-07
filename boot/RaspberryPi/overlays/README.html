@@ -26,31 +26,31 @@ dtparam=offstate5=0
 dtparam=offstate6=0
 dtparam=offstate7=0
 </pre>
-<table>
-<tr>
-<td><b>Mode Values</b></td>
-<td style="padding-left: 30px"><b>Off State Values</b></td>
-</tr>
-<tr>
-<td>0 Unused<br></td>
-<td style="padding-left: 30px">0 Pulldown resistor</td>
-</tr>
-<tr>
-<td>1 ADC<br></td>
-<td style="padding-left: 30px">1 Output low (sinking)</td>
-</tr>
-<tr>
-<td>2 DAC<br></td>
-<td style="padding-left: 30px">2 Output high (sourcing)</td>
-</tr>
-<tr>
-<td>3 ADC and DAC<br></td>
-<td style="padding-left: 30px">3 Tri-State (high impedance)</td>
-</tr>
-<tr>
-<td>8 GPIO</td>
-</tr>
-</table>
+<h4>Mode Values</h4>
+0 Unused<br>
+1 ADC<br>
+2 DAC<br>
+3 ADC and DAC<br>
+8 GPIO
+<h4>Off State Values</h4>
+0 Pulldown resistor<br>
+1 Output low (sinking)<br>
+2 Output high (sourcing)<br>
+3 Tri-State (high impedance)
+<h3>ADC121C021 Analog to Digital Converter</h3>
+<pre>
+dtoverlay=ADC121C021
+dtparam=addr=0xNN
+dtparam=min=VVVVVVV
+dtparam=max=VVVVVVV
+</pre>
+The I<sup>2</sup>C slave address may be 0x50 (default if not specified), 0x51,
+0x52, 0x54, 0x55, 0x56, 0x58, 0x59, or 0x5A.
+<p>For the <a href="https://wiki.seeedstudio.com/Grove-I2C_ADC">Grove
+I<sup>2</sup>C ADC module</a>, the default address is 0x50 and the values for
+<b><tt>min</tt></b> and <b><tt>max</tt></b> should be <b><tt>6000000</tt></b>
+<i>or</i> 2 times the measured voltage, in microvolts, at pad
+<b><tt>VA</tt></b>.</p>
 <h3>ADS1015 Analog to Digital Converter</h3>
 <pre>
 dtoverlay=ADS1015
@@ -68,7 +68,8 @@ dtparam=chb_gain=0
 dtparam=chc_gain=0
 dtparam=chd_gain=0
 </pre>
-The I<sup>2</sup>C slave address may be 0x48 or 0x49.
+The I<sup>2</sup>C slave address may be 0x48 (default if not specified) or
+0x49.
 <h3>ENC28J60 Ethernet Adapter</h3>
 <pre>
 dtoverlay=ENC28J60
@@ -91,22 +92,51 @@ dtoverlay=MCP23017
 dtparam=addr=0xNN
 dtparam=gpiopin=N
 </pre>
-The I<sup>2</sup>C slave address may be 0x20 to 0x27.
+The I<sup>2</sup>C slave address may be 0x20 (default if not specified) to
+0x27.
+<h3>MCP3428 Analog to Digital Converter</h3>
+<pre>
+dtoverlay=MCP3428
+dtparam=addr=0xNN
+</pre>
+The I<sup>2</sup>C slave address may be 0x68 (default if not specified) to
+0x6F.
+<h3><a href="https://tech.munts.com/manuals/MUNTS-0018.pdf">MUNTS-0018</a>
+Raspberry Pi Tutorial I/O Board</h3>
+<pre>
+dtoverlay=MUNTS-0018
+dtparam=min=VVVVVVV
+dtparam=max=VVVVVVV
+</pre>
+You can improve the accuracy of the on-board MCP3204 ADC by setting
+<b><tt>min</tt></b> and <b><tt>max</tt></b> to the measured voltage, in
+microvolts, of the <b><tt>3v3</tt></b> power rail.
 <h3>PCA8574 GPIO Expander</h3>
 <pre>
 dtoverlay=PCA8574
 dtparam=addr=0xNN
 </pre>
-The I<sup>2</sup>C slave address may be 0x20 to 0x27 (PCA8574, PCF8574) or 0x38
-to 0x3F (PCA8574A, PCF8574A).
+The I<sup>2</sup>C slave address may be 0x20 (default if not specified) to 0x27
+(PCA8574, PCF8574) or 0x38 to 0x3F (PCA8574A, PCF8574A).
 <h3>PCA9685 PWM Expander</h3>
 <pre>
 dtoverlay=PCA9685
 dtparam=addr=0xNN
 </pre>
-Possible I<sup>2</sup>C slave addresses range from 0x40 to 0x7F, though some of
-these will conflict with other devices and reserved addresses. 0x40 and 0x70
-are common. This overlay does not support GPIO mode.
+Possible I<sup>2</sup>C slave addresses range from 0x40 (default if not
+specified) to 0x7F, though some of these will conflict with other devices and
+reserved addresses. 0x40 and 0x70 are common. This overlay does not support
+GPIO mode.
+<h3><a href="https://www.mikroe.com/pi-3-click-shield">Pi 3 Click
+Shield</a></h3>
+<pre>
+dtoverlay=Pi3ClickShield
+</pre>
+<h3><a href="https://www.mikroe.com/pi-4-click-shield">Pi 4 Click
+Shield</a></h3>
+<pre>
+dtoverlay=Pi4ClickShield
+</pre>
 <h3>W5500 Ethernet Adapter</h3>
 <pre>
 dtoverlay=W5500

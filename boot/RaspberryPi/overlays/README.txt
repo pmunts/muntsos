@@ -29,19 +29,34 @@ AD5593R Analog/Digital I/O Expander
     dtparam=offstate6=0
     dtparam=offstate7=0
 
-  ----------------------------------- -----------------------------------
-  Mode Values                         Off State Values
+Mode Values
 
-  0 Unused                            0 Pulldown resistor
+    0 Unused
+    1 ADC
+    2 DAC
+    3 ADC and DAC
+    8 GPIO
 
-  1 ADC                               1 Output low (sinking)
+Off State Values
 
-  2 DAC                               2 Output high (sourcing)
+    0 Pulldown resistor
+    1 Output low (sinking)
+    2 Output high (sourcing)
+    3 Tri-State (high impedance)
 
-  3 ADC and DAC                       3 Tri-State (high impedance)
+ADC121C021 Analog to Digital Converter
 
-  8 GPIO
-  ----------------------------------- -----------------------------------
+    dtoverlay=ADC121C021
+    dtparam=addr=0xNN
+    dtparam=min=VVVVVVV
+    dtparam=max=VVVVVVV
+
+The I²C slave address may be 0x50 (default if not specified), 0x51,
+0x52, 0x54, 0x55, 0x56, 0x58, 0x59, or 0x5A.
+
+For the Grove I²C ADC module, the default address is 0x50 and the values
+for min and max should be 6000000 or 2 times the measured voltage, in
+microvolts, at pad VA.
 
 ADS1015 Analog to Digital Converter
 
@@ -60,7 +75,7 @@ ADS1015 Analog to Digital Converter
     dtparam=chc_gain=0
     dtparam=chd_gain=0
 
-The I²C slave address may be 0x48 or 0x49.
+The I²C slave address may be 0x48 (default if not specified) or 0x49.
 
 ENC28J60 Ethernet Adapter
 
@@ -83,24 +98,49 @@ MCP23017 GPIO Expander
     dtparam=addr=0xNN
     dtparam=gpiopin=N
 
-The I²C slave address may be 0x20 to 0x27.
+The I²C slave address may be 0x20 (default if not specified) to 0x27.
+
+MCP3428 Analog to Digital Converter
+
+    dtoverlay=MCP3428
+    dtparam=addr=0xNN
+
+The I²C slave address may be 0x68 (default if not specified) to 0x6F.
+
+MUNTS-0018 Raspberry Pi Tutorial I/O Board
+
+    dtoverlay=MUNTS-0018
+    dtparam=min=VVVVVVV
+    dtparam=max=VVVVVVV
+
+You can improve the accuracy of the on-board MCP3204 ADC by setting min
+and max to the measured voltage, in microvolts, of the 3v3 power rail.
 
 PCA8574 GPIO Expander
 
     dtoverlay=PCA8574
     dtparam=addr=0xNN
 
-The I²C slave address may be 0x20 to 0x27 (PCA8574, PCF8574) or 0x38 to
-0x3F (PCA8574A, PCF8574A).
+The I²C slave address may be 0x20 (default if not specified) to 0x27
+(PCA8574, PCF8574) or 0x38 to 0x3F (PCA8574A, PCF8574A).
 
 PCA9685 PWM Expander
 
     dtoverlay=PCA9685
     dtparam=addr=0xNN
 
-Possible I²C slave addresses range from 0x40 to 0x7F, though some of
-these will conflict with other devices and reserved addresses. 0x40 and
-0x70 are common. This overlay does not support GPIO mode.
+Possible I²C slave addresses range from 0x40 (default if not specified)
+to 0x7F, though some of these will conflict with other devices and
+reserved addresses. 0x40 and 0x70 are common. This overlay does not
+support GPIO mode.
+
+Pi 3 Click Shield
+
+    dtoverlay=Pi3ClickShield
+
+Pi 4 Click Shield
+
+    dtoverlay=Pi4ClickShield
 
 W5500 Ethernet Adapter
 

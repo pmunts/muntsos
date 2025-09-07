@@ -1,14 +1,13 @@
-MuntsOS Embedded Linux Extra Device Tree Overlays
-=================================================
+# MuntsOS Embedded Linux Extra Device Tree Overlays
 
 Here are some collected device tree overlays for Raspberry Pi boards
 that have been written from scratch or customized from the kernel source
 distribution for MuntsOS.
 
-For I^2^ devices, the easiest way to determine the correct slave address
-is to run **`i2cdetect -y 1`** before and after attaching the device and
-see what changes. Then you can add the proper **`dtoverlay`** command to
-**`/boot/config.txt`**
+For I<sup>2</sup> devices, the easiest way to determine the correct
+slave address is to run **`i2cdetect -y 1`** before and after attaching
+the device and see what changes. Then you can add the proper
+**`dtoverlay`** command to **`/boot/config.txt`**
 
 ### AD5593R Analog/Digital I/O Expander
 
@@ -30,19 +29,36 @@ see what changes. Then you can add the proper **`dtoverlay`** command to
     dtparam=offstate6=0
     dtparam=offstate7=0
 
-  ----------------------------------- -----------------------------------
-  **Mode Values**                     **Off State Values**
+#### Mode Values
 
-  0 Unused\                           0 Pulldown resistor
+0 Unused  
+1 ADC  
+2 DAC  
+3 ADC and DAC  
+8 GPIO
 
-  1 ADC\                              1 Output low (sinking)
+#### Off State Values
 
-  2 DAC\                              2 Output high (sourcing)
+0 Pulldown resistor  
+1 Output low (sinking)  
+2 Output high (sourcing)  
+3 Tri-State (high impedance)
 
-  3 ADC and DAC\                      3 Tri-State (high impedance)
+### ADC121C021 Analog to Digital Converter
 
-  8 GPIO
-  ----------------------------------- -----------------------------------
+    dtoverlay=ADC121C021
+    dtparam=addr=0xNN
+    dtparam=min=VVVVVVV
+    dtparam=max=VVVVVVV
+
+The I<sup>2</sup>C slave address may be 0x50 (default if not specified),
+0x51, 0x52, 0x54, 0x55, 0x56, 0x58, 0x59, or 0x5A.
+
+For the [Grove I<sup>2</sup>C ADC
+module](https://wiki.seeedstudio.com/Grove-I2C_ADC), the default address
+is 0x50 and the values for **`min`** and **`max`** should be
+**`6000000`** *or* 2 times the measured voltage, in microvolts, at pad
+**`VA`**.
 
 ### ADS1015 Analog to Digital Converter
 
@@ -61,7 +77,8 @@ see what changes. Then you can add the proper **`dtoverlay`** command to
     dtparam=chc_gain=0
     dtparam=chd_gain=0
 
-The I^2^C slave address may be 0x48 or 0x49.
+The I<sup>2</sup>C slave address may be 0x48 (default if not specified)
+or 0x49.
 
 ### ENC28J60 Ethernet Adapter
 
@@ -70,7 +87,7 @@ The I^2^C slave address may be 0x48 or 0x49.
     dtparam=irq=N
 
 The value for the SPI slave select parameter **`cs`** is 0 for
-**`spidev0.0`** or 1 for **`spidev0.1`**. Default is 0.\
+**`spidev0.0`** or 1 for **`spidev0.1`**. Default is 0.  
 The value for GPIO interrupt signal parameter **`irq`** must be a GPIO
 number. Default is 25.
 
@@ -86,24 +103,52 @@ will likely require **`cs`** or **`irq`** or both.
     dtparam=addr=0xNN
     dtparam=gpiopin=N
 
-The I^2^C slave address may be 0x20 to 0x27.
+The I<sup>2</sup>C slave address may be 0x20 (default if not specified)
+to 0x27.
+
+### MCP3428 Analog to Digital Converter
+
+    dtoverlay=MCP3428
+    dtparam=addr=0xNN
+
+The I<sup>2</sup>C slave address may be 0x68 (default if not specified)
+to 0x6F.
+
+### [MUNTS-0018](https://tech.munts.com/manuals/MUNTS-0018.pdf) Raspberry Pi Tutorial I/O Board
+
+    dtoverlay=MUNTS-0018
+    dtparam=min=VVVVVVV
+    dtparam=max=VVVVVVV
+
+You can improve the accuracy of the on-board MCP3204 ADC by setting
+**`min`** and **`max`** to the measured voltage, in microvolts, of the
+**`3v3`** power rail.
 
 ### PCA8574 GPIO Expander
 
     dtoverlay=PCA8574
     dtparam=addr=0xNN
 
-The I^2^C slave address may be 0x20 to 0x27 (PCA8574, PCF8574) or 0x38
-to 0x3F (PCA8574A, PCF8574A).
+The I<sup>2</sup>C slave address may be 0x20 (default if not specified)
+to 0x27 (PCA8574, PCF8574) or 0x38 to 0x3F (PCA8574A, PCF8574A).
 
 ### PCA9685 PWM Expander
 
     dtoverlay=PCA9685
     dtparam=addr=0xNN
 
-Possible I^2^C slave addresses range from 0x40 to 0x7F, though some of
-these will conflict with other devices and reserved addresses. 0x40 and
-0x70 are common. This overlay does not support GPIO mode.
+Possible I<sup>2</sup>C slave addresses range from 0x40 (default if not
+specified) to 0x7F, though some of these will conflict with other
+devices and reserved addresses. 0x40 and 0x70 are common. This overlay
+does not support GPIO mode.
+
+### [Pi 3 Click Shield](https://www.mikroe.com/pi-3-click-shield)
+
+    dtoverlay=Pi3ClickShield
+
+### [Pi 4 Click Shield](https://www.mikroe.com/pi-4-click-shield)
+
+    dtoverlay=Pi4ClickShield
 
 ### W5500 Ethernet Adapter
 
@@ -112,7 +157,7 @@ these will conflict with other devices and reserved addresses. 0x40 and
     dtparam=irq=N
 
 The value for the SPI slave select parameter **`cs`** is 0 for
-**`spidev0.0`** or 1 for **`spidev0.1`**. Default is 0.\
+**`spidev0.0`** or 1 for **`spidev0.1`**. Default is 0.  
 The value for GPIO interrupt signal parameter **`irq`** must be a GPIO
 number. Default is 25.
 
