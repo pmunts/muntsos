@@ -1,0 +1,68 @@
+// Overlay for the AB Electronics ADC DAC Pi Zero
+// https://www.abelectronics.co.uk/p/74/adc-dac-pi-zero
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	// Create a fictitious voltage regulator for the reference
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			ADC_DAC_Pi_Zero_vref: ADC_DAC_Pi_Zero-vref {
+				compatible = "regulator-fixed";
+				regulator-name = "ADC_DAC_Pi_Zero";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				regulator-always-on;
+				status = "okay";
+ 			};
+		};
+	};
+
+	// Enable MCP3202 ADC on SPI chip 0 slave select 0 (GPIO8)
+
+	fragment@1 {
+		target = <&spi0>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			mcp3202: mcp3202@0 {
+				compatible = "mcp3202";
+				reg = <0>;
+				spi-max-frequency = <1000000>;
+				vref-supply = <&ADC_DAC_Pi_Zero_vref>;
+			};
+		};
+	};
+
+	// Enable MCP4822 DAC on SPI chip 0 slave select 1 (GPIO7)
+
+	fragment@2 {
+		target = <&spi0>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			mcp4822: mcp4822@1 {
+				compatible = "mcp4822";
+				reg = <1>;
+				spi-max-frequency = <1000000>;
+				vref-supply = <&ADC_DAC_Pi_Zero_vref>;
+			};
+		};
+	};
+
+	// Define parameters to calibrate the reference voltage
+
+	__overrides__ {
+		min = <&ADC_DAC_Pi_Zero_vref>, "regulator-min-microvolt:0";
+		max = <&ADC_DAC_Pi_Zero_vref>, "regulator-max-microvolt:0";
+	};
+};
