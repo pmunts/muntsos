@@ -1,0 +1,49 @@
+// Device tree overlay for the RasPio Analog Zero ADC board
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	// Create a fictitious voltage regulator for the MCP3008 reference
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			mcp3008_vref: mcp3008-vref {
+				compatible = "regulator-fixed";
+				regulator-name = "MCP3008";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				regulator-always-on;
+				status = "okay";
+ 			};
+		};
+	};
+
+	// Enable MCP3008 on SPI chip 0 slave select 0 (GPIO8)
+
+	fragment@1 {
+		target = <&spi0>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			mcp3008_00: mcp3008@0 {
+				compatible = "mcp3008";
+				reg = <0>;
+				spi-max-frequency = <1000000>;
+				vref-supply = <&mcp3008_vref>;
+			};
+		};
+	};
+
+	// Define parameters to calibrate the MCP3008 reference voltage
+
+	__overrides__ {
+		min = <&mcp3008_vref>, "regulator-min-microvolt:0";
+		max = <&mcp3008_vref>, "regulator-max-microvolt:0";
+	};
+};
