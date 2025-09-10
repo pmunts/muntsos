@@ -9,10 +9,11 @@ Architecture: all
 Description: Cross-toolchain packages for MuntsOS on @@BOARDNAME@@.
 
 Depends:
-  muntsos-common,
+  munts-libsimpleio, muntsos-common,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libs,
   gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libsimpleio
 
 Recommends:
-  fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@
+  fpc-@@CONFIGURE_NAME@@-@@FLAVOR@@,
+  gcc-@@CONFIGURE_NAME@@-@@FLAVOR@@-libspiagent
