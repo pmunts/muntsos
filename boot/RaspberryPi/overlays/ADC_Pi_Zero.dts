@@ -10,23 +10,7 @@
 /{
 	compatible = "brcm,bcm2835";
 
-	// Create a fictitious voltage regulator for the MCP3424 reference
-
 	fragment@0 {
-		target-path = "/";
-		__overlay__ {
-			mcp3424_vref: mcp3424-vref {
-				compatible = "regulator-fixed";
-				regulator-name = "MCP3424";
-				regulator-min-microvolt = <3300000>;
-				regulator-max-microvolt = <3300000>;
-				regulator-always-on;
-				status = "okay";
- 			};
-		};
-	};
-
-	fragment@1 {
 		target = <&i2c_arm>;
 		__overlay__ {
 			#address-cells = <1>;
@@ -43,7 +27,7 @@
 		};
 	};
 
-	fragment@2 {
+	fragment@1 {
 		target = <&i2c_arm>;
 		__overlay__ {
 			#address-cells = <1>;
