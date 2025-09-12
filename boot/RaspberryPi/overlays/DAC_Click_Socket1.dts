@@ -1,0 +1,50 @@
+// Mikroelektronika DAC Click in Pi Click 2, Pi Click 3 or Pi Click 4 Shield
+// Socket 1
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	// Create a fictitious voltage regulator for the MCP3204 reference
+
+	fragment@0 {
+		target-path = "/";
+		__overlay__ {
+			Mikrobus3v3: Mikrobus3v3 {
+				compatible = "regulator-fixed";
+				regulator-name = "Mikrobus3v3";
+				regulator-min-microvolt = <3300000>;
+				regulator-max-microvolt = <3300000>;
+				regulator-always-on;
+				status = "okay";
+ 			};
+		};
+	};
+
+	// Enable MCP3204 on SPI chip 0 slave select 0 (GPIO8)
+
+	fragment@2 {
+		target = <&spi0>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			mcp4921_0: mcp4921@0 {
+				compatible = "mcp4921";
+				reg = <0>;
+				spi-max-frequency = <1000000>;
+				vref-supply = <&Mikrobus3v3>;
+			};
+		};
+	};
+
+	// Define parameters to calibrate the MCP3204 reference voltage
+
+	__overrides__ {
+		min = <&Mikrobus3v3>, "regulator-min-microvolt:0";
+		max = <&Mikrobus3v3>, "regulator-max-microvolt:0";
+	};
+};
