@@ -1,4 +1,5 @@
-// Overlay for the Texas Instruments ADC121C021 ADC
+// Grove I2C ADC
+// https://wiki.seeedstudio.com/Grove-I2C_ADC
 
 /dts-v1/;
 /plugin/;
@@ -11,11 +12,11 @@
 	fragment@0 {
 		target-path = "/";
 		__overlay__ {
-			adc121c021_vref: adc121c021-vref {
+			Grove3v0: Grove3v0 {
 				compatible = "regulator-fixed";
-				regulator-name = "ADC121C021";
-				regulator-min-microvolt = <6600000>; // 3.3V & 0.5 gain
-				regulator-max-microvolt = <6600000>; // 3.3V & 0.5 gain
+				regulator-name = "Grove3v0";
+				regulator-min-microvolt = <3000000>;
+				regulator-max-microvolt = <3000000>;
 				regulator-always-on;
 				status = "okay";
  			};
@@ -35,17 +36,17 @@
 				compatible = "ti,adc121c";
 				reg = <0x50>;
 				status = "okay";
-				vref-supply = <&adc121c021_vref>;
+				vref-supply = <&Grove3v0>;
 			};
 		};
 	};
 
 	// Define parameters to change the I2C address and to calibrate the
-        // ADC121C021 reference voltage
+        // ADC121C021 supply & reference voltage
 
 	__overrides__ {
 		addr = <&adc121c021>,"reg:0";
-		min = <&adc121c021_vref>, "regulator-min-microvolt:0";
-		max = <&adc121c021_vref>, "regulator-max-microvolt:0";
+		min = <&Grove3v0>, "regulator-min-microvolt:0";
+		max = <&Grove3v0>, "regulator-max-microvolt:0";
 	};
 };
