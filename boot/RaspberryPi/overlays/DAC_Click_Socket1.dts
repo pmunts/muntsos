@@ -7,7 +7,7 @@
 / {
 	compatible = "brcm,bcm2835";
 
-	// Create a fictitious voltage regulator for the MCP3204 reference
+	// Create a fictitious voltage regulator for Vref aka 3v3
 
 	fragment@0 {
 		target-path = "/";
@@ -32,7 +32,7 @@
 			#size-cells = <0>;
 			status = "okay";
 
-			mcp4921_0: mcp4921@0 {
+			mcp4921_00: mcp4921@0 {
 				compatible = "mcp4921";
 				reg = <0>;
 				spi-max-frequency = <1000000>;
@@ -41,7 +41,7 @@
 		};
 	};
 
-	// Define parameters to calibrate the MCP3204 reference voltage
+	// Define parameters to calibrate the reference voltage
 
 	__overrides__ {
 		min = <&Mikrobus3v3>, "regulator-min-microvolt:0";
