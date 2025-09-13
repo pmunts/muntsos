@@ -186,10 +186,11 @@ News
     al) automatically. Others, especially those with an external voltage
     reference, require some magic in a device tree overlay to configure
     the scaling. I've updated the MUNTS-0018, Pi3ClickShield, and the
-    Pi4ClickShield overlays to support scaling. I've also added new
-    overlays for the Texas Instruments ADC121C021 (the ADC on the Grove
-    I²C ADC module) and the Microchip MCP3428 (the ADC on the
-    Mikroelektronika ADC 3 Click) that support scaling.
+    Pi4ClickShield overlays to support scaling.
+
+-   12 September 2025 -- Added support for scaled Linux Industrial I/O
+    DAC (Digital to Analog Converter) outputs. Added more Raspberry Pi
+    device tree overlays for a number of ADC and DAC boards and modules.
 
 Quick Setup Instructions for the Impatient
 
