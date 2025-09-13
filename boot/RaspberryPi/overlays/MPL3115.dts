@@ -1,0 +1,23 @@
+// Overlay for MPL3115A2 precision pressure/temperature sensor
+
+/dts-v1/;
+/plugin/;
+
+/{
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <&i2c_arm>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			mpl3115: mpl3115@60 {
+				compatible = "fsl,mpl3115";
+				reg = <0x60>;
+				status = "okay";
+			};
+		};
+	};
+};
