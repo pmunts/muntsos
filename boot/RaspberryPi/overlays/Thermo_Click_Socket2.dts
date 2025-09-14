@@ -1,0 +1,26 @@
+// Mikroelektronika Thermo Click in Pi Click 2, Pi Click 3 or Pi Click 4 Shield
+// Socket 1
+
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	// Enable MAX31855K on SPI chip 0 slave select 1 (GPIO7)
+
+	fragment@0 {
+		target = <&spi0>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			max31855k_01: max31855k@1 {
+				compatible = "max31855k";
+				reg = <1>;
+				spi-max-frequency = <5000000>;
+			};
+		};
+	};
+};
