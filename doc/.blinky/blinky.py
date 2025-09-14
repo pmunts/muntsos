@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 
-from libsimpleio.gpio        import Pin, Direction
-from libsimpleio.raspberrypi import GPIO26
+from munts.libsimpleio.gpio        import Pin, Direction
+from munts.libsimpleio.raspberrypi import GPIO26
 
 import time
 
