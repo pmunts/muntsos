@@ -10,7 +10,7 @@
 / {
 	compatible = "brcm,bcm2835";
 
-	fragment@1 {
+	fragment@0 {
 		target = <&pwm>;
 		frag1: __overlay__ {
 			assigned-clock-rates = <100000000>;
