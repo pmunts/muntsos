@@ -14,7 +14,7 @@
 			status = "okay";
 
 			bme280: bme280@76 {
-				compatible = "microchip,bme280";
+				compatible = "bme280";
 				reg = <0x76>;
 				status = "okay";
 			};

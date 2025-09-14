@@ -14,7 +14,7 @@
 			status = "okay";
 
 			mcp3428: mcp3428@68 {
-				compatible = "microchip,mcp3428";
+				compatible = "mcp3428";
 				reg = <0x68>;
 				status = "okay";
 			};

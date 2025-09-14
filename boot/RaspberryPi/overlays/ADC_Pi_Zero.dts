@@ -20,7 +20,7 @@
 			// U1, channels 1 to 4 (0:0 to 0:3)
 
 			mcp3424_U1: mcp3424_U1@6A {
-				compatible = "microchip,mcp3424";
+				compatible = "mcp3424";
 				reg = <0x6A>;
 				status = "okay";
 			};
@@ -37,7 +37,7 @@
 			// U2, channels 4 to 8 (1:0 to 1:3)
 
 			mcp3424_U2: mcp3424_U2@6C {
-				compatible = "microchip,mcp3424";
+				compatible = "mcp3424";
 				reg = <0x6C>;
 				status = "okay";
 			};

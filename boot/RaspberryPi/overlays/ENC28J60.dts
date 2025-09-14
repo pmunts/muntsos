@@ -30,7 +30,7 @@
 			status = "okay";
 
 			eth1: enc28j60@0{
-				compatible = "microchip,enc28j60";
+				compatible = "enc28j60";
 				reg = <0>; /* CE0 */
 				pinctrl-names = "default";
 				pinctrl-0 = <&eth1_pins>;
