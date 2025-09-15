@@ -180,17 +180,21 @@ News
     repository for Debian 13. I plan to maintain the Debian 12 package
     repository until the end of 2025.
 
--   6 September 2025 -- I have added support for scaled ADC (Analog to
-    Digital Converter) inputs. Some ADC chips with an internal voltage
-    reference populate the scale factor files (in_voltage(Y)_scale et
-    al) automatically. Others, especially those with an external voltage
-    reference, require some magic in a device tree overlay to configure
-    the scaling. I've updated the MUNTS-0018, Pi3ClickShield, and the
-    Pi4ClickShield overlays to support scaling.
+-   6 September 2025 -- I have added support for Linux Industrial I/O
+    scaled ADC (Analog to Digital Converter) inputs. Some ADC chips with
+    an internal voltage reference populate the scale factor files
+    (in_voltage(Y)_scale et al) automatically. Others, especially those
+    with an external voltage reference, require some magic in a device
+    tree overlay to configure the scaling. I've updated the MUNTS-0018,
+    Pi3ClickShield, and the Pi4ClickShield overlays to support scaling.
 
--   12 September 2025 -- Added support for scaled Linux Industrial I/O
+-   12 September 2025 -- Added support for Linux Industrial I/O scaled
     DAC (Digital to Analog Converter) outputs. Added more Raspberry Pi
     device tree overlays for a number of ADC and DAC boards and modules.
+
+-   15 September 2025 -- Added support for Linux Industrial I/O
+    temperature sensors. Added more Raspberry Pi device tree overlays
+    for a number of temperature sensors and modules.
 
 Quick Setup Instructions for the Impatient
 

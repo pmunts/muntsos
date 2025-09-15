@@ -236,18 +236,24 @@ repository for Debian 13</a>. I plan to maintain the Debian 12 package
 repository until the end of 2025.</p>
 </li>
 <li>
-<p>6 September 2025 -- I have added support for scaled ADC (Analog to Digital
-Converter) inputs. Some ADC chips with an internal voltage reference populate
-the scale factor files (<b><tt>in_voltage(Y)_scale</tt></b> <i>et al</i>)
-automatically. Others, especially those with an external voltage reference,
-require some magic in a device tree overlay to configure the scaling. I've
-updated the <b><tt>MUNTS-0018</tt></b>, <b><tt>Pi3ClickShield</tt></b>, and the
-<b><tt>Pi4ClickShield</tt></b> overlays to support scaling.</p>
+<p>6 September 2025 -- I have added support for Linux Industrial I/O scaled ADC
+(Analog to Digital Converter) inputs. Some ADC chips with an internal voltage
+reference populate the scale factor files (<b><tt>in_voltage(Y)_scale</tt></b>
+<i>et al</i>) automatically. Others, especially those with an external voltage
+reference, require some magic in a device tree overlay to configure the
+scaling. I've updated the <b><tt>MUNTS-0018</tt></b>,
+<b><tt>Pi3ClickShield</tt></b>, and the <b><tt>Pi4ClickShield</tt></b> overlays
+to support scaling.</p>
 </li>
 <li>
-<p>12 September 2025 -- Added support for scaled Linux Industrial I/O DAC
+<p>12 September 2025 -- Added support for Linux Industrial I/O scaled DAC
 (Digital to Analog Converter) outputs. Added more Raspberry Pi device tree
 overlays for a number of ADC and DAC boards and modules.</p>
+</li>
+<li>
+<p>15 September 2025 -- Added support for Linux Industrial I/O temperature
+sensors. Added more Raspberry Pi device tree overlays for a number of
+temperature sensors and modules.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
