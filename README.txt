@@ -194,7 +194,13 @@ News
 
 -   15 September 2025 -- Added support for Linux Industrial I/O
     temperature sensors. Added more Raspberry Pi device tree overlays
-    for a number of temperature sensors and modules.
+    for a number of temperature sensors and modules. Please note that
+    most or all of the mikroBUS temperature sensor modules suffer
+    significant self-heating from the CPU board. The Mikroelektronika
+    Thermo Click thermocouple interface module is a notable exception,
+    as the thermocouple junction can be placed away from the CPU board.
+    Grove, Pmod, Qwiic, and Stemma I²C temperature sensor modules can
+    also be placed away from the CPU board.
 
 Quick Setup Instructions for the Impatient
 
