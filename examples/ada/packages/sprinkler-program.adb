@@ -1,4 +1,4 @@
--- Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -23,6 +23,7 @@ WITH Ada.Containers.Vectors;
 WITH Ada.Strings.Fixed;
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
+WITH Debug;
 WITH Sprinkler.Valves;
 
 PACKAGE BODY Sprinkler.Program IS
@@ -54,7 +55,7 @@ PACKAGE BODY Sprinkler.Program IS
       RAISE Error WITH "Start hour is after stop hour";
     END IF;
 
-    Put_Line(" Zone " &
+    Debug.Put(" Zone " &
       Ada.Strings.Fixed.Trim(ZoneNumber'Image(zone), Ada.Strings.Both) &
       " start hour " &
       Ada.Strings.Fixed.Trim(Hour'Image(start_hour), Ada.Strings.Both) &
@@ -134,10 +135,10 @@ PACKAGE BODY Sprinkler.Program IS
       Watering := (T >= S.start_second AND T <= S.stop_second);
 
       IF Watering AND NOT S.valve.Get THEN
-        Ada.Text_IO.Put_Line("Turning zone" & ZoneNumber'Image(S.zone) & " ON");
+        Debug.Put("Turning zone" & ZoneNumber'Image(S.zone) & " ON");
         S.valve.Put(True);
       ELSIF NOT Watering AND S.valve.Get THEN
-        Ada.Text_IO.Put_Line("Turning zone" & ZoneNumber'Image(S.zone) & " OFF");
+        Debug.Put("Turning zone" & ZoneNumber'Image(S.zone) & " OFF");
         S.Valve.Put(False);
       END IF;
     END LOOP;

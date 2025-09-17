@@ -1,4 +1,4 @@
--- Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -18,11 +18,10 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
-WITH Ada.Exceptions;
 WITH Ada.Strings.Fixed;
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
-WITH Device;
+WITH Debug;
 WITH GPIO.libsimpleio;
 
 PACKAGE BODY Sprinkler.Valves.GPIO.libsimpleio IS
@@ -34,7 +33,7 @@ PACKAGE BODY Sprinkler.Valves.GPIO.libsimpleio IS
   PROCEDURE Register(zone : ZoneNumber; desg : Device.Designator) IS
 
   BEGIN
-    Put_Line(" Zone" & ZoneNumber'Image(zone) &
+    Debug.Put(" Zone" & ZoneNumber'Image(zone) &
       " valve at libsimpleio GPIO pin " &
       Ada.Strings.Fixed.Trim(Natural'Image(desg.chip), Ada.Strings.Both)
       & ":" &
