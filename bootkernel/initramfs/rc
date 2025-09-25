@@ -256,21 +256,21 @@ fi
 
 for E in /boot/extensions/* ; do
   echo $E | grep -E -q '.*\.deb$'
-  
+
   if [ $? -eq 0 ]; then
     dpkg -i $E >/dev/null
     continue
   fi
 
   echo $E | grep -E -q '.*\.rpm$'
-  
+
   if [ $? -eq 0 ]; then
     rpm -i $E >/dev/null
     continue
   fi
 
   echo $E | grep -E -q '.*\.nupkg$'
-  
+
   if [ $? -eq 0 ]; then
     nupkg $E
     continue

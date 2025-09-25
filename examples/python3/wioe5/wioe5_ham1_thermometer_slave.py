@@ -37,7 +37,7 @@
 # Mikroelektronika Pi 3 Click Shield MIKROE-2756
 # Mikroelektronika LoRa 10 Click MIKROE-5986 in mikrobus socket 1
 # Mikroelektronika Thermo Click  MIKROE-5767 in mikroBUS socket 2
-# 
+#
 # Add the following device tree overlay commands to /boot/config.txt:
 #
 # dtoverlay=Pi3ClickShield
@@ -89,7 +89,7 @@ while True:
 
   if cmdlen.value != 7:
     continue
-  
+
   cmd[cmdlen.value] = b'\x00'
 
   if cmd.value.decode('ascii') != 'MEASURE':

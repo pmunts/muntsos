@@ -26,7 +26,7 @@ grep -q 'Redirect localhost:25 to @@MAILSERVER@@:25' /etc/inetd.conf
 
 if [ $? -ne 0 ]; then
   cat <<EOD >>/etc/inetd.conf
-# Redirect localhost:25 to @@MAILSERVER@@:25 
+# Redirect localhost:25 to @@MAILSERVER@@:25
 127.0.0.1:25 stream tcp nowait root /usr/bin/ssh -4 -i /etc/mailtunnel.id -o UserKnownHostsFile=/etc/mailtunnel.hosts -q -T @@MAILUSER@@@@@MAILSERVER@@
 EOD
 fi

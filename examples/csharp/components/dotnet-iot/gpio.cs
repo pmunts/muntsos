@@ -30,7 +30,7 @@ namespace IO.Objects.IoT.GPIO
     {
 	// Cache GpioController instances in the following array:
         private static GpioController[] gpiochips = new GpioController[10];
- 
+
         private readonly int chip;
         private readonly int line;
         private readonly PinMode mode;
