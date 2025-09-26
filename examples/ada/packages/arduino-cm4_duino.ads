@@ -1,6 +1,6 @@
 -- Support for the Waveshare CM4-Duino: https://www.waveshare.com/wiki/CM4-Duino
 
--- Copyright (C)2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2024-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -20,14 +20,10 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
-WITH Ada.Text_IO;
-
-WITH Device;
 WITH GPIO.libsimpleio;
-WITH I2C.libsimpleio;
+WITH I2C;
 WITH PWM.libsimpleio;
-WITH SPI.libsimpleio;
-WITH RaspberryPi;
+WITH SPI;
 
 PACKAGE Arduino.CM4_Duino IS
 

@@ -47,12 +47,6 @@ PROCEDURE wioe5_nng_mailer IS
     RETURN str.Translate(s, map.Constants.Lower_Case_Map);
   END ToLower;
 
-  FUNCTION Trim(s : String) RETURN String IS
-
-  BEGIN
-    RETURN str.Trim(s, Ada.Strings.Both);
-  END Trim;
-
   FUNCTION GetToken(s : String; num : Positive) RETURN String IS
 
     Delimiters : CONSTANT map.Character_Set :=

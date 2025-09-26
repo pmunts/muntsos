@@ -1,6 +1,6 @@
 -- Support for the Waveshare CM4-Duino: https://www.waveshare.com/wiki/CM4-Duino
 
--- Copyright (C)2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2024-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -20,7 +20,9 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
-WITH Ada.Containers.Bounded_Vectors;
+PRAGMA Warnings(Off, "redundant with clause in body");
+PRAGMA Warnings(Off, "condition can only be False if invalid values present");
+
 WITH Ada.Directories;
 
 WITH Device;

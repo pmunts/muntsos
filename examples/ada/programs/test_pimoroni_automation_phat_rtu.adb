@@ -1,6 +1,6 @@
 -- Pimoroni Automation pHAT Modbus RTU test
 
--- Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -29,8 +29,6 @@ WITH Modbus.InputShortFloat;
 WITH Voltage;
 
 PROCEDURE test_pimoroni_automation_phat_rtu IS
-
-  PACKAGE Natural_IO IS NEW Ada.Text_IO.Integer_IO(Natural); USE Natural_IO;
 
   PACKAGE VoltageInput IS NEW Modbus.InputShortFloat(Voltage.Volts);
 

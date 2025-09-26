@@ -1,6 +1,6 @@
 -- Toggle a GPIO output
 
--- Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -24,7 +24,6 @@ WITH Ada.Text_IO; USE Ada.Text_IO;
 WITH Ada.Integer_Text_IO; USE Ada.Integer_Text_IO;
 WITH Ada.Strings.Unbounded;
 
-WITH ClickBoard.SimpleIO;
 WITH ClickBoard.Expand2.SimpleIO;
 WITH Device;
 WITH GPIO.libsimpleio;

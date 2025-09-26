@@ -1,6 +1,6 @@
 -- MuntsOS Remote I/O Server for Raspberry Pi & Pimoroni Automation pHAT
 
--- Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2018-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -20,7 +20,9 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
-WITH Analog;
+PRAGMA Warnings(Off, "variable ""srv*"" is assigned but never read");
+PRAGMA Warnings(Off, "possibly useless assignment to ""srv*""");
+
 WITH GPIO.UserLED;
 WITH Pimoroni_Automation_pHAT;
 WITH RemoteIO.ADC;
@@ -73,13 +75,13 @@ BEGIN
   -- Register I/O resources
 
   adc.Register(RemoteIO.Automation_pHAT.ADC1,
-    Analog.Input(Pimoroni_Automation_pHAT.Sample_Inputs(1)));
+    Pimoroni_Automation_pHAT.Sample_Inputs(1));
 
   adc.Register(RemoteIO.Automation_pHAT.ADC2,
-    Analog.Input(Pimoroni_Automation_pHAT.Sample_Inputs(2)));
+    Pimoroni_Automation_pHAT.Sample_Inputs(2));
 
   adc.Register(RemoteIO.Automation_pHAT.ADC3,
-    Analog.Input(Pimoroni_Automation_pHAT.Sample_Inputs(3)));
+    Pimoroni_Automation_pHAT.Sample_Inputs(3));
 
   gpio.Register(RemoteIO.Automation_pHAT.INPUT1,
     Pimoroni_Automation_pHAT.INPUT1,  RemoteIO.GPIO.InputOnly);
@@ -104,4 +106,3 @@ BEGIN
 
   spi.Register(RemoteIO.Automation_pHAT.SPI0, Pimoroni_Automation_pHAT.SPI0);
 END remoteio_server_Automation_pHAT;
-

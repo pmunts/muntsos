@@ -1,6 +1,6 @@
 -- MuntsOS Remote I/O Server for Linux IIO ADC and DAC
 
--- Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2018-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -19,6 +19,8 @@
 -- CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
+
+PRAGMA Warnings(Off, "variable ""srv*"" is assigned but never read");
 
 WITH Ada.Directories;
 WITH Ada.Strings.Fixed;
@@ -43,15 +45,6 @@ PROCEDURE remoteio_server_iio IS
    (Source : IN String;
     Side   : IN Ada.Strings.Trim_End := Ada.Strings.Both) RETURN String RENAMES
    Ada.Strings.Fixed.Trim;
-
-  -- Test whether a particular IIO device exists
-
-  FUNCTION Exists(chip : Natural) RETURN Boolean IS
-
-  BEGIN
-    RETURN Ada.Directories.Exists("/sys/bus/iio/devices/iio:device" &
-      Trim(Natural'Image(chip)));
-  END Exists;
 
   -- Test whether a particular IIO channel exists
 

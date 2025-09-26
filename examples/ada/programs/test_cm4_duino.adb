@@ -1,6 +1,6 @@
 -- Waveshare CM4-Duino (https://www.waveshare.com/wiki/CM4-Duino) Constructor Test
 
--- Copyright (C)2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2024-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -19,6 +19,8 @@
 -- CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
+
+PRAGMA Warnings(Off, "variable ""*"" is assigned but never read");
 
 WITH Ada.Text_IO; USE  Ada.Text_IO;
 WITH Ada.Exceptions;

@@ -3,7 +3,7 @@
 
 -- https://www.abelectronics.co.uk/p/74/adc-dac-pi-zero-raspberry-pi-adc-and-dac-expansion-board
 
--- Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2018-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -23,10 +23,11 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+PRAGMA Warnings(Off, "variable ""srv*"" is assigned but never read");
+PRAGMA Warnings(Off, "possibly useless assignment to ""srv*""");
+
 WITH ABElectronics_ADC_DAC_Pi_Zero;
 WITH GPIO.UserLED;
-WITH MCP3202;
-WITH MCP4822;
 WITH RemoteIO.ADC;
 WITH RemoteIO.ADC_DAC_Pi_Zero;
 WITH RemoteIO.DAC;

@@ -1,6 +1,6 @@
 -- Pimoroni Automation pHAT services
 
--- Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -32,8 +32,6 @@
 -- NOTE: The Pimoroni Automation pHAT analog inputs are scaled by an 820K
 -- series resistor and a 120K shunt resistor, producing an effective input
 -- gain of 0.128.
-
-WITH Ada.Characters.Handling;
 
 WITH ADC;
 WITH ADS1015;

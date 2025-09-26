@@ -20,8 +20,9 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+PRAGMA Warnings(Off, "variable ""srv*"" is assigned but never read");
+
 WITH Ada.Directories;
-WITH Ada.Environment_Variables;
 WITH Ada.Strings.Fixed;
 
 WITH ClickBoard.Shields;
@@ -37,7 +38,6 @@ WITH RemoteIO.SPI;
 WITH RemoteIO.Server.Foundation;
 WITH RemoteIO.Server.WioE5_Ham1;
 WITH SystemInfo;
-WITH libLinux;
 
 -- Board dependent packages
 

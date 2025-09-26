@@ -1,6 +1,6 @@
 -- MuntsOS Remote I/O Server for Raspberry Pi & Pimoroni Enviro pHAT
 
--- Copyright (C)2018-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2018-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -19,6 +19,9 @@
 -- CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
+
+PRAGMA Warnings(Off, "variable ""srv*"" is assigned but never read");
+PRAGMA Warnings(Off, "possibly useless assignment to ""srv*""");
 
 WITH GPIO.UserLED;
 WITH Pimoroni_Enviro_pHAT;

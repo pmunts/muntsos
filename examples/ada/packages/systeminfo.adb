@@ -1,6 +1,6 @@
 -- System information services package
 
--- Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2016-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -21,13 +21,9 @@
 -- POSSIBILITY OF SUCH DAMAGE.
 
 WITH Ada.Characters.Handling;
-WITH Ada.Directories;
 WITH Ada.Environment_Variables;
-WITH Ada.Text_IO;
 
 PACKAGE BODY SystemInfo IS
-
-  model : CONSTANT String := "/sys/firmware/devicetree/base/model";
 
   FUNCTION ToLower(s : String) RETURN String RENAMES Ada.Characters.Handling.To_Lower;
 

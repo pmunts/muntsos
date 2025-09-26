@@ -1,6 +1,6 @@
 -- Linux Simple I/O Library HID button and LED test
 
--- Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2016-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -20,15 +20,14 @@
 -- ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 -- POSSIBILITY OF SUCH DAMAGE.
 
+PRAGMA Warnings(Off, "useless handler contains only a reraise statement");
+
 WITH Ada.Text_IO; USE Ada.Text_IO;
 WITH Ada.Exceptions;
 
 WITH HID.Munts;
 WITH HID.libsimpleio;
-WITH Messaging;
 WITH Message64;
-
-USE TYPE Messaging.Byte;
 
 PROCEDURE test_hid_button_led IS
 

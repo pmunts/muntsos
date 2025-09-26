@@ -1,6 +1,6 @@
 -- Raspberry Pi Sense Hat Motion Sensors Test
 
--- Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -66,7 +66,7 @@ BEGIN
 
   LOOP
     SenseHAT.Display.Display.Put(arow, acol, TrueColor.Black);
-    --SenseHAT.Display.Display.Put(mrow, mcol, TrueColor.Black);
+    SenseHAT.Display.Display.Put(mrow, mcol, TrueColor.Black);
 
     avec := SenseHAT.Sensors.Motion.Get;
     mvec := SenseHAT.Sensors.Motion.Get;
@@ -76,10 +76,10 @@ BEGIN
     Put(avec.x, 3, 1, 0);
     Put(avec.y, 3, 1, 0);
     Put(avec.z, 3, 1, 0);
-    Put("  Magnetic field:");
+    Put("Magnetic field:");
     Put(mvec.x, 8, 1, 0);
     Put(mvec.y, 8, 1, 0);
-    --Put(mvec.z, 8, 1, 0);
+    Put(mvec.z, 8, 1, 0);
 
     arow := Clip(Integer(4.0 - 6.0*avec.y));
     acol := Clip(Integer(4.0 - 6.0*avec.x));
@@ -87,7 +87,7 @@ BEGIN
 
     mrow := Clip(Integer(4.0 - 4.0/0.65*mvec.y));
     mcol := Clip(Integer(4.0 - 4.0/0.65*mvec.x));
-    --SenseHAT.Display.Display.Put(mrow, mcol, TrueColor.Blue);
+    SenseHAT.Display.Display.Put(mrow, mcol, TrueColor.Blue);
 
     DELAY 0.1;
   END LOOP;

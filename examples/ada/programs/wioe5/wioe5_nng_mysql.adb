@@ -37,7 +37,7 @@
 WITH Ada.Directories;
 WITH Ada.Environment_Variables;
 WITH Ada.Strings.Fixed;
-WITH Ada.Strings.Maps.Constants;
+WITH Ada.Strings.Maps;
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
 WITH Debug;
@@ -53,18 +53,6 @@ PROCEDURE wioe5_nng_mysql IS
   PACKAGE str RENAMES Ada.Strings.Fixed;
 
   FUNCTION GetEnv(s : String) RETURN String RENAMES env.Value;
-
-  FUNCTION ToLower(s : string) RETURN String IS
-
-  BEGIN
-    RETURN str.Translate(s, map.Constants.Lower_Case_Map);
-  END ToLower;
-
-  FUNCTION Trim(s : String) RETURN String IS
-
-  BEGIN
-    RETURN str.Trim(s, Ada.Strings.Both);
-  END Trim;
 
   FUNCTION GetToken(s : String; num : Positive) RETURN String IS
 

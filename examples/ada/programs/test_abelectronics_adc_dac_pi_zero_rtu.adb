@@ -1,6 +1,6 @@
 -- AB Electronics ADC DAC Pi Zero RTU test
 
--- Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -22,12 +22,9 @@
 
 WITH Ada.Text_IO; USE Ada.Text_IO;
 
-WITH GPIO;
 WITH Modbus.InputShortFloat;
 WITH Modbus.OutputShortFloat;
 WITH Voltage;
-
-USE TYPE Voltage.Volts;
 
 PROCEDURE test_abelectronics_adc_dac_pi_zero_rtu IS
 

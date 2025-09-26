@@ -1,6 +1,6 @@
 -- Raspberry Pi Sense Hat Climate Sensors Test
 
--- Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -28,9 +28,7 @@ WITH Humidity;
 WITH Pressure;
 WITH Temperature;
 
-USE TYPE Humidity.Relative;
 USE TYPE Pressure.Pascals;
-USE TYPE Temperature.Celsius;
 
 PROCEDURE test_raspberrypi_sensehat_climate IS
 
