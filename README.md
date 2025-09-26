@@ -255,6 +255,13 @@ system.
   I<sup>2</sup>C temperature sensor modules can also be placed away from
   the CPU board.
 
+- 26 September 2025 -- Upgraded the .Net Runtime to 9.0.9. Upgraded the
+  Raspberry Pi kernel to 6.12.48. Upgraded rpcbind to 1.2.8, iw to 6.17,
+  mailutils to 3.20, and nano to 8.6. Imported latest (24 Sep 2025) boot
+  files from Raspberry Pi OS. Fixed or suppressed compiler warnings in
+  Ada example packages and programs. Symlink **`/run`** to
+  **`/var/run`** for **`rpcbind`**.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
