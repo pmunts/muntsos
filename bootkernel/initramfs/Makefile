@@ -544,6 +544,7 @@ initramfs.d: COPYING
 	mkdir -p $@/mnt
 	mkdir -p $@/proc
 	mkdir -p $@/root/.ssh
+	ln -s var/run $@/run
 	mkdir -p $@/sbin
 	mkdir -p $@/sys
 	mkdir -p $@/tmp
