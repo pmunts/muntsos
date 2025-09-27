@@ -36,8 +36,7 @@ echo ""
 echo "Install some system packages..."
 echo ""
 
-sudo dnf -y -q group install "C Development Tools and Libraries"
-sudo dnf -y -q group install "Development Tools"
+sudo dnf -y -q group install development-tools c-development
 sudo dnf -y -q install hidapi-devel libusb1-devel wget
 
 echo ""
