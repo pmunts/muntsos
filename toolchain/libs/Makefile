@@ -31,14 +31,6 @@ FINALDIR	:= $(GCCSYSROOT)/usr
 BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
-LIBXCRYPT_NAME	= libxcrypt
-LIBXCRYPT_VER	= 4.4.38
-LIBXCRYPT_SRC	= $(LIBXCRYPT_NAME)-$(LIBXCRYPT_VER)
-LIBXCRYPT_TARBALL = $(LIBXCRYPT_NAME)-$(LIBXCRYPT_VER).tar.xz
-LIBXCRYPT_SERVER = https://github.com/besser82/libxcrypt/releases/download/v$(LIBXCRYPT_VER)
-LIBXCRYPT_URL	= $(LIBXCRYPT_SERVER)/$(LIBXCRYPT_TARBALL)
-LIBXCRYPT_DIST	= $(DISTDIR)/$(LIBXCRYPT_TARBALL)
-
 NCURSES_NAME	= ncurses
 NCURSES_VER	= 6.5
 NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
@@ -80,7 +72,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(DISTDIR)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 3.5.1
+OPENSSL_VER	= 3.6.0
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -105,7 +97,7 @@ ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
 ICU_DIST	= $(DISTDIR)/$(ICU_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.14.1
+CURL_VER	= 8.16.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -113,7 +105,7 @@ CURL_URL	= $(CURL_SERVER)/$(CURL_TARBALL)
 CURL_DIST	= $(DISTDIR)/$(CURL_TARBALL)
 
 TIRPC_NAME	= libtirpc
-TIRPC_VER	= 1.3.6
+TIRPC_VER	= 1.3.7
 TIRPC_SRC	= libtirpc-$(TIRPC_VER)
 TIRPC_TARBALL	= libtirpc-$(TIRPC_VER).tar.bz2
 TIRPC_SERVER	= http://sourceforge.net/projects/libtirpc/files/libtirpc
@@ -156,7 +148,7 @@ LIBSODIUM_URL	= $(LIBSODIUM_SERVER)/$(LIBSODIUM_TARBALL)
 LIBSODIUM_DIST	= $(DISTDIR)/$(LIBSODIUM_TARBALL)
 
 LIBMYSQLCLIENT_NAME	= mariadb-connector-c
-LIBMYSQLCLIENT_VER	= 3.4.5
+LIBMYSQLCLIENT_VER	= 3.4.7
 LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src
 LIBMYSQLCLIENT_TARBALL	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src.tar.gz
 LIBMYSQLCLIENT_SERVER	= https://downloads.mariadb.com/Connectors/c/connector-c-$(LIBMYSQLCLIENT_VER)
@@ -164,7 +156,7 @@ LIBMYSQLCLIENT_URL	= $(LIBMYSQLCLIENT_SERVER)/$(LIBMYSQLCLIENT_TARBALL)
 LIBMYSQLCLIENT_DIST	= $(DISTDIR)/$(LIBMYSQLCLIENT_TARBALL)
 
 GDBM_NAME	= gdbm
-GDBM_VER	= 1.25
+GDBM_VER	= 1.26
 GDBM_SRC	= $(GDBM_NAME)-$(GDBM_VER)
 GDBM_TARBALL	= $(GDBM_NAME)-$(GDBM_VER).tar.gz
 GDBM_SERVER	= http://ftp.gnu.org/pub/gnu/gdbm
@@ -172,7 +164,7 @@ GDBM_URL	= $(GDBM_SERVER)/$(GDBM_TARBALL)
 GDBM_DIST	= $(DISTDIR)/$(GDBM_TARBALL)
 
 MQTT_NAME	= paho.mqtt.c
-MQTT_VER	= 1.3.14
+MQTT_VER	= 1.3.15
 MQTT_SRC	= $(MQTT_NAME)-$(MQTT_VER)
 MQTT_TARBALL	= v$(MQTT_VER).tar.gz
 MQTT_SERVER	= https://github.com/eclipse/paho.mqtt.c/archive
@@ -210,7 +202,7 @@ MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(DISTDIR)/$(MODBUS_TARBALL)
 
 LIBFFI_NAME	= libffi
-LIBFFI_VER	= 3.5.1
+LIBFFI_VER	= 3.5.2
 LIBFFI_SRC	= $(LIBFFI_NAME)-$(LIBFFI_VER)
 LIBFFI_TARBALL	= $(LIBFFI_NAME)-$(LIBFFI_VER).tar.gz
 LIBFFI_SERVER	= https://github.com/libffi/libffi/releases/download/v$(LIBFFI_VER)
@@ -251,7 +243,6 @@ DCERPC_SRC	= dcerpc.src
 
 DESTDIR		= $(shell pwd)
 
-SUBORDINATES	+= libxcrypt
 SUBORDINATES	+= ncurses
 SUBORDINATES	+= readline
 SUBORDINATES	+= libgpiod
@@ -282,7 +273,6 @@ SUBORDINATES	+= libcap
 #SUBORDINATES	+= dcerpc
 SUBORDINATES	+= aws
 
-SRCDIRS		+= $(LIBXCRYPT_SRC)
 SRCDIRS		+= $(NCURSES_SRC)
 SRCDIRS		+= $(READLINE_SRC)
 SRCDIRS		+= $(LIBGPIOD_SRC)
@@ -311,7 +301,6 @@ SRCDIRS		+= $(XZ_SRC)
 SRCDIRS		+= $(LIBCAP_SRC)
 #SRCDIRS	+= $(DCERPC_SRC)
 
-DISTFILES	+= $(LIBXCRYPT_DIST)
 DISTFILES	+= $(NCURSES_DIST)
 DISTFILES	+= $(READLINE_DIST)
 DISTFILES	+= $(LIBGPIOD_DIST)
@@ -363,30 +352,6 @@ download: $(DISTFILES)
 
 build: $(SUBORDINATES)
 
-###############################################################################
-
-# Download libxcrypt source distribution
-
-$(LIBXCRYPT_DIST):
-	wget -nv -P $(DISTDIR) $(LIBXCRYPT_URL)
-
-# Unpack libxcrypt source
-
-$(LIBXCRYPT_SRC): $(LIBXCRYPT_DIST)
-	tar xJf $(LIBXCRYPT_DIST)
-
-# Build libxcrypt
-
-$(INSTALLDIR)/lib/libcrypt.a: $(LIBXCRYPT_SRC)
-	cd $(LIBXCRYPT_SRC) && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --disable-failure-tokens --enable-obsolete-api=glibc --enable-year2038 CC=$(CROSS_COMPILE)gcc
-	$(MAKE) -C $(LIBXCRYPT_SRC)
-	$(MAKE) -C $(LIBXCRYPT_SRC) install DESTDIR=$(DESTDIR)
-	touch $@
-
-libxcrypt: $(INSTALLDIR)/lib/libcrypt.a
-
-###############################################################################
-
 # Download ncurses source distribution
 
 $(NCURSES_DIST):
@@ -400,7 +365,7 @@ $(NCURSES_SRC): $(NCURSES_DIST)
 # Build ncurses
 
 $(INSTALLDIR)/lib/libncurses.a: $(NCURSES_SRC)
-	cd $(NCURSES_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --disable-pc-files --enable-widec --with-shared --without-ada CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	cd $(NCURSES_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --enable-pc-files --enable-widec --with-shared --without-ada --without-cxx --without-debug CC=$(CROSS_COMPILE)gcc
 	$(MAKE) -C $(NCURSES_SRC)
 	$(MAKE) -C $(NCURSES_SRC) install DESTDIR=$(DESTDIR) INSTALL_PROG=install
 	# Relocate include files--Can't seem to configure ncurses6 to do this
@@ -422,15 +387,15 @@ ncurses: $(INSTALLDIR)/lib/libncurses.a
 $(READLINE_DIST):
 	wget -nv -P $(DISTDIR) $(READLINE_URL)
 
-# Unpack ncurses source
+# Unpack readline source
 
 $(READLINE_SRC): $(READLINE_DIST)
 	tar xzf $(READLINE_DIST)
 
-# Build ncurses
+# Build readline
 
 $(INSTALLDIR)/lib/libreadline.a: $(READLINE_SRC)
-	cd $(READLINE_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-shared --without-ada --disable-pc-files CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	cd $(READLINE_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) CC=$(CROSS_COMPILE)gcc
 	$(MAKE) -C $(READLINE_SRC)
 	$(MAKE) -C $(READLINE_SRC) install DESTDIR=$(DESTDIR) INSTALL_PROG=install
 	touch $@
@@ -643,7 +608,7 @@ $(XMLRPC_SRC): $(XMLRPC_DIST)
 $(INSTALLDIR)/lib/libxmlrpc.a: $(XMLRPC_SRC)
 	cd $(XMLRPC_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --mandir=/$(INSTALLDIR)/share/man CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
 	cd $(XMLRPC_SRC)/lib/expat/gennmtab ; $(MAKE) CC=gcc
-	$(MAKE) -C $(XMLRPC_SRC) CFLAGS_PERSONAL="-fpermissive -I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib" AR=$(CROSS_COMPILE)ar RANLIB=$(CROSS_COMPILE)ranlib
+	$(MAKE) -C $(XMLRPC_SRC) CFLAGS_PERSONAL="-fpermissive -D__bool_true_false_are_defined -I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib" AR=$(CROSS_COMPILE)ar RANLIB=$(CROSS_COMPILE)ranlib
 	$(MAKE) -C $(XMLRPC_SRC) install DESTDIR=$(DESTDIR) RANLIB=$(CROSS_COMPILE)ranlib
 	$(MAKE) -C $(XMLRPC_SRC)/tools/xmlrpc LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib -lcurl -lz -lssl -lcrypto"
 	$(MAKE) -C $(XMLRPC_SRC)/tools/xmlrpc install DESTDIR=$(DESTDIR)
@@ -1115,10 +1080,6 @@ aws: $(INSTALLDIR)/lib/aws.lib/liblibaws.a
 # Collect copyright/license information into one place
 
 $(INSTALLDIR)/COPYING: $(SUBORDINATES)
-	@echo "**** libxcrypt:"				>$@
-	@echo ""					>>$@
-	@cat $(LIBXCRYPT_SRC)/LICENSING			>>$@
-	@echo ""					>>$@
 	@echo "**** ncurses:"				>>$@
 	@echo ""					>>$@
 	@cat $(NCURSES_SRC)/COPYING			>>$@
