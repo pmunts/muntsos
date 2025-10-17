@@ -368,9 +368,13 @@ $(INSTALLDIR)/lib/libncurses.a: $(NCURSES_SRC)
 	cd $(NCURSES_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --enable-pc-files --enable-widec --with-shared --without-ada --without-cxx --without-debug CC=$(CROSS_COMPILE)gcc
 	$(MAKE) -C $(NCURSES_SRC)
 	$(MAKE) -C $(NCURSES_SRC) install DESTDIR=$(DESTDIR) INSTALL_PROG=install
-	# Relocate include files--Can't seem to configure ncurses6 to do this
+	# Edit and move include and pkgconfig files
 	sed -i 's@ncursesw/@@g' $(INSTALLDIR)/include/ncursesw/*
 	mv $(INSTALLDIR)/include/ncursesw/* $(INSTALLDIR)/include
+	sed -i 's@/gcc@/usr/local/gcc@g' usr/lib/*/pkgconfig/*.pc
+	mkdir -p                            $(INSTALLDIR)/lib/pkgconfig
+	mv usr/lib/*/pkgconfig/*.pc         $(INSTALLDIR)/lib/pkgconfig
+	rm -rf usr
 	ln -s libncursesw.a                 $(INSTALLDIR)/lib/libtinfo.a
 	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so
 	ln -s libncursesw.so.$(NCURSES_VER) $(INSTALLDIR)/lib/libtinfo.so.6
