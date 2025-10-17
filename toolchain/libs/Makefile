@@ -612,9 +612,9 @@ $(XMLRPC_SRC): $(XMLRPC_DIST)
 $(INSTALLDIR)/lib/libxmlrpc.a: $(XMLRPC_SRC)
 	cd $(XMLRPC_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --mandir=/$(INSTALLDIR)/share/man CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
 	cd $(XMLRPC_SRC)/lib/expat/gennmtab ; $(MAKE) CC=gcc
-	$(MAKE) -C $(XMLRPC_SRC) CFLAGS_PERSONAL="-fpermissive -D__bool_true_false_are_defined -I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib" AR=$(CROSS_COMPILE)ar RANLIB=$(CROSS_COMPILE)ranlib
+	$(MAKE) -C $(XMLRPC_SRC) CFLAGS="-fpermissive -D__bool_true_false_are_defined -I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib" AR=$(CROSS_COMPILE)ar RANLIB=$(CROSS_COMPILE)ranlib
 	$(MAKE) -C $(XMLRPC_SRC) install DESTDIR=$(DESTDIR) RANLIB=$(CROSS_COMPILE)ranlib
-	$(MAKE) -C $(XMLRPC_SRC)/tools/xmlrpc LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib -lcurl -lz -lssl -lcrypto"
+	$(MAKE) -C $(XMLRPC_SRC)/tools/xmlrpc CFLAGS="-fpermissive -D__bool_true_false_are_defined -I$(DESTDIR)/$(INSTALLDIR)/include" LDFLAGS="-L`pwd`/$(INSTALLDIR)/lib -lcurl -lz -lssl -lcrypto"
 	$(MAKE) -C $(XMLRPC_SRC)/tools/xmlrpc install DESTDIR=$(DESTDIR)
 	touch $@
 
