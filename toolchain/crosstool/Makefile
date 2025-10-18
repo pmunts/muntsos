@@ -124,6 +124,7 @@ build.done: source.done
 # Reconstitute previous build from installed files
 
 reconstitute:
+	sudo apt purge 'gcc-$(GCCARCH)-muntsos*lib*'
 	cp -R -P -p $(TOOLCHAIN_DIR) $(INSTALLDIR)
 	chmod -R u+w $(INSTALLDIR)
 	rm -rf $(INSTALLDIR)/bin/gpr* $(INSTALLDIR)/libexec/gprbuild* $(INSTALLDIR)/share/gpr
