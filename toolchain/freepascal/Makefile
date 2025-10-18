@@ -1,6 +1,6 @@
 # Makefile for packaging Free Pascal ARM cross-toolchain for MuntsOS
 
-# Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -77,7 +77,7 @@ $(FPC_DIST):
 
 src.done: $(FPC_DIST)
 	tar xzf $^
-	cd $(FPC_SRCDIR) && patch -b -p1 <../freepascal.patch
+	cd $(FPC_SRCDIR) && patch -b -p1 <../freepascal-$(FPC_VERSION).patch
 	touch $@
 
 ################################################################################
