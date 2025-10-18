@@ -1,6 +1,6 @@
---- Python/initconfig.c.orig	2024-10-06 22:02:14.000000000 -0700
-+++ Python/initconfig.c	2024-11-25 17:35:55.682887462 -0800
-@@ -865,7 +865,7 @@
+--- Python/initconfig.c.orig	2025-10-14 06:52:31.000000000 -0700
++++ Python/initconfig.c	2025-10-18 11:01:32.101717417 -0700
+@@ -869,7 +869,7 @@
      config->interactive = 0;
      config->optimization_level = 0;
      config->parser_debug= 0;

@@ -33,7 +33,7 @@ BUILDOS		:= --build=$(shell uname -m)
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
 MAJORVER	:= 3.13
-MINORVER	:= 5
+MINORVER	:= 9
 
 SRCNAME		:= python3
 SRCVER		:= $(MAJORVER).$(MINORVER)
@@ -103,6 +103,7 @@ $(CROSSPYTHON) : $(NATIVEPYTHON)
 	mkdir -p $(CROSSDIR)
 	cd $(CROSSDIR) && tar xzf $(SRCDIST)
 	cd $(CROSSDIR) && cd $(SRCDIR) && patch -b -p0 <../../python3.patch
+	false
 	cd $(CROSSDIR) && $(SRCDIR)/configure $(CROSSCONFIG)
 	cd $(CROSSDIR) && $(MAKE)
 	cd $(CROSSDIR) && $(MAKE) install DESTDIR=$(CROSSDIR)
