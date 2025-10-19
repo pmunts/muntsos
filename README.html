@@ -273,6 +273,18 @@ from Raspberry Pi OS. Fixed or suppressed compiler warnings in Ada example
 packages and programs. Symlink <b><tt>/run</tt></b> to <b><tt>/var/run</tt></b>
 for <b><tt>rpcbind</tt></b>.</p>
 </li>
+<li>
+<p>19 October 2025 -- <a href=
+"https://crosstool-ng.github.io">Crosstool-NG</a> release 1.28.0 was published
+a few weeks ago. I have used it to build the 11th iteration of the
+<b>MuntsOS</b> cross-toolchain packages, upgrading binutils to 2.45, GCC to
+15.2.0, and glibc to 2.42. GCC 15.2.0 includes support for <a href=
+"http://www.ada-auth.org/standards/ada22.html">Ada 2022</a> and a lot of
+Modula-2 fixes. All of the extensions, kernels, and thin servers have been
+rebuilt with the new GCC 15.2.0 toolchain. The previous GCC 14.2.0
+cross-toolchain packages, extensions, kernels, and thin servers have been moved
+to the <a href="https://repo.munts.com/muntsos/attic">attic.</a></p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development
@@ -574,7 +586,7 @@ separately but installed into the same directory tree as the parent
 cross-toolchain. I also build <a href="https://www.freepascal.org">Free
 Pascal</a> cross-compilers. Each of these rely on the libraries contained in
 the corresponding GCC cross-toolchain package.</p>
-<p>Cross-toolchain packages containing GCC 14.2.0, including support for
+<p>Cross-toolchain packages containing GCC 15.2.0, including support for
 <a href="https://www.adaic.org/ada-resources/standards/ada22">Ada 2022</a>, and
 built for <a href="https://www.debian.org">Debian</a> Linux (x86-64 <i>and</i>
 ARM64) development host computers are available at either:</p>

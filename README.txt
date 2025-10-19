@@ -209,6 +209,15 @@ News
     compiler warnings in Ada example packages and programs. Symlink /run
     to /var/run for rpcbind.
 
+-   19 October 2025 -- Crosstool-NG release 1.28.0 was published a few
+    weeks ago. I have used it to build the 11th iteration of the MuntsOS
+    cross-toolchain packages, upgrading binutils to 2.45, GCC to 15.2.0,
+    and glibc to 2.42. GCC 15.2.0 includes support for Ada 2022 and a
+    lot of Modula-2 fixes. All of the extensions, kernels, and thin
+    servers have been rebuilt with the new GCC 15.2.0 toolchain. The
+    previous GCC 14.2.0 cross-toolchain packages, extensions, kernels,
+    and thin servers have been moved to the attic.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
@@ -524,7 +533,7 @@ parent cross-toolchain. I also build Free Pascal cross-compilers. Each
 of these rely on the libraries contained in the corresponding GCC
 cross-toolchain package.
 
-Cross-toolchain packages containing GCC 14.2.0, including support for
+Cross-toolchain packages containing GCC 15.2.0, including support for
 Ada 2022, and built for Debian Linux (x86-64 and ARM64) development host
 computers are available at either:
 

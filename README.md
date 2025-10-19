@@ -262,6 +262,17 @@ system.
   Ada example packages and programs. Symlink **`/run`** to
   **`/var/run`** for **`rpcbind`**.
 
+- 19 October 2025 -- [Crosstool-NG](https://crosstool-ng.github.io)
+  release 1.28.0 was published a few weeks ago. I have used it to build
+  the 11th iteration of the **MuntsOS** cross-toolchain packages,
+  upgrading binutils to 2.45, GCC to 15.2.0, and glibc to 2.42. GCC
+  15.2.0 includes support for [Ada
+  2022](http://www.ada-auth.org/standards/ada22.html) and a lot of
+  Modula-2 fixes. All of the extensions, kernels, and thin servers have
+  been rebuilt with the new GCC 15.2.0 toolchain. The previous GCC
+  14.2.0 cross-toolchain packages, extensions, kernels, and thin servers
+  have been moved to the [attic.](https://repo.munts.com/muntsos/attic)
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
@@ -630,7 +641,7 @@ Pascal](https://www.freepascal.org) cross-compilers. Each of these rely
 on the libraries contained in the corresponding GCC cross-toolchain
 package.
 
-Cross-toolchain packages containing GCC 14.2.0, including support for
+Cross-toolchain packages containing GCC 15.2.0, including support for
 [Ada 2022](https://www.adaic.org/ada-resources/standards/ada22), and
 built for [Debian](https://www.debian.org) Linux (x86-64 *and* ARM64)
 development host computers are available at either:
