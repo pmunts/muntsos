@@ -31,6 +31,14 @@ FINALDIR	:= $(GCCSYSROOT)/usr
 BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
+LIBXCRYPT_NAME	= libxcrypt
+LIBXCRYPT_VER	= 4.4.38
+LIBXCRYPT_SRC	= $(LIBXCRYPT_NAME)-$(LIBXCRYPT_VER)
+LIBXCRYPT_TARBALL = $(LIBXCRYPT_NAME)-$(LIBXCRYPT_VER).tar.xz
+LIBXCRYPT_SERVER = https://github.com/besser82/libxcrypt/releases/download/v$(LIBXCRYPT_VER)
+LIBXCRYPT_URL	= $(LIBXCRYPT_SERVER)/$(LIBXCRYPT_TARBALL)
+LIBXCRYPT_DIST	= $(DISTDIR)/$(LIBXCRYPT_TARBALL)
+
 NCURSES_NAME	= ncurses
 NCURSES_VER	= 6.5
 NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
@@ -243,6 +251,7 @@ DCERPC_SRC	= dcerpc.src
 
 DESTDIR		= $(shell pwd)
 
+SUBORDINATES	+= libxcrypt
 SUBORDINATES	+= ncurses
 SUBORDINATES	+= readline
 SUBORDINATES	+= libgpiod
@@ -273,6 +282,7 @@ SUBORDINATES	+= libcap
 #SUBORDINATES	+= dcerpc
 SUBORDINATES	+= aws
 
+SRCDIRS		+= $(LIBXCRYPT_SRC)
 SRCDIRS		+= $(NCURSES_SRC)
 SRCDIRS		+= $(READLINE_SRC)
 SRCDIRS		+= $(LIBGPIOD_SRC)
@@ -301,6 +311,7 @@ SRCDIRS		+= $(XZ_SRC)
 SRCDIRS		+= $(LIBCAP_SRC)
 #SRCDIRS	+= $(DCERPC_SRC)
 
+DISTFILES	+= $(LIBXCRYPT_DIST)
 DISTFILES	+= $(NCURSES_DIST)
 DISTFILES	+= $(READLINE_DIST)
 DISTFILES	+= $(LIBGPIOD_DIST)
@@ -351,6 +362,30 @@ download: $(DISTFILES)
 # Build software components
 
 build: $(SUBORDINATES)
+
+###############################################################################
+
+# Download libxcrypt source distribution
+
+$(LIBXCRYPT_DIST):
+	wget -nv -P $(DISTDIR) $(LIBXCRYPT_URL)
+
+# Unpack libxcrypt source
+
+$(LIBXCRYPT_SRC): $(LIBXCRYPT_DIST)
+	tar xJf $(LIBXCRYPT_DIST)
+
+# Build libxcrypt
+
+$(INSTALLDIR)/lib/libcrypt.a: $(LIBXCRYPT_SRC)
+	cd $(LIBXCRYPT_SRC) && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --disable-failure-tokens --enable-obsolete-api=glibc --enable-year2038 CC=$(CROSS_COMPILE)gcc
+	$(MAKE) -C $(LIBXCRYPT_SRC)
+	$(MAKE) -C $(LIBXCRYPT_SRC) install DESTDIR=$(DESTDIR)
+	touch $@
+
+libxcrypt: $(INSTALLDIR)/lib/libcrypt.a
+
+###############################################################################
 
 # Download ncurses source distribution
 
@@ -1084,6 +1119,10 @@ aws: $(INSTALLDIR)/lib/aws.lib/liblibaws.a
 # Collect copyright/license information into one place
 
 $(INSTALLDIR)/COPYING: $(SUBORDINATES)
+	@echo "**** libxcrypt:"				>$@
+	@echo ""					>>$@
+	@cat $(LIBXCRYPT_SRC)/LICENSING			>>$@
+	@echo ""					>>$@
 	@echo "**** ncurses:"				>>$@
 	@echo ""					>>$@
 	@cat $(NCURSES_SRC)/COPYING			>>$@
