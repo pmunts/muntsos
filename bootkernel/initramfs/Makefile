@@ -345,7 +345,7 @@ $(MAILUTILS_SRC): $(MAILUTILS_DIST)
 # Build mailutils
 
 $(MAILUTILS_SRC)/mail/mail: $(MAILUTILS_SRC)
-	cd $(MAILUTILS_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --sysconfdir=/etc --disable-ipv6 --disable-imap --disable-pop --disable-nntp --disable-mh --disable-maildir --disable-dotmail --disable-smtp --disable-prog --disable-radius --disable-python --disable-cxx --disable-build-servers --disable-build-clients --enable-build-mail --without-fribidi CC=$(CROSS_COMPILE)gcc LDFLAGS=-static
+	cd $(MAILUTILS_SRC) ; ./configure $(BUILDOS) $(TARGETOS) --sysconfdir=/etc --disable-ipv6 --disable-imap --disable-pop --disable-nntp --disable-mh --disable-maildir --disable-dotmail --disable-smtp --disable-prog --disable-radius --disable-python --disable-cxx --disable-build-servers --disable-build-clients --enable-build-mail --without-fribidi CC=$(CROSS_COMPILE)gcc CFLAGS="-Wno-incompatible-pointer-types" LDFLAGS=-static
 	$(MAKE) $(MAKEJOBS) -C $(MAILUTILS_SRC)
 	touch $@
 

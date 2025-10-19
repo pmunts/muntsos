@@ -1,6 +1,6 @@
 # Makefile for building the libgo package for MuntsOS
 
-# Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -47,7 +47,7 @@ $(PKGDIR):
 ifneq ($(findstring RaspberryPi1, $(BOARDNAME)),)
 	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.13	$@/usr/local/lib
 else
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.23	$@/usr/local/lib
+	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.24	$@/usr/local/lib
 endif
 	$(CROSS_COMPILE)strip					$@/usr/local/lib/*.so.*
 	touch $@

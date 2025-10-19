@@ -65,3 +65,14 @@
  	"domain" "\0"           /* DHCP_DOMAIN_NAME     */
  	"swapsrv" "\0"          /* DHCP_SWAP_SERVER     */
  	"rootpath" "\0"         /* DHCP_ROOT_PATH       */
+--- scripts/kconfig/lxdialog/check-lxdialog.sh.orig	2025-10-18 19:05:47.592615948 -0700
++++ scripts/kconfig/lxdialog/check-lxdialog.sh	2025-10-18 19:06:13.713059046 -0700
+@@ -47,7 +47,7 @@
+ check() {
+         $cc -x c - -o $tmp 2>/dev/null <<'EOF'
+ #include CURSES_LOC
+-main() {}
++int main() {}
+ EOF
+ 	if [ $? != 0 ]; then
+ 	    echo " *** Unable to find the ncurses libraries or the"       1>&2

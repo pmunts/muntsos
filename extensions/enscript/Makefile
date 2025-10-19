@@ -59,7 +59,7 @@ src.done: $(SRCDIST)
 # Compile sources
 
 build.done: src.done
-	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc --disable-nls --with-media=Letter
+	cd $(SRCDIR) ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc CFLAGS="-ansi -DPATH_MAX=1024" --disable-nls --with-media=Letter
 	$(MAKE) -C $(SRCDIR)
 	touch $@
 

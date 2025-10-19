@@ -70,7 +70,7 @@ tcl.done:
 # Compile sources
 
 build.done: src.done tcl.done
-	cd src ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc LDFLAGS=-L$(TCLDIR)/usr/local/lib --with-tcl=$(TCLDIR)/usr/local/lib
+	cd src ; ./configure $(BUILDOS) $(TARGETOS) CC=$(CROSS_COMPILE)gcc CFLAGS="-std=c90 -DNSIG=_NSIG" LDFLAGS=-L$(TCLDIR)/usr/local/lib --with-tcl=$(TCLDIR)/usr/local/lib
 	$(MAKE) -C src
 	touch $@
 
