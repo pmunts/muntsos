@@ -31,11 +31,8 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 CTNG		?= ct-ng
 
-GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' $(BOARDNAME).config)
+GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
-
-TOOLCHAIN_VERN	= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/crosstool/ { print $$4 }')
-TOOLCHAIN_VERS	= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | head -n 1)
 
 BUILDNUM	?= 1
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
@@ -156,8 +153,8 @@ package.deb: build.done
 	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(TOOLCHAIN_VERN)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(TOOLCHAIN_VERS)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(GCCVER)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | head -n 1)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb -Zxz --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr
