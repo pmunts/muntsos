@@ -354,8 +354,7 @@ software can be built after the fact and installed as tarball files in
 extension programs in **`/boot/extensions`**; or executable programs and
 scripts in **`/boot/autoexec.d`**.
 
-Prebuilt **MuntsOS** ext6.6.58-ti-arm64-r29ension packages are available
-at:
+Prebuilt **MuntsOS** extension packages are available at:
 
 <https://repo.munts.com/muntsos/extensions>
 
@@ -480,8 +479,8 @@ Pi 2) are now obsolete.
 
 Some Raspberry Pi models have an on-board Bluetooth radio that uses the
 serial port signals that are also brought out to the expansion header.
-By default, **MuntsOS** port disables the on-board Bluetooth radio, in
-favor of the serial port on the expansion header.
+By default, **MuntsOS** disables the on-board Bluetooth radio, in favor
+of the serial port on the expansion header.
 
 All of the following 64-bit Raspberry Pi models use the same AArch64
 cross-toolchain.
@@ -572,7 +571,8 @@ device trees.
 ##### USB Gadgets
 
 You will need to edit some boot configuration files to enable USB Gadget
-mode. First, change **`dtoverlay=dwc2,dr_mode=host`** to
+mode on a Raspberry Pi 4. First, change
+**`dtoverlay=dwc2,dr_mode=host`** to
 **`dtoverlay=dwc2,dr_mode=peripheral`** in **`/boot/config.txt`** to
 change the USB-C receptacle from USB host to USB peripheral. Then change
 the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x172C`** for a
@@ -588,11 +588,11 @@ Gadget mode.
 
 #### Raspberry Pi 5
 
-The [Raspberry Pi 5 Model
-B](https://www.raspberrypi.com/products/raspberry-pi-5) yields another
+The [Raspberry Pi
+5](https://www.raspberrypi.com/products/raspberry-pi-5) yields another
 2-3x increase in performance over the Raspberry Pi 4, at the expense of
 greater power consumption. It has a 2400 MHz BCM2712 ARMv8 Cortex-A76
-quad-core CPU and is available with 4 or 8 GB of RAM. The Ethernet
+quad-core CPU and is available with 2 to 16 GB of RAM. The Ethernet
 receptacle and USB receptacles have swapped sides, so it has a form
 factor that is sort of a cross between the Raspberry Pi 1 B+ (same
 grouping of Ethernet and USB receptacles) and the Raspberry Pi 4 (same
@@ -617,7 +617,8 @@ page 15 for more information.
 ##### USB Gadgets
 
 You will need to edit some boot configuration files to enable USB Gadget
-mode. First, change **`dtoverlay=dwc2,dr_mode=host`** to
+mode on a Raspberry Pi 5. First, change
+**`dtoverlay=dwc2,dr_mode=host`** to
 **`dtoverlay=dwc2,dr_mode=peripheral`** in **`/boot/config.txt`** to
 change the USB-C receptacle from USB host to USB peripheral. Then change
 the **`OPTIONS`** word in **`/boot/cmdline.txt`** to **`0x172C`** for a

@@ -274,13 +274,12 @@ packages and programs. Symlink <b><tt>/run</tt></b> to <b><tt>/var/run</tt></b>
 for <b><tt>rpcbind</tt></b>.</p>
 </li>
 <li>
-<p>19 October 2025 -- <a href=
-"https://crosstool-ng.github.io">Crosstool-NG</a> release 1.28.0 was published
-a few weeks ago. I have used it to build the 11th iteration of the
-<b>MuntsOS</b> cross-toolchain packages, upgrading binutils to 2.45, GCC to
-15.2.0, and glibc to 2.42. GCC 15.2.0 includes support for <a href=
-"http://www.ada-auth.org/standards/ada22.html">Ada 2022</a> and a lot of
-Modula-2 fixes. All of the extensions, kernels, and thin servers have been
+<p>19 October 2025 -- <a href="https://crosstool-ng.github.io">Crosstool-NG</a>
+release 1.28.0 was published a few weeks ago. I have used it to build the 11th
+iteration of the <b>MuntsOS</b> cross-toolchain packages, upgrading binutils to
+2.45, GCC to 15.2.0, and glibc to 2.42. GCC 15.2.0 includes support for
+<a href="http://www.ada-auth.org/standards/ada22.html">Ada 2022</a> and a lot
+of Modula-2 fixes. All of the extensions, kernels, and thin servers have been
 rebuilt with the new GCC 15.2.0 toolchain. The previous GCC 14.2.0
 cross-toolchain packages, extensions, kernels, and thin servers have been moved
 to the <a href="https://repo.munts.com/muntsos/attic">attic.</a></p>
@@ -355,8 +354,7 @@ be built after the fact and installed as tarball files in
 <b><tt>/boot/tarballs</tt></b>; Debian, RPM, and NuGet package files or
 executable extension programs in <b><tt>/boot/extensions</tt></b>; or
 executable programs and scripts in <b><tt>/boot/autoexec.d</tt></b>.</p>
-<p>Prebuilt <b>MuntsOS</b> ext6.6.58-ti-arm64-r29ension packages are available
-at:</p>
+<p>Prebuilt <b>MuntsOS</b> extension packages are available at:</p>
 <p><a href=
 "https://repo.munts.com/muntsos/extensions">https://repo.munts.com/muntsos/extensions</a></p>
 <h2>Thin Servers</h2>
@@ -459,8 +457,8 @@ generations (32-bit ARMv6 Raspberry Pi 1 and 32-bit ARMv7 Raspberry Pi 2) are
 now obsolete.</p>
 <p>Some Raspberry Pi models have an on-board Bluetooth radio that uses the
 serial port signals that are also brought out to the expansion header. By
-default, <b>MuntsOS</b> port disables the on-board Bluetooth radio, in favor of
-the serial port on the expansion header.</p>
+default, <b>MuntsOS</b> disables the on-board Bluetooth radio, in favor of the
+serial port on the expansion header.</p>
 <p>All of the following 64-bit Raspberry Pi models use the same AArch64
 cross-toolchain.</p>
 <h4>Raspberry Pi 3</h4>
@@ -531,7 +529,8 @@ Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
 trees.</p>
 <h5>USB Gadgets</h5>
 <p>You will need to edit some boot configuration files to enable USB Gadget
-mode. First, change <b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> to
+mode on a Raspberry Pi 4. First, change
+<b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> to
 <b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> in
 <b><tt>/boot/config.txt</tt></b> to change the USB-C receptacle from USB host
 to USB peripheral. Then change the <b><tt>OPTIONS</tt></b> word in
@@ -545,13 +544,13 @@ Raspberry Pi 3 and not all host computers will be able to supply enough current
 to a single USB receptacle to support a Raspberry Pi 4 in USB Gadget mode.</p>
 <h4>Raspberry Pi 5</h4>
 <p>The <a href="https://www.raspberrypi.com/products/raspberry-pi-5">Raspberry
-Pi 5 Model B</a> yields another 2-3x increase in performance over the Raspberry
-Pi 4, at the expense of greater power consumption. It has a 2400 MHz BCM2712
-ARMv8 Cortex-A76 quad-core CPU and is available with 4 or 8 GB of RAM. The
-Ethernet receptacle and USB receptacles have swapped sides, so it has a form
-factor that is sort of a cross between the Raspberry Pi 1 B+ (same grouping of
-Ethernet and USB receptacles) and the Raspberry Pi 4 (same dual micro-HDMI
-receptacles and USB-C power receptacle).</p>
+Pi 5</a> yields another 2-3x increase in performance over the Raspberry Pi 4,
+at the expense of greater power consumption. It has a 2400 MHz BCM2712 ARMv8
+Cortex-A76 quad-core CPU and is available with 2 to 16 GB of RAM. The Ethernet
+receptacle and USB receptacles have swapped sides, so it has a form factor that
+is sort of a cross between the Raspberry Pi 1 B+ (same grouping of Ethernet and
+USB receptacles) and the Raspberry Pi 4 (same dual micro-HDMI receptacles and
+USB-C power receptacle).</p>
 <p>There are also a myriad of <a href=
 "https://www.raspberrypi.com/products/compute-module-5">Raspberry Pi 5 Compute
 Modules</a>, with varying combinations of wireless Ethernet, RAM and eMMC.</p>
@@ -566,7 +565,8 @@ instead of PWM chip 0 channel 0 on previous Raspberry Pi boards. See <a href=
 Peripherals</a> page 15 for more information.</p>
 <h5>USB Gadgets</h5>
 <p>You will need to edit some boot configuration files to enable USB Gadget
-mode. First, change <b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> to
+mode on a Raspberry Pi 5. First, change
+<b><tt>dtoverlay=dwc2,dr_mode=host</tt></b> to
 <b><tt>dtoverlay=dwc2,dr_mode=peripheral</tt></b> in
 <b><tt>/boot/config.txt</tt></b> to change the USB-C receptacle from USB host
 to USB peripheral. Then change the <b><tt>OPTIONS</tt></b> word in
