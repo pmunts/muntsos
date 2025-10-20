@@ -69,22 +69,23 @@ prepare:
 # Configure the cross-toolchain
 
 config.done:
-	cp $(BOARDNAME).config .config
+	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
 	$(CTNG) oldconfig
-	cp .config $(BOARDNAME).config
+	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
 	touch $@
 
 menuconfig:
-	cp $(BOARDNAME).config .config
+	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
-	cp .config $(BOARDNAME).config
+	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
 	touch config.done
 
 upgradeconfig:
-	cp $(BOARDNAME).config .config
+	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
 	$(CTNG) upgradeconfig
-	cp .config $(BOARDNAME).config
+	$(CTNG) oldconfig
+	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
 	touch config.done
 
 ################################################################################
