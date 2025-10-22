@@ -52,7 +52,7 @@ endif
 GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
 GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
 
-default: package.deb
+default: build.done
 
 ################################################################################
 
