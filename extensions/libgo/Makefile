@@ -44,11 +44,7 @@ $(PKGDIR):
 	sed -i s/@@NAME@@/$(PKGNAME)/g				$@/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g			$@/DEBIAN/control
 	mkdir -p						$@/usr/local/lib
-ifneq ($(findstring RaspberryPi1, $(BOARDNAME)),)
-	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.13	$@/usr/local/lib
-else
 	install -cm 0755 $(GCCSYSROOT)/usr/lib/libgo.so.24	$@/usr/local/lib
-endif
 	$(CROSS_COMPILE)strip					$@/usr/local/lib/*.so.*
 	touch $@
 
