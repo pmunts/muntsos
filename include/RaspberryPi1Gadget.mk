@@ -37,8 +37,4 @@ KERNEL_OVL	+= anyspi i2c-rtc pca953x pwm pwm-2chan
 KERNEL_OVL	+= spi1-1cs spi1-2cs spi1-3cs
 KERNEL_OVL	+= spi1-2cs spi2-2cs spi2-3cs
 
-# Special hack to use old Debian11/Crosstool-NG 1.24.0/GCC 8.3.0 toolchain
-CONFIGURE_NAME	= $(GCCARCH)-linux-$(GCCABI)
-TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-muntsos-$(BOARDBASELC)
-
 include $(MUNTSOS)/include/kernel.mk
