@@ -23,7 +23,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MACHINE=`uname -m`
+# Transform named parameters to environment variables
+
+for x ; do export ${x%=*}="${x#*=}"; done
 
 # Install necessary system packages
 
@@ -33,21 +35,23 @@ sudo apt -y install build-essential libhidapi-dev libusb-1.0-0-dev git wget
 
 # Register Munts Technologies Debian package repository
 
+HOSTMACHINE=`uname -m`
+
 if [ ! -f /etc/apt/sources.list.d/repo.munts.com.list ]; then
-  if [ "${MACHINE}" = "x86_64" ]; then
+  if [ "${HOSTMACHINE}" = "x86_64" ]; then
     # 64-Bit Debian amd64
-    wget https://repo.munts.com/debian13/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget https://repo.munts.com/${OSNAME-debian13}/amd64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 
-  if [ "${MACHINE}" = "aarch64" ]; then
+  if [ "${HOSTMACHINE}" = "aarch64" ]; then
     # 64-Bit Debian arm64
-    wget https://repo.munts.com/debian13/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
+    wget https://repo.munts.com/${OSNAME-debian13}/arm64/munts-repo.deb && sudo dpkg -i munts-repo.deb && rm munts-repo.deb
   fi
 fi
 
 # Install packages from the Munts Technologies Debian package repository
 
 sudo apt update
-sudo apt -y install alire muntsos-dev
+sudo apt -y install alire muntsos-dev-${TARGETPLATFORM-aarch64}
 
 alr toolchain --disable-assistant
