@@ -20,9 +20,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Note: Set CT_EXTRA_CFLAGS_FOR_HOST="-mcpu=cortex-a7 -mfpu=neon-vfpv4" in
-# each target configuration file when building for 32-bit Raspberry Pi OS.
-
 MUNTSOS    ?= ../..
 
 TOOLCHAIN_BUILDER := crosstool
