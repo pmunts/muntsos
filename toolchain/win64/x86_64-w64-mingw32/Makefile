@@ -73,6 +73,14 @@ build.done: source.done
 
 ################################################################################
 
+# Create optional cross-toolchain tarball
+
+tarball.done: build.done
+	tar czf $(INSTALLDIR).tgz --exclude=build.log.bz2 $(INSTALLDIR)
+	touch $@
+
+################################################################################
+
 # Create optional Debian package
 
 BUILDNUM	?= 1
@@ -105,7 +113,7 @@ package.done : build.done
 
 clean:
 	-chmod -R u+w $(PKGDIR)
-	rm -rf package.done $(PKGDIR) $(PKGFILE)
+	rm -rf package.done *.tgz $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
 	-chmod -R u+w gcc*
