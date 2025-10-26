@@ -38,23 +38,23 @@ default: build.done
 # Configure the cross-toolchain
 
 config.done:
-	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch $@
 
 menuconfig:
-	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch config.done
 
 upgradeconfig:
-	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) upgradeconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch config.done
 
 ################################################################################
