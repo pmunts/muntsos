@@ -24,7 +24,7 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-CTNG		?= ../crosstool-ng/bin/ct-ng
+CTNG		:= ctng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 default: build.done
@@ -34,8 +34,10 @@ default: build.done
 # Prepare the system for building a Crosstool-NG toolchain
 
 prepare.done:
+ifeq ($(shell uname), Linux)
 	sudo apt -y install autoconf bison build-essential curl flex m4 zlib1g-dev
-	$(MAKE) -C ../crosstool-ng
+endif
+	$(MAKE) -f Makefile.ctng
 	touch $@
 
 ################################################################################
@@ -103,6 +105,7 @@ clean:
 reallyclean: clean
 	-chmod -R u+w gcc*
 	rm -rf .config* build* config* *.done gcc* include
+	$(MAKE) -f Makefile.ctng clean
 
 distclean: reallyclean
 	rm -rf distfiles
