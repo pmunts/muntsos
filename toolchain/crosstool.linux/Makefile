@@ -36,6 +36,7 @@ default: build.done
 prepare.done:
 	sudo apt -y install autoconf bison build-essential curl flex gcc-14 g++-14 m4 zlib1g-dev
 	$(MAKE) -C ../crosstool-ng
+	touch $@
 
 ################################################################################
 
