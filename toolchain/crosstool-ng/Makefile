@@ -25,36 +25,20 @@ CTNG_BRANCH	:= -b crosstool-ng-$(CTNG_VERSION)
 CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
 CTNG_SRC	:= crosstool-ng.src
 
-DEPENDENCIES	+= autoconf
-DEPENDENCIES	+= automake
-DEPENDENCIES	+= bison
-DEPENDENCIES	+= build-essential
-DEPENDENCIES	+= curl
-DEPENDENCIES	+= flex
-DEPENDENCIES	+= gawk
-DEPENDENCIES	+= git
-DEPENDENCIES	+= help2man
-DEPENDENCIES	+= libncurses5-dev
-DEPENDENCIES	+= libtool-bin
-DEPENDENCIES	+= texinfo
-DEPENDENCIES	+= zip
-DEPENDENCIES	+= zlib1g-dev
+ifeq ($(shell uname), Darwin)
+# Force using certain Homebrew programs instead of MacOS counterparts
+BUILDPATH	:= /opt/homebrew/Cellar/binutils/2.45/bin
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/Cellar/m4/1.4.20/bin/m4
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin:$(PATH)
+endif
 
-OSNAME		?= unknown
-PKGNAME		:= crosstool-ng
-PKGVERSION	:= $(CTNG_VERSION)
-PKGARCH		:= $(shell dpkg --print-architecture)
-PKGDIR		:= $(PKGNAME)-$(PKGVERSION)-$(OSNAME)-$(PKGARCH)
-PKGFILE		:= $(PKGDIR).deb
+ifeq ($(shell uname), Linux)
+BUILDPATH	:= $(PATH)
+endif
 
-default: $(PKGFILE)
+default: build.done
 
-# Install dependencies
-
-apt.done:
-	sudo apt -y install $(DEPENDENCIES)
-	touch $@
-# Clone source distribution
+# Download crosstool-ng source
 
 src.done:
 	git clone --depth 1 $(CTNG_BRANCH) $(CTNG_URL) $(CTNG_SRC)
@@ -62,33 +46,18 @@ src.done:
 
 # Build crosstool-ng
 
-build.done: apt.done src.done
-	cd $(CTNG_SRC) && ./bootstrap
-	cd $(CTNG_SRC) && ./configure
-	$(MAKE) -C $(CTNG_SRC) MAKELEVEL=0
+build.done: src.done
+	cd $(CTNG_SRC) && PATH=$(BUILDPATH) ./bootstrap
+	cd $(CTNG_SRC) && PATH=$(BUILDPATH) ./configure --prefix=$(shell pwd) --disable-nls
+	cd $(CTNG_SRC) && PATH=$(BUILDPATH) $(MAKE)
+	cd $(CTNG_SRC) && PATH=$(BUILDPATH) $(MAKE) install
 	touch $@
-
-# Build Debian package file
-
-$(PKGFILE): $(PKGDIR)
-	chmod -R ugo-w $(PKGDIR)/usr
-	fakeroot dpkg-deb --build $(PKGDIR)
-	chmod -R u+w $(PKGDIR)/usr
-
-$(PKGDIR): build.done
-	mkdir -p $(PKGDIR)/DEBIAN
-	install -cm 0444 control			$(PKGDIR)/DEBIAN
-	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVERSION)/g		$(PKGDIR)/DEBIAN/control
-	$(MAKE) -C $(CTNG_SRC) install DESTDIR=$(shell pwd)/$(PKGDIR) MAKELEVEL=0
 
 # Remove working files
 
 clean:
-	-rm -rf $(PKGFILE) $(PKGDIR)
+	-rm -rf *.done bin libexec share $(CTNG_SRC)
 
 reallyclean: clean
-	-rm -rf *.done $(CTNG_SRC)
 
 distclean: reallyclean

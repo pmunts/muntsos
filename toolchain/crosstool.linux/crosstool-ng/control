@@ -1,7 +1,0 @@
-Package: @@NAME@@
-Secrosstoolion: misc
-Priority: extra
-Maintainer: Philip Munts <phil@munts.net>
-Architecture: @@ARCH@@
-Version: @@VERSION@@
-Description: Crosstool-NG for Debian Linux

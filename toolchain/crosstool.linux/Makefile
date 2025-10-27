@@ -22,32 +22,10 @@
 
 MUNTSOS    ?= ../..
 
-TOOLCHAIN_BUILDER := crosstool
-
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-CTNG		?= ct-ng
-
-GCCVER		:= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)
+CTNG		?= ../crosstool-ng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
-
-BUILDNUM	?= 1
-PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(GCCVER)-$(shell date +%Y.%j).$(BUILDNUM)
-PKGARCH		:= $(shell dpkg --print-architecture)
-PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
-PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
-PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
-
-GPRBUILDVER	:= 25.0.1
-ifeq ($(PKGARCH), amd64)
-GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_9a2e6cfb
-endif
-ifeq ($(PKGARCH), arm64)
-GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_5e58c08e
-endif
-GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
-GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
 
 default: build.done
 
@@ -55,31 +33,32 @@ default: build.done
 
 # Prepare the system for building a Crosstool-NG toolchain
 
-prepare:
-	sudo apt -y install autoconf bison build-essential curl flex gcc-14 g++-14 gm2-14 gnat-14 m4 zlib1g-dev
+prepare.done:
+	sudo apt -y install autoconf bison build-essential curl flex gcc-14 g++-14 m4 zlib1g-dev
+	$(MAKE) -C ../crosstool-ng
 
 ################################################################################
 
 # Configure the cross-toolchain
 
-config.done:
-	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
+config.done: prepare.done
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch $@
 
-menuconfig:
-	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
+menuconfig: prepare.done
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch config.done
 
-upgradeconfig:
-	DEFCONFIG=$(BOARDNAME).config ct-ng defconfig
+upgradeconfig: prepare.done
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) upgradeconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config ct-ng savedefconfig
+	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch config.done
 
 ################################################################################
@@ -109,8 +88,8 @@ build.done: source.done
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/var
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
 	cd $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
 	touch $@
 
@@ -128,6 +107,24 @@ reconstitute:
 ################################################################################
 
 # Create Debian package
+
+BUILDNUM	?= 1
+PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
+PKGVER		:= $($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))-$(shell date +%Y.%j).$(BUILDNUM)
+PKGARCH		:= $(shell dpkg --print-architecture)
+PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
+PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
+PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
+
+GPRBUILDVER	:= 25.0.1
+ifeq ($(PKGARCH), amd64)
+GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_9a2e6cfb
+endif
+ifeq ($(PKGARCH), arm64)
+GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_5e58c08e
+endif
+GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
+GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
 
 package.deb: build.done
 	mkdir -p					$(PKGDIR)/DEBIAN
@@ -150,7 +147,7 @@ package.deb: build.done
 	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(GCCVER)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | head -n 1)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb -Zxz --build			$(PKGDIR)
