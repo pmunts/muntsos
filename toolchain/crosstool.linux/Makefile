@@ -34,7 +34,7 @@ default: build.done
 # Prepare the system for building a Crosstool-NG toolchain
 
 prepare.done:
-	sudo apt -y install autoconf bison build-essential curl flex gcc-14 g++-14 m4 zlib1g-dev
+	sudo apt -y install autoconf bison build-essential curl flex m4 zlib1g-dev
 	$(MAKE) -C ../crosstool-ng
 	touch $@
 
@@ -96,71 +96,9 @@ build.done: source.done
 
 ################################################################################
 
-# Reconstitute previous build from installed files
-
-reconstitute:
-	sudo apt purge 'gcc-$(GCCARCH)-muntsos*lib*'
-	cp -R -P -p $(TOOLCHAIN_DIR) $(INSTALLDIR)
-	chmod -R u+w $(INSTALLDIR)
-	rm -rf $(INSTALLDIR)/bin/gpr* $(INSTALLDIR)/libexec/gprbuild* $(INSTALLDIR)/share/gpr
-	touch build.done
-
-################################################################################
-
-# Create Debian package
-
-BUILDNUM	?= 1
-PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-PKGVER		:= $($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))-$(shell date +%Y.%j).$(BUILDNUM)
-PKGARCH		:= $(shell dpkg --print-architecture)
-PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
-PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
-PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
-
-GPRBUILDVER	:= 25.0.1
-ifeq ($(PKGARCH), amd64)
-GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_9a2e6cfb
-endif
-ifeq ($(PKGARCH), arm64)
-GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_5e58c08e
-endif
-GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
-GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
-
-package.deb: build.done
-	mkdir -p					$(PKGDIR)/DEBIAN
-	install -cm 0644 control			$(PKGDIR)/DEBIAN
-	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
-	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p					$(PKGDIR)/usr/local
-	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
-	mkdir -p					$(GPRBUILDDEST)
-	cp -R -P -p $(GPRBUILDDIST)/*			$(GPRBUILDDEST)
-	rm -rf						$(GPRBUILDDEST)/alire*
-	rm -rf						$(GPRBUILDDEST)/doinstall
-	rm -rf						$(GPRBUILDDEST)/share
-	cd $(GPRBUILDDEST)/bin && for P in * ; do ln -s ../$(GPRBUILDDIR)/bin/$$P ../../../bin/$$P ; done
-	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | head -n 1)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	chmod -R ugo-w					$(PKGDIR)/usr
-	fakeroot dpkg-deb -Zxz --build			$(PKGDIR)
-	chmod -R u+w					$(PKGDIR)/usr
-
-################################################################################
-
 # Remove working files
 
 clean:
-	-chmod -R u+w $(PKGDIR)
-	rm -rf $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
 	-chmod -R u+w gcc*
