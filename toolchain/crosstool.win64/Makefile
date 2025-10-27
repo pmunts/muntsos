@@ -1,7 +1,6 @@
-# Makefile for building and packaging a crosstool-NG cross-toolchain targeting
-# mingw64 (64-bit Windows)
+# Makefile for building a crosstool-NG cross-toolchain
 
-# Copyright (C)2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -21,11 +20,11 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS    ?= ../..
+MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-CTNG		?= ../crosstool-ng/bin/ct-ng
+CTNG		:= ctng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 default: build.done
@@ -35,7 +34,7 @@ default: build.done
 # Prepare the system for building a Crosstool-NG toolchain
 
 prepare.done:
-	$(MAKE) -C ../crosstool-ng
+	$(MAKE) -f Makefile.ctng
 	touch $@
 
 ################################################################################
@@ -77,9 +76,21 @@ source.done: config.done
 # Build the cross-toolchain
 
 build.done: source.done
-	echo "Building $(INSTALLDIR)"
 	$(CTNG) build
 	rm $(INSTALLDIR)/build.log.bz2
+	# Rearrange sysroot directory tree
+	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/debug-root/usr/ $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr
+	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/etc/       $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/etc
+	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin/      $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/bin
+	rsync -avc $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin/  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/bin
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/debug-root
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/etc
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin
+	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/var
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
+	cd $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
 	touch $@
 
 ################################################################################
@@ -90,7 +101,8 @@ clean:
 
 reallyclean: clean
 	-chmod -R u+w gcc*
-	rm -rf .build .config* build* config* *.done gcc* include
+	rm -rf .config* build* config* *.done gcc* include
 
 distclean: reallyclean
+	$(MAKE) -f Makefile.ctng clean
 	rm -rf distfiles
