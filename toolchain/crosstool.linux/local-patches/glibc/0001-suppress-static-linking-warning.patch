@@ -1,5 +1,5 @@
---- glibc-2.41/include/libc-symbols.h.orig
-+++ glibc-2.41/include/libc-symbols.h
+--- glibc/include/libc-symbols.h.orig
++++ glibc/include/libc-symbols.h
 @@ -230,11 +230,7 @@
  #ifdef SHARED
  #define static_link_warning(name)
