@@ -1,4 +1,4 @@
-# Makefile for building and packaging a crosstool-NG cross-toolchain
+# Makefile for building a crosstool-NG cross-toolchain
 
 # Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 #
@@ -20,7 +20,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS    ?= ../..
+MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
@@ -89,8 +89,8 @@ build.done: source.done
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/var
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$($(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config))/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
 	cd $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
 	touch $@
 
