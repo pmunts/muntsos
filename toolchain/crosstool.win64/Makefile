@@ -23,34 +23,40 @@
 
 MUNTSOS    ?= ../..
 
-TOOLCHAIN_BUILDER := crosstool
-
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-CTNG		?= ct-ng
-
+CTNG		?= ../crosstool-ng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 default: build.done
 
 ################################################################################
 
+# Prepare the system for building a Crosstool-NG toolchain
+
+prepare.done:
+	sudo apt -y install autoconf bison build-essential curl flex gcc-14 g++-14 m4 zlib1g-dev
+	$(MAKE) -C ../crosstool-ng
+	touch $@
+
+################################################################################
+
 # Configure the cross-toolchain
 
-config.done:
+config.done: prepare.done
 	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) oldconfig
 	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch $@
 
-menuconfig:
+menuconfig: prepare.done
 	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
 	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
 	touch config.done
 
-upgradeconfig:
+upgradeconfig: prepare.done
 	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
 	$(CTNG) upgradeconfig
 	$(CTNG) oldconfig
