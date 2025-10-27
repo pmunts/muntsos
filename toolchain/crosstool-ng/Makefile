@@ -25,6 +25,10 @@ CTNG_BRANCH	:= -b crosstool-ng-$(CTNG_VERSION)
 CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
 CTNG_SRC	:= crosstool-ng.src
 
+ifeq ($(shell uname -o), Cygwin)
+BUILDPATH	:= $(PATH)
+endif
+
 ifeq ($(shell uname), Darwin)
 # Force using certain Homebrew programs instead of MacOS counterparts
 BUILDPATH	:= /opt/homebrew/Cellar/binutils/2.45/bin
@@ -33,6 +37,10 @@ BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin:$(PATH)
 endif
 
 ifeq ($(shell uname), Linux)
+BUILDPATH	:= $(PATH)
+endif
+
+ifeq ($(shell uname -o), Msys)
 BUILDPATH	:= $(PATH)
 endif
 
