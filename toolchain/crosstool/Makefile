@@ -27,6 +27,14 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 CTNG		:= ctng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
+ifeq ($(shell uname), Darwin)
+# Force using certain Homebrew programs instead of MacOS counterparts
+BUILDPATH	:= /opt/homebrew/Cellar/binutils/2.45/bin
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/Cellar/m4/1.4.20/bin/m4
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin:$(PATH)
+CTNG		:= PATH=$(BUILDPATH) $(CTNG)
+endif
+
 default: build.done
 
 ################################################################################
