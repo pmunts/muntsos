@@ -1,0 +1,7 @@
+Package: libsimpleio-common
+Section: misc
+Priority: extra
+Maintainer: Philip Munts <phil@munts.net>
+Architecture: all
+Version: @@VERSION@@
+Description: Linux Simple I/O Library common files

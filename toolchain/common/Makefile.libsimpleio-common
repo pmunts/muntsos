@@ -1,0 +1,73 @@
+# Makefile to build the Linux Simple I/O Library Common Files package
+
+# Copyright (C)2025, Philip Munts dba Munts Technologies.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# * Redistributions of source code must retain the above copyright notice,
+#   this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+LIBSIMPLEIO	?= ../../../libsimpleio
+
+BUILDNUM	?= 1
+PKGNAME		:= libsimpleio-common
+PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
+PKGARCH		:= all
+PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(PKGARCH)
+PKGFILE		:= $(PKGDIR).deb
+
+include $(LIBSIMPLEIO)/ada/include/ada.mk
+include $(LIBSIMPLEIO)/include/dpkg.mk
+
+default: package.deb
+
+# Create Debian package file
+
+$(PKGDIR):
+	mkdir -p				$(PKGDIR)/DEBIAN
+	install -cm 0644 control.libsimpleio-common $(PKGDIR)/DEBIAN/control
+	sed -i s/@@VERSION@@/$(PKGVER)/g	$(PKGDIR)/DEBIAN/control
+	mkdir -p				$(PKGDIR)/usr/local/share/libsimpleio
+	cp -R -P -p $(LIBSIMPLEIO)/ada		$(PKGDIR)/usr/local/share/libsimpleio
+	rm -rf					$(PKGDIR)/usr/local/share/libsimpleio/ada/lib
+	rm -rf					$(PKGDIR)/usr/local/share/libsimpleio/ada/shared-libs
+	cp -R -P -p $(LIBSIMPLEIO)/c++		$(PKGDIR)/usr/local/share/libsimpleio
+	rm -rf					$(PKGDIR)/usr/local/share/libsimpleio/c++/visualstudio
+	cp -R -P -p $(LIBSIMPLEIO)/csharp	$(PKGDIR)/usr/local/share/libsimpleio
+	rm -rf					$(PKGDIR)/usr/local/share/libsimpleio/csharp/programs/remoteio/win64
+	cp -R -P -p $(LIBSIMPLEIO)/freepascal	$(PKGDIR)/usr/local/share/libsimpleio
+	cp -R -P -p $(LIBSIMPLEIO)/gm2		$(PKGDIR)/usr/local/share/libsimpleio
+	cp -R -P -p $(LIBSIMPLEIO)/go		$(PKGDIR)/usr/local/share/libsimpleio
+	cp -R -P -p $(LIBSIMPLEIO)/include	$(PKGDIR)/usr/local/share/libsimpleio
+	cp -R -P -p $(LIBSIMPLEIO)/python	$(PKGDIR)/usr/local/share/libsimpleio
+	mkdir -p				$(PKGDIR)/usr/local/share/libsimpleio/doc
+	install -cm 0644 $(LIBSIMPLEIO)/COPYING	$(PKGDIR)/usr/local/share/libsimpleio/doc
+	install -cm 0644 $(LIBSIMPLEIO)/doc/*.pdf $(PKGDIR)/usr/local/share/libsimpleio/doc
+	mkdir -p				$(PKGDIR)/usr/local/share/man/man2
+	install -cm 0644 $(LIBSIMPLEIO)/doc/*.2	$(PKGDIR)/usr/local/share/man/man2
+
+package.deb: $(PKGFILE)
+
+###############################################################################
+
+# Remove working files
+
+clean:
+	-rm -rf $(PKGDIR) $(PKGFILE)
+
+reallyclean: clean
+
+distclean: reallyclean

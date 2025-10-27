@@ -1,0 +1,7 @@
+Package: muntsos-common
+Section: misc
+Priority: extra
+Maintainer: Philip Munts <phil@munts.net>
+Architecture: all
+Version: @@VERSION@@
+Description: MuntsOS Embedded Linux common files

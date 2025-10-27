@@ -1,6 +1,4 @@
-# Makefile to build the MuntsOS Embedded Linux Common Files package
-
-# Copyright (C)2022-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,52 +18,10 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-LIBSIMPLEIO	?= /usr/local/share/libsimpleio
-MUNTSOS		?= ../..
-
-BUILDNUM	?= 1
-PKGNAME		:= muntsos-common
-PKGVER		:= $(shell date +%Y.%j).$(BUILDNUM)
-PKGARCH		:= all
-PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(PKGARCH)
-PKGFILE		:= $(PKGDIR).deb
-
-include $(LIBSIMPLEIO)/ada/include/ada.mk
-include $(LIBSIMPLEIO)/include/dpkg.mk
-
-default: package.deb
-
-# Create Debian package file
-
-$(PKGDIR):
-	mkdir -p				$(PKGDIR)/DEBIAN
-	install -cm 0644 control		$(PKGDIR)/DEBIAN/control
-	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
-	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVER)/g	$(PKGDIR)/DEBIAN/control
-	sed -i s/@@TARGET@@/$(TARGET)/g		$(PKGDIR)/DEBIAN/control
-	mkdir -p				$(PKGDIR)/usr/local/share/muntsos
-	cp -R -P -p $(MUNTSOS)/doc		$(PKGDIR)/usr/local/share/muntsos
-	cp -R -P -p $(MUNTSOS)/examples		$(PKGDIR)/usr/local/share/muntsos
-	cp -R -P -p $(MUNTSOS)/include		$(PKGDIR)/usr/local/share/muntsos
-	cp -R -P -p $(MUNTSOS)/scripts		$(PKGDIR)/usr/local/share/muntsos
-	cp $(MUNTSOS)/COPYING			$(PKGDIR)/usr/local/share/muntsos/doc
-	rm -rf					$(PKGDIR)/usr/local/share/muntsos/doc/.blinky
-	rm -rf					$(PKGDIR)/usr/local/share/muntsos/doc/.rawhid
-	rm -rf					$(PKGDIR)/usr/local/share/muntsos/examples/README.*
-	rm -rf					$(PKGDIR)/usr/local/share/muntsos/examples/firmware
-	rm -rf					$(PKGDIR)/usr/local/share/muntsos/examples/ada/freemodbus
-	sed -i 's@$$(HOME)/muntsos@/usr/local/share/muntsos@g' $(PKGDIR)/usr/local/share/muntsos/examples/*/*/Makefile
-
-package.deb: $(PKGFILE)
-
-###############################################################################
-
-# Remove working files
+default:
+	$(MAKE) -f Makefile.libsimpleio-common
+	$(MAKE) -f Makefile.muntsos-common
 
 clean:
-	-rm -rf $(PKGDIR) $(PKGFILE)
-
-reallyclean: clean
-
-distclean: reallyclean
+	$(MAKE) -f Makefile.libsimpleio-common reallyclean
+	$(MAKE) -f Makefile.muntsos-common reallyclean
