@@ -46,13 +46,14 @@ endif
 
 # Build crosstool-ng
 
-default:
+$(CTNG_SRC)/build.done:
 	rm -rf $(CTNG_SRC)
 	git clone --depth 1 $(CTNG_BRANCH) $(CTNG_URL) $(CTNG_SRC)
 	cd $(CTNG_SRC) && PATH=$(BUILDPATH) ./bootstrap
 	cd $(CTNG_SRC) && PATH=$(BUILDPATH) ./configure --prefix=$(shell pwd)/$(CTNG_SRC) --disable-nls
 	cd $(CTNG_SRC) && PATH=$(BUILDPATH) $(MAKE)
 	cd $(CTNG_SRC) && PATH=$(BUILDPATH) $(MAKE) install
+	touch $@
 
 # Remove working files
 
