@@ -38,10 +38,7 @@ ifeq ($(shell uname), Darwin)
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.1.2_60748c54/bin
 # Force certain Homebrew programs to replace MacOS counterparts
 BUILDPATH	:= $(BUILDPATH):/opt/homebrew/bin
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/Cellar/binutils/2.45/bin
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/Cellar/m4/1.4.20/bin/m4
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin
-BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/use/sbin
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/gnubin
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
