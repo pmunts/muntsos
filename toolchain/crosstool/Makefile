@@ -28,34 +28,40 @@ CTNG		:= ctng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 ifeq ($(shell uname -o), Cygwin)
-# Exclude Windows system directories
-BUILDPATH	:= /bin:/sbin:/usr/bin:/usr/sbin
+# Build with Alire GNAT Native, and exclude Windows system directories
+BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/usr/sbin
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
 ifeq ($(shell uname), Darwin)
-# Force using certain Homebrew programs instead of MacOS counterparts
-BUILDPATH	:= /opt/homebrew/Cellar/binutils/2.45/bin
+# Build with Alire GNAT Native
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.1.2_60748c54/bin
+# Force certain Homebrew programs to replace MacOS counterparts
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/bin
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/Cellar/binutils/2.45/bin
 BUILDPATH	:= $(BUILDPATH):/opt/homebrew/Cellar/m4/1.4.20/bin/m4
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin:$(PATH)
+BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin
+BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/use/sbin
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
 ifeq ($(shell uname), Linux)
 ifeq ($(shell uname -m), aarch64)
-# Build with Alire GCC 15.2.0
-BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin:$(PATH)
+# Build with Alire GNAT Native 
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
+BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/use/sbin
 endif
 ifeq ($(shell uname -m), x86_64)
-# Build with Alire GCC 15.2.0
-BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin:$(PATH)
+# Build with Alire GNAT Native
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
+BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/use/sbin
 endif
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
 ifeq ($(shell uname -o), Msys2)
-# Build with Alire GCC 15.2.0, and exclude Windows system directories
-BUILDPATH	:= /bin:/sbin:/usr/bin:/usr/sbin
+# Build with Alire GNAT Native, and exclude Windows system directories
+BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/usr/sbin
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
