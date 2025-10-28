@@ -35,6 +35,18 @@ BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin:$(PATH)
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
+ifeq ($(shell uname), Linux)
+ifeq ($(shell uname -m), aarch64)
+# Build with Alire GCC 15.2.0
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin:$(PATH)
+endif
+ifeq ($(shell uname -m), x86_64)
+# Build with Alire GCC 15.2.0
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin:$(PATH)
+endif
+CTNG		:= PATH=$(BUILDPATH) $(CTNG)
+endif
+
 default: build.done
 
 ################################################################################
@@ -43,6 +55,7 @@ default: build.done
 
 prepare.done:
 	$(MAKE) -f Makefile.ctng
+	@echo CTNG is $(CTNG)
 	touch $@
 
 ################################################################################
