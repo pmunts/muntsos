@@ -58,10 +58,11 @@ BUILDOPTS	+= OPT=-dFPC_RISCV64 CROSSOPT="$(CPUOPTS)"
 endif
 
 BUILDNUM	?= 1
+OSNAME		?= unknown
 PKGNAME		:= fpc-$(TOOLCHAIN_NAME)
 PKGVER		:= $(FPC_VERSION)-$(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= $(shell dpkg --print-architecture)
-PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
+PKGSUFFIX	:= $(PKGVER)-$(OSNAME)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
 PKGFILE		:= $(PKGNAME)-$(PKGSUFFIX).deb
 
