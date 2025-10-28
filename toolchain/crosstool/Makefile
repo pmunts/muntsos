@@ -27,6 +27,12 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 CTNG		:= ctng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
+ifeq ($(shell uname -o), Cygwin)
+# Exclude Windows system directories
+BUILDPATH	:= /bin:/sbin:/usr/bin:/usr/sbin
+CTNG		:= PATH=$(BUILDPATH) $(CTNG)
+endif
+
 ifeq ($(shell uname), Darwin)
 # Force using certain Homebrew programs instead of MacOS counterparts
 BUILDPATH	:= /opt/homebrew/Cellar/binutils/2.45/bin
@@ -47,6 +53,12 @@ endif
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
+ifeq ($(shell uname -o), Msys2)
+# Build with Alire GCC 15.2.0, and exclude Windows system directories
+BUILDPATH	:= /bin:/sbin:/usr/bin:/usr/sbin
+CTNG		:= PATH=$(BUILDPATH) $(CTNG)
+endif
+
 default: build.done
 
 ################################################################################
@@ -54,7 +66,11 @@ default: build.done
 # Prepare the system for building a Crosstool-NG toolchain
 
 prepare.done:
+ifeq ($(BUILDPATH),)
 	$(MAKE) -f Makefile.ctng
+else
+	PATH=$(BUILDPATH) $(MAKE) -f Makefile.ctng
+endif
 	@echo CTNG is $(CTNG)
 	touch $@
 

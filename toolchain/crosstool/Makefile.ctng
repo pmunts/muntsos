@@ -25,34 +25,15 @@ CTNG_BRANCH	:= -b crosstool-ng-$(CTNG_VERSION)
 CTNG_URL	:= https://github.com/crosstool-ng/crosstool-ng.git
 CTNG_SRC	:= ctng
 
-ifeq ($(shell uname -o), Cygwin)
-BUILDPATH	:= $(PATH)
-endif
-
-ifeq ($(shell uname), Darwin)
-# Force using certain Homebrew programs instead of MacOS counterparts
-BUILDPATH	:= /opt/homebrew/Cellar/binutils/2.45/bin
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/Cellar/m4/1.4.20/bin/m4
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/opt/bison/bin:$(PATH)
-endif
-
-ifeq ($(shell uname), Linux)
-BUILDPATH	:= $(PATH)
-endif
-
-ifeq ($(shell uname -o), Msys)
-BUILDPATH	:= $(PATH)
-endif
-
 # Build crosstool-ng
 
 $(CTNG_SRC)/build.done:
 	rm -rf $(CTNG_SRC)
 	git clone --depth 1 $(CTNG_BRANCH) $(CTNG_URL) $(CTNG_SRC)
-	cd $(CTNG_SRC) && PATH=$(BUILDPATH) ./bootstrap
-	cd $(CTNG_SRC) && PATH=$(BUILDPATH) ./configure --prefix=$(shell pwd)/$(CTNG_SRC) --disable-nls
-	cd $(CTNG_SRC) && PATH=$(BUILDPATH) $(MAKE)
-	cd $(CTNG_SRC) && PATH=$(BUILDPATH) $(MAKE) install
+	cd $(CTNG_SRC) && ./bootstrap
+	cd $(CTNG_SRC) && ./configure --prefix=$(shell pwd)/$(CTNG_SRC) --disable-nls
+	cd $(CTNG_SRC) && $(MAKE)
+	cd $(CTNG_SRC) && $(MAKE) install
 	touch $@
 
 # Remove working files
