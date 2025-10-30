@@ -24,24 +24,28 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-CTNG		:= ctng/bin/ct-ng
-INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
-
 ifeq ($(shell uname -o), Cygwin)
 # Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346e2e00
 BUILDPATH	:= $(BUILDPATH):/usr/bin
-CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
-ifeq ($(shell uname), Darwin)
-# Build with Alire GNAT Native
+#ifeq ($(shell uname), Darwin)
+## Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.1.2_60748c54/bin
-# Force certain Homebrew programs to replace MacOS counterparts
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/bin
-BUILDPATH	:= $(BUILDPATH):/opt/homebrew/gnubin
-CTNG		:= PATH=$(BUILDPATH) $(CTNG)
-endif
+## Force certain Homebrew programs to replace MacOS counterparts
+#BUILDPATH	:= $(BUILDPATH):/opt/homebrew/bin
+#BUILDPATH	:= $(BUILDPATH):/opt/homebrew/gnubin
+BREW_PREFIX	:= $(shell brew --prefix)
+BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/bin
+BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/opt/binutils/bin
+BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/opt/bison/bin
+BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/opt/libtool/libexec/gnubin
+BUILDPATH	:= $(BUILDPATH):/bin:/usr/bin
+CPPFLAGS	:= -I$(BREW_PREFIX)/include -I$(BREW_PREFIX)/opt/binutils/include -I$(BREW_PREFIX)/opt/ncurses/include
+LDFLAGS		:= -L$(BREW_PREFIX)/opt/binutils/lib -L$(BREW_PREFIX)/opt/bison/lib -L$(BREW_PREFIX)/opt/ncurses/lib
+PKG_CONFIG_PATH	:= $(BREW_PREFIX)/share/pkgconfig
+#endif
 
 ifeq ($(shell uname), Linux)
 ifeq ($(shell uname -m), aarch64)
@@ -54,15 +58,16 @@ ifeq ($(shell uname -m), x86_64)
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
-CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
 ifeq ($(shell uname -o), Msys2)
 # Build with Alire GNAT Native, and exclude Windows system directories
 BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346e2e00
 BUILDPATH	:= $(BUILDPATH):/usr/bin
-CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
+
+CTNG		:= PATH=$(BUILDPATH) ./ctng/bin/ct-ng
+INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 default: build.done
 
@@ -71,12 +76,7 @@ default: build.done
 # Prepare the system for building a Crosstool-NG toolchain
 
 prepare.done:
-ifeq ($(BUILDPATH),)
-	$(MAKE) -f Makefile.ctng
-else
 	PATH=$(BUILDPATH) $(MAKE) -f Makefile.ctng
-endif
-	@echo CTNG is $(CTNG)
 	touch $@
 
 ################################################################################
