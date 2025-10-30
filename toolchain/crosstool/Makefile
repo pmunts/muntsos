@@ -28,8 +28,9 @@ CTNG		:= ctng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 ifeq ($(shell uname -o), Cygwin)
-# Build with Alire GNAT Native, and exclude Windows system directories
-BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/usr/sbin
+# Build with Alire GNAT Native
+BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346e2e00
+BUILDPATH	:= $(BUILDPATH):/usr/bin
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
@@ -46,19 +47,20 @@ ifeq ($(shell uname), Linux)
 ifeq ($(shell uname -m), aarch64)
 # Build with Alire GNAT Native 
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
-BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/use/sbin
+BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
 ifeq ($(shell uname -m), x86_64)
 # Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
-BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/use/sbin
+BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
 ifeq ($(shell uname -o), Msys2)
 # Build with Alire GNAT Native, and exclude Windows system directories
-BUILDPATH	:= $(BUILDPATH):/bin:/sbin:/usr/bin:/usr/sbin
+BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346e2e00
+BUILDPATH	:= $(BUILDPATH):/usr/bin
 CTNG		:= PATH=$(BUILDPATH) $(CTNG)
 endif
 
