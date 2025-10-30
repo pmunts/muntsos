@@ -152,8 +152,8 @@ clean:
 
 reallyclean: clean
 	-chmod -R u+w gcc*
-	rm -rf .config* build* config* gcc* include
+	rm -rf .config* build* config* gcc*
 
 distclean: reallyclean
 	$(MAKE) -f Makefile.ctng clean
-	rm -rf distfiles prepare.done
+	rm -rf distfiles prepare.done source.done
