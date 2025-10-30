@@ -156,4 +156,4 @@ reallyclean: clean
 
 distclean: reallyclean
 	$(MAKE) -f Makefile.ctng clean
-	rm -rf distfiles
+	rm -rf distfiles prepare.done
