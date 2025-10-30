@@ -30,7 +30,7 @@ BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
 
-#ifeq ($(shell uname), Darwin)
+ifeq ($(shell uname), Darwin)
 ## Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.1.2_60748c54/bin
 ## Force certain Homebrew programs to replace MacOS counterparts
@@ -43,7 +43,7 @@ BUILDPATH	:= $(BUILDPATH):/bin:/usr/bin
 CPPFLAGS	:= -I$(BREW_PREFIX)/include -I$(BREW_PREFIX)/opt/binutils/include -I$(BREW_PREFIX)/opt/ncurses/include
 LDFLAGS		:= -L$(BREW_PREFIX)/opt/binutils/lib -L$(BREW_PREFIX)/opt/bison/lib -L$(BREW_PREFIX)/opt/ncurses/lib
 PKG_CONFIG_PATH	:= $(BREW_PREFIX)/share/pkgconfig
-#endif
+endif
 
 ifeq ($(shell uname), Linux)
 ifeq ($(shell uname -m), aarch64)
@@ -152,7 +152,7 @@ clean:
 
 reallyclean: clean
 	-chmod -R u+w gcc*
-	rm -rf .config* build* config* *.done gcc* include
+	rm -rf .config* build* config* gcc* include
 
 distclean: reallyclean
 	$(MAKE) -f Makefile.ctng clean
