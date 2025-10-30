@@ -34,8 +34,6 @@ endif
 ## Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.1.2_60748c54/bin
 ## Force certain Homebrew programs to replace MacOS counterparts
-#BUILDPATH	:= $(BUILDPATH):/opt/homebrew/bin
-#BUILDPATH	:= $(BUILDPATH):/opt/homebrew/gnubin
 BREW_PREFIX	:= $(shell brew --prefix)
 BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/bin
 BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/opt/binutils/bin
