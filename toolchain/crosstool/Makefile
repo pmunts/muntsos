@@ -58,7 +58,7 @@ BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
 endif
 
-ifeq ($(shell uname -o), Msys2)
+ifeq ($(shell uname -o), Msys)
 # Build with Alire GNAT Native, and exclude Windows system directories
 BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346e2e00
 BUILDPATH	:= $(BUILDPATH):/usr/bin
