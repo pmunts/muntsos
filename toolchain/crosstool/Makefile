@@ -82,23 +82,23 @@ prepare.done:
 # Configure the cross-toolchain
 
 config.done: prepare.done
-	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
+	DEFCONFIG=$(BOARDNAME).config$(CONFIGSUFFIX) $(CTNG) defconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
+	DEFCONFIG=$(BOARDNAME).config$(CONFIGSUFFIX) $(CTNG) savedefconfig
 	touch $@
 
 menuconfig: prepare.done
-	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
+	DEFCONFIG=$(BOARDNAME).config$(CONFIGSUFFIX) $(CTNG) defconfig
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
+	DEFCONFIG=$(BOARDNAME).config$(CONFIGSUFFIX) $(CTNG) savedefconfig
 	touch config.done
 
 upgradeconfig: prepare.done
-	DEFCONFIG=$(BOARDNAME).config $(CTNG) defconfig
+	DEFCONFIG=$(BOARDNAME).config$(CONFIGSUFFIX) $(CTNG) defconfig
 	$(CTNG) upgradeconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(BOARDNAME).config $(CTNG) savedefconfig
+	DEFCONFIG=$(BOARDNAME).config$(CONFIGSUFFIX) $(CTNG) savedefconfig
 	touch config.done
 
 ################################################################################
