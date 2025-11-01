@@ -24,12 +24,6 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-ifeq ($(shell uname -o), Cygwin)
-# Build with Alire GNAT Native
-BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346e2e00
-BUILDPATH	:= $(BUILDPATH):/usr/bin
-endif
-
 ifeq ($(shell uname), Darwin)
 ## Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.1.2_60748c54/bin
@@ -58,13 +52,7 @@ BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
 endif
 
-ifeq ($(shell uname -o), Msys)
-# Build with Alire GNAT Native, and exclude Windows system directories
-BUILDPATH	:= $(HOME)/AppData/Local/alire/cache/toolchains/gnat_native_15.2.1_346e2e00
-BUILDPATH	:= $(BUILDPATH):/usr/bin
-endif
-
-CTNG		:= PATH=$(BUILDPATH) ./ctng/bin/ct-ng
+CTNG		:= ./ctng/bin/ct-ng
 INSTALLDIR	:= gcc-$(CONFIGURE_NAME)
 
 default: build.done
