@@ -49,7 +49,7 @@ ifeq ($(shell uname -m), x86_64)
 # Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
 ifeq ($(CONFIGSUFFIX), .win64)
-BUILDPATH	:= $(BUILDPATH):$(shell pwd)/x86-64-w64-mingw32/bin
+BUILDPATH	:= $(BUILDPATH):$(shell pwd)/x86_64-w64-mingw32/gcc-x86_64-w64-mingw32/bin
 endif
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
