@@ -41,20 +41,20 @@ prepare.done:
 
 # Configure the cross-toolchain
 
-config.done:
+config.done: prepare.done
 	DEFCONFIG=$(TUPLE).config $(CTNG) defconfig
 	$(CTNG) oldconfig
 	DEFCONFIG=$(TUPLE).config $(CTNG) savedefconfig
 	touch $@
 
-menuconfig:
+menuconfig: prepare.done
 	DEFCONFIG=$(TUPLE).config $(CTNG) defconfig
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
 	DEFCONFIG=$(TUPLE).config $(CTNG) savedefconfig
 	touch config.done
 
-upgradeconfig:
+upgradeconfig: prepare.done
 	DEFCONFIG=$(TUPLE).config $(CTNG) defconfig
 	$(CTNG) upgradeconfig
 	$(CTNG) oldconfig
