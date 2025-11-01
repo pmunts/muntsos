@@ -23,7 +23,7 @@
 
 TUPLE		:= x86_64-w64-mingw32
 INSTALLDIR	:= gcc-$(TUPLE)
-BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 CTNG		:= PATH=$(BUILDPATH) ./ctng/bin/ct-ng
 
