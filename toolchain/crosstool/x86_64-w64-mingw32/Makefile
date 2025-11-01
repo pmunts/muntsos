@@ -21,35 +21,44 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-CTNG		?= ct-ng
-
 TUPLE		:= x86_64-w64-mingw32
 INSTALLDIR	:= gcc-$(TUPLE)
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
+BUILDPATH	:= $(BUILDPATH):/usr/bin
+CTNG		:= PATH=$(BUILDPATH) ./ctng/bin/ct-ng
 
 default: build.done
+
+################################################################################
+
+# Prepare the system for building a Crosstool-NG toolchain
+
+prepare.done:
+	PATH=$(BUILDPATH) $(MAKE) -f Makefile.ctng
+	touch $@
 
 ################################################################################
 
 # Configure the cross-toolchain
 
 config.done:
-	DEFCONFIG=$(TUPLE).config ct-ng defconfig
+	DEFCONFIG=$(TUPLE).config $(CTNG) defconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(TUPLE).config ct-ng savedefconfig
+	DEFCONFIG=$(TUPLE).config $(CTNG) savedefconfig
 	touch $@
 
 menuconfig:
-	DEFCONFIG=$(TUPLE).config ct-ng defconfig
+	DEFCONFIG=$(TUPLE).config $(CTNG) defconfig
 	$(CTNG) menuconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(TUPLE).config ct-ng savedefconfig
+	DEFCONFIG=$(TUPLE).config $(CTNG) savedefconfig
 	touch config.done
 
 upgradeconfig:
-	DEFCONFIG=$(TUPLE).config ct-ng defconfig
+	DEFCONFIG=$(TUPLE).config $(CTNG) defconfig
 	$(CTNG) upgradeconfig
 	$(CTNG) oldconfig
-	DEFCONFIG=$(TUPLE).config ct-ng savedefconfig
+	DEFCONFIG=$(TUPLE).config $(CTNG) savedefconfig
 	touch config.done
 
 ################################################################################
@@ -67,44 +76,7 @@ source.done: config.done
 # Build the cross-toolchain
 
 build.done: source.done
-	echo "Building $(INSTALLDIR)"
 	$(CTNG) build
-	touch $@
-
-################################################################################
-
-# Create optional cross-toolchain tarball
-
-tarball.done: build.done
-	tar czf $(INSTALLDIR).tgz --exclude=build.log.bz2 $(INSTALLDIR)
-	touch $@
-
-################################################################################
-
-# Create optional Debian package
-
-BUILDNUM	?= 1
-GCCVER		= $(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)
-PKGNAME		= gcc-$(shell echo $(TUPLE) | sed 's/_/-/g')
-PKGVER		= $(GCCVER)-$(shell date +%Y.%j).$(BUILDNUM)
-PKGARCH		= $(shell dpkg --print-architecture)
-PKGSUFFIX	= $(PKGVER)-$(PKGARCH)
-PKGDIR		= $(PKGNAME)-$(PKGSUFFIX)
-PKGFILE		= $(PKGNAME)-$(PKGSUFFIX).deb
-TOOLCHAINDIR	= /usr/local/$(PKGNAME)
-
-package.done : build.done
-	mkdir -p				$(PKGDIR)/DEBIAN
-	install -cm 0644 control		$(PKGDIR)/DEBIAN
-	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
-	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
-	sed -i s/@@VERSION@@/$(PKGVER)/g	$(PKGDIR)/DEBIAN/control
-	mkdir -p				$(PKGDIR)$(TOOLCHAINDIR)
-	cp -R -P -p $(INSTALLDIR)/*		$(PKGDIR)$(TOOLCHAINDIR)
-	rm					$(PKGDIR)$(TOOLCHAINDIR)/build.log.bz2
-	chmod -R ugo-w				$(PKGDIR)/usr
-	fakeroot dpkg-deb -Zxz --build		$(PKGDIR)
-	chmod -R u+w				$(PKGDIR)/usr
 	touch $@
 
 ################################################################################
@@ -112,12 +84,11 @@ package.done : build.done
 # Remove working files
 
 clean:
-	-chmod -R u+w $(PKGDIR)
-	rm -rf package.done *.tgz $(PKGDIR) $(PKGFILE)
 
 reallyclean: clean
 	-chmod -R u+w gcc*
-	rm -rf .build .config* build* config* *.done gcc* include
+	rm -rf .config* build* config* gcc*
 
 distclean: reallyclean
-	rm -rf distfiles
+	$(MAKE) -f Makefile.ctng clean
+	rm -rf distfiles prepare.done source.done
