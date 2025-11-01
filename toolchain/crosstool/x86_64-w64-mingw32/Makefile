@@ -91,4 +91,4 @@ reallyclean: clean
 
 distclean: reallyclean
 	$(MAKE) -f Makefile.ctng clean
-	rm -rf distfiles prepare.done source.done
+	rm -rf distfiles include prepare.done source.done
