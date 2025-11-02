@@ -1,0 +1,16 @@
+--- src/gnu-devtools-for-arm/build-gnu-toolchain.sh.orig	2025-11-01 21:45:06.000000000 -0700
++++ src/gnu-devtools-for-arm/build-gnu-toolchain.sh	2025-11-02 08:20:10.959490645 -0800
+@@ -360,6 +360,13 @@
+   fi
+ 
+   case $target in
++  arm-muntsos-linux-gnueabihf)
++    arch="${arch:-armv6zk}"
++    extraflags="$extraflags --config-flags-gcc=--with-cpu=arm1176jzf-s"
++    extraflags="$extraflags --config-flags-gcc=--with-float=hard"
++    extraflags="$extraflags --config-flags-gcc=--with-fpu=vfpv2"
++    ;;
++
+   arm*-none-eabi)
+     if [[ "$flag_enable_aprofile" == "0" && "$flag_enable_rmprofile" == "0" ]]; then
+       # If no A or RM profile was selected, build both

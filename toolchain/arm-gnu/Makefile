@@ -29,8 +29,6 @@ default: build.done
 # Download all of the source distributions for an ARM GNU cross-toolchain and
 # then create a single reusable distribution tarball
 
-SRCDIST		:= arm-gnu-sources.tar
-
 DEVTOOLSURL	:= https://gitlab.arm.com/tooling/gnu-devtools-for-arm.git
 DEVTOOLSDIR	:= src/gnu-devtools-for-arm
 
@@ -38,6 +36,8 @@ GITFLAGS	:= -c advice.detachedHead=false
 GCCTAG		:= releases/gcc-15.2.0
 GLIBCTAG	:= glibc-2.41
 LINUXTAG	:= v6.12
+
+SRCDIST		:= arm-gnu-sources.tar
 
 $(SRCDIST):
 	mkdir -p src
@@ -47,7 +47,9 @@ $(SRCDIST):
 	cd src/glibc && git $(GITFLAGS) checkout $(GLIBCTAG)
 	cd src/linux && git $(GITFLAGS) checkout $(LINUXTAG)
 	tar cf $@ --exclude='.git*' src
-	patch -b -p 0 <arm-gnu.patch
+ifneq ($(wildcard $(BOARDNAME).patch),)
+	patch -b -p0 <$(BOARDNAME).patch
+endif
 	touch source.done
 
 ##############################################################################
@@ -56,12 +58,23 @@ $(SRCDIST):
 
 source.done: $(SRCDIST)
 	tar xf $^
-	patch -b -p 0 <arm-gnu.patch
+ifneq ($(wildcard $(BOARDNAME).patch),)
+	patch -b -p0 <$(BOARDNAME).patch
+endif
 	touch $@
 
 ##############################################################################
 
 # Build an ARM GNU cross-toolchain
+
+BUILDSCRIPT	:= build-gnu-toolchain.sh
+
+BUILDOPTIONS	:= --target=$(CONFIGURE_NAME)
+BUILDOPTIONS	:= $(BUILDOPTIONS) -- --release
+BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=ada
+BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=fortran
+BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=go
+BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=m2
 
 ifeq ($(shell uname -m), aarch64)
 # Build with Alire GNAT Native 
@@ -74,15 +87,6 @@ ifeq ($(shell uname -m), x86_64)
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
 BUILDPATH	:= $(BUILDPATH):/bin:$(shell pwd)/$(DEVTOOLSDIR)
 endif
-
-BUILDSCRIPT	:= build-gnu-toolchain.sh
-
-BUILDOPTIONS	:= --target=$(CONFIGURE_NAME)
-BUILDOPTIONS	:= $(BUILDOPTIONS) -- --release
-BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=ada
-BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=fortran
-BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=go
-BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=m2
 
 INSTALLDIR	:= build-$(CONFIGURE_NAME)/install
 
