@@ -29,11 +29,7 @@ GCC_VERN	:= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gc
 GCC_VERS	:= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$0 }')
 
 BUILDNUM	?= 1
-ifeq ($(shell uname), Darwin)
-OSNAME		:= macos-$(shell uname -a | awk '{ print $$3 }')
-else
 OSNAME		?= unknown
-endif
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
 PKGVER		:= $(GCC_VERN)-$(shell date +%Y.%j).$(BUILDNUM)
 PKGARCH		:= $(shell dpkg --print-architecture)
@@ -65,7 +61,7 @@ package.deb: build.done
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
-	cp -R -P -p gcc-$(CONFIGURE_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
+	cp -R -P -p $(INSTALLDIR)			$(PKGDIR)$(TOOLCHAIN_DIR)
 	mkdir -p					$(GPRBUILDDEST)
 	cp -R -P -p $(GPRBUILDDIST)/*			$(GPRBUILDDEST)
 	rm -rf						$(GPRBUILDDEST)/alire*
