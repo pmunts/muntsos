@@ -118,7 +118,7 @@ endif
 clean:
 
 reallyclean: clean
-	rm -rf *.done src
+	rm -rf *.done build* gcc* src
 
 distclean: reallyclean
 	rm -f $(SRCDIST)
