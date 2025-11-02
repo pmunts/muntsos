@@ -33,7 +33,8 @@ DEVTOOLSURL	:= https://gitlab.arm.com/tooling/gnu-devtools-for-arm.git
 DEVTOOLSDIR	:= src/gnu-devtools-for-arm
 
 GITFLAGS	:= -c advice.detachedHead=false
-GCCTAG		:= releases/gcc-15.2.0
+GCCVER		:= 15.2.0
+GCCTAG		:= releases/gcc-$(GCCVER)
 GLIBCTAG	:= glibc-2.41
 LINUXTAG	:= v6.12
 
@@ -67,9 +68,11 @@ endif
 
 # Build an ARM GNU cross-toolchain
 
+BUILDDIR	:= $(shell pwd)/build
 BUILDSCRIPT	:= build-gnu-toolchain.sh
 
 BUILDOPTIONS	:= --target=$(CONFIGURE_NAME)
+BUILDOPTIONS	:= --builddir=$(BUILDDIR)
 BUILDOPTIONS	:= $(BUILDOPTIONS) -- --release
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=ada
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=fortran
@@ -88,7 +91,7 @@ BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/b
 BUILDPATH	:= $(BUILDPATH):/bin:$(shell pwd)/$(DEVTOOLSDIR)
 endif
 
-INSTALLDIR	:= build-$(CONFIGURE_NAME)/install
+INSTALLDIR	:= $(BUILDDIR)/install
 
 build.done: source.done
 	PATH=$(BUILDPATH) $(BUILDSCRIPT) $(BUILDOPTIONS) 2>&1 | tee build.log
@@ -110,8 +113,8 @@ endif
 	rsync -avcq $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin/	$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/bin
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin
 	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/var
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(shell awk -F '"' '/CT_GCC_VERSION=/ { print $$2 }' .config)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
 	cd $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
 	touch $@
 
