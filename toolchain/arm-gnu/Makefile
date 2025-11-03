@@ -43,12 +43,12 @@ SRCDIST		:= arm-gnu-sources.tar
 $(SRCDIST):
 	mkdir -p src
 	cd src && git clone $(DEVTOOLSURL)
-	cd $(DEVTOOLSDIR) && python3 extras/source-fetch.py checkout --src-dir=.. ../../arm-gnu.spc
+	cd $(DEVTOOLSDIR) && python3 extras/source-fetch.py checkout --src-dir=.. spc/trunk.spc
 	cd src/gcc   && git $(GITFLAGS) checkout $(GCCTAG)
 	cd src/glibc && git $(GITFLAGS) checkout $(GLIBCTAG)
 	cd src/linux && git $(GITFLAGS) checkout $(LINUXTAG)
 	tar cf $@ --exclude='.git*' src
-ifneq ($(wildcard) $BOARDNAME.Patch,)
+ifneq ($(wildcard $(BOARDNAME).patch),)
 	patch -b -p0 <$(BOARDNAME).patch
 endif
 	touch source.done
@@ -59,7 +59,7 @@ endif
 
 source.done: $(SRCDIST)
 	tar xf $^
-ifneq ($(wildcard) $BOARDNAME.Patch,)
+ifneq ($(wildcard $(BOARDNAME).patch),)
 	patch -b -p0 <$(BOARDNAME).patch
 endif
 	touch $@
