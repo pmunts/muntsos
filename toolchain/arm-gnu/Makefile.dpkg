@@ -46,6 +46,7 @@ GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_5e58c08e
 endif
 GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
 GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
+GPRSHAREDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
 
 default: package.deb
 
@@ -68,14 +69,14 @@ package.deb: build.done
 	rm -rf						$(GPRBUILDDEST)/doinstall
 	rm -rf						$(GPRBUILDDEST)/share
 	cd $(GPRBUILDDEST)/bin && for P in * ; do ln -s ../$(GPRBUILDDIR)/bin/$$P ../../../bin/$$P ; done
-	mkdir -p					$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
-	install -cm 0644 template.cgpr			$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(GCC_VERN)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(GCC_VERS)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
+	mkdir -p					$(GPRSHAREDEST)
+	install -cm 0644 template.cgpr			$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
+	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
+	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERN@@/$(GCC_VERN)/g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
+	sed -i 's/@@TOOLCHAIN_VERS@@/$(GCC_VERS)/g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
 	chmod -R ugo-w					$(PKGDIR)/usr
 	fakeroot dpkg-deb -Zxz --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr
