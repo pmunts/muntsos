@@ -48,9 +48,6 @@ $(SRCDIST):
 	cd src/glibc && git $(GITFLAGS) checkout $(GLIBCTAG)
 	cd src/linux && git $(GITFLAGS) checkout $(LINUXTAG)
 	tar cf $@ --exclude='.git*' src
-ifneq ($(wildcard $(BOARDNAME).patch),)
-	patch -b -p0 <$(BOARDNAME).patch
-endif
 	touch source.done
 
 ##############################################################################
@@ -59,9 +56,6 @@ endif
 
 source.done: $(SRCDIST)
 	tar xf $^
-ifneq ($(wildcard $(BOARDNAME).patch),)
-	patch -b -p0 <$(BOARDNAME).patch
-endif
 	touch $@
 
 ##############################################################################
@@ -69,6 +63,7 @@ endif
 # Build an ARM GNU cross-toolchain
 
 BUILDDIR	:= $(shell pwd)/build
+
 BUILDOPTIONS	:= --target=$(CONFIGURE_NAME)
 BUILDOPTIONS	:= $(BUILDOPTIONS) --srcdir=$(shell pwd)/src
 BUILDOPTIONS	:= $(BUILDOPTIONS) --builddir=$(BUILDDIR)
@@ -78,16 +73,25 @@ BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=fortran
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=go
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=m2
 BUILDOPTIONS	:= $(BUILDOPTIONS) --release
+
+ifeq ($(BOARDNAME), RaspberryPi1)
+BUILDOPTIONS	:= $(BUILDOPTIONS) --config-flags-gcc=--with-cpu=arm1176jzf-s
+BUILDOPTIONS	:= $(BUILDOPTIONS) --config-flags-gcc=--with-float=hard
+BUILDOPTIONS	:= $(BUILDOPTIONS) --config-flags-gcc=--with-fpu=vfpv2
+endif
+
 ifeq ($(shell uname -m), aarch64)
 # Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
 BUILDPATH	:= $(BUILDPATH):/bin:$(shell pwd)/$(DEVTOOLSDIR)
 endif
+
 ifeq ($(shell uname -m), x86_64)
 # Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
 BUILDPATH	:= $(BUILDPATH):/bin:$(shell pwd)/$(DEVTOOLSDIR)
 endif
+
 BUILDSCRIPT	:= build-cross-linux-toolchain.sh
 INSTALLDIR	:= $(BUILDDIR)/install
 
