@@ -30,7 +30,7 @@ GCC_VERS	:= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gc
 
 BUILDNUM	?= 1
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(GCC_VERN)-$(shell date +%Y.%j).$(BUILDNUM)
+PKGVER		:= $(GCC_VERN)-$(shell date +%Y.%j)-$(BUILDNUM)
 PKGARCH		:= $(shell dpkg --print-architecture)
 PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
