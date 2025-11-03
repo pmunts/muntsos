@@ -48,6 +48,9 @@ $(SRCDIST):
 	cd src/glibc && git $(GITFLAGS) checkout $(GLIBCTAG)
 	cd src/linux && git $(GITFLAGS) checkout $(LINUXTAG)
 	tar cf $@ --exclude='.git*' src
+ifneq ($(wildcard) $BOARDNAME.Patch,)
+	patch -b -p0 <$(BOARDNAME).patch
+endif
 	touch source.done
 
 ##############################################################################
@@ -56,29 +59,26 @@ $(SRCDIST):
 
 source.done: $(SRCDIST)
 	tar xf $^
+ifneq ($(wildcard) $BOARDNAME.Patch,)
+	patch -b -p0 <$(BOARDNAME).patch
+endif
 	touch $@
 
 ##############################################################################
 
 # Build an ARM GNU cross-toolchain
 
-BUILDDIR	:= $(shell pwd)/build
+BUILDDIR	:= $(shell pwd)/build-$(CONFIGURE_NAME)
 
 BUILDOPTIONS	:= --target=$(CONFIGURE_NAME)
-BUILDOPTIONS	:= $(BUILDOPTIONS) --srcdir=$(shell pwd)/src
 BUILDOPTIONS	:= $(BUILDOPTIONS) --builddir=$(BUILDDIR)
+BUILDOPTIONS	:= $(BUILDOPTIONS) --srcdir=$(shell pwd)/src
 BUILDOPTIONS	:= $(BUILDOPTIONS) --disable-multiarch
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=ada
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=fortran
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=go
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=m2
 BUILDOPTIONS	:= $(BUILDOPTIONS) --release
-
-ifeq ($(BOARDNAME), RaspberryPi1)
-BUILDOPTIONS	:= $(BUILDOPTIONS) --config-flags-gcc=--with-cpu=arm1176jzf-s
-BUILDOPTIONS	:= $(BUILDOPTIONS) --config-flags-gcc=--with-float=hard
-BUILDOPTIONS	:= $(BUILDOPTIONS) --config-flags-gcc=--with-fpu=vfpv2
-endif
 
 ifeq ($(shell uname -m), aarch64)
 # Build with Alire GNAT Native
@@ -93,31 +93,30 @@ BUILDPATH	:= $(BUILDPATH):/bin:$(shell pwd)/$(DEVTOOLSDIR)
 endif
 
 BUILDSCRIPT	:= build-cross-linux-toolchain.sh
-INSTALLDIR	:= $(BUILDDIR)/install
 
 build.done: source.done
-	PATH=$(BUILDPATH) $(BUILDSCRIPT) $(BUILDOPTIONS) 2>&1 | tee build.log
+	PATH=$(BUILDPATH) $(BUILDSCRIPT) $(BUILDOPTIONS)
 	# Rearrange sysroot directory tree
-	rsync -avcq $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/etc/		$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/etc
-	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/etc
-ifneq ($(wildcard $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib64),)
-	rsync -avcq $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib64/		$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib
-	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib64
-	ln -s -f lib							$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib64
+	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/etc/		$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/etc
+	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/etc
+ifneq ($(wildcard $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64),)
+	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64/		$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib
+	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64
+	ln -s -f lib								$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64
 endif
-	rsync -avcq $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin/		$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/bin
-	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/sbin
-ifneq ($(wildcard $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib64),)
-	rsync -avcq $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib64/	$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib
-	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib64
-	ln -s -f lib							$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib64
+	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/sbin/		$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/bin
+	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/sbin
+ifneq ($(wildcard $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64),)
+	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64/	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib
+	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64
+	ln -s -f lib								$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64
 endif
-	rsync -avcq $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin/	$(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/bin
-	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/sbin
-	rm -rf $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/var
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so  $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnat.so
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
-	cd $(INSTALLDIR)/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
+	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/sbin/	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/bin
+	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/sbin
+	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/var
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib/libgnat.so
+	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
+	cd $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
 	touch $@
 
 ##############################################################################

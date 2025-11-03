@@ -1,0 +1,15 @@
+--- src/gnu-devtools-for-arm/build-cross-linux-toolchain.sh.orig	2025-11-02 23:54:08.528312258 -0800
++++ src/gnu-devtools-for-arm/build-cross-linux-toolchain.sh	2025-11-02 23:59:47.281828768 -0800
+@@ -566,6 +566,12 @@
+ target_lib=lib
+ multilib_purecap=0
+ case $target in
++  arm-muntsos-linux-gnueabihf)
++    extra_config_flags_gcc="${extra_config_flags_gcc:-} --with-cpu=arm1176jzf-s --with-float=hard --with-fpu=vfpv2"
++    linux_arch=arm
++    enable_binutils_targets="arm-muntsos-linux-gnueabihf"
++  ;;
++
+   arm*-*-linux-gnueabi* | arm*-linux-gnueabi*)
+     extra_config_flags_gcc="${extra_config_flags_gcc:-} --with-arch=armv7-a"
+     linux_arch=arm
