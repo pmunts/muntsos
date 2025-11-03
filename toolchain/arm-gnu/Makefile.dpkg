@@ -87,10 +87,3 @@ package.deb: build.done
 clean:
 	-chmod -R u+w $(PKGDIR)
 	rm -rf $(PKGDIR) $(PKGFILE)
-
-reallyclean: clean
-	-chmod -R u+w gcc*
-	rm -rf .config* build* config* *.done gcc* include
-
-distclean: reallyclean
-	rm -rf distfiles
