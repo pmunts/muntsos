@@ -24,68 +24,47 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-INSTALLDIR	:= build-$(CONFIGURE_NAME)/install
-GCC_VERN	:= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$3 }')
-GCC_VERS	:= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$0 }')
-
-BUILDNUM	?= 1
-PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
-PKGVER		:= $(GCC_VERN)_$(shell date +%Y.%j)
-PKGARCH		:= $(shell uname -m)
-PKGDIR		:= $(PKGNAME)
-PKGFILE		:= $(PKGNAME)-$(GCC_VERN)-$(shell date +%Y.%j)-$(BUILDNUM)-$(PKGARCH).rpm
-
-GPRBUILDVER	:= 25.0.1
-ifeq ($(PKGARCH), x86_64)
-GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_9a2e6cfb
-endif
-ifeq ($(PKGARCH), aarch64)
-GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_5e58c08e
-endif
-GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
-GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
-GPRSHAREDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr
-
 default: package.rpm
 
 ################################################################################
 
-# Create RPM package
+# Define a rule to convert a Debian package to an RPM package
 
-package.rpm: build.done
-	cp specfile.template				specfile
-	sed -i s/@@NAME@@/$(PKGNAME)/g			specfile
-	sed -i s/@@ARCH@@/$(PKGARCH)/g			specfile
-	sed -i s/@@VERSION@@/$(PKGVER)/g		specfile
-	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g		specfile
-	sed -i s/@@BUILDNUM@@/$(BUILDNUM)/g		specfile
-	mkdir -p					$(PKGDIR)/usr/local
-	cp -R -P -p $(INSTALLDIR)			$(PKGDIR)$(TOOLCHAIN_DIR)
-	mkdir -p					$(GPRBUILDDEST)
-	cp -R -P -p $(GPRBUILDDIST)/*			$(GPRBUILDDEST)
-	rm -rf						$(GPRBUILDDEST)/alire*
-	rm -rf						$(GPRBUILDDEST)/doinstall
-	rm -rf						$(GPRBUILDDEST)/share
-	cd $(GPRBUILDDEST)/bin && for P in * ; do ln -s ../$(GPRBUILDDIR)/bin/$$P ../../../bin/$$P ; done
-	mkdir -p					$(GPRSHAREDEST)
-	install -cm 0644 template.cgpr			$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g' $(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
-	sed -i 's:@@GPRBUILD_DIR@@:$(GPRBUILDDIR):g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TARGET_NAME@@/$(CONFIGURE_NAME)/g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
-	sed -i 's:@@TOOLCHAIN_DIR@@:$(TOOLCHAIN_DIR):g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERN@@/$(GCC_VERN)/g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
-	sed -i 's/@@TOOLCHAIN_VERS@@/$(GCC_VERS)/g'	$(GPRSHAREDEST)/$(CONFIGURE_NAME).cgpr
+PKGNAME		= `awk '/Package:/ { print substr($$0, 10) }' control`
+PKGVER		= `awk -F '[ -]' '/Version:/ { printf("%s_%s", $$2, $$3) }' control`
+PKGBUILDNUM	= `awk -F '[ -]' '/Version:/ { print $$4 }' control`
+PKGARCH		= `awk '/Architecture:/ { print substr($$0, 15) }' control`
+PKGDESCRIPTION	= `awk '/Description:/ { print substr($$0, 14) }' control`
+PKGMAINTAINER	= `awk '/Maintainer:/ { print substr($$0, 13) }' control`
+PKGHOMEPAGE	= `awk '/Homepage:/ { print substr($$0, 11) }' control`
+PKGDIR		= gcc-$(CONFIGURE_NAME)-$(TOOLCHAIN_BUILDER)
+
+%.rpm: %.deb
+	ar x $< control.tar.xz
+	tar xJf control.tar.xz --strip=1 --mode=u+w
+	cp specfile.template					specfile
+	sed -i "s/@@NAME@@/$(PKGNAME)/g"			specfile
+	sed -i "s/@@VERSION@@/$(PKGVER)/g"			specfile
+	sed -i "s/@@BUILDNUM@@/$(PKGBUILDNUM)/g"		specfile
+	sed -i "s/@@ARCH@@/$(PKGARCH)/g"			specfile
+	sed -i "s/BuildArch: amd64/BuildArch: x86_64/g"		specfile
+	sed -i "s/BuildArch: arm64/BuildArch: aarch64/g"	specfile
+	sed -i "s/@@DESCRIPTION@@/$(PKGDESCRIPTION)/g"		specfile
+	sed -i "s/@@MAINTAINER@@/$(PKGMAINTAINER)/g"		specfile
+	sed -i "s#@@HOMEPAGE@@#$(PKGHOMEPAGE)#g"		specfile
+	ar x $< data.tar.xz
+	mkdir -p $(PKGDIR)
+	fakeroot tar xJf data.tar.xz --directory=$(PKGDIR) --strip=1
+	chmod -R u+w $(PKGDIR)
 	cd $(PKGDIR) && find * -type d -exec echo "%dir /{}" ";"	>>../specfile
 	cd $(PKGDIR) && find * -type f -exec echo "/{}" ";"		>>../specfile
 	cd $(PKGDIR) && find * -type l -exec echo "/{}" ";"		>>../specfile
 	rpmbuild --buildroot=`pwd`/$(PKGDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
-	cp rpmbuild/RPMS/*/*.rpm $(PKGFILE)
-	rm -rf rpmbuild specfile
+	cp rpmbuild/RPMS/*/*.rpm $@
 
 ################################################################################
 
 # Remove working files
 
 clean:
-	-chmod -R u+w $(PKGDIR)
-	rm -rf $(PKGDIR) $(PKGFILE) rpmbuild specfile
+	rm -rf $(PKGDIR) control gcc*.rpm rpmbuild specfile *.xz
