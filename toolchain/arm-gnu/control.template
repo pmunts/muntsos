@@ -1,7 +1,6 @@
 Package: @@NAME@@
-Section: misc
-Priority: extra
-Maintainer: Philip Munts <phil@munts.net>
-Architecture: @@ARCH@@
 Version: @@VERSION@@
+Architecture: @@ARCH@@
 Description: GCC cross-toolchain for @@BOARDNAME@@ built with GNU Dev Tools for ARM
+Maintainer: Philip Munts <phil@munts.net>
+Homepage: https://github.com/pmunts/muntsos
