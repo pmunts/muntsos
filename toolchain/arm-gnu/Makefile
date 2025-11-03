@@ -69,28 +69,26 @@ endif
 # Build an ARM GNU cross-toolchain
 
 BUILDDIR	:= $(shell pwd)/build
-BUILDSCRIPT	:= build-gnu-toolchain.sh
-
 BUILDOPTIONS	:= --target=$(CONFIGURE_NAME)
-BUILDOPTIONS	:= --builddir=$(BUILDDIR)
-BUILDOPTIONS	:= $(BUILDOPTIONS) -- --release
+BUILDOPTIONS	:= $(BUILDOPTIONS) --srcdir=$(shell pwd)/src
+BUILDOPTIONS	:= $(BUILDOPTIONS) --builddir=$(BUILDDIR)
+BUILDOPTIONS	:= $(BUILDOPTIONS) --disable-multiarch
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=ada
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=fortran
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=go
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=m2
-
+BUILDOPTIONS	:= $(BUILDOPTIONS) --release
 ifeq ($(shell uname -m), aarch64)
-# Build with Alire GNAT Native 
+# Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
 BUILDPATH	:= $(BUILDPATH):/bin:$(shell pwd)/$(DEVTOOLSDIR)
 endif
-
 ifeq ($(shell uname -m), x86_64)
 # Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
 BUILDPATH	:= $(BUILDPATH):/bin:$(shell pwd)/$(DEVTOOLSDIR)
 endif
-
+BUILDSCRIPT	:= build-cross-linux-toolchain.sh
 INSTALLDIR	:= $(BUILDDIR)/install
 
 build.done: source.done
