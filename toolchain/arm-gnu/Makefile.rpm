@@ -1,5 +1,4 @@
 # Makefile for building a crosstool-NG cross-toolchain RPM package file
-
 # Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -20,10 +19,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../..
-
-include $(MUNTSOS)/include/$(BOARDNAME).mk
-
 default: package.rpm
 
 ################################################################################
@@ -37,7 +32,7 @@ PKGARCH		= `awk '/Architecture:/ { print substr($$0, 15) }' control`
 PKGDESCRIPTION	= `awk '/Description:/ { print substr($$0, 14) }' control`
 PKGMAINTAINER	= `awk '/Maintainer:/ { print substr($$0, 13) }' control`
 PKGHOMEPAGE	= `awk '/Homepage:/ { print substr($$0, 11) }' control`
-PKGDIR		= gcc-$(CONFIGURE_NAME)-$(TOOLCHAIN_BUILDER)
+PKGDIR		= `basename $< .deb`
 
 %.rpm: %.deb
 	ar x $< control.tar.xz
@@ -61,6 +56,13 @@ PKGDIR		= gcc-$(CONFIGURE_NAME)-$(TOOLCHAIN_BUILDER)
 	cd $(PKGDIR) && find * -type l -exec echo "/{}" ";"		>>../specfile
 	rpmbuild --buildroot=`pwd`/$(PKGDIR) --define="_topdir `pwd`/rpmbuild" -bb specfile
 	cp rpmbuild/RPMS/*/*.rpm $@
+
+################################################################################
+
+# Create ARM GNU cross-toolchain packages
+
+package.rpm:
+	for D in *.deb ; do $(MAKE) -f $(lastword $(MAKEFILE_LIST)) `basename $$D .deb`.rpm ; done
 
 ################################################################################
 

@@ -22,7 +22,7 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-default: build.done
+default: packages.done
 
 ##############################################################################
 
@@ -121,12 +121,24 @@ endif
 
 ##############################################################################
 
+# Create ARM GNU cross-toolchain packages
+
+packages.done: build.done
+	$(MAKE) -f Makefile.dpkg
+	$(MAKE) -f Makefile.rpm
+	touch $@
+
+##############################################################################
+
 # Remove working files
 
 clean:
+	$(MAKE) -f Makefile.dpkg clean
+	$(MAKE) -f Makefile.rpm  clean
+	rm -f packages.done
 
 reallyclean: clean
-	rm -rf *.done build* gcc* src
+	rm -rf build* src *.done
 
 distclean: reallyclean
 	rm -f $(SRCDIST)
