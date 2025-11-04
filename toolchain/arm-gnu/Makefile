@@ -127,7 +127,7 @@ packages.done: build.done
 	$(MAKE) -f Makefile.dpkg
 	$(MAKE) -f Makefile.rpm
 ifneq ($(SERVERDIR),)
-	scp gcc*.dpkg gcc*.rpm $(SERVERDIR)
+	scp gcc*.deb gcc*.rpm $(SERVERDIR)
 endif
 	touch $@
 
