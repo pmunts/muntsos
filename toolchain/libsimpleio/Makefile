@@ -88,6 +88,13 @@ libsimpleio.lib:
 
 ###############################################################################
 
+# Build the precompiled GNU Modula-2 module library for MuntsOS
+
+libsimpleiogm2.a:
+	$(MAKE) -R -C $(LIBSIMPLEIO)/gm2/lib LIBSIMPLEIO=$(LIBSIMPLEIO) LIBSIMPLEIOGM2=`pwd`/libsimpleiogm2.a
+
+###############################################################################
+
 # Build Ada source and C API shared libraries
 
 libwioe5ham1.so:
@@ -109,7 +116,7 @@ libwioe5p2p.so:
 
 # Create Debian package file
 
-$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libwioe5ham1.so libwioe5ham2.so libwioe5p2p.so
+$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libsimpleiogm2.a libwioe5ham1.so libwioe5ham2.so libwioe5p2p.so
 	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
