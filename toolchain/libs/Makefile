@@ -341,7 +341,7 @@ DISTFILES	+= $(LIBCAP_DIST)
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libs
-PKGVER		:= $(GCCVER)-$(shell date +%Y.%j).$(BUILDNUM)
+PKGVER		:= $(GCCVER)-$(shell date +%Y.%j)-$(BUILDNUM)
 PKGARCH		:= all
 PKGSUFFIX	:= $(PKGVER)-$(PKGARCH)
 PKGDIR		:= $(PKGNAME)-$(PKGSUFFIX)
