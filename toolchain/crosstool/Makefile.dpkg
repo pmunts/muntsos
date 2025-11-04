@@ -77,7 +77,7 @@ package.deb: build.done
 	sed -i 's/@@TOOLCHAIN_VERN@@/$(GCC_VERN)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	sed -i 's/@@TOOLCHAIN_VERS@@/$(GCC_VERS)/g'	$(PKGDIR)$(TOOLCHAIN_DIR)/share/gpr/$(CONFIGURE_NAME).cgpr
 	chmod -R ugo-w					$(PKGDIR)/usr
-	fakeroot dpkg-deb -Zxz --build			$(PKGDIR)
+	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R u+w					$(PKGDIR)/usr
 
 ################################################################################
