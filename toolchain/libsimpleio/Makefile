@@ -42,7 +42,7 @@ STRIP		:= $(CROSS_COMPILE)strip
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libsimpleio
-PKGVER		:= $(GCCVER)-$(shell date +%Y.%j).$(BUILDNUM)
+PKGVER		:= $(GCCVER)-$(shell date +%Y.%j)-$(BUILDNUM)
 PKGARCH		:= all
 PKGDIR		:= $(PKGNAME)-$(PKGVER)-$(PKGARCH)
 PKGFILE		:= $(PKGDIR).deb
