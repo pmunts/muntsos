@@ -38,7 +38,7 @@ LIBSLIBDIR	= $(GCCSYSROOT)/usr/lib
 LIBSPKGCONFIG	= $(GCCSYSROOT)/usr/lib/pkgconfig
 LIBSSHAREDIR	= $(GCCSYSROOT)/usr/share
 
-GCCVER		= $(shell $(CROSS_COMPILE)gcc --version | awk '/gcc/ { print $$4 }')
+GCCVER		= $(shell $(CROSS_COMPILE)gcc --version | awk '/gcc/ { print $$3 }')
 
 # Linux Simple I/O Library
 
