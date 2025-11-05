@@ -101,35 +101,48 @@ BUILDSCRIPT	:= build-cross-linux-toolchain.sh
 
 build.done: source.done
 	PATH=$(BUILDPATH) $(BUILDSCRIPT) $(BUILDOPTIONS)
-	# Rearrange sysroot directory tree
-	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/etc/		$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/etc
-	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/etc
-ifneq ($(wildcard $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64),)
-	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64/		$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib
-	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64
-	ln -s -f lib								$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib64
+
+##############################################################################
+
+# Copy the cross-toolchain to a staging directory and rearrange the sysroot
+# directory tree into a more sane layout.
+
+STAGEDIR1	:= $(shell pwd)/gcc-$(TOOLCHAIN_NAME)
+STAGEDIR2	:= $(STAGEDIR1)/$(CONFIGURE_NAME)
+
+stage.done: build.done
+	cp -R -P -p $(BUILDDIR)/install $(STAGEDIR1)
+ifeq ($(WORDSIZE), 64)
+	# Merge lib64/ into lib/
+	rsync -avcq $(STAGEDIR2)/lib64/			$(STAGEDIR2)/lib
+	rm -rf						$(STAGEDIR2)/lib64
+	ln -s -f lib					$(STAGEDIR2)/lib64
+	rsync -avcq $(STAGEDIR2)/libc/lib64/		$(STAGEDIR2)/libc/lib
+	rm -rf						$(STAGEDIR2)/libc/lib64
+	ln -s -f lib					$(STAGEDIR2)/libc/lib64
+	rsync -avcq $(STAGEDIR2)/libc/usr/lib64/	$(STAGEDIR2)/libc/usr/lib
+	rm -rf						$(STAGEDIR2)/libc/usr/lib64
+	ln -s -f lib					$(STAGEDIR2)/libc/usr/lib64
 endif
-	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/sbin/		$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/bin
-	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/sbin
-ifneq ($(wildcard $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64),)
-	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64/	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib
-	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64
-	ln -s -f lib								$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib64
-endif
-	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/sbin/	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/bin
-	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/sbin
-	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/var
-ifneq ($(wildcard $(BUILDDIR)/install/$(CONFIGURE_NAME)/lib64),)
-	cd $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../../lib64/* ; do ln -s -f $$F ; done
-endif
-	cd $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/*      ; do ln -s -f $$F ; done
+	rsync -avcq $(STAGEDIR2)/libc/etc/		$(STAGEDIR2)/libc/usr/etc
+	rm -rf						$(STAGEDIR2)/libc/etc
+	rsync -avcq $(STAGEDIR2)/libc/sbin/		$(STAGEDIR2)/libc/usr/bin
+	rm -rf						$(STAGEDIR2)/libc/sbin
+	rsync -avcq $(STAGEDIR2)/libc/usr/sbin/		$(STAGEDIR2)/libc/usr/bin
+	rm -rf						$(STAGEDIR2)/libc/usr/sbin
+	rm -rf						$(STAGEDIR2)/libc/var
+	# Symlink all library files in libc/usr/lib/
+	cd $(STAGEDIR2)/libc/usr/lib && for F in ../../../lib/* ; do ln -s -f $$F ; done
+	cd $(STAGEDIR2)/libc/usr/lib && for F in ../../lib/*    ; do ln -s -f $$F ; done
+	ln -s ../../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so  $(STAGEDIR2)/libc/usr/lib/libgnat.so
+	ln -s ../../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so $(STAGEDIR2)/libc/usr/lib/libgnarl.so
 	touch $@
 
 ##############################################################################
 
 # Create ARM GNU cross-toolchain packages
 
-packages.done: build.done
+packages.done: stage.done
 	$(MAKE) -f Makefile.dpkg
 	$(MAKE) -f Makefile.rpm
 ifneq ($(SERVERDIR),)
@@ -144,7 +157,7 @@ endif
 clean:
 	$(MAKE) -f Makefile.dpkg clean
 	$(MAKE) -f Makefile.rpm  clean
-	rm -f packages.done
+	rm -rf packages.done stage.done gcc*
 
 reallyclean: clean
 	rm -rf build* src *.done
