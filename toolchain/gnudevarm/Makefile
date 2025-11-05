@@ -101,6 +101,7 @@ BUILDSCRIPT	:= build-cross-linux-toolchain.sh
 
 build.done: source.done
 	PATH=$(BUILDPATH) $(BUILDSCRIPT) $(BUILDOPTIONS)
+	touch $@
 
 ##############################################################################
 
