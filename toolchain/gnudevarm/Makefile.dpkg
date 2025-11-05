@@ -60,7 +60,7 @@ package.deb: build.done
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
-	cp -R -P -p $(gcc-$(TOOLCHAIN_NAME))		$(PKGDIR)$(TOOLCHAIN_DIR)
+	cp -R -P -p gcc-$(TOOLCHAIN_NAME)		$(PKGDIR)$(TOOLCHAIN_DIR)
 	mkdir -p					$(GPRBUILDDEST)
 	cp -R -P -p $(GPRBUILDDIST)/*			$(GPRBUILDDEST)
 	rm -rf						$(GPRBUILDDEST)/alire*
