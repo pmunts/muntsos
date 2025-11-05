@@ -136,7 +136,7 @@ package.deb: install.done
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R ugo+w					$(PKGDIR)
 ifneq ($(SERVERDIR),)
-	scp fpc*.deb fpc*.rpm $(SERVERDIR)
+	scp $(PKGFILE) $(SERVERDIR)
 endif
 
 ################################################################################
