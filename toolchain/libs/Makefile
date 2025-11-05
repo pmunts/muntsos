@@ -1261,6 +1261,9 @@ $(PKGDIR): $(INSTALLDIR)/COPYING
 	touch $@
 
 package.deb: $(PKGFILE)
+ifneq ($(SERVERDIR),)
+	scp $(PKGFILE) $(SERVERDIR)
+endif
 
 ###############################################################################
 
