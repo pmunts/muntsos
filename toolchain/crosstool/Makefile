@@ -1,4 +1,5 @@
-# Makefile for building a crosstool-NG cross-toolchain
+# Makefile for building a MuntsOS Embedded Linux cross-toolchain using
+# Crosstool-NG
 
 # Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
 #
@@ -19,6 +20,8 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+
+# See also: https://crosstool-ng.github.io
 
 MUNTSOS		?= ../..
 
