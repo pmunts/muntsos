@@ -25,12 +25,6 @@ BOARDNAME	?= AArch64
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-ifeq ($(TOOLCHAIN_BUILDER), crosstool)
-FLAVOR		:= ctng
-else ifeq ($(TOOLCHAIN_BUILDER), arm-gnu)
-FLAVOR		:= abe
-endif
-
 BOARDNAMES	:= AArch64 RISCV64
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
@@ -58,7 +52,7 @@ oneplatform:
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			control.$(BOARDNAME)
 	sed -i 's/@@BOARDNAMELC@@/$(BOARDNAMELC)/g'		control.$(BOARDNAME)
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g'	control.$(BOARDNAME)
-	sed -i 's/@@FLAVOR@@/$(FLAVOR)/g'			control.$(BOARDNAME)
+	sed -i 's/@@FLAVOR@@/$(TOOLCHAIN_BUILDER)/g'		control.$(BOARDNAME)
 	sed -i 's/@@VERSION@@/$(PKGVERSION2)/g'			control.$(BOARDNAME)
 	equivs-build						control.$(BOARDNAME)
 	rm							control.$(BOARDNAME)
