@@ -24,9 +24,8 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-INSTALLDIR	:= build-$(CONFIGURE_NAME)/install
-GCC_VERN	:= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$3 }')
-GCC_VERS	:= $(shell $(INSTALLDIR)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$0 }')
+GCC_VERN	:= $(shell $(gcc-$(TOOLCHAIN_NAME))/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$3 }')
+GCC_VERS	:= $(shell $(gcc-$(TOOLCHAIN_NAME))/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$0 }')
 
 BUILDNUM	?= 1
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
@@ -61,7 +60,7 @@ package.deb: build.done
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@BOARDNAME@@/$(BOARDNAME)/g		$(PKGDIR)/DEBIAN/control
 	mkdir -p					$(PKGDIR)/usr/local
-	cp -R -P -p $(INSTALLDIR)			$(PKGDIR)$(TOOLCHAIN_DIR)
+	cp -R -P -p $(gcc-$(TOOLCHAIN_NAME))		$(PKGDIR)$(TOOLCHAIN_DIR)
 	mkdir -p					$(GPRBUILDDEST)
 	cp -R -P -p $(GPRBUILDDIST)/*			$(GPRBUILDDEST)
 	rm -rf						$(GPRBUILDDEST)/alire*
