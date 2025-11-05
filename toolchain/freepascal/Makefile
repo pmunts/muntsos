@@ -135,6 +135,9 @@ package.deb: install.done
 	chmod -R ugo-w					$(PKGDIR)/usr/local/*
 	fakeroot dpkg-deb --build			$(PKGDIR)
 	chmod -R ugo+w					$(PKGDIR)
+ifneq ($(SERVERDIR),)
+	scp fpc*.deb fpc*.rpm $(SERVERDIR)
+endif
 
 ################################################################################
 
@@ -148,5 +151,3 @@ reallyclean: clean
 
 distclean: reallyclean
 	-rm $(FPC_DIST)
-ifneq ($(SERVERDIR),)
-	scp gcc*.deb gcc*.rpm $(SERVERDIR)
