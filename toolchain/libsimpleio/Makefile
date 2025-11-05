@@ -141,6 +141,9 @@ $(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libsimpleiogm2.a libwioe
 	touch $@
 
 package.deb: $(PKGFILE)
+ifneq ($(SERVERDIR),)
+	scp $(PKGFILE) $(SERVERDIR)
+endif
 
 ###############################################################################
 
