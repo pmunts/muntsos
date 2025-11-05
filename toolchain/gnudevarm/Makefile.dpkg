@@ -24,8 +24,8 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-GCC_VERN	:= $(shell $(gcc-$(TOOLCHAIN_NAME))/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$3 }')
-GCC_VERS	:= $(shell $(gcc-$(TOOLCHAIN_NAME))/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$0 }')
+GCC_VERN	:= $(shell gcc-$(TOOLCHAIN_NAME)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$3 }')
+GCC_VERS	:= $(shell gcc-$(TOOLCHAIN_NAME)/bin/$(CONFIGURE_NAME)-gcc --version | awk '/gcc/ { print $$0 }')
 
 BUILDNUM	?= 1
 PKGNAME		:= gcc-$(TOOLCHAIN_NAME)
