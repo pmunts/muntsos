@@ -114,9 +114,10 @@ endif
 	rsync -avcq $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/sbin/	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/bin
 	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/sbin
 	rm -rf									$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/var
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnat.so	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib/libgnat.so
-	ln -s ../../../lib/gcc/$(CONFIGURE_NAME)/$(GCCVER)/adalib/libgnarl.so	$(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/lib/libgnarl.so
-	cd $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/* ; do ln -s -f $$F ; done
+ifneq ($(wildcard $(BUILDDIR)/install/$(CONFIGURE_NAME)/lib64),)
+	cd $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../../lib64/* ; do ln -s -f $$F ; done
+endif
+	cd $(BUILDDIR)/install/$(CONFIGURE_NAME)/libc/usr/lib && for F in ../../lib/*      ; do ln -s -f $$F ; done
 	touch $@
 
 ##############################################################################
