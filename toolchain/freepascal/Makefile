@@ -126,7 +126,7 @@ endif
 
 package.deb: install.done
 	mkdir -p					$(PKGDIR)/DEBIAN
-	install -cm 0644 control			$(PKGDIR)/DEBIAN
+	install -cm 0644 control.template		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g			$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVER)/g		$(PKGDIR)/DEBIAN/control
@@ -148,3 +148,5 @@ reallyclean: clean
 
 distclean: reallyclean
 	-rm $(FPC_DIST)
+ifneq ($(SERVERDIR),)
+	scp gcc*.deb gcc*.rpm $(SERVERDIR)
