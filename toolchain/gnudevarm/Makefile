@@ -1,3 +1,6 @@
+# Makefile for building a MuntsOS Embedded Linux cross-toolchain using
+# GNU Dev Tools for ARM
+
 # Copyright (C)2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -17,6 +20,8 @@
 # CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+
+# See also: https://gitlab.arm.com/tooling/gnu-devtools-for-arm
 
 MUNTSOS		?= ../..
 
