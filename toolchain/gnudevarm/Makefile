@@ -83,7 +83,7 @@ BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=ada
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=fortran
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=go
 BUILDOPTIONS	:= $(BUILDOPTIONS) --with-language=m2
-BUILDOPTIONS	:= $(BUILDOPTIONS) --release
+BUILDOPTIONS	:= $(BUILDOPTIONS) --release $(EXTRABUILDOPTIONS)
 
 ifeq ($(shell uname -m), aarch64)
 # Build with Alire GNAT Native
