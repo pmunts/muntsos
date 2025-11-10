@@ -18,7 +18,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-MUNTSOS		?= ../..
+MUNTSOS		?= ../../../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/rpm.mk
@@ -30,10 +30,11 @@ GCCTARBALL	:= $(GCCSRC).tar.gz
 GCCURL		:= $(GCCSERVER)/$(GCCTARBALL)
 GCCDIST		:= $(TEMP)/$(GCCTARBALL)
 
-BUILDDIR	:= build.d
+BUILDDIR	:= $(shell pwd)/build.d
+INSTALLDIR	:= $(shell pwd)/install.d
 
-BUILDPATH       := $(BUILDPATH):$(shell pwd)/gcc-x86_64-w64-mingw32/bin
-BUILDPATH	:= $(BUILDPATH):/usr/local/gcc-aarch64-muntsos-linux-gnu-ctng/bin
+BUILDPATH	:= $(BUILDPATH):$(shell pwd)/../cross-win64/gcc-x86_64-w64-mingw32/bin
+BUILDPATH	:= $(BUILDPATH):$(TOOLCHAIN_DIR)/bin
 BUILDPATH	:= $(BUILDPATH):/bin
 
 CONFIGOPTS	:= --prefix=$(TOOLCHAIN_DIR)
@@ -70,13 +71,8 @@ CONFIGOPTS	:= $(CONFIGOPTS) --without-long-double-128
 CONFIGOPTS	:= $(CONFIGOPTS) --without-zstd
 
 BUILDNUM	?= 1
-RPMNAME		:= gcc-$(TOOLCHAIN_NAME)
-RPMVERSION	:= $(GCCVER)_$(shell date +%Y.%j)
-RPMARCH		:= x86_64
-RPMDIR		:= $(RPMNAME)-$(RPMVERSION)-$(BUILDNUM)-win64
-RPMFILE		:= $(RPMDIR).rpm
-RPMGROUP	:= Programming
-RPMLICENSE	:= Mixed
+RELEASE		:= $(GCCVER).$(shell date +%Y.%j)-$(BUILDNUM)
+TARBALL		:= gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tgz
 
 default: build.done
 
@@ -99,9 +95,15 @@ source.done: $(GCCDIST)
 
 ##############################################################################
 
+prepare.done: source.done
+	$(MAKE) -C ../cross-win64
+	touch prepare.done
+
+##############################################################################
+
 # Configure GCC cross-toolchain
 
-config.done: source.done
+config.done: prepare.done
 	rm -rf $(BUILDDIR)
 	mkdir $(BUILDDIR)
 	cd $(BUILDDIR) && PATH=$(BUILDPATH) ../$(GCCSRC)/configure $(CONFIGOPTS)
@@ -112,26 +114,34 @@ config.done: source.done
 # Build GCC cross-toolchain
 
 build.done: config.done
-	#cd $(BUILDDIR) && PATH=$(BUILDPATH) $(MAKE)
-	#cd $(BUILDDIR) && PATH=$(BUILDPATH) $(MAKE) install DESTDIR=$(shell pwd)/$(RPMDIR)
-	cp -R -P -p $(GCCSYSROOT) $(RPMDIR)$(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)
+	cd $(BUILDDIR) && PATH=$(BUILDPATH) $(MAKE)
+	cd $(BUILDDIR) && PATH=$(BUILDPATH) $(MAKE) install DESTDIR=$(INSTALLDIR)
 	touch $@
 
 ##############################################################################
 
-# Package GCC cross-toolchain
+# Create GCC cross-chain for Windows 64 distribution tarball
 
-package.done: $(RPMFILE)
+$(TARBALL): build.done
+	rm -rf gcc-$(TOOLCHAIN_NAME)
+	cp -R -P -p $(INSTALLDIR)$(TOOLCHAIN_DIR) .
+	rm -rf gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)/*
+	rsync -avcq --delete $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/ gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)
+	chmod -R u+w gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)
+	rm -rf gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)/bin
+	tar czf $@ gcc-$(TOOLCHAIN_NAME) --owner=root --group=root --mode=ugo-w
 	touch $@
+
+tarball: $(TARBALL)
 
 ##############################################################################
 
 # Remove working files
 
 clean:
-	rm -rf gcc*win64 package.done rpmbuild specfile
+	rm -rf gcc*ctng*
 
 reallyclean: clean
-	rm -rf $(GCCSRC) $(BUILDDIR) *.done
+	rm -rf $(GCCSRC) $(BUILDDIR) $(INSTALLDIR) *.done
 
-distclean: reallclean
+distclean: reallyclean
