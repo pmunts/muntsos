@@ -181,7 +181,8 @@ stage.done: gcc.build.done
 # Create GCC cross-toolchain release tarball
 
 tarball.done: stage.done
-	tar czf gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tgz gcc-$(TOOLCHAIN_NAME) --mode=ugo-w
+	tar czf gcc-$(TOOLCHAIN_NAME)-$(RELEASE).exe gcc-$(TOOLCHAIN_NAME) --mode=ugo-w
+	md5sum -b gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tgz >gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.md5
 	touch $@
 
 ##############################################################################
