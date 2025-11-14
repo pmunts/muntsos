@@ -166,6 +166,7 @@ stage.done: gcc.build.done
 	rsync -avcqL --delete $(TOOLCHAIN_DIR)/share/gpr/ gcc-$(TOOLCHAIN_NAME)/share/gpr
 	chmod -R u+w gcc-$(TOOLCHAIN_NAME)
 	sed -i 's#/usr/local#C:/PROGRA~1/MuntsOS#g' gcc-$(TOOLCHAIN_NAME)/share/gpr/*
+	sed -i 's#("-shared-libgcc")#("-shared-libgcc", "-Wl,-rpath-link=$(LIBSLIBDIR)")#g' gcc-$(TOOLCHAIN_NAME)/share/gpr/*.cgpr
 	mkdir -p			$(GPRBUILDDEST)
 	tar xzf $(GPRBUILDDIST) -C	$(GPRBUILDDEST)
 	chmod -R u+w gcc-$(TOOLCHAIN_NAME)
@@ -181,8 +182,8 @@ stage.done: gcc.build.done
 # Create GCC cross-toolchain release tarball
 
 tarball.done: stage.done
-	tar czf gcc-$(TOOLCHAIN_NAME)-$(RELEASE).exe gcc-$(TOOLCHAIN_NAME) --mode=ugo-w
-	md5sum -b gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tgz >gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.md5
+	tar cJf gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tar.xz gcc-$(TOOLCHAIN_NAME) --mode=ugo-w
+	md5sum -b gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tar.xz >gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.md5
 	touch $@
 
 ##############################################################################
