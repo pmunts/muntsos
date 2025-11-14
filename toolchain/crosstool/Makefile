@@ -27,35 +27,16 @@ MUNTSOS		?= ../..
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-ifeq ($(shell uname), Darwin)
-## Build with Alire GNAT Native
-BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.1.2_60748c54/bin
-## Force certain Homebrew programs to replace MacOS counterparts
-BREW_PREFIX	:= $(shell brew --prefix)
-BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/bin
-BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/opt/binutils/bin
-BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/opt/bison/bin
-BUILDPATH	:= $(BUILDPATH):$(BREW_PREFIX)/opt/libtool/libexec/gnubin
-BUILDPATH	:= $(BUILDPATH):/bin:/usr/bin
-CPPFLAGS	:= -I$(BREW_PREFIX)/include -I$(BREW_PREFIX)/opt/binutils/include -I$(BREW_PREFIX)/opt/ncurses/include
-LDFLAGS		:= -L$(BREW_PREFIX)/opt/binutils/lib -L$(BREW_PREFIX)/opt/bison/lib -L$(BREW_PREFIX)/opt/ncurses/lib
-PKG_CONFIG_PATH	:= $(BREW_PREFIX)/share/pkgconfig
-endif
-
-ifeq ($(shell uname), Linux)
 ifeq ($(shell uname -m), aarch64)
 # Build with Alire GNAT Native 
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
+
 ifeq ($(shell uname -m), x86_64)
 # Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
-ifeq ($(CONFIGSUFFIX), .win64)
-BUILDPATH	:= $(BUILDPATH):$(shell pwd)/x86_64-w64-mingw32/gcc-x86_64-w64-mingw32/bin
-endif
 BUILDPATH	:= $(BUILDPATH):/usr/bin
-endif
 endif
 
 CTNG		:= PATH=$(BUILDPATH) ./ctng/bin/ct-ng
