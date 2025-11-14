@@ -23,16 +23,7 @@
 WITH "aws";
 
 LIBRARY PROJECT libsimpleio IS
-  FOR Externally_Built USE "true";
-  FOR Languages        USE ("Ada");
-  FOR Library_Name     USE "libsimpleio";
-  FOR Library_Dir      USE "LIBDIR/libsimpleio.lib";
-  FOR Library_Kind     USE "static";
-  FOR Source_Dirs      USE
-   ("/usr/local/share/libsimpleio/ada/bindings",
-    "/usr/local/share/libsimpleio/ada/devices/**",
-    "/usr/local/share/libsimpleio/ada/interfaces",
-    "/usr/local/share/libsimpleio/ada/objects/**");
+  LIBSIMPLEIO := external("LIBSIMPLEIO", "/usr/local/share/libsimpleio");
 
   Ada_Compiler_Switches :=
    ("-O3",
@@ -46,4 +37,15 @@ LIBRARY PROJECT libsimpleio IS
     "-gnatwK",
     "-gnat2022"
    );
+
+  FOR Externally_Built USE "true";
+  FOR Languages        USE ("Ada");
+  FOR Library_Name     USE "libsimpleio";
+  FOR Library_Dir      USE "LIBDIR/libsimpleio.lib";
+  FOR Library_Kind     USE "static";
+  FOR Source_Dirs      USE
+   (LIBSIMPLEIO & "/ada/bindings",
+    LIBSIMPLEIO & "/ada/devices/**",
+    LIBSIMPLEIO & "/ada/interfaces",
+    LIBSIMPLEIO & "/ada/objects/**");
 END libsimpleio;
