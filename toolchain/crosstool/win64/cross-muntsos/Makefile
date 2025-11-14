@@ -23,125 +23,180 @@ MUNTSOS		?= ../../../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/rpm.mk
 
+BUILDPATH	:= $(BUILDPATH):$(shell pwd)/../cross-win64/gcc-x86_64-w64-mingw32/bin
+BUILDPATH	:= $(BUILDPATH):$(TOOLCHAIN_DIR)/bin
+BUILDPATH	:= $(BUILDPATH):/bin
+
+BINVER		:= 2.41
+BINSRC		:= binutils-$(BINVER)
+BINSERVER	:= https://ftp.gnu.org/gnu/binutils
+BINTARBALL	:= $(BINSRC).tar.gz
+BINURL		:= $(BINSERVER)/$(BINTARBALL)
+BINDIST		:= $(TEMP)/$(BINTARBALL)
+BINBUILD	:= $(shell pwd)/binutils.build
+
+BINCONFIGOPTS	:= --prefix=$(TOOLCHAIN_DIR)
+BINCONFIGOPTS	:= $(BINCONFIGOPTS) --host=x86_64-w64-mingw32
+BINCONFIGOPTS	:= $(BINCONFIGOPTS) --target=$(CONFIGURE_NAME)
+BINCONFIGOPTS	:= $(BINCONFIGOPTS) --disable-lto
+BINCONFIGOPTS	:= $(BINCONFIGOPTS) --disable-nls
+
 GCCVER		:= 15.2.0
 GCCSRC		:= gcc-$(GCCVER)
 GCCSERVER	:= https://ftp.gnu.org/gnu/gcc/$(GCCSRC)
 GCCTARBALL	:= $(GCCSRC).tar.gz
 GCCURL		:= $(GCCSERVER)/$(GCCTARBALL)
 GCCDIST		:= $(TEMP)/$(GCCTARBALL)
+GCCBUILD	:= $(shell pwd)/gcc.build
 
-BUILDDIR	:= $(shell pwd)/build.d
-INSTALLDIR	:= $(shell pwd)/install.d
+GCCCONFIGOPTS	:= --prefix=$(TOOLCHAIN_DIR)
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --host=x86_64-w64-mingw32
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --target=$(CONFIGURE_NAME)
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libgomp
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libmpx
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libmudflap
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libquadmath
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libquadmath-support
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libsanitizer
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libssp
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-libstdcxx-verbose
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-lto
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-multilib
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-multilib
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-nls
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-plugin
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-sjlj-exceptions
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --disable-tm-clone-registry
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-__cxa_atexit
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-languages=c,c++,ada,fortran,go
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-libstdcxx 
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-long-long
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-target-optspace
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-threads
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-threads=posix
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-tls
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-tls
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --with-arch=armv8-a
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --with-sysroot=$(GCCSYSROOT)
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-system-zlib
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-long-double-128
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-zstd
 
-BUILDPATH	:= $(BUILDPATH):$(shell pwd)/../cross-win64/gcc-x86_64-w64-mingw32/bin
-BUILDPATH	:= $(BUILDPATH):$(TOOLCHAIN_DIR)/bin
-BUILDPATH	:= $(BUILDPATH):/bin
-
-CONFIGOPTS	:= --prefix=$(TOOLCHAIN_DIR)
-CONFIGOPTS	:= $(CONFIGOPTS) --host=x86_64-w64-mingw32
-CONFIGOPTS	:= $(CONFIGOPTS) --target=$(CONFIGURE_NAME)
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libgomp
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libmpx
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libmudflap
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libquadmath
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libquadmath-support
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libsanitizer
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libssp
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-libstdcxx-verbose
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-lto
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-multilib
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-multilib
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-nls
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-plugin
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-sjlj-exceptions
-CONFIGOPTS	:= $(CONFIGOPTS) --disable-tm-clone-registry
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-__cxa_atexit
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-languages=c,c++,ada,fortran,go
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-libstdcxx 
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-long-long
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-target-optspace
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-threads
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-threads=posix
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-tls
-CONFIGOPTS	:= $(CONFIGOPTS) --enable-tls
-CONFIGOPTS	:= $(CONFIGOPTS) --with-arch=armv8-a
-CONFIGOPTS	:= $(CONFIGOPTS) --with-sysroot=$(GCCSYSROOT)
-CONFIGOPTS	:= $(CONFIGOPTS) --without-system-zlib
-CONFIGOPTS	:= $(CONFIGOPTS) --without-long-double-128
-CONFIGOPTS	:= $(CONFIGOPTS) --without-zstd
+GPRBUILDVER	:= 25.0.1
+GPRBUILDDIST	:= gprbuild-$(GPRBUILDVER)-win64.tgz
+GPRBUILDDEST	:= gcc-$(TOOLCHAIN_NAME)/libexec/gprbuild-alire$(GPRBUILDVER)
 
 BUILDNUM	?= 1
+INSTALLDIR	:= $(shell pwd)/install.d
 RELEASE		:= $(GCCVER).$(shell date +%Y.%j)-$(BUILDNUM)
-TARBALL		:= gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tgz
+STAGEDIR	:= gcc-$(TOOLCHAIN_NAME)
 
-default: build.done
-
-##############################################################################
-
-# Download source distribution
-
-$(GCCDIST):
-	wget -O $(GCCDIST) $(GCCURL)
-	touch $@
+default: installer.done
 
 ##############################################################################
 
-# Unpack GCC source distribution
+# Build GNAT cross-toolchain targeting Windows 64
 
-source.done: $(GCCDIST)
-	tar xzf $(GCCDIST)
-	cd $(GCCSRC) && contrib/download_prerequisites
-	touch $@
-
-##############################################################################
-
-prepare.done: source.done
+prepare.done:
 	$(MAKE) -C ../cross-win64
 	touch prepare.done
 
 ##############################################################################
 
-# Configure GCC cross-toolchain
+# Download and build binutils, cross-compiled for Windows 64
 
-config.done: prepare.done
-	rm -rf $(BUILDDIR)
-	mkdir $(BUILDDIR)
-	cd $(BUILDDIR) && PATH=$(BUILDPATH) ../$(GCCSRC)/configure $(CONFIGOPTS)
+$(BINDIST):
+	wget -O $(BINDIST) $(BINURL)
+
+binutils.source.done : $(BINDIST)
+	tar xzf $(BINDIST)
+	touch $@
+
+binutils.config.done: prepare.done binutils.source.done
+	rm -rf $(BINBUILD)
+	mkdir $(BINBUILD)
+	cd $(BINBUILD) && PATH=$(BUILDPATH) ../$(BINSRC)/configure $(BINCONFIGOPTS)
+	touch $@
+
+binutils.build.done: prepare.done binutils.config.done
+	cd $(BINBUILD) && PATH=$(BUILDPATH) $(MAKE)
+	cd $(BINBUILD) && PATH=$(BUILDPATH) $(MAKE) install DESTDIR=$(INSTALLDIR)
 	touch $@
 
 ##############################################################################
+
+# Download and build GCC, cross compiled for Windows 64
+
+$(GCCDIST):
+	wget -O $(GCCDIST) $(GCCURL)
+	touch $@
+
+# Unpack GCC source distribution
+
+gcc.source.done : $(GCCDIST)
+	tar xzf $(GCCDIST)
+	cd $(GCCSRC) && contrib/download_prerequisites
+	touch $@
+
+# Configure GCC cross-toolchain
+
+gcc.config.done: binutils.build.done gcc.source.done
+	rm -rf $(GCCBUILD)
+	mkdir $(GCCBUILD)
+	cd $(GCCBUILD) && PATH=$(BUILDPATH) ../$(GCCSRC)/configure $(GCCCONFIGOPTS)
+	touch $@
 
 # Build GCC cross-toolchain
 
-build.done: config.done
-	cd $(BUILDDIR) && PATH=$(BUILDPATH) $(MAKE)
-	cd $(BUILDDIR) && PATH=$(BUILDPATH) $(MAKE) install DESTDIR=$(INSTALLDIR)
+gcc.build.done: gcc.config.done
+	cd $(GCCBUILD) && PATH=$(BUILDPATH) $(MAKE)
+	cd $(GCCBUILD) && PATH=$(BUILDPATH) $(MAKE) install DESTDIR=$(INSTALLDIR)
 	touch $@
 
 ##############################################################################
 
-# Create GCC cross-chain for Windows 64 distribution tarball
+# Create GCC cross-toolchain installation tree, with sysroot merged, gprbuild
+# merged, and all symbolic links replaced with their targets
 
-$(TARBALL): build.done
+stage.done: gcc.build.done
 	rm -rf gcc-$(TOOLCHAIN_NAME)
-	cp -R -P -p $(INSTALLDIR)$(TOOLCHAIN_DIR) .
-	rm -rf gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)/*
-	rsync -avcq --delete $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/ gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)
-	chmod -R u+w gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)
-	rm -rf gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)/bin
-	tar czf $@ gcc-$(TOOLCHAIN_NAME) --owner=root --group=root --mode=ugo-w
+	cp -R -L -p $(INSTALLDIR)$(TOOLCHAIN_DIR) .
+	rsync -avcqL --delete $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/ gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)
+	rsync -avcqL --delete $(INSTALLDIR)$(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/bin/ gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)/bin
+	rsync -avcqL --delete $(TOOLCHAIN_DIR)/share/gpr/ gcc-$(TOOLCHAIN_NAME)/share/gpr
+	chmod -R u+w gcc-$(TOOLCHAIN_NAME)
+	sed -i 's#/usr/local#C:/PROGRA~1#g' gcc-$(TOOLCHAIN_NAME)/share/gpr/*
+	mkdir -p			$(GPRBUILDDEST)
+	tar xzf $(GPRBUILDDIST) -C	$(GPRBUILDDEST)
+	chmod -R u+w gcc-$(TOOLCHAIN_NAME)
+	rm -rf				$(GPRBUILDDEST)/alire*
+	rm -rf				$(GPRBUILDDEST)/doinstall
+	rm -rf				$(GPRBUILDDEST)/share
+	cd gcc-$(TOOLCHAIN_NAME)/bin && for P in ../libexec/gprbuild-alire$(GPRBUILDVER)/bin/*.exe ; do cp $$P . ; done
+	cd gcc-$(TOOLCHAIN_NAME) && find * -type f -exec md5sum -b {} ";" | grep -v checksums.md5 >checksums.md5
 	touch $@
 
-tarball: $(TARBALL)
+##############################################################################
+
+# Create InnoSetup installer program that will install the cross-toolchain to
+# C:/PROGRA~1/gcc-$(CONFIGURE_NAME)-ctng.  That installation location works
+# for both Cygwin64 and Mingw64.
+
+installer.done: stage.done
+	cp innosetup.template gcc-$(TOOLCHAIN_NAME).iss
+	sed -i 's/@@APPNAME@@/gcc-$(TOOLCHAIN_NAME)/g' gcc-$(TOOLCHAIN_NAME).iss
+	wine /opt/InnoSetup6/ISCC.exe /dAPPVERSION=$(RELEASE) gcc-$(TOOLCHAIN_NAME).iss
+	md5sum -b gcc-$(TOOLCHAIN_NAME)-$(RELEASE).exe >gcc-$(TOOLCHAIN_NAME)-$(RELEASE).md5
+	touch $@
 
 ##############################################################################
 
 # Remove working files
 
 clean:
-	rm -rf gcc*ctng*
+	rm -rf gcc*ctng* installer.done stage.done
 
 reallyclean: clean
-	rm -rf $(GCCSRC) $(BUILDDIR) $(INSTALLDIR) *.done
+	rm -rf $(BINSRC) $(BINBUILD) $(GCCSRC) $(GCCBUILD) $(INSTALLDIR) *.done
 
 distclean: reallyclean
