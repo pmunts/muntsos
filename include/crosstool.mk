@@ -31,7 +31,7 @@ else
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng-$(BOARDBASELC)
 endif
 ifeq ($(OS), Windows_NT)
-TOOLCHAIN_DIR	= C:/PROGRA~1/gcc-$(TOOLCHAIN_NAME)
+TOOLCHAIN_DIR	= C:/PROGRA~1/MuntsOS/gcc-$(TOOLCHAIN_NAME)
 else
 TOOLCHAIN_DIR	= /usr/local/gcc-$(TOOLCHAIN_NAME)
 endif
