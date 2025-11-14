@@ -91,7 +91,7 @@ INSTALLDIR	:= $(shell pwd)/install.d
 RELEASE		:= $(GCCVER).$(shell date +%Y.%j)-$(BUILDNUM)
 STAGEDIR	:= gcc-$(TOOLCHAIN_NAME)
 
-default: installer.done
+default: tarball.done
 
 ##############################################################################
 
@@ -165,7 +165,7 @@ stage.done: gcc.build.done
 	rsync -avcqL --delete $(INSTALLDIR)$(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/bin/ gcc-$(TOOLCHAIN_NAME)/$(CONFIGURE_NAME)/bin
 	rsync -avcqL --delete $(TOOLCHAIN_DIR)/share/gpr/ gcc-$(TOOLCHAIN_NAME)/share/gpr
 	chmod -R u+w gcc-$(TOOLCHAIN_NAME)
-	sed -i 's#/usr/local#C:/PROGRA~1#g' gcc-$(TOOLCHAIN_NAME)/share/gpr/*
+	sed -i 's#/usr/local#C:/PROGRA~1/MuntsOS#g' gcc-$(TOOLCHAIN_NAME)/share/gpr/*
 	mkdir -p			$(GPRBUILDDEST)
 	tar xzf $(GPRBUILDDIST) -C	$(GPRBUILDDEST)
 	chmod -R u+w gcc-$(TOOLCHAIN_NAME)
@@ -178,15 +178,10 @@ stage.done: gcc.build.done
 
 ##############################################################################
 
-# Create InnoSetup installer program that will install the cross-toolchain to
-# C:/PROGRA~1/gcc-$(CONFIGURE_NAME)-ctng.  That installation location works
-# for both Cygwin64 and Mingw64.
+# Create GCC cross-toolchain release tarball
 
-installer.done: stage.done
-	cp innosetup.template gcc-$(TOOLCHAIN_NAME).iss
-	sed -i 's/@@APPNAME@@/gcc-$(TOOLCHAIN_NAME)/g' gcc-$(TOOLCHAIN_NAME).iss
-	wine /opt/InnoSetup6/ISCC.exe /dAPPVERSION=$(RELEASE) gcc-$(TOOLCHAIN_NAME).iss
-	md5sum -b gcc-$(TOOLCHAIN_NAME)-$(RELEASE).exe >gcc-$(TOOLCHAIN_NAME)-$(RELEASE).md5
+tarball.done: stage.done
+	tar czf gcc-$(TOOLCHAIN_NAME)-$(RELEASE)-win64.tgz gcc-$(TOOLCHAIN_NAME) --mode=ugo-w
 	touch $@
 
 ##############################################################################
@@ -194,7 +189,7 @@ installer.done: stage.done
 # Remove working files
 
 clean:
-	rm -rf gcc*ctng* installer.done stage.done
+	rm -rf gcc*ctng* stage.done tarball.done
 
 reallyclean: clean
 	rm -rf $(BINSRC) $(BINBUILD) $(GCCSRC) $(GCCBUILD) $(INSTALLDIR) *.done
