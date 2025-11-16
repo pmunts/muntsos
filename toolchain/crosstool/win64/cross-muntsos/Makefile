@@ -83,9 +83,8 @@ GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-system-zlib
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-long-double-128
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-zstd
 
-GPRBUILDVER	:= 25.0.1
-GPRBUILDDIST	?= gprbuild-$(GPRBUILDVER)-win64.tgz
-GPRBUILDDEST	:= $(GCCSTAGE)/libexec/gprbuild-alire$(GPRBUILDVER)
+GPRBUILDDIST	?= gprbuild-win64.tgz
+GPRBUILDDEST	:= $(GCCSTAGE)/libexec/gprbuild
 
 BUILDNUM	?= 1
 RELEASEID	:= $(GCCVER).$(shell date +%Y.%j)-$(BUILDNUM)
@@ -169,7 +168,7 @@ stage.done: build.done
 	rm -rf				$(GPRBUILDDEST)/alire*
 	rm -rf				$(GPRBUILDDEST)/doinstall
 	rm -rf				$(GPRBUILDDEST)/share
-	cd $(GCCSTAGE)/bin && for P in ../libexec/gprbuild-alire$(GPRBUILDVER)/bin/*.exe ; do cp $$P . ; done
+	cd $(GCCSTAGE)/bin && for P in ../libexec/gprbuild/bin/*.exe ; do cp $$P . ; done
 	mkdir -p $(GCCSTAGE)/share/stuff
 	install -cm 0755 fixperms.sh $(GCCSTAGE)/share/stuff
 	cd $(GCCSTAGE) && find * -type f -exec md5sum -b {} ";" | grep -v checksums.md5 > share/stuff/checksums.md5
