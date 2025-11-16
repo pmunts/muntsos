@@ -113,6 +113,7 @@ $(GCCDIST):
 
 source.done : $(BINDIST) $(GCCDIST)
 	tar xzf $(GCCDIST)
+	patch -b -p 0 <gcc.patch
 	cd $(GCCSRC) && contrib/download_prerequisites
 	tar xzf $(BINDIST)
 	-cd $(GCCSRC) && for ITEM in ../$(BINSRC)/* ; do ln -s $$ITEM ; done
