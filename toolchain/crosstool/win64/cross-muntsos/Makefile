@@ -91,6 +91,8 @@ BUILDNUM	?= 1
 RELEASEID	:= $(GCCVER).$(shell date +%Y.%j)-$(BUILDNUM)
 RELEASETAR	:= gcc-$(TOOLCHAIN_NAME)-$(RELEASEID)-win64.tar.xz
 RELEASEMD5	:= gcc-$(TOOLCHAIN_NAME)-$(RELEASEID)-win64.md5
+SAVETAR		:= gcc-$(TOOLCHAIN_NAME)-$(RELEASEID)-win64-reconstitute.tgz
+SAVEMD5		:= gcc-$(TOOLCHAIN_NAME)-$(RELEASEID)-win64-reconstitute.md5
 
 default: tarball.done
 
@@ -138,6 +140,13 @@ build.done: config.done
 	cd $(GCCBUILD) && PATH=$(BUILDPATH) $(MAKE)
 	cd $(GCCBUILD) && PATH=$(BUILDPATH) $(MAKE) install DESTDIR=$(GCCINSTALL)
 	touch $@
+	# Create reconstitute tarball
+	tar czf $(SAVETAR) build.done $(GCCINSTALL)
+	md5sum -b $(SAVETAR) > $(SAVEMD5)
+ifneq ($(SAVEDIR),)
+	# Save reconstitute tarball
+	scp $(SAVETAR) $(SAVEMD5) $(SAVEDIR)
+endif
 
 ##############################################################################
 
@@ -174,7 +183,7 @@ tarball.done: stage.done
 	tar cJf $(RELEASETAR) $(GCCSTAGE) --mode=ugo-w
 	md5sum -b $(RELEASETAR) > $(RELEASEMD5)
 ifneq ($(SERVERDIR),)
-	scp gcc*.xz gcc*.md5 $(SERVERDIR)
+	scp $(RELEASETAR) $(RELEASEMD5) $(SERVERDIR)
 endif
 	touch $@
 
