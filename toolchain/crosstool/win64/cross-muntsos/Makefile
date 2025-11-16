@@ -147,6 +147,7 @@ build.done: config.done
 stage.done: build.done
 	rm -rf $(GCCSTAGE)
 	cp -R -L -p $(GCCINSTALL)$(TOOLCHAIN_DIR) .
+	rmdir $(GCCSTAGE)/include
 	rsync -avcqL --delete $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/ $(GCCSTAGE)/$(CONFIGURE_NAME)
 	rsync -avcqL --delete $(GCCINSTALL)$(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/bin/ $(GCCSTAGE)/$(CONFIGURE_NAME)/bin
 	rsync -avcqL --delete $(TOOLCHAIN_DIR)/share/gpr/ $(GCCSTAGE)/share/gpr
