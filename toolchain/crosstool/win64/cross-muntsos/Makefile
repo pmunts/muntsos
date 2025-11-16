@@ -84,7 +84,7 @@ GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-long-double-128
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-zstd
 
 GPRBUILDVER	:= 25.0.1
-GPRBUILDDIST	:= gprbuild-$(GPRBUILDVER)-win64.tgz
+GPRBUILDDIST	?= gprbuild-$(GPRBUILDVER)-win64.tgz
 GPRBUILDDEST	:= $(GCCSTAGE)/libexec/gprbuild-alire$(GPRBUILDVER)
 
 BUILDNUM	?= 1
