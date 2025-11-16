@@ -162,7 +162,6 @@ stage.done: build.done
 	cd $(GCCSTAGE)/bin && for P in ../libexec/gprbuild-alire$(GPRBUILDVER)/bin/*.exe ; do cp $$P . ; done
 	mkdir -p $(GCCSTAGE)/share/stuff
 	install -cm 0755 fixperms.sh $(GCCSTAGE)/share/stuff
-	sed -i 's#@@TOOLCHAIN_DIR@@#C:/PROGRA~1/MuntsOS/$(GCCSTAGE)#g' $(GCCSTAGE)/share/stuff/fixperms.sh
 	cd $(GCCSTAGE) && find * -type f -exec md5sum -b {} ";" | grep -v checksums.md5 > share/stuff/checksums.md5
 	touch $@
 
