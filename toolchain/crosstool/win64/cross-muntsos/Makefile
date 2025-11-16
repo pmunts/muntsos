@@ -72,7 +72,12 @@ GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-threads
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-threads=posix
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-tls
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --enable-tls
+ifeq ($(BOARDNAME), AArch64)
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --with-arch=armv8-a
+endif
+ifeq ($(BOARDNAME), RaspberryPi1)
+GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --with-cpu=arm1176jzf-s --with-fpu=vfpv2 --with-float=hard
+endif
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --with-sysroot=$(GCCSYSROOT)
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-system-zlib
 GCCCONFIGOPTS	:= $(GCCCONFIGOPTS) --without-long-double-128
