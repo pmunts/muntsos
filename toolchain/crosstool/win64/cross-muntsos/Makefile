@@ -140,7 +140,7 @@ build.done: config.done
 	cd $(GCCBUILD) && PATH=$(BUILDPATH) $(MAKE) install DESTDIR=$(GCCINSTALL)
 	touch $@
 	# Create reconstitute tarball
-	tar czf $(SAVETAR) build.done $(GCCINSTALL)
+	tar czf $(SAVETAR) build.done $(shell basename $(GCCINSTALL))
 	md5sum -b $(SAVETAR) > $(SAVEMD5)
 ifneq ($(SAVEDIR),)
 	# Save reconstitute tarball
