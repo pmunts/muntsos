@@ -218,6 +218,23 @@ News
     previous GCC 14.2.0 cross-toolchain packages, extensions, kernels,
     and thin servers have been moved to the attic.
 
+-   25 October 2025 -- I have a bag full of surplus 32-bit Raspberry Pi
+    Zero's and evidently too much time on my hands. After upgrading the
+    MuntsOS AArch64 and RISCV64 cross-toolchain packages to Crosstool-NG
+    1.28.0 / GCC 15.2.0, I began to wonder if it would be possible to
+    build a new cross-toolchain for the obsolete Raspberry Pi 1 as well,
+    something I hadn't been able to do successfully since Crosstool-NG
+    1.24.0 / GCC 8.3.0. It worked, with a bonus of picking up GNU
+    Modula-2 support on the Raspberry Pi 1 for the first time as well.
+    Switching to the extremely compact defconfig format configuration
+    files for Crosstool-NG makes it much easier to add new
+    architectures. I have also successfully built a Linux USB Gadget
+    6.12.x kernel for the Raspberry Pi 1. The Raspberry Pi Zero is still
+    useful in embedded systems for its lower power consumption and I am
+    reinstating the Raspberry Pi 1 as a MuntsOS target computer on an
+    experimental basis, concentrating on the Raspberry Pi Zero W. More
+    work remains to complete the Raspberry Pi 1 kernels.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
