@@ -314,10 +314,27 @@ and extensions for AArch64 and Raspberry Pi 1. Alas, building a <b>MuntsOS</b>
 cross-toolchain for Windows fails miserably. The only real advantage of GNU Dev
 Tools For ARM over Crosstool-NG, is that the former is designed to build from
 the tip of the GCC code tree, meaning it will likely be possible to build a GCC
-16.x or 17.x cross-toolchain much sooner than with Crosstool-NG. I have created,
-tested, and checked in all of the infrastructure to build and use toolchains
-built with GNU Dev Tools for ARM (<b><tt>TOOLCHAIN_REV=12</tt></b>,
-<b><tt>TOOLCHAIN_BUILDER=gnudevarm</tt></b>) but have not cut over to it yet.</p>
+16.x or 17.x cross-toolchain much sooner than with Crosstool-NG. I have
+created, tested, and checked in all of the infrastructure to build and use
+toolchains built with GNU Dev Tools for ARM (<b><tt>TOOLCHAIN_REV=12</tt></b>,
+<b><tt>TOOLCHAIN_BUILDER=gnudevarm</tt></b>) but have not cut over to it
+yet.</p>
+</li>
+<li>
+<p>16 November 2025 -- I have <i>finally</i> created <b>MuntsOS</b>
+croos-toolchains that run on x86-64 Windows 10 or 11. The aggravation of
+dealing with Windows' case insensitive filenames and the dependency upon either
+<a href="https://cygwin.com">Cygwin</a> or <a href=
+"https://www.msys2.org/">MSYS2</a>, compared to just running Debian Linux in
+<a href="https://learn.microsoft.com/en-us/windows/wsl">Windows Subsystem for
+Linux</a>, probably makes this a <a href=
+"https://en.wikipedia.org/wiki/Pyrrhic_victory">Pyrrhic victory</a> for all but
+Ada developers using <a href="https://alire.ada.dev">Alire</a> on Windows
+(<i>i.e.</i> the original use case: People bringing Windows computers to my Ada
+on <b>MuntsOS</b> tutorial class at the 2018 Ada-Europe Conference in Lisbon).
+Read the gory details in <a href=
+"https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf">Application Note
+#24</a>.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
