@@ -291,6 +291,23 @@ system.
   basis, concentrating on the Raspberry Pi Zero W. More work remains to
   complete the Raspberry Pi 1 kernels.
 
+- 7 November 2025 -- After days and weeks of failure trying to build a
+  **MuntsOS** cross-toolchain for Windows x86-64 using Crosstool-NG, in
+  desperation I tried out [GNU Dev Tools for
+  ARM](https://gitlab.arm.com/tooling/gnu-devtools-for-arm), which
+  appears to be derived from the old [Linaro
+  ABE](https://github.com/rsavoye/abe) cross-toolchain builder. I was
+  able to successfully build **MuntsOS** cross-toolchains for Linux,
+  kernels, and extensions for AArch64 and Raspberry Pi 1. Alas, building
+  a **MuntsOS** cross-toolchain for Windows fails miserably. The only
+  real advantage of GNU Dev Tools For ARM over Crosstool-NG, is that the
+  former is designed to build from the tip of the GCC code tree, meaning
+  it will likely be possible to build a GCC 16.x or 17.x cross-toolchain
+  much sooner than with Crosstool-NG. I have created, tested, and
+  checked in all of the infrastructure to build and use toolchains built
+  with GNU Dev Tools for ARM (**`TOOLCHAIN_REV=12`**,
+  **`TOOLCHAIN_BUILDER=gnudevarm`**) but have not cut over to it yet.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
