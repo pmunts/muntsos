@@ -308,6 +308,21 @@ system.
   with GNU Dev Tools for ARM (**`TOOLCHAIN_REV=12`**,
   **`TOOLCHAIN_BUILDER=gnudevarm`**) but have not cut over to it yet.
 
+- 16 November 2025 -- I have *finally* created **MuntsOS**
+  cross-toolchains that run on x86-64 Windows 10 or 11. The aggravation
+  of dealing with Windows' case insensitive filenames and the dependency
+  upon either [Cygwin](https://cygwin.com) or
+  [MSYS2](https://www.msys2.org/), compared to just running Debian Linux
+  in [Windows Subsystem for
+  Linux](https://learn.microsoft.com/en-us/windows/wsl), probably makes
+  this a [Pyrrhic
+  victory](https://en.wikipedia.org/wiki/Pyrrhic_victory) for all but
+  Ada developers using [Alire](https://alire.ada.dev) on Windows (*i.e.*
+  my original use case: People bringing Windows computers to my Ada-
+  on-**MuntsOS** tutorial class at the 2023 Ada-Europe Conference in
+  Lisbon). Read the gory details in [Application Note
+  \#24](https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf).
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
