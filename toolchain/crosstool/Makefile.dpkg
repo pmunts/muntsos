@@ -44,7 +44,7 @@ endif
 ifeq ($(PKGARCH), arm64)
 GPRBUILDDIST	:= $(HOME)/.local/share/alire/toolchains/gprbuild_25.0.1_5e58c08e
 endif
-GPRBUILDDIR	:= libexec/gprbuild-alire$(GPRBUILDVER)
+GPRBUILDDIR	:= libexec/gprbuild
 GPRBUILDDEST	:= $(PKGDIR)$(TOOLCHAIN_DIR)/$(GPRBUILDDIR)
 
 default: package.deb
