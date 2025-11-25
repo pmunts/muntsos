@@ -159,14 +159,12 @@ build: $(KERNEL_WORK)/build.done
 # Refresh kernel configuration files
 
 allconfig:
-	# Old 32-bit targets
 	#$(MAKE) oldconfig reallyclean BOARDNAME=BeagleBone
-	#$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi1
-	#$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi1Gadget
+	#$(MAKE) oldconfig reallyclean BOARDNAME=BeaglePlay
+	#$(MAKE) oldconfig reallyclean BOARDNAME=OrangePiZero2W
+	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi1
+	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi1Gadget
 	#$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi2
-	# Current 64-bit targets
-	$(MAKE) oldconfig reallyclean BOARDNAME=BeaglePlay
-	$(MAKE) oldconfig reallyclean BOARDNAME=OrangePiZero2W
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi3
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi3Gadget
 	$(MAKE) oldconfig reallyclean BOARDNAME=RaspberryPi4
