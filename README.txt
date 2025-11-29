@@ -264,12 +264,13 @@ Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
 environment onto a development host computer are found in Application
-Note #1 and Application Note #2. Or just download and run one of the
-following quick setup scripts:
+Note #1, Application Note #2, or Application Note #24. Or just download
+and run one of the following quick setup scripts:
 
 setup-debian
 setup-fedora
 setup-rhel
+setup-win64.bat
 
 Instructions for installing MuntsOS to a target computer are found in
 Application Note #3 and Application Note #15.

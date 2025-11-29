@@ -318,8 +318,8 @@ system.
   this a [Pyrrhic
   victory](https://en.wikipedia.org/wiki/Pyrrhic_victory) for all but
   Ada developers using [Alire](https://alire.ada.dev) on Windows (*i.e.*
-  my original use case: People bringing Windows computers to my Ada-
-  on-**MuntsOS** tutorial class at the 2023 Ada-Europe Conference in
+  my original use case: People bringing Windows computers to my
+  Ada-on-**MuntsOS** tutorial class at the 2023 Ada-Europe Conference in
   Lisbon). Read the gory details in [Application Note
   \#24](https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf).
 
@@ -328,14 +328,18 @@ system.
 Instructions for installing the **MuntsOS** cross-toolchain development
 environment onto a development **host computer** are found in
 [Application Note
-\#1](https://repo.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf) and
+\#1](https://repo.munts.com/muntsos/doc/AppNote1-Setup-Debian.pdf),
 [Application Note
-\#2](https://repo.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf). Or just
-download and run one of the following quick setup scripts:
+\#2](https://repo.munts.com/muntsos/doc/AppNote2-Setup-RPM.pdf), or
+[Application Note
+\#24](https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf). Or
+just download and run one of the following quick setup scripts:
 
 [setup-debian](https://repo.munts.com/muntsos/scripts/setup-debian)  
 [setup-fedora](https://repo.munts.com/muntsos/scripts/setup-fedora)  
-[setup-rhel](https://repo.munts.com/muntsos/scripts/setup-rhel)
+[setup-rhel  
+](https://repo.munts.com/muntsos/scripts/setup-rhel)
+[setup-win64.bat](https://repo.munts.com/muntsos/scripts/setup-win64.bat)
 
 Instructions for installing **MuntsOS** to a **target computer** are
 found in [Application Note
