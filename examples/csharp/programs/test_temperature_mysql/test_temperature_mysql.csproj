@@ -13,9 +13,9 @@
   <!-- Reference NuGet package libsimpleio (https://www.nuget.org/packages/libsimpleio) -->
 
   <ItemGroup>
-    <PackageReference Include="DotNetConfig" Version="1.0.6" />
+    <PackageReference Include="DotNetConfig" Version="1.*" />
     <PackageReference Include="libsimpleio" Version="2.*" />
-    <PackageReference Include="MySql.Data" Version="8.4.0" />
+    <PackageReference Include="MySql.Data" Version="9.*" />
   </ItemGroup>
 
   <!-- Include library assemblies -->
