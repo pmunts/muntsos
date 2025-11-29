@@ -34,14 +34,14 @@ namespace test_beaglebone_adc
 
             IO.Interfaces.ADC.Input[] inputs = new IO.Interfaces.ADC.Input[8]
             {
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN0, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN1, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN2, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN3, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN4, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN5, 12), 1.8, 0.5),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN6, 12), 1.8, 0.5),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.PocketBeagle.AIN7, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN0, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN1, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN2, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN3, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN4, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN5, 12), 1.8, 0.5),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN6, 12), 1.8, 0.5),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.PocketBeagle.AIN7, 12), 1.8),
             };
 
             Console.WriteLine("Press CONTROL-C to quit\n");

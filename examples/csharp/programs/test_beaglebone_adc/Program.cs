@@ -34,13 +34,13 @@ namespace test_beaglebone_adc
 
             IO.Interfaces.ADC.Input[] inputs = new IO.Interfaces.ADC.Input[7]
             {
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.BeagleBone.AIN0, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.BeagleBone.AIN1, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.BeagleBone.AIN2, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.BeagleBone.AIN3, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.BeagleBone.AIN4, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.BeagleBone.AIN5, 12), 1.8),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.BeagleBone.AIN6, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.BeagleBone.AIN0, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.BeagleBone.AIN1, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.BeagleBone.AIN2, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.BeagleBone.AIN3, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.BeagleBone.AIN4, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.BeagleBone.AIN5, 12), 1.8),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.BeagleBone.AIN6, 12), 1.8),
             };
 
             Console.WriteLine("Press CONTROL-C to quit\n");

@@ -34,8 +34,8 @@ namespace test_raspberrypi_adc
 
             IO.Interfaces.ADC.Input[] inputs = new IO.Interfaces.ADC.Input[2]
             {
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.RaspberryPi.AIN0, 12), 4.096),
-                new IO.Interfaces.ADC.Input(new IO.Objects.libsimpleio.ADC.Sample(IO.Objects.libsimpleio.Platforms.RaspberryPi.AIN1, 12), 4.096),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.RaspberryPi.AIN0, 12), 4.096),
+                new IO.Interfaces.ADC.Input(new IO.Objects.SimpleIO.ADC.Sample(IO.Objects.SimpleIO.Platforms.RaspberryPi.AIN1, 12), 4.096),
             };
 
             Console.WriteLine("Press CONTROL-C to quit\n");

@@ -33,7 +33,7 @@ namespace test_hid_button_led
       // Open the raw HID device
 
       IO.Interfaces.Message64.Messenger dev =
-        new IO.Objects.libsimpleio.HID.Messenger(IO.Devices.USB.Munts.HID.Vendor,
+        new IO.Objects.SimpleIO.HID.Messenger(IO.Devices.USB.Munts.HID.Vendor,
           IO.Devices.USB.Munts.HID.Product, 0);
 
       IO.Interfaces.Message64.Message ButtonState =
