@@ -1,6 +1,6 @@
 // Linux Simple I/O Library HID button and LED test
 
-// Copyright (C)2020-2024, Philip Munts dba Munts Technologies.
+// Copyright (C)2020-2025, Philip Munts dba Munts Technologies.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -34,7 +34,7 @@ namespace test_hid_button_led
 
       IO.Interfaces.Message64.Messenger dev =
         new IO.Objects.SimpleIO.HID.Messenger(IO.Devices.USB.Munts.HID.Vendor,
-          IO.Devices.USB.Munts.HID.Product, 0);
+          IO.Devices.USB.Munts.HID.Product);
 
       IO.Interfaces.Message64.Message ButtonState =
         new IO.Interfaces.Message64.Message(0);
