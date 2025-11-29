@@ -323,6 +323,8 @@ system.
   Lisbon). Read the gory details in [Application Note
   \#24](https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf).
 
+- 29 November 2025 -- Upgraded the .Net Runtime to 10.0.0 (LTS).
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development

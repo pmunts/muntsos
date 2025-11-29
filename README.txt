@@ -260,6 +260,8 @@ News
     tutorial class at the 2023 Ada-Europe Conference in Lisbon). Read
     the gory details in Application Note #24.
 
+-   29 November 2025 -- Upgraded the .Net Runtime to 10.0.0 (LTS).
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
