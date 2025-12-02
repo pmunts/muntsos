@@ -517,7 +517,6 @@ ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
 	@echo "**** pinctrl"					>>$@
 	@echo ""						>>$@
 	@cat $(RPIUTILS_SRC)/LICENCE				>>$@
-	@echo ""						>>$@
 endif
 	@echo "**** regulatory.db:"				>>$@
 	@echo ""						>>$@
