@@ -113,6 +113,11 @@ NANO_SERVER		= https://www.nano-editor.org/dist/v8
 NANO_URL		= $(NANO_SERVER)/$(NANO_TARBALL)
 NANO_DIST		= $(DISTDIR)/$(NANO_TARBALL)
 
+RPIUTILS_URL		= https://github.com/raspberrypi/utils.git
+RPIUTILS_SRC		= raspberrypi.utils
+RPIUTILS_TARBALL	= raspberrypi.utils.tgz
+RPIUTILS_DIST		= $(DISTDIR)/$(RPIUTILS_TARBALL)
+
 ###############################################################################
 
 # These are the subordinate component targets that have to be built before we
@@ -122,6 +127,10 @@ COMPONENT_TARGETS	= busybox openssh rpcbind detach force-umount iptables ethtool
 
 ifeq ($(BOARDBASE), BeagleBone)
 COMPONENT_TARGETS	+= config-pin
+endif
+
+ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
+COMPONENT_TARGETS	+= pinctrl
 endif
 
 ###############################################################################
@@ -409,6 +418,27 @@ regdb: $(WIRELESS_REGDB_SRC)
 
 ###############################################################################
 
+# Download Raspberry Pi utilities source distribution
+
+$(RPIUTILS_DIST):
+	git clone --depth 1 $(RPIUTILS_URL) $(DISTDIR)/$(RPIUTILS_SRC)
+	cd $(DISTDIR) ; tar czf $(RPIUTILS_DIST) $(RPIUTILS_SRC)
+	rm -rf $(DISTDIR)/$(RPIUTILS_SRC)
+
+# Unpack Raspberry Pi utilities source distribution
+
+$(RPIUTILS_SRC): $(RPIUTILS_DIST)
+	tar xzf $(RPIUTILS_DIST)
+	touch $@
+
+# Build pinctrl
+
+pinctrl: $(RPIUTILS_SRC)
+	cd $(RPIUTILS_SRC)/pinctrl && $(CROSS_COMPILE)gcc -Wall -o../../pinctrl *.c
+	touch $@
+
+###############################################################################
+
 mdnsd: mdnsd.c
 	$(MAKE) -C libmdns libtinysvcmdns.a CROSS_COMPILE=$(CROSS_COMPILE)
 	$(CROSS_COMPILE)gcc -Wall -Ilibmdns -o $@ $^ -Llibmdns -ltinysvcmdns -lpthread
@@ -484,12 +514,10 @@ COPYING: $(COMPONENT_TARGETS)
 	@cat $(OPENSSH_SRC)/LICENCE				>>$@
 	@echo ""						>>$@
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
-ifeq ($(GCCARCH), aarch64)
 	@echo "**** pinctrl"					>>$@
 	@echo ""						>>$@
-	@cat pinctrl.LICENSE					>>$@
+	@cat $(RPIUTILS_SRC)/LICENCE				>>$@
 	@echo ""						>>$@
-endif
 endif
 	@echo "**** regulatory.db:"				>>$@
 	@echo ""						>>$@
@@ -597,9 +625,7 @@ endif
 # Install pinctrl
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
-ifeq ($(GCCARCH), aarch64)
 	install -cm 0755 pinctrl				$@/sbin
-endif
 endif
 
 # Install ethtool
@@ -961,9 +987,7 @@ ifeq ($(BOARDBASE), BeagleBone)
 endif
 
 ifneq ($(findstring RaspberryPi, $(BOARDNAME)),)
-ifeq ($(GCCARCH), aarch64)
 	install -cm 0444 pinmux.$(BOARDNAME)			$@/usr/share/sysconfig
-endif
 endif
 
 # Install files to /var
@@ -1064,7 +1088,7 @@ initramfs.cpio.gz: initramfs.d
 
 # Download source distributions
 
-download: $(BUSYBOX_DIST) $(OPENSSH_DIST) $(RPCBIND_DIST) $(IPTABLES_DIST) $(ETHTOOL_DIST) $(WPASUPP_DIST) $(MAILUTILS_DIST) $(NANO_DIST) $(FIRMWARE_DIST)
+download: $(BUSYBOX_DIST) $(OPENSSH_DIST) $(RPCBIND_DIST) $(IPTABLES_DIST) $(ETHTOOL_DIST) $(WPASUPP_DIST) $(MAILUTILS_DIST) $(NANO_DIST) $(FIRMWARE_DIST) $(RPIUTILS_DIST)
 
 ###############################################################################
 
@@ -1086,18 +1110,18 @@ reallyclean: clean
 	rm -rf $(NANO_SRC)
 	rm -rf $(FIRMWARE_SRC)
 	rm -rf $(WIRELESS_REGDB_SRC)
+	rm -rf $(RASPIUTILS_SRC)
 	rm -f COPYING
-ifeq ($(BOARDBASE), BeagleBone)
 	rm -f config-pin
-endif
 	rm -f detach
 	rm -f entropypump
 	rm -f force-umount
-	rm -f serialnumber
 	rm -f install-overlays
 	rm -f mdnsd
 	rm -f noip2
 	rm -f nupkg
+	rm -f pinctrl
+	rm -f serialnumber
 
 distclean: reallyclean
 	rm -f $(BUSYBOX_DIST)
