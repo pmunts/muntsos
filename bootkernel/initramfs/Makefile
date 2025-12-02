@@ -1110,7 +1110,7 @@ reallyclean: clean
 	rm -rf $(NANO_SRC)
 	rm -rf $(FIRMWARE_SRC)
 	rm -rf $(WIRELESS_REGDB_SRC)
-	rm -rf $(RASPIUTILS_SRC)
+	rm -rf $(RPIUTILS_SRC)
 	rm -f COPYING
 	rm -f config-pin
 	rm -f detach
