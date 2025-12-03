@@ -33,7 +33,7 @@ build:
 	$(MAKE) -C muntsos-common BUILDNUM=$(BUILDNUM)
 	$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
 	#$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
-	#$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
 	#$(MAKE) -C muntsos-dev BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
 
 # Upload RPM packages to repository
@@ -48,5 +48,5 @@ clean:
 	$(MAKE) -C muntsos-common clean BUILDNUM=$(BUILDNUM)
 	$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=AArch64 RPMSUFFIX=aarch64 RPMTUPLE=aarch64-muntsos-linux-gnu-$(FLAVOR)
 	#$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=BeagleBone RPMSUFFIX=beaglebone RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-beaglebone
-	#$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
+	$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi1 RPMSUFFIX=raspberrypi1 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi1
 	#$(MAKE) -C muntsos-dev clean BUILDNUM=$(BUILDNUM) RPMTARGET=RaspberryPi2 RPMSUFFIX=raspberrypi2 RPMTUPLE=arm-muntsos-linux-gnueabihf-$(FLAVOR)-raspberrypi2
