@@ -600,7 +600,7 @@ https://repo.munts.com/muntsos/toolchain-rpms
 
 Alire Crates
 
-[muntsos_aarch64]
+[muntsos_aarch64] [muntsos_raspberrypi1]
 
 Adding the muntsos_aarch64 crate to an Alire Ada program project
 transforms said project into one that produces a cross-compiled AArch64
@@ -608,6 +608,9 @@ program for MuntsOS. The muntsos_aarch64 crate depends upon the Linux
 distribution meta-package muntsos-dev-aarch64 that pulls in the rest of
 the MuntsOS AArch64 cross-toolchain packages. See Application Note #7
 for a complete example using the alr command line tool.
+
+The muntsos_raspberrypi1 crate functions in an identical manner for
+32-bit ARMv6 Raspberry Pi 1 target computers.
 
 Please note that the other MuntsOS library crates in Alire (e.g.
 muntsos_beaglebone) are unusable due to breaking changes in alr 2.0.
