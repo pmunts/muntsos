@@ -28,7 +28,7 @@ MUNTSOS		?= ../..
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 ifeq ($(shell uname -m), aarch64)
-# Build with Alire GNAT Native 
+# Build with Alire GNAT Native
 BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
