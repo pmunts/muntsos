@@ -28,14 +28,12 @@ mkdir MuntsOS
 fsutil.exe file setCaseSensitiveInfo MuntsOS enable
 cd MuntsOS
 
-REM Download and verify cross-toolchain distribution tarball
+REM Clone git repositories
 
-wget https://repo.munts.com/muntsos/toolchain-win64/gcc-aarch64-muntsos-linux-gnu-ctng-*-win64.md5
-wget https://repo.munts.com/muntsos/toolchain-win64/gcc-aarch64-muntsos-linux-gnu-ctng-*-1-win64.tar.xz
-md5sum -c https://repo.munts.com/muntsos/toolchain-win64/gcc-aarch64-muntsos-linux-gnu-ctng-*-win64.md5
+git clone https://git.munts.com/gcc-aarch64-muntsos-linux-gnu-ctng.git
+git clone https://git.munts.com/gcc-arm-muntsos-linux-gnueabihf-ctng-raspberrypi1.git
+git clone https://github.com/pmunts/libsimpleio.git
+git clone https://github.com/pmunts/muntsos.git
 
-REM Unpack and verify cross-toolchain
-
-tar xJpf https://repo.munts.com/muntsos/toolchain-win64/gcc-aarch64-muntsos-linux-gnu-ctng-*-win64.tar.xz
-cd gcc-aarch64-muntsos-linux-gnu-ctng
-md5sum -c share/stuff/checksums.md5
+cd C:\PROGRA~1
+chown -R Administrators.None MuntsOS
