@@ -30,8 +30,8 @@ cd MuntsOS
 
 REM Clone git repositories
 
-git clone https://git.munts.com/gcc-aarch64-muntsos-linux-gnu-ctng.git
-git clone https://git.munts.com/gcc-arm-muntsos-linux-gnueabihf-ctng-raspberrypi1.git
+git clone https://git.munts.com/toolchains/win64/gcc-aarch64-muntsos-linux-gnu-ctng.git
+git clone https://git.munts.com/toolchains/win64/gcc-arm-muntsos-linux-gnueabihf-ctng-raspberrypi1.git
 git clone https://github.com/pmunts/libsimpleio.git
 git clone https://github.com/pmunts/muntsos.git
 
