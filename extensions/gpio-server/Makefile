@@ -1,6 +1,6 @@
 # Makefile for building a dedicated GPIO server package for MuntsOS
 
-# Copyright (C)2014-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2014-2025, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -70,6 +70,7 @@ $(PKGDIR): subordinates.done
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_util.so.4			$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmlparse.so.3			$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmltok.so.3			$@/usr/local/lib
+	install -cm 0755 $(LIBSLIBDIR)/libzmq.so.5				$@/usr/local/lib
 	install -cm 0755 http/gpio_server_http					$@/usr/local/libexec
 	install -cm 0755 linx/gpio_server_linx					$@/usr/local/libexec
 	install -cm 0755 $(MUNTSOS)/examples/ada/programs/remoteio_server	$@/usr/local/libexec
