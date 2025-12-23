@@ -48,7 +48,8 @@ LIBRARY PROJECT build IS
    (LIBSIMPLEIO & "/ada/bindings",
     LIBSIMPLEIO & "/ada/devices/**",
     LIBSIMPLEIO & "/ada/interfaces",
-    LIBSIMPLEIO & "/ada/objects/**");
+    LIBSIMPLEIO & "/ada/objects/**",
+    LIBSIMPLEIO & "/ada/rabbitmq");
 
   PACKAGE Compiler IS
     FOR Default_Switches("Ada") USE Ada_Compiler_Switches;
