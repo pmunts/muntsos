@@ -22,7 +22,12 @@
 
 using RabbitMQ.Client;
 using System.Text;
-using static System.Environment;
+
+string GetEnv(string name, string default_value)
+{
+  var v = System.Environment.GetEnvironmentVariable(name);
+  return v is null ? default_value : v;
+}
 
 // Configure the Wio-E5 LoRa transceiver module
 
@@ -31,11 +36,12 @@ var dev = new IO.Devices.WioE5.Ham1.Device();
 // Configure RabbitMQ.Client
 
 var factory         = new RabbitMQ.Client.ConnectionFactory();
-factory.HostName    = GetEnvironmentVariable("RABBITMQ_SERVER");
-factory.UserName    = GetEnvironmentVariable("RABBITMQ_USER");
-factory.Password    = GetEnvironmentVariable("RABBITMQ_PASS");
-factory.VirtualHost = GetEnvironmentVariable("RABBITMQ_VHOST");
-var routingkey      = GetEnvironmentVariable("RABBITMQ_QUEUE");
+factory.UserName    = GetEnv("RABBITMQ_USER",     "guest");
+factory.Password    = GetEnv("RABBITMQ_PASS",     "guest");
+factory.HostName    = GetEnv("RABBITMQ_SERVER",   "localhost");
+factory.Port        = int.Parse(GetEnv("RABBITMQ_PORT", "5672"));
+factory.VirtualHost = GetEnv("RABBITMQ_VHOST",    "/");
+var exchange        = GetEnv("RABBITMQ_EXCHANGE", "amq.fanout");
 
 IConnection connection;
 IChannel channel;
@@ -80,8 +86,7 @@ for (;;)
       $"{len} bytes RSS:{RSS} dBm SNR: {SNR} dB\t" +
       $"{Encoding.UTF8.GetString(msg, 0, len)}";
 
-    await channel.BasicPublishAsync(exchange: string.Empty,
-      routingKey: routingkey, body: Encoding.UTF8.GetBytes(outbuf));
+    await channel.BasicPublishAsync(exchange, "", Encoding.UTF8.GetBytes(outbuf));
   }
 
   wd.Kick();
