@@ -269,6 +269,11 @@ News
     Raspberry Pi Zero W will remain in production until at least January
     2030.
 
+-   23 December 2025 -- Upgraded Raspberry Pi kernels to 6.12.62.
+    Upgraded OpenSSH to 10.2p1. Upgraded mailutils to 3.21. Upgraded
+    nano to 8.7. Upgraded the .Net Core Runtime to 10.0.1. Added
+    librabbitmq extension package.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
