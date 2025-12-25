@@ -274,6 +274,11 @@ News
     nano to 8.7. Upgraded the .Net Core Runtime to 10.0.1. Added
     librabbitmq extension package.
 
+-   24 December 2025 -- I am no longer distributing the Windows
+    cross-toolchains in tarballs. Instead, you will need to install and
+    update them from git repositories. See the updated setup-win64.bat
+    and Application Note #24 for more information.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
