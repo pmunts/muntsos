@@ -30,10 +30,21 @@ cd MuntsOS
 
 REM Clone git repositories
 
-git clone https://git.munts.com/toolchains/win64/gcc-aarch64-muntsos-linux-gnu-ctng.git
-git clone https://git.munts.com/toolchains/win64/gcc-arm-muntsos-linux-gnueabihf-ctng-raspberrypi1.git
+git clone https://git.munts.com/toolchains/win64/gcc-aarch64-muntsos-linux-gnu-ctng
+cd gcc-aarch64-muntsos-linux-gnu-ctng
+md5sum --quiet -c share/stuff/checksums.md5
+cd ..
+
+git clone https://git.munts.com/toolchains/win64/gcc-arm-muntsos-linux-gnueabihf-ctng-raspberrypi1
+cd gcc-arm-muntsos-linux-gnueabihf-ctng-raspberrypi1
+md5sum --quiet -c share/stuff/checksums.md5
+cd ..
+
 git clone https://github.com/pmunts/libsimpleio.git
 git clone https://github.com/pmunts/muntsos.git
 
 cd C:\PROGRA~1
 chown -R Administrators.None MuntsOS
+
+setx /M LIBSIMPLEIO C:/PROGRA~1/MuntsOS/libsimpleio
+setx /M MUNTSOS     C:/PROGRA~1/MuntsOS/muntsos
