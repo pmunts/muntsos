@@ -93,7 +93,7 @@ RELEASEMD5	:= gcc-$(TOOLCHAIN_NAME)-$(RELEASEID)-win64.md5
 SAVETAR		:= gcc-$(TOOLCHAIN_NAME)-$(RELEASEID)-win64-reconstitute.tgz
 SAVEMD5		:= gcc-$(TOOLCHAIN_NAME)-$(RELEASEID)-win64-reconstitute.md5
 
-default: tarball.done
+default: stage.done
 
 ##############################################################################
 
@@ -176,22 +176,10 @@ stage.done: build.done
 
 ##############################################################################
 
-# Create GCC cross-toolchain release tarball
-
-tarball.done: stage.done
-	tar cJf $(RELEASETAR) $(GCCSTAGE) --mode=ugo-w
-	md5sum -b $(RELEASETAR) > $(RELEASEMD5)
-ifneq ($(SERVERDIR),)
-	scp $(RELEASETAR) $(RELEASEMD5) $(SERVERDIR)
-endif
-	touch $@
-
-##############################################################################
-
 # Remove working files
 
 clean:
-	rm -rf gcc*ctng* stage.done tarball.done
+	rm -rf gcc*ctng* stage.done
 
 reallyclean: clean
 	rm -rf $(BINSRC) $(GCCSRC) $(GCCBUILD) $(GCCINSTALL) *.done
