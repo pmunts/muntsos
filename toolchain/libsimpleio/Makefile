@@ -40,6 +40,8 @@ CC		:= $(CROSS_COMPILE)gcc
 RANLIB		:= $(CROSS_COMPILE)ranlib
 STRIP		:= $(CROSS_COMPILE)strip
 
+CFLAGS		= -Wall -fPIC $(DEBUGFLAGS)
+
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libsimpleio
 PKGVER		:= $(GCCVER)-$(shell date +%Y.%j)-$(BUILDNUM)
@@ -60,7 +62,7 @@ compile.done:
 	rm -rf obj
 	mkdir obj
 	ln -s -f $(LIBSIMPLEIO)/c libsimpleio
-	for F in $(LIBSIMPLEIO)/c/*.c $(LIBSIMPLEIO)/ada/rabbitmq/*.c ; do $(CC) -Wall -fPIC -I$(shell pwd) -c -o obj/`basename $$F .c`.o $$F ; done
+	for F in $(shell find $(LIBSIMPLEIO)/c $(LIBSIMPLEIO)/ada/thirdparty -name '*.c') ; do $(CC) $(CFLAGS) -c -o obj/`basename $$F .c`.o $$F ; done
 	touch $@
 
 ###############################################################################

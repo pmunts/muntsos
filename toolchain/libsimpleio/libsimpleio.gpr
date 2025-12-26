@@ -48,5 +48,5 @@ LIBRARY PROJECT libsimpleio IS
     LIBSIMPLEIO & "/ada/devices/**",
     LIBSIMPLEIO & "/ada/interfaces",
     LIBSIMPLEIO & "/ada/objects/**",
-    LIBSIMPLEIO & "/ada/rabbitmq");
+    LIBSIMPLEIO & "/ada/thirdparty/**");
 END libsimpleio;
