@@ -21,7 +21,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 using RabbitMQ.Client;
-using System.Text;
+
+using static System.Text.Encoding;
 
 string GetEnv(string name, string default_value)
 {
@@ -41,7 +42,7 @@ factory.Password    = GetEnv("RABBITMQ_PASS",     "guest");
 factory.HostName    = GetEnv("RABBITMQ_SERVER",   "localhost");
 factory.Port        = int.Parse(GetEnv("RABBITMQ_PORT", "5672"));
 factory.VirtualHost = GetEnv("RABBITMQ_VHOST",    "/");
-var exchange        = GetEnv("RABBITMQ_EXCHANGE", "amq.fanout");
+var exchange        = GetEnv("RABBITMQ_EXCHANGE", "amq.topic");
 
 IConnection connection;
 IChannel channel;
@@ -81,12 +82,14 @@ for (;;)
 
   if (len > 0)
   {
+    var topic = $"{dstnet}-{dstnode}.{srcnet}-{srcnode}";
+
     var outbuf = $"{System.DateTime.Now}\t"        +
       $"{srcnet}-{srcnode}\t{dstnet}-{dstnode}\t"  +
       $"{len} bytes RSS:{RSS} dBm SNR: {SNR} dB\t" +
-      $"{Encoding.UTF8.GetString(msg, 0, len)}";
+      $"{UTF8.GetString(msg, 0, len)}";
 
-    await channel.BasicPublishAsync(exchange, "", Encoding.UTF8.GetBytes(outbuf));
+    await channel.BasicPublishAsync(exchange, topic, UTF8.GetBytes(outbuf));
   }
 
   wd.Kick();
