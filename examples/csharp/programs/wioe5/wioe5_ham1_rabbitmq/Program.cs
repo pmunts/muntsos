@@ -73,21 +73,31 @@ wd.timeout = 5;
 
 // Message loop
 
-var msg = new byte[255];
+var inbuf = new byte[255];
 
 for (;;)
 {
-  dev.Receive(msg, out int len, out string srcnet, out int srcnode,
+  dev.Receive(inbuf, out int len, out string srcnet, out int srcnode,
     out string dstnet, out int dstnode, out int RSS, out int SNR);
+
+  var msg = UTF8.GetString(inbuf, 0, len);
 
   if (len > 0)
   {
     var topic = $"{dstnet}-{dstnode}.{srcnet}-{srcnode}";
 
-    var outbuf = $"{System.DateTime.Now}\t"        +
-      $"{srcnet}-{srcnode}\t{dstnet}-{dstnode}\t"  +
-      $"{len} bytes RSS:{RSS} dBm SNR: {SNR} dB\t" +
-      $"{UTF8.GetString(msg, 0, len)}";
+    // Check for topic string suffix at the beginning of the message
+
+    if (msg.StartsWith("."))
+    {
+      var words = msg.Split(' ');
+      topic += words[0];
+      msg = msg.Remove(0, words[0].Length + 1);
+    }
+
+    var outbuf = $"{msg}\t{System.DateTime.Now}\t" +
+      $"{srcnet}-{srcnode} {dstnet}-{dstnode} "  +
+      $"{len} bytes RSS:{RSS} dBm SNR: {SNR} dB";
 
     await channel.BasicPublishAsync(exchange, topic, UTF8.GetBytes(outbuf));
   }
