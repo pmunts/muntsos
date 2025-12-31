@@ -17,239 +17,6 @@ target operating system.
 
 News
 
--   12 February 2025 -- Added libgpiod to the toolchain libraries
-    packages gcc-*-muntsos-linux-gnu-ctng-libs and added the libgpiod
-    runtime extension package. Because they use the same ioctl()
-    services, libgpiod and libsimpleio interoperate without any
-    problems. Note that this libgpiod is newer than that in Debian 12
-    (Bookworm), including Raspberry Pi OS.
-
--   17 February 2025 -- Upgraded the .Net Runtime to 9.0.2. Upgraded the
-    Raspberry Pi kernel to 6.6.78.
-
--   20 February 2025 -- Crosstool-NG release 1.27.0 was published a few
-    days ago. I have used it to build the 10th iteration of the MuntsOS
-    cross-toolchain packages, upgrading binutils to 2.43, GCC to 14.2.0,
-    and glibc to 2.41. GCC 14.2.0 includes support for Ada 2022 and a
-    lot of Modula-2 fixes. All of the extensions, kernels, and thin
-    servers have been rebuilt with the new GCC 14.2.0 toolchain. The
-    previous GCC 13.2.0 cross-toolchain packages, extensions, kernels,
-    and thin servers have been moved to the attic.
-
--   23 February 2025 -- Added initial support for the 64-bit BeaglePlay.
-    Next up will probably be the 64-bit VisionFive 2. I have already
-    built a GCC 14.2.0 riscv64 cross-toolchain for MuntsOS.
-
--   6 March 2025 -- Finally got around to completing a couple of loose
-    ends for the Raspberry Pi CM5 on a CM5IO. This has proven to be a
-    very nice setup.
-
--   13 March 2025 -- Support for the BeaglePlay is now done. See
-    Application Note #19 for important information.
-
--   18 March 2025 -- Enabled encryption for repo.munts.com (GitHub issue
-    #2) which is now accessible either without encryption at
-    http://repo.munts.com or with encryption at https://repo.munts.com.
-    Document and script hyperlinks that formerly referenced
-    git.munts.com now reference https://repo.munts.com/muntsos and
-    sysconfig has switched from wget to curl.
-
--   22 March 2025 -- Overhauled MuntsOS email support: Rewrote
-    Application Note #16, upgraded the dma and emailrelay extension
-    packages to latest releases, and updated their configuration files
-    for authenticated SMTP relay. Added mailtunnel, an extension package
-    template.
-
--   28 March 2025 -- Switched the BeaglePlay kernel branch to
-    6.6.58-ti-arm64-r24. Upgraded a lot of library components: libusb to
-    1.0.28, openssl to 3.4.1, icu to 77.1, curl to 8.12.1, xmlrpc to
-    1.60.04, libmysqlclient to 3.4.4, gdbm to 1.25, paho.mqtt.c to
-    1.3.14, libffi to 3.4.7, util-linux to 2.41, and xz to 5.8.0.
-    Toolchain Debian package gcc-*-libs has subsumed gcc-*-libaws.
-
--   19 May 2025 -- Added extension packages libwioe5p2p, libwioe5ham1,
-    and libwioe5ham2 as well as both Ada and C# .Net example programs.
-    These all result from a deep dive study about using the Wio-E5 LoRa
-    Transceiver Module for Amateur Radio operation in the 33-cm band.
-    See WioE5LoRaP2P.pdf for more background information. Fixed a bug in
-    sysconfig that installed .nupkg extension package files to
-    /boot/autoexec.d instead of /boot/packages. Modified nupkg to
-    support an additional (and hereafter canonical) scheme for naming
-    .Net Core extension package files: <progname>-muntsos-all.nupkg. The
-    older (and hereafter deprecated) naming scheme (as built by
-    dotnet pack or Visual Studio Build -> Pack)
-    <progname>.<progversion>.nupkg is still supported.
-
--   10 July 2025 -- Following a June vacation hiatus, I upgraded library
-    components readline to 8.3, libgpiod to 2.2.2, libusb to 1.0.29,
-    hidapi to 0.15.0, openssl to 3.5.1, curl to 8.14.1, xmlrpc-c to
-    1.60.05, mariadb-connector-c aka libmysql to 3.4.5, nng to 1.11,
-    libffi to 3.5.1, and xz to 5.8.1. Upgraded userland programs openssh
-    to 10.0p1, ethtool to 6.15, mailutils to 3.19, and nano editor to
-    8.5. Upgraded the BeaglePlay kernel to 6.6.58-ti-arm64-r29. Upgraded
-    all 64-bit Raspberry kernels to 6.12.36. Upgraded the .Net Runtime
-    extension to 9.0.8 and the Python3 extension to 3.13.5.
-
--   19 July 2025 -- In recent years I have written a lot of
-    self-contained extension programs for MuntsOS using the Ada
-    programming language (e.g. remoteio_server). See new Application
-    Note #21. Managing extension programs has always been a little
-    awkward because they needed to be installed to /boot/autoexec.d
-    instead of /boot/packages like other extensions. I have now renamed
-    /boot/packages to /boot/extensions, to contain both extension
-    package files (any of .deb, .nupkg, or .rpm) as well as extension
-    program files and have modifed /etc/rc and sysconfig accordingly.
-    You can still install executable programs and scripts to
-    /boot/autoexec.d but sysconfig will no longer attempt to manage
-    them. Note that executable programs and scripts installed to either
-    /boot/autoexec.d or /boot/extensions must run to completion quickly
-    or detach themselves to run as background processes, to avoid
-    blocking the MuntsOS startup script /etc/rc.
-
--   31 July 2024 -- Added two new extension packages to support the
-    Raspberry Pi Build HAT, which acts as a four port controller for
-    LEGO® Powered Up (aka LEGO® Power Functions 2.0) actuators and
-    sensors. With a Powered Up to Power Functions Adapter or a Powered
-    Up to EV3/NXT Adapter you can also control older LEGO® actuators and
-    sensors. The python3-buildhat extension package installs the
-    official Build HAT Python library. The buildhat-firmware extension
-    package just downloads firmware to the Build Hat RP2040
-    microcontroller whenever the MuntsOS target computer reboots.
-    Install python3 and python3-buildhat for Python development and
-    buildhat-firmware for all other programming languages.
-
--   9 August 2025 -- Upgraded the Raspberry Pi Linux kernel to 6.12.41.
-    Upgraded the .Net Runtime to 9.0.8. Started adding Ada, C#, and
-    Python3 test programs for the Raspberry Pi Build HAT. Modified the
-    nupkg utility program to handle shared library .so files in .nupkg
-    files. Added the libsystem.io.ports-aarch64.nupkg extension package,
-    which installs libSystem.IO.Ports.Native.so to /usr/local/lib, and
-    is required by programs using Iot.Device.Bindings.BuildHAT. Started
-    adding C# components and test programs using Iot.Device.Bindings and
-    System.Device.Gpio.
-
--   10 August 2025 -- I was playing around this morning with .Net
-    programs using System.Device.Gpio and stumbled across an odd
-    failure: My first test program test_led runs fine on a Raspberry Pi
-    3 but fails on a Raspberry Pi 5 with the following exception:
-
-    Unhandled exception. System.DllNotFoundException: Unable to load
-    shared library 'libgpiod.so.2' or one of its dependencies.
-
-    A little searching led me to RaspberryPi3Driver.cs. This .Net IoT
-    Libraries source file contains some GPIO code for 64-bit Raspberry
-    Pi Models, but it is missing platform detection code for the
-    Raspberry Pi 5. After failing to recognize the Raspberry Pi 5, the
-    code somewhere inside System.Device.Gpio fell back to libgpiod V1,
-    which subsequently failed because libgpiod.so.2 was missing. This is
-    a bit of a cautionary tale: The .Net IoT Libraries contain a lot of
-    wonderful code, but it may not be well maintained. The Raspberry Pi
-    5 was released almost two years ago.
-
-    I have added a new extension package libgpiod1-muntsos-aarch64.deb
-    and for sanity's sake I have renamed the previous extension package
-    libgpiod-muntsos-aarch64.deb to libgpiod2-muntsos-aarch64.deb.
-    Confusingly, libgpiod1 provides libgpiod.so.2 and libgpiod2 provides
-    libgpiod.so.3.
-
-    I have also added Application Note #23, which contains a complete
-    example using System.Device.Gpio on a MuntsOS target computer.
-
--   16 August 2025 -- I noticed while trying to compile
-    wioe5_ham1_nng_publisher.adb on a Debian 12 machine that the native
-    gprbuild inserts a spurious -static into the link options. Ada
-    programs for MuntsOS are supposed to always be linked dynamically.
-    Some investigation revealed that Debian 11 native gprbuild and Alire
-    gprbuild version 22.0.1 both work correctly while Debian 12 native
-    gprbuild and Alire gprbuild version 25.0.1 both insert the erroneous
-    -static link option. Very mysterious. See the ongoing discussion
-    thread for more information. I added the -shared-libgcc link option
-    to the cross-toolchain configuration project files
-    aarch64-muntsos-linux-gnu.cgpr and riscv64-muntsos-linux-gnu.cgpr. I
-    also cleaned up the gnatmake flags in ada.mk and crosstool.mk to
-    keep compile and link flags consistent between building with
-    gnatmake and gprbuild.
-
--   18 August 2025 -- I have now incorporated a known working version of
-    gprbuild (presently Alire gprbuild 25.0.1) into each of the
-    cross-toolchain packages. A Linux distribution gprbuild is no longer
-    necessary for building Ada programs for MuntsOS targets.
-
--   23 August 2025 -- I have now upgraded my build server to Debian 13
-    (Trixie) and created the Munts Technologies Debian package
-    repository for Debian 13. I plan to maintain the Debian 12 package
-    repository until the end of 2025.
-
--   6 September 2025 -- I have added support for Linux Industrial I/O
-    scaled ADC (Analog to Digital Converter) inputs. Some ADC chips with
-    an internal voltage reference populate the scale factor files
-    (in_voltage(Y)_scale et al) automatically. Others, especially those
-    with an external voltage reference, require some magic in a device
-    tree overlay to configure the scaling. I've updated the MUNTS-0018,
-    Pi3ClickShield, and the Pi4ClickShield overlays to support scaling.
-
--   12 September 2025 -- Added support for Linux Industrial I/O scaled
-    DAC (Digital to Analog Converter) outputs. Added more Raspberry Pi
-    device tree overlays for a number of ADC and DAC boards and modules.
-
--   15 September 2025 -- Added support for Linux Industrial I/O
-    temperature sensors. Added more Raspberry Pi device tree overlays
-    for a number of temperature sensors and modules. Please note that
-    most or all of the mikroBUS temperature sensor modules suffer
-    significant self-heating from the CPU board. The Mikroelektronika
-    Thermo Click thermocouple interface module is a notable exception,
-    as the thermocouple junction can be placed away from the CPU board.
-    Grove, Pmod, Qwiic, and Stemma I²C temperature sensor modules can
-    also be placed away from the CPU board.
-
--   26 September 2025 -- Upgraded the .Net Runtime to 9.0.9. Upgraded
-    the Raspberry Pi kernel to 6.12.48. Upgraded rpcbind to 1.2.8, iw to
-    6.17, mailutils to 3.20, and nano to 8.6. Imported latest (24
-    Sep 2025) boot files from Raspberry Pi OS. Fixed or suppressed
-    compiler warnings in Ada example packages and programs. Symlink /run
-    to /var/run for rpcbind.
-
--   19 October 2025 -- Crosstool-NG release 1.28.0 was published a few
-    weeks ago. I have used it to build the 11th iteration of the MuntsOS
-    cross-toolchain packages, upgrading binutils to 2.45, GCC to 15.2.0,
-    and glibc to 2.42. GCC 15.2.0 includes support for Ada 2022 and a
-    lot of Modula-2 fixes. All of the extensions, kernels, and thin
-    servers have been rebuilt with the new GCC 15.2.0 toolchain. The
-    previous GCC 14.2.0 cross-toolchain packages, extensions, kernels,
-    and thin servers have been moved to the attic.
-
--   25 October 2025 -- I have a bag full of surplus 32-bit Raspberry Pi
-    Zero W's and evidently too much time on my hands. After upgrading
-    the MuntsOS AArch64 and RISCV64 cross-toolchain packages to
-    Crosstool-NG 1.28.0 / GCC 15.2.0, I began to wonder if it would be
-    possible to build a new cross-toolchain for the obsolete Raspberry
-    Pi 1 as well, something I hadn't been able to do successfully since
-    Crosstool-NG 1.24.0 / GCC 8.3.0. It worked, with a bonus of picking
-    up GNU Modula-2 support on the Raspberry Pi 1 for the first time as
-    well. Switching to the extremely compact defconfig format
-    configuration files for Crosstool-NG makes it much easier to add new
-    architectures. I have also successfully built a Linux USB Gadget
-    6.12.x kernel for the Raspberry Pi 1. The Raspberry Pi Zero is still
-    useful in embedded systems for its lower power consumption and I am
-    reinstating the Raspberry Pi 1 as a MuntsOS target computer on an
-    experimental basis, concentrating on the Raspberry Pi Zero W. More
-    work remains to complete the Raspberry Pi 1 kernels.
-
--   7 November 2025 -- After days and weeks of failure trying to build a
-    MuntsOS cross-toolchain for Windows x86-64 using Crosstool-NG, in
-    desperation I tried out GNU Dev Tools for ARM, which appears to be
-    derived from the old Linaro ABE cross-toolchain builder. I was able
-    to successfully build MuntsOS cross-toolchains for Linux, kernels,
-    and extensions for AArch64 and Raspberry Pi 1. Alas, building a
-    MuntsOS cross-toolchain for Windows fails miserably. The only real
-    advantage of GNU Dev Tools For ARM over Crosstool-NG, is that the
-    former is designed to build from the tip of the GCC code tree,
-    meaning it will likely be possible to build a GCC 16.x or 17.x
-    cross-toolchain much sooner than with Crosstool-NG. I have created,
-    tested, and checked in all of the infrastructure to build and use
-    toolchains built with GNU Dev Tools for ARM (TOOLCHAIN_REV=12,
-    TOOLCHAIN_BUILDER=gnudevarm) but have not cut over to it yet.
-
 -   16 November 2025 -- I have finally created MuntsOS cross-toolchains
     that run on x86-64 Windows 10 or 11. The aggravation of dealing with
     Windows' case insensitive filenames and the dependency upon either
@@ -278,6 +45,11 @@ News
     cross-toolchains in tarballs. Instead, you will need to install and
     update them from git repositories. See the updated setup-win64.bat
     and Application Note #24 for more information.
+
+-   31 December 2025 -- As promised, I have ended my Debian 12
+    (Bookworm) package repository. Added Application Note #25, about
+    running RabbitMQ Enterprise Message Broker client programs on
+    MuntsOS target computers.
 
 Quick Setup Instructions for the Impatient
 
@@ -597,9 +369,8 @@ cross-toolchain package.
 
 Cross-toolchain packages containing GCC 15.2.0, including support for
 Ada 2022, and built for Debian Linux (x86-64 and ARM64) development host
-computers are available at either:
+computers are available at:
 
-https://repo.munts.com/debian12 (Debian package repository)
 https://repo.munts.com/debian13 (Debian package repository)
 https://repo.munts.com/muntsos/toolchain-debs (just the package files).
 
