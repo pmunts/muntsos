@@ -31,6 +31,14 @@ News
 
 -   14 January 2026 -- Upgraded the .Net Runtime to 10.0.2.
 
+-   24 January 2026 -- I abandoned support for Java on MuntsOS in 2020
+    after Oracle ended support for Java SE Embedded in 2019. I have now
+    added a new experimental Java Runtime extension package for MuntsOS
+    AArch64 targets, built with jlink, from the OpenJDK 25.0.2 AArch64
+    release. The Java bindings in the Linux Simple I/O Library are
+    incomplete and remain in the attic. I will be working on those
+    bindings for awhile to see if supporting Java will be worthwhile.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
