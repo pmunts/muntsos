@@ -305,4 +305,43 @@ toolchains built with GNU Dev Tools for ARM (<b><tt>TOOLCHAIN_REV=12</tt></b>,
 <b><tt>TOOLCHAIN_BUILDER=gnudevarm</tt></b>) but have not cut over to it
 yet.</p>
 </li>
+<li>
+<p>16 November 2025 -- I have <i>finally</i> created <b>MuntsOS</b>
+cross-toolchains that run on x86-64 Windows 10 or 11. The aggravation of
+dealing with Windows' case insensitive filenames and the dependency upon either
+<a href="https://cygwin.com">Cygwin</a> or <a href=
+"https://www.msys2.org/">MSYS2</a>, compared to just running Debian Linux in
+<a href="https://learn.microsoft.com/en-us/windows/wsl">Windows Subsystem for
+Linux</a>, probably makes this a <a href=
+"https://en.wikipedia.org/wiki/Pyrrhic_victory">Pyrrhic victory</a> for all but
+Ada developers using <a href="https://alire.ada.dev">Alire</a> on Windows
+(<i>i.e.</i> my original use case: People bringing Windows computers to my
+<nobr>Ada-on-<b>MuntsOS</b></nobr> tutorial class at the 2023 Ada-Europe
+Conference in Lisbon). Read the gory details in <a href=
+"https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf">Application Note
+#24</a>.</p>
+</li>
+<li>
+<p>29 November 2025 -- Upgraded the .Net Runtime to 10.0.0 (LTS).</p>
+</li>
+<li>
+<p>2 December 2025 -- Upgraded Raspberry Pi kernels to 6.12.60. I have
+reinstated <b>MuntsOS</b> support (kernels, extensions, and Thin Servers) for
+the obsolete 32-bit ARMv6 Raspberry Pi 1, to enable using a stockpile of
+<a href="https://www.raspberrypi.com/products/raspberry-pi-zero-w">Raspberry Pi
+Zero W</a>'s. From its product web page: <i>Raspberry Pi Zero W will remain in
+production until at least January 2030.</i></p>
+</li>
+<li>
+<p>23 December 2025 -- Upgraded Raspberry Pi kernels to 6.12.62. Upgraded
+OpenSSH to 10.2p1. Upgraded mailutils to 3.21. Upgraded nano to 8.7. Upgraded
+the .Net Core Runtime to 10.0.1. Added librabbitmq extension package.</p>
+</li>
+<li>24 December 2025 -- I am no longer distributing the Windows
+cross-toolchains in tarballs. Instead, you will need to install and update them
+from git repositories. See the updated <a href=
+"https://repo.munts.com/muntsos/scripts/setup-win64.bat">setup-win64.bat</a>
+and <a href=
+"https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf">Application Note
+#24</a> for more information.</li>
 </ul>

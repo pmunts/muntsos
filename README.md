@@ -18,52 +18,23 @@ Raspberry Pi board, **MuntsOS** offers a very high productivity
 development environment and a very easy to deploy target operating
 system.
 
+**MuntsOS** always includes the shared library **`libsimpleio.so`** from
+the [Linux Simple I/O Library](https://github.com/pmunts/libsimpleio),
+which facilitates building embedded system programs for **MuntsOS**
+target computers using Ada, C, C++, Fortran, Go, Free Pascal, Java,
+Modula-2, .Net, and Python3 programming languages.
+
+Shared libraries for [libgpiod](https://libgpiod.readthedocs.io) are
+available for **MuntsOS** target computers by installing the
+**`libgpiod1`** or **`libgpiod2`** extension packages.
+
 ## News
 
-- 16 November 2025 -- I have *finally* created **MuntsOS**
-  cross-toolchains that run on x86-64 Windows 10 or 11. The aggravation
-  of dealing with Windows' case insensitive filenames and the dependency
-  upon either [Cygwin](https://cygwin.com) or
-  [MSYS2](https://www.msys2.org/), compared to just running Debian Linux
-  in [Windows Subsystem for
-  Linux](https://learn.microsoft.com/en-us/windows/wsl), probably makes
-  this a [Pyrrhic
-  victory](https://en.wikipedia.org/wiki/Pyrrhic_victory) for all but
-  Ada developers using [Alire](https://alire.ada.dev) on Windows (*i.e.*
-  my original use case: People bringing Windows computers to my
-  Ada-on-**MuntsOS** tutorial class at the 2023 Ada-Europe Conference in
-  Lisbon). Read the gory details in [Application Note
-  \#24](https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf).
+- 6 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.63. Added
+  extension package libpaho-mqtt3. Added an Ada binding to Paho MQTT C
+  to the Linux Simple I/O Library.
 
-- 29 November 2025 -- Upgraded the .Net Runtime to 10.0.0 (LTS).
-
-- 2 December 2025 -- Upgraded Raspberry Pi kernels to 6.12.60. I have
-  reinstated **MuntsOS** support (kernels, extensions, and Thin Servers)
-  for the obsolete 32-bit ARMv6 Raspberry Pi 1, to enable using a
-  stockpile of [Raspberry Pi Zero
-  W](https://www.raspberrypi.com/products/raspberry-pi-zero-w)'s. From
-  its product web page: *Raspberry Pi Zero W will remain in production
-  until at least January 2030.*
-
-- 23 December 2025 -- Upgraded Raspberry Pi kernels to 6.12.62. Upgraded
-  OpenSSH to 10.2p1. Upgraded mailutils to 3.21. Upgraded nano to 8.7.
-  Upgraded the .Net Core Runtime to 10.0.1. Added librabbitmq extension
-  package.
-
-- 24 December 2025 -- I am no longer distributing the Windows
-  cross-toolchains in tarballs. Instead, you will need to install and
-  update them from git repositories. See the updated
-  [setup-win64.bat](https://repo.munts.com/muntsos/scripts/setup-win64.bat)
-  and [Application Note
-  \#24](https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf)
-  for more information.
-
-- 31 December 2025 -- As promised, I have ended my Debian 12 (Bookworm)
-  package repository. Added [Application Note
-  \#25](https://repo.munts.com/muntsos/doc/AppNote25-RabbitMQ-Client-Programs.pdf),
-  about running [RabbitMQ Enterprise Message
-  Broker](https://www.rabbitmq.com) client programs on **MuntsOS**
-  target computers.
+- 14 January 2026 -- Upgraded the .Net Runtime to 10.0.2.
 
 ## Quick Setup Instructions for the Impatient
 

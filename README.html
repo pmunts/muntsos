@@ -13,55 +13,41 @@ have <i>very</i> steep learning curves. If you are building a test fixture or
 process controller or almost any other embedded system that contains a
 Raspberry Pi board, <b>MuntsOS</b> offers a very high productivity development
 environment and a very easy to deploy target operating system.</p>
+<p><b>MuntsOS</b> always includes the shared library
+<b><tt>libsimpleio.so</tt></b> from the <a href=
+"https://github.com/pmunts/libsimpleio">Linux Simple I/O Library</a>, which
+facilitates building embedded system programs for <b>MuntsOS</b> target
+computers using Ada, C, C++, Fortran, Go, Free Pascal, Java, Modula-2, .Net,
+and Python3 programming languages.</p>
+<p>Shared libraries for <a href="https://libgpiod.readthedocs.io">libgpiod</a>
+are available for <b>MuntsOS</b> target computers by installing the
+<b><tt>libgpiod1</tt></b> or <b><tt>libgpiod2</tt></b> extension packages.</p>
 <h2>News</h2>
 <ul>
-<li>
-<p>16 November 2025 -- I have <i>finally</i> created <b>MuntsOS</b>
-cross-toolchains that run on x86-64 Windows 10 or 11. The aggravation of
-dealing with Windows' case insensitive filenames and the dependency upon either
-<a href="https://cygwin.com">Cygwin</a> or <a href=
-"https://www.msys2.org/">MSYS2</a>, compared to just running Debian Linux in
-<a href="https://learn.microsoft.com/en-us/windows/wsl">Windows Subsystem for
-Linux</a>, probably makes this a <a href=
-"https://en.wikipedia.org/wiki/Pyrrhic_victory">Pyrrhic victory</a> for all but
-Ada developers using <a href="https://alire.ada.dev">Alire</a> on Windows
-(<i>i.e.</i> my original use case: People bringing Windows computers to my
-<nobr>Ada-on-<b>MuntsOS</b></nobr> tutorial class at the 2023 Ada-Europe
-Conference in Lisbon). Read the gory details in <a href=
-"https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf">Application Note
-#24</a>.</p>
-</li>
-<li>
-<p>29 November 2025 -- Upgraded the .Net Runtime to 10.0.0 (LTS).</p>
-</li>
-<li>
-<p>2 December 2025 -- Upgraded Raspberry Pi kernels to 6.12.60. I have
-reinstated <b>MuntsOS</b> support (kernels, extensions, and Thin Servers) for
-the obsolete 32-bit ARMv6 Raspberry Pi 1, to enable using a stockpile of
-<a href="https://www.raspberrypi.com/products/raspberry-pi-zero-w">Raspberry Pi
-Zero W</a>'s. From its product web page: <i>Raspberry Pi Zero W will remain in
-production until at least January 2030.</i></p>
-</li>
-<li>
-<p>23 December 2025 -- Upgraded Raspberry Pi kernels to 6.12.62. Upgraded
-OpenSSH to 10.2p1. Upgraded mailutils to 3.21. Upgraded nano to 8.7. Upgraded
-the .Net Core Runtime to 10.0.1. Added librabbitmq extension package.</p>
-</li>
-<li>24 December 2025 -- I am no longer distributing the Windows
-cross-toolchains in tarballs. Instead, you will need to install and update them
-from git repositories. See the updated <a href=
-"https://repo.munts.com/muntsos/scripts/setup-win64.bat">setup-win64.bat</a>
-and <a href=
-"https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf">Application Note
-#24</a> for more information.</li>
-<li>
 <p>31 December 2025 -- As promised, I have ended my Debian 12 (Bookworm)
 package repository. Added <a href=
 "https://repo.munts.com/muntsos/doc/AppNote25-RabbitMQ-Client-Programs.pdf">Application
 Note #25</a>, about running <a href="https://www.rabbitmq.com">RabbitMQ
 Enterprise Message Broker</a> client programs on <b>MuntsOS</b> target
 computers.</p>
+<li>
+<p>6 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.63. Added
+extension package libpaho-mqtt3. Added an Ada binding to Paho MQTT C to the
+Linux Simple I/O Library.</p>
 </li>
+<li>
+<p>14 January 2026 -- Upgraded the .Net Runtime to 10.0.2.</p>
+</li>
+<p>24 January 2026 -- I abandoned support for Java on <b>MuntsOS</b> in 2020
+after Oracle ended support for <a href=
+"https://www.oracle.com/java/technologies/javase-embedded/javase-embedded.html">
+Java SE Embedded</a> in 2019. I have now added a new <i>experimental</i> Java
+Runtime extension package for <b>MuntsOS</b> AArch64 targets, built with
+<b><tt>jlink</tt></b> from the OpenJDK 25.0.2 AArch64 release. The Java
+bindings in the Linux Simple I/O Library are incomplete and remain in the
+<a href="https://github.com/pmunts/libsimpleio/tree/master/attic">attic</a>. I
+will be working on those bindings for awhile to see if supporting Java is
+worthwhile.</p>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development
