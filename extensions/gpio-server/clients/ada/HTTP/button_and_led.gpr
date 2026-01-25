@@ -23,9 +23,11 @@
 WITH "aws";
 
 PROJECT Button_And_LED IS
+  LIBSIMPLEIO := external("LIBSIMPLEIO", "/usr/local/share/libsimpleio");
+
   FOR Source_Dirs USE (".", "../../../../../examples/ada/packages",
-    external("LIBSIMPLEIO") & "/ada/interfaces",
-    external("LIBSIMPLEIO") & "/ada/objects");
+    LIBSIMPLEIO & "/ada/interfaces",
+    LIBSIMPLEIO & "/ada/objects");
   FOR Object_Dir  USE "./obj";
   FOR Exec_Dir    USE ".";
 END Button_And_LED;
