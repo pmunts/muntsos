@@ -101,6 +101,11 @@ mdev -s
 
 mdev -d
 
+# Set deprecated GPIO sysfs API top-level ownership and permissions
+
+chown root.gpio /sys/class/gpio/export /sys/class/gpio/unexport
+chmod 0220      /sys/class/gpio/export /sys/class/gpio/unexport
+
 # Set CPU frequency governor
 
 if [ -f /etc/scaling_governor ]; then
