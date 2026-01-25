@@ -24,12 +24,14 @@ are available for <b>MuntsOS</b> target computers by installing the
 <b><tt>libgpiod1</tt></b> or <b><tt>libgpiod2</tt></b> extension packages.</p>
 <h2>News</h2>
 <ul>
+<li>
 <p>31 December 2025 -- As promised, I have ended my Debian 12 (Bookworm)
 package repository. Added <a href=
 "https://repo.munts.com/muntsos/doc/AppNote25-RabbitMQ-Client-Programs.pdf">Application
 Note #25</a>, about running <a href="https://www.rabbitmq.com">RabbitMQ
 Enterprise Message Broker</a> client programs on <b>MuntsOS</b> target
 computers.</p>
+</li>
 <li>
 <p>6 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.63. Added
 extension package libpaho-mqtt3. Added an Ada binding to Paho MQTT C to the
@@ -49,6 +51,13 @@ bindings in the Linux Simple I/O Library are incomplete and remain in the
 <a href="https://github.com/pmunts/libsimpleio/tree/master/attic">attic</a>. I
 will be working on those bindings for awhile to see if supporting Java will be
 worthwhile.</p>
+</li>
+<li>
+<p>25 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.67. Resurrected
+<b><tt>mdev-helper-gpio</tt></b> to fixup permissions for the deprecated GPIO
+<b><tt>sysfs</tt></b> API. Some of the servers in the
+<b><tt>gpio-server</tt></b> extension package still use the GPIO
+<b><tt>sysfs</tt></b> API.</p>
 </li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>

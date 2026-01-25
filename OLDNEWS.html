@@ -344,4 +344,39 @@ from git repositories. See the updated <a href=
 and <a href=
 "https://repo.munts.com/muntsos/doc/AppNote24-Setup-Win64.pdf">Application Note
 #24</a> for more information.</li>
+<li>
+<p>31 December 2025 -- As promised, I have ended my Debian 12 (Bookworm)
+package repository. Added <a href=
+"https://repo.munts.com/muntsos/doc/AppNote25-RabbitMQ-Client-Programs.pdf">Application
+Note #25</a>, about running <a href="https://www.rabbitmq.com">RabbitMQ
+Enterprise Message Broker</a> client programs on <b>MuntsOS</b> target
+computers.</p>
+</li>
+<li>
+<p>6 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.63. Added
+extension package libpaho-mqtt3. Added an Ada binding to Paho MQTT C to the
+Linux Simple I/O Library.</p>
+</li>
+<li>
+<p>14 January 2026 -- Upgraded the .Net Runtime to 10.0.2.</p>
+</li>
+<li>
+<p>24 January 2026 -- I abandoned support for Java on <b>MuntsOS</b> in 2020
+after Oracle ended support for <a href=
+"https://www.oracle.com/java/technologies/javase-embedded/javase-embedded.html">
+Java SE Embedded</a> in 2019. I have now added a new <i>experimental</i> Java
+Runtime extension package for <b>MuntsOS</b> AArch64 targets, built with
+<b><tt>jlink</tt></b>, from the OpenJDK 25.0.2 AArch64 release. The Java
+bindings in the Linux Simple I/O Library are incomplete and remain in the
+<a href="https://github.com/pmunts/libsimpleio/tree/master/attic">attic</a>. I
+will be working on those bindings for awhile to see if supporting Java will be
+worthwhile.</p>
+</li>
+<li>
+<p>25 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.67. Resurrected
+<b><tt>mdev-helper-gpio</tt></b> to fixup permissions for the deprecated GPIO
+<b><tt>sysfs</tt></b> API. Some of the servers in the
+<b><tt>gpio-server</tt></b> extension package still use the GPIO
+<b><tt>sysfs</tt></b> API.</p>
+</li>
 </ul>

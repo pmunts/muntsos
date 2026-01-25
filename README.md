@@ -30,6 +30,13 @@ available for **MuntsOS** target computers by installing the
 
 ## News
 
+- 31 December 2025 -- As promised, I have ended my Debian 12 (Bookworm)
+  package repository. Added [Application Note
+  \#25](https://repo.munts.com/muntsos/doc/AppNote25-RabbitMQ-Client-Programs.pdf),
+  about running [RabbitMQ Enterprise Message
+  Broker](https://www.rabbitmq.com) client programs on **MuntsOS**
+  target computers.
+
 - 6 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.63. Added
   extension package libpaho-mqtt3. Added an Ada binding to Paho MQTT C
   to the Linux Simple I/O Library.
@@ -46,6 +53,12 @@ available for **MuntsOS** target computers by installing the
   [attic](https://github.com/pmunts/libsimpleio/tree/master/attic). I
   will be working on those bindings for awhile to see if supporting Java
   will be worthwhile.
+
+- 25 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.67.
+  Resurrected **`mdev-helper-gpio`** to fixup permissions for the
+  deprecated GPIO **`sysfs`** API. Some of the servers in the
+  **`gpio-server`** extension package still use the GPIO **`sysfs`**
+  API.
 
 ## Quick Setup Instructions for the Impatient
 

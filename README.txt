@@ -25,6 +25,11 @@ by installing the libgpiod1 or libgpiod2 extension packages.
 
 News
 
+-   31 December 2025 -- As promised, I have ended my Debian 12
+    (Bookworm) package repository. Added Application Note #25, about
+    running RabbitMQ Enterprise Message Broker client programs on
+    MuntsOS target computers.
+
 -   6 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.63. Added
     extension package libpaho-mqtt3. Added an Ada binding to Paho MQTT C
     to the Linux Simple I/O Library.
@@ -38,6 +43,11 @@ News
     release. The Java bindings in the Linux Simple I/O Library are
     incomplete and remain in the attic. I will be working on those
     bindings for awhile to see if supporting Java will be worthwhile.
+
+-   25 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.67.
+    Resurrected mdev-helper-gpio to fixup permissions for the deprecated
+    GPIO sysfs API. Some of the servers in the gpio-server extension
+    package still use the GPIO sysfs API.
 
 Quick Setup Instructions for the Impatient
 
