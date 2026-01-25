@@ -1,6 +1,6 @@
 -- MuntsOS GPIO Thin Server Toggle Speed Test Using HTTP
 
--- Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
+-- Copyright (C)2016-2026, Philip Munts dba Munts Technologies.
 --
 -- Redistribution and use in source and binary forms, with or without
 -- modification, are permitted provided that the following conditions are met:
@@ -26,6 +26,6 @@ PROJECT Toggle_Speed IS
   FOR Source_Dirs USE (".", "../../../../../examples/ada/packages",
     external("LIBSIMPLEIO") & "/ada/interfaces",
     external("LIBSIMPLEIO") & "/ada/objects");
-  FOR Object_Dir  USE external("ADA_OBJ");
+  FOR Object_Dir  USE "./obj";
   FOR Exec_Dir    USE ".";
 END Toggle_Speed;
