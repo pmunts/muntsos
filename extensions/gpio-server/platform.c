@@ -139,7 +139,7 @@ void GPIO_Platform_Init(void)
 
     memset(buf, 0, sizeof(buf));
     fgets(buf, sizeof(buf), f);
-    fclose(f);
+    pclose(f);
 
     if (strtoul(buf, NULL, 16) <= 0x0F)
     {
