@@ -46,7 +46,7 @@ BEGIN
   -- Configure GPIO pins
 
   Button := GPIO.HTTP.Create(Ada.Command_Line.Argument(1) & ASCII.NUL,
-    19, GPIO.Input);
+    6, GPIO.Input);
 
   LED := GPIO.HTTP.Create(Ada.Command_Line.Argument(1) & ASCII.NUL,
     26, GPIO.Output);
