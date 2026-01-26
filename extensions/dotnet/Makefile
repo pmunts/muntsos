@@ -49,10 +49,10 @@ $(PKGDIR): $(DOTNET_DIST)
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g	$(PKGDIR)/DEBIAN/control
 	install -cm 0755 postinst		$(PKGDIR)/DEBIAN
-	mkdir -p				$(PKGDIR)/usr/local/lib/dotnet
-	tar xzf $(DOTNET_DIST) -C		$(PKGDIR)/usr/local/lib/dotnet
+	mkdir -p				$(PKGDIR)/usr/local/lib/dotnet-$(DOTNET_VERSION)
+	tar xzf $(DOTNET_DIST) -C		$(PKGDIR)/usr/local/lib/dotnet-$(DOTNET_VERSION)
 	mkdir -p				$(PKGDIR)/usr/local/bin
-	ln -s ../lib/dotnet/dotnet		$(PKGDIR)/usr/local/bin/dotnet
+	ln -s ../lib/dotnet-$(DOTNET_VERSION)/dotnet $(PKGDIR)/usr/local/bin/dotnet
 	touch $@
 
 package.deb: $(PKGFILE)
