@@ -1,6 +1,6 @@
 // Analog Input Test using libsimpleio
 
-// Copyright (C)2017-2026, Philip Munts, President, Munts AM Corp.
+// Copyright (C)2017-2026, Philip Munts dba Munts Technologies.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
