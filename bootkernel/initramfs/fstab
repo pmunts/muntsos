@@ -1,6 +1,6 @@
 # /etc/fstab for an embedded Linux system
 
-# Copyright (C)2013-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,14 +20,15 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-none           	/proc           proc            defaults                0 0
-none           	/sys            sysfs           defaults                0 0
-none		/sys/kernel/config configfs	defaults		0 0
-none		/sys/kernel/debug debugfs	defaults		0 0
+none           	/proc           		proc            defaults                0 0
+none           	/sys            		sysfs           defaults                0 0
+none		/sys/kernel/config		configfs	defaults		0 0
+none		/sys/kernel/debug		debugfs		defaults		0 0
 
-tmpfs		/dev/shm	tmpfs		defaults		0 0
-devpts		/dev/pts	devpts		gid=5,mode=620		0 0
+binfmt_misc	/proc/sys/fs/binfmt_misc	binfmt_misc	defaults		0 0
+devpts		/dev/pts			devpts		gid=5,mode=620		0 0
+tmpfs		/dev/shm			tmpfs		defaults		0 0
 
-/dev/bootdisk	/boot		auto		noauto,ro,noatime	0 0
-/dev/sda1	/umass		auto		noauto,rw,noatime	0 0
-/dev/sr0	/cdrom		auto		noauto,ro		0 0
+/dev/bootdisk	/boot				auto		noauto,ro,noatime	0 0
+/dev/sda1	/umass				auto		noauto,rw,noatime	0 0
+/dev/sr0	/cdrom				auto		noauto,ro		0 0
