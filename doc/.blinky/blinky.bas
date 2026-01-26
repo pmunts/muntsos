@@ -1,4 +1,4 @@
-print "MuntsOS LED Test";;
+print "MuntsOS MyBasic LED Test";;
 
 ' Open the GPIO output
 

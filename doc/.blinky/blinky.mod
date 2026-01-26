@@ -14,7 +14,7 @@ VAR
 
 BEGIN
   WriteLn;
-  WriteString("Raspberry Pi LED Test");
+  WriteString("MuntsOS Modula-2 LED Test");
   WriteLn;
   WriteLn;
   FlushOutErr;
