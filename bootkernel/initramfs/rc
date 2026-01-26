@@ -87,7 +87,7 @@ mount -a
 WaitForFile -d /dev/shm
 WaitForFile -d /dev/pts
 WaitForFile -d /proc
-WaitForFile -f /proc/sys/fs/binfmt_misc
+WaitForFile -f /proc/sys/fs/binfmt_misc/register
 WaitForFile -d /sys
 WaitForFile -d /sys/kernel/config
 WaitForFile -d /sys/kernel/debug
