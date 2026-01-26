@@ -70,6 +70,8 @@ $(PKGDIR): $(JREDIR)
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$@/DEBIAN/control
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$@/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g	$@/DEBIAN/control
+	install -cm 0755 postinst		$@/DEBIAN/postinst
+	sed -i s/@@VERSION@@/$(JDKVERSION)/g	$@/DEBIAN/postinst
 	mkdir -p				$@/usr/local/bin
 	ln -s ../lib/$(JREDIR)/bin/java		$@/usr/local/bin/java
 	mkdir -p				$@/usr/local/lib
@@ -104,6 +106,7 @@ $(PKGDIR): $(JREDIR)
 	rm -f					$@/usr/local/lib/$(JREDIR)/bin/rmiregistry
 	rm -f					$@/usr/local/lib/$(JREDIR)/bin/serialver
 	$(CROSS_COMPILE)strip			$@/usr/local/lib/$(JREDIR)/bin/*
+	install -cm 0755 jarwrapper		$@/usr/local/lib/$(JREDIR)/bin
 	$(CROSS_COMPILE)strip			$@/usr/local/lib/$(JREDIR)/lib/*.so
 	touch $@
 
