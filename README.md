@@ -38,8 +38,8 @@ available for **MuntsOS** target computers by installing the
   target computers.
 
 - 6 January 2026 -- Upgraded the Raspberry Pi kernel to 6.12.63. Added
-  extension package libpaho-mqtt3. Added an Ada binding to Paho MQTT C
-  to the Linux Simple I/O Library.
+  extension package **`libpaho-mqtt3`**. Added an Ada binding to Paho
+  MQTT C to the Linux Simple I/O Library.
 
 - 14 January 2026 -- Upgraded the .Net Runtime to 10.0.2.
 
@@ -47,9 +47,9 @@ available for **MuntsOS** target computers by installing the
   after Oracle ended support for [Java SE
   Embedded](https://www.oracle.com/java/technologies/javase-embedded/javase-embedded.html)
   in 2019. I have now added a new *experimental* Java Runtime extension
-  package for **MuntsOS** AArch64 targets, built with **`jlink`**, from
-  the OpenJDK 25.0.2 AArch64 release. The Java bindings in the Linux
-  Simple I/O Library are incomplete and remain in the
+  package for **MuntsOS** AArch64 targets, which is built with
+  **`jlink`** from the OpenJDK 25.0.2 AArch64 release. The Java bindings
+  in the Linux Simple I/O Library are incomplete and remain in the
   [attic](https://github.com/pmunts/libsimpleio/tree/master/attic). I
   will be working on those bindings for awhile to see if supporting Java
   will be worthwhile.
