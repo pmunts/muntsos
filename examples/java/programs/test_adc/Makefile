@@ -34,7 +34,7 @@ JAR_COMPONENTS	+= com
 
 # Infer program name from project directory name
 
-PROGRAM	:= $(shell basename `pwd`).jar
+PROGRAM_NAME	:= $(shell basename `pwd`)
 
 # Override the .class rule, to remove debris and include JNA
 
@@ -45,7 +45,7 @@ PROGRAM	:= $(shell basename `pwd`).jar
 
 # Build applicaton program jar file
 
-default: $(PROGRAM)
+default: $(PROGRAM_NAME)
 
 # Remove working files
 
