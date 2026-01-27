@@ -1,6 +1,6 @@
-# Makefile for building a MuntsOS Embedded Linux Java example program
+# Makefile for building Java programs using the Linux Simple I/O Library
 
-# Copyright (C)2026, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2026, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -31,22 +31,27 @@ else
 JAVAC_CLASSPATH	:= .:$(MUNTSOS)/examples/java/classes
 endif
 
-JAR_COMPONENTS	+= com
+JAR_COMPONENTS	+= com org
 
-# Infer program name from project directory name
-
-PROGRAM	:= $(shell basename `pwd`).jar
-
-# Override the .class rule, to remove debris and include JNA
+# Override the .class rule, to unpack library jar files
 
 %.class: %.java
 	rm -rf $(JAR_COMPONENTS)
-	jar xf $(LIBSIMPLEIO)/attic/java/jars/libsimpleio.jar com/munts
+	jar xf $(LIBSIMPLEIO)/attic/java/jars/oncrpc.jar org/acplt/oncrpc
+	jar xf $(LIBSIMPLEIO)/attic/java/jars/libsimpleio.jar com/munts/interfaces/GPIO
 	$(JAVAC) $(JAVAC_FLAGS) $<
 
-# Build applicaton program jar file
+# Override the .manifest rule, to enable native method access
 
-default: $(PROGRAM)
+%.manifest: %.class
+	echo "Main-Class: $*" >$@
+	echo "Permissions: $(JAR_PERMISSIONS)" >>$@
+	echo "Enable-Native-Access: ALL-UNNAMED" >>$@
+
+# Build all applicaton JAR files
+
+default:
+	for F in *.java ; do $(MAKE) `basename $$F .java`.jar ; rm -rf $(JAR_COMPONENTS) *.manifest ; done
 
 # Remove working files
 
