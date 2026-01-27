@@ -24,24 +24,26 @@ LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(LIBSIMPLEIO)/attic/java/include/java.mk
 
-ifeq ($(OS), Windows_NT)
-JAVAC_CLASSPATH	:= ".;$(LIBSIMPLEIO)/attic/java/classes"
-else
-JAVAC_CLASSPATH	:= .:$(LIBSIMPLEIO)/attic/java/classes
-endif
-
 JAR_COMPONENTS	+= com
 
 # Infer program name from project directory name
 
 PROGRAM_NAME	:= $(shell basename `pwd`)
 
-# Override the .class rule, to remove debris and include JNA
+# Override the .class rule, to unpack library jar files
 
 %.class: %.java
 	rm -rf $(JAR_COMPONENTS)
-	jar xf $(LIBSIMPLEIO)/attic/java/components/jna-5.18.1.jar com/sun/jna
+	jar xf $(LIBSIMPLEIO)/attic/java/jars/jna.jar         com/sun
+	jar xf $(LIBSIMPLEIO)/attic/java/jars/libsimpleio.jar com/munts
 	$(JAVAC) $(JAVAC_FLAGS) $<
+
+# Override the .manifest rule, to enable native method access
+
+%.manifest: %.class
+	echo "Main-Class: $*" >$@
+	echo "Permissions: $(JAR_PERMISSIONS)" >>$@
+	echo "Enable-Native-Access: ALL-UNNAMED" >>$@
 
 # Build applicaton program jar file
 
