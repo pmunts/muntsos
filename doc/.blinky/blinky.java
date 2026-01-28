@@ -1,5 +1,6 @@
 import com.munts.interfaces.GPIO.*;
 import com.munts.libsimpleio.objects.GPIO.*;
+import com.munts.libsimpleio.platforms.RaspberryPi;
 
 public class blinky
 {
@@ -10,7 +11,7 @@ public class blinky
 
     // Configure a GPIO output to drive an LED
 
-    Builder b = new Builder(0, 26);
+    Builder b = new Builder(RaspberryPi.GPIO26);
     b.SetDirection(Direction.Output);
     Pin LED = b.Create();
 
