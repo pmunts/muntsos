@@ -1,6 +1,6 @@
-# Makefile for building a MuntsOS Embedded Linux Java example program
+# Makefile for building Java programs using the Linux Simple I/O Library
 
-# Copyright (C)2026, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2026, Philip Munts, President, Munts AM Corp.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -24,28 +24,26 @@ LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
 include $(LIBSIMPLEIO)/java/include/java.mk
 
-ifeq ($(OS), Windows_NT)
-JAVAC_CLASSPATH	:= ".;$(LIBSIMPLEIO)/java/classes"
-else
-JAVAC_CLASSPATH	:= .:$(LIBSIMPLEIO)/java/classes
-endif
-
 JAR_COMPONENTS	+= com
 
-# Infer program name from project directory name
-
-PROGRAM	:= $(shell basename `pwd`).jar
-
-# Override the .class rule, to remove debris and include JNA
+# Override the .class rule, to unpack library jar files
 
 %.class: %.java
 	rm -rf $(JAR_COMPONENTS)
-	jar xf $(LIBSIMPLEIO)/java/components/jna-5.18.1.jar com/sun/jna
+	jar xf $(LIBSIMPLEIO)/java/jars/jna.jar         com/sun
+	jar xf $(LIBSIMPLEIO)/java/jars/libsimpleio.jar com/munts
 	$(JAVAC) $(JAVAC_FLAGS) $<
 
-# Build applicaton program jar file
+# Override the .manifest rule, to enable native method access
 
-default: $(PROGRAM)
+%.manifest: %.class
+	echo "Main-Class: $*" >$@
+	echo "Permissions: $(JAR_PERMISSIONS)" >>$@
+	echo "Enable-Native-Access: ALL-UNNAMED" >>$@
+
+# Build blinky.jar
+
+default: blinky.jar
 
 # Remove working files
 
