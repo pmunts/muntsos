@@ -23,7 +23,7 @@
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 MUNTSOS		?= /usr/local/share/muntsos
 
-include $(LIBSIMPLEIO)/attic/java/include/java.mk
+include $(LIBSIMPLEIO)/java/include/java.mk
 
 ifeq ($(OS), Windows_NT)
 JAVAC_CLASSPATH	:= ".;$(MUNTSOS)/examples/java/classes"
@@ -37,7 +37,7 @@ JAR_COMPONENTS	+= com
 
 %.class: %.java
 	rm -rf $(JAR_COMPONENTS)
-	jar xf $(LIBSIMPLEIO)/attic/java/jars/libsimpleio.jar com/munts/interfaces/GPIO
+	jar xf $(LIBSIMPLEIO)/java/jars/libsimpleio.jar com/munts/interfaces/GPIO
 	$(JAVAC) $(JAVAC_FLAGS) $<
 
 # Override the .manifest rule, to enable native method access

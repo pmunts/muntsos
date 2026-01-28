@@ -22,12 +22,12 @@
 
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 
-include $(LIBSIMPLEIO)/attic/java/include/java.mk
+include $(LIBSIMPLEIO)/java/include/java.mk
 
 ifeq ($(OS), Windows_NT)
-JAVAC_CLASSPATH	:= ".;$(LIBSIMPLEIO)/attic/java/classes"
+JAVAC_CLASSPATH	:= ".;$(LIBSIMPLEIO)/java/classes"
 else
-JAVAC_CLASSPATH	:= .:$(LIBSIMPLEIO)/attic/java/classes
+JAVAC_CLASSPATH	:= .:$(LIBSIMPLEIO)/java/classes
 endif
 
 JAR_COMPONENTS	+= com
@@ -40,7 +40,7 @@ PROGRAM	:= $(shell basename `pwd`).jar
 
 %.class: %.java
 	rm -rf $(JAR_COMPONENTS)
-	jar xf $(LIBSIMPLEIO)/attic/java/components/jna-5.18.1.jar com/sun/jna
+	jar xf $(LIBSIMPLEIO)/java/components/jna-5.18.1.jar com/sun/jna
 	$(JAVAC) $(JAVAC_FLAGS) $<
 
 # Build applicaton program jar file
