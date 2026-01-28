@@ -49,6 +49,14 @@ News
     GPIO sysfs API. Some of the servers in the gpio-server extension
     package still use the GPIO sysfs API.
 
+-   28 January 2026 -- Reinstatement of Java runtime support (built from
+    OpenJDK 25.0.2) for MuntsOS AArch64 targets is now complete, namely
+    the java extension package, some client program program examples for
+    the gpio-server extension package, and Application Note #26
+    (formerly Application Note #8). While the MuntsOS effort is done,
+    much work remains to finish the Java binding to the Linux Simple I/O
+    Library.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development

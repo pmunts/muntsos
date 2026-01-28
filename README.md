@@ -60,6 +60,16 @@ available for **MuntsOS** target computers by installing the
   **`gpio-server`** extension package still use the GPIO **`sysfs`**
   API.
 
+- 28 January 2026 -- Reinstatement of [Java](https://www.java.com)
+  runtime support (built from [OpenJDK](https://openjdk.org) 25.0.2) for
+  **MuntsOS** AArch64 targets is now complete, namely the **`java`**
+  extension package, some client program program examples for the
+  **`gpio-server`** extension package, and [Application Note
+  \#26](https://repo.munts.com/muntsos/doc/AppNote26-Flash-LED-Java.pdf)
+  (formerly Application Note \#8). While the **MuntsOS** effort is done,
+  much work remains to finish the Java binding to the Linux Simple I/O
+  Library.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
