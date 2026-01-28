@@ -52,6 +52,7 @@ $(PKGDIR):
 	cp -R -P -p $(LIBSIMPLEIO)/gm2		$(PKGDIR)/usr/local/share/libsimpleio
 	cp -R -P -p $(LIBSIMPLEIO)/go		$(PKGDIR)/usr/local/share/libsimpleio
 	cp -R -P -p $(LIBSIMPLEIO)/include	$(PKGDIR)/usr/local/share/libsimpleio
+	cp -R -P -p $(LIBSIMPLEIO)/java		$(PKGDIR)/usr/local/share/libsimpleio
 	cp -R -P -p $(LIBSIMPLEIO)/python	$(PKGDIR)/usr/local/share/libsimpleio
 	mkdir -p				$(PKGDIR)/usr/local/share/libsimpleio/doc
 	install -cm 0644 $(LIBSIMPLEIO)/COPYING	$(PKGDIR)/usr/local/share/libsimpleio/doc
