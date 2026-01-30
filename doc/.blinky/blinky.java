@@ -1,6 +1,6 @@
 import com.munts.interfaces.GPIO.*;
-import com.munts.libsimpleio.objects.GPIO.*;
-import com.munts.libsimpleio.platforms.RaspberryPi;
+import com.munts.libsimpleio.GPIO.*;
+import com.munts.libsimpleio.RaspberryPi;
 
 public class blinky
 {
