@@ -49,6 +49,7 @@ $(PKGDIR): $(DOTNET_DIST)
 	sed -i s/@@NAME@@/$(PKGNAME)/g		$(PKGDIR)/DEBIAN/control
 	sed -i s/@@VERSION@@/$(PKGVERSION)/g	$(PKGDIR)/DEBIAN/control
 	install -cm 0755 postinst		$(PKGDIR)/DEBIAN
+	sed -i 's/@@VERSION@@/$(DOTNET_VERSION)/g' $(PKGDIR)/DEBIAN/postinst
 	mkdir -p				$(PKGDIR)/usr/local/lib/dotnet-$(DOTNET_VERSION)
 	tar xzf $(DOTNET_DIST) -C		$(PKGDIR)/usr/local/lib/dotnet-$(DOTNET_VERSION)
 	mkdir -p				$(PKGDIR)/usr/local/bin

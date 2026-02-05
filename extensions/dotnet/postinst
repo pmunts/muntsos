@@ -2,7 +2,7 @@
 
 # Post-Install script for the .Net Core runtime package for MuntsOS
 
-# Copyright (C)2019-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2019-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@ touch /var/run/environment
 
 grep -q DOTNET_ROOT /var/run/environment
 if [ $? -eq 1 ]; then
-  echo "DOTNET_ROOT=/usr/local/lib/dotnet" >>/var/run/environment
+  echo "DOTNET_ROOT=/usr/local/lib/dotnet-@@VERSION@@" >>/var/run/environment
 fi
 
 grep -q DOTNET_SYSTEM_GLOBALIZATION_INVARIANT /var/run/environment
