@@ -107,6 +107,11 @@ mdev -d
 chown root.gpio /sys/class/gpio/export /sys/class/gpio/unexport
 chmod 0220      /sys/class/gpio/export /sys/class/gpio/unexport
 
+# Set PWM sysfs API top-level ownership and permissions
+
+chown root.gpio /sys/class/pwm/pwmchip*/export /sys/class/pwm/pwmchip*/unexport
+chmod 0220      /sys/class/pwm/pwmchip*/export /sys/class/pwm/pwmchip*/unexport
+
 # Set CPU frequency governor
 
 if [ -f /etc/scaling_governor ]; then
