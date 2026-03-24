@@ -49,10 +49,6 @@ if [ -n "${MACADDR}" ]; then
   ifconfig ${INTERFACE} 0.0.0.0 down hw ether ${MACADDR}
 fi
 
-# Call nethook script, if it exists
-
-test -f /usr/local/etc/nethook.${INTERFACE} && . /usr/local/etc/nethook.${INTERFACE}
-
 # Start USB Network Gadget DHCP server on this interface, if requested
 
 if [ "`ethtool -i ${INTERFACE} 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" -a $((OPTIONS & 0x02)) -ne 0 ]; then
@@ -137,5 +133,9 @@ if [ $((OPTIONS & 0x08)) -ne 0 ]; then
   killall -q ntpd
   ntpd
 fi
+
+# Call nethook script, if it exists
+
+test -x /usr/local/etc/nethook.${INTERFACE} && /usr/local/etc/nethook.${INTERFACE}
 
 exit 0
