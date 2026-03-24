@@ -136,6 +136,6 @@ fi
 
 # Call nethook script, if it exists
 
-test -x /usr/local/etc/nethook.${INTERFACE} && /usr/local/etc/nethook.${INTERFACE}
+test -x /usr/local/etc/nethook.${INTERFACE} && /usr/local/etc/nethook.${INTERFACE} &
 
 exit 0

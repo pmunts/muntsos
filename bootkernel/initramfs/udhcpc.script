@@ -90,7 +90,7 @@ case $1 in
 
         # Call nethook script, if it exists
 
-        test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface}
+        test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface} &
  
 	now=`date +%s`
 	then=`expr $now + $lease`
@@ -100,7 +100,7 @@ case $1 in
     renew)
         # Call nethook script, if it exists
 
-        test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface}
+        test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface} &
  
 	now=`date +%s`
 	then=`expr $now + $lease`
