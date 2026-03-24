@@ -88,9 +88,9 @@ case $1 in
           ntpd
         fi
 
-        # Call udhcpchook script, if it exists
+        # Call nethook script, if it exists
 
-        test -f /usr/local/etc/udhcpchook.${interface} && . /usr/local/etc/udhcpchook.${interface}
+        test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface}
  
 	now=`date +%s`
 	then=`expr $now + $lease`
@@ -98,9 +98,9 @@ case $1 in
 	;;
 
     renew)
-        # Call udhcpchook script, if it exists
+        # Call nethook script, if it exists
 
-        test -f /usr/local/etc/udhcpchook.${interface} && . /usr/local/etc/udhcpchook.${interface}
+        test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface}
  
 	now=`date +%s`
 	then=`expr $now + $lease`
