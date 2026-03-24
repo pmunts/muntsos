@@ -98,6 +98,10 @@ case $1 in
 	;;
 
     renew)
+        # Call udhcpchook script, if it exists
+
+        test -f /usr/local/etc/udhcpchook && . /usr/local/etc/udhcpchook
+ 
 	now=`date +%s`
 	then=`expr $now + $lease`
 	echo "Lease for $ip on $interface renewed until `date -D '%s' -d $then`" >/var/run/udhcpc.$interface.lease
