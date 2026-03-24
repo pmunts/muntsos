@@ -489,6 +489,8 @@ for noip2config in /usr/local/etc/noip2*.conf ; do
   fi
 done
 
+killall -USR1 udhcpc
+
 # Start inetd
 
 if [ $((OPTIONS & 0x400)) -ne 0 -a -f /etc/inetd.conf ]; then
