@@ -90,7 +90,7 @@ case $1 in
 
         # Call udhcpchook script, if it exists
 
-        test -f /usr/local/etc/udhcpchook && . /usr/local/etc/udhcpchook
+        test -f /usr/local/etc/udhcpchook.${interface} && . /usr/local/etc/udhcpchook.${interface}
  
 	now=`date +%s`
 	then=`expr $now + $lease`
@@ -100,7 +100,7 @@ case $1 in
     renew)
         # Call udhcpchook script, if it exists
 
-        test -f /usr/local/etc/udhcpchook && . /usr/local/etc/udhcpchook
+        test -f /usr/local/etc/udhcpchook.${interface} && . /usr/local/etc/udhcpchook.${interface}
  
 	now=`date +%s`
 	then=`expr $now + $lease`
