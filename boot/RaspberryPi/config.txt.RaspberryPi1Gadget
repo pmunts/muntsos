@@ -29,4 +29,4 @@ dtoverlay=disable-bt
 # for more information.
 
 #dtoverlay=Pi3ClickShield
-#dtoverlay=pwm
+#dtoverlay=pwmchip0
