@@ -2,7 +2,7 @@
 
 # /etc/rc for an embedded Linux system
 
-# Copyright (C)2013-2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2013-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -109,8 +109,10 @@ chmod 0220      /sys/class/gpio/export /sys/class/gpio/unexport
 
 # Set PWM sysfs API top-level ownership and permissions
 
-chown root.gpio /sys/class/pwm/pwmchip*/export /sys/class/pwm/pwmchip*/unexport >/dev/null 2>&1
-chmod 0220      /sys/class/pwm/pwmchip*/export /sys/class/pwm/pwmchip*/unexport >/dev/null 2>&1
+if [ -d /sys/class/pwm/pwmchip0 ]; then
+  chown root.gpio /sys/class/pwm/pwmchip0/export /sys/class/pwm/pwmchip0/unexport
+  chmod 0220      /sys/class/pwm/pwmchip0/export /sys/class/pwm/pwmchip0/unexport
+fi
 
 # Set CPU frequency governor
 
