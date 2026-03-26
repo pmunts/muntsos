@@ -57,6 +57,20 @@ News
     much work remains to finish the Java binding to the Linux Simple I/O
     Library.
 
+-   25 March 2026 -- Upgraded the Raspberry Pi kernel to 6.12.77. Added
+    some code to /etc/rc to tweak permissions to /sys/class/pwm/pwmchip0
+    at system startup time. Reworked how the network startup scripts
+    netstart.script and udhcpc.script call optional network hook scripts
+    (/usr/local/etc/nethook.ifname). Each network hook script is now
+    specific to a network interface, now called by either
+    netstart.script or udhcpc.script (depending on whether the interface
+    is configured with a static or dynamic IP address), and now run in
+    the background. The network hook changes follow from an
+    investigation into cheaper Dynamic Domain Name Service provider
+    alternatives. I noticed that some providers allow IP address update
+    via wget or curl web page fetches, which can be easily done from a
+    network hook script.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development

@@ -70,6 +70,23 @@ Note #26</a> (formerly Application Note #8). While the <b>MuntsOS</b> effort is
 done, much work remains to finish the Java binding to the Linux Simple I/O
 Library.</p>
 </li>
+<li>
+<p>25 March 2026 -- Upgraded the Raspberry Pi kernel to 6.12.77. Added some
+code to <b><tt>/etc/rc</tt></b> to tweak permissions to
+<b><tt>/sys/class/pwm/pwmchip0</tt></b> at system startup time. Reworked how
+the network startup scripts <b><tt>netstart.script</tt></b> and
+<b><tt>udhcpc.script</tt></b> call optional network hook scripts
+(<b><tt>/usr/local/etc/nethook.ifname</tt></b>). Each network hook script is
+now specific to a network interface, now called by either
+<b><tt>netstart.script</tt></b> or <b><tt>udhcpc.script</tt></b> (depending on
+whether the interface is configured with a static or dynamic IP address), and
+now run in the background. The network hook changes follow from an
+investigation into cheaper <a href=
+"https://en.wikipedia.org/wiki/Dynamic_DNS">Dynamic Domain Name Service</a>
+provider alternatives. I noticed that some providers allow IP address update
+via <b><tt>wget</tt></b> or <b><tt>curl</tt></b> web page fetches, which can be
+easily done from a network hook script.</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development
