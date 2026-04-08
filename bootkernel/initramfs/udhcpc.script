@@ -91,7 +91,7 @@ case $1 in
         # Call nethook script, if it exists
 
         test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface} &
- 
+
 	now=`date +%s`
 	then=`expr $now + $lease`
 	echo "Lease for $ip on $interface bound until `date -D '%s' -d $then`" >/var/run/udhcpc.$interface.lease
@@ -101,7 +101,7 @@ case $1 in
         # Call nethook script, if it exists
 
         test -x /usr/local/etc/nethook.${interface} && /usr/local/etc/nethook.${interface} &
- 
+
 	now=`date +%s`
 	then=`expr $now + $lease`
 	echo "Lease for $ip on $interface renewed until `date -D '%s' -d $then`" >/var/run/udhcpc.$interface.lease
