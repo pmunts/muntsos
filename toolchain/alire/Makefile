@@ -1,7 +1,7 @@
 # Makefile for packaging the Ada Library Repository
 
 ALRNAME		= alire
-ALRVERSION	= 2.1.0
+ALRVERSION	= 2.1.1
 ALRSRC		= $(ALRNAME).src
 
 BUILDNUM	?= 1
