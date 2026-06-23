@@ -122,8 +122,9 @@ dtbs: $(KERNEL_WORK)/dtbs.done
 $(KERNEL_WORK)/modules.done: $(KERNEL_WORK)/config.done
 	touch ../initramfs/initramfs.cpio.gz
 	$(MAKE) $(MAKE_JOBS) $(MAKE_ARGS) modules KBUILD_BUILTIN=1
-	rm ../initramfs/initramfs.cpio.gz
+	$(MAKE) $(MAKE_JOBS) $(MAKE_ARGS) $(KERNEL_IMGSRC)
 	$(MAKE) $(MAKE_ARGS) modules_install INSTALL_MOD_PATH=$(KERNEL_WORK)/modules
+	rm ../initramfs/initramfs.cpio.gz
 	rm -rf $(KERNEL_WORK)/modules/lib/modules/*/build
 	rm -rf $(KERNEL_WORK)/modules/lib/modules/*/source
 	rm -rf modules/lib/modules/*/kernel/drivers/net/wireless/realtek/rtl8192cu
