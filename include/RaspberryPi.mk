@@ -54,7 +54,7 @@ endif
 # Definitions for the kernel repository
 
 KERNEL_REPO	= https://github.com/raspberrypi/linux.git
-KERNEL_BRANCH	?= 6.12
+KERNEL_BRANCH	?= 6.18
 KERNEL_TREEISH	= rpi-$(KERNEL_BRANCH).y
 KERNEL_NAME	= linux-raspberrypi-$(KERNEL_BRANCH)
 
