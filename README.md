@@ -86,6 +86,14 @@ available for **MuntsOS** target computers by installing the
   via **`wget`** or **`curl`** web page fetches, which can be easily
   done from a network hook script.
 
+- 9 June 2026 -- Upgraded the .Net Core Runtime to 1.0.9.
+
+- 23 June 2026 -- Upgraded Raspberry Pi 1 and 3 kernels to 6.18.36. The
+  `make oldconfig` operation successfully upgraded the kernel
+  configuration from 6.12.77 to 6.18.36. For some reason, the same
+  operation for Raspberry Pi 4 and 5 kernels produces a kernel that
+  fails to boot, and will require more manual conversion work.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
