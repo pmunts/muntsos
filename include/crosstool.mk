@@ -1,6 +1,6 @@
 # Global definitions for cross-toolchains built with Crosstool-NG
 
-# Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -23,6 +23,11 @@
 # See also: https://crosstool-ng.github.io
 
 CONFIGURE_NAME	= $(GCCARCH)-muntsos-linux-$(GCCABI)
+ifeq ($(OS), Windows_NT)
+MUNTSOS_TOOLCHAIN_BASE	?= C:/PROGRA~1/MuntsOS
+else
+MUNTSOS_TOOLCHAIN_BASE	?= /usr/local
+endif
 ifeq ($(GCCARCH), aarch64)
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng
 else ifeq ($(GCCARCH), riscv64)
@@ -30,11 +35,7 @@ TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng
 else
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-ctng-$(BOARDBASELC)
 endif
-ifeq ($(OS), Windows_NT)
-TOOLCHAIN_DIR	= C:/PROGRA~1/MuntsOS/gcc-$(TOOLCHAIN_NAME)
-else
-TOOLCHAIN_DIR	= /usr/local/gcc-$(TOOLCHAIN_NAME)
-endif
+TOOLCHAIN_DIR	= $(MUNTSOS_TOOLCHAIN_BASE)/gcc-$(TOOLCHAIN_NAME)
 TOOLCHAIN_REV	= 11
 CROSS_COMPILE	= $(TOOLCHAIN_DIR)/bin/$(CONFIGURE_NAME)-
 GCCSYSROOT	= $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/libc
