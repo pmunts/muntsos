@@ -1,5 +1,5 @@
---- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2025-07-08 13:08:17.000000000 -0700
-+++ arch/arm/boot/dts/overlays/overlay_map.dts	2025-07-10 11:37:40.957188746 -0700
+--- arch/arm/boot/dts/overlays/overlay_map.dts.orig	2026-07-10 05:07:38.000000000 -0700
++++ arch/arm/boot/dts/overlays/overlay_map.dts	2026-07-11 08:26:21.832539399 -0700
 @@ -43,6 +43,14 @@
  		bcm2711;
  	};
@@ -15,7 +15,7 @@
  	disable-wifi {
  		bcm2835;
  		bcm2711;
-@@ -223,6 +231,14 @@
+@@ -237,6 +245,14 @@
  		bcm2712;
  	};
  
