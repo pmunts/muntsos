@@ -32,7 +32,7 @@ BUILDOS		= --build=`uname -m`
 TARGETOS	= --host=$(CONFIGURE_NAME)
 
 LIBXCRYPT_NAME	= libxcrypt
-LIBXCRYPT_VER	= 4.4.38
+LIBXCRYPT_VER	= 4.5.2
 LIBXCRYPT_SRC	= $(LIBXCRYPT_NAME)-$(LIBXCRYPT_VER)
 LIBXCRYPT_TARBALL = $(LIBXCRYPT_NAME)-$(LIBXCRYPT_VER).tar.xz
 LIBXCRYPT_SERVER = https://github.com/besser82/libxcrypt/releases/download/v$(LIBXCRYPT_VER)
@@ -56,7 +56,7 @@ READLINE_URL	= $(READLINE_SERVER)/$(READLINE_TARBALL)
 READLINE_DIST	= $(DISTDIR)/$(READLINE_TARBALL)
 
 LIBGPIOD_NAME	= libgpiod
-LIBGPIOD_VER	= 2.2.2
+LIBGPIOD_VER	= 2.2.5
 LIBGPIOD_SRC	= $(LIBGPIOD_NAME)-$(LIBGPIOD_VER)
 LIBGPIOD_TARBALL = $(LIBGPIOD_NAME)-$(LIBGPIOD_VER).tar.gz
 LIBGPIOD_SERVER	= https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/snapshot
@@ -64,7 +64,7 @@ LIBGPIOD_URL	= $(LIBGPIOD_SERVER)/$(LIBGPIOD_TARBALL)
 LIBGPIOD_DIST	= $(DISTDIR)/$(LIBGPIOD_TARBALL)
 
 LIBUSB_NAME	= libusb
-LIBUSB_VER	= 1.0.29
+LIBUSB_VER	= 1.0.30
 LIBUSB_SRC	= $(LIBUSB_NAME)-$(LIBUSB_VER)
 LIBUSB_TARBALL	= $(LIBUSB_NAME)-$(LIBUSB_VER).tar.bz2
 LIBUSB_SERVER	= https://github.com/libusb/libusb/releases/download/v$(LIBUSB_VER)
@@ -80,7 +80,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(DISTDIR)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 3.6.0
+OPENSSL_VER	= 3.6.3
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -97,15 +97,15 @@ ZLIB_URL	= $(ZLIB_SERVER)/$(ZLIB_TARBALL)
 ZLIB_DIST	= $(DISTDIR)/$(ZLIB_TARBALL)
 
 ICU_NAME	= icu
-ICU_VER		= 77.1
-ICU_SRC		= $(ICU_NAME)-$(ICU_VER)
-ICU_TARBALL	= icu4c-76_1-src.tgz
-ICU_SERVER	= https://github.com/unicode-org/icu/releases/download/release-76-1
-ICU_URL		= $(ICU_SERVER)/$(ICU_TARBALL)
+ICU_VER		= 78.3
+ICU_SRC		= $(ICU_NAME)-release-$(ICU_VER)
+ICU_TARBALL	= $(ICU_SRC).tar.gz
+ICU_SERVER	= https://github.com/unicode-org/icu/archive/refs/tags
+ICU_URL		= $(ICU_SERVER)/release-$(ICU_VER).tar.gz
 ICU_DIST	= $(DISTDIR)/$(ICU_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.16.0
+CURL_VER	= 8.21.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -120,16 +120,16 @@ TIRPC_SERVER	= http://sourceforge.net/projects/libtirpc/files/libtirpc
 TIRPC_URL	= $(TIRPC_SERVER)/$(TIRPC_VER)/$(TIRPC_TARBALL)
 TIRPC_DIST	= $(DISTDIR)/$(TIRPC_TARBALL)
 
-XMLRPC_NAME	= xmlrpc-c
-XMLRPC_VER	= 1.60.05
+XMLRPC_NAME	= xmlrpc
+XMLRPC_VER	= 1.64.03
 XMLRPC_SRC	= $(XMLRPC_NAME)-$(XMLRPC_VER)
 XMLRPC_TARBALL	= $(XMLRPC_NAME)-$(XMLRPC_VER).tgz
 XMLRPC_SERVER	= https://sourceforge.net/projects/xmlrpc-c/files/Xmlrpc-c%20Super%20Stable
-XMLRPC_URL	= $(XMLRPC_SERVER)/$(XMLRPC_VER)/$(XMLRPC_TARBALL)
+XMLRPC_URL	= $(XMLRPC_SERVER)/$(XMLRPC_VER)/xmlrpc-$(XMLRPC_VER).tgz
 XMLRPC_DIST	= $(DISTDIR)/$(XMLRPC_TARBALL)
 
 LIBPCAP_NAME	= libpcap
-LIBPCAP_VER	= 1.10.5
+LIBPCAP_VER	= 1.10.6
 LIBPCAP_SRC	= $(LIBPCAP_NAME)-$(LIBPCAP_VER)
 LIBPCAP_TARBALL	= $(LIBPCAP_SRC).tar.gz
 LIBPCAP_SERVER	= http://www.tcpdump.org/release
@@ -140,15 +140,15 @@ LIBMNL_SRC	= libmnl.src
 LIBMNL_URL	= git://git.netfilter.org/libmnl
 
 LIBNL_NAME	= libnl
-LIBNL_VER	= 3.11.0
+LIBNL_VER	= 3.12.0
 LIBNL_SRC	= $(LIBNL_NAME)-$(LIBNL_VER)
 LIBNL_TARBALL	= $(LIBNL_SRC).tar.gz
-LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_11_0
+LIBNL_SERVER	= https://github.com/thom311/libnl/releases/download/libnl3_12_0
 LIBNL_URL	= $(LIBNL_SERVER)/$(LIBNL_TARBALL)
 LIBNL_DIST	= $(DISTDIR)/$(LIBNL_TARBALL)
 
 LIBSODIUM_NAME	= libsodium
-LIBSODIUM_VER	= 1.0.20
+LIBSODIUM_VER	= 1.0.22
 LIBSODIUM_SRC	= $(LIBSODIUM_NAME)-$(LIBSODIUM_VER)
 LIBSODIUM_TARBALL	= $(LIBSODIUM_NAME)-$(LIBSODIUM_VER).tar.gz
 LIBSODIUM_SERVER	= https://download.libsodium.org/libsodium/releases
@@ -156,11 +156,11 @@ LIBSODIUM_URL	= $(LIBSODIUM_SERVER)/$(LIBSODIUM_TARBALL)
 LIBSODIUM_DIST	= $(DISTDIR)/$(LIBSODIUM_TARBALL)
 
 LIBMYSQLCLIENT_NAME	= mariadb-connector-c
-LIBMYSQLCLIENT_VER	= 3.4.8
-LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src
+LIBMYSQLCLIENT_VER	= 3.4.9
+LIBMYSQLCLIENT_SRC	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)
 LIBMYSQLCLIENT_TARBALL	= $(LIBMYSQLCLIENT_NAME)-$(LIBMYSQLCLIENT_VER)-src.tar.gz
-LIBMYSQLCLIENT_SERVER	= https://dlm.mariadb.com/4516944/Connectors/c/connector-c-$(LIBMYSQLCLIENT_VER)
-LIBMYSQLCLIENT_URL	= $(LIBMYSQLCLIENT_SERVER)/$(LIBMYSQLCLIENT_TARBALL)
+LIBMYSQLCLIENT_SERVER	= https://github.com/mariadb-corporation/mariadb-connector-c/archive/refs/tags
+LIBMYSQLCLIENT_URL	= $(LIBMYSQLCLIENT_SERVER)/v$(LIBMYSQLCLIENT_VER).tar.gz
 LIBMYSQLCLIENT_DIST	= $(DISTDIR)/$(LIBMYSQLCLIENT_TARBALL)
 
 GDBM_NAME	= gdbm
@@ -172,7 +172,7 @@ GDBM_URL	= $(GDBM_SERVER)/$(GDBM_TARBALL)
 GDBM_DIST	= $(DISTDIR)/$(GDBM_TARBALL)
 
 MQTT_NAME	= paho.mqtt.c
-MQTT_VER	= 1.3.15
+MQTT_VER	= 1.3.16
 MQTT_SRC	= $(MQTT_NAME)-$(MQTT_VER)
 MQTT_TARBALL	= v$(MQTT_VER).tar.gz
 MQTT_SERVER	= https://github.com/eclipse/paho.mqtt.c/archive
@@ -180,7 +180,7 @@ MQTT_URL	= $(MQTT_SERVER)/$(MQTT_TARBALL)
 MQTT_DIST	= $(DISTDIR)/$(MQTT_SRC).tar.gz
 
 RABBITMQ_NAME	= rabbitmq-c
-RABBITMQ_VER	= 0.15.0
+RABBITMQ_VER	= 0.17.0
 RABBITMQ_SRC	= $(RABBITMQ_NAME)-$(RABBITMQ_VER)
 RABBITMQ_TARBALL = $(RABBITMQ_NAME)-$(RABBITMQ_VER).tar.gz
 RABBITMQ_SERVER	= http://github.com/alanxz/rabbitmq-c/archive/v$(RABBITMQ_VER)
@@ -188,7 +188,7 @@ RABBITMQ_URL	= $(RABBITMQ_SERVER)/$(RABBITMQ_TARBALL)
 RABBITMQ_DIST	= $(DISTDIR)/$(RABBITMQ_TARBALL)
 
 NNG_NAME	= nng
-NNG_VER		= 1.11
+NNG_VER		= 1.12.0
 NNG_SRC		= $(NNG_NAME)-$(NNG_VER)
 NNG_URL		= https://github.com/nanomsg/nng/archive/refs/tags/v$(NNG_VER).tar.gz
 NNG_DIST	= $(DISTDIR)/$(NNG_SRC).tar.gz
@@ -202,7 +202,7 @@ ZEROMQ_URL	= $(ZEROMQ_SERVER)/$(ZEROMQ_TARBALL)
 ZEROMQ_DIST	= $(DISTDIR)/$(ZEROMQ_TARBALL)
 
 MODBUS_NAME	= libmodbus
-MODBUS_VER	= 3.1.11
+MODBUS_VER	= 3.2.0
 MODBUS_SRC	= libmodbus-$(MODBUS_VER)
 MODBUS_TARBALL	= libmodbus-$(MODBUS_VER).tar.gz
 MODBUS_SERVER	= https://github.com/stephane/libmodbus/releases/download/v$(MODBUS_VER)
@@ -210,7 +210,7 @@ MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(DISTDIR)/$(MODBUS_TARBALL)
 
 LIBFFI_NAME	= libffi
-LIBFFI_VER	= 3.5.2
+LIBFFI_VER	= 3.7.1
 LIBFFI_SRC	= $(LIBFFI_NAME)-$(LIBFFI_VER)
 LIBFFI_TARBALL	= $(LIBFFI_NAME)-$(LIBFFI_VER).tar.gz
 LIBFFI_SERVER	= https://github.com/libffi/libffi/releases/download/v$(LIBFFI_VER)
@@ -218,7 +218,7 @@ LIBFFI_URL	= $(LIBFFI_SERVER)/$(LIBFFI_TARBALL)
 LIBFFI_DIST	= $(DISTDIR)/$(LIBFFI_TARBALL)
 
 UTILLINUX_NAME	= util-linux
-UTILLINUX_VER	= 2.41
+UTILLINUX_VER	= 2.42
 UTILLINUX_SRC	= $(UTILLINUX_NAME)-$(UTILLINUX_VER)
 UTILLINUX_TARBALL = $(UTILLINUX_SRC).tar.gz
 UTILLINUX_SERVER = https://kernel.org/pub/linux/utils/util-linux/v$(UTILLINUX_VER)
@@ -232,7 +232,7 @@ BZIP2_TARBALL	= bzip2-latest.tar.gz
 BZIP2_URL	= $(BZIP2_SERVER)/$(BZIP2_TARBALL)
 BZIP2_DIST	= $(DISTDIR)/$(BZIP2_TARBALL)
 
-XZ_VER		= 5.8.1
+XZ_VER		= 5.8.3
 XZ_SRC		= xz-$(XZ_VER)
 XZ_SERVER	= https://github.com/tukaani-project/xz/releases/download/v$(XZ_VER)
 XZ_TARBALL	= xz-$(XZ_VER).tar.gz
@@ -240,7 +240,7 @@ XZ_URL		= $(XZ_SERVER)/$(XZ_TARBALL)
 XZ_DIST		= $(DISTDIR)/$(XZ_TARBALL)
 
 LIBCAP_NAME	= libcap-ng
-LIBCAP_VER	= 0.8.5
+LIBCAP_VER	= 0.9.3
 LIBCAP_SRC	= $(LIBCAP_NAME)-$(LIBCAP_VER)
 LIBCAP_TARBALL	= $(LIBCAP_SRC).tar.gz
 LIBCAP_URL	= https://github.com/stevegrubb/libcap-ng/archive/refs/tags/v$(LIBCAP_VER).tar.gz
@@ -562,27 +562,26 @@ zlib: $(INSTALLDIR)/lib/libz.a
 # Download icu source distribution
 
 $(ICU_DIST):
-	wget -nv -P $(DISTDIR) $(ICU_URL)
+	wget -nv -O $@ $(ICU_URL)
 
 # Unpack icu source
 
 $(ICU_SRC): $(ICU_DIST)
 	tar xzf $(ICU_DIST)
-	mv icu $(ICU_SRC)
 	touch $@
 
-# Build cross icu
+# Build icu
 
 $(INSTALLDIR)/lib/libicudata.so: $(ICU_SRC)
 	# First, build native icu
-	cd $(ICU_SRC) && cp -R -P -p source native.d
-	cd $(ICU_SRC)/native.d && ./configure
-	$(MAKE) -C $(ICU_SRC)/native.d
+	cd $(ICU_SRC)/icu4c && cp -R -P -p source native.d
+	cd $(ICU_SRC)/icu4c/native.d && ./configure
+	$(MAKE) -C $(ICU_SRC)/icu4c/native.d
 	# Then, build cross icu
-	cd $(ICU_SRC) && cp -R -P -p source cross.d
-	cd $(ICU_SRC)/cross.d && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-cross-build=$(shell pwd)/$(ICU_SRC)/native.d CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
-	$(MAKE) -C $(ICU_SRC)/cross.d
-	$(MAKE) -C $(ICU_SRC)/cross.d install DESTDIR=$(DESTDIR)
+	cd $(ICU_SRC)/icu4c && cp -R -P -p source cross.d
+	cd $(ICU_SRC)/icu4c/cross.d && ./configure $(BUILDOS) $(TARGETOS) --prefix=/$(INSTALLDIR) --with-cross-build=$(shell pwd)/$(ICU_SRC)/icu4c/native.d CC=$(CROSS_COMPILE)gcc CXX=$(CROSS_COMPILE)g++
+	$(MAKE) -C $(ICU_SRC)/icu4c/cross.d
+	$(MAKE) -C $(ICU_SRC)/icu4c/cross.d install DESTDIR=$(DESTDIR)
 	touch $@
 
 icu: $(INSTALLDIR)/lib/libicudata.so
@@ -743,7 +742,7 @@ libsodium: $(INSTALLDIR)/lib/libsodium.a
 # Download MariaDB C Connector
 
 $(LIBMYSQLCLIENT_DIST):
-	wget -nv -P $(DISTDIR) $(LIBMYSQLCLIENT_URL)
+	wget -nv -O $@ $(LIBMYSQLCLIENT_URL)
 
 # Unpack MariaDB C Connector source
 
