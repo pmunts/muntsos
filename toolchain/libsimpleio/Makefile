@@ -40,7 +40,7 @@ CC		:= $(CROSS_COMPILE)gcc
 RANLIB		:= $(CROSS_COMPILE)ranlib
 STRIP		:= $(CROSS_COMPILE)strip
 
-CFLAGS		= -Wall -fPIC $(DEBUGFLAGS)
+CFLAGS		= -Wall -fPIC -I. $(DEBUGFLAGS)
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libsimpleio
