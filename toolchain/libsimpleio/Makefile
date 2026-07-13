@@ -99,10 +99,6 @@ libsimpleiogm2.a:
 
 # Build Ada source and C API shared libraries
 
-libremoteio.so:
-	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libremoteio BOARDNAME=$(BOARDNAME) BOARDNAMELC=$(BOARDNAMELC) LIBSIMPLEIO=$(LIBSIMPLEIO)
-	cp $(LIBSIMPLEIO)/ada/shared-libs/libremoteio/libremoteio.so .
-
 libwioe5ham1.so:
 	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1
 	cp $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1/lib/libwioe5ham1.so .
@@ -119,7 +115,7 @@ libwioe5p2p.so:
 
 # Create Debian package file
 
-$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libsimpleiogm2.a libremoteio.so libwioe5ham1.so libwioe5ham2.so libwioe5p2p.so
+$(PKGDIR): libsimpleio.a libsimpleio.so libsimpleio.lib libsimpleiogm2.a libwioe5ham1.so libwioe5ham2.so libwioe5p2p.so
 	mkdir -p				$(PKGDIR)/DEBIAN
 	install -cm 0644 control.template	$(PKGDIR)/DEBIAN/control
 	sed -i s/@@ARCH@@/$(PKGARCH)/g		$(PKGDIR)/DEBIAN/control
@@ -155,7 +151,6 @@ endif
 clean:
 	-rm -rf compile.done obj libsimpleio $(PKGDIR) $(PKGFILE)
 	-rm -rf *.a *.lib *.obj *.so
-	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libremoteio  clean
 	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham1 clean
 	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5ham2 clean
 	$(MAKE) -C $(LIBSIMPLEIO)/ada/shared-libs/libwioe5p2p  clean
