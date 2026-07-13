@@ -90,6 +90,15 @@ available for **MuntsOS** target computers by installing the
 
 - 10 July 2026 -- Upgraded Raspberry Pi kernels to 6.18.37.
 
+- 12 July 2026 -- Lots of library component upgrades: curl to 8.21.0,
+  icu to 78.3, libcap-ng to 0.9.3, libffi to 3.7.1, libgpiod to 2.2.5,
+  libmodbus to 3.2.0, libmysqlclient (MariaDB Connector/C) to 3.4.9,
+  libnl to 3.12.0, libpcap to 1.10.6, libsodium to 1.0.22, libusb to
+  1.0.30, libxcrypt to 4.5.2, nng to 1.12.0, openssl to 3.6.3,
+  paho.mqtt.c to 1.3.16, rabbitmq-c to 0.17.0, util-linux to 2.42,
+  xmlrpc-c to 1.64.03, and xz to 5.8.3. Rebuilt extensions and kernels
+  to use the latest shared libraries.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
