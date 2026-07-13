@@ -99,6 +99,10 @@ available for **MuntsOS** target computers by installing the
   xmlrpc-c to 1.64.03, and xz to 5.8.3. Rebuilt extensions and kernels
   to use the latest shared libraries.
 
+- 13 July 2026 -- Upgraded some **`initramfs`** userland programs:
+  openssh to 10.4p1, rpcbind to 1.2.9, ethtool to 7.1, and nano to 9.1.
+  Rebuilt kernels *again* to pick up these upgrades.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
