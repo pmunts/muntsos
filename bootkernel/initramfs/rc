@@ -104,13 +104,13 @@ mdev -d
 
 # Set deprecated GPIO sysfs API top-level ownership and permissions
 
-chown root.gpio /sys/class/gpio/export /sys/class/gpio/unexport
+chown root:gpio /sys/class/gpio/export /sys/class/gpio/unexport
 chmod 0220      /sys/class/gpio/export /sys/class/gpio/unexport
 
 # Set PWM sysfs API top-level ownership and permissions
 
 if [ -d /sys/class/pwm/pwmchip0 ]; then
-  chown root.gpio /sys/class/pwm/pwmchip0/export /sys/class/pwm/pwmchip0/unexport
+  chown root:gpio /sys/class/pwm/pwmchip0/export /sys/class/pwm/pwmchip0/unexport
   chmod 0220      /sys/class/pwm/pwmchip0/export /sys/class/pwm/pwmchip0/unexport
 fi
 
@@ -129,7 +129,7 @@ WaitForFile -f @@USERLED@@/trigger
 echo none >    @@USERLED@@/trigger
 WaitForFile -f @@USERLED@@/brightness
 echo 0 >       @@USERLED@@/brightness
-chown root.led @@USERLED@@/brightness
+chown root:led @@USERLED@@/brightness
 chmod 660      @@USERLED@@/brightness
 ln -s          @@USERLED@@/brightness /dev/userled
 
@@ -144,7 +144,7 @@ if [ $? -eq 0 ]; then
     echo none >    ${devname}/trigger
     WaitForFile -f ${devname}/brightness
     echo 0 >       ${devname}/brightness
-    chown root.led ${devname}/brightness
+    chown root:led ${devname}/brightness
     chmod 660      ${devname}/brightness
     ln -s          ${devname}/brightness /dev/userled${num}
     unset devname
