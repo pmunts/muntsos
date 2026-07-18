@@ -104,7 +104,7 @@ available for **MuntsOS** target computers by installing the
   Rebuilt kernels *again* to pick up these upgrades.
 
 - 18 July 2026 -- Upgraded Raspberry Pi kernels to 6.18.38. Upgraded
-  BusyBox to 1.38.0.
+  BusyBox to 1.38.0. Upgraded the .Net Runtime to 10.0.10.
 
 ## Quick Setup Instructions for the Impatient
 
