@@ -103,6 +103,9 @@ available for **MuntsOS** target computers by installing the
   openssh to 10.4p1, rpcbind to 1.2.9, ethtool to 7.1, and nano to 9.1.
   Rebuilt kernels *again* to pick up these upgrades.
 
+- 18 July 2026 -- Upgraded Raspberry Pi kernels to 6.18.38. Upgraded
+  BusyBox to 1.38.0.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
