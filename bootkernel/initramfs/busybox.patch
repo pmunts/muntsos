@@ -1,5 +1,19 @@
---- ./loginutils/getty.c.orig	2023-01-03 06:14:43.000000000 -0800
-+++ ./loginutils/getty.c	2025-03-02 15:15:41.256517228 -0800
+--- archival/libarchive/unsafe_prefix.c.orig	2026-07-17 21:05:38.532352871 -0700
++++ archival/libarchive/unsafe_prefix.c	2026-07-17 21:06:47.241575683 -0700
+@@ -46,8 +46,9 @@
+ 		static smallint warned = 0;
+ 		if (!warned) {
+ 			warned = 1;
+-			bb_error_msg("removing leading '%.*s' from member names",
+-				(int)(cp - str), str);
++// Disable a useless warning
++//			bb_error_msg("removing leading '%.*s' from member names",
++//				(int)(cp - str), str);
+ 		}
+ 	}
+ 	return cp;
+--- loginutils/getty.c.orig	2023-01-03 06:14:43.000000000 -0800
++++ loginutils/getty.c	2025-03-02 15:15:41.256517228 -0800
 @@ -467,6 +467,9 @@
  	usleep(100*1000); /* 0.1 sec */
  	tcflush(STDIN_FILENO, TCIFLUSH);
