@@ -45,8 +45,9 @@ $(PKGDIR):
 	mkdir -p					$(PKGDIR)/usr/local/libexec
 	$(CROSS_COMPILE)gcc -Wall -o$(PKGDIR)/usr/local/libexec/noip2 noip2.c
 	$(CROSS_COMPILE)strip				$(PKGDIR)/usr/local/libexec/noip2
-	mkdir -p					$(PKGDIR)/usr/local/share/doc/noip2
-	head -n 19 noip2.c | tail -n 15 | cut -c 4- >	$(PKGDIR)/usr/local/share/doc/noip2/COPYING
+	mkdir -p					$(PKGDIR)/usr/local/share/noip2
+	head -n 19 noip2.c | tail -n 15 | cut -c 4- >	$(PKGDIR)/usr/local/share/noip2/COPYING
+	install -cm 0755 register			$(PKGDIR)/usr/local/share/noip2
 	mkdir -p					$(PKGDIR)/etc/rc.d
 	install -cm 0755 startup			$(PKGDIR)/etc/rc.d/S10-noip2
 	touch $@
