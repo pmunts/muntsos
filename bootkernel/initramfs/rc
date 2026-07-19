@@ -483,14 +483,6 @@ if [ $((OPTIONS & 0x40)) -ne 0 -a -f /etc/httpd.conf -a -d /www ]; then
   httpd -c /etc/httpd.conf -u 65534:65534 -h /www
 fi
 
-# Register dynamic IP address, if applicable
-
-for noip2config in /usr/local/etc/noip2*.conf ; do
-  if [ -f $noip2config ]; then
-    noip2 -M -c $noip2config
-  fi
-done
-
 # Start inetd
 
 if [ $((OPTIONS & 0x400)) -ne 0 -a -f /etc/inetd.conf ]; then

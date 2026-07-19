@@ -530,34 +530,6 @@ function Extensions {
 
 ###############################################################################
 
-function DynamicDNS {
-  ifconfig -a | grep -q -E '^(eth|wlan).*Link encap:'
-  if [ $? -eq 1 -a $((OPTIONS & 0x800)) -eq 0 ]; then return; fi
-
-  interfaces=`sort </proc/net/dev | awk '$1 ~ /.*[0-9]:$/ { printf("%s ", substr($1, 1, length($1)-1)); }'`
-
-  for iface in $interfaces; do
-    if [ "`ethtool -i $iface 2>&1 | awk '/driver:/ { print $2 }'`" = "g_ether" -a $((OPTIONS & 0x800)) -eq 0 ]; then
-      continue;
-    fi
-
-    configfile=/usr/local/etc/noip2-$iface.conf
-
-    if [ -f $configfile ]; then continue; fi
-
-    GetYesNo "Register $iface for Dynamic DNS at noip.com"
-    if [ $? -ne 0 ]; then continue; fi
-
-    noip2 -C -F -I $iface -c $configfile
-    if [ $? -eq 0 ]; then
-      chmod 400 $configfile
-      noip2 -M -c $configfile
-    fi
-  done
-}
-
-###############################################################################
-
 function EditCmdline {
   if [ ! -f /boot/cmdline.txt ]; then return; fi
 
@@ -675,7 +647,6 @@ DisableSSHPasswords
 DeviceTreeOverlays
 PinMux
 Extensions
-DynamicDNS
 EditCmdline
 EditConfig
 Finalize

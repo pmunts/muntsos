@@ -123,7 +123,7 @@ RPIUTILS_DIST		= $(DISTDIR)/$(RPIUTILS_TARBALL)
 # These are the subordinate component targets that have to be built before we
 # can start populating the root file system tree
 
-COMPONENT_TARGETS	= busybox openssh rpcbind detach force-umount iptables ethtool iw wpasupp mailutils nano firmware regdb noip2 mdnsd install-overlays nupkg entropypump serialnumber
+COMPONENT_TARGETS	= busybox openssh rpcbind detach force-umount iptables ethtool iw wpasupp mailutils nano firmware regdb mdnsd install-overlays nupkg entropypump serialnumber
 
 ifeq ($(BOARDBASE), BeagleBone)
 COMPONENT_TARGETS	+= config-pin
@@ -239,13 +239,6 @@ detach: detach.c
 # Build force-umount
 
 force-umount: force-umount.c
-	$(CROSS_COMPILE)gcc -Wall -o $@ $^
-
-###############################################################################
-
-# Build noip2
-
-noip2: noip2.c
 	$(CROSS_COMPILE)gcc -Wall -o $@ $^
 
 ###############################################################################
@@ -507,8 +500,6 @@ COPYING: $(COMPONENT_TARGETS)
 	@cat $(MAILUTILS_SRC)/COPYING				>>$@
 	@echo "**** nano:"					>>$@
 	@cat $(NANO_SRC)/COPYING				>>$@
-	@echo "**** noip2:"					>>$@
-	@head -n 20 noip2.c | tail -n 17 | cut -c 4-		>>$@
 	@echo "**** OpenSSH:"					>>$@
 	@echo ""						>>$@
 	@cat $(OPENSSH_SRC)/LICENCE				>>$@
@@ -679,10 +670,6 @@ endif
 # Install netconfig
 
 	install -cm 0755 netconfig				$@/usr/sbin
-
-# Install noip2
-
-	install -cm 0755 noip2					$@/usr/sbin
 
 # Install nupkg
 
@@ -1118,7 +1105,6 @@ reallyclean: clean
 	rm -f force-umount
 	rm -f install-overlays
 	rm -f mdnsd
-	rm -f noip2
 	rm -f nupkg
 	rm -f pinctrl
 	rm -f serialnumber
