@@ -106,10 +106,16 @@ available for **MuntsOS** target computers by installing the
 - 18 July 2026 -- Upgraded Raspberry Pi kernels to 6.18.38. Upgraded
   BusyBox to 1.38.0. Upgraded the .Net Runtime to 10.0.10.
 
-- 19 July 2026 -- Moved the dynamic DNS client program **`noip2`** from
-  the Initial RAM File System to an extension package. Use the new
-  script **`/usr/local/share/noip2/register`** from the new **`noip2`**
-  extension package to register a network interface for DDNS.
+- 20 July 2026 -- Moved the [NoIP](https://www.noip.com) IP address
+  updater program **`noip2`** from the Initial RAM File System to the
+  new eponymous extension package. Use the new script
+  **`/usr/local/share/noip2/register`** to register a network interface
+  for DDNS. Updated **[`nethook.ifname`](scripts/nethook.ifname)** to
+  add support for the [Dynu IP address
+  updater](https://www.dynu.com/en-US/DynamicDNS/IP-Update-Protocol). I
+  have now moved Dynamic DNS service for the vast majority of my 60 to
+  70 Raspberry Pi's from [NoIP](https://www.noip.com) to the less
+  expensive [Dynu](https://www.dynu.com).
 
 ## Quick Setup Instructions for the Impatient
 
