@@ -1,0 +1,15 @@
+#! /bin/sh
+
+# Copy this script to e.g. /usr/local/etc/nethook.wlan0
+
+# Disable WiFi power save
+
+echo ${interface} | grep -q wlan && iw dev ${interface} set power_save off
+
+# Wait for a reasonably valid system clock e.g. set by ntpd
+
+until [ `date +%Y` -gt 2025 ] ; do sleep 1 ; done
+
+# Update Dynu DDNS via curl and web API
+
+curl -s -u @@USERNAME@@:@@PASSWWORD@@ "https://api.dynu.com/nic/update?hostname=`hostname -s`.freeddns.org&myip=${ip}" 2>&1 | logger -p local0.info -t nethook.${interface}
