@@ -246,6 +246,13 @@ LIBCAP_TARBALL	= $(LIBCAP_SRC).tar.gz
 LIBCAP_URL	= https://github.com/stevegrubb/libcap-ng/archive/refs/tags/v$(LIBCAP_VER).tar.gz
 LIBCAP_DIST	= $(DISTDIR)/$(LIBCAP_TARBALL)
 
+ZSTD_NAME	= zstd
+ZSTD_VER	= 1.5.7
+ZSTD_SRC	= $(ZSTD_NAME)-$(ZSTD_VER)
+ZSTD_TARBALL	= $(ZSTD_SRC).tar.gz
+ZSTD_URL	= https://github.com/facebook/zstd/archive/refs/tags/v$(ZSTD_VER).tar.gz
+ZSTD_DIST	= $(DISTDIR)/$(ZSTD_TARBALL)
+
 DCERPC_URL	= https://github.com/dcerpc/dcerpc.git
 DCERPC_SRC	= dcerpc.src
 
@@ -279,6 +286,7 @@ SUBORDINATES	+= util-linux
 SUBORDINATES	+= libbz2
 SUBORDINATES	+= liblzma
 SUBORDINATES	+= libcap
+SUBORDINATES	+= zstd
 #SUBORDINATES	+= dcerpc
 SUBORDINATES	+= aws
 
@@ -309,6 +317,7 @@ SRCDIRS		+= $(UTILLINUX_SRC)
 SRCDIRS		+= $(BZIP2_SRC)
 SRCDIRS		+= $(XZ_SRC)
 SRCDIRS		+= $(LIBCAP_SRC)
+SRCDIRS		+= $(ZSTD_SRC)
 #SRCDIRS	+= $(DCERPC_SRC)
 
 DISTFILES	+= $(LIBXCRYPT_DIST)
@@ -338,6 +347,7 @@ DISTFILES	+= $(UTILLINUX_DIST)
 DISTFILES	+= $(BZIP2_DIST)
 DISTFILES	+= $(XZ_DIST)
 DISTFILES	+= $(LIBCAP_DIST)
+DISTFILES	+= $(ZSTD_DIST)
 
 BUILDNUM	?= 1
 PKGNAME		:= $(INSTALLDIR)-libs
@@ -1070,6 +1080,29 @@ libcap: $(INSTALLDIR)/lib/libcap-ng.a
 
 ###############################################################################
 
+# Download zstd source distribution
+
+$(ZSTD_DIST):
+	wget -nv -O $@ $(ZSTD_URL)
+
+# Unpack zstd source
+
+$(ZSTD_SRC): $(ZSTD_DIST)
+	tar xzf $(ZSTD_DIST)
+	touch $@
+
+# Build zstd
+
+$(INSTALLDIR)/lib/libzstd.a: $(ZSTD_SRC)
+	mkdir -p $(INSTALLDIR)/lib/pkgconfig
+	$(MAKE) -C $(ZSTD_SRC) CC=$(CROSS_COMPILE)gcc
+	$(MAKE) -C $(ZSTD_SRC) CC=$(CROSS_COMPILE)gcc install prefix=$(DESTDIR)/$(INSTALLDIR)
+	touch $@
+
+zstd: $(INSTALLDIR)/lib/libzstd.a
+
+###############################################################################
+
 # Download the DCE/RPC source distribution
 
 $(DCERPC_SRC):
@@ -1213,6 +1246,10 @@ $(INSTALLDIR)/COPYING: $(SUBORDINATES)
 	@echo ""					>>$@
 	@cat $(LIBCAP_SRC)/COPYING			>>$@
 	@head -n -2 $(LIBCAP_SRC)/COPYING.LIB		>>$@
+	@echo ""					>>$@
+	echo "**** zstd:"				>>$@
+	@echo ""					>>$@
+	@cat $(ZSTD_SRC)/COPYING			>>$@
 	#@echo ""					>>$@
 	#@echo "**** dcerpc:"				>>$@
 	#@echo ""					>>$@
