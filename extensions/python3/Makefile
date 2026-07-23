@@ -32,8 +32,8 @@ include $(LIBSIMPLEIO)/include/dpkg.mk
 BUILDOS		:= --build=$(shell uname -m)
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
-MAJORVER	:= 3.13
-MINORVER	:= 9
+MAJORVER	:= 3.14
+MINORVER	:= 6
 
 SRCNAME		:= python3
 SRCVER		:= $(MAJORVER).$(MINORVER)
