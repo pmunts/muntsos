@@ -99,6 +99,10 @@ News
     service for the vast majority of my 60 to 70 Raspberry Pi's from
     NoIP to the less expensive Dynu.
 
+-   23 July 2026 -- Upgraded the Python3 runtime to 3.14.6, building
+    which requires (new) library component zstd. Using zstd also
+    requires (new) extension package libzstd.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development

@@ -117,6 +117,11 @@ available for **MuntsOS** target computers by installing the
   70 Raspberry Pi's from [NoIP](https://www.noip.com) to the less
   expensive [Dynu](https://www.dynu.com).
 
+- 23 July 2026 -- Upgraded the Python3 runtime to 3.14.6, building which
+  requires (new) library component
+  **[`zstd`](https://facebook.github.io/zstd)**. Using **`zstd`** also
+  requires (new) extension package **`libzstd`**.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
