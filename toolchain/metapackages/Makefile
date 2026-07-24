@@ -46,24 +46,15 @@ FLAVOR		?= ctng
 endif
 endif
 
+# Build metapackages for all platforms
+
 default:
-	$(MAKE) allplatforms
 	for P in $(BOARDNAMES) ; do $(MAKE) oneplatform BOARDNAME=$$P ; done
-
-# Build a metapackage for all platforms
-
-allplatforms:
-	cp control.template1 control.everything
-	sed -i 's/@@VERSION@@/$(PKGVERSION1)/g' control.everything
-	equivs-build control.everything
-	rm control.everything
-	mv muntsos-dev_$(PKGVERSION1)_all.deb muntsos-dev-$(PKGVERSION1)-all.deb
-	-rm *.buildinfo *.changes
 
 # Build a metapackage for a single platform
 
 oneplatform:
-	cp control.template2					control.$(BOARDNAME)
+	cp control.template					control.$(BOARDNAME)
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			control.$(BOARDNAME)
 	sed -i 's/@@BOARDNAMELC@@/$(BOARDNAMELC)/g'		control.$(BOARDNAME)
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g'	control.$(BOARDNAME)
