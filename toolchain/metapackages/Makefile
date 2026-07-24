@@ -1,6 +1,6 @@
 # Makefile for building metapackages for all MuntsOS cross-toolchains
 
-# Copyright (C)2018-2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2018-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,11 +25,26 @@ BOARDNAME	?= AArch64
 
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 
-BOARDNAMES	:= AArch64 RISCV64
+BOARDNAMES	:= AArch64 BeagleBone RaspberryPi1 RISCV64
 BOARDNAMELC	:= $(shell echo $(BOARDNAME) | tr A-Z a-z)
 
-PKGVERSION1	:= 11.0
-PKGVERSION2	:= 11.0
+PKGVERSION1	:= 12.0
+PKGVERSION2	:= 12.0
+
+ifeq ($(TOOLCHAIN_BUILDER), crosstool)
+ifeq ($(BOARDNAME), AArch64)
+FLAVOR		?= ctng
+endif
+ifeq ($(BOARDNAME), BeagleBone)
+FLAVOR		?= ctng-beaglebone
+endif
+ifeq ($(BOARDNAME), RaspberryPi1)
+FLAVOR		?= ctng-raspberrypi1
+endif
+ifeq ($(BOARDNAME), RISCV64)
+FLAVOR		?= ctng
+endif
+endif
 
 default:
 	$(MAKE) allplatforms
@@ -52,7 +67,7 @@ oneplatform:
 	sed -i 's/@@BOARDNAME@@/$(BOARDNAME)/g'			control.$(BOARDNAME)
 	sed -i 's/@@BOARDNAMELC@@/$(BOARDNAMELC)/g'		control.$(BOARDNAME)
 	sed -i 's/@@CONFIGURE_NAME@@/$(CONFIGURE_NAME)/g'	control.$(BOARDNAME)
-	sed -i 's/@@FLAVOR@@/$(TOOLCHAIN_BUILDER)/g'		control.$(BOARDNAME)
+	sed -i 's/@@FLAVOR@@/$(FLAVOR)/g'			control.$(BOARDNAME)
 	sed -i 's/@@VERSION@@/$(PKGVERSION2)/g'			control.$(BOARDNAME)
 	equivs-build						control.$(BOARDNAME)
 	rm							control.$(BOARDNAME)
