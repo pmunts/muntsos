@@ -26,7 +26,7 @@ MUNTSOS		?= /usr/local/share/muntsos
 include $(MUNTSOS)/include/$(BOARDNAME).mk
 include $(LIBSIMPLEIO)/include/dpkg.mk
 
-DOTNET_VERSION	:= 10.0.10
+DOTNET_VERSION	:= 10.0.11
 DOTNET_TARBALL	:= dotnet-runtime-$(DOTNET_VERSION)-$(DOTNETARCH).tar.gz
 DOTNET_DIST	:= $(TEMP)/$(DOTNET_TARBALL)
 
@@ -84,7 +84,7 @@ clean:
 	if [ ! -f $(PKGFILE).downloaded ]; then rm -f $(PKGFILE) ; fi
 
 reallyclean: clean
-	rm -rf native cross native.done cross.done $(PKGFILE) $(PKGFILE).downloaded
+	rm -rf $(PKGFILE) $(PKGFILE).downloaded
 
 distclean: reallyclean
 	rm -rf $(DOTNET_DIST)
