@@ -1,7 +1,7 @@
 # Makefile for building a MuntsOS Embedded Linux cross-toolchain using
 # Crosstool-NG
 
-# Copyright (C)2017-2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,13 +29,13 @@ include $(MUNTSOS)/include/$(BOARDNAME).mk
 
 ifeq ($(shell uname -m), aarch64)
 # Build with Alire GNAT Native
-BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_54b1000a/bin
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_16.1.0_8e297497/bin
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
 
 ifeq ($(shell uname -m), x86_64)
 # Build with Alire GNAT Native
-BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_15.2.1_4640d4b3/bin
+BUILDPATH	:= $(HOME)/.local/share/alire/toolchains/gnat_native_16.1.0_9f74f58a/bin
 BUILDPATH	:= $(BUILDPATH):/usr/bin
 endif
 
