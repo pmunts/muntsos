@@ -40,7 +40,7 @@ LIBXCRYPT_URL	= $(LIBXCRYPT_SERVER)/$(LIBXCRYPT_TARBALL)
 LIBXCRYPT_DIST	= $(DISTDIR)/$(LIBXCRYPT_TARBALL)
 
 NCURSES_NAME	= ncurses
-NCURSES_VER	= 6.5
+NCURSES_VER	= 6.6
 NCURSES_SRC	= $(NCURSES_NAME)-$(NCURSES_VER)
 NCURSES_TARBALL	= $(NCURSES_NAME)-$(NCURSES_VER).tar.gz
 NCURSES_SERVER	= http://ftp.gnu.org/pub/gnu/ncurses
@@ -80,7 +80,7 @@ HIDAPI_URL	= $(HIDAPI_SERVER)/$(HIDAPI_TARBALL)
 HIDAPI_DIST	= $(DISTDIR)/$(HIDAPI_TARBALL)
 
 OPENSSL_NAME	= openssl
-OPENSSL_VER	= 3.6.3
+OPENSSL_VER	= 3.6.4
 OPENSSL_SRC	= $(OPENSSL_NAME)-$(OPENSSL_VER)
 OPENSSL_TARBALL	= $(OPENSSL_SRC).tar.gz
 OPENSSL_SERVER	= http://www.openssl.org/source
@@ -105,7 +105,7 @@ ICU_URL		= $(ICU_SERVER)/release-$(ICU_VER).tar.gz
 ICU_DIST	= $(DISTDIR)/$(ICU_TARBALL)
 
 CURL_NAME	= curl
-CURL_VER	= 8.21.0
+CURL_VER	= 8.22.0
 CURL_SRC	= $(CURL_NAME)-$(CURL_VER)
 CURL_TARBALL	= $(CURL_NAME)-$(CURL_VER).tar.gz
 CURL_SERVER	= http://curl.se/download
@@ -129,7 +129,7 @@ XMLRPC_URL	= $(XMLRPC_SERVER)/$(XMLRPC_VER)/xmlrpc-$(XMLRPC_VER).tgz
 XMLRPC_DIST	= $(DISTDIR)/$(XMLRPC_TARBALL)
 
 LIBPCAP_NAME	= libpcap
-LIBPCAP_VER	= 1.10.6
+LIBPCAP_VER	= 1.10.7
 LIBPCAP_SRC	= $(LIBPCAP_NAME)-$(LIBPCAP_VER)
 LIBPCAP_TARBALL	= $(LIBPCAP_SRC).tar.gz
 LIBPCAP_SERVER	= http://www.tcpdump.org/release
@@ -137,7 +137,7 @@ LIBPCAP_URL	= $(LIBPCAP_SERVER)/$(LIBPCAP_TARBALL)
 LIBPCAP_DIST	= $(DISTDIR)/$(LIBPCAP_TARBALL)
 
 LIBMNL_SRC	= libmnl.src
-LIBMNL_URL	= git://git.netfilter.org/libmnl
+LIBMNL_URL	= https://git.netfilter.org/libmnl
 
 LIBNL_NAME	= libnl
 LIBNL_VER	= 3.12.0
@@ -188,7 +188,7 @@ RABBITMQ_URL	= $(RABBITMQ_SERVER)/$(RABBITMQ_TARBALL)
 RABBITMQ_DIST	= $(DISTDIR)/$(RABBITMQ_TARBALL)
 
 NNG_NAME	= nng
-NNG_VER		= 1.12.0
+NNG_VER		= 1.12.3
 NNG_SRC		= $(NNG_NAME)-$(NNG_VER)
 NNG_URL		= https://github.com/nanomsg/nng/archive/refs/tags/v$(NNG_VER).tar.gz
 NNG_DIST	= $(DISTDIR)/$(NNG_SRC).tar.gz
@@ -210,7 +210,7 @@ MODBUS_URL	= $(MODBUS_SERVER)/$(MODBUS_TARBALL)
 MODBUS_DIST	= $(DISTDIR)/$(MODBUS_TARBALL)
 
 LIBFFI_NAME	= libffi
-LIBFFI_VER	= 3.7.1
+LIBFFI_VER	= 3.8.0
 LIBFFI_SRC	= $(LIBFFI_NAME)-$(LIBFFI_VER)
 LIBFFI_TARBALL	= $(LIBFFI_NAME)-$(LIBFFI_VER).tar.gz
 LIBFFI_SERVER	= https://github.com/libffi/libffi/releases/download/v$(LIBFFI_VER)
@@ -232,7 +232,7 @@ BZIP2_TARBALL	= bzip2-latest.tar.gz
 BZIP2_URL	= $(BZIP2_SERVER)/$(BZIP2_TARBALL)
 BZIP2_DIST	= $(DISTDIR)/$(BZIP2_TARBALL)
 
-XZ_VER		= 5.8.3
+XZ_VER		= 5.8.4
 XZ_SRC		= xz-$(XZ_VER)
 XZ_SERVER	= https://github.com/tukaani-project/xz/releases/download/v$(XZ_VER)
 XZ_TARBALL	= xz-$(XZ_VER).tar.gz
@@ -240,7 +240,7 @@ XZ_URL		= $(XZ_SERVER)/$(XZ_TARBALL)
 XZ_DIST		= $(DISTDIR)/$(XZ_TARBALL)
 
 LIBCAP_NAME	= libcap-ng
-LIBCAP_VER	= 0.9.3
+LIBCAP_VER	= 0.9.6
 LIBCAP_SRC	= $(LIBCAP_NAME)-$(LIBCAP_VER)
 LIBCAP_TARBALL	= $(LIBCAP_SRC).tar.gz
 LIBCAP_URL	= https://github.com/stevegrubb/libcap-ng/archive/refs/tags/v$(LIBCAP_VER).tar.gz
@@ -384,6 +384,7 @@ $(LIBXCRYPT_DIST):
 
 $(LIBXCRYPT_SRC): $(LIBXCRYPT_DIST)
 	tar xJf $(LIBXCRYPT_DIST)
+	cd $(LIBXCRYPT_SRC) && patch -b -p0 <../libxcrypt.patch
 
 # Build libxcrypt
 
