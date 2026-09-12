@@ -1,6 +1,6 @@
 # Global definitions for cross-toolchains built with GNU Dev Tools for ARM
 
-# Copyright (C)2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2025-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,7 +29,7 @@ else
 TOOLCHAIN_NAME	= $(CONFIGURE_NAME)-gnudevarm-$(BOARDBASELC)
 endif
 TOOLCHAIN_DIR	= /usr/local/gcc-$(TOOLCHAIN_NAME)
-TOOLCHAIN_REV	= 12
+TOOLCHAIN_REV	= 0
 CROSS_COMPILE	= $(TOOLCHAIN_DIR)/bin/$(CONFIGURE_NAME)-
 GCCSYSROOT	= $(TOOLCHAIN_DIR)/$(CONFIGURE_NAME)/libc
 LIBSDIR		= $(GCCSYSROOT)/usr
