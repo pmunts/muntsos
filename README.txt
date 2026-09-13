@@ -112,7 +112,8 @@ News
     TOOLCHAIN_REV from 11 to 12. Upgraded a lot of library components:
     ncurses to 6.6, openssl to 3.6.4, curl to 8.22.0, libpcap to 1.10.7,
     libmnl, nng to 1.12.3, libffi to 3.8.0, xz to 5.8.4, and libcap-ng
-    to 0.9.6. Upgraded the Python3 Runtime to 3.14.7.
+    to 0.9.6. Upgraded the Python3 Runtime to 3.14.7. Upgraded Raspberry
+    Pi kernels to 6.18.51.
 
 Quick Setup Instructions for the Impatient
 
