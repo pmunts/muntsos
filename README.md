@@ -117,10 +117,21 @@ available for **MuntsOS** target computers by installing the
   70 Raspberry Pi's from [NoIP](https://www.noip.com) to the less
   expensive [Dynu](https://www.dynu.com).
 
-- 23 July 2026 -- Upgraded the Python3 runtime to 3.14.6, building which
+- 23 July 2026 -- Upgraded the Python3 Runtime to 3.14.6, building which
   requires (new) library component
   **[`zstd`](https://facebook.github.io/zstd)**. Using **`zstd`** also
   requires (new) extension package **`libzstd`**.
+
+- 24 August 2026 -- Upgraded the .Net Core Runtime to 10.0.11.
+
+- 9 September 2026 -- Upgraded the .Net Core Runtime to 10.0.12.
+
+- 13 September 2026 -- Upgraded Crosstool-NG to 1.29.0, which features
+  GCC 16.2.0 and built new GCC 16.2.0 cross-toolchains. Bumped
+  **`TOOLCHAIN_REV`** from 11 to 12. Upgraded a lot of library
+  components: ncurses to 6.6, openssl to 3.6.4, curl to 8.22.0, libpcap
+  to 1.10.7, libmnl, nng to 1.12.3, libffi to 3.8.0, xz to 5.8.4, and
+  libcap-ng to 0.9.6. Upgraded the Python3 Runtime to 3.14.7.
 
 ## Quick Setup Instructions for the Impatient
 
