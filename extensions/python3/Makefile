@@ -1,6 +1,6 @@
 # Makefile for building the Python 3 Runtime package for MuntsOS
 
-# Copyright (C)2024-2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2024-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -33,7 +33,7 @@ BUILDOS		:= --build=$(shell uname -m)
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
 MAJORVER	:= 3.14
-MINORVER	:= 6
+MINORVER	:= 7
 
 SRCNAME		:= python3
 SRCVER		:= $(MAJORVER).$(MINORVER)
@@ -148,7 +148,7 @@ $(PKGDIR) : $(CROSSPYTHON)
 	sed -i s/@@MAJORVER@@/$(MAJORVER)/g		$(PKGDIR)/DEBIAN/postinst
 	mkdir -p					$(PKGDIR)/$(PYETCDIR)/site-packages
 	cp -R -P -p $(CROSSDIR)/usr			$(PKGDIR)
-	cp -R -P -p $(LIBSIMPLEIO)/python/packages/munts $(PKGDIR)/$(PYLIBDIR)
+	cp -R -P -p $(LIBSIMPLEIO)/python3/packages/munts $(PKGDIR)/$(PYLIBDIR)
 	rm -rf						$(PKGDIR)/$(PYLIBDIR)/site-packages
 	ln -s -f $(PYETCDIR)/site-packages		$(PKGDIR)/$(PYLIBDIR)/site-packages
 	find $(PKGDIR) -name __pycache__ -exec rm -rf {} ";" >/dev/null 2>&1 ; true
