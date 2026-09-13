@@ -109,11 +109,13 @@ News
 
 -   13 September 2026 -- Upgraded Crosstool-NG to 1.29.0, which features
     GCC 16.2.0 and built new GCC 16.2.0 cross-toolchains. Bumped
-    TOOLCHAIN_REV from 11 to 12. Upgraded a lot of library components:
+    TOOLCHAIN_REV from 11 to 12. Upgraded some library components:
     ncurses to 6.6, openssl to 3.6.4, curl to 8.22.0, libpcap to 1.10.7,
     libmnl, nng to 1.12.3, libffi to 3.8.0, xz to 5.8.4, and libcap-ng
     to 0.9.6. Upgraded the Python3 Runtime to 3.14.7. Upgraded Raspberry
-    Pi kernels to 6.18.51.
+    Pi kernels to 6.18.51. Imported latest boot files from Raspberry Pi
+    OS. Rebuilt almost everything (libraries, extensions, kernels, and
+    Thin Servers) to pick up these improvements.
 
 Quick Setup Instructions for the Impatient
 
