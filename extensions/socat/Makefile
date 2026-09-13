@@ -30,7 +30,7 @@ BUILDOS		:= --build=`uname -m`
 TARGETOS	:= --host=$(CONFIGURE_NAME)
 
 SRCURL		:= https://repo.or.cz/socat.git
-SRCTAG		:= tag-1.8.0.2
+SRCTAG		:= tag-1.8.1.3
 SRCVER		:= $(shell echo $(SRCTAG) | cut -c 5-)
 
 PKGNAME		:= socat
