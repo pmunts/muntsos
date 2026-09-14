@@ -433,7 +433,7 @@ parent cross-toolchain. I also build Free Pascal cross-compilers. Each
 of these rely on the libraries contained in the corresponding GCC
 cross-toolchain package.
 
-Cross-toolchain packages containing GCC 15.2.0, including support for
+Cross-toolchain packages containing GCC 16.2.0, including support for
 Ada 2022, and built for Debian Linux (x86-64 and ARM64) development host
 computers are available at:
 

@@ -509,7 +509,7 @@ Pascal](https://www.freepascal.org) cross-compilers. Each of these rely
 on the libraries contained in the corresponding GCC cross-toolchain
 package.
 
-Cross-toolchain packages containing GCC 15.2.0, including support for
+Cross-toolchain packages containing GCC 16.2.0, including support for
 [Ada 2022](https://www.adaic.org/ada-resources/standards/ada22), and
 built for [Debian](https://www.debian.org) Linux (x86-64 *and* ARM64)
 development host computers are available at:
