@@ -2,7 +2,7 @@
 
 # Startup script for hostapd
 
-# Copyright (C)2021-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2021-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -28,6 +28,7 @@ for IFACE in wlan0 wlan1 wlan2 wlan3 wlan4 wlan5 wlan6 wlan7 wlan8 wlan9 ; do
 # configuration file for it
 
   if [ -f /usr/local/etc/hostapd-${IFACE}.conf ]; then
+    /usr/libexec/netstart.script ${IFACE}
     /usr/local/libexec/hostapd -B -i $IFACE /usr/local/etc/hostapd-${IFACE}.conf -P /var/run/hostapd.${IFACE}.pid
 
 # Start udhcpd on this wireless network interface IFF there is a
