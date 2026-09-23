@@ -1,4 +1,4 @@
-# Copyright (C)2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2025-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -27,14 +27,14 @@ BUILDPATH	:= $(BUILDPATH):$(shell pwd)/../cross-win64/gcc-x86_64-w64-mingw32/bin
 BUILDPATH	:= $(BUILDPATH):$(TOOLCHAIN_DIR)/bin
 BUILDPATH	:= $(BUILDPATH):/bin
 
-BINVER		:= 2.41
+BINVER		:= 2.47
 BINSRC		:= binutils-$(BINVER)
 BINSERVER	:= https://ftp.gnu.org/gnu/binutils
 BINTARBALL	:= $(BINSRC).tar.gz
 BINURL		:= $(BINSERVER)/$(BINTARBALL)
 BINDIST		:= $(TEMP)/muntsos/$(BINTARBALL)
 
-GCCVER		:= 15.2.0
+GCCVER		:= 16.2.0
 GCCSRC		:= gcc-$(GCCVER)
 GCCSERVER	:= https://ftp.gnu.org/gnu/gcc/$(GCCSRC)
 GCCTARBALL	:= $(GCCSRC).tar.gz
@@ -119,7 +119,6 @@ $(GCCDIST):
 
 source.done : $(BINDIST) $(GCCDIST)
 	tar xzf $(GCCDIST)
-	patch -b -p 0 <gcc.patch
 	cd $(GCCSRC) && contrib/download_prerequisites
 	tar xzf $(BINDIST)
 	-cd $(GCCSRC) && for ITEM in ../$(BINSRC)/* ; do ln -s $$ITEM ; done
