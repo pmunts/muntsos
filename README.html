@@ -146,6 +146,19 @@ Imported latest boot files from Raspberry Pi OS. Rebuilt almost everything
 (libraries, extensions, kernels, and Thin Servers) to pick up these
 improvements.</p>
 </li>
+<li>
+<p>25 September 2026 -- I have finished building GCC 16.2.0 cross-toolchains
+that run on x86-64 Windows and target AArch64 and Raspberry Pi 1 platforms, and
+pushed them to <b><tt>git</tt></b> repositories hosted at <a href=
+"https://git.munts.com">https://git.munts.com</a>. These cross-toolchains still
+lack support for GNU Modula-2, because <a href=
+"https://gcc.gnu.org/bugzilla/show_bug.cgi?id=92336">GNU BUG 92366</a> is still
+not fixed. You will likely need to clone each of these toolchains again because
+I have created separate <b><tt>git</tt></b> branches for GCC 15.2.0 and GCC
+16.2.0 (<b><tt>Debian13-CrosstoolNG1.28.0-GCC15.2.0</tt></b> and
+<b><tt>Debian13-CrosstoolNG1.29.0-GCC16.2.0</tt></b>) and removed all other
+branches (<i>i.e.</i> <b><tt>master</tt></b>).</p>
+</li>
 </ul>
 <h2>Quick Setup Instructions for the Impatient</h2>
 <p>Instructions for installing the <b>MuntsOS</b> cross-toolchain development

@@ -117,6 +117,17 @@ News
     OS. Rebuilt almost everything (libraries, extensions, kernels, and
     Thin Servers) to pick up these improvements.
 
+-   25 September 2026 -- I have finished building GCC 16.2.0
+    cross-toolchains that run on x86-64 Windows and target AArch64 and
+    Raspberry Pi 1 platforms, and pushed them to git repositories hosted
+    at https://git.munts.com. These cross-toolchains still lack support
+    for GNU Modula-2, because GNU BUG 92366 is still not fixed. You will
+    likely need to clone each of these toolchains again because I have
+    created separate git branches for GCC 15.2.0 and GCC 16.2.0
+    (Debian13-CrosstoolNG1.28.0-GCC15.2.0 and
+    Debian13-CrosstoolNG1.29.0-GCC16.2.0) and removed all other branches
+    (i.e. master).
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
