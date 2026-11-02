@@ -2,7 +2,7 @@
 
 # MuntsOS GPIO Thin Server Client Functions Using HTTP
 
-# Copyright (C)2016-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2016-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -53,10 +53,10 @@ def read(server, pin):
 # Write GPIO pin state
 
 def write(server, pin, value):
-  URL = 'http://' + server + ':8083/GPIO/put/' + str(pin) + ',' + str(value)
+  URL = 'http://' + server + ':8083/GPIO/put/' + str(pin) + ',' + str(int(value))
   result = urllib.request.urlopen(URL)
   for line in result:
     response = line.decode('latin-1').strip()
-    if response != 'GPIO' + str(pin) + '=' + str(value):
+    if response != 'GPIO' + str(pin) + '=' + str(int(value)):
       print('ERROR: Invalid response to put: ' + response)
       exit(1)
