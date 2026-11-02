@@ -128,6 +128,18 @@ News
     Debian13-CrosstoolNG1.29.0-GCC16.2.0) and removed all other branches
     (i.e. master).
 
+-   14 October 2026 -- Upgraded the .Net Core Runtime to 10.0.13.
+
+-   26 October 2026 -- Upgraded the .Net Core Runtime to 10.0.14.
+
+-   2 November 2026 -- Upgraded Raspberry Pi kernels to 6.18.59.
+    Upgraded OpenSSH to 10.6p1. Upgraded rpcbind to 1.3.1. Upgraded
+    ethtool to 7.2. Upgraded nano to 9.3. Modified /etc/rc to install
+    extension tarball files (.tar.bz2, .tbz, .tar.gz, .tgz, .tar.xz, or
+    .txz) from /boot/extensions/. On some development host platforms,
+    notably macOS, it is easier to create tarballs than .deb or .rpm
+    package files.
+
 Quick Setup Instructions for the Impatient
 
 Instructions for installing the MuntsOS cross-toolchain development
