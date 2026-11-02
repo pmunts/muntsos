@@ -275,6 +275,13 @@ for E in /boot/extensions/* ; do
     continue
   fi
 
+  echo $E | grep -E -q '.*\.nupkg$'
+
+  if [ $? -eq 0 ]; then
+    nupkg $E
+    continue
+  fi
+
   echo $E | grep -E -q '.*\.rpm$'
 
   if [ $? -eq 0 ]; then
@@ -282,10 +289,45 @@ for E in /boot/extensions/* ; do
     continue
   fi
 
-  echo $E | grep -E -q '.*\.nupkg$'
+  echo $E | grep -E -q '.*\.tar.bz2$'
 
   if [ $? -eq 0 ]; then
-    nupkg $E
+    tar xjf $E --directory=/
+    continue
+  fi
+
+  echo $E | grep -E -q '.*\.tbz$'
+
+  if [ $? -eq 0 ]; then
+    tar xjf $E --directory=/
+    continue
+  fi
+
+  echo $E | grep -E -q '.*\.tar.gz$'
+
+  if [ $? -eq 0 ]; then
+    tar xzf $E --directory=/
+    continue
+  fi
+
+  echo $E | grep -E -q '.*\.tgz$'
+
+  if [ $? -eq 0 ]; then
+    tar xzf $E --directory=/
+    continue
+  fi
+
+  echo $E | grep -E -q '.*\.tar.xz$'
+
+  if [ $? -eq 0 ]; then
+    tar xJf $E --directory=/
+    continue
+  fi
+
+  echo $E | grep -E -q '.*\.txz$'
+
+  if [ $? -eq 0 ]; then
+    tar xJf $E --directory=/
     continue
   fi
 
