@@ -1,6 +1,6 @@
-# Makefile for building RemObjects Elements .Net 5 applications
+# Makefile for building RemObjects Elements .Net console applications
 
-# Copyright (C)2019-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2019-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -20,18 +20,18 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+ifeq ($(shell uname), Linux)
+LIBSIMPLEIO	?= /usr/local/share/libsimpleio
+else ifeq ($(OS), Windows_NT)
 LIBSIMPLEIO     ?= $(shell cygpath -m $(HOME)/libsimpleio)
-ELEMENTSSRC	?= $(LIBSIMPLEIO)/elements
+else 
+LIBSIMPLEIO	?= $(HOME)/libsimpleio
+endif
 
-# Build the project
+# Build the project.  Other possible build targets include coreapp_mk_deb,
+# coreapp_mk_rpm, and coreapp_mk_tarball.
 
 default: coreapp_mk_build
-
-deb: coreapp_mk_deb
-
-rpm: coreapp_mk_rpm
-
-tarball: coreapp_mk_tarball
 
 # Remove working files
 
@@ -39,5 +39,5 @@ clean: elements_mk_clean coreapp_mk_clean
 
 # Include subordinate makefiles
 
-include $(ELEMENTSSRC)/include/elements.mk
-include $(ELEMENTSSRC)/dotnet/include/coreapp.mk
+include $(LIBSIMPLEIO)/elements/include/elements.mk
+include $(LIBSIMPLEIO)/elements/dotnet/include/coreapp.mk
