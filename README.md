@@ -160,6 +160,13 @@ available for **MuntsOS** target computers by installing the
   development host platforms, notably macOS, it is easier to create
   tarballs than **`.deb`** or **`.rpm`** package files.
 
+- 7 November 2026 -- Modified the legacy servers (HTTP, ONC-RPC, and
+  XML-RPC) in the **`gpio-server`** extension package to support the
+  Orange Pi Zero 2W. Remove support for the Labview LINX protocol from
+  the **`gpio-server`** and **`lpc1114`** extension packages. The LINX
+  protocol is deprecated, hasn't been maintained for years, and is
+  pretty much defunct.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
