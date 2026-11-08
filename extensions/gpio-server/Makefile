@@ -41,7 +41,6 @@ default: package.deb
 
 subordinates.done:
 	$(MAKE) -C http		$(BUILDFLAGS)
-	$(MAKE) -C linx		$(BUILDFLAGS)
 	$(MAKE) -C onc-rpc	$(BUILDFLAGS)
 	$(MAKE) -C xml-rpc	$(BUILDFLAGS)
 	$(MAKE) -C $(MUNTSOS)/examples/ada/programs remoteio_server $(BUILDFLAGS)
@@ -72,7 +71,6 @@ $(PKGDIR): subordinates.done
 	install -cm 0755 $(LIBSLIBDIR)/libxmlrpc_xmltok.so.3			$@/usr/local/lib
 	install -cm 0755 $(LIBSLIBDIR)/libzmq.so.5				$@/usr/local/lib
 	install -cm 0755 http/gpio_server_http					$@/usr/local/libexec
-	install -cm 0755 linx/gpio_server_linx					$@/usr/local/libexec
 	install -cm 0755 $(MUNTSOS)/examples/ada/programs/remoteio_server	$@/usr/local/libexec
 	install -cm 0755 onc-rpc/gpio_server_oncrpc				$@/usr/local/libexec
 	install -cm 0755 xml-rpc/gpio_server_xmlrpc				$@/usr/local/libexec
@@ -104,7 +102,6 @@ $(PKGFILE).downloaded:
 
 clean:
 	$(MAKE) -C http    clean	$(BUILDFLAGS)
-	$(MAKE) -C linx    clean	$(BUILDFLAGS)
 	$(MAKE) -C onc-rpc clean	$(BUILDFLAGS)
 	$(MAKE) -C xml-rpc clean	$(BUILDFLAGS)
 	$(MAKE) -C $(MUNTSOS)/examples/ada/programs clean $(BUILDFLAGS)

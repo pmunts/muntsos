@@ -1,6 +1,6 @@
 # Makefile for building a MuntsOS LPC1114 I/O Processor extension package
 
-# Copyright (C)2017-2024, Philip Munts dba Munts Technologies.
+# Copyright (C)2017-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -44,7 +44,6 @@ HOST_LDFLAGS	= -L$(LIBSLIBDIR) -lspiagent -lsimpleio
 
 COMPONENTS	= $(RASPBERRYPI_LPC1114_SRC)/spi-agent/LPC1114-spi-agent.hex		\
 		  $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http/spi_agent_http_server	\
-		  $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx/spi_agent_linx_server	\
 		  $(RASPBERRYPI_LPC1114_SRC)/spi-agent-oncrpc/spi_agent_oncrpc_server	\
 		  $(RASPBERRYPI_LPC1114_SRC)/spi-agent-remoteio/spi_agent_remoteio_server	\
 		  $(RASPBERRYPI_LPC1114_SRC)/spi-agent-xmlrpc/spi_agent_xmlrpc_server	\
@@ -67,13 +66,6 @@ $(RASPBERRYPI_LPC1114_SRC)/spi-agent/LPC1114-spi-agent.hex:
 
 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http/spi_agent_http_server:
 	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -Imongoose" HOST_LDFLAGS:="$(HOST_LDFLAGS) -ldl -lpthread"
-
-###############################################################################
-
-# Cross-Compile the LabView LINX server for MuntsOS
-
-$(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx/spi_agent_linx_server:
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx HOST_CC=$(HOST_CC) HOST_CFLAGS:="$(HOST_CFLAGS) -I$(LIBSIMPLEIO)/c++" HOST_LDFLAGS:="$(HOST_LDFLAGS) -lstdc++"
 
 ###############################################################################
 
@@ -173,7 +165,6 @@ $(PKGDIR): $(COMPONENTS)
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/utils/isp/expansion_lpc1114_isp		$@/usr/local/libexec
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/utils/reset/expansion_lpc1114_reset		$@/usr/local/libexec
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http/spi_agent_http_server	$@/usr/local/libexec
-	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx/spi_agent_linx_server	$@/usr/local/libexec
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-oncrpc/spi_agent_oncrpc_server	$@/usr/local/libexec
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-remoteio/spi_agent_remoteio_server	$@/usr/local/libexec
 	install -cm 0755 $(RASPBERRYPI_LPC1114_SRC)/spi-agent-xmlrpc/spi_agent_xmlrpc_server	$@/usr/local/libexec
@@ -208,7 +199,6 @@ $(PKGFILE).downloaded:
 clean:
 	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent clean
 	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-http clean
-	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-linx clean
 	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-oncrpc clean
 	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-remoteio clean
 	$(MAKE) -C $(RASPBERRYPI_LPC1114_SRC)/spi-agent-xmlrpc clean

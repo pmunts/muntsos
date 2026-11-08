@@ -47,13 +47,6 @@ if [ $? -ne 0 ]; then
   echo "gpio-xmlrpc 8084/tcp"		>>/etc/services
 fi
 
-grep -q 'gpio-linx' /etc/services
-if [ $? -ne 0 ]; then
-  echo ""				>>/etc/services
-  echo "# GPIO over LabView LINX"	>>/etc/services
-  echo "gpio-linx 8085/tcp"		>>/etc/services
-fi
-
 grep -q 'remoteio-udp' /etc/services
 if [ $? -ne 0 ]; then
   echo ""				>>/etc/services

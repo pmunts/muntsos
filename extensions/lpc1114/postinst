@@ -2,7 +2,7 @@
 
 # Post-Install script for LPC1114 I/O Processor
 
-# Copyright (C)2016-2025, Philip Munts dba Munts Technologies.
+# Copyright (C)2016-2026, Philip Munts dba Munts Technologies.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -50,14 +50,6 @@ if [ $? -ne 0 ]; then
   echo "" >>/etc/services
   echo "# LPC1114 I/O Processor ZeroMQ service" >> /etc/services
   echo "spiagent-zeromq 8082/tcp" >>/etc/services
-fi
-
-grep -q 'spiagent-linx' /etc/services
-if [ $? -ne 0 ]; then
-  sed -i '/8086\//d' /etc/services
-  echo "" >>/etc/services
-  echo "# LPC1114 I/O Processor LabView LINX service" >> /etc/services
-  echo "spiagent-linx 8086/tcp" >>/etc/services
 fi
 
 grep -q 'spiagent-remoteio-udp' /etc/services
