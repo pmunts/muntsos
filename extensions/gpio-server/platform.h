@@ -37,6 +37,7 @@ enum Platforms
   BeagleBoneWhite,
   BeagleBoneBlack,		// Commandeers pins for eMMC
   BeagleBoneGreenWireless,	// Commandeers pins for eMMC and WL18xx
+  OrangePiZero2W40,
   PocketBeagle,
   RaspberryPi26,		// Original Model A and B w/26 pin expansion header
   RaspberryPi40,		// All subsequent models  w/40 pin expansioh header
@@ -59,6 +60,10 @@ extern const uint8_t * const GPIO_Platform_Pins(void);
 // Test whether a particular pin is valid
 
 extern bool GPIO_Platform_Pin_Valid(unsigned pin);
+
+// Map legacy pin number to actual pin number
+
+extern unsigned GPIO_Platform_Map_Legacy_Pin(unsigned pin);
 
 _END_STD_C
 

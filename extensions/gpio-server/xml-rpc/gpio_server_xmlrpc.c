@@ -67,8 +67,8 @@ static xmlrpc_value *gpio_open(xmlrpc_env * const env,
 
   // Configure the GPIO pin
 
-  GPIO_configure(pin, direction, (direction ? state : 0), GPIO_EDGE_NONE,
-    GPIO_POLARITY_ACTIVEHIGH, &error);
+  GPIO_configure(GPIO_Platform_Map_Legacy_Pin(pin), direction,
+    (direction ? state : 0), GPIO_EDGE_NONE, GPIO_POLARITY_ACTIVEHIGH, &error);
   if (error)
   {
     syslog(LOG_ERR, "ERROR: gpio_open(): GPIO_configure() failed, %s", strerror(error));
@@ -84,7 +84,7 @@ static xmlrpc_value *gpio_open(xmlrpc_env * const env,
     return xmlrpc_build_value(env, "i", 0);
   }
 
-  GPIO_open(pin, &fdtable[pin], &error);
+  GPIO_open(GPIO_Platform_Map_Legacy_Pin(pin), &fdtable[pin], &error);
   if (error)
   {
     syslog(LOG_ERR, "ERROR: gpio_open(): GPIO_open() failed, %s", strerror(errno));

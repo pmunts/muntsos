@@ -91,7 +91,8 @@ bool_t gpio_open_1_svc(int pin, int direction, int state, int *result, struct sv
 
   // Configure the GPIO pin
 
-  GPIO_configure(pin, direction, (direction ? state : 0), 0, 1, &error);
+  GPIO_configure(GPIO_Platform_Map_Legacy_Pin(pin), direction,
+    (direction ? state : 0), 0, 1, &error);
   if (error)
   {
     syslog(LOG_ERR, "ERROR: gpio_open_1_svc(): GPIO_configure() for pin %d failed, %s", pin, strerror(error));
@@ -109,7 +110,7 @@ bool_t gpio_open_1_svc(int pin, int direction, int state, int *result, struct sv
 
   // Open GPIO pin file handle
 
-  GPIO_open(pin, &fdtable[pin], &error);
+  GPIO_open(GPIO_Platform_Map_Legacy_Pin(pin), &fdtable[pin], &error);
   if (error)
   {
     syslog(LOG_ERR, "ERROR: gpio_open_1_svc(): GPIO_open() for pin %d failed, %s\n", pin, strerror(error));

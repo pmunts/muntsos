@@ -117,7 +117,7 @@ static int request_handler(struct mg_connection *conn)
         return MG_TRUE;
       }
 
-      GPIO_open(pin, &fd, &error);
+      GPIO_open(GPIO_Platform_Map_Legacy_Pin(pin), &fd, &error);
       if (error)
       {
         mg_printf(conn, "ERROR: GPIO_open() failed\r\n");
@@ -158,7 +158,7 @@ static int request_handler(struct mg_connection *conn)
         return MG_TRUE;
       }
 
-      GPIO_open(pin, &fd, &error);
+      GPIO_open(GPIO_Platform_Map_Legacy_Pin(pin), &fd, &error);
       if (error)
       {
         mg_printf(conn, "ERROR: GPIO_open() failed\r\n");
@@ -202,8 +202,8 @@ static int request_handler(struct mg_connection *conn)
 
       // Set GPIO data direction
 
-      GPIO_configure(pin, direction, 0, GPIO_EDGE_NONE,
-        GPIO_POLARITY_ACTIVEHIGH, &error);
+      GPIO_configure(GPIO_Platform_Map_Legacy_Pin(pin), direction, 0,
+        GPIO_EDGE_NONE, GPIO_POLARITY_ACTIVEHIGH, &error);
       if (error)
       {
         mg_printf(conn, "ERROR: GPIO_configure() failed\r\n");

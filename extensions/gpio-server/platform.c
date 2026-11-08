@@ -51,6 +51,12 @@ static const uint8_t PinTable[MAX_PLATFORMS][16] =
     0x3F, 0xFC, 0xC3, 0xC0, 0x00, 0x00, 0x14, 0x00
   },
 
+  // Orange Pi Zero 2 W with 40-pin header
+  {
+    0x0E, 0x0C, 0xFF, 0xF0, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+  },
+
   // PocketBeagle
   {
     0x00, 0x00, 0x09, 0x30, 0x00, 0x0F, 0x28, 0x78,
@@ -107,6 +113,15 @@ void GPIO_Platform_Init(void)
   {
     syslog(LOG_INFO, "Detected BeagleBone Green Wireless with eMMC and WL1835");
     platform = BeagleBoneGreenWireless;
+    return;
+  }
+
+  // Orange Pi Zero 2W
+
+  if (!strcmp(bn, "OrangePiZero2W"))
+  {
+    syslog(LOG_INFO, "Detected OrangePiZero2W with 40-pin expansion header");
+    platform = OrangePiZero2W40;
     return;
   }
 
@@ -181,4 +196,46 @@ bool GPIO_Platform_Pin_Valid(unsigned pin)
   if (pin >= MAX_PLATFORM_PINS) return true;
 
   return (PinTable[platform][pin / 8] & bitmasks[pin % 8]);
+}
+
+// Map legacy pin number to actual pin number
+
+static unsigned OrangePiZero2W_Legacy_Pin_Map[] =
+{
+  266,  // Raspberry Pi Legacy GPIO0
+  265,  // Raspberry Pi Legacy GPIO1
+  264,  // Raspberry Pi Legacy GPIO2
+  263,  // Raspberry Pi Legacy GPIO3
+  269,  // Raspberry Pi Legacy GPIO4
+  256,  // Raspberry Pi Legacy GPIO5
+  271,  // Raspberry Pi Legacy GPIO6
+  233,  // Raspberry Pi Legacy GPIO7
+  229,  // Raspberry Pi Legacy GPIO8
+  232,  // Raspberry Pi Legacy GPIO9
+  231,  // Raspberry Pi Legacy GPIO10
+  230,  // Raspberry Pi Legacy GPIO11
+  267,  // Raspberry Pi Legacy GPIO12
+  268,  // Raspberry Pi Legacy GPIO13
+  224,  // Raspberry Pi Legacy GPIO14
+  225,  // Raspberry Pi Legacy GPIO15
+  76,   // Raspberry Pi Legacy GPIO16
+  226,  // Raspberry Pi Legacy GPIO17
+  257,  // Raspberry Pi Legacy GPIO18
+  258,  // Raspberry Pi Legacy GPIO19
+  260,  // Raspberry Pi Legacy GPIO20
+  259,  // Raspberry Pi Legacy GPIO21
+  261,  // Raspberry Pi Legacy GPIO22
+  270,  // Raspberry Pi Legacy GPIO23
+  228,  // Raspberry Pi Legacy GPIO24
+  262,  // Raspberry Pi Legacy GPIO25
+  272,  // Raspberry Pi Legacy GPIO26
+  227,  // Raspberry Pi Legacy GPIO27
+};
+
+unsigned GPIO_Platform_Map_Legacy_Pin(unsigned pin)
+{
+  // Map Raspberry Pi legacy GPIO pin number to Orange Pi Zero 2W pin number
+  if (platform == OrangePiZero2W40) return OrangePiZero2W_Legacy_Pin_Map[pin];
+
+  return pin;
 }
