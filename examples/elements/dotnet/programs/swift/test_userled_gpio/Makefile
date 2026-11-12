@@ -24,7 +24,7 @@ ifeq ($(shell uname), Linux)
 LIBSIMPLEIO	?= /usr/local/share/libsimpleio
 else ifeq ($(OS), Windows_NT)
 LIBSIMPLEIO     ?= $(shell cygpath -m $(HOME)/libsimpleio)
-else 
+else
 LIBSIMPLEIO	?= $(HOME)/libsimpleio
 endif
 
