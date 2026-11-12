@@ -167,6 +167,12 @@ available for **MuntsOS** target computers by installing the
   protocol is deprecated, hasn't been maintained for years, and is
   pretty much defunct.
 
+- 12 November 2026 -- Added section "Installing U-Boot" to [Application
+  Note
+  \#20](https://repo.munts.com/muntsos/doc/AppNote20-OrangePiZero2W.pdf).
+  Upgraded .Net Runtime extension package to 11.0.0. Updated .Net
+  projects for .Net SDK 11.0.x.
+
 ## Quick Setup Instructions for the Impatient
 
 Instructions for installing the **MuntsOS** cross-toolchain development
